@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glFramebufferTexture2D</title>
+  </head>
+  <body>
+    <h1>glFramebufferTexture2D Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glFramebufferTexture2D(
+     GLenum target,
+     GLenum attachment,
+     GLenum textarget,
+     GLuint texture,
+     GLint level
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Target framebuffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>attachment</th>
+          <td>The attachment point.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>textarget</th>
+          <td>Texture target.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>texture</th>
+          <td>Texture object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>level</th>
+          <td>The mipmap level.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Attaches a texture to the current framebuffer.</p><P>You can render to attached textures.</P><P>You must specify a value of <tt>GL_FRAMEBUFFER</tt> for the <span class="argument">target</span> argument.</P><P>Specify a value of <tt>GL_COLOR_ATTACHMENT0</tt>, <tt>GL_DEPTH_ATTACHMENT</tt>, or <tt>GL_DEPTH_STENCIL_ATTACHMENT</tt> for the <span class="argument">attachment</span> argument.</P><P>Set <span class="argument">textarget</span> to one of the following values.<TABLE><TR><TH>GL_TEXTURE_2D</TH><TD>2D texture</TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_NEGATIVE_X</th><TD>Cube-map texture (face where x < 0)</TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_NEGATIVE_Y</th><TD>Cube-map texture (face where y < 0)</TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_NEGATIVE_Z</th><TD>Cube-map texture (face where z < 0)</TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_POSITIVE_X</th><TD>Cube-map texture (face where x > 0)</TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_POSITIVE_Y</th><TD>Cube-map texture (face where y > 0)</TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_POSITIVE_Z</th><TD>Cube-map texture (face where z > 0)</TD></TR></TABLE><!-- source textargetにはGL_TEXTURE_2D、GL_TEXTURE_CUBE_MAP_NEGATIVE_X、GL_TEXTURE_CUBE_MAP_NEGATIVE_Y、GL_TEXTURE_CUBE_MAP_NEGATIVE_Z、 GL_TEXTURE_CUBE_MAP_POSITIVE_X、GL_TEXTURE_CUBE_MAP_POSITIVE_Y、GL_TEXTURE_CUBE_MAP_POSITIVE_Zを指定します。 --></P><P>Set <span class="argument">texture</span> to the texture object to attach. You can specify a texture allocated in main memory using <tt>NN_GX_MEM_FCRAM</tt> with <tt>glTexImage2D</tt>, but hardware specifications do not allow it to be cleared by the <tt>glClear</tt> function.  Rendering to main memory makes it easy for bus conflicts to occur and is less efficient than using textures allocated in VRAM.</P><P>Specify 0 for <span class="argument">level</span>.</P><P>Only textures of the following formats can be attached to a depth attachment point.<TABLE><TR><TH>Depth Buffer Format</TH><TH>Depth Buffer Content</TH><TH>Corresponding Texture Format (Texture Type)</TH></TR><TR><TD><tt>GL_DEPTH24_STENCIL8_EXT</tt></TD><TD>R: 8-bit stencil value <BR />G: 24-bit depth value, bits [23:16] <BR />B: 24-bit depth value, bits [15:8] <BR />A: 24-bit depth value, bits [7:0]</TD><TD><tt>GL_RGBA</tt> (<tt>GL_UNSIGNED_BYTE</tt>), <tt>GL_RGBA_NATIVE_DMP</tt> (<tt>GL_UNSIGNED_BYTE</tt>)</TD></TR><TR><TD><tt>GL_DEPTH_COMPONENT24_OES</tt></TD><TD>R: 24-bit depth value, bits [23:16] <BR />G: 24-bit depth value, bits [15:8] <BR />B: 24-bit depth value, bits [7:0]</TD><TD><tt>GL_RGB</tt> (<tt>GL_UNSIGNED_BYTE</tt>), <tt>GL_RGB_NATIVE_DMP</tt> (<tt>GL_UNSIGNED_BYTE</tt>)</TD></TR><TR><TD><tt>GL_DEPTH_COMPONENT16</tt></TD><TD>R: 16-bit depth value, bits [15:8] <BR />G: 16-bit depth value, bits [7:0]</TD><TD><tt>GL_HILO8_DMP</tt> (<tt>GL_UNSIGNED_BYTE</tt>), <tt>GL_HILO8_NATIVE_DMP</tt> (<tt>GL_UNSIGNED_BYTE</tt>)</TD></TR></TABLE>Call this function with a value of <tt>GL_DEPTH_ATTACHMENT</tt> for the <span class="argument">attachment</span> argument to attach one of the above formats. The texture format RGBA values are used for other formats including the stencil. You can also call this function with a value of <tt>GL_DEPTH_STENCIL_ATTACHMENT</tt> for the <span class="argument">attachment</span> argument, but the end result is the same.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> or <span class="argument">textarget</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>Both <span class="argument">texture</span> and <span class="argument">level</span> are nonzero.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">texture</span> argument was set equal to a nonexistent texture object.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">texture</span> argument was bound to <tt>GL_TEXTURE_2D</tt> by <tt>glBindTexture</tt> but <span class="argument">textarget</span> is not <tt>GL_TEXTURE_2D</tt>.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">texture</span> argument was bound to <tt>GL_TEXTURE_CUBE_MAP</tt> by <tt>glBindTexture</tt> but <span class="argument">textarget</span> is not <tt>GL_TEXTURE_CUBE_MAP_XXX</tt>.</TD></TR></TABLE><!-- source target、textargetに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 PODではカレントのフレームバッファに0がバインドされている場合エラーGL_INVALID_OPERATIONを生成します。 textureが0でない、かつlevelが0でない場合エラーGL_INVALID_VALUEを生成します。 （textureが0の場合、levelは無視されます。） textureで指定したテクスチャオブジェクトが存在しない場合エラーGL_INVALID_OPERATIONを生成します。 textureがglBindTextureによりGL_TEXTURE_2Dにバインドされており、textargetがGL_TEXTURE_2Dではない場合エラーGL_INVALID_OPERATIONを生成します。 textureがglBindTextureによりGL_TEXTURE_CUBE_MAPにバインドされており、textargetがGL_TEXTURE_CUBE_MAP_XXXではない場合エラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/12</dt>
+        <dd><item xmlns="">Explained support of depth attachment points. Explained deprecation of limits on where rendering target textures can be allocated. Deleted description of errors occurring only for POD.</item><br />
+        </dd>
+        <dt>2010/05/12</dt>
+        <dd><item xmlns="">Fixed typos and added supplementary information about the placement of texture object data.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

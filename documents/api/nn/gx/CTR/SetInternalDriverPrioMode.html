@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetInternalDriverPrioMode</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/gx/Overview.html">gx</a>::<a href="../../../nn/gx/CTR/Overview.html">CTR</a>::SetInternalDriverPrioMode Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetInternalDriverPrioMode(
+     <a href="../../../nn/gx/CTR/InternalDriverPrioMode.html">InternalDriverPrioMode</a> mode
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>mode</th>
+          <td>The priority mode for internal operations.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the priority of internal operations for the graphics driver.</p><p>Changes the priority for certain processes of the graphics driver that operate in the CPU system core.  The processes of the graphics driver operate with higher priority than other device processes, but they can be set to operate as described below.</p><ul><li>Processes set to I<tt>NTERNAL_DRIVER_PRIO_MODE_HIGH</tt> operate with the highest priority.</li><li>Processes set to <tt>INTERNAL_DRIVER_PRIO_MODE_LOW</tt> operate with the lowest priority.</li></ul><p>In default setting is <tt>INTERNAL_DRIVER_PRIO_MODE_HIGH</tt>.</p><p>If other devices suffer processing delays during the execution of high-load graphics processes, the problem might be resolved by setting the mode to lowest-priority mode.  However, the trade-off is that the performance of graphics processing might slightly decline.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/06/22</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

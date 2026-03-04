@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glClear</title>
+  </head>
+  <body>
+    <h1>glClear Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glClear(
+     GLbitfield mask
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>mask</th>
+          <td>Buffer-indication bits.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Clears each buffer attached to the current framebuffer.</p><P>Set <span class="argument">mask</span> to a bitwise OR of any of the following values.<TABLE><TR><TH>GL_COLOR_BUFFER_BIT</TH><TD>Clear the color buffer.</TD></TR><TR><TH>GL_DEPTH_BUFFER_BIT</TH><TD>Clear the depth buffer.</TD></TR><TR><TH>GL_STENCIL_BUFFER_BIT</TH><TD>Clear the stencil buffer.</TD></TR><TR><TH>GL_EARLY_DEPTH_BUFFER_BIT_DMP</TH><TD>Clear the early depth buffer.</TD></TR></TABLE><!-- source maskにはGL_COLOR_BUFFER_BIT、GL_DEPTH_BUFFER_BIT、GL_STENCIL_BUFFER_BIT、GL_EARLY_DEPTH_BUFFER_BIT_DMPを論理和で指定します。 --></P><P>Because <tt>GL_DEPTH24_STENCIL8_EXT</tt> is the only supported stencil buffer format, if you specify <tt>GL_STENCIL_BUFFER_BIT</tt> you must also specify <tt>GL_DEPTH_BUFFER_BIT</tt>.</P><P>A value of <tt>GL_EARLY_DEPTH_BUFFER_BIT_DMP</tt> is used to clear the early depth buffer.  You cannot configure the early depth buffer to be cleared from POD.</P><P>Scissoring set by <tt>glScissor</tt> and various buffer mask settings set by <tt>glColorMask</tt>, <tt>glDepthMask</tt>, and <tt>glStencilMask</tt> do not affect how the buffers are cleared by <tt>glClear</tt>.  If a render buffer has not been set on the framebuffer's attachment point, clear operations are ignored.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">mask</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">mask</span> argument specified <tt>GL_STENCIL_BUFFER_BIT</tt> without specifying <tt>GL_DEPTH_BUFFER_BIT</tt>.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR></TABLE><!-- source maskに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 maskにGL_STENCIL_BUFFER_BITを指定し、GL_DEPTH_BUFFER_BITを指定しない場合エラーGL_INVALID_OPERATIONを生成します。 コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

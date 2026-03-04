@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>DecryptAes128Ctr</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/crypto/Overview.html">crypto</a>::DecryptAes128Ctr Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void DecryptAes128Ctr(
+     void * pDst,
+     const void * pSrc,
+     size_t srcSize,
+     const void * pKey
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Pointer to the buffer storing the decryption results. This buffer must be at least as big as srcSize - <code><a href="../../nn/crypto/ENCRYPT_HEADER_SIZE.html">ENCRYPT_HEADER_SIZE</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pSrc</th>
+          <td>Pointer to the buffer storing the ciphertext.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcSize</th>
+          <td>Ciphertext size in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pKey</th>
+          <td>Pointer to the buffer storing the key. The key is 16 bytes in length.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Decrypts.</p><p>Decrypts data encrypted using the <code>EncryptAes128Ctr</code> function.</p><p>Data decrypted by this function is reduced in size by <code><a href="../../nn/crypto/ENCRYPT_HEADER_SIZE.html">ENCRYPT_HEADER_SIZE</a></code> (or 16 bytes). Consequently, the buffer pointed to by pDst must be big enough to hold srcSize - <code><a href="../../nn/crypto/ENCRYPT_HEADER_SIZE.html">ENCRYPT_HEADER_SIZE</a></code> bytes of data.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

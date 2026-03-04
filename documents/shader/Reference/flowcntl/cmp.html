@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>cmp - Compare</title>
+  </head>
+  <body>
+    <h1>cmp - Compare</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+cmp     mode0, mode1, src0, src1
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>mode0</th>
+          <td>
+            Comparison mode 0 (0: ==, 1: !=, 2: &lt;, 3: &lt;=, 4: &gt;, 5: &gt;=)<br />
+          </td>
+        </tr>
+        <tr>
+          <th>mode1</th>
+          <td>
+            Comparison mode 1 (0: ==, 1: !=, 2: &lt;, 3: &lt;=, 4: &gt;, 5: &gt;=)<br />
+          </td>
+        </tr>
+        <tr>
+          <th>src0</th>
+          <td>
+            A temporary register, an input register, or a floating-point constant register.<br />
+          </td>
+        </tr>
+        <tr>
+          <th>src1</th>
+          <td>
+            A temporary register, an input register, or a floating-point constant register.<br />
+          </td>
+        </tr>
+      </table>
+      <p class="notice">
+        You cannot specify a floating-point constant register for both <SPAN class="argument">src0</SPAN> and <SPAN class="argument">src1</SPAN>.<br /> You cannot specify input registers using different indices for <SPAN class="argument">src0</SPAN> and <SPAN class="argument">src1</SPAN> at the same time.<br />
+      </p>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+Compares the contents of registers <SPAN class="argument">src0</SPAN> and <SPAN class="argument">src1</SPAN> and stores the result in the status registers.<br />It only compares the <CODE>x</CODE> and <CODE>y</CODE> components of <SPAN class="argument">src0</SPAN> and <SPAN class="argument">src1</SPAN>. (The <CODE>x</CODE> and <CODE>y</CODE> components after swizzling.)<br />Status register 0 stores the result of comparing the <CODE>x</CODE> components based on the condition specified by <SPAN class="argument">mode0</SPAN>. Status register 1 stores the result of comparing the <CODE>y</CODE> components based on the condition specified by <SPAN class="argument">mode1</SPAN>. The status register is set to <CODE>1</CODE> if the comparison result is <CODE>true</CODE>, and it is set to <CODE>0</CODE> if the comparison result is <CODE>false</CODE>. The conditions are as follows:<br />If <SPAN class="argument">mode0</SPAN> (or <SPAN class="argument">mode1</SPAN>) is 1: <SPAN class="argument">src0</SPAN> == <SPAN class="argument">src1</SPAN><br />If 2: <SPAN class="argument">src0</SPAN> &lt; <SPAN class="argument">src1</SPAN><br />If 3: <SPAN class="argument">src0</SPAN> &lt;= <SPAN class="argument">src1</SPAN><br />If 4: <SPAN class="argument">src0</SPAN> &gt; <SPAN class="argument">src1</SPAN><br />If 5: <SPAN class="argument">src0</SPAN> &gt;= <SPAN class="argument">src1</SPAN>.<br />
+      </p>
+      <p class="notice">
+        Use this instruction to distinguish between infinity, negative infinity, and <CODE>NaN</CODE>. A value of <CODE>0x7f0000</CODE> indicates infinity, <CODE>0xff0000</CODE> indicates negative infinity, and any value greater than <CODE>0x7f0000</CODE> and less than <CODE>0xff0000</CODE> indicates <CODE>NaN</CODE>.<br />
+      </p>
+      <p class="warning">
+        Both status register 0 and 1 are always updated. It is not possible to update only one or the other.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+switch ( mode0 )
+{
+    case 0: status_register0 = ( src0.x == src1.x ) ? 1 : 0 ; break ;
+    case 1: status_register0 = ( src0.x != src1.x ) ? 1 : 0 ; break ;
+    case 2: status_register0 = ( src0.x &lt;  src1.x ) ? 1 : 0 ; break ;
+    case 3: status_register0 = ( src0.x &lt;= src1.x ) ? 1 : 0 ; break ;
+    case 4: status_register0 = ( src0.x &gt;  src1.x ) ? 1 : 0 ; break ;
+    case 5: status_register0 = ( src0.x &gt;= src1.x ) ? 1 : 0 ; break ;
+}
+switch ( mode1 )
+{
+    case 0: status_register1 = ( src0.y == src1.y ) ? 1 : 0 ; break ;
+    case 1: status_register1 = ( src0.y != src1.y ) ? 1 : 0 ; break ;
+    case 2: status_register1 = ( src0.y &lt;  src1.y ) ? 1 : 0 ; break ;
+    case 3: status_register1 = ( src0.y &lt;= src1.y ) ? 1 : 0 ; break ;
+    case 4: status_register1 = ( src0.y &gt;  src1.y ) ? 1 : 0 ; break ;
+    case 5: status_register1 = ( src0.y &gt;= src1.y ) ? 1 : 0 ; break ;
+}
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+def     c0, 0, 1, 2, 3
+
+mov     r0, c0
+cmp     0, 0, r0, c0
+ifc     1, 1, 2
+    // This is executed when r0.x == 0
+endif
+</pre>
+    </div>
+
+    <h2>Timetable</h2>
+    <div class="section">
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        </tr>
+        <tr>
+          <th><CODE>cmp</CODE></th>
+          <td class="read">read</td>
+          <td class="CMP" colspan="2">CMP</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

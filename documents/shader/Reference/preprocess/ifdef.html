@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>#ifdef, #ifndef, #if, #else, #elif, #endif</title>
+  </head>
+  <body>
+    <h1>#ifdef, #ifndef, #if, #else, #elif, #endif</h1>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Used for conditional compiling using macros.<br /> <CODE>#if</CODE> and <CODE>#elif</CODE> also support the following evaluation formulae.
+      </p>
+      <ul>
+        <li>Values (values that can be expressed as signed 32-bit integers. Behavior is undefined for other values).</li>
+        <li>The negative sign for a given value (addition and subtraction expressions not supported).</li>
+        <li>defined(macro name)</li>
+        <li>!defined(macro name)</li>
+        <li>Equality operators (==, !=)</li>
+        <li>Relational operators (&lt;, &lt;=, &gt;, &gt;=)</li>
+        <li>Bitwise AND (&amp;&amp;), bitwise OR (||)</li>
+        <li>Combinations of the above.</li>
+      </ul>
+      <p class="warning">
+        Errors are generated when undefined macros are used in evaluation formulae.<br />
+      </p>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+#define USE_FUNCTION_A
+#ifdef  USE_FUNCTION_A
+    FunctionA:
+        ...
+#endif
+
+
+#if (defined(AAA) && (BBB == 1))
+    ...
+#endif
+</pre>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

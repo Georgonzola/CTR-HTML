@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>ServerState</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/dlp/Overview.html">dlp</a>::<a href="../../../nn/dlp/CTR/Overview.html">CTR</a>::ServerState Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum ServerState;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>SERVER_STATE_INVALID</th>
+          <td>The server is not initialized.</td>
+        </tr>
+        <tr>
+          <th>SERVER_STATE_INITIALIZED</th>
+          <td>Initialization is complete.</td>
+        </tr>
+        <tr>
+          <th>SERVER_STATE_OPENED_SESSIONS</th>
+          <td>Accepting session participation requests.</td>
+        </tr>
+        <tr>
+          <th>SERVER_STATE_DISTRIBUTING</th>
+          <td>The state while in the process of distributing.</td>
+        </tr>
+        <tr>
+          <th>SERVER_STATE_COMPLETE_DISTRIBUTION</th>
+          <td>The server has finished distributing a child program.</td>
+        </tr>
+        <tr>
+          <th>SERVER_STATE_REBOOTING_CLIENTS</th>
+          <td>The server is rebooting clients. After confirming that all clients are disconnected, quit Download Play. If carrying out local communication after that, wait for client connections via UDS. <br /><bold>Note:</bold> Clients do not always reconnect.</td>
+        </tr>
+        <tr>
+          <th>SERVER_STATE_ERROR</th>
+          <td>An error has occurred, and reinitialization must occur. There are two conditions under which the server enters this state: (1) the system enters Sleep Mode or wireless-disabled mode between calls to the <code><a href="../../../nn/dlp/CTR/Server/Initialize.html">Server::Initialize</a></code> and <code><a href="../../../nn/dlp/CTR/Server/Finalize.html">Server::Finalize</a></code> functions, or (2) a card is removed or a client that is not in the <code>CLIENT_STATE_RECONNECTING_NETWORK</code> state disconnects after a download session has started (between <code>SERVER_STATE_DISTRIBUTING</code> and <code>SERVER_STATE_COMPLETE_DISTRIBUTION</code>).</td>
+        </tr>
+        <tr>
+          <th>SERVER_STATE_PREPARING_FOR_SYSTEM_DISTRIBUTION</th>
+          <td>This state is only used internally by the SDK. Preparing for system distribution.</td>
+        </tr>
+        <tr>
+          <th>SERVER_STATE_DISTRIBUTING_SYSTEM</th>
+          <td>This state is only used internally by the SDK. Distributing the system.</td>
+        </tr>
+        <tr>
+          <th>SERVER_STATE_WAITING_RECONNECT</th>
+          <td>This state is only used internally by the SDK. Waiting for clients that rebooted systems after system distribution to reconnect. Clients do not always reconnect.</td>
+        </tr>
+        <tr>
+          <th>SERVER_STATE_PREPARING_FOR_TITLE_DISTRIBUTION</th>
+          <td>This state is only used internally by the SDK. The server is preparing to distribute a child program.</td>
+        </tr>
+        <tr>
+          <th>SERVER_STATE_DISTRIBUTING_TITLE</th>
+          <td>This state is only used internally by the SDK. The server is distributing a child program.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p><a href="../../../nn/dlp/CTR/Server/Overview.html">Server</a> states. Following a call to the <code>StartDistribute</code> function, the distribution process proceeds automatically and transitions to the <code>SERVER_STATE_COMPLETE_DISTRIBUTION</code> state after the distribution has been completed. <br />
+ However, there may be a transition to <code>SERVER_STATE_ERROR</code> during that time for any number of reasons (such as a communications error, Sleep Mode, or wireless-disabled mode). Use the <code>GetState</code> function or the <code>GetEventDesc</code> function to monitor the state. <br />
+ Also, make sure that the user can cancel distribution while the server is in the <code>SERVER_STATE_DISTRIBUTING</code> state. <br />
+ The DLP server waits indefinitely for rebooted clients to reconnect after a system update. However, some clients may not reconnect.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

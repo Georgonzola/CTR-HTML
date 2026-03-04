@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>BANNED_WORD_CHECK_TEXT_LENGTH_MAX_MAX</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/swkbd/Overview.html">swkbd</a>::<a href="../../../nn/swkbd/CTR/Overview.html">CTR</a>::BANNED_WORD_CHECK_TEXT_LENGTH_MAX_MAX Constant</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+const <a href="../../../nn_types/u16.html">u16</a> BANNED_WORD_CHECK_TEXT_LENGTH_MAX_MAX =  64;</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The maximum value for the maximum number of characters that can be entered when input of profanity is prohibited.</p><p>The profanity check is used in the following function.</p><pre><tt><a href="../../../nn/ngc/CTR/ProfanityFilter/CheckProfanityWords.html">nn::ngc::CTR::ProfanityFilter::CheckProfanityWords</a>(bit32 *, bool, const wchar_t **, size_t)</tt></pre><p>Due to the specifications of this function, the maximum number of characters for profanity words includes the NULL terminator. When strings longer than <tt>BANNED_WORD_CHECK_TEXT_LENGTH_MAX_MAX</tt> are specified, the text after the maximum character limit is not checked.</p><p>When the <tt>TEXT_CHECK_BANNED_WORDS</tt> flag is set in the <tt>textCheckFlag</tt> member variable of the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure, the value set in the <tt>textLengthMax</tt> member variable is clamped not to exceed this constant's value.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/06/26</dt>
+        <dd><item xmlns="">Added to the description the limitations on the number of characters that are checked for profanity.</item><br />
+        </dd>
+        <dt>2011/03/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

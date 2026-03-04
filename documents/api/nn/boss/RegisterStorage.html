@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>RegisterStorage</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/boss/Overview.html">boss</a>::RegisterStorage Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">nn::Result</a> RegisterStorage(
+     <a href="../../nn_types/bit32.html">bit32</a> storageId,
+     size_t storageSize,
+     <a href="../../nn/boss/StorageType.html">nn::boss::StorageType</a> storageType = nn::boss::USER_EXT_SAVEDATA_STORAGE
+);
+
+<a href="../../nn/Result/Overview.html">nn::Result</a> RegisterStorage(
+     <a href="../../nn_types/bit32.html">bit32</a> storageId,
+     size_t storageSize,
+     <a href="../../nn_types/u16.html">u16</a> entryCount,
+     <a href="../../nn/boss/StorageType.html">nn::boss::StorageType</a> storageType = nn::boss::USER_EXT_SAVEDATA_STORAGE
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./RegisterStorage(0).html">RegisterStorage ( bit32, size_t, nn::boss::StorageType ) </a>
+          </td>
+          <td>Registers BOSS storage information to BOSS (to the save region on the game device). BOSS storage must be registered before registering or executing NADL tasks. <br />
+ NS data cannot be downloaded if the storage is not registered. Before registering BOSS storage, you must first create an extended save data region in memory. <br />
+ You must also create an expanded save data region, while specifying more than the total number of NS data files to store. <br />
+ This function returns an error if you specify an expanded save data region ID in the <emphasis>storageID</emphasis> argument to which the application does not have access rights. During downloading of NS data files, when the total size of the NS data files in the BOSS storage exceeds the maximum data size, NS data files with the oldest serial ID (that is, the smallest serial ID) are automatically deleted. There is a limit on the number of BOSS storage information registrations. Information can be automatically unregistered by BOSS. For more information, see the Programming Manual. 1) To get NS data without the application registering a task:<br />
+ After BOSS storage is registered, if NS data files are included for an application for which BOSS storage is registered within a downloaded NS archive, by a task registered by a different application, those NS data files are automatically downloaded to the registered BOSS storage. 2) To download NS data addressed to the application that registers a task:<br />
+ If the application registers BOSS storage and then registers and runs a task, it can download NS data addressed to the application and store it in the BOSS storage specified when it registered the task. <br />
+ As with step 1, if NS data files are included for an application for which BOSS storage is registered within a downloaded NS archive, by a task registered by a different application, those NS data files are automatically downloaded to the registered BOSS storage. 3) To share NS data with another application: You can get NS data downloaded to another application by registering BOSS storage ahead of time in the same extended save data region used for another application. <br />
+ An application can even get this NS data from other applications when it downloads its own NS data. <br />
+ For more information about these operations, see the <code><a href="../../nn/boss/GetNsDataIdList.html">GetNsDataIdList</a></code> and <code><a href="../../nn/boss/GetNewDataNsDataIdList.html">GetNewDataNsDataIdList</a></code> functions.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./RegisterStorage(1).html">RegisterStorage ( bit32, size_t, u16, nn::boss::StorageType ) </a>
+          </td>
+          <td>Registers BOSS storage information to BOSS (to the save region on the game device). BOSS storage must be registered before registering or executing NADL tasks. <br />
+ NS data cannot be downloaded if the storage is not registered. Before registering BOSS storage, you must first create an extended save data region in memory. <br />
+ You must also create an expanded save data region, while specifying more than the total number of NS data files to store. <br />
+ This function returns an error if you specify an expanded save data region ID in the <emphasis>storageID</emphasis> argument to which the application does not have access rights. During downloading of NS data files, when the total size of the NS data files in the BOSS storage exceeds the maximum data size, NS data files with the oldest serial ID (that is, the smallest serial ID) are automatically deleted. <br />
+ When the total number of the NS data files in the BOSS storage exceeds <emphasis>entryCount</emphasis>, in the same way, NS data files with the oldest serial ID (that is, the smallest serial ID) are automatically deleted. <br />
+ There is a limit on the number of BOSS storage registrations. Storage can be automatically unregistered by BOSS. For more information, see the Programming Manual. 1) To get NS data without the application registering a task:<br />
+ After BOSS storage is registered, if NS data files are included for an application for which BOSS storage is registered within a downloaded NS archive, by a task registered by a different application, those NS data files are automatically downloaded to the registered BOSS storage. 2) To download NS data addressed to the application that registers a task:<br />
+ If the application registers BOSS storage and then registers and runs a task, it can download NS data addressed to the application and store it in the BOSS storage specified when it registered the task. <br />
+ As with step 1, if NS data files are included for an application for which BOSS storage is registered within a downloaded NS archive, by a task registered by a different application, those NS data files are automatically downloaded to the registered BOSS storage. 3) To share NS data with another application: You can get NS data downloaded to another application by registering BOSS storage ahead of time in the same extended save data region used for another application. <br />
+ An application can even get this NS data from other applications when it downloads its own NS data. <br />
+ For more information about these operations, see the <code><a href="../../nn/boss/GetNsDataIdList.html">GetNsDataIdList</a></code> and <code><a href="../../nn/boss/GetNewDataNsDataIdList.html">GetNewDataNsDataIdList</a></code> functions.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of RegisterStorage ( bit32, size_t, nn::boss::StorageType ) </h2>
+    <div class="section"><!-- write here --></div>
+    <h2>Description of RegisterStorage ( bit32, size_t, u16, nn::boss::StorageType ) </h2>
+    <div class="section"><!-- write here --></div>
+  </body>
+</html>

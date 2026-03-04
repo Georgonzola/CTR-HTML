@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetOutputBufferCount</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/snd/Overview.html">snd</a>::<a href="../../../nn/snd/CTR/Overview.html">CTR</a>::SetOutputBufferCount Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetOutputBufferCount(
+     <a href="../../../nn_types/s32.html">s32</a> count
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>count</th>
+          <td>The number of buffers.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the number of buffers for the DSP final output level.</p><p>The number of buffers can only be set to either <tt>2</tt> or <tt>3</tt>. Any other value is invalid.  When <tt>2</tt>, the delay to actual sound production is minimal, but there can be sound skipping when processing cannot keep up in the sound thread.  When <tt>3</tt>, there is a 5 millisecond delay compared to <tt>2</tt>, but the sound skipping will not occur even when there are slight delays in processing in the sound thread.</p><p>When this function is called, the output buffer is zero-cleared. As a result, calls during sound production can result in sound skipping.  Use this function in situations with no sound, such as immediately after calling the <tt><a href="../../../nn/snd/CTR/Initialize.html">nn::snd::CTR::Initialize</a></tt> function.</p><p>The default buffer number value is <tt>2</tt>.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

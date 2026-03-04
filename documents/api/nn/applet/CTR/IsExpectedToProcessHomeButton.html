@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>IsExpectedToProcessHomeButton</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::IsExpectedToProcessHomeButton Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool IsExpectedToProcessHomeButton(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns whether there was a processing request. If <code>true</code>, the HOME Button must be processed. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Determines whether there has been a request to process the HOME Button.</p><!-- write here --><P>A return value of <tt>true</tt> indicates that either the HOME Button was pressed to jump to the HOME Menu, or another applet made a similar request to jump to the HOME Menu.</P><P>In such cases, call the <tt><a href="../../../nn/applet/CTR/ProcessHomeButton.html">nn::applet::CTR::ProcessHomeButton</a></tt> function to process the HOME Button.  Then call <tt><a href="../../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></tt> to wait if necessary. </P><P>Example:</P><PRE>
+   // HOME Button transition check.
+   if ( <FONT color="red">applet::IsExpectedToProcessHomeButton()</FONT> )
+   {
+       _save_my_data();
+
+       // HOME Button transition process.
+       applet::ProcessHomeButton();
+
+       // Wait.
+       applet::WaitForStarting();
+
+       if( applet::IsExpectedToCloseApplication() )
+       {
+             _close_application();
+       }
+
+       _recover_my_data();
+   }
+</PRE><P>Prevent other applet-transition functions from being called between this function and <tt><a href="../../../nn/applet/CTR/ProcessHomeButton.html">nn::applet::CTR::ProcessHomeButton</a></tt>.  If there is an inconsistency in the internal state, for example because of an attempt to preload library applets from another thread between these two function calls, a warning is generated on an assertion.</P><P>This example assumes that determination functions such as this one and the function for actually making the transition are called successively in the same thread, but depending on the implementation you may be able to call them in different threads.  However, be very careful that the determination thread does not continue executing after execution control is passed.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/11/09</dt>
+        <dd><item xmlns="">Added a note about calling the determination function and transition functions in different threads.</item><br />
+        </dd>
+        <dt>2011/11/01</dt>
+        <dd><item xmlns="">Added a note related to calling applet-transition functions between this function and ProcessHomeButton.</item><br />
+        </dd>
+        <dt>2011/06/14</dt>
+        <dd><item xmlns="">Deleted the <tt>ClearHomeButtonState</tt> function from an example.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

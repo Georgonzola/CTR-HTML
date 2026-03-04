@@ -1,0 +1,801 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="en-US">
+
+<HEAD>
+    <META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+    <META http-equiv="Content-Style-Type" content="text/css">
+
+    <TITLE>Build System Development Guide (for DLLs)</TITLE>
+
+    <STYLE>
+        h1.left
+        {
+            color: #46f;
+            font-size: 120%;
+        }
+        ul.left, ul.left ul
+        {
+            margin: 0;
+            padding: 0;
+        }
+        ul.left
+        {
+            font-size: 0.8em;
+        }
+        ul.left li
+        {
+            margin: 0;
+            padding: 0;
+            margin-left: 1em;
+            line-height: 1.5em;
+        }
+        ul.left li a
+        {
+            margin: 0;
+            padding: 0;
+        }
+
+        H1
+        {
+            font-weight         : bold;
+            font-size           : 250%;
+            text-align          : left;
+            color               : #46f;
+            margin-bottom       : 0px;
+        }
+
+        H2
+        {
+            font-weight         : normal;
+            font-size           : 180%;
+            margin              : 24pt 0pt 6pt 0pt;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+        }
+
+        H3
+        {
+            font-weight         : bold;
+            font-size           : 120%;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+            width: 75%;
+            margin              : 18pt 0pt 6pt 30pt;
+        }
+
+        H4
+        {
+            font-weight         : bold;
+            font-size           : 100%;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H5
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H6
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        DIV.date
+        {
+            text-align          : right;
+            color               : #46f;
+            margin-bottom       : 30pt;
+            line-height         : 150%;
+        }
+
+        P
+        {
+            margin              : 0pt 0pt 12pt 30pt;
+            line-height         : 150%;
+        }
+
+        OL,UL,DL
+        {
+            margin              : 6pt 0pt 6pt 50pt;
+        }
+        OL OL, UL UL
+        {
+            margin-left: 3em;
+        }
+
+        DT
+        {
+            font-family         : "Courier New", monospace;
+            margin-top : 0.3em;
+            margin-bottom : 0.3em;
+        }
+        DD
+        {
+            margin-top : 0.3em;
+            margin-bottom : 0.6em;
+        }
+
+        PRE
+        {
+            font-family         : "Courier New", monospace;
+            font-weight         : normal;
+
+            margin              : 0pt 0pt 20pt 50pt;
+            padding             : 2pt 8pt 2pt 8pt;
+            background-color    : #eee;
+
+            border-style        : solid;
+            border-width        : 1px;
+        }
+        em
+        {
+            font-style: normal;
+            color: red;
+        }
+        TABLE
+        {
+            margin-left         : 40pt;
+            margin-bottom       : 20pt;
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        TD
+        {
+            font-style          : normal;
+            padding             : 2pt 4pt 2pt 4pt;
+
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        div.footer
+        {
+            border-color: black;
+            padding-top: 0.5em;
+            border-top-style    : solid;
+            border-top-width    : 1px;
+            width:              100%;
+            margin-top: 2em;;
+        }
+        div.footer span
+        {
+            color               : #46f;
+            float: right;
+        }
+        table
+        {
+            border-collapse:    collapse;
+        }
+        table td
+        {
+        }
+        table th
+        {
+        }
+        ul
+        {
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        DL.history
+        {
+            margin: 1em;
+        }
+        DL.history DT
+        {
+            font-family         : sans-serif;
+            font-weight         : bold;
+            font-size           : 0.8em;
+            margin              : 0px;
+        }
+        DL.history DD
+        {
+            font-size           : 0.9em;
+            margin              : 0px 0px 4px 0px;
+        }
+    </STYLE>
+    <SCRIPT type="text/javascript">
+    <!--
+        function DeleteRule(index)
+        {
+            var ss = document.styleSheets.item(0);
+
+            if( ss.removeRule )
+            {
+                ss.removeRule(index);
+            }
+            else
+            {
+                ss.deleteRule(index);
+            }
+        }
+        function OnClickAnchor(e, anchor)
+        {
+            window.parent.frames[1].location.hash = anchor;
+
+            if( e.preventDefault )
+            {
+                e.preventDefault();
+            }
+            else
+            {
+                e.returnValue = false;
+            }
+        }
+        function TravLeft(obj)
+        {
+            var ary = new Array();
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var a = c.childNodes.item(0);
+                        var text  = "";
+
+                        var anchor = "name-" + index;
+                        index++;
+
+                        if( a && a.tagName == "A" )
+                        {
+                            text  = a.innerHTML;
+                        }
+                        else
+                        {
+                            text  = c.innerHTML;
+                        }
+
+                        ary.push([c.tagName.substr(1,1), "<a target=\"right\" href=\"?right#" + anchor + "\" onclick=\"OnClickAnchor(event, '" + anchor + "')\">" + text + "</a>"]);
+                    }
+                    else
+                    {
+                        ary = ary.concat(TravLeft(c));
+                    }
+                }
+            }
+
+            return ary;
+        }
+        function TravRight(obj)
+        {
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var anchor = "name-" + index;
+                        index++;
+
+                        c.innerHTML = "<a name=\"" + anchor + "\">" + c.innerHTML + "</a>"
+                    }
+                    else
+                    {
+                        TravRight(c);
+                    }
+                }
+            }
+        }
+        function OnLoad_Left()
+        {
+            var test = TravLeft(document.body);
+            var test2 = "";
+            var level = 2;
+
+            test2 += "<h1 class='left'>" + document.title + "</h1>";
+            test2 += "<ul class='left'>";
+            for( var i in test )
+            {
+                while( test[i][0] > level )
+                {
+                    level++;
+                    test2 += "<ul>";
+                }
+                while( test[i][0] < level )
+                {
+                    level--;
+                    test2 += "</ul>";
+                }
+
+                test2 += "<li>" + test[i][1];
+            }
+            test2 += "</ul>";
+
+            document.body.innerHTML = test2;
+            DeleteRule(0);
+        }
+        function OnLoad_Right()
+        {
+            TravRight(document.body);
+        }
+        function OnLoad_Frame()
+        {
+            var myname = location.pathname.substr(location.pathname.lastIndexOf("/") + 1);
+
+            var f = document.createElement("frameset");
+            var l = document.createElement("frame");
+            var r = document.createElement("frame");
+
+            f.appendChild(l);
+            f.appendChild(r);
+            f.cols = "250,*";
+
+            l.src  = myname + "?left"  + location.hash;
+            r.src  = myname + "?right" + location.hash;
+            l.name = "left";
+            r.name = "right";
+
+            var h = document.documentElement;
+            var b = h.getElementsByTagName("body").item(0);
+
+            h.replaceChild(f, b);
+        }
+
+
+        if( ! window.opera )
+        {
+            var search = location.search;
+
+            if( search == "?left" )
+            {
+                window.onload = OnLoad_Left;
+            }
+            else if( search == "" )
+            {
+                window.onload = OnLoad_Frame;
+            }
+            else if( search == "?right" )
+            {
+                window.onload = OnLoad_Right;
+            }
+
+            if( search != "?right" )
+            {
+                var ss = document.styleSheets.item(0);
+
+                if( ss.addRule )
+                {
+                    ss.addRule("body", "display: none", 0);
+                }
+                else
+                {
+                    ss.insertRule("body {display: none}", 0);
+                }
+            }
+        }
+    //-->
+    </SCRIPT>
+</HEAD>
+
+<BODY>
+
+
+
+
+
+<H1>Build System Development Guide (for DLLs)</H1>
+<DIV class="date">(2013/12/27)</DIV>
+
+
+
+
+
+<H2>Introduction</H2>
+
+<H3>About This Document</H3>
+<P>
+    This document explains how to create a build system that replaces the one provided in the SDK. It provides information necessary for building CRO files and for the CTR applications that use them.
+</P>
+<ul>
+    <li>CRO build sequence
+    <li>Sequence for building applications that use CRO files
+    <li>Procedures for creating each file
+</ul>
+
+<P>This document provides the minimum information necessary to create a build system equivalent to the one provided in the SDK.</P>
+
+<P>For more information about creating a more flexible and sophisticated build system, see <I><a href="BuildSystemDevelopmentGuideForDllAdvanced.html" target="_parent">Build System Development Guide (for High-Level DLLs)</a></I>.</P>
+
+<P>For information about the structure and usage of the build system provided by the SDK, see <I><a href="BuildSystemManualForDll.html" target="_parent">CTR-SDK Build System Manual (for DLLs)</a></I>.</P>
+
+<P>This document assumes basic knowledge of CTR-SDK terms. See the <I><a href="../Glossary/Glossary.html">CTR-SDK Glossary</a></I> for a glossary of basic CTR-SDK terms.</P>
+
+
+<H3>Notation Used in This Document</H3>
+<P>
+Content in shaded boxes, as shown below, indicate a sequence to be entered on the command line.
+</P>
+<pre>
+command option1 option2
+</pre>
+
+<P>
+    Do not enter text enclosed in angle brackets (&quot;<CODE>&lt;</CODE>&quot; and &quot;<CODE>&gt;</CODE>&quot;) verbatim as part of the command syntax. Instead, substitute an appropriate entry for the placeholder description. For example, the string <code>&lt;CTRSDK_ROOT&gt;</code> indicates that you must enter the CTR-SDK installation path.
+</P>
+<P>
+    Text enclosed by square brackets (&quot;<CODE>[</CODE>&quot; and <CODE>]</CODE>) is optional. In the following example, the <CODE>-a</CODE> parameter is optional and can be omitted.
+</P>
+<pre>
+command [-a]
+</pre>
+<P>
+    Elements in the command sequence joined by the pipe symbol (&quot;<CODE>|</CODE>&quot;) indicate available choices for a given parameter. In the following example, you can choose either the <CODE>-a</CODE> or <CODE>-b</CODE> option.
+</P>
+<pre>
+command -a|-b
+</pre>
+<P>
+    Strings in the command sequence surrounded by parentheses (<CODE>()</CODE>) and followed by an ellipsis (<CODE>...</CODE>) indicate elements that can be repeated an arbitrary number of times. In the following example, the sequence of <CODE>-a</CODE> followed by a path can be repeated.
+</P>
+<pre>
+command (-a &lt;PATH&gt;)...
+</pre>
+<P>
+    In this document, the names of Windows tools contained in the <CODE>tools/CommandLineTools</CODE> directory are abbreviated by omitting the leading <CODE>ctr_</CODE> and the ending numeric value and file extension. For example, the abbreviation for <CODE>ctr_makerom32.exe</CODE> is <CODE>makerom</CODE>.
+</P>
+
+
+<H2>Build Sequence</H2>
+
+<H3>Overall Sequence</H3>
+<p>
+    The following figure shows the build sequence when you do not use CRO. For example, if you were to create your application's AXF file from four source files and one static library. <br /> <br /> <a href="img/dll_flow_normal.png"><img src="img/dll_flow_normal.png" width="277" height="148"></a> <br /><br /> The following figure shows the changes when <CODE>module1.c</CODE> and <CODE>module2.cpp</CODE> are used to make CRO files. <br /> <br /> <a href="img/dll_flow_use_cro.png"><img src="img/dll_flow_use_cro.png" width="469" height="829"></a> <br /> <br /> Therefore, 14 additional build steps are necessary to make an existing build system compatible with CRO.
+</p>
+<p>
+    The commands to execute at each of these build steps are described in the following sections.
+</p>
+
+
+
+<H3>Partial Linking</H3>
+<p>
+    The build system uses <CODE>armlink</CODE> to partially link the project and get the symbols that the various modules reference and export. <br /> <br /> <img src="img/dll_flow_partial.png"> <br /> <br />Although you essentially use the same command as when creating an application AXF without using CRO, you must add the following options.
+</p>
+<pre>
+--no_scanlib
+--partial
+--vfemode=off
+--no_debug
+</pre>
+<p>
+    If you are targeting a static module, do not designate static libraries as input files.
+</p>
+
+
+
+<H3>Create a List of Symbols</H3>
+<p>
+    Create a list of symbols from the PLF files, and create the first XRL file. Use <CODE>makecro</CODE> to create the list of symbols. <br /> <br /> <img src="img/dll_flow_listup.png"> <br /> <br /> Use <CODE>makecro</CODE> to create a list of symbols as follows.
+</p>
+<pre>
+makecro -l [-a] [-i|-e] -o &lt;INPUT_FILE&gt; &lt;PLF_FILE&gt;
+</pre>
+<p>
+    <CODE>OUTPUT_FILE</CODE> is an XRL file containing a list of the symbols referenced or defined by <CODE>PLF_FILE</CODE>. Specify the <CODE>-a</CODE> option if you are targeting a static module. Specify <CODE>-i</CODE> for a symbol export type of <CODE>index</CODE>, and specify <CODE>-e</CODE> for a symbol export type of <CODE>offset</CODE>. If you do not specify anything, the symbol export type is <CODE>name</CODE>.
+</p>
+
+
+
+<H3>Merge Undefined Symbols</H3>
+<p>
+    This updates the XRL file for the static module and specifies that symbols not defined in any module are defined in the static module. It links standard C functions and SDK functions required by the dynamic modules into the static module. Use <CODE>makecro</CODE> to merge undefined symbols. <br /> <br /> <img src="img/dll_flow_merge.png"> <br /> <br />Use <CODE>makecro</CODE> to resolve symbol references as follows. (Although the following command is separated into multiple lines for readability, an actual command cannot contain newline characters.)
+</p>
+<pre>
+makecro
+    -c
+    [-i|-e]
+    -o &lt;OUTPUT_FILE&gt;
+    &lt;STATIC_MODULE_XRL_FILE&gt;
+    (-r &lt;DYNAMIC_MODULE_XRL_FILE&gt;)...
+</pre>
+<p>
+    <CODE>OUTPUT_FILE</CODE> is an XRL file created by adding the symbols referenced by <CODE>DYNAMIC_MODULE_XRL_FILE</CODE>, but not defined by any module to <CODE>STATIC_MODULE_XRL_FILE</CODE>. Specify <CODE>-i</CODE> for an export type of <CODE>index</CODE> for the added symbols and specify <CODE>-e</CODE> for an export type of <CODE>offset</CODE>. If you do not specify anything, the export type of the added symbols is <CODE>name</CODE>.
+</p>
+
+
+
+<H3>Resolve Symbol References</H3>
+<p>
+    For each symbol referenced by a module, find the module that defines it, and add this information to the XRL file. Use <CODE>makecro</CODE> to resolve the symbol references. <br /> <br /> <img src="img/dll_flow_resolve.png"> <br /> <br />Use <CODE>makecro</CODE> to resolve symbol references as follows.
+</p>
+<pre>
+makecro -f -o &lt;OUTPUT_FILE&gt; &lt;XRL_FILE&gt; (-r &lt;REFERENCE_XRL_FILE&gt;)...
+</pre>
+<p>
+    <CODE>OUTPUT_FILE</CODE> is the original XRL file (<CODE>XRL_FILE</CODE>) updated with the contents of <CODE>REFERENCE_XRL_FILE</CODE>.
+</p>
+<p>
+    You must execute this command on the XRL files for each module, using that module's file as <CODE>XRL_FILE</CODE> and those of the other modules as <CODE>REFERENCE_XRL_FILE</CODE>. Assuming that your project comprises static module <CODE>App</CODE> and dynamic modules <CODE>Module1</CODE> and <CODE>Module2</CODE>, you would need to execute the following equivalent command on all three modules.
+</p>
+<pre>
+makecro -f -o App.f.xrl     App.xrl     -r Module1.xrl -r Module2.xrl
+makecro -f -o Module1.f.xrl Module1.xrl -r App.xrl     -r Module2.xrl
+makecro -f -o Module2.f.xrl Module2.xrl -r App.xrl     -r Module1.xrl
+</pre>
+
+
+
+<H3>Create Command File</H3>
+<p>
+    In the &quot;Merge Undefined Symbols&quot; step, you merged undefined symbols into the XRL file of the static module. Now, create a command-line options file to load these undefined symbols from the static library and export them. Use <CODE>makecro</CODE> to create the command file. <br /> <br /> <img src="img/dll_flow_uae.png"> <br /> Use <CODE>makecro</CODE> as follows to create the command file.
+</p>
+<pre>
+makecro -x -o &lt;OUTPUT_FILE&gt; &lt;XRL_FILE&gt;
+</pre>
+<p>
+    <CODE>OUTPUT_FILE</CODE> is a command file generated based on <CODE>XRL_FILE</CODE>.
+</p>
+
+
+
+<H3>Create Steering Files</H3>
+<p>
+    Create a steering file to give the linker import and export instructions. Use <CODE>makecro</CODE> to create the steering file. <br /> <br /> <img src="img/dll_flow_edit.png"> <br /> Use <CODE>makecro</CODE> as follows to create the steering file.
+</p>
+<pre>
+makecro -s -o &lt;OUTPUT_FILE&gt; &lt;XRL_FILE&gt;
+</pre>
+<p>
+    <CODE>OUTPUT_FILE</CODE> is a steering file generated based on <CODE>XRL_FILE</CODE>.
+</p>
+
+
+
+<H3>Link Static Module</H3>
+<p>
+    Use <CODE>armlink</CODE> to link the static module, adding the specifications of the command file and steering file to the command-line options. <br /> <br /> <img src="img/dll_flow_link_static.png"> <br /> <br />Although you essentially use the same command as when creating an application AXF without using CRO, you must add the following options.
+</p>
+<pre>
+--base_platform
+--edit=&lt;STEERING_FILE&gt;
+--override_visi.
+--pltgot=direct
+--undefined_and_export=nnroAeabiAtexit_
+--vfemode=off
+--via &lt;COMMAND_FILE&gt;
+</pre>
+<p>
+    <CODE>STEERING_FILE</CODE> is the steering file you created in <b>Create Steering Files</b>, and <CODE>COMMAND_FILE</CODE> is the <CODE>use</CODE> file that you created in <b>Create Command File</b>.
+</p>
+
+
+
+<H3>Link Dynamic Modules</H3>
+<p>
+    Use <CODE>armlink</CODE> to link the dynamic modules, adding the specifications of the steering file to the command-line options. <br /> <br /> <img src="img/dll_flow_link_dynamic.png"> <br /> <br />Although you essentially use the same command as when creating an application AXF without using CRO, you must add the following options.
+</p>
+<pre>
+--base_platform
+--dll
+--edit=&lt;STEERING_FILE&gt;
+--no_cppinit
+--no_scanlib
+--override_visi.
+--pltgot=direct
+--scatter=&lt;CTRSDK_ROOT&gt;/resources/specfiles/linker/CTR.Ro.MPCore.ldscript
+--undefined_and_export=nnroControlObject_ 
+--emit_non_debug_relocs
+</pre>
+<p>
+    Set <CODE>STEERING_FILE</CODE> to the steering file you created in <b>Create Steering Files</b>. Set the <CODE>--scatter</CODE> option to <CODE>CTR.Ro.MPCore.ldscript</CODE> rather than <CODE>CTR.Process.MPCore.ldscript</CODE>.
+</p>
+<p>
+    Do not specify the following option.
+</p>
+<pre>
+--keep=nnMain
+</pre>
+<p>
+    You also do not need to specify <CODE>crt0.o</CODE> as an input file.
+</p>
+<p>
+    You must also specify the following option if you use C++ exceptions.
+</p>
+<pre>
+--undefined=nnroEitNode_
+</pre>
+
+
+
+<H3>Create Command File 2</H3>
+<p>
+    Create a command-line option file to implement the changes for symbols for which there were changes to the references in <b>Resolve Symbolic References</b>. Use <CODE>makecro</CODE> to create command file 2. <br /> <br /> <img src="img/dll_flow_fil.png"> <br /> Use <CODE>makecro</CODE> as follows to create command file 2.
+</p>
+<pre>
+makecro -w -o &lt;OUTPUT_FILE&gt; &lt;XRL_FILE&gt;
+</pre>
+<p>
+    Command file 2 is created based on <CODE>XRL_FILE</CODE> and generated as <CODE>OUTPUT_FILE</CODE>.
+</p>
+
+
+
+<H3>Forced References</H3>
+<p>
+    Implement changes to references for symbols for which there were changes to the references in <b>Resolve Symbolic References</b>. Use <CODE>fromelf</CODE>, which is included in ARMCC, to force the references. <br /> <br /> <img src="img/dll_flow_import.png"> <br /> <br />Use <CODE>fromelf</CODE> to force the references, as follows.
+</p>
+<pre>
+fromelf &lt;AXF_FILE&gt; --elf -o &lt;OUTPUT_FILE&gt; --via &lt;COMMAND_FILE_2&gt;
+</pre>
+<p>
+    An AXF file for which the changes to the references in <CODE>AXF_FILE</CODE> were applied based on the specifications in <CODE>COMMAND_FILE_2</CODE> is output as <CODE>OUTPUT_FILE</CODE>.
+</p>
+
+
+
+<H3>Resolve Offsets</H3>
+<p>
+    Get symbol-offset information from the AXF file that the linker created, and update the XRL file. Use <CODE>makecro</CODE> to resolve offsets. <br /> <br /> <img src="img/dll_flow_offset.png"> <br /> <br /> Use <CODE>makecro</CODE> to resolve XRL offsets as follows.
+</p>
+<pre>
+makecro &lt;AXF_FILE&gt; -p -o &lt;OUTPUT_FILE&gt; -d &lt;XRL_FILE&gt;
+</pre>
+<p>
+    <CODE>OUTPUT_FILE</CODE> is the original XRL file (<CODE>XRL_FILE</CODE>) updated with offset information based on <CODE>AXF_FILE</CODE>.
+</p>
+
+
+
+<H3>Create the CRS File</H3>
+<p>
+    Create the CRS file from the static-module AXF file and XRL file. Use <CODE>makecro</CODE> to create the CRS file. <br /> <br /> <img src="img/dll_flow_crs.png"> <br /> Use <CODE>makecro</CODE> as follows to create the CRS file. (Although the following command is separated into multiple lines for readability, an actual command cannot contain newline characters.)
+</p>
+<pre>
+makecro
+    &lt;AXF_FILE&gt;
+    -o &lt;OUTPUT_FILE&gt;
+    -d &lt;XRL_FILE&gt;
+    (-r &lt;REFERENCE_XRL_FILE&gt;)...
+</pre>
+<p>
+    This creates <CODE>OUTPUT_FILE</CODE> as a CRS file from <CODE>AXF_FILE</CODE>, in accordance with the specifications of <CODE>XRL_FILE</CODE>. Use <CODE>REFERENCE_XRL_FILE</CODE> to resolve the offsets of other modules.
+</p>
+<p>
+    You must execute the command using <CODE>XRL_FILE</CODE> to designate the XRL file corresponding to the static module, and <CODE>REFERENCE_XRL_FILE</CODE> to designate the other XRL files. Assuming that your project comprises static module <CODE>App</CODE> and dynamic modules <CODE>Module1</CODE> and <CODE>Module2</CODE>, you would use the following command to create the CRS file.
+</p>
+<pre>
+makecro App.axf -o App.crs -d App.xrl -r Module1.xrl -r Module2.xrl
+</pre>
+
+
+
+<H3>Create the CRO Files</H3>
+<p>
+    Create the CRO files from the dynamic-module AXF files and XRL files. Use <CODE>makecro</CODE> to create the CRO file. <br /> <br /> <img src="img/dll_flow_cro.png"> <br /> Use <CODE>makecro</CODE> as follows to create the CRO file. (Although the following command is separated into multiple lines for readability, an actual command cannot contain newline characters.)
+</p>
+<pre>
+makecro
+    &lt;AXF_FILE&gt;
+    -o &lt;OUTPUT_FILE_1&gt;
+    -t &lt;OUTPUT_FILE_2&gt;
+    -d &lt;XRL_FILE&gt;
+    (-r &lt;REFERENCE_XRL_FILE&gt;)...
+</pre>
+<p>
+    This creates <CODE>OUTPUT_FILE_1</CODE> as the CRO file from <CODE>AXF_FILE</CODE>, in accordance with the specifications of <CODE>XRL_FILE</CODE>. At the same time, it creates <CODE>OUTPUT_FILE_2</CODE> as the <CODE>cro.rlt</CODE> file. Use <CODE>REFERENCE_XRL_FILE</CODE> to resolve the offsets of other modules.
+</p>
+<p>
+    You must execute the command using <CODE>XRL_FILE</CODE> to designate the XRL file corresponding to the target dynamic module, and <CODE>REFERENCE_XRL_FILE</CODE> to designate the other XRL files. Assuming that your project comprises static module <CODE>App</CODE> and dynamic modules <CODE>Module1</CODE> and <CODE>Module2</CODE>, you would use the following command to create the CRO files.
+</p>
+<pre>
+makecro Module1.axf -o Module1.cro -t Module1.cro.rlt -d Module1.xrl -r App.xrl -r Module2.xrl
+</pre>
+
+
+
+<H3>Create the CRR File</H3>
+<p>
+    This step creates the CRR file by merging the <CODE>.cro.rlt</CODE> files. Use <CODE>makecrr</CODE> to create the CRR file. <br /> <br /> <img src="img/dll_flow_crr.png"> <br /> Use <CODE>makecrr</CODE> as follows.
+</p>
+<pre>
+makecrr [-d] -o &lt;output file&gt; (-r &lt;.cro.rlt file&gt;)...
+</pre>
+<p>
+    <CODE>OUTPUT_FILE</CODE> is a CRR file merging the <CODE>.cro.rlt</CODE> files (<CODE>CRO_RLT_FILE</CODE>). Specify the <CODE>-d</CODE> option to store information necessary for debugging the <CODE>CRO</CODE> object in the CRR file.
+</p>
+
+
+
+<H2>nnroUnresolved</H2>
+<p>
+    Using the <CODE>nnroUnresolved</CODE> function with the static module requires additional build steps. These are the additional build steps that are required to use the <CODE>nnroUnresolved</CODE> function with the static module.
+</p>
+<p>
+    For more information about  <CODE>nnroUnresolved</CODE>, see <i><a href="DllManual.html#nnroUnresolved" target="_parent">DLL Manual</a></i>.
+</p>
+
+<H3>Build Sequence</H3>
+<p>
+    The following image shows the build sequence surrounding the creation of a CCI file or a CXI file from the AFX file of the application, when DLLs are used. <br /> <br /> <img src="img/dll_flow_unr_old.png"> <br /> <br /> That is changed as follows.<br /> <br /> <br /> <img src="img/dll_flow_unr_new.png"> <br /> <br />In addition, you must specify an additional command-line option when creating the command file.
+</p>
+<p>
+    The commands to execute at each of these build steps are described in the following sections.
+</p>
+
+
+<H3>Create the Command File</H3>
+<p>
+    If the <CODE>nnroUnresolved</CODE> function is used with the static module, you must specify an additional command-line option in <b>Create the Command File</b>. The additional option is <code>-y nnroUnresolved</code>. Use <CODE>makecro</CODE> as follows.
+</p>
+<pre>
+makecro -x -y nnroUnresolved -o &lt;OUTPUT_FILE&gt; &lt;XRL_FILE&gt;
+</pre>
+
+<H3>Replacing References</H3>
+<p>
+    In the <CODE>.axf</CODE> file, overwrite the place where the DLL symbol is referenced to reference <CODE>nnroUnresolved</CODE>. Use <CODE>makecro</CODE> to replace the reference. <br /> <br /> <img src="img/dll_flow_replace.png"> <br /> <br />Use <CODE>makecro</CODE> as follows to replace the reference.
+</p>
+<pre>
+makecro -u nnroUnresolved -o &lt;<CODE>OUTPUT_FILE</CODE>&gt; &lt;<CODE>INPUT_FILE</CODE>&gt;
+</pre>
+<p>
+    An AXF file based on the <CODE>INPUT_FILE</CODE>, but with the reference replaced, is created as the <CODE>OUTPUT_FILE</CODE>.
+</p>
+
+
+
+<H2>Revision History</H2>
+<dl class="history">
+    <dt>2013/12/27</dt>
+    <dd>
+Added <CODE>--no_debug</CODE> as a necessary option in the &quot;Partial Links&quot; step.
+    </dd>
+
+    <dt>2012/07/10</dt>
+    <dd>
+        Added <CODE>--emit_non_debug_relocs</CODE> as a necessary option in the &quot;Link Dynamic Modules&quot; step.
+    </dd>
+
+    <dt>2012/06/22</dt>
+    <dd>
+        Added a link to <I>Guide to Developing a Build System (for High-Level DLLs)</I>.<br/>
+    </dd>
+
+    <dt>2012/04/23</dt>
+    <dd>
+        Updated &quot;Overall Sequence.&quot; Added &quot;Command File 2&quot; and &quot;Forced References.&quot;
+    </dd>
+
+    <dt>2012/02/27</dt>
+    <dd>
+        Corrected the command to create a CRS file in the &quot;Create CRS File&quot; section.<br /> Corrected a typo.
+    </dd>
+
+    <dt>2012/02/20</dt>
+    <dd>
+        Corrected the command to create <CODE>app.crs</CODE> in the overall sequence chart.
+    </dd>
+
+    <dt>2011/12/12</dt>
+    <dd>
+        Added the section <B>nnroUnresolved</B>.
+    </dd>
+
+    <dt>2011/09/26</dt>
+    <dd>
+        Added description of the <CODE>-d</CODE> option to <B>Create the CRR File</B>. Added the Revision History section.
+    </dd>
+
+    <dt>2011/08/03</dt>
+    <dd>
+        Initial version.
+    </dd>
+</dl>
+
+
+<div class="footer"><span>Guide to Developing a Build System (for DLLs)</span></div>
+
+  <hr /><p>CTR-06-0203-011-B<br />CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetStereoCameraCalibrationMatrix</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::GetStereoCameraCalibrationMatrix Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void GetStereoCameraCalibrationMatrix(
+     <a href="../../../nn/math/MTX34/Overview.html">nn::math::MTX34</a> * pDst,
+     const <a href="../../../nn/camera/CTR/StereoCameraCalibrationData/Overview.html">StereoCameraCalibrationData</a> & cal,
+     const <a href="../../../nn_types/f32.html">f32</a> translationUnit,
+     const bool isIncludeParallax = true
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Specifies the location where the correction matrix is stored.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>cal</th>
+          <td>Specifies the calibration data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>translationUnit</th>
+          <td>Specifies the unit of translation in 3D space. Specify a value that is equal to the ratio between the sizes of the VGA image and screen image, multiplied by the amount of movement to translate the <a href="../../../nn/camera/Overview.html">camera</a> image by one pixel.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>isIncludeParallax</th>
+          <td>Whether the horizontal translation includes the parallax in the measurement chart.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Calculates a correction matrix to match the left-camera image to the right-camera image in 3D space.</p><P>The output matrix is used to move the left camera image.  This matrix is simply a three-dimensional extension of a two-dimensional matrix that expands and shrinks images, rotates around the light axis, and performs horizontal and vertical translations; it does not include three-dimensional transformations, such as rotations about the horizontal and vertical axes.</P><P>The translation distance needed for correction will differ depending on the size of the image, the size of the object, and such graphics settings as the perspective.  If you use <tt>nn::camera::SetSize</tt> to set the image size to other than VGA (640 x 480), the camera will shrink the image internally, causing the subject to appear smaller. The amount of translation needed for correction will then be reduced by this amount.  The amount of translation needed also varies depending on whether you display the image pixel by pixel or display it after scaling.  Specify the argument <span class="argument">translationUnit</span> as the translation distance required to move the camera image by one pixel, multiplied by the ratio of the size of a VGA image to the size of the image you want to display.</P><P>For example, assume that you are displaying a VGA image pixel by pixel, and you have configured your graphics so that the translation distance needed to move that image by one pixel is <tt>1.0f</tt>.  In this case, specify <span class="argument">translationUnit</span> as <tt>1.0f</tt>.  Next, assume that you change the image size to 512 x 384.  If you do not stretch the image using texture mapping, the subject will be 0.8 times the size of a VGA image (512 / 640).  This reduces the amount of translation needed for correction, so specify <span class="argument">translationUnit</span> as <tt>1.0f x 0.8f = 0.8f</tt>.  Note that if you enlarge the object, and display the subject in the same way as you display a VGA image pixel by pixel before applying the correction matrix, <span class="argument">translationUnit</span> will be <tt>1.0f</tt>.  Conversely, if you enlarge the object after applying the correction matrix, <span class="argument">translationUnit</span> will be <tt>0.8f</tt> because you are enlarging the image after translation.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/06/22</dt>
+        <dd><item xmlns="">Added a description of the translationUnit parameter.</item><br />
+        </dd>
+        <dt>2010/05/14</dt>
+        <dd><item xmlns="">Added information about the elements included in the output transformation matrix.</item><br />
+        </dd>
+        <dt>2010/05/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

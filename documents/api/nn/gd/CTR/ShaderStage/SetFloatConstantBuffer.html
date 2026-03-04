@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetFloatConstantBuffer</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/ShaderStage/Overview.html">ShaderStage</a>::SetFloatConstantBuffer Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> SetFloatConstantBuffer(
+     <a href="../../../../nn/gd/CTR/ShaderStage/ShaderType.html">ShaderType</a> shaderType,
+     <a href="../../../../nn_types/u32.html">u32</a> firstRegisterIndex,
+     <a href="../../../../nn_types/u32.html">u32</a> registerCount,
+     <a href="../../../../nn_types/f32.html">f32</a> * constantBufferSrc
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>shaderType</th>
+          <td>Specifies the shader type. (<code>SHADER_TYPE_VERTEX</code> or <code>SHADER_TYPE_GEOMETRY</code>)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>firstRegisterIndex</th>
+          <td>Specifies the index of the start register. (For example, if <code>3</code> is specified for the index, it starts from register <code>c3</code>.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>registerCount</th>
+          <td>Specifies the register count to be set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>constantBufferSrc</th>
+          <td>Specifies a pointer to the fixed point constant data to be set.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for constantBufferSrc.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfRangeParameter</th>
+          <td>registerCount was incorrect.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Immediately creates a floating point constant register command in the command buffer.</p><p>In some cases, performance may be increased by directly generating shader variable commands. To use this function, you must first use the <code><a href="../../../../nn/gd/CTR/ShaderStage/CreateShaderPipeline.html">CreateShaderPipeline</a></code> function to specify unmanaged shader variables. (Shader variables that are not set for direct output are automatically re-uploaded in render functions when updates or shader settings are made. )<br />
+ The following command formats can be entered into the command buffer by the <code>SetFloatConstantBuffer</code> function. <br />
+ 0x00000000 [Reserved] <br />
+ 0x00000004 [Reserved] <br />
+ 0x00000008 constantBufferSrc[3] <br />
+ 0x0000000c [Reserved] <br />
+ 0x00000010 constantBufferSrc[2] <br />
+ 0x00000014 constantBufferSrc[1] <br />
+ 0x00000018 constantBufferSrc[0] <br />
+ 0x0000001c constantBufferSrc[7] <br />
+ 0x00000020 constantBufferSrc[6] <br />
+ 0x00000024 constantBufferSrc[5] <br />
+ 0x00000028 constantBufferSrc[4] <br />
+ 0x0000002c constantBufferSrc[11] <br />
+ 0x00000030 constantBufferSrc[10] <br />
+ 0x00000034 constantBufferSrc[9] <br />
+ 0x00000038 constantBufferSrc[8] <br />
+ 0x0000003c ... <br />
+ 0x00000040 .. <br />
+ 0x00000044 . <br /></p><!-- write here --></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference">Sets the variable to be directly output by the <code><a href="../../../../nn/gd/CTR/ShaderStage/CreateShaderPipeline.html">CreateShaderPipeline</a></code> function.<br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

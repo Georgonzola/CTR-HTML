@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ulcd::CTR::DynamicStereoCamera</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ulcd/Overview.html">ulcd</a>::<a href="../../../../nn/ulcd/CTR/Overview.html">CTR</a>::DynamicStereoCamera Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/ulcd.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class DynamicStereoCamera</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class that supports the creation of <a href="../../../../nn/camera/Overview.html">camera</a> matrices for rendering images that take binocular parallax into account, based on the face tracking feature. This class provides a new stereoscopic image based on eye position information retrieved from the face tracking feature of the QTM library. When the face tracking feature is not used, this class works the same as the original <code><a href="../../../../nn/ulcd/CTR/StereoCamera/Overview.html">nn::ulcd::CTR::StereoCamera</a></code> class.</p><!-- write here --></div>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/OccupancyVolume/Overview.html">nn::ulcd::CTR::DynamicStereoCamera::OccupancyVolume</a>
+            </th>
+            <td>The <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/OccupancyVolume/Overview.html">OccupancyVolume</a></code> structure represents the space that the <a href="../../../../nn/camera/Overview.html">camera</a> occupies. This structure can be obtained from the output of the <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/GetOccupancyVolume.html">nn::ulcd::CTR::DynamicStereoCamera::GetOccupancyVolume</a></code> function. It provides information about the range of possible movement by the <a href="../../../../nn/camera/Overview.html">camera</a> when using the <code>DynamicPerspective</code> feature. It can be used for things such as <a href="../../../../nn/camera/Overview.html">camera</a> and object hit detection.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/Setting/Overview.html">nn::ulcd::CTR::DynamicStereoCamera::Setting</a>
+            </th>
+            <td>Stores data used to configure the rendering method. This <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/Setting/Overview.html">Setting</a></code> structure is passed to the <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/ComputeViewsAndProjections.html">nn::ulcd::CTR::DynamicStereoCamera::ComputeViewsAndProjections</a></code> function, but the data is not retained in the <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/Overview.html">nn::ulcd::CTR::DynamicStereoCamera</a></code> class.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/DynamicStereoCamera.html">DynamicStereoCamera</a>
+            </th>
+            <td>Instantiates the object with default parameters (default constructor). After the class object is generated, it must be configured with at least one of the <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/SetView.html">nn::ulcd::CTR::DynamicStereoCamera::SetView</a></code> functions and one of the <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/SetWindowFromSize.html">nn::ulcd::CTR::DynamicStereoCamera::SetWindowFromSize</a></code>, <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/SetWindowFromTangent.html">nn::ulcd::CTR::DynamicStereoCamera::SetWindowFromTangent</a></code>, <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/SetWindowFromViewport.html">nn::ulcd::CTR::DynamicStereoCamera::SetWindowFromViewport</a></code>, or <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/SetWindowFromProjectionMatrix.html">nn::ulcd::CTR::DynamicStereoCamera::SetWindowFromProjectionMatrix</a></code> functions to define the space. The <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/ComputeViewsAndProjections.html">nn::ulcd::CTR::DynamicStereoCamera::ComputeViewsAndProjections</a></code> function can then be called to get the view matrix and projection matrix thereafter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/SetView.html">SetView</a>
+            </th>
+            <td>Sets the view space using a view matrix as input. The view matrix is generated using a function such as <code><a href="../../../../nn/math/MTX34LookAt.html">nn::math::MTX34LookAt</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/SetWindowFromSize.html">SetWindowFromSize</a>
+            </th>
+            <td>Sets the virtual view volume based on the window width and three kinds of depth information. The window origin is set along with the view space. The window height direction is calculated from the screen aspect ratio. The planes, in order of distance from the <a href="../../../../nn/camera/Overview.html">camera</a>, are assumed to be as follows: near clipping plane, window plane, and far clipping plane.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/SetWindowFromTangent.html">SetWindowFromTangent</a>
+            </th>
+            <td>Sets the virtual view volume based on the window tangent values and three kinds of depth information. The window origin is set from the tangent values passed as arguments and is unrelated to the view space settings. The planes, in order of distance from the <a href="../../../../nn/camera/Overview.html">camera</a>, are assumed to be as follows: near clipping plane, window plane, and far clipping plane.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/SetWindowFromViewport.html">SetWindowFromViewport</a>
+            </th>
+            <td>Sets the virtual view volume based on the screen horizontal FOV, the viewpoint position, and three kinds of depth information. The planes, in order of distance from the <a href="../../../../nn/camera/Overview.html">camera</a>, are assumed to be as follows: near clipping plane, window plane, and far clipping plane.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/SetWindowFromProjectionMatrix.html">SetWindowFromProjectionMatrix</a>
+            </th>
+            <td>Sets the virtual view volume directly from a projection matrix. The projection matrix is generating using functions such as <code><a href="../../../../nn/math/MTX44Frustum.html">nn::math::MTX44Frustum</a></code> and <code><a href="../../../../nn/math/MTX44PerspectiveDeg.html">nn::math::MTX44PerspectiveDeg</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/ComputeViewsAndProjections.html">ComputeViewsAndProjections</a>
+            </th>
+            <td>Calculates the view matrices and projection matrices for the left and right cameras, based on the settings. This function estimates the optimal distance between the LCD screen and the user to provide a realistic stereoscopic effect, or an artistic effect that deviates from reality by using <code>RealisticFovFactor</code>. It is also possible to provide a motion parallax effect by controlling the <a href="../../../../nn/camera/Overview.html">camera</a> based on the position of the user's eyes. If the left and right eye positions are set to <code>null</code>, this function works the same as the original functions such as <code><a href="../../../../nn/ulcd/CTR/StereoCamera/CalculateMatrices.html">nn::ulcd::CTR::StereoCamera::CalculateMatrices</a></code>. When developing on <a href="../../../../nn/ulcd/CTR/Overview.html">CTR</a>, these parameters must be set to <code>null</code>. After the projection matrix is calculated, the <a href="../../../../nn/camera/Overview.html">camera</a> rotation is calculated based on the pivot parameter. No rotation takes place if <code><span>nn::math::PIVOT_NONE</span></code> is specified. The process stops if an invalid value is entered. The default argument of <code><span>nn::math::PIVOT_UPSIDE_TO_TOP</span></code> is used if no argument is specified.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/GetOccupancyVolume.html">GetOccupancyVolume</a>
+            </th>
+            <td>Gets the <a href="../../../../nn/camera/Overview.html">camera</a> occupancy space between the <a href="../../../../nn/camera/Overview.html">camera</a> plane and the near clipping plane from the <code><a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/Overview.html">DynamicStereoCamera</a></code> setting.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

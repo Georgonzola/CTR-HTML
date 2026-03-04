@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>Resume</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/olv/Overview.html">olv</a>::Resume Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/olv/Result/Overview.html">nn::olv::Result</a> Resume(
+     <a href="../../nn/olv/ResumedData/Overview.html">nn::olv::ResumedData</a> * resumedData,
+     const <a href="../../nn/olv/ResumeParam/Overview.html">nn::olv::ResumeParam</a> * resumeParam
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>resumedData</th>
+          <td>The class that stores the recovery process results.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>resumeParam</th>
+          <td>The class that stores the parameters used for the recovery process.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation. <br />
+ For information about handling the result, see the section about Error Handling or the descriptions of the <code><a href="../../nn/olv/Result/Overview.html">nn::olv::Result</a></code> values. <br /><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultUsageError</th>
+          <td>A usage error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Handles recovery operations.</p><p>Call this function after initializing the OLV library, when resuming at the application start event after calling the <code><a href="../../nn/olv/StartPortalApp.html">nn::olv::StartPortalApp()</a></code> function, or when resuming at the application start event after transitioning to the HOME Menu. <br />
+ This function is not thread-safe. Make sure not to execute any OLV library functions or class methods on another thread while calling this function. <br /></p><p>You can receive data passed from the Miiverse application when starting or resuming an application using an application jump from the Miiverse application. <br />
+ When you want to receive this data, get the system parameter from the Miiverse application and specify it for the <code>resumeParam</code> parameter in the <code><a href="../../nn/olv/ResumeParam/SetSystemArgs.html">nn::olv::ResumeParam::SetSystemArgs()</a></code> function. <br />
+ Use the <code><a href="../../nn/applet/CTR/GetInitialParam.html">nn::applet::CTR::GetInitialParam</a></code> function to get the system parameter from the Miiverse application when starting an application. Use the <code><a href="../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></code> function to get the system parameter from the Miiverse application when resuming an application from the Miiverse application. When doing this, make sure that the <code><a href="../../nn/applet/CTR/AppletId.html">nn::applet::CTR::AppletId</a></code> value returned by the <code>n::applet::CTR::GetInitialParam</code> or <code><a href="../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></code> function matches the <code>nn::olv::PORTAL_APP_APPLET_ID</code> value to ensure that the system parameter originated from the Miiverse application. <br />
+ You can get the data passed from the Miiverse application from the <code>resumedData</code> parameter. <br /><bold>Note:</bold> The appropriate parameters must be specified in the application banner spec (BSF) file to make it possible to start an application from Miiverse and to make it possible for the application to get the system parameter from the Miiverse application. For more information about which parameters to specify, see the <code>ctr_makebanner</code> reference. <br /><bold>Note:</bold> See the <code>StartPortalApp</code> demo for an example. <br /></p><p>When confirming the behavior of <code><a href="../../nn/olv/Resume.html">nn::olv::Resume()</a></code> upon an application jump from a Miiverse post in a development environment, the following methods can be used to confirm, because communities favorited by a user can be viewed within Miiverse even if the application is not running. <br />
+ 1. Start the Miiverse application while the application is running.<br />
+ 2. Add the application's community as a Favorite (by tapping the star icon).<br />
+ 3. Start the Miiverse application while the application is not running.<br />
+ 4. Transition to the application's community from the Favorite Communities.<br />
+ 5. Click <bold>Launch</bold> from the relevant post to start the application.<br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/08</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

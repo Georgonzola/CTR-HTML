@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetupBinary</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gr/Overview.html">gr</a>::<a href="../../../../nn/gr/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gr/CTR/ShaderLite/Overview.html">ShaderLite</a>::SetupBinary Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetupBinary(
+     const void * shader_binary,
+     const <a href="../../../../nn_types/s32.html">s32</a> vtx_shader_index,
+     const <a href="../../../../nn_types/s32.html">s32</a> geo_shader_index,
+     <a href="../../../../nn_types/bit32.html">bit32</a> * buffer
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>shader_binary</th>
+          <td>The shader binary linked by <code>ctr_VertexShaderLinker32.exe</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>vtx_shader_index</th>
+          <td>The index of the enabled vertex shader.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>geo_shader_index</th>
+          <td>The index of the enabled geometry shader.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>buffer</th>
+          <td>Required working buffer. You must first call <code>GetRequiredBufferSize</code> to get the size and pass an allocated buffer.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets up information used for generating commands based on the shader binary. <bold>Note:</bold> The binary is not copied. Do not destroy the binary until the command is generated. An ASSERT results if the specified index is not a valid shader. For more information about the index to be specified, see the MAP file generated at link time by <code>ctr_VertexShaderLinker32.exe</code>. Geometry shaders can be disabled by specifying <code>-1</code> for <code>geo_shader_index</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,717 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::snd::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/snd/Overview.html">snd</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the <a href="../../../nn/snd/CTR/Overview.html">CTR</a> sound library. (It can also be written without the <code>CTR</code> portion.)</p><p>Sound processing is carried out while synchronizing with the DSP by sound threads that include the <tt><a href="../../../nn/snd/CTR/WaitForDspSync.html">nn::snd::CTR::WaitForDspSync</a></tt> and <tt><a href="../../../nn/snd/CTR/SendParameterToDsp.html">nn::snd::CTR::SendParameterToDsp</a></tt> functions. Sound operations and parameter settings are configured after using the <tt><a href="../../../nn/snd/CTR/WaitForDspSync.html">nn::snd::CTR::WaitForDspSync</a></tt> function to wait for an interrupt from the DSP that occurs approximately every 4.889 milliseconds, and then applying those operations and parameter settings to the DSP using the <tt><a href="../../../nn/snd/CTR/SendParameterToDsp.html">nn::snd::CTR::SendParameterToDsp</a></tt> function.  The <tt><a href="../../../nn/snd/CTR/WaitForDspSync.html">nn::snd::CTR::WaitForDspSync</a></tt> and <tt><a href="../../../nn/snd/CTR/SendParameterToDsp.html">nn::snd::CTR::SendParameterToDsp</a></tt> functions must be called alternately. </p><p>The <tt>snd</tt> library uses an <tt><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></tt> object held internally to perform the above synchronization.</p><p>The <tt><a href="../../../nn/dsp/CTR/Initialize.html">nn::dsp::CTR::Initialize</a></tt> function and functions for loading DSP components (such as the <tt><a href="../../../nn/dsp/CTR/LoadDefaultComponent.html">nn::dsp::CTR::LoadDefaultComponent</a></tt> function), must be called before the <tt><a href="../../../nn/snd/CTR/Initialize.html">nn::snd::CTR::Initialize</a></tt> function. </p><p>Because there is no method of recovery if an API that returns <tt>Result</tt> returns an error, treat such an error as a fatal error.</p></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="2">Result</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/ResultAlreadyInitialized/Overview.html">nn::snd::CTR::ResultAlreadyInitialized</a>
+            </th>
+            <td>Indicates that initialization has already finished.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/ResultNoDspComponentLoaded/Overview.html">nn::snd::CTR::ResultNoDspComponentLoaded</a>
+            </th>
+            <td>Indicates that <code>dspcomponent</code> has not been loaded.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/ResultInvalidUsage/Overview.html">nn::snd::CTR::ResultInvalidUsage</a>
+            </th>
+            <td>Indicates a usage error, such as the order of arguments and function calls.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Other</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/Bcwav/Overview.html">nn::snd::CTR::Bcwav</a>
+            </th>
+            <td>Definition of a class that handles BCWAV files.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/DspFxDelay/Overview.html">nn::snd::CTR::DspFxDelay</a>
+            </th>
+            <td>A class used to control DSP delay effects.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/DspFxReverb/Overview.html">nn::snd::CTR::DspFxReverb</a>
+            </th>
+            <td>A class used to control DSP reverb effects.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/FxDelay/Overview.html">nn::snd::CTR::FxDelay</a>
+            </th>
+            <td>The delay effect class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/FxReverb/Overview.html">nn::snd::CTR::FxReverb</a>
+            </th>
+            <td>Reverb effect class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/OutputCapture/Overview.html">nn::snd::CTR::OutputCapture</a>
+            </th>
+            <td>The class for getting the DSP's final output.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/Voice/Overview.html">nn::snd::CTR::Voice</a>
+            </th>
+            <td>A class used to control voices.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/AdpcmParam/Overview.html">nn::snd::CTR::AdpcmParam</a>
+            </th>
+            <td>A structure that stores ADPCM coefficients.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/AdpcmContext/Overview.html">nn::snd::CTR::AdpcmContext</a>
+            </th>
+            <td>A structure that stores an ADPCM context.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/MonoFilterCoefficients/Overview.html">nn::snd::CTR::MonoFilterCoefficients</a>
+            </th>
+            <td>Structure that stores monopole filter coefficients.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/BiquadFilterCoefficients/Overview.html">nn::snd::CTR::BiquadFilterCoefficients</a>
+            </th>
+            <td>Structure that stores biquad filter coefficients.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/MixParam/Overview.html">nn::snd::CTR::MixParam</a>
+            </th>
+            <td>A structure that stores the gain for each channel.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/WaveBuffer/Overview.html">nn::snd::CTR::WaveBuffer</a>
+            </th>
+            <td>Structure that stores information about a buffer storing sample data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/snd/CTR/AuxBusData/Overview.html">nn::snd::CTR::AuxBusData</a>
+            </th>
+            <td>Structure for functions containing the code that processes <code>Aux</code> bus data in each sound frame.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Voice Controls</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/snd/CTR/VoiceDropMode.html">VoiceDropMode</a>
+            </th>
+            <td>Mode related to voice drop handling.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/snd/CTR/ChannelIndex.html">ChannelIndex</a>
+            </th>
+            <td>Enumerated type representing channel positions.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/snd/CTR/OutputMode.html">OutputMode</a>
+            </th>
+            <td>Enumerated type representing a mixer's output mode.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/snd/CTR/ClippingMode.html">ClippingMode</a>
+            </th>
+            <td>Enumerated type representing the clipping mode.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SurroundSpeakerPosition.html">SurroundSpeakerPosition</a>
+            </th>
+            <td>Enumerated type indicating the virtual speaker position for 3D surround sound.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/snd/CTR/InterpolationType.html">InterpolationType</a>
+            </th>
+            <td>An enumerated type representing the interpolation method.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/snd/CTR/FilterType.html">FilterType</a>
+            </th>
+            <td>Enumerated type representing the filter type.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/snd/CTR/AuxBusId.html">AuxBusId</a>
+            </th>
+            <td>Enumerated type representing the <code>Aux</code> bus ID.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SampleFormat.html">SampleFormat</a>
+            </th>
+            <td>Enumerated type representing sample formats.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="typedef" id="typedef">
+      <h2>typedef Definitions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/snd/CTR/AuxCallback.html">AuxCallback</a>
+            </th>
+            <td>Typedef for the <code>Aux</code> callback function pointer.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/snd/CTR/VoiceDropCallbackFunc.html">VoiceDropCallbackFunc</a>
+            </th>
+            <td>Typedef for the callback function to invoke when the library frees a voice.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/snd/CTR/DATA_ALIGNMENT.html">DATA_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the buffer for storing sound source data set in <code><a href="../../../nn/snd/CTR/WaveBuffer/Overview.html">WaveBuffer</a></code> must be aligned to. It is defined as 32 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/snd/CTR/DATA_UNITSIZE.html">DATA_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the size of the buffer for storing sound source data set in <code><a href="../../../nn/snd/CTR/WaveBuffer/Overview.html">WaveBuffer</a></code> must be a multiple of. It is defined as 32 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/snd/CTR/MIXED_BUS_DATA_ALIGNMENT.html">MIXED_BUS_DATA_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the buffer taking the mixed sound data obtained by <code><a href="../../../nn/snd/CTR/GetMixedBusData.html">GetMixedBusData</a></code> must be aligned to. It is defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/snd/CTR/ENCODE_OUTPUT_ALIGNMENT.html">ENCODE_OUTPUT_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the output buffer for <code><a href="../../../nn/snd/CTR/EncodeAdpcmData.html">EncodeAdpcmData</a></code> must be aligned to. It is defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/snd/CTR/DECODE_OUTPUT_ALIGNMENT.html">DECODE_OUTPUT_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the output buffer for <code><a href="../../../nn/snd/CTR/DecodeAdpcmData.html">DecodeAdpcmData</a></code> must be aligned to. It is defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/snd/CTR/VOICE_PRIORITY_NODROP.html">VOICE_PRIORITY_NODROP</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>This is the highest possible priority and is also given special treatment.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/snd/CTR/NN_SND_DSP_MAXIMUM_CYCLES.html">NN_SND_DSP_MAXIMUM_CYCLES</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Maximum number of DSP cycles per sound frame.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Voice Controls</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/AllocVoice.html">AllocVoice</a>
+            </th>
+            <td>Gets a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/FreeVoice.html">FreeVoice</a>
+            </th>
+            <td>Frees a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetVoiceDropMode.html">SetVoiceDropMode</a>
+            </th>
+            <td>Sets the mode to use for voice drop handling. <code>VOICE_DROP_MODE_DEFAULT</code> controls the processing load based on forecast values only. <code>VOICE_DROP_MODE_REAL_TIME</code> controls the processing load while referring to the actual processing load in addition to forecast values. If <code>VOICE_DROP_MODE_REAL_TIME</code> is specified in the argument, you must use <code><a href="../../../nn/snd/CTR/SetOutputBufferCount.html">nn::snd::CTR::SetOutputBufferCount()</a></code> to set a value greater than two for the number of buffers.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Initialize/Finalize</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the sound library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the sound library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/InitializeWaveBuffer.html">InitializeWaveBuffer</a>
+            </th>
+            <td>Initializes a buffer information structure.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Cache Operations</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/FlushDataCache.html">FlushDataCache</a>
+            </th>
+            <td>Writes data for the specified cache range back into memory and invalidates the cache.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Synchronous Processing</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/WaitForDspSync.html">WaitForDspSync</a>
+            </th>
+            <td>Receives the result of DSP processing.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SendParameterToDsp.html">SendParameterToDsp</a>
+            </th>
+            <td>Applies the configured parameters to the DSP.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Master Controls, Auxiliary Bus Controls</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetMasterVolume.html">SetMasterVolume</a>
+            </th>
+            <td>This function sets the master volume.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetMasterVolume.html">GetMasterVolume</a>
+            </th>
+            <td>Gets the master volume.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetAuxReturnVolume.html">SetAuxReturnVolume</a>
+            </th>
+            <td>Sets the <code>Aux</code> bus volume.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetAuxReturnVolume.html">GetAuxReturnVolume</a>
+            </th>
+            <td>Gets the <code>Aux</code> bus volume.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/RegisterAuxCallback.html">RegisterAuxCallback</a>
+            </th>
+            <td>Sets the <code>Aux</code> bus callback function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetAuxCallback.html">GetAuxCallback</a>
+            </th>
+            <td>Gets the <code>Aux</code> bus callback function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/ClearAuxCallback.html">ClearAuxCallback</a>
+            </th>
+            <td>Clears the <code>Aux</code> bus callback function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetAuxFrontBypass.html">SetAuxFrontBypass</a>
+            </th>
+            <td>Configures whether to bypass the front channels of an Aux bus.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">3D Surround Sound</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetSoundOutputMode.html">SetSoundOutputMode</a>
+            </th>
+            <td>Sets the sound output mode.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetSoundOutputMode.html">GetSoundOutputMode</a>
+            </th>
+            <td>Gets the sound output mode.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetClippingMode.html">SetClippingMode</a>
+            </th>
+            <td>Sets the clipping mode.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetClippingMode.html">GetClippingMode</a>
+            </th>
+            <td>Gets the clipping mode.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetSurroundDepth.html">SetSurroundDepth</a>
+            </th>
+            <td>Sets the surround sound depth. The surround sound depth parameter indicates the intensity of the 3D surround sound effect when sound is output through the speakers. Larger values create a more pronounced effect. The surround sound depth has no effect when sound is output through headphones. The default value is <code>1.0f</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetSurroundSpeakerPosition.html">SetSurroundSpeakerPosition</a>
+            </th>
+            <td>Sets the virtual speaker position for 3D surround sound.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Get the DSP Final Output</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetMixedBusData.html">GetMixedBusData</a>
+            </th>
+            <td>Copies the <code>Mix</code> bus data to the specified buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetOutputCapture.html">SetOutputCapture</a>
+            </th>
+            <td>Configures the capture for getting the DSP final output.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Dropped Processing Detection</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetDroppedSoundFrameCount.html">GetDroppedSoundFrameCount</a>
+            </th>
+            <td>Gets the number of dropped sound frames.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/ClearDroppedSoundFrameCount.html">ClearDroppedSoundFrameCount</a>
+            </th>
+            <td>Clears the dropped sound frames counter.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">DSP-ADPCM-Related</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/EncodeAdpcmData.html">EncodeAdpcmData</a>
+            </th>
+            <td>Encodes 16-bit PCM data into DSP-ADPCM format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/DecodeAdpcmData.html">DecodeAdpcmData</a>
+            </th>
+            <td>Decodes DSP-ADPCM data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetAdpcmOutputBufferSize.html">GetAdpcmOutputBufferSize</a>
+            </th>
+            <td>Returns the size of the output buffer that is required during encoding.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/ConvertAdpcmPos2Nib.html">ConvertAdpcmPos2Nib</a>
+            </th>
+            <td>Converts the sample position to a number of nibbles.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/ConvertAdpcmNib2Pos.html">ConvertAdpcmNib2Pos</a>
+            </th>
+            <td>Converts the number of nibbles to a sample position.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Effect</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetEffect.html">SetEffect</a>
+            </th>
+            <td>Configures the effect. Configures the delay effect. To process data that is to be output by AUX, you can use this function to apply delay and reverb effects in addition to configuring advance processing with the <code><a href="../../../nn/snd/CTR/RegisterAuxCallback.html">RegisterAuxCallback</a></code> function. Note that you can only configure one delay (<code><ulink url="../../../nn/snd/CTR/FxDelay/Overview.html">FxDelay</ulink></code>) and one reverb (<code><ulink url="../../../nn/snd/CTR/FxReverb/Overview.html">FxReverb</ulink></code>) for each bus. When you configure more than one, only the settings for the last one are valid. The older configured effects are cleared. If you have called <code><a href="../../../nn/snd/CTR/ClearEffect.html">ClearEffect</a></code> to clear older configurations as noted previously, you can deallocate the memory used for those effects using the <code><a href="../../../nn/snd/CTR/FxDelay/ReleaseWorkBuffer.html">FxDelay::ReleaseWorkBuffer</a></code> and <code><a href="../../../nn/snd/CTR/FxReverb/ReleaseWorkBuffer.html">FxReverb::ReleaseWorkBuffer</a></code> functions. Before calling this function, you must call the <code><a href="../../../nn/snd/CTR/FxDelay/SetParam.html">FxDelay::SetParam</a></code>, <code><a href="../../../nn/snd/CTR/FxDelay/GetRequiredMemSize.html">FxDelay::GetRequiredMemSize</a></code>, and <code><a href="../../../nn/snd/CTR/FxDelay/AssignWorkBuffer.html">FxDelay::AssignWorkBuffer</a></code> functions from the <code><a href="../../../nn/snd/CTR/FxDelay/Overview.html">FxDelay</a></code> class to finish preparing for the delay effect.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/ClearEffect.html">ClearEffect</a>
+            </th>
+            <td>Clears an effect setting. Clears an effect configured with the ttSetEffect/tt function. Any callback set with the <code><a href="../../../nn/snd/CTR/RegisterAuxCallback.html">RegisterAuxCallback</a></code> function is not cleared. (You can clear it with the <code><a href="../../../nn/snd/CTR/ClearAuxCallback.html">ClearAuxCallback</a></code> function.)</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetSampleLength.html">GetSampleLength</a>
+            </th>
+            <td>Gets the sample length.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetMaximumDspCycles.html">SetMaximumDspCycles</a>
+            </th>
+            <td>Sets the number of DSP cycles that sound can use. The default value is <code>NN_SND_DSP_MAXIMUM_CYCLES</code>. If a value greater than <code>NN_SND_DSP_MAXIMUM_CYCLES</code> is entered, it is corrected to <code>NN_SND_DSP_MAXIMUM_CYCLES</code> automatically.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetMaximumDspCycles.html">GetMaximumDspCycles</a>
+            </th>
+            <td>Gets the number of DSP cycles allocated to sound.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetDspCycles.html">GetDspCycles</a>
+            </th>
+            <td>Gets the number of cycles consumed by the DSP to create the last audio frame.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetHeadphoneStatus.html">GetHeadphoneStatus</a>
+            </th>
+            <td>Gets whether headphones are plugged in.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/UpdateHeadphoneStatus.html">UpdateHeadphoneStatus</a>
+            </th>
+            <td>Updates and gets the headphone connection state.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetHeadphoneOutOnShellClose.html">SetHeadphoneOutOnShellClose</a>
+            </th>
+            <td>Sets whether to force headphone output when the cover is closed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/SetOutputBufferCount.html">SetOutputBufferCount</a>
+            </th>
+            <td>Sets the number of buffers for the DSP final output level.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/snd/CTR/GetOutputBufferCount.html">GetOutputBufferCount</a>
+            </th>
+            <td>Gets the number of buffers for the DSP final output level.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/07/28</dt>
+        <dd><item xmlns="">Added information about handling <tt>Result</tt>.</item><br />
+        </dd>
+        <dt>2011/02/02</dt>
+        <dd><item xmlns="">Added a note about the synchronization performed by sound threads and a note about initialization.</item><br />
+        </dd>
+        <dt>2010/02/09</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

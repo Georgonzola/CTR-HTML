@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::ECardItem</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::ECardItem Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ECardItem</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for getting information about items that can be redeemed using a download voucher. Use the <code><a href="../../../../nn/ec/CTR/ECardCatalog/GetECardItem.html">ECardCatalog::GetECardItem</a></code> function to get an instance of the <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> class. Note that the <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> instance is invalidated when the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Overview.html">ECardCatalog</a></code> instance from which it was obtained is destroyed, or when the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function is called again.</p>
+    </div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/GetTitleInfo.html">GetTitleInfo</a>
+            </th>
+            <td>Gets information about the data titles included in the item.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/GetItemId.html">GetItemId</a>
+            </th>
+            <td>Gets the item ID. Pass the <code><a href="../../../../nn/ec/CTR/ItemId/Overview.html">ItemId</a></code> obtained from this function as an argument to the <code>EcApplet::RequesetRedeemContentSet</code> function to request that the EC <a href="../../../../nn/applet/Overview.html">applet</a> redeem a download voucher for content.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/GetRating.html">GetRating</a>
+            </th>
+            <td>Gets rating information for an item. There is generally no need to display the rating for an item, and no need to use this function. Note that the data indicated by the pointer of the <code><a href="../../../../nn/ec/CTR/Rating/Overview.html">Rating</a></code> object is invalidated when the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Overview.html">ECardCatalog</a></code> that the <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> was obtained from is destroyed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/GetReleaseDate.html">GetReleaseDate</a>
+            </th>
+            <td>Gets the date an item was released. The <code>DateTime</code> returned from this function is the new arrival reference date that is set as an item attribute and only the date information is valid. Zeros are set in all of the hour:minute:second fields. Note that this date and time differs from the sales start date and time set in the item pricing. Note that although you can compare to the <code>DateTime</code> acquired with the <code><a href="../../../../nn/ec/CTR/Server/GetDateTime.html">Server::GetDateTime</a></code> function and display it as a new arrival, the <code>DateTime</code> acquired with the <code><a href="../../../../nn/ec/CTR/Server/GetDateTime.html">Server::GetDateTime</a></code> function is in Coordinated Universal Time (UTC).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/GetNumContents.html">GetNumContents</a>
+            </th>
+            <td>Gets the number of content items included in the item.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/ListIndexes.html">ListIndexes</a>
+            </th>
+            <td>Lists the indices of the content included in an item.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/ListContentInfos.html">ListContentInfos</a>
+            </th>
+            <td>Lists content information for an item. If the SD card is inserted and removed while this function call is processing, or between calling the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function and calling this function, the function might return an unexpected <code><a href="../../../../nn/Result/Overview.html">Result</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/CalculateRequiredSize.html">CalculateRequiredSize</a>
+            </th>
+            <td>Calculates the size required to download the item (content set). If the SD card is inserted and removed while this function call is processing, or between calling the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function and calling this function, the function might return an unexpected <code><a href="../../../../nn/Result/Overview.html">Result</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/CalculateNumRequiredBlocks.html">CalculateNumRequiredBlocks</a>
+            </th>
+            <td>Calculates the number of blocks required to download the item. If the SD card is inserted and removed while this function call is processing, or between calling the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function and calling this function, the function might return an unexpected <code><a href="../../../../nn/Result/Overview.html">Result</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/GetAttributeByName.html">GetAttributeByName</a>
+            </th>
+            <td>Gets a content set attribute value. Gets a content set attribute value specified by a NULL-terminated UTF-8 string attribute name. Returns <code>NULL</code> if the specified attribute is not found. Note that the pointer to the attribute value is invalidated when the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Overview.html">ECardCatalog</a></code> from which the <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> was obtained is destroyed, or when the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function is called.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/GetType.html">GetType</a>
+            </th>
+            <td>Gets the item type.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/GetServiceItemType.html">GetServiceItemType</a>
+            </th>
+            <td>Gets the license type for the service item.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardItem/GetServiceItemLimit.html">GetServiceItemLimit</a>
+            </th>
+            <td>Returns the expiration or number of uses for the service item.</td>
+          </tr> </table>
+      </div>
+    </a>
+  </body>
+</html>

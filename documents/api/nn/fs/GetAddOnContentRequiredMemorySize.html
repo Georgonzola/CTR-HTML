@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>GetAddOnContentRequiredMemorySize</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::GetAddOnContentRequiredMemorySize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> GetAddOnContentRequiredMemorySize(
+     <a href="../../nn_types/s32.html">s32</a> * pOut,
+     <a href="../../nn_types/bit32.html">bit32</a> uniqueId,
+     <a href="../../nn_types/bit8.html">bit8</a> variation,
+     <a href="../../nn_types/u32.html">u32</a> contentIndex,
+     size_t maxFile,
+     size_t maxDirectory,
+     bool useCache
+);
+
+<a href="../../nn/Result/Overview.html">Result</a> GetAddOnContentRequiredMemorySize(
+     <a href="../../nn_types/s32.html">s32</a> * pOut,
+     <a href="../../nn_types/bit32.html">bit32</a> uniqueId,
+     <a href="../../nn_types/u32.html">u32</a> contentIndex,
+     size_t maxFile,
+     size_t maxDirectory,
+     bool useCache
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./GetAddOnContentRequiredMemorySize(0).html">GetAddOnContentRequiredMemorySize ( s32 *, bit32, bit8, u32, size_t, size_t, bool ) </a>
+          </td>
+          <td>Gets the size of memory needed to mount an add-on content archive.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./GetAddOnContentRequiredMemorySize(1).html">GetAddOnContentRequiredMemorySize ( s32 *, bit32, u32, size_t, size_t, bool ) </a>
+          </td>
+          <td>Gets the size of memory needed to mount an add-on content archive.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of GetAddOnContentRequiredMemorySize ( s32 *, bit32, bit8, u32, size_t, size_t, bool ) </h2>
+    <div class="section"><p>Returns the size of memory needed to mount an add-on content archive. <br />
+ The returned memory size allows only the number of files specified by maxFile and the number of directories specified by maxDirectory to be opened simultaneously. <br />
+ By setting the useCache argument equal to <code>true</code>, this size includes the amount of memory required to cache the metadata of the archive in memory.</p><p>If you call this function in a state where you do not have rights to the target content index (that is, the <code><a href="../../nn/ec/CTR/ContentInfo/IsOwned.html">nn::ec::ContentInfo::IsOwned</a></code> function returns <code>false</code>), it returns a <code><a href="../../nn/fs/ResultAccessDenied/Overview.html">nn::fs::ResultAccessDenied</a></code>-type error.</p></div>
+    <h2>Description of GetAddOnContentRequiredMemorySize ( s32 *, bit32, u32, size_t, size_t, bool ) </h2>
+    <div class="section"><p>Returns the size of memory needed to mount an add-on content archive. <br />
+ Implicitly uses <code>0</code> as the Variation value for the add-on data. <br />
+ The returned memory size allows only the number of files specified by maxFile and the number of directories specified by maxDirectory to be opened simultaneously. <br />
+ By setting the useCache argument equal to <code>true</code>, this size includes the amount of memory required to cache the metadata of the archive in memory.</p><p>If you call this function in a state where you do not have rights to the target content index (that is, the <code><a href="../../nn/ec/CTR/ContentInfo/IsOwned.html">nn::ec::ContentInfo::IsOwned</a></code> function returns <code>false</code>), it returns a <code><a href="../../nn/fs/ResultAccessDenied/Overview.html">nn::fs::ResultAccessDenied</a></code>-type error.</p></div>
+  </body>
+</html>

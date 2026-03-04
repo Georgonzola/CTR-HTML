@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ctr_makeciaarchive</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size		: 150%;
+  font-family		: Arial;
+  border-bottom-width	: 5px;
+  border-bottom-style	: solid;
+  border-bottom-color	: #CD202C;
+  padding-bottom		: 1px;
+  margin-bottom		: 20px;
+  letter-spacing		: normal;
+  font-weight		: bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+CODE {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+}
+table {
+  margin-top        : 2pt;
+  margin-bottom     : 2pt;
+  margin-left       : 0pt;
+  margin-right      : 0pt;
+  padding-left      : 0pt;
+  padding-right     : 0pt;
+  position          : relative;
+  left              : 12px;
+  font-family       : Arial;
+  font-size         : 10pt;
+  border-style      : none none none none;
+}
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+p.code {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+  background            : #e8f4f4;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+<h1>ctr_makeciaarchive</h1>
+
+<h2>Description</h2>
+<P><CODE>ctr_makeciaarchive</CODE> is a tool to create CFA files that contain CIA files.<br/> CFA files created with <CODE>ctr_makeciaarchive</CODE> can be included in CCI files by using the <CODE>-content</CODE> option of <A href="ctr_makerom.html">ctr_makerom</A>.<br/> Use this tool when the CCI file includes the child device distributed with download play.</P>
+
+<h2>How to Use</h2>
+<h3>What Is Required</h3>
+<p>The following files are required to create CFA files by using <CODE>ctr_makeciaarchive</CODE>.</p>
+<ul>
+<li> CIA files created by using <A href="ctr_makecia.html">ctr_makecia</A></li>
+<li> <CODE>.rsf</CODE> file</li>
+</ul>
+
+<h3>Commands</h3>
+
+<p class="code">
+% ctr_makeciaarchive32 -cia CIA_FILEPATH1 CIA_FILEPATH2 {...} [--romfs-root ROMFS_ROOT] [-rsf RSF_FILEPATH] -o CFA_OUTPATH
+</p>
+
+<h4 >Options</h4>
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Options</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><CODE>-cia</CODE></td>
+<td align="center">Specify one or more CIA files included in CFA. Each client device CIA file must have a different <CODE>ChildIndex</CODE> specified.</td>
+</tr>
+<tr>
+<td align="center"><CODE>--romfs-root</CODE></td>
+<td align="center">Specifies the ROMFS root folder (the folder where the CIA file is temporarily copied) when creating the CFA file. When the specified folder does not exist, an attempt to create it is automatically made. If the option is not specified, a Windows standard temporary file is created in the work region and is deleted after the CFA file is created.</td>
+</tr>
+<tr>
+<td align="center"><CODE>-rsf</CODE></td>
+<td align="center">Specifies the RSF file. When this option is not specified, <CODE>CTR_SDK/resources/specfiles/Child.rsf</CODE> is used. There is normally no need to specify this.</td>
+</tr>
+<tr>
+<td align="center"><CODE>-o</CODE></td>
+<td align="center">Specifies the CFA file to output.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2>Variables Defined in OMakefiles</h2>
+<p>
+When <CODE>CHILD_APPS</CODE> is specified in <CODE>OMakefile</CODE>, <CODE>makeciaarchive</CODE> is automatically executed while <CODE>omake</CODE> is running, and a CFA file that includes the child device's CIA file is created.<br /> For how to specify <CODE>CHILD_APPS</CODE>, see the description for <A href="../SDKRules/BuildRules.html">Build Rules</A>.
+</p>
+
+<h2>Revision History</h2>
+    <dl class="history">
+      <dt>2010/10/29</dt>
+      <dd>Initial version.<br /> 
+      </dd>
+    </dl>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

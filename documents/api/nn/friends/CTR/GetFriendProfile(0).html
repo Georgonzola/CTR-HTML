@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetFriendProfile</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::GetFriendProfile Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> GetFriendProfile(
+     <a href="../../../nnfriendsProfile/Overview.html">Profile</a> * pProfileList,
+     const <a href="../../../nnfriendsFriendKey/Overview.html">FriendKey</a> * pFriendKeyList,
+     size_t size = 1
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pProfileList</th>
+          <td>Specifies a pointer to a buffer storing obtained profile information.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pFriendKeyList</th>
+          <td>Specifies a pointer to a list of friend keys.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the number of buffer elements in the friend key list.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>An invalid pointer was passed as an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultTooLarge</th>
+          <td>The value passed as the argument is too large.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>The friend presence library is not initialized.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Other results can be returned depending on the internal state of the daemon.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a list of profiles of <a href="../../../nn/friends/Overview.html">friends</a>.</p><p>Returns empty profile information in this buffer if there is no friend corresponding to the key passed in the arguments. The function also returns empty profile information if the peer has never published its online status. The function itself still returns success in this case. <br /></p><p>The platform code of empty profile information is always <code>0</code>. If you cannot determine whether a value by itself is valid (for example, a region code), always use the platform code to determine validity.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/30</dt>
+        <dd><item xmlns="">Added a note that empty profile information may also be returned if the friend has never published its online status.<br /> Added method for determining if profile information is empty.<br /></item><br />
+        </dd>
+        <dt>2011/03/11</dt>
+        <dd><item xmlns="">Noted that the function still returns success even if empty profile information is returned.<br /> Fixed typos in description.<br /> Added specific examples of return values.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>AtomicCompareExchangeWeak</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fnd/Overview.html">fnd</a>::AtomicCompareExchangeWeak Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/fnd.h&gt;
+template &lt;typename IntOrPointer&gt;bool AtomicCompareExchangeWeak(
+     volatile IntOrPointer * p,
+     IntOrPointer * pExpected,
+     IntOrPointer value
+);
+</pre>
+    </div>
+    <h2>Template Arguments</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>IntOrPointer</th>
+          <td>The target type. It must be either an integer (8-bit, 16-bit, 32-bit, or 64-bit) or a pointer.</td>
+        </tr> </table>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>p</th>
+          <td>Pointer to variables in memory that are subject to atomic operations.</td>
+        </tr>
+        <tr>
+          <td>inout</td>
+          <th>pExpected</th>
+          <td>Pointers to variables that store values to compare.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>value</th>
+          <td>Value to assign.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> when the assignment is made and <code>false</code> when it is not. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Replaces values atomically in weak comparisons.</p><p>Assigns <code>value</code> to <code>*p</code> when <code>*p</code> and <code>*pExpected</code> are atomically compared at the byte level and are equal. Returns <code>true</code> when the assignment was successful. In all other cases, assigns the value loaded in <code>*p</code> to <code>*pExpected</code>, and then returns <code>false</code>.</p><p>This function makes weak comparisons, so sometimes even when <code>*p</code> and <code>*pExpected</code> are equal, <code>false</code> is returned without an assignment being made to <code>*p</code>. Typically this function is used in a <code>while</code> loop.</p><p>When you want to atomically load variables in memory <code>p</code>, update them with the <code>F</code> function and write them back. You can do this by setting appropriate values, such as those loaded with the <code><a href="../../nn/fnd/AtomicLoad.html">AtomicLoad</a></code> function, as the initial value of the <code>tmp</code> variable, and then doing something like this: <code>while (!AtomicCompareExchangeWeak(p, &tmp, F(tmp))) {}</code>.</p><p>Using the dedicated <code><a href="../../nn/fnd/AtomicFetchAdd.html">AtomicFetchAdd</a></code> function is more efficient when doing basic arithmetic conversions atomically.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/08/19</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

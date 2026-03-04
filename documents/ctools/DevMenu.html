@@ -1,0 +1,389 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        --></style>
+<title>DevMenu</title>
+  </head>
+  <body>
+<h1>DevMenu</h1>
+<h2>Overview</h2>
+    <div class="section">
+	<CODE>DevMenu</CODE> has the following three display modes.
+        <ol>
+1. Program List Mode
+              <ul>
+Displays the program imported to the various media.<br/>Can start the CTR card.<br/>Can start and delete imported applications.
+              </ul>
+2. SDMC and HIO Mode
+              <ul>
+Displays files on the SD card or on the PC.<br/>Can import <CODE>CIA</CODE> files.
+              </ul>
+3. Expanded Save Data Mode
+              <ul>
+Displays expanded save data.<br/>Can delete expanded save data.
+              </ul>
+        </ol>
+    </div>
+<h2>Cautions When Launching From Cards</h2>
+    <div class="section">
+TWL cards cannot be started from <CODE>DevMenu</CODE>.<br/>Application region-checking is not performed by <CODE>DevMenu</CODE>.<br />
+    </div>
+<h2>Button Assignments</h2>
+    <div class="section">
+      <p>
+        <table class="table"><tbody>
+<tr><th>Button</th><th>Operation</th></tr>
+<tr><td>↑↓</td><td>Moves the cursor.</td></tr>
+<tr><td>←→</td><td>Switches modes.</td></tr>
+<tr><td>A</td><td>Select / Run</td></tr>
+<tr><td>B</td><td>Back / Cancel</td></tr>
+<tr><td>X</td><td>Delete (when possible)</td></tr>
+        </tbody></table>
+      </p>
+      <p>
+As a specially prepared command, you can delete all imported SDK tools by pressing L + R + Left + B + START.<br/>When you do this, <CODE>DevMenu</CODE> itself is deleted. To revert to the original state, run System Updater.
+      </p>
+    </div>
+<h2>Program List Mode</h2>
+    <div class="section">
+      <p>
+In this mode, press the A Button to start a program, and the X Button to delete a program.<br />While holding the L and R Buttons, press the X Button to delete all programs that are currently displayed.<br/>
+      </p>
+      <p>
+The upper screen displays the following items for the program description.
+        <table class="table"><tbody>
+<tr><th>Item</th><th>Description</th></tr>
+<tr><td>Category</td><td>Application type.<br />For CTR applications, <B>Application</B> is displayed for retail versions, <CODE>Demo</CODE> for downloaded application demos, and <B>AddOnContents</B> for add-on content. For TWL applications, <B>TWL</B> is displayed.</td></tr>
+<tr><td>Unique ID</td><td>Unique ID (only shown for CTR applications). </td></tr>
+<tr><td>Initial Code</td><td>Initial code (only shown for TWL applications).</td></tr>
+<tr><td>Version</td><td>Remaster Version</td></tr>
+<tr><td>Occupied Size</td><td>If deleted, the amount of free space. <font color="red">The exact amount of space required to download a program from the eShop cannot be determined locally.</font></td></tr>
+<tr><td>Product Code</td><td>For CTR applications, this shows the product code. For TWL applications, this shows the title.</td></tr>
+<tr><td>Media</td><td>The media imported from. For CTR applications, this shows <B>SDMC</B>. For TWL applications, this shows <B>TWL NAND</B>.</td></tr>
+<tr><td>Limit</td><td>The number of times the application can be started (only shown for CTR downloaded application demos). Shown as <B>Number of times application started / Total number of times application can be started</B>. Shows <B>No limit</B> for applications with no start limit.</td></tr>
+<tr><td>Demo Index</td><td>The demo index (only shown for CTR downloaded application demos).</td></tr>
+        </tbody></table>
+      </p>
+      <p>
+For CTR applications, the unique ID and product code of the title code specified in the RSF file appear in the lower screen.
+<pre>
+ ff3ff    CTR-P-CTAP
+</pre>
+For TWL applications, the initial code and title name specified in the RSF file appear.
+<pre>
+ 34534e41    MY APP NAME
+</pre>
+Some of the system applications and system data titles that can be used from the CTR application are displayed.<br/>System applications and system data titles are described separately below.<br/>
+      </p>
+      </div>
+<h3>System Applications Shown in the Lower Screen</h3>
+      <div class="section">
+        <p>
+These applications can be deleted to verify operations when system applications are not in the CTR application on the system.<br />Select one of the programs in the list as shown below, and press the X Button to delete it.<br/>You cannot remove multiple programs at the same time. (You cannot use the batch-delete operation of pressing the X Button while holding down both the L Button + R Button.)<br/><br/><font color="red">After you delete an item, reset the debugger or power cycle the system.<br/> If you keep using the system without doing this, the HOME Menu will freeze.</font><br/>
+
+<li>CTR Browser
+          <table class="table"><tbody>
+<tr><th>Market</th><th>Displayed Name</th></tr>
+<tr><td>JP (Japan)</td><td><font color="red">00088    Browser for JP</font></td></tr>
+<tr><td>US (North America)</td><td><font color="red">00094    Browser for US</font></td></tr>
+<tr><td>EU (Europe and Australia)</td><td><font color="red">0009d    Browser for EU</font></td></tr>
+<tr><td>CN (China)</td><td><font color="red">000a6    Browser for CN</font></td></tr>
+<tr><td>KR (Korea)</td><td><font color="red">000ae    Browser for KR</font></td></tr>
+<tr><td>TW (Taiwan)</td><td><font color="red">000b6    Browser for TW</font></td></tr>
+          </tbody></table></li>
+
+<li>Miiverse Application
+          <table class="table"><tbody>
+<tr><th>Market</th><th>Displayed Name</th></tr>
+<tr><td>JP (Japan)</td><td><font color="red">000bc    Miiverse portal for JP</font></td></tr>
+<tr><td>US (North America)</td><td><font color="red">000bd    Miiverse portal for US</font></td></tr>
+<tr><td>EU (Europe and Australia)</td><td><font color="red">000be    Miiverse portal for EU</font></td></tr>
+<tr><td>CN (China)</td><td><font color="red">0009e    Miiverse portal for CN</font></td></tr>
+<tr><td>KR (Korea)</td><td><font color="red">00095    Miiverse portal for KR</font></td></tr>
+<tr><td>TW (Taiwan)</td><td><font color="red">000b9    Miiverse portal for TW</font></td></tr>
+          </tbody></table></li>
+
+<li>Miiverse Post Application
+          <table class="table"><tbody>
+<tr><th>Market</th><th>Displayed Name</th></tr>
+<tr><td>JP (Japan)</td><td><font color="red">00083    Miiverse post for JP</font></td></tr>
+<tr><td>US (North America)</td><td><font color="red">0008b    Miiverse post for US</font></td></tr>
+<tr><td>EU (Europe and Australia)</td><td><font color="red">000ba    Miiverse post for EU</font></td></tr>
+          </tbody></table></li>
+
+Use System Updater if you want to add these system applications again.
+<br/><br/>
+<li>Nintendo eShop
+          <table class="table"><tbody>
+<tr><th>Market</th><th>Displayed Name</th></tr>
+<tr><td>JP (Japan)</td><td><font color="red">00209    Nintendo eShop for JP</font></td></tr>
+<tr><td>US (North America)</td><td><font color="red">00219    Nintendo eShop for US</font></td></tr>
+<tr><td>EU (Europe and Australia)</td><td><font color="red">00229    Nintendo eShop for EU</font></td></tr>
+<tr><td>CN (China)</td><td><font color="red">00269    Nintendo eShop for CN</font></td></tr>
+<tr><td>KR (Korea)</td><td><font color="red">00279    Nintendo eShop for KR</font></td></tr>
+<tr><td>TW (Taiwan)</td><td><font color="red">00289    Nintendo eShop for TW</font></td></tr>
+          </tbody></table></li>
+
+Because System Updater does not include Nintendo eShop, this is displayed when <CODE>DummyNintendoEShop</CODE> is imported.
+
+         </p>
+       </div>
+<h3>System Data Titles Shown in the Lower Screen</h3>
+       <div class="section">
+         <p>
+The following system data title is used to create the state of a system update for the CTR system.<br/>By deleting this system data title, you create the state of a system update for the CTR system.<br/>Deleting it has no effect on system operations.<br/><br/>To revert to the original state, perform a system update from System Settings.<br/><br/>Dummy Data Title
+          <table class="table"><tbody>
+<tr><th>Market</th><th>Displayed Name</th></tr>
+<tr><td>All markets</td><td><font color="red">00108    Dummy data title</font></td></tr>
+          </tbody></table>
+Applications that use the eShop REST API must check whether the system needs to be updated. This feature is used for that check.<br/>If there is an error to display, error code 009-1000 is shown.<br/>Even for e-commerce applications that do not use the eShop REST API, this feature can be used to emulate the need for a system update.<br/><br/>
+        </p>
+      </div>
+<h2>SDMC and HIO Mode</h2>
+    <div class="section">
+      <p>
+In this mode, you can import <CODE>CIA</CODE> files on an SD card or on a PC by using <CODE>HostIO</CODE> into importable media.<br/>Press the A Button, and then press the A Button again to confirm that you want to import the program.<br />The media that the CIA file is imported to is automatically determined from the CIA file information.<br/>While holding the L and R Buttons, press the A Button to import all CIA files in the current directory.<br/>If an error occurs while importing all files, any files not yet imported at the time of the error are not imported.
+      </p>
+      <p>
+The upper screen displays the following items for the CIA file description.
+        <table class="table"><tbody>
+<tr><th>Item</th><th>Description</th></tr>
+<tr><td>File Type</td><td>The file type.<br />Displays <B>CIA</B> (for a valid CIA file), <B>Invalid cia</B>, <B>Directory</B>, or <B>Unsupported</B> (for any other file type).</td></tr>
+<tr><td>Category</td><td>Application type.<br />For CTR applications, <B>Application</B> is displayed for retail versions, <CODE>Demo</CODE> for downloaded application demos, and <B>AddOnContents</B> for add-on content. For TWL applications, <B>TWL</B> is displayed.</td></tr>
+<tr><td>Unique ID</td><td>Unique ID (only shown for CTR applications). </td></tr>
+<tr><td>Import Media</td><td>The media to import to.<br />For CTR applications, this shows <B>SDMC</B>. For TWL applications, this shows <B>CTR NAND</B>.</td></tr>
+<tr><td>Version</td><td>Remaster Version</td></tr>
+<tr><td>File Size</td><td>The size of the CIA file.</td></tr>
+<tr><td>Required Size</td><td>The free space needed for import. <font color="red">The exact amount of space required to download a program from the eShop cannot be determined locally.</font></td></tr>
+        </tbody></table>
+      </p>
+      <p>
+If using <CODE>HostIO</CODE>, you must set the environment variable <CODE>DEVMENU_ROOT</CODE> on the PC and specify the directory to use for import.<br />Then, you must start <CODE>HIO-Daemon</CODE>.<br />If you are using development hardware, you can import from a PC using <CODE>PARTNER-CTR UIC-MIDI</CODE>.<br />However, when using UIC-MIDI, the HostIO speed is slower. The time it takes to import on CTR development hardware is approximately 1.5 times what it takes on PARTNER-CTR Debugger, and the time on SNAKE development hardware is approximately 2.0 times what it takes on IS-CTR-DEBUGGER.
+      </p>
+      <p>
+You can reopen a currently open folder by using START.
+      </p>
+      <p>
+You can delete CIA files by using the X Button.<br />Press the X Button while holding down the L and R Buttons to remove all CIA files in the current directory.<br/>
+      </p>
+      <p>
+Press the A Button while holding down the X Button to remove CIA files after importing them.<br />Press the A Button while holding down the L/R/X Buttons to remove all CIA files after importing all CIA files in the current directory.<br />
+      </p>
+      <p>
+Save data is retained if you reimport a program that has already been imported.<br />However, if the application being imported has a differently sized save data region than the application being overwritten, the entire contents of the save data region are cleared. If you need to clear the save data, delete the imported program in program list mode before importing it again.
+      </p>
+      <p>
+If you attempt to import a file that is identical to a program that was previously imported, the following message appears, and the import is canceled.
+<pre>
+ Program already exists.
+ Import canceled.
+</pre>
+      </p>
+      <p>
+If the SD card is write-protected by the LOCK switch, the following message appears, and file operations are disabled. Make the SD card writeable and try again.
+<pre>
+ SD card is write protected.
+</pre>
+      </p>
+      <p>
+After attempting to import a corrupted CIA file, import is not performed and instead a message similar to the following is displayed.<br/>Check that the CIA file was created correctly.
+      </p>
+<pre>
+This cia is invalid.
+</pre>
+    </div>
+<h2>Expanded Save Data Mode</h2>
+    <div class="section">
+      <p>
+In this mode, you can display and delete expanded save data.<br/>You can only delete expanded save data on a per-ID basis.<br/>To delete, select the ID of the directory with data you want to delete, and press the X Button.
+      </p>
+      <p>
+<font color="red">The HOME Menu uses the expanded save data &quot;00000000 00000082.&quot;<br/> Because the HOME Menu mounts this expanded save data, you cannot delete it if <CODE>DevMenu</CODE> is running from the HOME Menu.<br/> If you need to delete this data, run DevMenu from the development menu.</font>
+      </p>
+    </div>
+<h2>Free Space Display</h2>
+    <div class="section">
+      <p>
+The <B>Free Space</B> field in the upper screen shows the free space for the SD card and the NAND memory of the system. The top row shows the size in bytes, and the bottom row shows the block size, the number of free 128-KB blocks. The block size is used by Nintendo eShop and the System Settings.
+        <table class="table"><tbody>
+<tr><th>Item</th><th>Description</th></tr>
+<tr><td>SD</td><td>The free space on the SD card to which the CTR application is imported.</td></tr>
+<tr><td>TWL</td><td>The free space in the system NAND memory to which to TWL application is imported.</td></tr>
+        </tbody></table>
+      </p>
+    </div>
+<h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014-03-02</dt>
+        <dd>
+Added Nintendo eShop to the system application displayed on the lower screen.
+        </dd>
+        <dt>2014-12-01</dt>
+        <dd>
+Added descriptions that applications that use the eShop REST API must check whether the system needs to be updated. 
+        </dd>
+        <dt>2014-07-04</dt>
+        <dd>
+Added descriptions of the Miiverse applications and the Miiverse posting applet.
+        </dd>
+        <dt>2014-03-10</dt>
+        <dd>
+Added information about HostIO on SNAKE development hardware.
+        </dd>
+        <dt>2013-08-21</dt>
+        <dd>
+Added descriptions of the upper screen in SDMC and HIO mode.<br/>Noted that the space needed to download from eShop cannot be accurately determined locally.
+        </dd>
+        <dt>2012-05-17</dt>
+        <dd>
+Added CTR browser descriptions for the China, Korea, and Taiwan markets.
+        </dd>
+        <dt>2012-03-15</dt>
+        <dd>
+Added a description of the error when expanded save data is deleted.
+        </dd>
+        <dt>2011-12-20</dt>
+        <dd>
+Changed the description of SDMC and HIO import modes.
+        </dd>
+        <dt>2011-10-20</dt>
+        <dd>
+Added a description of add-on content to the <B>Category</B> field.
+        </dd>
+        <dt>2011-10-12</dt>
+        <dd>
+Added a description of free space display.<br/>Added a description of the feature to delete the CTR browser.<br/>
+        </dd>
+        <dt>2011-09-29</dt>
+        <dd>
+Added a description of the demo index.
+        </dd>
+        <dt>2011-09-01</dt>
+        <dd>
+Added a description of operations when attempting to import an invalid CIA file.<br/>Added a description of the upper screen in program list mode.
+        </dd>
+        <dt>2011-08-04</dt>
+        <dd>
+Mentioned the command to delete all SDK tools.<br/>
+        </dd>
+        <dt>2011-06-08</dt>
+        <dd>
+Added a note about write-protected SD cards.<br/>Added a note about content displayed in program lists.<br/>Added a note about clearing save data.<br/>Added a note about the message when identical files are imported.
+        </dd>
+        <dt>2011-03-22</dt>
+        <dd>
+Renamed modes.<br/>Changed descriptions of each mode.
+        </dd>
+        <dt>2011-02-28</dt>
+        <dd>
+Updated the section about starting cards.<br/>Deleted text about shared expanded save data.
+        </dd>
+        <dt>2010-11-18</dt>
+        <dd>
+Added information about shared expanded save data mode.<br/>
+        </dd>
+        <dt>2010-09-22</dt>
+        <dd>
+Added cautions about starting from cards, and described importing all files, deleting all files, and Expanded Save Data Mode.<br/>
+        </dd>
+        <dt>2010-06-10</dt>
+        <dd>
+Initial version.<br/>
+        </dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

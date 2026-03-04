@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>StopScanning</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cec/Overview.html">cec</a>::<a href="../../../../nn/cec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/cec/CTR/CecControl/Overview.html">CecControl</a>::StopScanning Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">nn::Result</a> StopScanning(
+     bool b_Immediate = false,
+     bool b_Async = false
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>b_Immediate</th>
+          <td>When <code>true</code>, saving of data being transmitted is also canceled and stopped.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>b_Async</th>
+          <td>When <code>true</code>, returns immediately.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"><code><a href="../../../../nn/Result/Overview.html">nn::Result</a></code><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultStateBusy</th>
+          <td>The halt process occurred but did not enter the halted state.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Manually halts StreetPass (<code>CEC</code>) operations.</p><p>If communications are in progress, the communications are interrupted and changed to stopped (<code>IDLE</code>) status. <br />
+ Note that background communication might be interrupted. <br />
+ If this function is called when the state that <code><a href="../../../../nn/cec/CTR/CecControl/GetCecState.html">GetCecState</a></code> can get is <code><span>DAEMON_STATE_COMMUNICATING</span></code> or <code><span>DAEMON_STATE_BUSY</span></code>, the communication or save process may be interrupted. <br /><br />
+ To access a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>, communications must be in the stopped state. <br />
+ Because <code>StopScanning(b_Immediate = true)</code> is called within <code><a href="../../../../nn/cec/CTR/MessageBox/OpenMessageBox.html">MessageBox::OpenMessageBox</a></code>, there is no need to consciously stop communications. However, you can wait on a halted state without interrupting a data save by using <code>StopScanning(b_Immediate = false)</code> in advance.</p><p><br /><br />
+ When <emphasis>b_Async</emphasis> is set to <code>true</code>, it might not enter <code>IDLE</code> status after exiting this function, such as when this function is called multiple times and cancels are issued. <br />
+ Note that even if <code><a href="../../../../nn/cec/CTR/MessageBox/WriteMessage.html">MessageBox::WriteMessage</a></code> or similar functions are called after this function is called, an error might be generated because it is in the <code>BUSY</code> state.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

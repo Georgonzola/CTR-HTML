@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+<title>breakc - Break From Loop Statement by Condition</title>
+  </head>
+  <body>
+    <h1>breakc - Break from loop statement by condition</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+breakc  status0, status1, mode
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>status0</th>
+          <td>
+Value of status register 0. (The value is either 0 or 1.)<br />
+          </td>
+        </tr>
+        <tr>
+          <th>status1</th>
+          <td>
+Value of status register 1. (The value is either 0 or 1.)<br />
+          </td>
+        </tr>
+        <tr>
+          <th>mode</th>
+          <td>
+Conditional mode (0: OR, 1: AND, 2: Only status register 0, 3: Only status register 1).<br />
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+Forcibly exits a loop control block, conditional on the status register values.<br />The value specified by <SPAN class="argument">status0</SPAN> (or <SPAN class="argument">status1</SPAN>) is tested for equality against the value of status register 0 (or 1). When <SPAN class="argument">mode</SPAN> is 0, the result is <CODE>true</CODE> when either status register 0 or status register 1 matches its respective operand.<br /> When <SPAN class="argument">mode</SPAN> is <CODE>1</CODE>, both status registers must match their respective operands.<br /> When <SPAN class="argument">mode</SPAN> is <CODE>2</CODE>, status register 0 must match <SPAN class="argument">status0</SPAN>.<br /> When <SPAN class="argument">mode</SPAN> is <CODE>3</CODE>, status register 1 must match <SPAN class="argument">status1</SPAN>.<br /> When the condition is <CODE>true</CODE>, control is forced to exit a loop started by a <CODE>loop</CODE> instruction and then jumps to the instruction after the <CODE>endloop</CODE> instruction.<br />
+      </p>
+      <p class="warning">
+        The <CODE>breakc</CODE> instruction cannot be called between <CODE>ifb</CODE> (or <CODE>ifc</CODE>) and <CODE>endif</CODE> instructions that are nested between <CODE>loop</CODE> and <CODE>endloop</CODE> instructions.<br /> The <CODE>breakc</CODE> instruction also cannot be called immediately prior to an <CODE>endloop</CODE> instruction.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+for ( int i = 0, aL = src.init ; i < src.count+1 ; i++, aL += src.step )
+{
+    ...
+    switch ( mode )
+    {
+        case 0 :
+            if ( status0 == Status_register0 || status1 == Status_register1 )
+                condition = true;
+            break;
+        case 1 :
+            if ( status0 == Status_register0 && status1 == Status_register1 )
+                condition = true;
+            break;
+        case 2 :
+            if ( status0 == Status_register0 )
+                condition = true;
+            break;
+        case 3 :
+            if ( status1 == Status_register1 )
+                condition = true;
+            break;
+    }
+    if ( condition == true )
+        break;
+}
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+defi    i0, 10, 0, 1
+
+loop    i0
+    add     r0, r0, c0[ aL ]    // Add the total of c0, c1, ... , c9 to r0
+    breakc  1,  0,  2           // Break if status register 0 is equal to 1
+    nop                         // Cannot issue breakc immediately before endloop
+endloop
+</pre>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

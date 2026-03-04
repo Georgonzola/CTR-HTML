@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetTexture</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/tpl/Overview.html">tpl</a>::<a href="../../../nn/tpl/CTR/Overview.html">CTR</a>::GetTexture Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void * GetTexture(
+     <a href="../../../nn_types/s32.html">s32</a> * mipLevel,
+     <a href="../../../nn_types/u32.html">u32</a> * mipmapSize,
+     const void * pTexPackage,
+     const <a href="../../../nn_types/s16.html">s16</a> texIndex
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>mipLevel</th>
+          <td>Number of mipmap levels.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>mipmapSize</th>
+          <td>Data size (in bytes) of each mipmap (specify an array).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pTexPackage</th>
+          <td>Pointer to the header of a texture package file that has been loaded.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>texIndex</th>
+          <td>Texture index.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Pointer to the start of the texture. Returns <code>0</code> when nothing was found. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the texture.</p><p>Returns a pointer to the corresponding texture within the package. The main image is also considered to have the maximum size of all the mipmap levels. If the texture is found, the miplevel parameter always has a value of <code>1</code> or greater.</p><p>Specify valid pointers for <span class="argument">mipLevel</span> and <span class="argument">mipmapSize</span>.  If a <code>NULL</code> pointer is specified, the process stops on an assertion in the Development build.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/02/01</dt>
+        <dd><item xmlns="">Added a description of what happens when a NULL pointer is specified for the <span class="argument">mipLevel</span> and <span class="argument">mipmapSize</span> arguments.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

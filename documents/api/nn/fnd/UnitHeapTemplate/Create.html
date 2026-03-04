@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Create</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fnd/Overview.html">fnd</a>::<a href="../../../nn/fnd/UnitHeapTemplate/Overview.html">UnitHeapTemplate</a>::Create Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../nn/fnd/UnitHeapTemplate/Overview.html">UnitHeapTemplate</a> * Create(
+     <a href="../../../nn/fnd/HeapBase/Overview.html">HeapBase</a> * parent,
+     size_t unit,
+     void * addr,
+     size_t size,
+     <a href="../../../nn_types/s32.html">s32</a> alignment = DEFAULT_ALIGNMENT,
+     <a href="../../../nn_types/bit32.html">bit32</a> option = 0,
+     <a href="../../../nn_types/bit32.html">bit32</a> placement = HEAP_INFOPLACEMENT_HEAD
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>parent</th>
+          <td>Specifies the parent heap whose region contains <emphasis>addr</emphasis>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>unit</th>
+          <td>The size of the unit.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>addr</th>
+          <td>The starting address of the memory used by the unit heap.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>The size of the memory used by the unit heap.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>alignment</th>
+          <td>The alignment of the unit.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>option</th>
+          <td>Specifies the options Not yet implemented.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>placement</th>
+          <td>Specifies the location where the management region (<code>UnitHeap</code> object) is located.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a unit heap within a heap.</p><p>Heaps that are created with this function must be destroyed using <code><a href="../../../nn/fnd/HeapBase/Destroy.html">HeapBase::Destroy</a></code>. The actual <code>UnitHeap</code> object is created within the region defined by the values specified for the <emphasis>addr</emphasis> and <emphasis>size</emphasis> parameters. The actual size allocated to the heap is the size of the specified region minus <code>sizeof(UnitHeap)</code>.</p><p>Use the <emphasis>placement</emphasis> parameter to specify where the <code>UnitHeap</code> object is placed. If you specify <code>HEAP_INFOPLACEMENT_HEAD</code> for placement, the actual <code>UnitHeap</code> object is placed at the start of the region (the region that starts at <emphasis>addr</emphasis> and ends at <code>addr+sizeof(UnitHeap)</code>. If you specify <code>HEAP_INFOPLACEMENT_TAIL</code> for placement, the actual <code>UnitHeap</code> object is placed at the end of the region (the region that starts at <code>addr+size-sizeof(UnitHeap)</code> and ends at <code>addr+size</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/08</dt>
+        <dd><item xmlns="">Added the placement argument, which is used to specify where to place the management region.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

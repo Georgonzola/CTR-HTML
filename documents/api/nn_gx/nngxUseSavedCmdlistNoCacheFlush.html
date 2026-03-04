@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxUseSavedCmdlistNoCacheFlush</title>
+  </head>
+  <body>
+    <h1>nngxUseSavedCmdlistNoCacheFlush Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxUseSavedCmdlistNoCacheFlush(
+     GLuint cmdlist,
+     GLuint bufferoffset,
+     GLsizei buffersize,
+     GLuint requestid,
+     GLsizei requestsize,
+     GLbitfield statemask
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>cmdlist</th>
+          <td>The command list that is saved.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferoffset</th>
+          <td>The saved information obtained with the <code>nngxStopCmdlistSave</code> function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>buffersize</th>
+          <td>The saved information obtained with the <code>nngxStopCmdlistSave</code> function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>requestid</th>
+          <td>The saved information obtained with the <code>nngxStopCmdlistSave</code> function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>requestsize</th>
+          <td>The saved information obtained with the <code>nngxStopCmdlistSave</code> function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>statemask</th>
+          <td>Specifies a state flag that creates a complete command (bitwise OR).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Adds the saved command to the current command request. (No cache flush.)</p><p>This function provides the same functionality as when calling <tt><a href="../nn_gx/nngxUseSavedCmdlist.html">nngxUseSavedCmdlist</a></tt> using <tt>GL_FALSE</tt> specified in <span class="argument">copycmd</span>. However, this function uses different error codes and does not flush the added 3D command buffer.  If you do not need to flush the 3D command buffer to be added when calling <tt><a href="../nn_gx/nngxUseSavedCmdlist.html">nngxUseSavedCmdlist</a></tt> and passing <tt>GL_FALSE</tt> for <span class="argument">copycmd</span>, use of this function instead can eliminate the cost of flushing the cache.</p><p>Make sure that the application guarantees that the cache is flushed for the 3D command buffer region to be added.</p><p>For information about other parameters and features of this function, see <tt><a href="../nn_gx/nngxUseSavedCmdlist.html">nngxUseSavedCmdlist</a></tt>.</p><p>This function generates the following errors.<TABLE><TR><th>GL_ERROR_8092_DMP</th><TD><tt>0</tt> is bound to the current command list.</TD></TR><TR><th>GL_ERROR_8093_DMP</th><TD>Invalid value specified for <span class="argument">cmdlist</span></TD></TR><TR><th>GL_ERROR_8095_DMP</th><TD>This function has added saved commands that exceed the maximum size of the current command list’s 3D command buffer and command requests</TD></TR></TABLE></p></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxStopCmdlistSave.html">nngxStopCmdlistSave</a><br /><a href="../nn_gx/nngxUseSavedCmdlist.html">nngxUseSavedCmdlist</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added the See Also section.</item><br />
+        </dd>
+        <dt>2011/08/24</dt>
+        <dd><item xmlns="">Removed <tt>GL_ERROR_8094_DMP</tt>, as the <tt>cmdlist</tt> parameter now supports the current command list.</item><br />
+        </dd>
+        <dt>2011/07/28</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

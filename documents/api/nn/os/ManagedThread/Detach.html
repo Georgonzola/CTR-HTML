@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Detach</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a>::Detach Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+void Detach();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Detaches a thread so it is no longer subject to management.</p><p>The thread that this instance is managing is detached from this instance. After this is done, operations on this thread are no longer possible, but by calling <code><a href="../../../nn/os/ManagedThread/Finalize.html">Finalize</a></code> you can deallocate the resources being used by this instance.</p><p>After you have called this function, do not call any other member function other than <code><a href="../../../nn/os/ManagedThread/Finalize.html">Finalize</a></code>.</p><p>After a thread has been detached there is no appropriate way to release the stack because there is no way to reliably identify the end of the thread.</p><p>To prevent this from happening, do not call this function when you are not using <code><a href="../../../nn/os/AutoStackManager/Overview.html">AutoStackManager</a></code> (for example, when you have used <code><a href="../../../nn/os/ManagedThread/Initialize.html">Initialize</a></code> or <code><a href="../../../nn/os/ManagedThread/TryInitialize.html">TryInitialize</a></code>).</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/13</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ngc/Overview.html">ngc</a>::<a href="../../../../nn/ngc/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ngc/CTR/ProfanityFilter/Overview.html">ProfanityFilter</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/Result/Overview.html">nn::Result</a> Initialize();
+
+<a href="../../../../nn/Result/Overview.html">nn::Result</a> Initialize(
+     <a href="../../../../nn_types/uptr.html">uptr</a> pWorkMemory
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./Initialize(0).html">Initialize (  ) </a>
+          </td>
+          <td>Initializes the profanity filtering class.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./Initialize(1).html">Initialize ( uptr ) </a>
+          </td>
+          <td>Initializes the profanity filtering class.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of Initialize (  ) </h2>
+    <div class="section"><p>Uses <code>MemoryBlock</code> to secure a working memory region. Uses <code><span>ProfanityFilter::WORKMEMORY_SIZE</span></code> bytes (64 KB) of memory.</p></div>
+    <h2>Description of Initialize ( uptr ) </h2>
+    <div class="section"><p>The specified memory region is used as the working area. Do not write any data to this working area, or release the area while it is in use. This class does not release the specified memory region when it has finished using it, so the area must be managed by the application side. You must allocate <emphasis><span>ProfanityFilter::WORKMEMORY_SIZE</span></emphasis> (64 KB) of memory, and the region must be aligned to <emphasis>WORKMEMORY_ALIGNMENT</emphasis> (4 bytes).</p></div>
+  </body>
+</html>

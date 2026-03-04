@@ -1,0 +1,748 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ctr_makecro</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size     : 150%;
+  font-family       : Arial;
+  border-bottom-width   : 5px;
+  border-bottom-style   : solid;
+  border-bottom-color   : #CD202C;
+  padding-bottom        : 1px;
+  margin-bottom     : 20px;
+  letter-spacing        : normal;
+  font-weight       : bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+CODE {
+  font-family       : "Courier New", monospace;
+  left          : 12px;
+  font-size     : 10pt;
+}
+table {
+    margin: 0.5em 0 0.5em 1em;
+    padding-left      : 0pt;
+    padding-right     : 0pt;
+    font-family       : Arial;
+    font-size         : 0.8em;
+    border-style      : none;
+}
+table table
+{
+  border-collapse   : collapse;
+  width             : 90%;
+}
+table table td
+{
+  border      : solid 1px black;
+}
+th
+{
+    white-space: nowrap;
+}
+
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+table tbody th
+{
+    white-space: nowrap;
+    background        : #e8f4f4;
+    font-weight       : normal;
+    font-family: monospace;
+}
+
+p {
+    margin-left     : 4px;
+}
+pre.code {
+    margin-left     : 1em;
+  font-family       : "Courier New", monospace;
+  left          : 12px;
+  font-size     : 10pt;
+  background            : #e8f4f4;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+<h1>ctr_makecro</h1>
+
+
+<h2><a name="intro">Introduction</a></h2>
+<p>
+    <CODE>ctr_makecro</CODE> is a Windows program for making <CODE>.cro</CODE> files.<br/> <CODE>ctr_makecro</CODE> also has features that are necessary for making <CODE>.cro</CODE> files such as a feature for making and updating the <CODE>.xrl</CODE> files that are necessary to create <CODE>.cro</CODE> files and a feature for creating files that are then given to the linker from <CODE>.xrl</CODE> files.
+</p>
+<p>
+    For more information, see <a href="../TechnicalNotes/Dll/BuildSystemDevelopmentGuideForDllAdvanced.html" target="_parent">Guide to Developing a Build System (for High-Level DLLs)</a>.
+</p>
+
+
+
+
+
+<h2><a name="usage">How to Use</a></h2>
+
+<ul>
+<li><a href="#make_cro">Create <CODE>.CRO</CODE> and <CODE>.CRS</CODE> Files</a></li>
+<li><a href="#merge_unresolved">Merge Undefined Symbols in <CODE>.XRL</CODE> Files</a></li>
+<li><a href="#resolve_xrl">Resolve <CODE>.XRL</CODE> File References</a></li>
+<li><a href="#make_xrl">Create <CODE>.XRL</CODE> Files</a></li>
+<li><a href="#merge_xrl">Merge <CODE>.XRL</CODE> Files</a></li>
+<li><a href="#record_offset">Record an Offset for <CODE>.XRL</CODE> Files</a></li>
+<li><a href="#make_edit">Create Steering Files</a></li>
+<li><a href="#replace_symbol">Replace Unresolved Symbols</a></li>
+<li><a href="#make_export_cmd">Create a Command File for Forced Exports</a></li>
+<li><a href="#make_import_cmd">Create a Command File for Forced Imports</a></li>
+</ul>
+
+<hr />
+<h3><a name="make_cro">Create .CRO and .CRS Files</a></h3>
+
+<h4>What Is Required</h4>
+<p>
+    The following files are used for creating <CODE>.cro</CODE> and <CODE>.crs</CODE> files.
+</p>
+<ul>
+<li>The <CODE>.xrl</CODE> file that contains the details for the <CODE>.cro</CODE> file.</li>
+<li>The <CODE>.xrl</CODE> file that records the module offset for modules that are referenced and have offset as the export type.</li>
+<li>For <CODE>.crs</CODE> files, the <CODE>.axf</CODE> files for static modules.</li>
+<li>For <CODE>.cro</CODE> files, the <CODE>.axf</CODE> files for dynamic modules that were linked by specifying the <CODE>-dll</CODE> option.</li>
+</ul>
+
+<h4>Commands</h4>
+<pre class="code">
+% ctr_makecro -o CRO_FILE -t RLT_FILE -d XRL_FILE [-r REF_FILE [-r REF_FILE2 ...]] AXF_FILE
+</pre>
+
+<h4>Options</h4>
+<table border="1" summary="options">
+<thead>
+<tr>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th><CODE>-o CRO_FILE</CODE></th>
+    <td>
+        Specifies the output path for the <CODE>.cro</CODE> or <CODE>.crs</CODE> file.<br/> The <CODE>.xrl</CODE> file specified with the <CODE>-d</CODE> option determines whether a <CODE>.cro</CODE> or <CODE>.crs</CODE> file is created.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-t RLT_FILE</CODE></th>
+    <td>
+        Specifies the output path for the <CODE>.rlt</CODE> file.<br/> This <CODE>.rlt</CODE> file is necessary for creating a <CODE>.crr</CODE> file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-d XRL_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.xrl</CODE> file that contains the details for the <CODE>.cro</CODE> file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-r REF_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.xrl</CODE> file that is referenced to resolve offsets.<br/> To specify multiple <CODE>.xrl</CODE> files, specify the <CODE>-r</CODE> option multiple times in the command.
+    </td>
+</tr>
+<tr>
+    <th><CODE>AXF_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.axf</CODE> file to convert to a <CODE>.cro</CODE> file.
+    </td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+<h3><a name="merge_unresolved">Merge Undefined Symbols in .XRL Files</a></h3>
+
+<h4>What Is Required</h4>
+<p>
+    The following files are used when merging undefined <CODE>.xrl</CODE> symbols.
+</p>
+<ul>
+<li>The <CODE>.xrl</CODE> file for static modules.</li>
+<li>The <CODE>.xrl</CODE> file for dynamic modules.</li>
+</ul>
+
+<h4>Commands</h4>
+<pre class="code">
+% ctr_makecro -c [-i|-e] -o OUT_FILE -r REF_FILE [-r REF_FILE2 ...] BASE_FILE
+</pre>
+
+<p>
+    When specifying options, make sure to specify either the <CODE>-i</CODE> or <CODE>-e</CODE> option. If you do not specify either option, the export type for undefined symbols is <CODE>symbol</CODE>.
+</p>
+
+<h4>Options</h4>
+<table border="1" summary="options">
+<thead>
+<tr>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th><CODE>-c</CODE></th>
+    <td>
+        Specifies to merge the undefined symbols in the <CODE>.xrl</CODE> files.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-i</CODE></th>
+    <td>
+        Specifies <CODE>index</CODE> as the export type for undefined symbols.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-e</CODE></th>
+    <td>
+        Specifies <CODE>offset</CODE> as the export type for undefined symbols.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-o OUTPUT_FILE</CODE></th>
+    <td>
+        Specifies the output path for the <CODE>.xrl</CODE> file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-r REF_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.xrl</CODE> file for dynamic modules.<br/> To specify multiple <CODE>.xrl</CODE> files, specify the <CODE>-r</CODE> option multiple times in the command.
+    </td>
+</tr>
+<tr>
+    <th><CODE>BASE_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.xrl</CODE> file for static modules.
+    </td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+<h3><a name="resolve_xrl">Resolve XRL File References</a></h3>
+
+<h4>What Is Required</h4>
+<p>
+    The following files are used when resolving <CODE>.xrl</CODE> file references.
+</p>
+<ul>
+<li>The <CODE>.xrl</CODE> file for which references are resolved.</li>
+<li>The <CODE>.xrl</CODE> file that is referenced.</li>
+</ul>
+
+<h4>Commands</h4>
+<pre class="code">
+% ctr_makecro -f -o OUT_FILE -r REF_FILE1 [-r REF_FILE2 ...] BASE_FILE
+</pre>
+
+<h4>Options</h4>
+<table border="1" summary="options">
+<thead>
+<tr>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th><CODE>-f</CODE></th>
+    <td>
+        Specifies to resolve <CODE>.xrl</CODE> file references.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-o OUTPUT_FILE</CODE></th>
+    <td>
+        Specifies the output path for the <CODE>.xrl</CODE> file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-r XRL_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.xrl</CODE> file to reference for dynamic modules.<br/> To specify multiple <CODE>.xrl</CODE> files, specify the <CODE>-r</CODE> option multiple times in the command.
+    </td>
+</tr>
+<tr>
+    <th><CODE>BASE_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.xrl</CODE> file for which references are resolved.
+    </td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+<h3><a name="make_xrl">Create .XRL Files</a></h3>
+
+<h4>What Is Required</h4>
+<p>
+    The following files are used when creating <CODE>.xrl</CODE> files.
+</p>
+<ul>
+<li>The <CODE>.plf</CODE> files for which the target modules were linked with the <CODE>-partial</CODE> option.</li>
+</ul>
+
+<h4>Commands</h4>
+<pre class="code">
+% ctr_makecro -l [-a] [-i|-e] -o OUT_FILE PLF_FILE
+</pre>
+
+<p>
+    Specify the <CODE>-a</CODE> option when you create <CODE>.xrl</CODE> files for static modules. If you do not specify the <CODE>-a</CODE> option, <CODE>.xrl</CODE> files for dynamic modules are created.
+</p>
+<p>
+    When specifying options, make sure to specify either the <CODE>-i</CODE> or <CODE>-e</CODE> option. If you do not specify either option, the export type is <CODE>symbol</CODE>.
+</p>
+
+<h4>Options</h4>
+<table border="1" summary="options">
+<thead>
+<tr>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th><code>-l</code></th>
+    <td>
+        Specifies the creation of the <CODE>.xrl</CODE> file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-a</CODE></th>
+    <td>
+        Specifies that the <CODE>.xrl</CODE> file is for static modules.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-i</CODE></th>
+    <td>
+        Specifies <CODE>index</CODE> as the export type.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-e</CODE></th>
+    <td>
+        Specifies <CODE>offset</CODE> as the export type.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-o OUTPUT_FILE</CODE></th>
+    <td>
+        Specifies the output path for the <CODE>.xrl</CODE> file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>PLF_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.plf</CODE> file that is used to create the <CODE>.xrl</CODE> file.
+    </td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+<h3><a name="merge_xrl">Merge .XRL Files</a></h3>
+
+<h4>What Is Required</h4>
+<p>
+    The following files are used when merging <CODE>.xrl</CODE> files.
+</p>
+<ul>
+<li>The two <CODE>.xrl</CODE> files to merge.</li>
+</ul>
+
+<h4>Commands</h4>
+<pre class="code">
+% ctr_makecro -m -o OUT_FILE -d XRL_FILE1 -d XRL_FILE2 [-n MODULE_NAME] [-g]
+</pre>
+
+<h4>Options</h4>
+<table border="1" summary="options">
+<thead>
+<tr>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th><CODE>-m</CODE></th>
+    <td>
+        Specifies the merging of the <CODE>.xrl</CODE> files.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-o OUTPUT_FILE</CODE></th>
+    <td>
+        Specifies the output path for the <CODE>.xrl</CODE> file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-d XRL_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.xrl</CODE> files to merge.<br/> Two <CODE>.xrl</CODE> files must be specified.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-n MODULE_NAME</CODE></th>
+    <td>
+        Specifies the name for the merged module.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-g</CODE></th>
+    <td>
+        Specifies that no error occurs if there are duplicate symbols.
+    </td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+<h3><a name="record_offset">Record an Offset for .XRL Files</a></h3>
+
+<h4>What Is Required</h4>
+<p>
+    The following files are used when recording an offset for <CODE>.xrl</CODE> files.
+</p>
+<ul>
+<li>The <CODE>.xrl</CODE> files for the modules for which an offset is recorded.</li>
+<li>The <CODE>.axf</CODE> files for the modules that correspond to the <CODE>.xrl</CODE> files.</li>
+</ul>
+
+<h4>Commands</h4>
+<pre class="code">
+% ctr_makecro -p -o OUT_FILE -d IN_FILE AXF_FILE
+</pre>
+
+<h4>Options</h4>
+<table border="1" summary="options">
+<thead>
+<tr>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th><CODE>-p</CODE></th>
+    <td>
+        Specifies the recording of an offset to the <CODE>.xrl</CODE> file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-o OUTPUT_FILE</CODE></th>
+    <td>
+        Specifies the output path for the <CODE>.xrl</CODE> file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-d IN_FILE</CODE></th>
+    <td>
+        Specifies the base <CODE>.xrl</CODE> file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>AXF_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.axf</CODE> file that was the basis for the <CODE>.cro</CODE> file that corresponds to the <CODE>IN_FILE</CODE> file.
+    </td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+<h3><a name="make_edit">Create Steering Files</a></h3>
+
+<h4>What Is Required</h4>
+<p>
+    The following files are used when you create a steering file.
+</p>
+<ul>
+<li><CODE>.xrl</CODE> files</li>
+</ul>
+
+<h4>Commands</h4>
+<pre class="code">
+% ctr_makecro -s -o OUT_FILE XRL_FILE
+</pre>
+
+<h4>Options</h4>
+<table border="1" summary="options">
+<thead>
+<tr>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th>-s</th>
+    <td>
+        Specifies the creation of a steering file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-o OUTPUT_FILE</CODE></th>
+    <td>
+        Specifies the output path for the file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>XRL_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.xrl</CODE> file that is the basis for the steering file.
+    </td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+<h3><a name="replace_symbol">Replace Unresolved Symbols</a></h3>
+
+<h4>What Is Required</h4>
+<p>
+    The following files are used when replacing unresolved symbols.
+</p>
+<ul>
+<li>The <CODE>.axf</CODE> files for the static modules for which unresolved symbols are replaced</li>
+</ul>
+
+<h4>Commands</h4>
+<pre class="code">
+% ctr_makecro -u SYMBOL -o OUT_FILE AXF_FILE
+</pre>
+
+<h4>Options</h4>
+<table border="1" summary="options">
+<thead>
+<tr>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th><CODE>-u SYMBOL</CODE></th>
+    <td>
+        Specifies the replacement of unresolved symbols.<br/> <CODE>SYMBOL</CODE> specifies the symbols to replace.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-o OUTPUT_FILE</CODE></th>
+    <td>
+        Specifies the output path for the file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>AXF_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.axf</CODE> file for which unresolved symbols are replaced.
+    </td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+<h3><a name="make_export_cmd">Create a Command File for Forced Exports</a></h3>
+
+<h4>What Is Required</h4>
+<p>
+    The following files are used when creating a command file for forced exports.
+</p>
+<ul>
+<li><CODE>.xrl</CODE> files</li>
+</ul>
+
+<h4>Commands</h4>
+<pre class="code">
+% ctr_makecro -x [-y SYMBOL] -o OUT_FILE XRL_FILE
+</pre>
+
+<h4>Options</h4>
+<table border="1" summary="options">
+<thead>
+<tr>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th><CODE>-x</CODE></th>
+    <td>
+        Specifies the creation of a command file for forced exports.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-y SYMBOL</CODE></th>
+    <td>
+        Specifies the names of the symbols that force an export when they are added.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-o OUTPUT_FILE</CODE></th>
+    <td>
+        Specifies the output path for the file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>XRL_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.xrl</CODE> file that is the basis for the command file.
+    </td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+<h3><a name="make_import_cmd">Create a Command File for Forced Imports</a></h3>
+
+<h4>What Is Required</h4>
+<p>
+    The following files are used when creating a command file for forced imports.
+</p>
+<ul>
+<li><CODE>.xrl</CODE> files</li>
+</ul>
+
+<h4>Commands</h4>
+<pre class="code">
+% ctr_makecro -w -o OUT_FILE XRL_FILE
+</pre>
+
+<h4>Options</h4>
+<table border="1" summary="options">
+<thead>
+<tr>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th><CODE>-w</CODE></th>
+    <td>
+        Specifies the creation of a command file for forced imports.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-o OUTPUT_FILE</CODE></th>
+    <td>
+        Specifies the output path for the file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>XRL_FILE</CODE></th>
+    <td>
+        Specifies the <CODE>.xrl</CODE> file that is the basis for the command file.
+    </td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+<h2><a name="history">Revision History</a></h2>
+    <dl class="history">
+      <dt>2012/06/22</dt>
+      <dd>Initial version.</dd>
+    </dl>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

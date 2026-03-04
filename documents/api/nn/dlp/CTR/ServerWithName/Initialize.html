@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dlp/Overview.html">dlp</a>::<a href="../../../../nn/dlp/CTR/Overview.html">CTR</a>::<a href="../../../../nn/dlp/CTR/ServerWithName/Overview.html">ServerWithName</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">nn::Result</a> Initialize(
+     bool * pNotice,
+     nn::Handle eventHandle,
+     <a href="../../../../nn_types/u8.html">u8</a> maxClientNum,
+     <a href="../../../../nn_types/u8.html">u8</a> childIndex,
+     void * pBuffer,
+     size_t bufferSize,
+     size_t blockBufferSize = <a href="../../../../nn/dlp/CTR/MIN_NETWORK_BLOCK_BUFFER_SIZE.html">MIN_NETWORK_BLOCK_BUFFER_SIZE</a> *2,
+     size_t blockBufferNum = <a href="../../../../nn/dlp/CTR/MIN_NETWORK_BLOCK_BUFFER_NUM.html">MIN_NETWORK_BLOCK_BUFFER_NUM</a>,
+     <a href="../../../../nn/cfg/CTR/UserName/Overview.html">nn::cfg::UserName</a> * pUserName = NULL
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pNotice</th>
+          <td>Returns <code>true</code> if message display is required. For more information, see the Description section further down on this page.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>eventHandle</th>
+          <td>Specifies a handle to the <code><a href="../../../../nn/os/Event/Overview.html">nn::os::Event</a></code> object waiting for a signal from Download Play. Initialize the event in the application. Use the <code><a href="../../../../nn/dlp/CTR/Server/GetEventDesc.html">GetEventDesc</a></code> function to get the event information.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxClientNum</th>
+          <td>Specifies the maximum number of clients (from <code>1</code> to <code><a href="../../../../nn/dlp/CTR/MAX_CLIENT_NUM.html">MAX_CLIENT_NUM</a></code>) that can connect to the server.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>childIndex</th>
+          <td>Specify the index (the RSF <code>ChildIndex</code>) of the child program to distribute. You can specify a value between 0 and 255. (A server can have up to 256 children.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Pointer to the DLP working buffer. Align to a 4096-byte boundary.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>Specifies the size of the work buffer. Align to a 4096-byte boundary.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>blockBufferSize</th>
+          <td>This size is the size of the block buffer when data that has been read from a file is kept before sending. Specify a size greater than or equal to <code><a href="../../../../nn/dlp/CTR/MIN_NETWORK_BLOCK_BUFFER_SIZE.html">MIN_NETWORK_BLOCK_BUFFER_SIZE</a></code> and less than or equal to <code><a href="../../../../nn/dlp/CTR/MAX_NETWORK_BLOCK_BUFFER_SIZE.html">MAX_NETWORK_BLOCK_BUFFER_SIZE</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>blockBufferNum</th>
+          <td>Specifies the number of block buffers. Specify a number greater than or equal to <code><a href="../../../../nn/dlp/CTR/MIN_NETWORK_BLOCK_BUFFER_NUM.html">MIN_NETWORK_BLOCK_BUFFER_NUM</a></code> and less than or equal to <code><a href="../../../../nn/dlp/CTR/MAX_NETWORK_BLOCK_BUFFER_NUM.html">MAX_NETWORK_BLOCK_BUFFER_NUM</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pUserName</th>
+          <td>Specifies the user name. Handle the user name according to the UGC section in the 3DS Guidelines and the information on this page. The user name set in system settings is used if <code>NULL</code> is specified here.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">The following <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values are returned as the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Indicates that initialization succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td><emphasis>pBuffer</emphasis> is either <code>NULL</code> or not aligned to 4096 bytes.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfRange</th>
+          <td><emphasis>maxClientNum</emphasis>, <emphasis>bufferSize</emphasis>, <emphasis>blockBufferSize</emphasis>, and <emphasis>blockBufferNum</emphasis> are invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidHandle</th>
+          <td><emphasis>eventHandle</emphasis> is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyOccupiedWirelessDevice</th>
+          <td>The wireless device is already occupied for another purpose. Exit the other wireless process.</td>
+        </tr>
+        <tr>
+          <th>ResultInternalError</th>
+          <td>An irrecoverable error occurred internally.</td>
+        </tr>
+        <tr>
+          <th>ResultWirelessOff</th>
+          <td>Communication is impossible. (The system is in Sleep Mode or wireless-disabled mode.)</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMediaType</th>
+          <td>The media type of the parent device is not supported.</td>
+        </tr>
+        <tr>
+          <th>ResultFailedToAccessMedia</th>
+          <td>Cannot access the media. The child program may not be properly installed on the parent or a card may have been removed.</td>
+        </tr>
+        <tr>
+          <th>ResultChildTooLarge</th>
+          <td>The child program exceeds the standard import size (<code><a href="../../../../nn/dlp/CTR/MAX_CHILD_IMPORT_SIZE.html">MAX_CHILD_IMPORT_SIZE</a></code>).</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidRegion</th>
+          <td>The child program and the system have different regions.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the server by specifying a user name.</p><p>This function is the same as <code>nn:dlp::<a href="../../../../nn/dlp/CTR/Server/Initialize.html">Server::Initialize</a></code>, with the added ability to set a user name. <br />
+ Cautions about user names are described here. <br />
+ The user name specified by <emphasis>pUserName</emphasis> (the <code>userName</code> member of <code>nn::cfg::UserName</code>) is checked to determine whether it follows UGC guidelines. If it includes profanity, set the profanity flag (the <code>isNgUserName</code> member of <code>nn:cfg::UserName</code>) to <code>true</code>. <br />
+ If the profanity flag has been set to <code>true</code>, do not modify the profanity in the user name and pass it to this function. <br />
+ Note, however, that the user name specified with this function can be obtained as node information. When displaying the obtained user name together with other node information to a user, make sure that you follow the guidelines for the profanity flag and process appropriately. <br />
+ The reason the system needs to display user names by looking at the profanity flag is so that the functionality matches the download play of built-in system applications. You must follow these instructions.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/01/20</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+        <dt>2012/04/12</dt>
+        <dd><item xmlns="">Deleted the explanation about ResultInvalidMediaType.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

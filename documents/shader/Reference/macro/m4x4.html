@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>m4x4 - 4x4 multiply</title>
+  </head>
+  <body>
+    <h1>m4x4 - 4x4 multiply</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+m4x4    dest, src0, src1
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Registers</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>dest</th>
+          <td>
+            An output register or temporary register.<br />Cannot use anything other than the default mask  { .xyzw }.<br />
+          </td>
+        </tr>
+        <tr>
+          <th>src0</th>
+          <td>
+            A temporary register, an input register, or a floating-point constant register.<br />
+          </td>
+        </tr>
+        <tr>
+          <th>src1</th>
+          <td>
+            A temporary register, an input register, or a floating-point constant register.<br />Specifies the starting register of a 4x4  matrix. (In other words, if <SPAN class="argument">src1</SPAN> is <CODE>r0</CODE>, then the 4&times;4 matrix is stored in <CODE>r0</CODE>, <CODE>r1</CODE>, <CODE>r2</CODE> and <CODE>r3</CODE>.)<br />
+          </td>
+        </tr>
+      </table>
+      <p class="notice">
+        You cannot specify a floating-point constant register for both <SPAN class="argument">src0</SPAN> and <SPAN class="argument">src1</SPAN>.<br /> You cannot specify an input register for both <SPAN class="argument">src0</SPAN> and <SPAN class="argument">src1</SPAN> at the same time.<br /> You cannot specify the same register for <SPAN class="argument">dest</SPAN> and <SPAN class="argument">src0</SPAN>.<br />
+      </p>
+      <p class="warning">
+        If you set <SPAN class="argument">dest</SPAN> to the registers that immediately follow <SPAN class="argument">src1</SPAN> (this is <SPAN class="argument">src2</SPAN>, <SPAN class="argument">src3</SPAN>, <SPAN class="argument">src4</SPAN> in Macro Expansion below), there is no way to anticipate the result because the contents of those registers will be updated during the execution of the expanded instructions.<br />
+      </p>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Stores the result of multiplying a 4&times;4 matrix and a 4-component vector in <SPAN class="argument">dest</SPAN>.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+src2 = Next_Index_Of ( src1 )
+src3 = Next_Index_Of ( src2 )
+src4 = Next_Index_Of ( src3 )
+dest.x = ( src0.x * src1.x ) + ( src0.y * src1.y ) + ( src0.z * src1.z ) + ( src0.w * src1.w )
+dest.y = ( src0.x * src2.x ) + ( src0.y * src2.y ) + ( src0.z * src2.z ) + ( src0.w * src2.w )
+dest.z = ( src0.x * src3.x ) + ( src0.y * src3.y ) + ( src0.z * src3.z ) + ( src0.w * src3.w )
+dest.w = ( src0.x * src4.x ) + ( src0.y * src4.y ) + ( src0.z * src4.z ) + ( src0.w * src4.w )
+</pre>
+    </div>
+
+    <h2>Macro Expansion</h2>
+    <div class="section">
+<pre class="definition">
+dp4     dest.x, src0, src1
+dp4     dest.y, src0, src2  // src2 = next index of src1
+dp4     dest.z, src0, src3  // src3 = next index of src2
+dp4     dest.w, src0, src4  // src4 = next index of src3
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+m4x4    r0, r1, c0
+// This is expanded as follows
+// dp4     r0.x, r1, c0
+// dp4     r0.y, r1, c1
+// dp4     r0.z, r1, c2
+// dp4     r0.w, r1, c3
+</pre>
+    </div>
+
+    <h2>Timetable</h2>
+    <div class="section">
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="empty"></td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="empty" colspan="2"></td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="empty" colspan="3"></td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

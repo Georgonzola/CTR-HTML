@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::ResultError</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::ResultError Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ResultError</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for getting processing results and error determinations.</p>The <tt>ResultError</tt> objects returned by the functions of the EC library must be properly handled by the application. The following pseudocode is an example of how to handle these errors.<pre>
+ResultError resultError = SomeEcLibraryFunction();
+
+// When you send a request to the EC applet, you must check for any
+// requests to close the application before handling any other errors. 
+if(resultError.GetResult() == ResultAppletCloseApplicationRequested())
+{
+    // Finalize the application. 
+}
+else if(resultError.IsFailure())
+{
+    if(SD card inserted or removed)
+    {
+        // If an SD card is inserted or removed while calling an EC library function, 
+        // unexpected errors could occur. Before checking the ResultError object, determine whether an SD card
+        // has been inserted or removed. If so, stop any processes that use the EC library. 
+        // See the fs library reference for instructions on detecting the insertion or removal of an SD card. 
+        
+        // If the SD card is reinserted and you want to start again, you must execute
+        // the EcApplet::RequestInitializeSession function to re-create the session. 
+    }
+    else
+    {
+        if(resultError.NeedsShowErrorCode())
+        {
+            // The error code must be displayed, so call the Error/EULA applet. 
+            // You can get the error code to display in the Error/EULA applet using the resultError.GetErrorCode function. 
+        }
+        
+        if(resultError.RequiresNewSession())
+        {
+            // A new session must be initialized. 
+            // This error occurs when there is a discrepancy between the session and the information on the eShop Server,
+            // such as when a data title is updated on the server. 
+
+            // The current session must be destroyed and a new one initialized
+            // by calling the EcApplet::RequestInitializeSession function again. 
+
+            // The user will be notified by the EC applet, so the application does not need to give any notices to the user.  
+        }
+        else if(resultError.IndicatesServiceNotAvailable())
+        {
+            // The eShop Service is not available. 
+            // Stop the process that is attempting to connect to the eShop Service. 
+
+            // The user will be notified by the EC applet, so the application does not need to give any notices to the user.  
+        }
+        else
+        {
+            // If there are any errors that the application needs to handle, handle them here. 
+            switch(resultError.GetResult().GetValue())
+            {
+                ...
+            }
+
+            // Fix any Result objects caused by bugs in the program, such as Result objects that are an ec module with a level of NN_LEVEL_USAGE or NN_LEVEL_PERMANENT,
+            // so that they no longer occur in the development phase. 
+            
+            // If this code is reached for some other reason, go back to the state before the function was called. 
+            // The program might run correctly if the user repeats the same actions. 
+
+            // For example, if a DLC update or Nintendo Network ID sign-in is canceled, 
+            // an error might be returned. 
+
+            // The user is notified of such errors by the EC applet or the Error/EULA applet, so the application does not need to do so. 
+            // If the state prior to calling the function was a content or item list, 
+            // the state might have changed even if the function call failed, so update the list. 
+        }
+    }
+}
+            </pre></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ResultError/GetResult.html">GetResult</a>
+            </th>
+            <td>Gets <code><a href="../../../../nn/Result/Overview.html">nn::Result</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ResultError/GetResultRaw.html">GetResultRaw</a>
+            </th>
+            <td>Gets the <code><a href="../../../../nn/Result/Overview.html">nn::Result</a></code> that was handled internally. Debugging function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ResultError/IsSuccess.html">IsSuccess</a>
+            </th>
+            <td>Determines whether the processing result succeeded.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ResultError/IsFailure.html">IsFailure</a>
+            </th>
+            <td>Determines whether the processing result failed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ResultError/NeedsShowErrorCode.html">NeedsShowErrorCode</a>
+            </th>
+            <td>Determines whether the error necessitates displaying the error code.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ResultError/GetErrorCode.html">GetErrorCode</a>
+            </th>
+            <td>Gets the error code.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ResultError/RequiresNewSession.html">RequiresNewSession</a>
+            </th>
+            <td>Determines whether the error necessitates initializing a new session.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ResultError/IndicatesServiceNotAvailable.html">IndicatesServiceNotAvailable</a>
+            </th>
+            <td>Determines whether the error indicates that the service is currently unavailable.</td>
+          </tr> </table>
+      </div>
+    </a>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CommitMessageBox</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cec/Overview.html">cec</a>::<a href="../../../../nn/cec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a>::CommitMessageBox Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/Result/Overview.html">nn::Result</a> CommitMessageBox();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns an <code><a href="../../../../nn/Result/Overview.html">nn::Result</a></code> value.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Commits the data written in the system save region.</p><p>When the program stops without calling this function, there is a chance that all changes from the previous commit to the present (the box's creation, its written or deleted messages, and so on) will be rolled back. <br />
+ (Because the data is also committed after the system saves data received via communications, changes are not necessarily always rolled back even if this function is not used to commit the data. ) <br /><bold>Note:</bold> This possibility of changes getting reverted also exists whenever communication control returns to the system (for example, due to Sleep Mode or HOME Menu transition). <br />
+ A commit is also performed when <code><a href="../../../../nn/cec/CTR/MessageBox/CloseMessageBox.html">CloseMessageBox()</a></code> is called.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,836 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::jpeg::CTR::JpegMpDecoder</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::JpegMpDecoder Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/jpeg.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class JpegMpDecoder : private <a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable< JpegMpDecoder ></a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This class performs JPEG decoding.</p><!-- write here --></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/BUFFER_ALIGNMENT.html">BUFFER_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the work buffer specified in <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Initialize.html">Initialize</a></code> must be aligned to. It is defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/DST_ALIGNMENT.html">DST_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address storing the decoded result of <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoder.html">StartJpegDecoder</a></code>, <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoderShrink.html">StartJpegDecoderShrink</a></code> or <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartMpDecoderLR.html">StartMpDecoderLR</a></code> must be aligned to. It is defined as 4 bytes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Initialize/Finalize</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetWorkBufferSize.html">GetWorkBufferSize</a>
+            </th>
+            <td>Calculates the number of bytes in the work buffer for the decoder object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/JpegMpDecoder.html">JpegMpDecoder</a>
+            </th>
+            <td>Constructs a decoder object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the decoder object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the decoder object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/~JpegMpDecoder.html">~JpegMpDecoder</a>
+            </th>
+            <td>Destructor. Calls <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Finalize.html">Finalize()</a></code>.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Settings Prior to Decoding</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetDstBufferSize.html">GetDstBufferSize</a>
+            </th>
+            <td>Calculates the number of bytes in the buffer where the decoded JPEG results (one image's worth) will be stored.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/SetOutputBufferWidth.html">SetOutputBufferWidth</a>
+            </th>
+            <td>Sets the width of the output image buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/SetOption.html">SetOption</a>
+            </th>
+            <td>Specifies options for JPEG decoding.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetOption.html">GetOption</a>
+            </th>
+            <td>Gets the specified decoding options.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Decoding and Exif Data Extraction</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoder.html">StartJpegDecoder</a>
+            </th>
+            <td>Runs the JPEG decoder.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoderShrink.html">StartJpegDecoderShrink</a>
+            </th>
+            <td>Decodes a JPEG image and outputs it after shrinking.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartMpDecoderLR.html">StartMpDecoderLR</a>
+            </th>
+            <td>Runs the JPEG decoder on a pair of images stored in MP format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StopDecoder.html">StopDecoder</a>
+            </th>
+            <td>Requests to stop decoding that is being performed by another thread.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/ExtractExif.html">ExtractExif</a>
+            </th>
+            <td>Extracts <code>Exif</code> information. Because this function does not decode the image, it can get information more quickly than the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoder.html">StartJpegDecoder</a></code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpRegionsToBuildJpegData.html">GetMpRegionsToBuildJpegData</a>
+            </th>
+            <td>This function gets region information required to rebuild JPEG data from the individual image data stored in MP format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastError.html">GetLastError</a>
+            </th>
+            <td>Gets the reason for failure of the previous decoding operation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastWidth.html">GetLastWidth</a>
+            </th>
+            <td>Gets the width of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastHeight.html">GetLastHeight</a>
+            </th>
+            <td>Gets the height of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferWidth.html">GetLastOutputBufferWidth</a>
+            </th>
+            <td>Gets the width of the output image buffer where an image was decoded immediately previously.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferHeight.html">GetLastOutputBufferHeight</a>
+            </th>
+            <td>Gets the height of the output image buffer where an image was decoded immediately previously.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastDateTime.html">GetLastDateTime</a>
+            </th>
+            <td>Gets the time stamp (the time of capture) of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastDateTimePointer.html">GetLastDateTimePointer</a>
+            </th>
+            <td>Gets a string pointer to the time stamp (time of capture) of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastSoftwarePointer.html">GetLastSoftwarePointer</a>
+            </th>
+            <td>Gets a string pointer to the program name of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastSoftwareLength.html">GetLastSoftwareLength</a>
+            </th>
+            <td>Gets the number of characters in the program name string of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastUserMakerNotePointer.html">GetLastUserMakerNotePointer</a>
+            </th>
+            <td>Gets a pointer to the Maker Note for <a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a> applications of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastUserMakerNoteSize.html">GetLastUserMakerNoteSize</a>
+            </th>
+            <td>Gets the size in bytes of the Maker Note for <a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a> applications of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastTwlPhotoMakerNote.html">GetLastTwlPhotoMakerNote</a>
+            </th>
+            <td>Gets the Maker Note for the Nintendo DSi Camera of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call. ("Nintendo DSi Camera" is the name of a Nintendo DSi built-in application.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastTwlUserMakerNotePointer.html">GetLastTwlUserMakerNotePointer</a>
+            </th>
+            <td>Gets a pointer to the Maker Note for Nintendo DSi applications of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastTwlUserMakerNoteSize.html">GetLastTwlUserMakerNoteSize</a>
+            </th>
+            <td>Gets the size in bytes of the Maker Note for Nintendo DSi applications of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastImageUid.html">GetLastImageUid</a>
+            </th>
+            <td>Gets the unique ID from the Exif IFD of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOrientation.html">GetLastOrientation</a>
+            </th>
+            <td>Gets the image orientation from the <code>Exif</code> IFD of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Getting MP Index IFD Information</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpNumberOfImages.html">GetMpNumberOfImages</a>
+            </th>
+            <td>Gets the number of saved images, which is included in the MP index IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpImageUidListSize.html">GetMpImageUidListSize</a>
+            </th>
+            <td>Gets the size in bytes of the unique ID list for individual images. This size is included in the MP index IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpImageUidListOffset.html">GetMpImageUidListOffset</a>
+            </th>
+            <td>Gets the byte offset from the starting image to the unique ID list for individual images. This offset is included in the MP index IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpTotalFrames.html">GetMpTotalFrames</a>
+            </th>
+            <td>Gets the total number of frames taken. This number is included in the MP index IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpIndex.html">GetMpIndex</a>
+            </th>
+            <td>Gets the MP index image file directories (IFDs) included in the data stored in MP format.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Getting MP Entry Information</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpEntry.html">GetMpEntry</a>
+            </th>
+            <td>Gets an MP entry included in the data stored in MP format.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpImageType.html">GetMpImageType</a>
+            </th>
+            <td>Gets the management data for the individual image type. This data is included in the MP entry.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpImageSize.html">GetMpImageSize</a>
+            </th>
+            <td>Gets the size in bytes of the individual image data. This size is included in the MP entry.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpImageOffset.html">GetMpImageOffset</a>
+            </th>
+            <td>Gets the byte offset from the starting image to the individual image data. This offset is included in the MP entry.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpDependentImage1EntryNum.html">GetMpDependentImage1EntryNum</a>
+            </th>
+            <td>Gets the entry number for dependent image 1. This number is included in the MP entry.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpDependentImage2EntryNum.html">GetMpDependentImage2EntryNum</a>
+            </th>
+            <td>Gets the entry number for dependent image 2. This number is included in the MP entry.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Getting IFD Information by MP Attribute</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpIndividualNum.html">GetMpIndividualNum</a>
+            </th>
+            <td>Gets the individual image number, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpPanOrientation.html">GetMpPanOrientation</a>
+            </th>
+            <td>Gets the image placement, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpPanOverlapH.html">GetMpPanOverlapH</a>
+            </th>
+            <td>Gets the horizontal overlap, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpPanOverlapV.html">GetMpPanOverlapV</a>
+            </th>
+            <td>Gets the vertical overlap, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpBaseViewpointNum.html">GetMpBaseViewpointNum</a>
+            </th>
+            <td>Gets the base viewpoint number, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpConvergenceAngle.html">GetMpConvergenceAngle</a>
+            </th>
+            <td>Gets the convergence angle, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpBaselineLength.html">GetMpBaselineLength</a>
+            </th>
+            <td>Gets the baseline length, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpVerticalDivergence.html">GetMpVerticalDivergence</a>
+            </th>
+            <td>Gets the vertical divergence, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpAxisDistanceX.html">GetMpAxisDistanceX</a>
+            </th>
+            <td>Gets the horizontal (x-axis) distance, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpAxisDistanceY.html">GetMpAxisDistanceY</a>
+            </th>
+            <td>Gets the vertical (y-axis) distance, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpAxisDistanceZ.html">GetMpAxisDistanceZ</a>
+            </th>
+            <td>Gets the line-of-sight (z-axis) distance, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpYawAngle.html">GetMpYawAngle</a>
+            </th>
+            <td>Gets the yaw angle, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpPitchAngle.html">GetMpPitchAngle</a>
+            </th>
+            <td>Gets the pitch angle, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpRollAngle.html">GetMpRollAngle</a>
+            </th>
+            <td>Gets the roll angle, which is included in the MP attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpAttribute.html">GetMpAttribute</a>
+            </th>
+            <td>Gets the MP attribute IFD, which is included in the individual image data stored in MP format.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Getting GPS IFD Information</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsVersionId.html">GetGpsVersionId</a>
+            </th>
+            <td>Gets the GPS tag version included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsLatitudeRef.html">GetGpsLatitudeRef</a>
+            </th>
+            <td>Gets the north (N) or south (S) latitude included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsLatitude.html">GetGpsLatitude</a>
+            </th>
+            <td>Gets the latitude (numeric value) included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsLongitudeRef.html">GetGpsLongitudeRef</a>
+            </th>
+            <td>Gets the east (E) or west (W) longitude included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsLongitude.html">GetGpsLongitude</a>
+            </th>
+            <td>Gets the latitude (numeric value) included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsAltitudeRef.html">GetGpsAltitudeRef</a>
+            </th>
+            <td>Gets the altitude reference included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsAltitude.html">GetGpsAltitude</a>
+            </th>
+            <td>Gets the altitude (numeric value) included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsTimeStamp.html">GetGpsTimeStamp</a>
+            </th>
+            <td>Gets the GPS time (atomic clock time) included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsSatellites.html">GetGpsSatellites</a>
+            </th>
+            <td>Gets the satellite signal used for position location in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsStatus.html">GetGpsStatus</a>
+            </th>
+            <td>Gets the GPS receiver status included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsMeasureMode.html">GetGpsMeasureMode</a>
+            </th>
+            <td>Gets the GPS position location method included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsDop.html">GetGpsDop</a>
+            </th>
+            <td>Gets the reliability (dilution of precision) of the position included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsSpeedRef.html">GetGpsSpeedRef</a>
+            </th>
+            <td>Gets the units for speed included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsSpeed.html">GetGpsSpeed</a>
+            </th>
+            <td>Gets the speed (numeric value) included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsTrackRef.html">GetGpsTrackRef</a>
+            </th>
+            <td>Gets the unit for the movement direction included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsTrack.html">GetGpsTrack</a>
+            </th>
+            <td>Gets the movement direction (numeric value) included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsImgDirectionRef.html">GetGpsImgDirectionRef</a>
+            </th>
+            <td>Gets the orientation of the captured image included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsImgDirection.html">GetGpsImgDirection</a>
+            </th>
+            <td>Gets the orientation of the captured image (numeric value) included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsMapDatum.html">GetGpsMapDatum</a>
+            </th>
+            <td>Gets the map data used for positioning in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsDestLatitudeRef.html">GetGpsDestLatitudeRef</a>
+            </th>
+            <td>Gets the north (N) or south (S) latitude of the destination included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsDestLatitude.html">GetGpsDestLatitude</a>
+            </th>
+            <td>Gets the latitude (numeric value) of the destination included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsDestLongitudeRef.html">GetGpsDestLongitudeRef</a>
+            </th>
+            <td>Gets the east (E) or west (W) latitude of the destination included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsDestLongitude.html">GetGpsDestLongitude</a>
+            </th>
+            <td>Gets the longitude (numeric value) of the destination included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsDestBearingRef.html">GetGpsDestBearingRef</a>
+            </th>
+            <td>Gets the units of the bearing to the destination included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsDestBearing.html">GetGpsDestBearing</a>
+            </th>
+            <td>Gets the destination bearing (numeric value) included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsDestDistanceRef.html">GetGpsDestDistanceRef</a>
+            </th>
+            <td>Gets the units of distance to the destination included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsDestDistance.html">GetGpsDestDistance</a>
+            </th>
+            <td>Gets the distance to the destination (numeric value) included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsProcessingMethodPointer.html">GetGpsProcessingMethodPointer</a>
+            </th>
+            <td>Gets the name of the position location method included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsProcessingMethodSize.html">GetGpsProcessingMethodSize</a>
+            </th>
+            <td>Gets the number of bytes representing the name of the position location method included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsAreaInformationPointer.html">GetGpsAreaInformationPointer</a>
+            </th>
+            <td>Gets the name of the located position included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsAreaInformationSize.html">GetGpsAreaInformationSize</a>
+            </th>
+            <td>Gets the number of bytes representing the name of the located position included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsDateStamp.html">GetGpsDateStamp</a>
+            </th>
+            <td>Gets the GPS date stamp (numeric value) included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetGpsDifferential.html">GetGpsDifferential</a>
+            </th>
+            <td>Gets the GPS differential included in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastGpsData.html">GetLastGpsData</a>
+            </th>
+            <td>Gets the GPS ID of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<b>nn::jpeg::CTR::JpegMpDecoder</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/03</dt>
+        <dd><item xmlns="">Added <tt>GetLastDateTimePointer</tt> to the list of functions that retrieve Exif data.</item><br />
+        </dd>
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added a description of functions used to get GPS information.  Organized the descriptions of member functions into separate categories.</item><br />
+        </dd>
+        <dt>2010/04/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

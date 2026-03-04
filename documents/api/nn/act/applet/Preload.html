@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Preload</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/act/Overview.html">act</a>::<a href="../../../nn/act/applet/Overview.html">applet</a>::Preload Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void Preload();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Preloads the login <a href="../../../nn/act/applet/Overview.html">applet</a>.</p><p>By preloading, the login <a href="../../../nn/act/applet/Overview.html">applet</a> can have a comparatively shorter launch time. However, the following cautions are needed.</p><p>Preloading will not be finished even when returning from this function. When using this function to preload, always run either the <code><a href="../../../nn/act/applet/WaitForPreload.html">WaitForPreload</a></code> or <code><a href="../../../nn/act/applet/IsRegistered.html">IsRegistered</a></code> function to check whether preloading is complete. After you verify preloading, you can then run the various request functions.</p><p>When another library <a href="../../../nn/act/applet/Overview.html">applet</a> other than the login <a href="../../../nn/act/applet/Overview.html">applet</a> is already preloaded, you must cancel the preload before running this function.</p><p>You must not terminate the application while an <a href="../../../nn/act/applet/Overview.html">applet</a> is in a preloaded state. Prior to application termination, use the <code><a href="../../../nn/act/applet/CancelPreload.html">CancelPreload</a></code> function to cancel the preload.</p><p>After calling the <code><a href="../../../nn/act/applet/Preload.html">Preload</a></code> function, you must not process any HOME Button presses until the <code><a href="../../../nn/act/applet/IsRegistered.html">IsRegistered</a></code> function returns <code>true</code>. In practical terms, when <code>applet::IsExpectedToProcessHomeButton</code> returns <code>true</code>, call <code>applet::ClearHomeButtonState</code> without calling <code>applet::ProcessHomeButton</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/08/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

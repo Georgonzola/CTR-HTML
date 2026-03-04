@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>InquireNetworkTime</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/act/Overview.html">act</a>::InquireNetworkTime Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> InquireNetworkTime(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>ResultSuccess</code> on success. <br />
+ Returns <code><a href="../../nn/act/ResultNotInitialized/Overview.html">ResultNotInitialized</a></code> when the account library is not initialized. <br />
+ Returns <code><a href="../../nn/act/ResultInvalidPointer/Overview.html">ResultInvalidPointer</a></code> when an invalid pointer (such as a <code>NULL</code> pointer) is passed as an argument. <br />
+ Returns <code><a href="../../nn/act/ResultInvalidSize/Overview.html">ResultInvalidSize</a></code> when the array passed as an argument is either too long or too short. <br />
+ Returns <code><a href="../../nn/act/ResultAuthenticationError/Overview.html">ResultAuthenticationError</a></code> when authentication fails. <br />
+ Returns <code><a href="../../nn/act/ResultNotConnected/Overview.html">ResultNotConnected</a></code> when not connected to an access point <br /> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the time from the server, and activates and calibrates the network clock. Features that use the network clock, such as the <code><a href="../../nn/act/IsOverAge.html">nn::act::IsOverAge</a></code> function, are available by calling this function. <br /><br />
+ When APIs that communicate with the server, such as the <code><a href="../../nn/act/applet/AcquireIndependentServiceToken.html">nn::act::applet::AcquireIndependentServiceToken</a></code> function, have succeeded at least once in advance, there is no need to additionally call this function. <br /><br />
+ You cannot directly get the time with this function. <br />
+ This function causes communication with the server, during which time processing is blocked. <br /><br />
+ For information about using this function, see the section on how to make API functions that trigger communication in the <code><a href="../../nn/act/Overview.html">nn::act</a></code> namespace.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/08/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

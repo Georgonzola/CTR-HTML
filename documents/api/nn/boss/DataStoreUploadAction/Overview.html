@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::boss::DataStoreUploadAction</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::DataStoreUploadAction Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class DataStoreUploadAction : public <a href="../../../nn/boss/TaskAction/Overview.html">nn::boss::TaskAction</a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for representing DataStore upload tasks. Use this class to do such things as register DataStore upload tasks.</p><p><emphasis>DataStore</emphasis> is one of the NEX library data storage features. It can upload data to and download data from storage, and it also allows users to exchange data. <br />
+ (For more information, see the documentation in the NEX library.) <br />
+ BOSS DataStore tasks are provided for by using these DataStore features via BOSS (SpotPass). <br />
+ You can use BOSS DataStore tasks for DataStore uploads and downloads even when your application is not running (when the system is in Sleep Mode, for example). <br /></p><p>While uploading data, you cannot reuse a task that has already been registered. <br />
+ Using task registration <code><a href="../../../nn/boss/RegisterTask.html">RegisterTask</a></code>, a task with the same task ID has already been registered (<code><a href="../../../nn/boss/ResultTaskIdAlreadyExist/Overview.html">ResultTaskIdAlreadyExist</a></code>). Use the <code><a href="../../../nn/boss/UnregisterTask.html">UnregisterTask</a></code> function to delete such tasks and then re-register them.</p><p>If the system loses power while a task is being registered, the registered task and file information will be invalid. <br />
+ Data cannot be uploaded properly with such a task, so you must use the following procedure to check and handle it. <br />
+ Immediately after a task has been registered successfully, implement that a start command be performed using the <code><a href="../../../nn/boss/Task/Start.html">nn::boss::Task::Start</a></code>, <code><a href="../../../nn/boss/Task/StartImmediate.html">nn::boss::Task::StartImmediate</a></code>, or <code><a href="../../../nn/boss/Task/StartBgImmediate.html">nn::boss::Task::StartBgImmediate</a></code> function. <br />
+ If the system loses power while a task is being registered—preventing it from starting—you can still detect the task because its state as obtained by the <code><a href="../../../nn/boss/Task/GetState.html">nn::boss::Task::GetState</a></code> function will be <code><span>TASK_REGISTERED</span></code>. <br />
+ (The task's state will not be <code>TASK_REGISTERED</code> if the start command succeeded.) Use the <code><a href="../../../nn/boss/UnregisterTask.html">UnregisterTask</a></code> function to delete tasks like this and then re-register them. <br /></p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreUploadAction/DataStoreUploadAction.html">DataStoreUploadAction</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreUploadAction/~DataStoreUploadAction.html">~DataStoreUploadAction</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreUploadAction/Initialize.html">Initialize</a>
+            </th>
+            <td>Use this function to configure DataStore upload.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreUploadAction/GetDstCount.html">GetDstCount</a>
+            </th>
+            <td>Returns the number of entries registered as destinations for sending data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreUploadAction/AddDstPrincipalId.html">AddDstPrincipalId</a>
+            </th>
+            <td>Adds a data destination.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreUploadAction/ClearDstPrincipalId.html">ClearDstPrincipalId</a>
+            </th>
+            <td>Clears all destinations to send data.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreUploadAction/GetProperty.html">GetProperty</a>
+            </th>
+            <td>Gets a property value from the class.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/boss/TaskActionBase/Overview.html">nn::boss::TaskActionBase</a><br />&nbsp;&nbsp;<a href="../../../nn/boss/TaskAction/Overview.html">nn::boss::TaskAction</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::boss::DataStoreUploadAction</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

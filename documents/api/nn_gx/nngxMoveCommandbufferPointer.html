@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxMoveCommandbufferPointer</title>
+  </head>
+  <body>
+    <h1>nngxMoveCommandbufferPointer Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxMoveCommandbufferPointer(
+     GLint offset
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>offset</th>
+          <td>Offset by which to move the pointer (in bytes).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Moves the 3D command buffer's current output target pointer.</p><P>The current pointer in the 3D command buffer managed by the graphics processor is advanced by the number of bytes specified by the offset. This function is used when commands are directly written to the 3D command buffer by the application.</P><P><B><b>Note:</b></B> Carelessly moving the command buffer pointer may corrupt the contents of the command buffer or cause the hardware to hang. Be sure you understand the structure and content of the command buffer before moving the pointer.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_8061_DMP</TH><TD>Command list objects are not bound, or the address when moved by the amount of the offset is outside the range of the command buffer.</TD></TR></TABLE></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/25</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

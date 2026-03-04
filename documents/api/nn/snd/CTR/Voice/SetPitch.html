@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetPitch</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/snd/CTR/Voice/Overview.html">Voice</a>::SetPitch Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetPitch(
+     <a href="../../../../nn_types/f32.html">f32</a> pitch
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pitch</th>
+          <td>Ratio of the playback speed to the sampling rate.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the pitch of a voice.</p><p>This sets the ratio of the playback speed to the sound source sampling rate set by the <tt><a href="../../../../nn/snd/CTR/Voice/SetSampleRate.html">nn::snd::CTR::Voice::SetSampleRate</a></tt> function (a ratio of 1.0 indicates that the playback speed and sampling rate are the same).  For example, if you specify a sampling rate of 32kHz and a pitch of 0.5, the audio is played at 16kHz.</p><p>The maximum value that can be specified for the pitch is 255.0f.  The minimum value is 1.0 / (2^23).  However, because the processing load increases significantly when a large value is set for the pitch, whether you can actually play sounds accurately depends greatly on the <tt>snd</tt> usage status.</p><p>The default value is 1.0.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/18</dt>
+        <dd><item xmlns="">Added text about maximum and minimum values.</item><br />
+        </dd>
+        <dt>2010/01/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

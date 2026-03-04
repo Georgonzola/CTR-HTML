@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glFrontFace</title>
+  </head>
+  <body>
+    <h1>glFrontFace Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glFrontFace(
+     GLenum mode
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>mode</th>
+          <td>Specifies the front-facing direction.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Specifies the front-facing direction for polygons.</p><P>Set <span class="argument">mode</span> to one of the following values.<TABLE><TR><TH>GL_CW</TH><TD>A polygon is determined to be front-facing if the coordinates of its three vertices are placed in clockwise order.</TD></TR><TR><TH>GL_CCW</TH><TD>A polygon is determined to be front-facing if the coordinates of its three vertices are placed in counterclockwise order.</TD></TR></TABLE><!-- source modeにはGL_CW、GL_CCWを指定します。 GL_CWを指定した場合、ポリゴンの三頂点の座標が時計回りに配置されている場合、表向きと判定されます。 GL_CCWを指定した場合、ポリゴンの三頂点の座標が反時計回りに配置されている場合、表向きと判定されます。 --></P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">mode</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>A <tt>GL_INVALID_OPERATION</tt> error occurs when this function is called without any command-list objects bound.</TD></TR></TABLE><!-- source modeに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

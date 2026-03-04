@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetMaxParallax</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ulcd/Overview.html">ulcd</a>::<a href="../../../../nn/ulcd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ulcd/CTR/StereoCamera/Overview.html">StereoCamera</a>::GetMaxParallax Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/ulcd.h&gt;
+<a href="../../../../nn_types/f32.html">f32</a> GetMaxParallax(
+     void
+) const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Amount of offset required to display an object at the farthest possible distance. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the parallax at the farthest possible distance. The parallax is expressed as a ratio of the screen width.</p><!-- write here --><P>It calculates and returns the left/right offset of an object located at infinity as seen by the left and right cameras, relative to the base camera. This offset is expressed as a percentage (<tt>1.0</tt>f = 100%).</P><P>For example, assume you are rendering a distant landscape as a single image. You can make the landscape appear to be at the farthest possible depth by offsetting this image by <tt>[return value]×[screen width]</tt> pixels to the left and right.</P><P>However, infinity in terms of this function is the distant position that the player senses when a limited parallax is specified by the <tt>SetLimitParallax</tt> function. The calculated offset follows the 3D volume values.</P><P>When using the application-priority method, you will never exceed the infinity of this function.  With the realism-priority method, however, caution is needed because it is possible to apply a parallax that it is greater than the offset that can be derived by this function.</P><P>The calculations made by this function are based on the results obtained during the last call to either <tt>CalculateMatrices</tt> or <tt>CalculateMatricesReal</tt>.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/26</dt>
+        <dd><item xmlns="">Added Description.</item><br />
+        </dd>
+        <dt>2010/04/02</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

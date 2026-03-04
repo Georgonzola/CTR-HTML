@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetFriendScreenName</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::GetFriendScreenName Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition"><a href="../../../nn/Result/Overview.html">Result</a> GetFriendScreenName(
+     char16 (*pScreenNameList)[SCREEN_NAME_SIZE],
+     const <a href="../../../nn/friends/CTR/PrincipalId.html">PrincipalId</a> * pPrincipalIdList,
+     size_t size = 1,
+     bool replaceForeignCharacters = true,
+     <a href="../../../nn_types/u8.html">u8</a> * pFontRegionList = NULL
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15"></td>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pScreenNameList[SCREEN_NAME_SIZE]</th>
+          <td>Specifies a pointer to a buffer that stores acquired screen names.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pPrincipalIdList</th>
+          <td>Specifies a pointer to a list of principal IDs.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the number of buffer elements in the principal ID list.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>replaceForeignCharacters</th>
+          <td>Specifies whether to use questions marks (?) in place of non-ASCII characters in the screen names of friends from different font regions.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pFontRegionList</th>
+          <td>Specifies a pointer to a buffer that stores the font region of a friend's screen name. Specify <CODE>NULL</CODE> if not needed.</td>
+        </tr>
+      </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+      Returns the result of the operation. <br /><br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>The process succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>Invalid pointer passed as an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultTooLarge</th>
+          <td>The value passed as the argument is too large.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>The friend presence library is not initialized.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Another result may be returned, depending on the internal state of the daemon and other factors.</td>
+        </tr>
+      </table>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a list of friend screen names.</p>
+<p>By calling this function, you can get the name of a friend's Mii directly without using the Mii library. Even if you have not yet established a friend relationship with this person and cannot get his or her Mii, the display name that you have tentatively registered is obtained.<br /><br />The actual name of a friend's Mii is obtained even when it is in the list of blocked users, but the obtained name is replaced with &quot;???&quot; if it contains profanity.<br /><br />Returns an empty display name in this buffer if there is no friend corresponding to the key passed in the arguments. In this case the function still returns success.<br /><br />Some Mii nicknames might contain characters that are not supported by the application. Make sure that the presence of these unsupported characters does not corrupt the screen or impede progress in the application. For workarounds, see the section about creating Mii nicknames and creator names in <I>3DS Guidelines</I>.
+</p><!-- write here -->
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/07/07</dt>
+        <dd>Noted that there may be characters that are not supported by the application.<br /></dd>
+        <dt>2011/03/11</dt>
+        <dd>Noted that the function still returns successfully even if an empty display name is returned.<br />Revised <B>Description</B>.<br />Added specific examples of return values.<br /></dd>
+        <dt>2010/11/10</dt>
+        <dd>Initial version.<br /></dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

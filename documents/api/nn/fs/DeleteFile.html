@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>DeleteFile</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::DeleteFile Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void DeleteFile(
+     const wchar_t * pathName
+);
+
+void DeleteFile(
+     const char * pathName
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./DeleteFile(0).html">DeleteFile ( const wchar_t * ) </a>
+          </td>
+          <td>Deletes a file.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./DeleteFile(1).html">DeleteFile ( const char * ) </a>
+          </td>
+          <td>Deletes a file.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of DeleteFile ( const wchar_t * ) </h2>
+    <div class="section"><p>This function is implemented to show an error screen when errors occur internally, regardless of whether such errors are fatal.  Control does not return from the function in this case. Use <tt><a href="../../nn/fs/TryDeleteFile.html">nn::fs::TryDeleteFile</a></tt> on everything other than ROM archives.</p><p>For more information about error handling, see <a href="briefing/aboutErrorHandling.html#FileAndDirectory">Handling Errors During File and Directory Operations</a>.</p></div>
+    <h2>Description of DeleteFile ( const char * ) </h2>
+    <div class="section"><p><bold>Note:</bold> This function uses about 1 KB of buffer space on the stack because it converts the path name from a multibyte string into a wide string. Pay careful attention to the stack size.</p><p>This function is implemented to show an error screen when errors occur internally, regardless of whether such errors are fatal.  Control does not return from the function in this case. Use <tt><a href="../../nn/fs/TryDeleteFile.html">nn::fs::TryDeleteFile</a></tt> on everything other than ROM archives.</p><p>For more information about error handling, see <a href="briefing/aboutErrorHandling.html#FileAndDirectory">Handling Errors During File and Directory Operations</a>.</p></div>
+  </body>
+</html>

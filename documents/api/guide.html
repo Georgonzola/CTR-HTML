@@ -1,0 +1,911 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <META http-equiv="Content-Style-Type" content="text/css">
+    <TITLE>CTR-SDK API Guide</TITLE>
+    <LINK rel="stylesheet" href="./css/manpage.css" type="text/css">
+
+    <style>
+    <!--
+    .disabled
+    {
+        color: gray;
+    }
+    th
+    {
+        white-space: nowrap;
+    }
+    thead th
+    {
+        width: auto;
+    }
+    -->
+    </style>
+</HEAD><BODY>
+
+    <h1>CTR-SDK API Guide</h1>
+
+    <h2>Overview</h2>
+    <p>
+        This guide provides the following information to allow developers to understand the features provided by the CTR-SDK.
+    </p>
+    <ul>
+        <li>An overview of each library provided by the CTR-SDK.
+        <li>An index of functions, sorted by feature and purpose.
+    </ul>
+
+
+    <h2>Contents</h2>
+    <ul>
+        <li><a href="#des">Library Overview</a>
+        <li><a href="#rev">Index of Functions (by Category)</a>
+            <ul>
+                <li><a href="#graphics">Graphics</a>
+                <li><a href="#sound">Sound</a>
+                <li><a href="#hid">User Input</a>
+                <li><a href="#info">Information Other Than User Input</a>
+                <li><a href="#comm">Communications</a>
+                <li><a href="#calc">Calculation</a>
+                <li><a href="#pow">Power and Application Controls</a>
+                <li><a href="#debug">Debugging</a>
+                <li><a href="#os">OS Foundation</a>
+                <li><a href="#fs">File System</a>
+                <li><a href="#home">HOME Menu</a>
+                <li><a href="#applet">Applets</a>
+                <li><a href="#pre">Built-In Software</a>
+                <li><a href="#setting">System Settings</a>
+                <li><a href="#parental">Parental Controls</a>
+            </ul>
+    </ul>
+
+    <a name="des"></a>
+    <h2>Library Overview</h2>
+    <p>
+    </p>
+
+    <table>
+    <thead>
+    <tr><th>Library Name
+        <th>Overview
+    </thead>
+    <tr><th><a href="nn/init/Overview.html">init</a>
+        <td>Handles processing that precedes the <CODE>main</CODE> function of a program. By providing functions with particular names, applications can add processing that runs before the <CODE>main</CODE> function starts.
+
+    <tr><th><a href="nn/os/Overview.html">os</a>
+        <td>Handles threads, mutexes, timers, clocks, and basic memory management.
+
+    <tr><th><a href="nn/fnd/Overview.html">fnd</a>
+        <td>Defines common classes used by a number of other libraries, such as allocators, dates, and times.
+
+    <tr><th><a href="nn/fs/Overview.html">fs</a>
+        <td>Accesses Game Cards, SD cards, save data, and other memory locations.
+
+    <tr><th><a href="nn/ro/Overview.html">ro</a>
+        <td>Controls dynamic modules.
+
+    <tr><th><a href="nn/math/Overview.html">math</a>
+        <td>Defines numeric functions and classes.
+
+    <tr><th><a href="nn/nstd/Overview.html">nstd</a>
+        <td>The customized version of the standard library function.
+
+    <tr><th><a href="nn/util/Overview.html">util</a>
+        <td>Defines general-purpose classes.
+
+    <tr><th><a href="nn/cx/Overview.html">cx</a>
+        <td>Compresses and expands data.
+
+    <tr><th><a href="introduction/AboutZlib.html">zlib</a>
+        <td>The CTR-SDK ported version of the open-source <CODE>zlib</CODE> library.
+
+    <tr><th><a href="nn/crypto/Overview.html">crypto</a>
+        <td>Handles encryption-related processing.
+
+    <tr><th><a href="nn/jpeg/CTR/Overview.html">jpeg</a>
+        <td>Encodes and decodes JPEG and MPO images.
+
+    <tr><th><a href="nn/enc/Overview.html">enc</a>
+        <td>Provides conversion back and forth between UTF-16 and UTF-8.
+
+    <tr><th><a href="nn/applet/CTR/Overview.html">applet</a>
+        <td>Controls the HOME Menu and Sleep Mode.
+
+    <tr><th><a href="nn/ptm/CTR/Overview.html">ptm</a>
+        <td>Gets power status and controls the real-time clock alarms.
+
+    <tr><th><a href="nn/pl/CTR/Overview.html">pl</a>
+        <td>Handles pedometer step counts and shared fonts.
+
+    <tr><th><a href="nn/news/CTR/Overview.html">news</a>
+        <td>Posts messages to Notifications.
+
+    <tr><th><a href="nn/cfg/CTR/Overview.html">cfg</a>
+        <td>Gets the settings stored in System Memory.
+
+    <tr><th><a href="nn/dbg/Overview.html">dbg</a>
+        <td>Handles debug output and abnormal program termination.
+
+    <tr><th><a href="nn/hio/CTR/Overview.html">hio</a>
+        <td>Communicates with a Windows PC through USB. This library can be used only for development purposes.
+
+    <tr><th><a href="nn/midi/CTR/Overview.html">midi</a>
+        <td>Uses UIC-MIDI to communicate with a MIDI interface. This library can be used only for development purposes.
+
+    <tr><th><a href="nn_gx/Overview.html">nngx</a>, <a href="nn/gx/CTR/Overview.html">nn::gx</a>
+        <td>Controls the GPU.
+
+    <tr><th><a href="gl/Overview.html">gl</a>
+        <td>Creates command lists. It uses an OpenGL ES-compatible API, but it increases the CPU load.
+
+    <tr><th><a href="nn/gd/CTR/Overview.html">gd</a>
+        <td>Creates command lists. It is incompatible with OpenGL ES, but it reduces the CPU load.
+
+    <tr><th><a href="nn/gr/CTR/Overview.html">gr</a>
+        <td>Provides helper functions for creating command lists.
+
+    <tr><th><a href="nn/ulcd/CTR/Overview.html">ulcd</a>
+        <td>Generates appropriate camera matrices based on input from the 3D depth slider.
+
+    <tr><th><a href="nn/tpl/CTR/Overview.html">tpl</a>
+        <td>A library for accessing TPL files that hold texture data.
+
+    <tr><th><a href="nn/font/CTR/Overview.html">font</a>
+        <td>A library for rendering characters and strings using font data created by FontConverter.
+
+    <tr><th><a href="nn/snd/CTR/Overview.html">snd</a>
+        <td>Uses the sound DSP for sound playback.
+
+    <tr><th><a href="nn/dsp/CTR/Overview.html">dsp</a>
+        <td>Controls the sound DSP.
+
+    <tr><th><a href="nn/hid/CTR/Overview.html">hid</a>
+        <td>Reads input from buttons, the Circle Pad, the Touch Screen, the accelerometer, and the gyro sensor.
+
+    <tr><th><a href="nn/camera/CTR/Overview.html">camera</a>
+        <td>Controls the cameras.
+
+    <tr><th><a href="nn/y2r/CTR/Overview.html">y2r</a>
+        <td>Converts YUV image data into RGB format.
+
+<tr><th><a href="nn/qtm/CTR/Overview.html">qtm</a>
+<td>Provides face-tracking functionality.
+
+    <tr><th><a href="nn/mic/CTR/Overview.html">mic</a>
+        <td>Gets input from the microphone.
+
+    <tr><th><a href="nn/uds/CTR/Overview.html">uds</a>
+        <td>Handles direct wireless communication between CTR systems.
+
+    <tr><th><a href="nn/rdt/Overview.html">rdt</a>
+        <td>Establishes reliable communication channels on top of UDS communication channels.
+
+    <tr><th><a href="nn/dlp/CTR/Overview.html">dlp</a>
+        <td>Handles Download Play.
+
+    <tr><th><a href="nn/cec/CTR/Overview.html">cec</a>
+        <td>Controls StreetPass.
+
+    <tr><th><a href="nn/boss/Overview.html">boss</a>
+        <td>Controls SpotPass.
+
+    <tr><th><a href="nn/ac/CTR/Overview.html">ac</a>
+        <td>Connects to access points.
+
+    <tr><th><a href="nn/http/Overview.html">http</a>
+        <td>Used by <a href="#NEX">NEX</a>.
+
+    <tr><th><a href="nn/socket/Overview.html">socket</a>
+        <td>Used by <a href="#NEX">NEX</a>.
+
+    <tr><th><a href="nn/ir/CTR/Overview.html">ir</a>
+        <td>Performs infrared communication between consoles.
+
+    <tr><th><a href="nn/ndm/CTR/Overview.html">ndm</a>
+        <td>Controls communication-related background processing.
+
+    <tr><th><a href="nn/friends/CTR/Overview.html">friends</a>
+        <td>Gets information from the friend list. It also controls logging in to online services.
+
+    <tr><th><a href="nn/ngc/CTR/Overview.html">ngc</a>
+        <td>Checks strings for profanity.
+
+    <tr><th><a href="nn/ubl/Overview.html">ubl</a>
+        <td>Manages the user blacklist.
+
+    <tr><th><a href="nn/erreula/CTR/Overview.html">erreula</a>
+        <td>Controls the applet that displays the EULA error message.
+
+    <tr><th><a href="nn/swkbd/CTR/Overview.html">swkbd</a>
+        <td>Controls the software keyboard applet.
+
+    <tr><th><a href="nn/phtsel/CTR/Overview.html">phtsel</a>
+        <td>Controls the photo selector applet.
+
+    <tr><th><a href="nn/voicesel/CTR/Overview.html">voicesel</a>
+        <td>Controls the voice selector applet.
+
+<tr><th><a href="nn/nfp/Overview.html">nfp</a>
+<td>Reads and writes amiibo data.
+
+    </table>
+
+
+
+
+
+    <a name="rev"></a>
+    <h2>Index by Feature</h2>
+    <p>
+    </p>
+
+    <a name="graphics"></a>
+    <h3>Graphics</h3>
+
+    <table>
+    <tr><th>Screen Display
+        <td>Handled by the <a href="nn_gx/Overview.html"><CODE>gx</CODE></a>, <a href="gl/Overview.html"><CODE>gl</CODE></a>, <a href="nn/gd/Overview.html"><CODE>gd</CODE></a>, and <a href="nn/gr/Overview.html"><CODE>gr</CODE></a> libraries.
+
+    <tr><th>Stereoscopic Output
+        <td>Use the <a href="nn_gx/Overview.html"><CODE>gx</CODE></a> and <a href="nn/ulcd/CTR/Overview.html"><CODE>ulcd</CODE></a> libraries.
+
+    <tr><th><a name="font">Fonts</a>
+        <td>Use the <a href="nn/font/CTR/Overview.html"><CODE>font</CODE></a> library. <br /> Use <CODE>FontConverter</CODE> to create font data for the <a href="nn/font/CTR/Overview.html"><CODE>font</CODE></a> library.
+
+    <tr><th>Text Rendering
+        <td>→ <a href="#font">Fonts</a>
+
+    <tr><th>Shared Fonts
+        <td>Use the <a href="nn/pl/CTR/Overview.html"><CODE>pl</CODE></a> library.
+
+    <tr><th>Texture Files
+        <td>Use the <a href="nn/tpl/CTR/Overview.html"><CODE>tpl</CODE></a> library. <br /> Use <a href="../TechnicalNotes/TexturePackagerLibrary/TPLTexturePackageTool.pdf"><CODE>ctr_TexturePackager</CODE></a> to create TPL files for the <a href="nn/tpl/CTR/Overview.html"><CODE>tpl</CODE></a> library.
+
+    <tr><th>Encoding and Decoding JPEG Images
+        <td>Use the <a href="nn/jpeg/CTR/Overview.html"><CODE>jpeg</CODE></a> library.
+
+    <tr><th>Encoding and Decoding MPO Images
+        <td>Use the <a href="nn/jpeg/CTR/Overview.html"><CODE>jpeg</CODE></a> library.
+
+    <tr><th>Encoding and Decoding Stereoscopic Images
+        <td>→ <a href="#MPOEncodeDecode">Encoding and Decoding MPO Images</a>
+
+    <tr><th>Converting From YUV to RGB
+        <td>Use the <a href="nn/y2r/CTR/Overview.html"><CODE>y2r</CODE></a> library.
+
+    <tr><th class="disabled">Brightness Adjustment
+        <td class="disabled">You cannot change the brightness or get the current brightness value.
+
+    <tr><th class="disabled">Power-Saving Mode
+        <td class="disabled">You cannot turn on or turn off power-saving mode, and you cannot get the current mode.
+
+    </table>
+
+
+
+    <a name="sound"></a>
+    <h3>Sound</h3>
+
+    <table>
+    <tr><th>Sound Playback
+        <td>Use the <a href="nn/snd/CTR/Overview.html"><CODE>snd</CODE></a> library.
+
+    <tr><th>Shutter Sound
+        <td>Play it using <a href="nn/camera/CTR/PlayShutterSound.html"><CODE>nn::camera::CTR::PlayShutterSound</CODE></a>.
+
+    <tr><th>Microphone
+        <td>Use the <a href="nn/mic/CTR/Overview.html"><CODE>mic</CODE></a> library to get input audio.
+
+    <tr><th>Using the MIDI Interface (UIC-MIDI)
+        <td>This option can be used only for development purposes.<br />It cannot be used in retail products.<br />Use the <a href="nn/midi/CTR/Overview.html"><CODE>midi</CODE> library</a>.
+
+    <tr><th>Sound Output Mode
+        <td>Use <a href="nn/cfg/CTR/GetSoundOutputMode.html"><CODE>nn::cfg::CTR::GetSoundOutputMode</CODE></a> to get the sound output mode.
+
+    <tr><th><a name="headphone">Headphone Connection Status</a>
+        <td>Use <a href="nn/snd/CTR/GetHeadphoneStatus.html"><CODE>nn::snd::CTR::GetHeadphoneStatus</CODE></a> to get the connection status of headphones.
+
+    <tr><th class="disabled">Sound Volume
+        <td class="disabled">You cannot get a value for this function.
+
+    </table>
+
+
+
+    <a name="hid"></a>
+    <h3>User Input</h3>
+
+    <table>
+    <tr><th>+Control Pad, A/B/X/Y/L/R Buttons, START
+        <td>Use <a href="nn/hid/CTR/PadReader/Overview.html"><CODE>nn::hid::CTR::PadReader</CODE></a> to get input values.
+
+    <tr><th>SELECT
+        <td>This option can be used only for development purposes.<br /> It cannot be used in retail products.<br /> Enable debug mode by using the <CODE>Config</CODE> tool, and call <a href="nn/hid/CTR/EnableSelectButton.html"><CODE>nn::hid::CTR::EnableSelectButton</CODE></a> to get input from <a href="nn/hid/CTR/PadReader/Overview.html"><CODE>nn::hid::CTR::PadReader</CODE></a>.
+
+    <tr><th><a name="slidepad">Circle Pad</a>
+        <td>Use <a href="nn/hid/CTR/PadReader/Overview.html"><CODE>nn::hid::CTR::PadReader</CODE></a> to get input values.
+
+    <tr><th>Circle Pad Pro
+        <td>Use <CODE><a href="nn/hid/CTR/ExtraPadReader/Overview.html">nn::hid::CTR::ExtraPadReader</a></CODE> to get input values.
+
+    <tr><th>ZL/ZR Buttons
+        <td>Use <CODE><a href="nn/hid/CTR/ExtraPadReader/Overview.html">nn::hid::CTR::ExtraPadReader</a></CODE> to get input values.
+
+    <tr><th>L/R Sticks
+        <td>→ <a href="#slidepad">Circle Pad</a>
+
+    <tr><th><a name="touchpanel">Touch panel</a>
+        <td>Use <a href="nn/hid/CTR/TouchPanelReader/Overview.html"><CODE>nn::hid::CTR::TouchPanelReader</CODE></a> to get input values.
+
+    <tr><th>Touch screen
+        <td>→ <a href="#touchpanel">Touch panel</a>
+
+    <tr><th>Accelerometer
+        <td>Use <a href="nn/hid/CTR/AccelerometerReader/Overview.html"><CODE>nn::hid::CTR::AccelerometerReader</CODE></a> to get input values.
+
+    <tr><th>Gyro Sensor
+        <td>Use <a href="nn/hid/CTR/GyroscopeReader/Overview.html"><CODE>nn::hid::CTR::GyroscopeReader</CODE></a> to get input values.
+
+    <tr><th>Pedometer
+        <td>Use the <a href="nn/pl/CTR/Overview.html"><CODE>pl</CODE></a> library.
+
+    <tr><th>Camera
+        <td>Use the <a href="nn/camera/CTR/Overview.html"><CODE>camera</CODE></a> library to get camera images.
+
+    <tr><th>Face Tracking
+        <td>Use the <a href="nn/qtm/CTR/Overview.html"><CODE>qtm</CODE></a> library to get face-tracking data.
+
+    <tr><th>Microphone
+        <td>Use the <a href="nn/mic/CTR/Overview.html"><CODE>mic</CODE></a> library to get input audio.
+
+    <tr><th>Debug Controller
+        <td>This option can be used only for development purposes.<br /> It cannot be used in retail products.<br /> Use <a href="nn/hid/CTR/DebugPadReader/Overview.html"><CODE>nn::hid::CTR::DebugPadReader</CODE></a> to get input values.
+
+    <tr><th>3D Depth Slider
+        <td>To use this control indirectly, use the <a href="nn/ulcd/CTR/Overview.html"><CODE>ulcd</CODE></a> library.
+
+    <tr><th class="disabled">Sound Volume
+        <td class="disabled">You cannot get a value for this function.
+
+    <tr><th>POWER Button
+        <td>You cannot get input directly from the POWER Button. <br /> → You must handle <a href="#ApiClose">Application Close</a> instead. 
+
+    <tr><th>Wireless Switch
+        <td>You cannot get the wireless switch input. <br /> → However, <a href="#WiFiOFF">wireless-disabled mode</a> has an effect during communication.
+
+    <tr><th>HOME
+        <td>You cannot get input directly from the HOME Button. <br /> → You must handle <a href="#HomeMenuChange">switching to the HOME Menu</a>. 
+
+    </table>
+
+
+
+    <a name="info"></a>
+<h3>Information Other Than User Input</h3>
+
+    <table>
+    <tr><th><a name="BatteryLevel">Remaining Battery Power</a>
+        <td>Use <a href="nn/ptm/CTR/GetBatteryLevel.html"><CODE>nn::ptm::CTR::GetBatteryLevel</CODE></a> to get the remaining battery life.
+
+    <tr><th><a name="ACadapter">AC Adapter Connection State</a>
+        <td>Use <a href="nn/ptm/CTR/GetAdapterState.html"><CODE>nn::ptm::CTR::GetAdapterState</CODE></a> to get the AC adapter connection state.
+
+    <tr><th><a name="BatteryCharge">Charging Status</a>
+        <td>Use <a href="nn/ptm/CTR/GetBatteryChargeState.html"><CODE>nn::ptm::CTR::GetBatteryChargeState</CODE></a> to get the charging status.
+
+    <tr><th>Getting System Settings
+        <td>Use the <a href="nn/cfg/CTR/Overview.html"><CODE>cfg</CODE></a> library to get some System Settings.
+
+    <tr><th>Date and Time
+        <td>Use <a href="nn/fnd/DateTime/Overview.html"><CODE>nn::fnd::DateTime</CODE></a> to get the current date and time. <br /> Use <a href="nn/cfg/CTR/GetUserTimeOffset.html"><CODE>nn::cfg::CTR::GetUserTimeOffset</CODE></a> to discover whether and how the time has been changed by the user. <br /> Use <a href="nn/os/Tick/Overview.html"><CODE>nn::os::Tick</CODE></a> to get CPU cycle counts.
+
+    <tr><th><a name="UserName">User Name</a>
+        <td>Use <a href="nn/cfg/CTR/GetUserName.html"><CODE>nn::cfg::CTR::GetUserName</CODE></a> to get the user name.
+
+    <tr><th><a name="Birthday">Birthday</a>
+        <td>Use <a href="nn/cfg/CTR/GetBirthday.html"><CODE>nn::cfg::CTR::GetBirthday</CODE></a> to get the birthday.
+
+    <tr><th><a name="Country">Area</a>
+        <td>Use <a href="nn/cfg/CTR/GetCountry.html"><CODE>nn::cfg::CTR::GetCountry</CODE></a> to get the country, and use <a href="nn/cfg/CTR/GetSimpleAddress.html"><CODE> nn::cfg::CTR::GetSimpleAddress</CODE></a> to get the local area.
+
+    <tr><th>Headphone Connection Status
+        <td>Use <a href="nn/snd/CTR/GetHeadphoneStatus.html"><CODE>nn::snd::CTR::GetHeadphoneStatus</CODE></a> to get the connection status of headphones.
+
+    <tr><th>User Information
+        <td>→ <a href="#UserName">Username</a><br /> → <a href="#Birthday">Birthday</a><br /> → <a href="#Country">Area</a><br />
+
+    <tr><th>Language
+        <td>Use <a href="nn/cfg/CTR/GetLanguage.html"><CODE>nn::cfg::CTR::GetLanguage</CODE></a> to get the language.
+
+    <tr><th>Region
+        <td>Use <a href="nn/cfg/CTR/GetRegion.html"><CODE>nn::cfg::CTR::GetRegion</CODE></a> to get the region.
+
+    <tr><th>Sound Output Mode
+        <td>Use <a href="nn/cfg/CTR/GetSoundOutputMode.html"><CODE>nn::cfg::CTR::GetSoundOutputMode</CODE></a> to get the sound output mode.
+
+    <tr><th>Variable RTC Offset
+        <td>Use <a href="nn/cfg/CTR/GetUserTimeOffset.html"><CODE>nn::cfg::CTR::GetUserTimeOffset</CODE></a> to get the variable RTC offset.
+
+    <tr><th>System-Specific ID
+        <td>Use <a href="nn/cfg/CTR/GetTransferableId.html"><CODE>nn::cfg::CTR::GetTransferableId</CODE></a> to get the system-specific ID.
+
+    <tr><th>Pedometer
+        <td>Use the <a href="nn/pl/CTR/Overview.html"><CODE>pl</CODE></a> library.
+
+    <tr><th>Notification LED
+        <td>You cannot manipulate the notification LED directly, or get its state. <br /> The following entries describe the illumination and blinking conditions, and provide related information.
+            <ul>
+            <li><b>When a notification is received</b><br />Illuminates when a notification is received from <a href="#boss">SpotPass</a>. To send a notification from the server and illuminate the LED, register an application-specific task in <a href="#boss">SpotPass</a>.
+            <li><b>When a StreetPass communication is received</b><br />Illuminates when <a href="#cec">StreetPass</a> is engaged. <br /> You cannot control this option from the application.
+            <li><b>When a friend comes online</b><br />Illuminates when a <a href="#friends">Friend</a> comes online. <br /> You cannot control this option from the application.
+            <li><b>When the battery level is very low</b><br />Illuminates when the <a href="#BatteryLevel">battery level</a> reaches <CODE><a href="nn/ptm/CTR/BatteryLevel.html">nn::ptm::CTR::BATTERYLEVEL_1</a></CODE>. <br /> You cannot control this option from the application.
+            </ul>
+
+    <tr><th>3D LED
+        <td>You cannot control or get the state of the 3D LED directly. <br /> The 3D LED illuminates when <CODE>NN_GX_DISPLAY_MODE_STEREO</CODE> is specified to <a href="nn_gx/nngxSetDisplayMode.html"><CODE>nngxSetDisplayMode</CODE></a>, as long as <a href="#3Dgx">display of 3D images</a> is not restricted by Parental Controls.
+
+    <tr><th>Power LED
+        <td>You cannot control or get the state of the power LED.<br /> → Use the <a href="#BatteryLevel">remaining battery life</a> instead.
+
+    <tr><th>Recharge LED
+        <td>You cannot control or get the state of the recharge LED.<br /> → Use the <a href="#BatteryCharge">charging status</a> instead.
+
+    <tr><th>Wireless LED
+<td>You cannot manipulate the wireless LED or get its state.<br /> The LED illuminates when wireless is enabled, and blinks during wireless communication.
+
+    <tr><th>Getting the Execution Environment
+<td>Use <a href="nn/os/CTR/GetRunningTargetHardware.html"><CODE>nn::os::CTR::GetRunningTargetHardware</CODE></a> to get the type of hardware an application is running on.
+
+    </table>
+
+
+
+    <a name="comm"></a>
+    <h3>Communications</h3>
+
+    <table>
+    <tr><th><a name="cec">StreetPass</a>
+        <td>Use the <a href="nn/cec/CTR/Overview.html"><CODE>cec</CODE></a> library.
+
+    <tr><th><a name="boss">SpotPass</a>
+        <td>Use the <a href="nn/boss/Overview.html"><CODE>boss</CODE></a> library.
+
+    <tr><th><a name="uds">Direct, Low-Latency Communication Between CTR Systems</a>
+        <td>Use the <a href="nn/uds/CTR/Overview.html"><CODE>uds</CODE></a> library.
+
+    <tr><th><a name="rdt">Direct Data Transfers Between CTR Systems</a>
+        <td>Use the <a href="nn/rdt/Overview.html"><CODE>rdt</CODE></a> library.
+
+    <tr><th><a name="dlplay">Download Play</a>
+        <td>Use the <a href="nn/dlp/CTR/Overview.html"><CODE>dlp</CODE></a> library.
+
+    <tr><th><a name="ir">Infrared Communication</a>
+        <td>Use the <a href="nn/ir/CTR/Overview.html"><CODE>ir</CODE></a> library.
+
+    <tr><th><a name="friends">Getting Friend Information</a>
+        <td>Use the <a href="nn/friends/CTR/Overview.html"><CODE>friends</CODE></a> library.
+
+    <tr><th>Friend List
+        <td>→ <a href="#friends">Getting Friend Information</a>
+
+    <tr><th class="disabled">Friend Registration
+        <td class="disabled">Applications cannot register friends.
+
+    <tr><th><a name="NEX">NEX</a>
+        <td>→ NEX is distributed with the CTR-NEX package, which is separate from the CTR-SDK. Refer to the CTR-NEX package.
+
+    <tr><th>Online Matchmaking
+        <td>→ <a href="#NEX">NEX</a>
+
+    <tr><th>Online Ranking
+        <td>→ <a href="#NEX">NEX</a>
+
+    <tr><th>Network Data Storage
+        <td>→ <a href="#NEX">NEX</a>
+
+    <tr><th><a name="ac">Connecting to an Access Point</a>
+        <td>Use the <a href="nn/ac/CTR/Overview.html"><CODE>ac</CODE></a> library.
+
+    <tr><th>Nintendo Zone
+        <td>Use the <a href="nn/ac/CTR/Overview.html"><CODE>ac</CODE></a> library to automatically connect to a Nintendo Zone just like an ordinary access point.
+
+    <tr><th>USB Communication With a Windows PC
+<td>This option can be used only for development purposes.<br />It cannot be used in retail products.<br />Use the <a href="nn/hio/CTR/Overview.html"><CODE>hio</CODE> library</a>.
+
+    <tr><th>Posting Messages
+        <td>Applications can post messages directly using <a href="nn/news/CTR/user/PostNews.html"><CODE>nn::news::CTR::user::PostNews</CODE></a>. <br /> You can also post messages through <a href="#boss">SpotPass</a>.
+
+    <tr><th><a name="internet">Internet Communication</a>
+        <td>→ <a href="#ac">Connecting to an Access Point</a><br /> → <a href="#boss">SpotPass</a><br /> → <a href="#NEX">NEX</a>
+
+    <tr><th><a name="local">Local Communications</a>
+        <td>→ <a href="#uds">Direct, Low-Latency Wireless Communication Between CTR Systems</a><br /> → <a href="#rdt">Direct Wireless Data Transfers Between CTR Systems</a><br /> → <a href="#dlplay">Download Play</a><br />→ <a href="#ir">Infrared Communication</a>
+
+    <tr><th>Nintendo 3DS Service User Agreement
+        <td>→ <a href="#EULA">EULA</a>
+
+    <tr><th><a name="EULA">EULA</a>
+        <td>You must accept the EULA before you can use <a href="#internet">Internet communication</a>, run <a href="#cec">StreetPass</a>, or get <a href="#friends">friend information</a>. To accept the EULA, use the System Settings or <CODE>Config</CODE>. <br /> An application can use <CODE><a href="nn/cfg/CTR/IsAgreedEula.html">nn::cfg::CTR::IsAgreedEula</a></CODE> to find out whether the user has accepted the EULA.
+
+    <tr><th>Wireless LED
+<td>You cannot manipulate the wireless LED or get its state.<br /> The LED illuminates when wireless is enabled, and blinks during wireless communication.
+
+    <tr><th>Wireless Switch
+        <td>You cannot get the wireless switch input. <br /> → However, <a href="#WiFiOFF">wireless-disabled mode</a> has an effect during communication.
+
+    <tr><th><a name="WiFiOFF">Disabled</a>
+        <td>If wireless communication is disabled when you initialize a library that uses wireless, you get an error with an error value to indicate that wireless communication is disabled. <br /> If wireless communication is disabled from the wireless switch when wireless communication is in use, the sequence transitions to one for disconnecting a connection by a library.
+
+<tr><th><a name="nfc">Near Field Communication</a>
+<td>Use the <a href="nn/nfp/Overview.html">NFP library</a> to read from and write to amiibo.
+
+    </table>
+
+
+
+    <a name="calc"></a>
+    <h3>Calculation</h3>
+
+    <table>
+    <tr><th>Matrix and Vector
+        <td>Use the <a href="nn/math/Overview.html"><CODE>math</CODE></a> library.
+
+    <tr><th>Quaternions
+        <td>Use the <a href="nn/math/Overview.html"><CODE>math</CODE></a> library.
+
+    <tr><th>Floating-Point Functions
+        <td>Use the <a href="nn/math/Overview.html"><CODE>math</CODE></a> library.
+
+    <tr><th>Integer Functions
+        <td>Use the <a href="nn/math/Overview.html"><CODE>math</CODE></a> library.
+
+    <tr><th>Bit Operations
+        <td>Use the <a href="nn/math/Overview.html"><CODE>math</CODE></a> library.
+
+    <tr><th>Random Number Generation
+        <td>Normally you can use the <a href="nn/math/Overview.html"><CODE>math</CODE></a> library for generating pseudo-random numbers.<br/> Use the <a href="nn/crypto/GenerateRandomBytes.html"><CODE>nn::crypto::GenerateRandomBytes</CODE></a> function to generate random numbers that are not repeated.
+
+    <tr><th>CRC Calculations
+        <td>Use the <a href="nn/util/Overview.html"><CODE>util</CODE></a> library.
+
+    <tr><th>SHA Calculations
+        <td>Use the <a href="nn/crypto/Overview.html"><CODE>crypto</CODE></a> library.
+
+    <tr><th>AES Encryption
+        <td>Use the <a href="nn/crypto/Overview.html"><CODE>crypto</CODE></a> library.
+
+    <tr><th>Compression and Decompression
+        <td>Use the <a href="nn/cx/Overview.html"><CODE>cx</CODE></a> library or <a href="introduction/AboutZlib.html"><CODE>zlib</CODE></a> library.
+
+    <tr><th>Encoding and Decoding JPEG Images
+        <td>Use the <a href="nn/jpeg/CTR/Overview.html"><CODE>jpeg</CODE></a> library.
+
+    <tr><th><a name="MPOEncodeDecode">Encoding and Decoding MPO Images</a>
+        <td>Use the <a href="nn/jpeg/CTR/Overview.html"><CODE>jpeg</CODE></a> library.
+
+    <tr><th>Encoding and Decoding Stereoscopic Images
+        <td>→ <a href="#MPOEncodeDecode">Encoding and Decoding MPO Images</a>
+
+    </table>
+
+
+
+    <a name="pow"></a>
+    <h3>Power and Application Controls</h3>
+
+    <table>
+    <tr><th>POWER Button
+<td>You cannot get input directly from the POWER Button.<br /> → You must handle <a href="#ApiClose">Application Close</a> instead. 
+
+<tr><th>HOME
+        <td>You cannot get input directly from the HOME Button. <br /> → You must handle <a href="#HomeMenuChange">switching to the HOME Menu</a>. 
+
+    <tr><th class="disabled">Power Off
+        <td class="disabled">Applications cannot turn the system off.
+
+    <tr><th><a name="sleep">Sleep</a>
+        <td>Applications cannot go into Sleep Mode autonomously. Applications go into sleep mode according to instructions from the system. <br /> For more information, see the <a href="nn/applet/CTR/Overview.html"><CODE>applet</CODE></a> library.
+
+    <tr><th>Sleep Mode
+        <td>→ <a href="#sleep">Sleep</a>
+
+    <tr><th><a name="ApiClose">Application Shutdown</a>
+        <td>Applications cannot exit autonomously. <br />Applications close according to instructions from the system. <br /> For more information, see the <a href="nn/applet/CTR/Overview.html"><CODE>applet</CODE></a> library.
+
+    <tr><th>Application Reset
+        <td>Use <a href="nn/applet/CTR/RestartApplication.html"><CODE>nn::applet::CTR::RestartApplication</CODE></a>.
+
+    <tr><th>Remaining Battery Power
+        <td>Use <a href="nn/ptm/CTR/GetBatteryLevel.html"><CODE>nn::ptm::CTR::GetBatteryLevel</CODE></a> to get the remaining battery life.
+
+    <tr><th>AC Adapter Connection State
+        <td>Use <a href="nn/ptm/CTR/GetAdapterState.html"><CODE>nn::ptm::CTR::GetAdapterState</CODE></a> to get the AC adapter connection state.
+
+    <tr><th>Charging Status
+        <td>Use <a href="nn/ptm/CTR/GetBatteryChargeState.html"><CODE>nn::ptm::CTR::GetBatteryChargeState</CODE></a> to get the charging status.
+
+    </table>
+
+
+
+    <a name="os"></a>
+    <h3>OS Foundation</h3>
+
+    <table>
+
+    <tr><th>Thread
+        <td>Use <a href="nn/os/Thread/Overview.html"><CODE>os::Thread</CODE></a>.
+
+    <tr><th>Mutex
+        <td>Use the <a href="nn/os/Overview.html"><CODE>os</CODE></a> library.
+
+    <tr><th><a name="tick">Ticks</a>
+        <td>Use <a href="nn/os/Tick/Overview.html"><CODE>os::Tick</CODE></a>.
+
+    <tr><th>Cycle Counts
+        <td>→ <a href="#tick">Ticks</a>
+
+    <tr><th>Timers
+        <td>Use <a href="nn/os/Timer/Overview.html"><CODE>os::Timer</CODE></a>.
+
+    <tr><th><a name="MemoryControl">Memory Management</a>
+        <td>Use the <a href="nn/os/Overview.html"><CODE>os</CODE></a> library for basic allocation of memory to your application. You can use the <a href="nn/fnd/Overview.html"><CODE>fnd</CODE></a> library to build an allocator in allocated memory.
+
+    <tr><th>Device Memory
+        <td>→ <a href="#MemoryControl">Memory Management</a>
+
+    <tr><th>Exception Handling
+        <td>This option can be used only for development purposes.<br /> It cannot be used in retail products.<br /> Register exception handlers with the <CODE>os</CODE> library (<a href="nn/os/ARM/Overview.html"><CODE>nn::os::ARM</CODE></a>).
+
+    <tr><th>Date and Time
+        <td>Use <a href="nn/fnd/DateTime/Overview.html"><CODE>fnd::DateTime</CODE></a> to get the current date and time.<br /> <br /> Use <a href="nn/os/Tick/Overview.html"><CODE>os::Tick</CODE></a> to get CPU cycle counts.
+
+    <tr><th><a name="DLL">Dynamic Module</a>
+        <td>Use the <a href="nn/ro/Overview.html"><CODE>ro</CODE></a> library.
+
+    <tr><th>DLL
+        <td>→ <a href="#DLL">Dynamic Module</a>
+
+    </table>
+
+
+
+    <a name="fs"></a>
+<h3>File System</h3>
+
+    <table>
+<tr><th>Game Card
+<td>Use the <a href="nn/fs/Overview.html"><CODE>fs</CODE></a> library.<br /> See <a href="nn/fs/MountRom.html"><CODE>nn::fs::MountRom</CODE></a>.
+
+<tr><th>Save Data
+<td>Use the <a href="nn/fs/Overview.html"><CODE>fs</CODE></a> library.<br /> See <a href="nn/fs/MountSaveData.html"><CODE>nn::fs::MountSaveData</CODE></a>.
+
+<tr><th>Expanded Save Data
+<td>Use the <a href="nn/fs/Overview.html"><CODE>fs</CODE></a> library.<br /> See <a href="nn/fs/MountExtSaveData.html"><CODE>nn::fs::MountExtSaveData</CODE></a>.
+
+<tr><th>SD card
+<td>This option can be used only for development purposes.<br />It cannot be used in retail products.<br />Use the <a href="nn/fs/Overview.html"><CODE>fs</CODE></a> library.<br /> For more information, see <a href="nn/fs/MountSdmc.html"><CODE>nn::fs::MountSdmc</CODE></a>.
+
+    </table>
+
+
+
+    <a name="debug"></a>
+    <h3>Debugging</h3>
+
+    <table>
+    <tr><th>Debug Output
+        <td>This option can be used only for development purposes.<br /> It cannot be used in retail products.<br /> Use <a href="nn_dbg/Overview.html">macros for debug string output</a>.
+
+    <tr><th>ASSERT
+        <td>Use the <a href="nn_dbg/Overview.html">ASSERT Macro</a>.<br/> Lets you set which handler to call with <CODE><a href="nn/dbg/SetBreakHandler.html">nn::dbg::SetBreakHandler</a></CODE> when the assertion fails.
+
+<tr><th>USB Communication With a Windows PC
+<td>This option can be used only for development purposes.<br />It cannot be used in retail products. <br />Use the <a href="nn/hio/CTR/Overview.html"><CODE>hio</CODE> library</a>.
+
+<tr><th>Using the MIDI Interface (UIC-MIDI)
+<td>This option can be used only for development purposes.<br />It cannot be used in retail products. <br />Use the <a href="nn/midi/CTR/Overview.html"><CODE>midi</CODE> library</a>.
+
+    <tr><th>Debug Controller
+        <td>This option can be used only for development purposes.<br /> It cannot be used in retail products.<br /> Use <a href="nn/hid/CTR/DebugPadReader/Overview.html"><CODE>nn::hid::CTR::DebugPadReader</CODE></a> to get input values.
+
+    <tr><th>Exception Handling
+        <td>This option can be used only for development purposes.<br /> It cannot be used in retail products.<br /> Register exception handlers with the <CODE>os</CODE> library (<a href="nn/os/ARM/Overview.html"><CODE>nn::os::ARM</CODE></a>).
+
+    <tr><th>Getting the Execution Environment
+<td>Use <a href="nn/os/CTR/GetRunningTargetHardware.html"><CODE>nn::os::CTR::GetRunningTargetHardware</CODE></a> to get the type of hardware an application is running on.
+
+<tr><th>Accessing SD Cards
+<td>This option can be used only for development purposes.<br />It cannot be used in retail products.<br />Use the <a href="nn/fs/Overview.html">fs</a> library.<br /> For more information, see <a href="nn/fs/MountSdmc.html"><CODE>nn::fs::MountSdmc</CODE></a>.
+
+    <tr><th>SELECT
+        <td>This option can be used only for development purposes.<br /> It cannot be used in retail products.<br /> Enable debug mode by using the <CODE>Config</CODE> tool, and call <a href="nn/hid/CTR/EnableSelectButton.html"><CODE>nn::hid::CTR::EnableSelectButton</CODE></a> to get input from <a href="nn/hid/CTR/PadReader/Overview.html"><CODE>nn::hid::CTR::PadReader</CODE></a>.
+
+    </table>
+
+
+
+    <a name="home"></a>
+<h3>HOME Menu</h3>
+
+    <table>
+<tr><th class="disabled">Brightness Adjustment
+<td class="disabled">You cannot change the brightness or get the current brightness value.
+
+<tr><th class="disabled">Power-Saving Mode
+<td class="disabled">You cannot turn on or turn off power-saving mode, and you cannot get the current mode.
+
+<tr><th>Banners
+<td>For information about how to create banners, see the <a href="../tools/ctr_makebanner.html"><CODE>ctr_makebanner</CODE></a> reference. <br />For information about how to add them to your application, see <a href="../SDKRules/BuildRules.html">Build Rules</a> or the <a href="../TechnicalNotes/BuildSystemDevelopmentGuide/BuildSystemDevelopmentGuide.html"><I>Guide to Developing a Build System</I></a>.
+
+<tr><th><a name="icon">Icons</a>
+<td>For information about how to create banners, see the <a href="../tools/ctr_makebanner.html"><CODE>ctr_makebanner</CODE></a> reference.<br /> For information about how to add them to your application, see <a href="../SDKRules/BuildRules.html">Build Rules</a> or the <a href="../TechnicalNotes/BuildSystemDevelopmentGuide/BuildSystemDevelopmentGuide.html"><I>Guide to Developing a Build System</I></a>.
+
+<tr><th>Software Icons
+<td>→ <a href="#icon">Icon</a>
+
+<tr><th><a name="boss_news">SpotPass Notifications</a>
+<td>These notifications are received from <a href="#boss">SpotPass</a>. To receive notifications sent from the server, register an application-specific task in <a href="#boss">SpotPass</a>.
+
+<tr><th><a name="cec_news">StreetPass Notifications</a>
+<td>This notification indicates that <a href="#cec">StreetPass</a> has occurred. <br /> You cannot control this option from the application.
+
+<tr><th><a name="news">Notifications Distributed Directly From Games</a>
+<td>Applications can use <a href="nn/news/CTR/user/PostNews.html"><CODE>nn::news::CTR::user::PostNews</CODE></a> to distribute notifications directly.
+
+<tr><th>Pedometer
+<td>Use the <a href="nn/pl/CTR/Overview.html"><CODE>pl</CODE></a> library.
+
+<tr><th>Play Coins
+<td>→ The library used for Play Coins is distributed with the CTR-SDK Applet package, which is separate from the CTR-SDK itself.
+
+<!--     <tr><th><a name="Emanual">電子マニュアル</a>         <td>PDF, ビルド, makerom      <tr><th>取扱説明書         <td>→ <a href="#Emanual">電子マニュアル</a> -->
+
+<tr><th><a name="HomeMenuChange">Switching to the HOME Menu</a>
+<td>Use the <a href="nn/applet/CTR/Overview.html"><CODE>applet</CODE></a> library.
+
+
+    </table>
+
+
+    <a name="applet"></a>
+<h3>Applets</h3>
+
+    <table>
+<tr><th>Error Messages
+<td>Use the <CODE><a href="nn/erreula/CTR/Overview.html">erreula</a></CODE> library.
+<tr><th>Software Keyboard
+<td>Use the <CODE><a href="nn/swkbd/CTR/Overview.html">swkbd</a></CODE> library.
+<tr><th>Photo Selector Dialog Box
+<td>Use the <CODE><a href="nn/phtsel/CTR/Overview.html">phtsel</a></CODE> library.
+<tr><th>Voice Selector Dialog Box
+<td>Use the <CODE><a href="nn/voicesel/CTR/Overview.html">voicesel</a></CODE> library.
+    </table>
+
+
+
+    <a name="pre"></a>
+<h3>Built-In Software</h3>
+
+    <table>
+<tr><th>Notifications
+<td>→ <a href="#boss_news">SpotPass Notifications</a><br /> → <a href="#cec_news">StreetPass Notifications</a><br /> → <a href="#news">Notifications Distributed Directly From Games</a>
+
+<tr><th>Software Library
+<td>→ Register <a href="#icon">Icon</a> information here. No other operations are possible.
+
+<tr><th>Activity Log
+<td>→ Use <a href="#icon">Icon</a> information here. No other operations are possible.
+
+<tr><th>AR Cards
+<td>→ Use the AR library to recognize AR Cards. It is distributed separately from the CTR-SDK.
+
+<tr><th>Mii Characters
+<td>→ The CTR Face Library allows you to use Mii characters. It is distributed separately from the CTR-SDK.
+
+    </table>
+
+
+
+    <a name="setting"></a>
+<h3>System Settings</h3>
+
+    <table>
+
+<tr><th>User Name
+<td>Use <a href="nn/cfg/CTR/GetUserName.html"><CODE>nn::cfg::CTR::GetUserName</CODE></a> to get the user name.
+
+<tr><th>Birthday
+<td>Use <a href="nn/cfg/CTR/GetBirthday.html"><CODE>nn::cfg::CTR::GetBirthday</CODE></a> to get the birthday.
+
+<tr><th>Area
+<td>Use <a href="nn/cfg/CTR/GetCountry.html"><CODE>nn::cfg::CTR::GetCountry</CODE></a> to get the country, and use <a href="nn/cfg/CTR/GetSimpleAddress.html"><CODE> nn::cfg::CTR::GetSimpleAddress</CODE></a> to get the local area.
+
+<tr><th>Language
+<td>Use <a href="nn/cfg/CTR/GetLanguage.html"><CODE>nn::cfg::CTR::GetLanguage</CODE></a> to get the language.
+
+<tr><th>Sound Output Mode
+<td>Use <a href="nn/cfg/CTR/GetSoundOutputMode.html"><CODE>nn::cfg::CTR::GetSoundOutputMode</CODE></a> to get the sound output mode.
+
+<tr><th>Variable RTC Offset
+<td>Use <a href="nn/cfg/CTR/GetUserTimeOffset.html"><CODE>nn::cfg::CTR::GetUserTimeOffset</CODE></a> to get the variable RTC offset.
+
+<tr><th>Touch Screen Calibration
+<td>Applications do not need to calibrate the Touch Screen because it is automatically done by the <a href="nn/hid/CTR/TouchPanelReader/Overview.html"><CODE>nn::hid::CTR::TouchPanelReader</CODE></a>.
+
+<tr><th>External Camera Calibration
+<td>Applications do not need to calibrate the cameras to take 3D photos because the cameras are calibrated automatically.<br /><br /> Use <a href="nn/camera/CTR/GetStereoCameraCalibrationData.html"><CODE>nn::camera::CTR::GetStereoCameraCalibrationData</CODE></a> to get calibration data and <a href="nn/camera/CTR/GetStereoCameraCalibrationMatrixEx.html"><CODE>nn::camera::CTR::GetStereoCameraCalibrationMatrixEx</CODE></a> to generate a calibration matrix from the calibration data.
+
+<tr><th>Circle Pad Calibration
+<td>Applications do not need to calibrate the Circle Pad because it is automatically done by the <a href="nn/hid/CTR/PadReader/Overview.html"><CODE>nn::hid::CTR::PadReader</CODE></a>.
+
+<tr><th>Parental Controls
+<td>→ <a href="#parental">Parental Controls</a>
+
+<tr><th>Blocked-User Settings Initialization
+<td>The <a href="nn/ubl/Overview.html"><CODE>ubl</CODE></a> library clears the registered blocked-user settings.
+
+<tr><th>Configure Internet Connection
+<td>Used by <a href="#ac">Connecting to an Access Point</a>.
+
+    </table>
+
+
+
+    <a name="parental"></a>
+<h3>Parental Controls</h3>
+
+    <table>
+<tr><th class="disabled">Software Rating
+<td class="disabled">Based on the rating information set in <a href="#icon">Icon</a>, applications with a setting greater than the target age are prohibited from running. <br />This restriction is applied automatically, and prevents the application from being started from the HOME Menu. <br /> It is not possible to get whether this restriction is enabled.
+<tr><th class="disabled">Internet Browser
+<td class="disabled">When enabled, this restriction prevents the Internet Browser from starting. <br /> It is not possible to get whether this restriction is enabled.
+
+<tr><th>Nintendo 3DS Shopping Services
+<td>When this restriction is enabled, the use of credit cards on Nintendo eShop and elsewhere in addition to the purchasing of all goods and services are blocked. <br /> Use the <CODE><a href="nn/cfg/CTR/IsRestrictShopUse.html">nn::cfg::CTR::IsRestrictShopUse</a></CODE> function to determine whether this restriction is enabled.
+
+<tr><th><a name="3Dgx">Display of 3D Images</a>
+<td>When enabled, this restriction prevents the system from displaying stereoscopic images. This restriction is applied automatically. It prevents stereoscopic display even if you set <CODE><a href="nn_gx/nngxSetDisplayMode.html">nngxSetDisplayMode</a></CODE> to <CODE>NN_GX_DISPLAYMODE_STEREO</CODE>.<br /> To determine whether this restriction or the 3D depth slider has prohibited stereoscopic images, call <a href="nn/gx/CTR/IsStereoVisionAllowed.html"><CODE>nn::gx::CTR::IsStereoVisionAllowed</CODE></a>.
+
+<tr><th>Miiverse
+<td>When enabled, this restriction blocks browsing and posting within Miiverse. <br /> Use the <CODE><a href="nn/cfg/CTR/IsRestrictMiiverseBrowse.html">nn::cfg::CTR::IsRestrictMiiverseBrowse</a></CODE> function to determine whether browsing has been restricted.<br /> Use the <CODE><a href="nn/cfg/CTR/IsRestrictMiiversePost.html">nn::cfg::CTR::IsRestrictMiiversePost</a></CODE> function to determine whether posting has been restricted.
+
+<tr><th>Sharing Images, Audio, and Video
+<td>When enabled, this restriction prevents the sending and receiving of user-generated content (UGC). <br /> This restriction is not applied automatically. Applications must get a value from <a href="nn/cfg/CTR/IsRestrictPhotoExchange.html"><CODE>nn::cfg::CTR::IsRestrictPhotoExchange</CODE></a> and then enforce this restriction.
+
+<tr><th>Online Interaction
+<td>When enabled, this restriction blocks communication with other users and the exchange of data via the Internet. <br /> This restriction is automatically applied when attempting to log in to the friend server. Login fails if the restriction is enabled. (As a result, this also prevents logging in to the game server in the NEX library.) <br /> However, any communication that takes place using an independent server must be handled in accordance with the specifications of the application.<br /> To determine whether this restriction is enabled, use <a href="nn/cfg/CTR/IsRestrictP2pInternet.html"><CODE>nn::cfg::CTR::IsRestrictP2pInternet</CODE></a>.
+
+<tr><th>StreetPass
+<td>When enabled, this restriction blocks StreetPass. <br /> This restriction is applied automatically. When enabled, writing a message to a StreetPass box fails. It also blocks the StreetPass feature itself.<br /> To determine whether this restriction is enabled, use <a href="nn/cfg/CTR/IsRestrictP2pCec.html"><CODE>nn::cfg::CTR::IsRestrictP2pCec</CODE></a>.
+
+<tr><th>Registering Friends
+<td>It is prohibited to register friends when this restriction is enabled.<br /><br /> To determine whether this restriction is enabled, use <a href="nn/cfg/CTR/IsRestrictAddFriend.html"><CODE>nn::cfg::CTR::IsRestrictAddFriend</CODE></a>.
+
+<tr><th class="disabled">DS Download Play
+<td class="disabled">DS Download Play is prohibited when this restriction is enabled. <br /> It is not possible to get whether this restriction is enabled.
+
+<tr><th>Entertainment Excluding Games
+<td>The viewing of distributed video is blocked when this restriction is enabled.<br /> To determine whether this restriction is enabled, use <CODE><a href="nn/cfg/CTR/IsRestrictWatchVideo.html">nn::cfg::CTR::IsRestrictWatchVideo</a></CODE>.
+    </table>
+
+<h2>Revision History</h2>
+    <div class="section">
+        <dl class="history">
+            <dt>2014/04/15</dt>
+<dd>Revised the description of <B>Entertainment Excluding Games</B> under Parental Controls.</dd>
+            <dt>2014/03/20</dt>
+<dd>Added descriptions for <B>Miiverse</B> and <B>Entertainment Excluding Games</B> under Parental Controls.</dd>
+            <dt>2014/03/19</dt>
+<dd>Revised the description of <B>Online Interaction</B> under Parental Controls.</dd>
+<dd>Revised the description of <B>Nintendo 3DS Shopping Services</B> under Parental Controls.</dd>
+            <dt>2012/06/22</dt>
+<dd>Added the item about the ASSERT macro.</dd>
+            <dt>2011/12/12</dt>
+<dd>Updated information.</dd>
+            <dt>2011/07/19</dt>
+<dd>Initial version.</dd>
+        </dl>
+    </div>
+
+
+<hr /><p>CONFIDENTIAL</p></BODY></HTML>

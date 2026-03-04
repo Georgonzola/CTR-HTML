@@ -1,0 +1,1152 @@
+﻿<!DOCTYPE html>
+<HTML>
+
+<HEAD>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <META http-equiv="Content-Style-Type" content="text/css">
+
+<TITLE>Patch Manual</TITLE>
+
+    <STYLE>
+        h1.left
+        {
+            color: #46f;
+            font-size: 100%;
+        }
+        ul.left, ul.left ul
+        {
+            margin: 0;
+            padding: 0;
+        }
+        ul.left
+        {
+            font-size: 0.8em;
+        }
+        ul.left li
+        {
+            margin: 0;
+            padding: 0;
+            margin-left: 1em;
+            line-height: 1.5em;
+        }
+        ul.left li a
+        {
+            margin: 0;
+            padding: 0;
+        }
+
+        H1
+        {
+            font-weight         : bold;
+            font-size           : 250%;
+            text-align          : left;
+            color               : #46f;
+            margin-bottom       : 0px;
+        }
+
+        H2
+        {
+            font-weight         : normal;
+            font-size           : 180%;
+            margin              : 24pt 0pt 6pt 0pt;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+        }
+
+        H3
+        {
+            font-weight         : bold;
+            font-size           : 120%;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+            width: 75%;
+            margin              : 18pt 0pt 6pt 30pt;
+        }
+
+        H4
+        {
+            font-weight         : bold;
+            font-size           : 100%;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H5
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H6
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        DIV.date
+        {
+            text-align          : right;
+            color               : #46f;
+            margin-bottom       : 30pt;
+            line-height         : 150%;
+        }
+
+        P
+        {
+            margin              : 0pt 0pt 12pt 30pt;
+            line-height         : 150%;
+        }
+        
+        P.warning
+        {
+            color               : red;
+            font-weight         : bold;
+            border              : solid 2px red;
+            padding             : 1em;
+        }
+
+        OL,UL,DL
+        {
+            margin              : 6pt 0pt 6pt 50pt;
+        }
+        OL OL, UL UL
+        {
+            margin-left: 3em;
+            margin-top: 0;
+        }
+
+        DT
+        {
+            font-family         : "Courier New", monospace;
+            margin-top : 0.3em;
+            margin-bottom : 0.3em;
+        }
+        DD
+        {
+            margin-top : 0.3em;
+            margin-bottom : 0.6em;
+        }
+
+        PRE
+        {
+            font-family         : "Courier New", monospace;
+            font-weight         : normal;
+
+            margin              : 0pt 0pt 20pt 50pt;
+            padding             : 2pt 8pt 2pt 8pt;
+            background-color    : #eee;
+
+            border-style        : solid;
+            border-width        : 1px;
+        }
+        em
+        {
+            font-style: normal;
+            color: red;
+        }
+        TABLE
+        {
+            margin-left         : 40pt;
+            margin-bottom       : 20pt;
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        TD
+        {
+            font-style          : normal;
+            padding             : 2pt 4pt 2pt 4pt;
+
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        div.footer
+        {
+            border-color: black;
+            padding-top: 0.5em;
+            border-top-style    : solid;
+            border-top-width    : 1px;
+            width:              100%;
+            margin-top: 2em;;
+        }
+        div.footer span
+        {
+            color               : #46f;
+            float: right;
+        }
+        table
+        {
+            border-collapse:    collapse;
+        }
+        table td
+        {
+        }
+        table th
+        {
+            border              : solid 1px;
+        }
+        ul
+        {
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        span.here
+        {
+            color: red;
+        }
+        DL.history
+        {
+            margin: 1em;
+        }
+        DL.history DT
+        {
+            font-family         : sans-serif;
+            font-weight         : bold;
+            font-size           : 0.8em;
+            margin              : 0px;
+        }
+        DL.history DD
+        {
+            font-size           : 0.9em;
+            margin              : 0px 0px 4px 0px;
+        }
+        div.red_box
+        {
+            border: solid 1px red;
+            padding: 1em;
+        }
+
+        table.center td { text-align: center; }
+        .red { color: red; }
+    </STYLE>
+    <SCRIPT type="text/javascript">
+    <!--
+        function DeleteRule(index)
+        {
+            var ss = document.styleSheets.item(0);
+
+            if( ss.removeRule )
+            {
+                ss.removeRule(index);
+            }
+            else
+            {
+                ss.deleteRule(index);
+            }
+        }
+        function OnClickAnchor(e, anchor)
+        {
+            window.parent.frames[1].location.hash = anchor;
+
+            if( e.preventDefault )
+            {
+                e.preventDefault();
+            }
+            else
+            {
+                e.returnValue = false;
+            }
+        }
+        function TravLeft(obj)
+        {
+            var ary = new Array();
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var text  = "--no name--";
+
+                        var anchor = "name-" + index;
+                        index++;
+
+                        if( c.hasChildNodes() )
+                        {
+                            var a = c.childNodes.item(0);
+
+                            if( a && a.tagName == "A" )
+                            {
+                                text  = a.innerHTML;
+                            }
+                            else
+                            {
+                                text  = c.innerHTML;
+                            }
+                        }
+
+                        ary.push([c.tagName.substr(1,1), "<a target=\"right\" href=\"?right#" + anchor + "\" onclick=\"OnClickAnchor(event, '" + anchor + "')\">" + text + "</a>"]);
+                    }
+                    else
+                    {
+                        ary = ary.concat(TravLeft(c));
+                    }
+                }
+            }
+
+            return ary;
+        }
+        function TravRight(obj)
+        {
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var anchor = "name-" + index;
+                        index++;
+
+                        c.innerHTML = "<a name=\"" + anchor + "\">" + c.innerHTML + "</a>"
+                    }
+                    else
+                    {
+                        TravRight(c);
+                    }
+                }
+            }
+        }
+        function OnLoad_Left()
+        {
+            var test = TravLeft(document.body);
+            var test2 = "";
+            var level = 2;
+
+            test2 += "<h1 class='left'>" + document.title + "</h1>";
+            test2 += "<ul class='left'>";
+            for( var i in test )
+            {
+                while( test[i][0] > level )
+                {
+                    level++;
+                    test2 += "<ul>";
+                }
+                while( test[i][0] < level )
+                {
+                    level--;
+                    test2 += "</ul>";
+                }
+
+                test2 += "<li>" + test[i][1];
+            }
+            test2 += "</ul>";
+
+            document.body.innerHTML = test2;
+            DeleteRule(0);
+        }
+        function OnLoad_Right()
+        {
+            TravRight(document.body);
+        }
+        function OnLoad_Frame()
+        {
+            var myname = location.pathname.substr(location.pathname.lastIndexOf("/") + 1);
+
+            var f = document.createElement("frameset");
+            var l = document.createElement("frame");
+            var r = document.createElement("frame");
+
+            f.appendChild(l);
+            f.appendChild(r);
+            f.cols = "250,*";
+
+            l.src  = myname + "?left"  + location.hash;
+            r.src  = myname + "?right" + location.hash;
+            l.name = "left";
+            r.name = "right";
+
+            var h = document.documentElement;
+            var b = h.getElementsByTagName("body").item(0);
+
+            h.replaceChild(f, b);
+        }
+
+
+        if( ! window.opera )
+        {
+            var search = location.search;
+
+            if( search == "?left" )
+            {
+                window.onload = OnLoad_Left;
+            }
+            else if( search == "" )
+            {
+                window.onload = OnLoad_Frame;
+            }
+            else if( search == "?right" )
+            {
+                window.onload = OnLoad_Right;
+            }
+
+            if( search != "?right" )
+            {
+                var ss = document.styleSheets.item(0);
+
+                if( ss.addRule )
+                {
+                    ss.addRule("body", "display: none", 0);
+                }
+                else
+                {
+                    ss.insertRule("body {display: none}", 0);
+                }
+            }
+        }
+    //-->
+    </SCRIPT>
+</HEAD>
+
+<BODY>
+
+
+
+
+
+<H1>Patch Manual</H1>
+<DIV class="date">(2015.02.23)</DIV>
+
+
+
+
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<H2>Introduction</H2>
+
+<H3>About Patches</H3>
+<P>
+The term &quot;patch&quot; refers both to the mechanism for replacing a number of elements in a card application, and to the data used in this replacement process. <br/> Patches can be downloaded from the Internet from the eShop server. By distributing a patch over the Internet, you can replace a number of elements in a card application after it has gone on sale. <br/>If an unapplied patch exists on the eShop server, it can be downloaded and installed when the application starts from the HOME Menu.
+</P>
+
+
+<H3>About This Document</H3>
+<P>
+This document presents information about the patch mechanism provided by the CTR-SDK, including the following topics.
+</P>
+<ul>
+<li>Patch specifications.
+<li>Preparations required by the application before the patch is applied.
+<li>How to create patches.
+<li>How to apply patches.
+</ul>
+
+
+<P>
+This document assumes basic knowledge of CTR-SDK terminology. For a glossary of basic CTR-SDK terms, see <a href="../Glossary/Glossary.html" target="_parent">CTR-SDK Terminology</a>.
+</P>
+
+<H3>Notation Used in This Document</H3>
+<P>
+This document uses colored boxes like the one shown below to indicate examples of source code and content like <CODE>OMakefile</CODE>.
+</P>
+<pre>
+nn::ro::Initialize(pCrs, crsSize);
+</pre>
+
+<H3>Notes</H3>
+<ul>
+<li>The correct serial number must be written to the CTR system for applications that use the EC library. You can use the Config tool to check the system's serial number. Verify that the serial number matches the serial number printed on the back of the system. If the serial number is not written correctly and the printed serial number starts with EJF, the system can be repaired. Contact Nintendo. Any other serial number is for a prototype system that cannot be repaired.
+<li>Data titles for CTR_ECDK version 3.2 and later are not compatible with 3.1 data titles. (Compatible with version 3.2 and later.)<br/> Note that for this reason, the demo data titles on the server have been replaced and some of the 3.1 demo programs will not work. <br/> Also, for the same reason, when independent data titles are already used with 3.1 and you are replacing with SDK 3.2 or later, the data title must be rebuilt and uploaded to the server.
+</ul>
+
+
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<H2>Terminology</H2>
+<P>
+This section defines terminology that relates to the patch mechanism provided by the CTR-SDK.
+</P>
+<P>
+The meanings and usage of terms in this document and the CTR-SDK may differ from their general meanings and usage.
+</P>
+
+
+<dl>
+<dt>Patches
+    <dd>
+A &quot;patch&quot; refers to the mechanism for replacing a number of elements in a card application. It also refers to the data that is used in this replacement process.
+
+
+<dt>Patch mechanism
+    <dd>
+This term is used to distinguish the feature of implementing the patch from the actual patch data.
+
+
+<dt>Revised version
+    <dd>
+If an application has been released and then some change has been implemented and it is released again, this refers to the new version of the application for the same title.
+
+
+<dt>Remaster Version
+    <dd>
+This numerical value is used to identify the revised versions of an application. The first release of an application is remaster version 0.
+
+
+<dt>Original ...
+    <dd>
+This term refers to the data in the application that is targeted for replacement by the patch. It is used to refer to the data prior to replacement.
+
+
+</dl>
+
+
+
+
+
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<H2>Specifications</H2>
+<P>
+The following is a general description of the specification for patches.
+</P>
+
+<H3>What Patches Can Do</H3>
+<P>
+The patch mechanism for the Nintendo 3DS system can update the following elements of an application.
+    
+</P>
+<ul>
+<li><b>Static module</b> (The executable code that loads first before any other parts of the application.)
+<li><b>Some items configured in the RSF file</b><br/>Although updates are possible, try to avoid making changes.
+<li><b>Files stored in ROM-FS</b><br/>Existing ROM-FS files are not updated by a patch. Instead, new files are added. By adding a new file and changing the code to use this added file, the effect is the same as if the existing file had been updated.
+<li><b>Download Play Client</b><br/> This patch is not a delta patch, but a complete replacement.(※)
+<li><b>E-manual</b><br/> This patch is not a delta patch, but a complete replacement.<br />When the title the patch is to be applied to does not include an e-manual, an e-manual cannot be appended anew with the use of a patch.
+</ul>
+<p><B>Note:</B> The feature for adding new Download Play client devices from a patch is supported in System Updater 0.20.51 and later versions. Prior to that release, unless the title the patch was being applied to included a Download Play client, it could not be updated.</p>
+<P>
+On the other hand, the following items cannot be updated.
+</P>
+<ul>
+<li><b>CTR icon</b><br/> Including the following elements:
+    <ul>
+<li><b>Items set by BSF.</b>
+<li><b>Icon images.</b>
+    </ul>
+<li><b>CTR title banner</b><br/> Including the following elements:
+    <ul>
+<li><b>Items set by BSF.</b>
+<li><b>Banner sound.</b>
+<li><b>Banner model.</b>
+    </ul>
+</ul>
+<P>
+In the following graphic that shows the flow when creating a CCI file, the files that can and cannot be updated are shown in different colors. <br/> <br/> <a href="img/patch_apply.png"><img src="img/patch_apply.png" width="464" height="227"/></a> <br/> <br/> <br/>
+</P>
+
+<H3>Number of Patches</H3>
+<P>
+Only one patch can exist at any one time for a particular application. <br/>When revised versions of an application are released, the latest patch must support all versions of the application.
+</P>
+
+
+<H3>Representation to Users</H3>
+<P>
+Patches are managed as a type of add-on content from the Add-On Content Management screen in the System Settings. Users can delete patches using this screen. <br/>Patches must include icons for display on the Add-On Content Management screen.
+</P>
+<P>
+We recommend showing the version in the patch icon so that users can verify that the patch has been correctly applied. We further recommend using the template included with this package to apply the version to the icon.
+</P>
+<P>
+This patch icon template is located in <CODE>CTR_SDK/documents/TechnicalNotes/Patch/resources</CODE>.
+</P>
+
+
+<H3>Download Sales</H3>
+<P>
+If the card-based application can be purchased through download, the patch is applied to the downloadable version just like to the card-based version.
+</P>
+
+
+
+
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<H2>Patch Structure</H2>
+
+<P>
+You can think of a Nintendo 3DS system patch as a special kind of downloadable application. <br/>In fact, the final ROM image of a patch is created in nearly the same format as a downloadable application. A patch differs from a normal downloadable application in the following ways.
+</P>
+<ul>
+<li>It cannot start independently.
+<li>The patch is started in place of the corresponding card application when the process acts to start that card application.
+<li><a href="../../api/nn/fs/MountRom.html"><code>nn::fs::MountRom</code></a> mounts the ROM-FS of the corresponding card application and not the patch's own ROM-FS.
+<li>The patch's own ROM-FS can be mounted by <a href="../../api/nn/fs/MountExtraRom.html"><code>nn::fs::MountExtraRom</code></a>.
+<li>When the Game Card is removed, the process transitions to the card removal screen.
+</ul>
+<P>
+In other ways, a patch is the same as a downloadable application. In particular, they share these points in common.
+</P>
+<ul>
+<li>They can be downloaded via the Internet.
+<li>They are saved to the SD card.
+<li>When the SD card is removed, the process transitions to the card removal screen.
+<li>Users can delete them using the System Settings.
+</ul>
+
+
+
+
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<H2>Support in Advance</H2>
+<P>
+Patches can be applied with no support in advance for the patch mechanism. The application to which the patch is being applied does not need to support the patch mechanism itself in advance.
+</P>
+<P>
+However, the application to which the patch is being applied must support some functions that the patch uses.
+</P>
+<P>
+Note that because the entire static module of the application is being replaced, these items also hold true for the code in the patch.
+</P>
+
+
+<H3><a name="download">Download</a></H3>
+<P>
+You can download patches when starting an application from the HOME Menu, or from Nintendo eShop.
+</P>
+<P>
+Previously, a feature to download patches in the application was provided, but new implementations are prohibited in principle because of the high costs of implementation and verification. The feature to jump to the Patch Page in Nintendo eShop can be used as a method to promote applying patches from inside the application.
+</P>
+<P>
+A time lag occurs from when the patch is actually distributed until the patch can be downloaded from the HOME Menu. To encourage users to perform patch updates immediately after a patch distribution, consider the following &quot;Patch Enforcement.&quot;
+</P>
+
+<H3>Patch Enforcement</H3>
+<P>
+The patch mechanism does not guarantee that the latest patch has been applied.
+</P>
+<P>
+If you want to make sure that an application that uses the network is running with the newest applied patch, you must implement your own method of checking the patch version, using the authentication server or the game server or some other means.
+</P>
+<P>
+If you are enforcing the application of patches using the authentication server, set the remaster version of the patch you want to enforce in the authentication server. When an application with an earlier remastered version is started, the authentication server returns error 002-0120 when the application executes the following functions.
+    <ul>
+<li>nn::nex::NgsFacade::Login</li>
+<li>nn::nex::NgsFacade::LoginAndRequestAuthenticationToken</li>
+<li>nn::nex::IndependentServer::RequestAuthenticationToken</li>
+    </ul>
+</P>
+<P>
+If you are using the account server, set the remaster version of the patch you want to enforce in the account server. When an application with an earlier remastered version is started, the account server returns error 022-2512 when the application executes the following functions.
+    <ul>
+<li><CODE>nn::act::applet::AcquireIndependentServiceToken</CODE> function</li>
+    </ul>
+</P>
+
+<P>
+For patch enforcement in most cases, you must implement it from the first release of the application.
+</P>
+
+<H3>Compatibility of Save Data</H3>
+<P>
+The patch is saved to an SD card, but the backup device is mounted in a CTR Card. For this reason, when an application is run on different systems, situations can easily arise where save data created on one system to which the patch has been applied must be loaded in the pre-patched state for running on a system to which the patch has not yet been applied.
+</P>
+<P>
+The application must be able to operate correctly under these circumstances. In other words, there must be compatibility for reading and writing save data no matter what version of the patch has been applied, and even if no patch has been applied.
+</P>
+<P>
+Design your application appropriately from the first release, or do not make any changes what would cause compatibility to be lost. Do not make changes to the value of <CODE>SaveDataSize</CODE> within the RSF file either before or after the patch. 
+</P>
+<P>
+In the same way, you must take care to retain compatibility for expanded save data, and for StreetPass and SpotPass data format.
+</P>
+
+
+
+
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<H2>Applying the Patch</H2>
+<P>
+This section describes the process flow involved in applying a patch to an application.
+</P>
+
+
+
+<H3>Preparation</H3>
+<P>
+The patch must first be imported to an SD card before it can be applied to the application.
+</P>
+<P>
+In a production environment, you can implement downloads when an application is started from the HOME Menu or from Nintendo eShop.
+</P>
+<P>
+In the development environment, you can also use DevMenu to import the patch.
+</P>
+
+
+
+<H3>Conditions</H3>
+<P>
+There are a number of conditions that must be met to apply the patch.
+</P>
+<P>
+First, the application must be able to run.
+</P>
+<P>
+This condition might seem obvious, but the e-manual can be viewed without starting its application, so it is relevant to patches for e-manuals. The retail version of an application can run, obviously, so this condition is relevant mainly when debugging.
+</P>
+<P>
+Second, the patch must have the same <CODE>UniqueId</CODE> as the application it is patching.
+</P>
+<P>
+The <CODE>UniqueId</CODE> serves as the means of associating applications and patches. When the application starts, the system searches for a patch with the same <CODE>UniqueId</CODE> as the application, and if it finds one, it applies that patch to the application.
+</P>
+<P>
+As another condition for applying the patch, the system checks the remaster versions.
+</P>
+<P>
+The remaster versions of the application and the patch are compared, and the patch is applied only if the remaster version of the patch is higher than the version for the application. If the remaster version of the patch is lower than the version for the application, the patch is not applied.
+</P>
+<P>
+For more information about patch and application remaster versions, see <a href="#version">Version Management</a>.
+</P>
+<P>
+    <img src="img/patch_test.png"/>
+</P>
+<P>
+Even if these conditions are satisfied, the patch is not applied if the SD card is write-protected.
+</P>
+
+
+
+<H3>Applying the Patch</H3>
+<P>
+If the conditions are met to apply the patch, the system handles the patch as follows.
+</P>
+
+<H4>Static Module and ROMFS</H4>
+<P>
+When the patch is applied, the entire static module of the application is replaced by the static module of the patch. However, no changes are applied to the ROMFS.
+</P>
+<P>
+The static module of the patch is used, and the original static module is no longer referenced in any way. In fact, it can no longer be referenced. For this reason, the static module of the patch must have all of the features of the static module of the application, with the exception of features that are being removed.
+</P>
+<P>
+On the other hand, even when a patch has been applied, the original ROMFS is still mounted and referenced. If you want to add the mounting of the ROMFS of the patch separately, use the <a href="../../api/nn/fs/MountExtraRom.html"><code>nn::fs::MountExtraRom</code></a> function. The files in the original ROMFS are not replaced automatically when the patch is applied. To reflect the changes that have been made to resource files, you must mount the patch ROMFS in the static module of the patch, and alter the code to load the revised data from the ROMFS of the patch.
+</P>
+
+<H4>E-Manual and Download Play Client</H4>
+<P>
+As with the static module, when the patch is applied the e-manual and Download Play client patches are used and the originals are no longer referenced in any way. However, unlike the static module, patches for these may not be included. If the patch does not include e-manual and Download Play client patches, the originals continue to be referenced.
+</P>
+
+<H3>When the Application Fails</H3>
+<P>
+Occasionally the patch is not properly applied due to factors such as SD card damage. If this occurs, the patch cannot be downloaded again. You must delete the patch in System Settings from <B>Data Management</B> &gt; <B>3DS Data Management</B> &gt; <B>Add-on Content Management</B>.
+</P>
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<H2><a name="version">Managing Versions</a></H2>
+
+<H3>Specifying the Remaster Version</H3>
+<P>
+Patches, like applications, have remaster versions.
+</P>
+<P>
+To use a patch, the patch and the application must share the same remaster version. For each new revised version, the remaster version of the application increments by 1. Additionally, the remaster version increments by one every time there is a patch update.
+</P>
+<P>
+For example, say that two patches were released after the first release of the application, and then a revised version of the application was released, and after that another patch was released. The value of the remaster version would changes as shown in the following table.
+</P>
+<table class="center">
+<tr><th rowspan="2">    <th colspan="2">Remaster Version
+<tr>                    <th>Application<th>Patches
+<tr><th>Initial version  <td>0   <td>--
+<tr><th>First patch    <td>--  <td>1
+<tr><th>Second patch  <td>--  <td>2
+<tr><th>Revised version          <td>3   <td>--
+<tr><th>Third patch  <td>--  <td>4
+</table>
+<P>
+The remaster version can go as high as 63. Additional patches beyond that limit cannot be created.
+</P>
+
+
+<H3>Verification</H3>
+<P>
+The patch is applied only if the remaster version of the downloaded patch is higher than the remaster version of the application that was attempting to start. In the example in the previous section, the application starts without applying the patch if the combination is the &quot;revised version&quot; of the application and the &quot;second patch.&quot; If the &quot;third patch&quot; is downloaded, the combination changes and the patch is applied even if the application is the &quot;revised version.&quot;
+</P>
+<P>
+In the example, operations must be normal for the following combinations.
+</P>
+<ul>
+<li>The first release of the application on its own.
+<li>The first release of the application + the first patch.
+<li>The first release of the application + the second patch.
+<li>The first release of the application + the third patch.
+<li>The revised version of the application on its own.
+<li>The revised version of the application + the third patch.
+</ul>
+
+
+<h4>Verifying Operations When Creating a Patch</h4>
+<P>
+You must verify normal operations in combination with all of the versions of the application that have been released to date.
+</P>
+
+<h4>Verifying Operations When Creating a Revised Version</h4>
+<P>
+Patches released prior to the revised version of the application are not applied to the revised version, so you do not need to test combinations of patches and revised versions.
+</P>
+
+
+<h3>Download Play Clients</h3>
+<P>
+To update a Download Play client, you must also update the Download Play client remaster version. The Download Play client remaster version is incremented by one each time the Download Play client is changed.
+</P>
+<P>
+If the patch is for an application that involves two or more Download Play clients and not all clients are being updated, only update the remaster version for the Download Play clients that are being updated. <a href="#content_dlp">The patch must also include the Download Play clients that are not being updated</a>, but do not update the remaster version for these systems.
+</P>
+<P>
+If no updates are being applied to Download Play clients, do not include any Download Play clients in the patch. In this case, the original Download Play clients are used.
+</P>
+
+
+
+
+
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<H2>Developing Content</H2>
+<P>
+This section describes methods and cautions about the development of the content included in patches.
+</P>
+
+
+<H3>Creating Code</H3>
+<P>
+When the patch is applied, the entire static module of the application is replaced by the static module of the patch. For this reason, the task of creating code for a patch is almost identical to creating code for a revised version.
+</P>
+<P>
+One part that differs is the code for reading files from ROMFS. In the revised version of the application, simply replace the files in ROMFS. For the patch, you must change the code to use <a href="../../api/nn/fs/MountExtraRom.html"><code>nn::fs::MountExtraRom</code></a> to mount the patch ROMFS and read the updated resource files from the patch ROMFS.
+</P>
+
+<H4>When Using DLL</H4>
+<P>
+If the export type of the static module is set to <CODE>offset</CODE>, the offset of the static module can change. You must rebuild the entire dynamic module and replace it for the original one.
+</P>
+
+
+
+<H3>Added Functions</H3>
+<P>
+The following patch-related API functions have been added.
+</P>
+<ul>
+<li><a href="../../api/nn/fs/MountExtraRom.html"><code>nn::fs::MountExtraRom</code></a><br/> Mounts the patch's ROM-FS. <br/>This function cannot be used by the application. It is used in the code for the patch.
+<li><a href="../../api/nn/fs/GetExtraRomRequiredMemorySize.html"><code>nn::fs::GetExtraRomRequiredMemorySize</code></a><br/>Calculates the memory size needed for mounting the patch's ROM-FS. <br/>This function cannot be used by the application. It is used in the code for the patch.
+<li><a href="../../api/nn/fs/CreateArchiveAlias.html"><code>nn::fs::CreateArchiveAlias</code></a><br/>Mounts a duplicate of the application's ROM-FS using a different name. Use this for the archive name when developing a patch as a revised version of the application.
+<li><a href="../../api/nn/applet/CTR/JumpToEShopPatchPage.html"><code>nn::applet::CTR::JumpToEShopPatchPage</code></a><br/> Jumps to the patch page of the title specified in Nintendo eShop.
+</ul>
+<P>
+Use of these functions is not required.
+</P>
+
+
+
+<H3>E-Manual</H3>
+<P>
+The e-manual is replaced in its entirety. You must create a complete <CODE>Manual.bcma</CODE> with nothing missing.
+</P>
+<P>
+Overall, the process is the same as for a revised version.
+</P>
+
+
+
+<a name="content_dlp"></a>
+<H3>Download Play Clients</H3>
+<P>
+Rather than updating individual Download Play clients, they are all replaced together in a batch. For an application that involves two or more Download Play clients, even if the patch is meant to update only one Download Play client, it must include not only that client but also all of the other Download Play clients that are not being updated.
+</P>
+<P>
+However, if the update of the static module makes a Download Play client unnecessary, that Download Play client does not need to be included in the patch. You can also add Download Play clients if necessary.
+</P>
+<P>
+As with the e-manual, the overall process is the same as when creating a revised version.
+</P>
+
+<H3>Fake Client Feature</H3>
+<P>
+When updating titles that use the DLP fake client, in order to maintain compatibility, we must consider instances where fake clients differ from the remastered version connect to the DLP server. You must verify normal operations in combination with all of the versions of the application that have been released to date.
+</P>
+<P>
+When versions are incompatible, proceed as follows.
+</P>
+<ul>
+<li>Create a separate <CODE>childIndex</CODE>, and specify that <CODE>childIndex</CODE> with the <CODE>nn::dlp::FakeClient::StartScan</CODE> function.
+<li>If the former <CODE>childIndex</CODE> will not be used after the update, you do not have to include it in the patch.
+<li>Using a suitable method, explain to users why they cannot connect to a different version DLP server.
+</ul>
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<H2>Creating the ROM Image</H2>
+<P>
+This section describes how to make the ROM image of the patch.
+</P>
+
+
+<H3>Overall Process Flow</H3>
+<P>
+The final ROM image of the patch is in the format of a CIA file, just like that of a downloadable application. The procedure for creating this file is basically the same as for a downloadable application.
+</P>
+<P>
+The figure shows the overall process, together with the flow when creating the application. <br/> <br/> <a href="img/patch_build.png"><img src="img/patch_build.png" width="587" height="426"/></a> <br/> <br/>
+</P>
+
+
+<H3>BSF File Settings</H3>
+<P>
+Patches are listed as a type of downloadable content on the <B>Data Management</B> screen in System Settings.<br/> The displayed information uses the title name and icon data specified in the BSF file. Be sure to configure and verify this data.<br/>We recommend including the patch version in the 48x48 icon image or the title name so that patches can be easily distinguished from add-on content in the <B>Data Management</B> screen.<br/> If the version is displayed on either the large and small icons but not both, ensure that you do not conflict with the rules set forth in the section on CTR icons in the CTR Guidelines.
+</P>
+<P>
+In current systems, parameters specified in the BSF file other than the icon image and title name cannot be updated by the patch.<br/> As a result, any changes to these other values are not applied on the system. However, there is no guarantee that this specification will not change in the future. Set the values the same as they are in the application to which you will apply the patch.
+</P>
+
+
+
+<H3>Create a CXI File</H3>
+<P>
+The first step is to create a CXI file containing the static module and the ROMFS. Create a <a href="../BuildSystemDevelopmentGuide/BuildSystemDevelopmentGuide.html#cxi">regular CXI file</a>, incorporating the following components.
+</P>
+<ul>
+<li>The revised static module (AXF).
+<li>The resource files to add or substitute.
+<li>An RSF with the same content as that used to create the application.
+<li>A <CODE>desc</CODE> file for the patch.
+<li>A CTR icon for the Add-On Content Management screen.
+</ul>
+
+<H4>DESC File</H4>
+<P>
+To create a patch CXI file you must use a DESC file meant for patches. Use <code>$CTRSDK_ROOT/resources/specfiles/Patch.desc</code>.
+</P>
+<P class="warning">
+When creating patches in the extended application format, use the <CODE>ExtPatch.desc</CODE> file instead of <CODE>Patch.desc</CODE>.
+</P>
+
+<H4>RSF File</H4>
+<P>
+As the RSF file for the patch, you specify the same RSF file as for the application, but you must re-specify appropriate values for some items as described below.
+<ul>
+<li><B>CTR-U-XXXX</B> is specified as the product code. The letter following <B>CTR-</B> must be <B>U</B> for patches. The subsequent four numbers are the same as the initial code of patch-targeted application.</li>
+<li>If you want to explicitly specify the category, change the category to &quot;Patch&quot; in the patch RSF, or otherwise delete the explicit specification.</li>
+<li>For the remaster version, specify the appropriate value in accordance with <a href="#version">Managing Versions</a>.</li>
+</ul>
+
+<pre>
+BasicInfo:
+  ProductCode: &quot;CTR-U-CTAP&quot;  # Product code.
+  
+TitleInfo:
+  Category: Patch            # Category.
+
+SystemControlInfo:
+  RemasterVersion: 1         # Remaster version.
+</pre>
+</P>
+
+<H4>Banner File</H4>
+<P>
+You cannot change the banner of the application that the patch is applied to even if you set a banner file in the ROM image of the patch.<br/> If you set a banner file in the ROM image for the patch, that created ROM file will be larger by the data size of that banner.<br/> To reduce the size of the patch, use the <CODE>-banner</CODE> option when you run <CODE>makerom</CODE> and do not set a banner.
+</P>
+<H3>Create CFA Files</H3>
+<P>
+If the patch is updating the e-manual or the Download Play clients, also create CFA files for them. Create these files in the same way as <a href="../BuildSystemDevelopmentGuide/BuildSystemDevelopmentGuide.html#cfa">a regular CFA file.</a>
+</P>
+
+
+
+<H3>Create a CIA File</H3>
+<P>
+Now <a href="../BuildSystemDevelopmentGuide/BuildSystemDevelopmentGuide.html#cia">create a CIA file</a> using these created CXI and CFA files. If the e-manual and the Download Play clients are not being updated, do not include their CFA files.
+</P>
+
+
+
+<H3>When Using the SDK Build System</H3>
+<P>
+If you are using the CTR-SDK build system, you can create the patch by partially altering the application's <CODE>OMakefile</CODE>, as follows.
+</P>
+<pre>
+CTR_APPTYPE     =   PATCH
+DESCRIPTOR      =   $(CTRSDK_ROOT)/resources/specfiles/Patch.desc
+</pre>
+<P>
+If necessary, make the appropriate revisions to <code>SOURCES</code> and <code>MANUAL_DIR</code>.
+</P>
+
+
+
+
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<H2>Debugging</H2>
+
+
+<H3><a name="debug">Patch Debugging</a></H3>
+<P>
+To apply a patch and run the application, use DevMenu on the development hardware to import the patch to an SD card from the patch CIA file, and then start the application to which the patch is being applied. <br/> This starts the application with the patch applied.
+</P>
+<P>
+To debug the application with the patch correctly applied, after you apply the patch, load the CCI file of that application to the debugger.
+</P>
+<P>
+To debug the source, you must place the AXF file of the patch in the same directory as this CCI file of that application. The patch AXF file has the same name as this CCI file, but with the <CODE>.afx</CODE> extension. Alternatively, load the debug information for the patch AXF file after debugging.
+</P>
+
+
+
+<H3>Revised Version and Patch Development</H3>
+<P>
+The procedure described in <a href="#debug">Patch Debugging</a> is not realistic because every time the content of the patch is changed it must be written again to an SD card. For this reason, at the development stage, patches are developed as card applications. In short, the patch is developed as a revised version of the application, after which the patch is cut out.
+</P>
+<P>
+To create the same patch from the revised version of the application, you must complete the following tasks.
+</P>
+<ol>
+<li>Identify the changed resources.
+<li>Change the code to load the changed resources.<br/>(Read from the patch ROM-FS instead of the application ROM-FS.)
+<li>Create a patch that includes the changed resources and the changed code.
+</ol>
+<P>
+In step 2, when you create the revised version, you can minimize the amount of changes required when creating the patch by using the <a href="../../api/nn/fs/CreateArchiveAlias.html"><code>nn::fs::CreateArchiveAlias</code></a> function so that you access a different archive. <br/>Specifically, the process goes like this:
+</P>
+<P>
+When creating the revised version:
+</P>
+<ul>
+<li>Use <code>CreateArchiveAlias</code> to mount a ROMFS alias with a name like <code>rom2:</code>.
+<li>The <code>rom2:</code> archive is used to load the changed resource.
+</ul>
+
+<P>
+When creating the patch:
+</P>
+<ul>
+<li>Instead of <code>CreateArchiveAlias</code>, use <code>MountExtraRom</code> to mount the <code>rom2:</code> archive.
+</ul>
+
+
+<H3>Notes About Debugging</H3>
+<H4>Using the Default <CODE>UniqueId</CODE></H4>
+<P>
+The target of the patch is identified by the <CODE>UniqueId</CODE>. If you create and import a patch with the CTR-SDK default <CODE>UniqueId</CODE> (<code>0xff3ff</code>), the patch is applied to the CTR-SDK sample demos and all other applications that use this default <CODE>UniqueId</CODE>. In most cases, those applications generate an error when they start.
+</P>
+<P>
+Be careful about applying patches while your application is still at the stage where it is using the default <CODE>UniqueId</CODE>.
+</P>
+
+<H4>Backup Devices and E-Manuals</H4>
+<P>
+Although the application does not need to be running to check the patch for its e-manual, you cannot apply the patch to the e-manual if the application is not in a runnable state.
+</P>
+<P>
+In particular, if the application requires a backup device, you cannot apply the patch to the e-manual if a backup device connected to a CTR Card is not inserted in the card slot.
+</P>
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<H2>Revision History</H2>
+<dl class="history">
+    <dt>2015-09-01</dt>
+<dd>Added warning about titles using fake clients in the Fake Client Feature.</dd>
+    <dt>2015-03-12</dt>
+<dd>Changed the description of the patch product code to be more specific.</dd>
+    <dt>2015-02-23</dt>
+    <dd>
+Because new implementations of the feature to download patches in the application are prohibited in principle, deleted the description about downloading patches in the application and added a description of the feature to jump to the patch page in Nintendo eShop that was added as a replacement procedure.
+    </dd>
+    <dt>2015-01-20</dt>
+<dd>Added that application to OMAS and server settings are required in order to use the ROM upload tool.</dd>
+<dd>Added the When the Application Fails section.</dd>
+    <dt>2015-01-07</dt>
+    <dd>
+Added information to the Creating CXI Files section about the DESC file to use when creating patches in the extended application format.
+    </dd>
+    <dd>
+Clarified the error codes generated on the development device when reverting patch rights to &quot;server debugging&quot; without deleting them.
+    </dd>
+    <dt>2014-12-01</dt>
+    <dd>
+Added a description of how to apply patches from the HOME Menu to the Introduction section.
+    </dd>
+    <dt>2014-10-08</dt>
+    <dd>
+Added a description of the use of the account server to the <B>Patch Enforcement</B> section.
+    </dd>
+    <dt>2014-10-08</dt>
+    <dd>
+Added the section <B>Uploading Patches to the eShop Server</B>.
+    </dd>
+    <dt>2014-10-02</dt>
+    <dd>
+Added a description of the patch icon template to the <B>Representation to Users</B> section.
+    </dd>
+    <dt>2014-07-22</dt>
+    <dd>
+Revised <B>Server Debugging</B> to reflect the fact that you presently cannot use the feature to download <CODE>cia.out</CODE> from the system.
+    </dd>
+    <dt>2014-06-30</dt>
+    <dd>
+Noted the timing at which errors return from the server when patches are enforced in the &quot;Patch Enforcement&quot; section.
+    </dd>
+    <dt>2014-06-25</dt>
+    <dd>
+Noted the version of System Updater that supports the feature for adding new Download Play client from a patch.
+    </dd>
+    <dt>2014-03-28</dt>
+    <dd>
+In the <I>What Patches Can Do</I> section, noted that a download play client or an e-manual cannot be added anew from a patch. In the What Patches Can Do section, noted that it will be possible to add a download play client anew from a patch with the upcoming release of System Updater.
+    </dd>
+    <dt>2014-02-14</dt>
+    <dd>
+Revised content to clarify that implementation is necessary on the application side to support patches.
+    </dd>
+    <dt>2014-01-30</dt>
+    <dd>
+Noted that the value of <CODE>SaveDataSize</CODE> must not be changed before and after a patch.
+    </dd>
+    <dt>2014-01-16</dt>
+    <dd>
+Changed <CODE>EcRightTool</CODE> to <CODE>EcDevTool</CODE>. Added a caution for when reverting patches.
+    </dd>
+    <dt>2013-11-12</dt>
+    <dd>
+Added information about the API for patches.<br/>Added text about the BSF file settings.<br/>Noted that a banner file should not be set in the patch.
+    </dd>
+    <dt>2013-03-20</dt>
+    <dd>
+Added information about the downloadable versions of applications.<br/>Changed the structure of the document to reflect the new ability to update e-manuals and Download Play clients.
+    </dd>
+    <dt>2012-05-15</dt>
+    <dd>
+Added a description of how to develop patches using <CODE>cia.out</CODE>.
+    </dd>
+    <dt>2012-05-07</dt>
+    <dd>
+Deleted the duplicated portions in the description of the product code.
+    </dd>
+    <dt>2012-04-23</dt>
+    <dd>
+Added text about the method for specifying the product code in the RSF file of the patch.<br/>Noted that patches are not applied if the SD card is write protected.
+    </dd>
+    <dt>2012-03-12</dt>
+    <dd>
+Initial version.
+    </dd>
+</dl>
+
+
+<div class="footer"><span>Patch Manual</span></div>
+
+  <hr /><p>CTR-06-0321-011-E<br />CONFIDENTIAL</p></body>
+</HTML>

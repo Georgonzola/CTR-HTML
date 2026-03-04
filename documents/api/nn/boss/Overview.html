@@ -1,0 +1,1755 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::boss</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::boss Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the SpotPass communication library.</p><p>SpotPass is a general term for BOSS (Background Online Service System) communication functions. <br /> Applications can use BOSS to communicate in the background with data servers provided by Nintendo (hereafter, called "BOSS data servers"). <br /> To use BOSS, an application must register a task (a set of information specific to the communication process) in BOSS, and then start the task. The task configuration includes such information as the execution interval and the number of executions remaining. BOSS executes the task periodically in the background, based on this information. <br /> The application can learn when a task finishes downloading new data by polling the state of the task or event notifications. This data can also be read via BOSS. The following tasks are currently provided. <br /> - Nintendo archive download task (NADL task) <br /> This task is essentially run in the background, but once a task has been registered, the application can run it whenever it wants. In this case, the task's communication process runs in the foreground.<br /></p><p><b>Note:</b><br /> As of CTR-SDK 2.1, BOSS tasks do not operate on CTR systems that have no country settings. Configure your hardware with country settings if you are doing BOSS development.  You can configure the country setting using the initial startup sequence on the HOME Menu.<br /></p></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="2">Result</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidPolicy/Overview.html">nn::boss::ResultInvalidPolicy</a>
+            </th>
+            <td>The policy information pointer is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidAction/Overview.html">nn::boss::ResultInvalidAction</a>
+            </th>
+            <td>The task action pointer is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidOption/Overview.html">nn::boss::ResultInvalidOption</a>
+            </th>
+            <td>The task option pointer is <code>NULL</code>, or the option code is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidAppIdList/Overview.html">nn::boss::ResultInvalidAppIdList</a>
+            </th>
+            <td>The pointer for getting the application list is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidTaskIdList/Overview.html">nn::boss::ResultInvalidTaskIdList</a>
+            </th>
+            <td>The pointer for getting the task ID list is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidStepIdList/Overview.html">nn::boss::ResultInvalidStepIdList</a>
+            </th>
+            <td>The pointer for getting the step ID list is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidNsDataIdList/Overview.html">nn::boss::ResultInvalidNsDataIdList</a>
+            </th>
+            <td>The pointer to NS data list information is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidTaskStatus/Overview.html">nn::boss::ResultInvalidTaskStatus</a>
+            </th>
+            <td>The task status pointer is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidPropertyValue/Overview.html">nn::boss::ResultInvalidPropertyValue</a>
+            </th>
+            <td>The property value pointer is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidNewArrivalEvent/Overview.html">nn::boss::ResultInvalidNewArrivalEvent</a>
+            </th>
+            <td>The pointer to the new arrival event is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidNewArrivalFlag/Overview.html">nn::boss::ResultInvalidNewArrivalFlag</a>
+            </th>
+            <td>The pointer to the new arrival flag is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidOptoutFlag/Overview.html">nn::boss::ResultInvalidOptoutFlag</a>
+            </th>
+            <td>The pointer to the OPTOUT flag is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidTaskError/Overview.html">nn::boss::ResultInvalidTaskError</a>
+            </th>
+            <td>The pointer to the task error information is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidNsDataValue/Overview.html">nn::boss::ResultInvalidNsDataValue</a>
+            </th>
+            <td>The pointer to the region that stores NSDATA is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidNsDataInfo/Overview.html">nn::boss::ResultInvalidNsDataInfo</a>
+            </th>
+            <td>The pointer to the location that stores additional NSDATA information is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidNsDataReadFlag/Overview.html">nn::boss::ResultInvalidNsDataReadFlag</a>
+            </th>
+            <td>The pointer to the storage region for the NSDATA read flag is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidNsDataTime/Overview.html">nn::boss::ResultInvalidNsDataTime</a>
+            </th>
+            <td>The pointer to the region used to store the NSDATA update time is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidNextExecuteTime/Overview.html">nn::boss::ResultInvalidNextExecuteTime</a>
+            </th>
+            <td>The pointer to the location used to store the minutes value of the next execution time is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultHttpRequestHeaderPointerNull/Overview.html">nn::boss::ResultHttpRequestHeaderPointerNull</a>
+            </th>
+            <td>The HTTP request header pointer is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidPolicyListAvailability/Overview.html">nn::boss::ResultInvalidPolicyListAvailability</a>
+            </th>
+            <td>The pointer to information that can be used by the policy list is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidTestModeAvailability/Overview.html">nn::boss::ResultInvalidTestModeAvailability</a>
+            </th>
+            <td>The pointer to information usable in test mode is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidConfigParentalControl/Overview.html">nn::boss::ResultInvalidConfigParentalControl</a>
+            </th>
+            <td>The pointer to information about Parental Controls settings is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidConfigEulaAgreement/Overview.html">nn::boss::ResultInvalidConfigEulaAgreement</a>
+            </th>
+            <td>The pointer to information about whether the user has agreed to the EULA is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidPolicyListEnvId/Overview.html">nn::boss::ResultInvalidPolicyListEnvId</a>
+            </th>
+            <td>The pointer to the policy list's environment ID is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidPolicyListUrl/Overview.html">nn::boss::ResultInvalidPolicyListUrl</a>
+            </th>
+            <td>The pointer to the policy list's URL information is <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidTaskId/Overview.html">nn::boss::ResultInvalidTaskId</a>
+            </th>
+            <td>The task ID pointer is <code>NULL</code> or a zero-length string.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidTaskStep/Overview.html">nn::boss::ResultInvalidTaskStep</a>
+            </th>
+            <td>The current step ID was specified during task registration.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidPropertyType/Overview.html">nn::boss::ResultInvalidPropertyType</a>
+            </th>
+            <td>The property type is not supported.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidUrl/Overview.html">nn::boss::ResultInvalidUrl</a>
+            </th>
+            <td>The URL string pointer is <code>NULL</code> or a zero-length string.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidFilePath/Overview.html">nn::boss::ResultInvalidFilePath</a>
+            </th>
+            <td>The file path string pointer is <code>NULL</code> or a zero-length string.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidTaskPriority/Overview.html">nn::boss::ResultInvalidTaskPriority</a>
+            </th>
+            <td>The specified task priority is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidTaskTargetDuration/Overview.html">nn::boss::ResultInvalidTaskTargetDuration</a>
+            </th>
+            <td>The task duration is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultActionCodeOutOfRange/Overview.html">nn::boss::ResultActionCodeOutOfRange</a>
+            </th>
+            <td>The task action code is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidNsDataSeekPosition/Overview.html">nn::boss::ResultInvalidNsDataSeekPosition</a>
+            </th>
+            <td>The NS data seek position exceeds the data size.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidMaxHttpRequestHeader/Overview.html">nn::boss::ResultInvalidMaxHttpRequestHeader</a>
+            </th>
+            <td>The number of registered HTTP request headers exceeds the maximum.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidMaxClientCert/Overview.html">nn::boss::ResultInvalidMaxClientCert</a>
+            </th>
+            <td>The number of client certificates set exceeds the maximum.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidMaxRootCa/Overview.html">nn::boss::ResultInvalidMaxRootCa</a>
+            </th>
+            <td>The number of root CAs exceeds the maximum that can be set.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultSchedulingPolicyOutOfRange/Overview.html">nn::boss::ResultSchedulingPolicyOutOfRange</a>
+            </th>
+            <td>The scheduling policy is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultApInfoTypeOutOfRange/Overview.html">nn::boss::ResultApInfoTypeOutOfRange</a>
+            </th>
+            <td>The AP information type is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultTaskPermissionOutOfRange/Overview.html">nn::boss::ResultTaskPermissionOutOfRange</a>
+            </th>
+            <td>The task permission information is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultWaitFinishTimeout/Overview.html">nn::boss::ResultWaitFinishTimeout</a>
+            </th>
+            <td>The <code>WAITFINISH</code> timeout.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultWaitFinishTaskNotDone/Overview.html">nn::boss::ResultWaitFinishTaskNotDone</a>
+            </th>
+            <td>The <code>WAITFINISH</code> task completed in a state other than <code>DONE</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultIpcNotSessionInitialized/Overview.html">nn::boss::ResultIpcNotSessionInitialized</a>
+            </th>
+            <td>The IPC session is not initialized.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultIpcPropertySizeError/Overview.html">nn::boss::ResultIpcPropertySizeError</a>
+            </th>
+            <td>IPC property size error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultIpcTooManyRequests/Overview.html">nn::boss::ResultIpcTooManyRequests</a>
+            </th>
+            <td>Too many IPC requests.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultAlreadyInitialized/Overview.html">nn::boss::ResultAlreadyInitialized</a>
+            </th>
+            <td>Represents an "initialized" result.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultOutOfMemory/Overview.html">nn::boss::ResultOutOfMemory</a>
+            </th>
+            <td>Insufficient memory.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidNumberOfNsd/Overview.html">nn::boss::ResultInvalidNumberOfNsd</a>
+            </th>
+            <td>Too many NS data files in the NS archive.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultNsDataInvalidFormat/Overview.html">nn::boss::ResultNsDataInvalidFormat</a>
+            </th>
+            <td>The NS data format is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultAppNotExist/Overview.html">nn::boss::ResultAppNotExist</a>
+            </th>
+            <td>The specified application ID was not found.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultTaskNotExist/Overview.html">nn::boss::ResultTaskNotExist</a>
+            </th>
+            <td>The specified task ID was not found.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultTaskStepNotExist/Overview.html">nn::boss::ResultTaskStepNotExist</a>
+            </th>
+            <td>The specified task step was not found.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultApliIdAlreadyExist/Overview.html">nn::boss::ResultApliIdAlreadyExist</a>
+            </th>
+            <td>Another application of the same name is already registered.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultTaskIdAlreadyExist/Overview.html">nn::boss::ResultTaskIdAlreadyExist</a>
+            </th>
+            <td>Another task of the same name is already registered.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultTaskStepAlreadyExist/Overview.html">nn::boss::ResultTaskStepAlreadyExist</a>
+            </th>
+            <td>Another task step of the same name is already registered.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidSequence/Overview.html">nn::boss::ResultInvalidSequence</a>
+            </th>
+            <td>Sequence error (such as starting a task that is already running).</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultDatabaseFull/Overview.html">nn::boss::ResultDatabaseFull</a>
+            </th>
+            <td>No space in the task database. (The task database is full and there are no tasks for which information can be deleted.)</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultCantUnregisterTask/Overview.html">nn::boss::ResultCantUnregisterTask</a>
+            </th>
+            <td>The current task state does not permit <code>UnregisterTask</code> to be called.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultTaskNotRegistered/Overview.html">nn::boss::ResultTaskNotRegistered</a>
+            </th>
+            <td>The task has not been registered in the task database.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidFileHandle/Overview.html">nn::boss::ResultInvalidFileHandle</a>
+            </th>
+            <td>Invalid file handle.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidTaskSchedulingPolicy/Overview.html">nn::boss::ResultInvalidTaskSchedulingPolicy</a>
+            </th>
+            <td>Invalid scheduling policy.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidHttpRequestHeader/Overview.html">nn::boss::ResultInvalidHttpRequestHeader</a>
+            </th>
+            <td>Error in an HTTP request header.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidHeadType/Overview.html">nn::boss::ResultInvalidHeadType</a>
+            </th>
+            <td>Invalid head type.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultStorageAccessPermission/Overview.html">nn::boss::ResultStorageAccessPermission</a>
+            </th>
+            <td>No permission to access storage.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultStorageInsufficiency/Overview.html">nn::boss::ResultStorageInsufficiency</a>
+            </th>
+            <td>Insufficient storage capacity.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultStorageNotFound/Overview.html">nn::boss::ResultStorageNotFound</a>
+            </th>
+            <td>No BOSS storage corresponds to the application.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultNsDataNotFound/Overview.html">nn::boss::ResultNsDataNotFound</a>
+            </th>
+            <td>There is no NS data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidNsDataGetHeadSize/Overview.html">nn::boss::ResultInvalidNsDataGetHeadSize</a>
+            </th>
+            <td>The specified NS data <code>SIZE</code> parameter is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultNsDataListSizeShortage/Overview.html">nn::boss::ResultNsDataListSizeShortage</a>
+            </th>
+            <td><code><a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a></code> size is insufficient. (The list is not big enough to store all the NS data serial IDs.)</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultNsDataListUpdated/Overview.html">nn::boss::ResultNsDataListUpdated</a>
+            </th>
+            <td>The target NSD group for BOSS storage was updated since the last time a list was obtained.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultNotConnectApWithLocation/Overview.html">nn::boss::ResultNotConnectApWithLocation</a>
+            </th>
+            <td>Not connected to an access point.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultNotConnectNetwork/Overview.html">nn::boss::ResultNotConnectNetwork</a>
+            </th>
+            <td>Not connected to a network.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidFriendcode/Overview.html">nn::boss::ResultInvalidFriendcode</a>
+            </th>
+            <td>Invalid friend code error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultFileAccess/Overview.html">nn::boss::ResultFileAccess</a>
+            </th>
+            <td>Failed to access a file.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultTaskAlreadyPaused/Overview.html">nn::boss::ResultTaskAlreadyPaused</a>
+            </th>
+            <td>Already paused.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultTaskAlreadyResumed/Overview.html">nn::boss::ResultTaskAlreadyResumed</a>
+            </th>
+            <td>Already resumed.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultUnexpect/Overview.html">nn::boss::ResultUnexpect</a>
+            </th>
+            <td>Indicates an unexpected error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidStorageParameter/Overview.html">nn::boss::ResultInvalidStorageParameter</a>
+            </th>
+            <td>An invalid value was set in the parameter specified for storage.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultCfgInfoTypeOutOfRange/Overview.html">nn::boss::ResultCfgInfoTypeOutOfRange</a>
+            </th>
+            <td>The configuration information type is out of range.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidMaxHttpQuery/Overview.html">nn::boss::ResultInvalidMaxHttpQuery</a>
+            </th>
+            <td>The HTTP query registration count exceeds the maximum.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidMaxDataStoreDst/Overview.html">nn::boss::ResultInvalidMaxDataStoreDst</a>
+            </th>
+            <td>The <code>DataStore</code> data transmission destination registration count exceeds the maximum.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultNSAListInvalidFormat/Overview.html">nn::boss::ResultNSAListInvalidFormat</a>
+            </th>
+            <td>An error has been detected in the NSA list file format.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultNSAListDownloadTaskError/Overview.html">nn::boss::ResultNSAListDownloadTaskError</a>
+            </th>
+            <td>The NSA list download result was an error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultNotEnoughSpaceInExtSaveData/Overview.html">nn::boss::ResultNotEnoughSpaceInExtSaveData</a>
+            </th>
+            <td>Expanded save data has insufficient capacity.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidSize/Overview.html">nn::boss::ResultInvalidSize</a>
+            </th>
+            <td>Invalid size.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultInvalidPointer/Overview.html">nn::boss::ResultInvalidPointer</a>
+            </th>
+            <td>Invalid pointer.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultNotFound/Overview.html">nn::boss::ResultNotFound</a>
+            </th>
+            <td>The object does not exist.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultAlreadyExists/Overview.html">nn::boss::ResultAlreadyExists</a>
+            </th>
+            <td>The object already exists.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ResultOutOfRange/Overview.html">nn::boss::ResultOutOfRange</a>
+            </th>
+            <td>The value is outside of the defined range.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Other</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/DataStoreDownloadAction/Overview.html">nn::boss::DataStoreDownloadAction</a>
+            </th>
+            <td>Class for representing DataStore download tasks. Use this class to do such things as register DataStore download tasks. <emphasis>DataStore</emphasis> is one of the NEX library data storage features. It can upload data to and download data from storage, and it also allows users to exchange data. <linebreak />
+ (For more information, see the documentation in the NEX library.) ) <linebreak />
+ BOSS DataStore tasks are provided for by using these DataStore features via BOSS (SpotPass). <linebreak />
+ You can use BOSS DataStore tasks for DataStore uploads and downloads even when your application is not running (when the system is in Sleep Mode, for example). <linebreak />
+ A DataStore download task records information for the data it has downloaded so that the next time it is run, it will only download updated data (data that has not been downloaded before). <linebreak />
+ The downloaded data is saved in BOSS storage in the NSD format. <linebreak />
+ As a result, to read data use functions (such as <code><a href="../../nn/boss/NsData/Overview.html">nn::boss::NsData</a></code>) that are similar to the (NSD) data downloaded by the NADL task. Just as for data downloaded by an NADL task, old data (with earlier serial IDs) is deleted automatically when BOSS storage is full. <linebreak />
+ After being configured by the <code><a href="../../nn/boss/DataStoreDownloadAction/SetNewsPublication.html">SetNewsPublication</a></code> function, a notification is issued when updated data is downloaded. <linebreak /></td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/DataStoreUploadAction/Overview.html">nn::boss::DataStoreUploadAction</a>
+            </th>
+            <td>Class for representing DataStore upload tasks. Use this class to do such things as register DataStore upload tasks.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/FgOnlyTask/Overview.html">nn::boss::FgOnlyTask</a>
+            </th>
+            <td>Class for representing dedicated immediate-execution tasks. Use this class to register or unregister dedicated immediate-execution tasks, to control tasks, and for other operations. Use this class for tasks that will only be run immediately by the <code><a href="../../nn/boss/Task/StartImmediate.html">boss::Task::StartImmediate</a></code> function. <linebreak />
+ With this class, a task only exists during its immediate execution and is not persistent. <linebreak />
+ The <emphasis>3DS Guidelines</emphasis> restrict the number of tasks that a single application can register, but this restriction does not count dedicated immediate-execution tasks. As a result, this class allows an application to use even more tasks. <linebreak />
+ Always use this class for dedicated immediate-execution tasks. There is no benefit to using dedicated immediate-execution tasks without this class, even when there is no need to worry about the restrictions on the number of registered tasks. <linebreak />
+ Use this class just as you would use <code><a href="../../nn/boss/Task/Overview.html">boss::Task</a></code>. However, you cannot use functions that give instructions to execute in the background (<code><a href="../../nn/boss/Task/Start.html">boss::Task::Start</a></code> and <code><a href="../../nn/boss/Task/StartBgImmediate.html">boss::Task::StartBgImmediate</a></code>). <linebreak />
+ The task ID for dedicated immediate-execution tasks is fixed to <code>FGONLYT</code>. This task ID cannot be changed. The <code>Initialize</code> function does not need to be called to initialize an instance.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/NsaDownloadAction/Overview.html">nn::boss::NsaDownloadAction</a>
+            </th>
+            <td>Class for representing NADL tasks. Use this class to do such things as register NADL tasks.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/NsaList/Overview.html">nn::boss::NsaList</a>
+            </th>
+            <td>A class that handles all processing related to NSA lists. By specifying a file path for the NSA list, you can do things like download the NSA list to that path or parse the NSA list given by that path.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/NsData/Overview.html">nn::boss::NsData</a>
+            </th>
+            <td>Class for representing NS data. Use for NS data operations (such as reading).</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/NsDataIdList/Overview.html">nn::boss::NsDataIdList</a>
+            </th>
+            <td>Class for representing NS data ID lists. Use this class to do such things as get a list of NS data to process.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/StepIdList/Overview.html">nn::boss::StepIdList</a>
+            </th>
+            <td>Class for representing lists of task step IDs. Use this class to do such things as get a task's list of steps. (The task step feature is not currently supported.)</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/Task/Overview.html">nn::boss::Task</a>
+            </th>
+            <td>Represents a task. Use this to do such things as register or unregister a task, or for task operations.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskActionBase/Overview.html">nn::boss::TaskActionBase</a>
+            </th>
+            <td>Base class for task actions. There is no reason for an application to directly generate an instance of this class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskAction/Overview.html">nn::boss::TaskAction</a>
+            </th>
+            <td>Class for representing task actions. This class is the base class for specific task action classes such as NADL tasks. You can also directly generate an instance and use it to get information about task actions for a specific task.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskError/Overview.html">nn::boss::TaskError</a>
+            </th>
+            <td>Class for representing task errors. Use this class to get task error information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskIdList/Overview.html">nn::boss::TaskIdList</a>
+            </th>
+            <td>Class for representing task ID lists. Use this class to do such things as get a list of registered tasks.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskOption/Overview.html">nn::boss::TaskOption</a>
+            </th>
+            <td>Class for representing task options. Use this class to do such things as set the option information used when registering a task. (The task option feature is not currently supported.)</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskPolicy/Overview.html">nn::boss::TaskPolicy</a>
+            </th>
+            <td>Class for representing task policies. Use this class to do such things as set the policy information used when registering a task.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskQuery/Overview.html">nn::boss::TaskQuery</a>
+            </th>
+            <td>Class for representing task queries. Use this class to do such things as set an HTTP query when registering a task.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskStatus/Overview.html">nn::boss::TaskStatus</a>
+            </th>
+            <td>Represents task statuses. Use this class to do such things as get the status of a task.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskPolicyConfig/Overview.html">nn::boss::TaskPolicyConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskPolicy/Overview.html">TaskPolicy</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskOptionConfig/Overview.html">nn::boss::TaskOptionConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskOption/Overview.html">TaskOption</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskActionConfig/Overview.html">nn::boss::TaskActionConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskConfig/Overview.html">nn::boss::TaskConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/Task/Overview.html">Task</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskStatusInfo/Overview.html">nn::boss::TaskStatusInfo</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskStatus/Overview.html">TaskStatus</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskErrorInfo/Overview.html">nn::boss::TaskErrorInfo</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskError/Overview.html">TaskError</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/HttpQuery/Overview.html">nn::boss::HttpQuery</a>
+            </th>
+            <td>Definition of an internal structure that maintains HTTP query information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskQueryConfig/Overview.html">nn::boss::TaskQueryConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskQuery/Overview.html">TaskQuery</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/DataStoreDownloadConfig/Overview.html">nn::boss::DataStoreDownloadConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains download information for <code>DataStore</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/DataStoreUploadConfig/Overview.html">nn::boss::DataStoreUploadConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains upload information for <code>DataStore</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/ApplicationIdInfoList/Overview.html">nn::boss::ApplicationIdInfoList</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code>ApplicationIdList</code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/TaskIdInfoList/Overview.html">nn::boss::TaskIdInfoList</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskIdList/Overview.html">TaskIdList</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/StepIdInfoList/Overview.html">nn::boss::StepIdInfoList</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/StepIdList/Overview.html">StepIdList</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/NsDataIdInfoList/Overview.html">nn::boss::NsDataIdInfoList</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/boss/NsDataHeaderInfo/Overview.html">nn::boss::NsDataHeaderInfo</a>
+            </th>
+            <td>Definition of the internal structure for storing NSD header information.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/PositionBase.html">PositionBase</a>
+            </th>
+            <td>Group of constants that indicate the position of file read/write operations. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/PropertyType.html">PropertyType</a>
+            </th>
+            <td>Constants specifying properties. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/SchedulingPolicy.html">SchedulingPolicy</a>
+            </th>
+            <td>Constants specifying scheduling policies. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/TaskPermission.html">TaskPermission</a>
+            </th>
+            <td>Constants specifying task permissions. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/TaskPriority.html">TaskPriority</a>
+            </th>
+            <td>Constants specifying task priorities. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/Action.html">Action</a>
+            </th>
+            <td>Constants specifying task actions. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/ExecOption.html">ExecOption</a>
+            </th>
+            <td>Constants specifying task execution options. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/TaskStateCode.html">TaskStateCode</a>
+            </th>
+            <td>Constants specifying task state codes. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/TaskResultCode.html">TaskResultCode</a>
+            </th>
+            <td>A task's exit state. You can use the <code><a href="../../nn/boss/Task/GetResult.html">Task::GetResult</a></code> function to get these values after a task exits. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/TaskServiceStatus.html">TaskServiceStatus</a>
+            </th>
+            <td>Constants specifying task service statuses. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/HeaderInfoType.html">HeaderInfoType</a>
+            </th>
+            <td>Constants indicating the types of NSD header information obtained. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/FileDescriptor.html">FileDescriptor</a>
+            </th>
+            <td>Constants specifying task action file paths. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/ApInfoType.html">ApInfoType</a>
+            </th>
+            <td>Constants indicating an access point's identifier type. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/CfgInfoType.html">CfgInfoType</a>
+            </th>
+            <td>Constants indicating the identifier type for system configuration information. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/StorageType.html">StorageType</a>
+            </th>
+            <td>Constants indicating types of BOSS storage. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/NewsMode.html">NewsMode</a>
+            </th>
+            <td>Constants indicating whether to issue notification data when receiving <code>DataStore</code> data. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/DstKind.html">DstKind</a>
+            </th>
+            <td>Constants that represent <code>DataStore</code> data recipient types. (For more information, see the documentation in the NEX library.) (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/QueryType.html">QueryType</a>
+            </th>
+            <td>Constants indicating HTTP query data types. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/boss/ResultCode.html">ResultCode</a>
+            </th>
+            <td>Function result codes. These are set as the descriptions for <code><a href="../../nn/Result/Overview.html">nn::Result</a></code> and are used as return values by BOSS functions. (The numeric value of each enumerator is shown at the start of its description.)</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="typedef" id="typedef">
+      <h2>typedef Definitions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskPolicyConfig.html">TaskPolicyConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskPolicy/Overview.html">TaskPolicy</a></code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskOptionConfig.html">TaskOptionConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskOption/Overview.html">TaskOption</a></code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskActionConfig.html">TaskActionConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskActionUploadConfig.html">TaskActionUploadConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code>TaskActionUpload</code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskActionDownloadConfig.html">TaskActionDownloadConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code>TaskActionDownload</code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskActionSignalConfig.html">TaskActionSignalConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code>TaskActionSignal</code> class. (This is provided for future extensibility and cannot be used.)</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskActionNsaDownloadConfig.html">TaskActionNsaDownloadConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code>TaskActionNsaDownload</code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskConfig.html">TaskConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/Task/Overview.html">Task</a></code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskStatusInfo.html">TaskStatusInfo</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskStatus/Overview.html">TaskStatus</a></code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskStepStatusInfo.html">TaskStepStatusInfo</a>
+            </th>
+            <td>Definition of the internal structure <code>TaskStepStatusInfo</code>. (This is used for internal processing.)</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskErrorInfo.html">TaskErrorInfo</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskError/Overview.html">TaskError</a></code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/HttpQuery.html">HttpQuery</a>
+            </th>
+            <td>Definition of an internal structure that maintains HTTP query information.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskQueryConfig.html">TaskQueryConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskQuery/Overview.html">TaskQuery</a></code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/DataStoreDownloadConfig.html">DataStoreDownloadConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains download information for <code>DataStore</code>.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/DataStoreUploadConfig.html">DataStoreUploadConfig</a>
+            </th>
+            <td>Definition of an internal structure that maintains upload information for <code>DataStore</code>.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/ApplicationIdInfoList.html">ApplicationIdInfoList</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code>ApplicationIdList</code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/TaskIdInfoList.html">TaskIdInfoList</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/TaskIdList/Overview.html">TaskIdList</a></code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/StepIdInfoList.html">StepIdInfoList</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/StepIdList/Overview.html">StepIdList</a></code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/NsDataIdInfoList.html">NsDataIdInfoList</a>
+            </th>
+            <td>Definition of an internal structure that maintains attribute information for the <code><a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a></code> class.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/boss/NsDataHeaderInfo.html">NsDataHeaderInfo</a>
+            </th>
+            <td>Definition of the internal structure for storing NSD header information.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/DATA_TYPE_ALL.html">DATA_TYPE_ALL</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/bit32.html">bit32</a></td>
+            <td>All data types.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/DATA_TYPE_APPDATA.html">DATA_TYPE_APPDATA</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/bit32.html">bit32</a></td>
+            <td>Data type for applications.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/DATA_TYPE_NEWS.html">DATA_TYPE_NEWS</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/bit32.html">bit32</a></td>
+            <td>Data type for notification lists. (This data type is used on the system side. The data cannot be directly obtained from the application.)</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/DATA_TYPE_EXBANNER.html">DATA_TYPE_EXBANNER</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/bit32.html">bit32</a></td>
+            <td>Download the contextual banner type.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/DATA_TYPE_DATASTORE.html">DATA_TYPE_DATASTORE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/bit32.html">bit32</a></td>
+            <td><code>DataStore</code> data type.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_FILEPATH_LENGTH.html">MAX_FILEPATH_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum length of a file path.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_URL_LENGTH.html">MAX_URL_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum length for a URL.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_HTTP_HEADER_LABEL.html">MAX_HTTP_HEADER_LABEL</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum length of HTTP header labels.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_HTTP_HEADER_VALUE.html">MAX_HTTP_HEADER_VALUE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum length of HTTP header values.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_HTTP_HEADER.html">MAX_HTTP_HEADER</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum number of headers that can be registered.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_HTTP_QUERY_NAME.html">MAX_HTTP_QUERY_NAME</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Size of the HTTP query name.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_HTTP_QUERY_VALUE.html">MAX_HTTP_QUERY_VALUE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Size of the HTTP query value.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_HTTP_QUERY.html">MAX_HTTP_QUERY</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum number of HTTP queries that can be registered.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_ROOT_CA.html">MAX_ROOT_CA</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum number of built-in root CA certificates that can be configured.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_CLIENT_CERT.html">MAX_CLIENT_CERT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum number of built-in client certificates that can be configured.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/TASK_ID_LENGTH.html">TASK_ID_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>The maximum number of characters in a task ID, including the zero terminator.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_ERROR_MESSAGE.html">MAX_ERROR_MESSAGE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum number of characters in an error message.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_APPLICATION_ID.html">MAX_APPLICATION_ID</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum number of application IDs that can be registered.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_TASK_ID.html">MAX_TASK_ID</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum number of task IDs that can be registered.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_STEP_ID.html">MAX_STEP_ID</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum number of task steps that can be registered to one task.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/CURRENT_STEP_ID.html">CURRENT_STEP_ID</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>ID of the currently running task step.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/DEFAULT_STEP_ID.html">DEFAULT_STEP_ID</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td><a href="../../nn/boss/Task/Overview.html">Task</a> step ID when the step ID is not specified.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/U32_CANNOT_GET_DATA.html">U32_CANNOT_GET_DATA</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Return value when a value cannot be obtained. Used by functions that return <code>u32</code> values.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_LASTMODIFIED_LENGTH.html">MAX_LASTMODIFIED_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum number of characters in the HTTP communication at the time it was updated.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/UNLIMITED_COUNT.html">UNLIMITED_COUNT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Specifies an unlimited execution count.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_STORAGE_ENTRY_COUNT.html">MAX_STORAGE_ENTRY_COUNT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Maximum file count in BOSS storage.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/DEFAULT_STORAGE_ENTRY_COUNT.html">DEFAULT_STORAGE_ENTRY_COUNT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Default value for the file count in BOSS storage.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_STORAGE_RECYCLE_COUNT.html">MAX_STORAGE_RECYCLE_COUNT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>The maximum number of files that can be reused in BOSS storage (the maximum value is the sum of the <emphasis>file count</emphasis> and the <emphasis>resume count</emphasis> set in the storage options).)</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_ACCESS_KEY_LENGTH.html">MAX_ACCESS_KEY_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>The maximum number of characters in a <code>DataStore</code> access key including the zero terminator.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_DST_PRINCIPAL_ID.html">MAX_DST_PRINCIPAL_ID</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>The maximum number of application <code>DataStore</code> send IDs that can be registered.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_NEWS_SUBJECT_LENGTH.html">MAX_NEWS_SUBJECT_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>The maximum number of characters in a notification data subject title, including zero terminator.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_NEWS_MESSAGE_LENGTH.html">MAX_NEWS_MESSAGE_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>The maximum number of characters in the notification data body, including the zero terminator.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_NEWS_JUMP_PARAM.html">MAX_NEWS_JUMP_PARAM</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>The size of general-purpose parameters for notification data jumps.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/MAX_TASK_FILE_PARAM.html">MAX_TASK_FILE_PARAM</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td><a href="../../nn/boss/Task/Overview.html">Task</a> file parameter size.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/boss/FG_ONLY_TASK_ID.html">FG_ONLY_TASK_ID</a>
+              </span>
+            </th>
+            <td width="100">const char</td>
+            <td><a href="../../nn/boss/Task/Overview.html">Task</a> name for dedicated immediate-execution tasks.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the BOSS library. Call this function once before using the BOSS library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the BOSS library. Call this function once when you are finished using the BOSS library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/RegisterPrivateRootCa.html">RegisterPrivateRootCa</a>
+            </th>
+            <td>Registers a root CA certificate as an application certificate in the BOSS library. Certificates are used when using HTTPS communication as a connection when executing a task. <br />
+ There is no need to call this function if a root CA certificate is not used as an application certificate. Call <code><a href="../../nn/boss/TaskActionBase/SetPrivateRootCa.html">nn::boss::TaskAction::SetPrivateRootCa</a></code> to use a registered independent root CA certificate. An application certificate and the built-in device certificate can be used together. <br />
+ Only one root CA certificate can be set as an application certificate. <br />
+ If settings are duplicated, the last set root CA certificate is valid. <bold>Note:</bold> Currently, registering tasks that connect to servers other than the BOSS data server provided by Nintendo is not permitted.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/RegisterPrivateClientCert.html">RegisterPrivateClientCert</a>
+            </th>
+            <td>Registers an application client certificate and a private key in the BOSS library. The client certificate and private key enable the connection for executing a task while using HTTPS communication. <br />
+ There is no need to call this function if an application client certificate is not used. Call <code><a href="../../nn/boss/TaskActionBase/SetPrivateClientCert.html">nn::boss::TaskAction::SetPrivateClientCert</a></code> to use a registered independent client certificate. An application certificate and the built-in device certificate can be used together. <br />
+ Only one client certificate can be set as an application certificate. <br />
+ If settings are duplicated, the last set client certificate is valid. <bold>Note:</bold> Currently, registering tasks that connect to servers other than the BOSS data server provided by Nintendo is not permitted.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/RegisterTask.html">RegisterTask</a>
+            </th>
+            <td>Registers a task to BOSS (to the save region on the game device). To register tasks, you must prepare instances of the subclass of the <code><a href="../../nn/boss/TaskPolicy/Overview.html">TaskPolicy</a></code> class and the <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> class. (<code><a href="../../nn/boss/NsaDownloadAction/Overview.html">NsaDownloadAction</a></code> class, <code><a href="../../nn/boss/DataStoreDownloadAction/Overview.html">DataStoreDownloadAction</a></code> class, and <code><a href="../../nn/boss/DataStoreUploadAction/Overview.html">DataStoreUploadAction</a></code> class). <br />
+ For information about which attributes must be set, see the API Reference topic for each class. <br />
+ When you have finished registering a task, you can reuse each of these instances as necessary by calling the <code><a href="../../nn/boss/Initialize.html">Initialize()</a></code> function. <br />
+ You can issue a task execution instruction by calling the <code><a href="../../nn/boss/Task/Start.html">nn::boss::Task::Start()</a></code> function for a registered task. &#12288; Common <a href="../../nn/boss/Task/Overview.html">Task</a> Registration Errors 1. BOSS storage has not been registered when registering an NADL task (<code><a href="../../nn/boss/ResultStorageNotFound/Overview.html">ResultStorageNotFound</a></code>). Use <code><a href="../../nn/boss/RegisterStorage.html">RegisterStorage</a></code> to register BOSS storage for the NADL task. 2. A task with the same task ID has already been registered (<code><a href="../../nn/boss/ResultTaskIdAlreadyExist/Overview.html">ResultTaskIdAlreadyExist</a></code>). Either use <code><a href="../../nn/boss/UnregisterTask.html">UnregisterTask</a></code> to unregister the task, or reuse the task that has already been registered.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/RegisterImmediateTask.html">RegisterImmediateTask</a>
+            </th>
+            <td>Registers an immediate-execution task to BOSS (to the save region on the game device). To register a dedicated immediate-execution task, you must first prepare an instance of a subclass of the <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> class. <br />
+ For information about which attributes must be set, see the API Reference topic for each class. <br />
+ When you have finished registering a task, you can reuse each of these instances as necessary by calling the <code><a href="../../nn/boss/Initialize.html">Initialize()</a></code> function. <br />
+ You can issue a task execution instruction by calling the <code><a href="../../nn/boss/Task/StartImmediate.html">nn::boss::FgOnlyTask::StartImmediate()</a></code> function for a registered task. &#12288; Common <a href="../../nn/boss/Task/Overview.html">Task</a> Registration Errors 1. BOSS storage has not been registered when registering an NADL task (<code><a href="../../nn/boss/ResultStorageNotFound/Overview.html">ResultStorageNotFound</a></code>). Use <code><a href="../../nn/boss/RegisterStorage.html">RegisterStorage</a></code> to register BOSS storage for the NADL task.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/UnregisterTask.html">UnregisterTask</a>
+            </th>
+            <td>Unregisters a registered task. Although you can unregister a task that is currently running or is waiting to run, you cannot check that task's execution results. <br />
+ If you want to check the task's execution results, check after the task has finished running, call <code><a href="../../nn/boss/Task/Cancel.html">nn::boss::Task::Cancel()</a></code> to prevent the next task from running, and then unregister the task. When unregistering a task, work files for the target task in BOSS storage are also deleted. In cases where an SD card that has BOSS storage is removed, deletion of work files fails and the error <code><a href="../../nn/boss/ResultFileAccess/Overview.html">ResultFileAccess</a></code> returns. However, in this case the task itself is unregistered. Error handling is not required because work files may also be deleted due to the deletion of extended save data that uses BOSS storage. (You can expect the user to take care of it when the application is not being used.) (If this error returns, you cannot directly delete any work files that could not be deleted. However, if a task having the same task ID has been registered, work files that could not be deleted are used in the task. After registering a task that has the same task ID, you delete work files by executing <code>UnregisterTask</code> for that task.&#65289;</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/ReconfigureTask.html">ReconfigureTask</a>
+            </th>
+            <td>The property settings for registered tasks can be changed. The properties that can be changed are only those that can be set using <code><a href="../../nn/boss/TaskPolicy/Overview.html">nn::boss::TaskPolicy</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/GetTaskIdList.html">GetTaskIdList</a>
+            </th>
+            <td>Gets a list of registered task IDs. You must create an instance of the <code><a href="../../nn/boss/TaskIdList/Overview.html">TaskIdList</a></code> class in advance. <br />
+ Note that this instance requires approximately 1 KB of memory to get a list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/GetStepIdList.html">GetStepIdList</a>
+            </th>
+            <td>Gets a list of all steps for the specified registered task. You must create an instance of the <code><a href="../../nn/boss/StepIdList/Overview.html">StepIdList</a></code> class in advance. <br />
+ Note that this instance requires approximately 256 bytes of memory to get a list. Note: This is an API feature extension and cannot be used currently.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/RegisterStorage.html">RegisterStorage</a>
+            </th>
+            <td>Registers BOSS storage information to BOSS (to the save region on the game device). BOSS storage must be registered before registering or executing NADL tasks. <br />
+ NS data cannot be downloaded if the storage is not registered. Before registering BOSS storage, you must first create an extended save data region in memory. <br />
+ You must also create an expanded save data region, while specifying more than the total number of NS data files to store. <br />
+ This function returns an error if you specify an expanded save data region ID in the <emphasis>storageID</emphasis> argument to which the application does not have access rights. During downloading of NS data files, when the total size of the NS data files in the BOSS storage exceeds the maximum data size, NS data files with the oldest serial ID (that is, the smallest serial ID) are automatically deleted. There is a limit on the number of BOSS storage information registrations. Information can be automatically unregistered by BOSS. For more information, see the Programming Manual. 1) To get NS data without the application registering a task:<br />
+ After BOSS storage is registered, if NS data files are included for an application for which BOSS storage is registered within a downloaded NS archive, by a task registered by a different application, those NS data files are automatically downloaded to the registered BOSS storage. 2) To download NS data addressed to the application that registers a task:<br />
+ If the application registers BOSS storage and then registers and runs a task, it can download NS data addressed to the application and store it in the BOSS storage specified when it registered the task. <br />
+ As with step 1, if NS data files are included for an application for which BOSS storage is registered within a downloaded NS archive, by a task registered by a different application, those NS data files are automatically downloaded to the registered BOSS storage. 3) To share NS data with another application: You can get NS data downloaded to another application by registering BOSS storage ahead of time in the same extended save data region used for another application. <br />
+ An application can even get this NS data from other applications when it downloads its own NS data. <br />
+ For more information about these operations, see the <code><a href="../../nn/boss/GetNsDataIdList.html">GetNsDataIdList</a></code> and <code><a href="../../nn/boss/GetNewDataNsDataIdList.html">GetNewDataNsDataIdList</a></code> functions.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/UnregisterStorage.html">UnregisterStorage</a>
+            </th>
+            <td>Deregisters the BOSS storage. Only when unregistering (deregistering) storage from the save region of a game device is the BOSS storage itself (the NS data files) not deleted. Registered tasks are all unregistered. <br />
+ BOSS storage is part of the expanded save data, so it gets deleted when the expanded save data gets deleted.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/GetStorageInfo.html">GetStorageInfo</a>
+            </th>
+            <td>Gets the size of the registered BOSS storage region. <br />
+ This function can also be used to check whether BOSS storage (the save region on the game device) was registered to the system using <code><a href="../../nn/boss/RegisterStorage.html">RegisterStorage</a></code>. <br />
+ This function cannot be used to check for BOSS storage in the extended save data region. BOSS storage is automatically generated by the system as part of the extended save data. (For information about checking for extended save data, see <code><a href="../../nn/fs/MountExtSaveData.html">nn::fs::MountExtSaveData</a></code>.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/GetNewArrivalFlag.html">GetNewArrivalFlag</a>
+            </th>
+            <td>Checks whether new NS data has been downloaded. <br />
+ However, the new arrival flag does not change if it is not set by the downloaded NS data. When BOSS storage is not shared, the NS data list can be acquired using <code><a href="../../nn/boss/GetNewDataNsDataIdList.html">GetNewDataNsDataIdList</a></code>. <br />
+ If storage is shared, a list that contains only NS data addressed to the local application can be acquired by using <code><a href="../../nn/boss/GetOwnNewDataNsDataIdList.html">GetOwnNewDataNsDataIdList</a></code>. When the NS data list for the above newly arrived NS data is acquired, this new arrival flag is cleared.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/RegisterNewArrivalEvent.html">RegisterNewArrivalEvent</a>
+            </th>
+            <td>Registers an event to be signaled when new NS data is received. Register an initialized instance of <code><a href="../../nn/os/Event/Overview.html">nn::os::Event</a></code>. <br />
+ Even if NS data is downloaded, the NS data is not updated unless the NS data version is new. <br />
+ Note that in this case, the registered event is not signaled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/GetNewArrivalEvent.html">GetNewArrivalEvent</a>
+            </th>
+            <td>This is the old (deprecated) name for <code><a href="../../nn/boss/RegisterNewArrivalEvent.html">nn::boss::RegisterNewArrivalEvent</a></code>. <br />
+ Avoid using this: it only exists for compatibility.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/SetOptoutFlag.html">SetOptoutFlag</a>
+            </th>
+            <td>Sets the <code>OptOut</code> flag. If this flag is enabled, the notification data included in the NS archive is destroyed when the NADL task is executed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/GetOptoutFlag.html">GetOptoutFlag</a>
+            </th>
+            <td>Gets the <code>OptOut</code> flag.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/GetNsDataIdList.html">GetNsDataIdList</a>
+            </th>
+            <td>Specifies the data type, and gets a list of NS data from the expanded save data region where the BOSS storage is registered. <br />
+ The NS data IDs are stored in descending order from the start of the list. The new arrival flag is cleared if this function is used to get all lists. <br /><code><a href="../../nn/boss/ResultNsDataListSizeShortage/Overview.html">ResultNsDataListSizeShortage</a></code> is returned if the entire list could not be obtained. <br /><code><a href="../../nn/boss/ResultNsDataListUpdated/Overview.html">ResultNsDataListUpdated</a></code> is returned when changes to list content are detected during a continued acquisition of the list, or a new download. In this case, you must get the entire list again from the beginning. <br />
+ In this case, call this function again after initializing the instance of the <code><a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a></code> class. &#12288; For information about using the <emphasis>dataType</emphasis> parameter, specify <code>DATA_TYPE_ALL</code> to search all NS data. <br />
+ In other cases, specify search targets using a bitwise OR of global data types and private data types. <br />
+ Only serial IDs of NS data whose global data types match and whose private data types match the mask and are determined to be acquisition targets are stored in the list. <br />
+ There are three global data types, as follows. <code>nn::boss::DATA_TYPE_APPDATA</code>: Extra data<br /><code>nn::boss::DATA_TYPE_NEWS</code>: Data displayed in notifications (cannot be obtained by the application).<br /><code>nn::boss::DATA_TYPE_EXBANNER</code>: : Contextual banner data.<br />
+ Private data types are 16-bit values. They are treated as masks for the private data types of NS data (lower 16 bits of the data type). <br />
+ If any of the bits set in the specified private data type are set in the private data type of the NS data (that is, if the bitwise AND of the private data types is nonzero), that NS data item can be retrieved. <br />
+ For example, to get all added data, specify <code>DATA_TYPE_APPDATA | 0x0000FFFF</code> as <emphasis>dataType</emphasis>. <br />
+ Applications can use the data types of NS data to retrieve added data according to the ways they have been proprietarily categorized. <br /></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/GetOwnNsDataIdList.html">GetOwnNsDataIdList</a>
+            </th>
+            <td>Excludes the shared NS data, and gets the list of NS content for the application from the expanded save data region where the BOSS storage is registered. <br />
+ The NS data IDs are stored in descending order from the start of the list. In other words, only NS data for the invoked application is included in the list, even if there is shared NS data. The new arrival flag is cleared if this function is used to get all lists. <br /><code><a href="../../nn/boss/ResultNsDataListSizeShortage/Overview.html">ResultNsDataListSizeShortage</a></code> is returned if the entire list could not be obtained. <br /><code><a href="../../nn/boss/ResultNsDataListUpdated/Overview.html">ResultNsDataListUpdated</a></code> is returned when changes to list content are detected during a continued acquisition of the list, or a new download. In this case, you must get the entire list again. <br />
+ In this case, call this function again after initializing the instance of <code><a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a></code>. <br /></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/GetNewDataNsDataIdList.html">GetNewDataNsDataIdList</a>
+            </th>
+            <td>Specifies the data type, and gets a list of newly arrived NS data from the expanded save data region where the BOSS storage is registered. <br />
+ The NS data IDs are stored in descending order from the start of the list. The new arrival flag is cleared if this function is used to get all lists. <br /><code><a href="../../nn/boss/ResultNsDataListSizeShortage/Overview.html">ResultNsDataListSizeShortage</a></code> is returned if the entire list could not be obtained. <br /><code><a href="../../nn/boss/ResultNsDataListUpdated/Overview.html">ResultNsDataListUpdated</a></code> is returned when changes to list content are detected during a continued acquisition of the list, or a new download. In this case, you must get the entire list again. <br />
+ In this case, call this function again after initializing the instance of <code><a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/GetOwnNewDataNsDataIdList.html">GetOwnNewDataNsDataIdList</a>
+            </th>
+            <td>Excludes the shared NS data, and gets the list of NS content for the application from the expanded save data region where the BOSS storage is registered. <br />
+ The NS data IDs are stored in descending order from the start of the list. In other words, only the list of NS data for the invoked application is obtained, even if there is shared NS data. The new arrival flag is cleared if this function is used to get all lists. <br /><code><a href="../../nn/boss/ResultNsDataListSizeShortage/Overview.html">ResultNsDataListSizeShortage</a></code> is returned if the entire list could not be obtained. <br /><code><a href="../../nn/boss/ResultNsDataListUpdated/Overview.html">ResultNsDataListUpdated</a></code> is returned when changes to list content are detected during a continued acquisition of the list, or a new download. In this case, you must get the list again. <br />
+ In this case, call this function again after initializing the instance of <code><a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/boss/GetErrorCode.html">GetErrorCode</a>
+            </th>
+            <td>The error code is acquired from the task result code (<code><a href="../../nn/boss/TaskResultCode.html">TaskResultCode</a></code>). The task result code is acquired with <code><a href="../../nn/boss/Task/GetResult.html">nn::boss::Task::GetResult</a></code>. When the task result is <code><span>UNKNOWN_ERROR</span></code>, a value not included in the <code><a href="../../nn/boss/TaskResultCode.html">TaskResultCode</a></code> list might be returned as a task result code (when it is <code><span>UNKNOWN_ERROR</span></code>, the task result code becomes a sum of the <code><span>UNKNOWN_ERROR</span></code> enumerator value and the error originating module ID, <code><a href="../../nn/Result/Module.html">nn::Result::Module</a></code>), but such a value can also be converted into an error code by this function.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/05</dt>
+        <dd><item xmlns="">Updated the description to reflect fact that data uploads are also supported.</item><br />
+        </dd>
+        <dt>2011/03/28</dt>
+        <dd><item xmlns="">Added a note about Nintendo server maintenance. (The note is valid only from late March to early April.)</item><br />
+        </dd>
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

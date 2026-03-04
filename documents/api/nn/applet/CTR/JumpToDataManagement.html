@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>JumpToDataManagement</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::JumpToDataManagement Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> JumpToDataManagement(
+     AppletDataManagementScene scene = nn::applet::CTR::DATA_MANAGEMENT_STREETPASS
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>scene</th>
+          <td>Indicates which data management scene to jump to.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Jumps to Data Management in System Settings.</p><P>The application exits when this function is called. Be sure to execute a shutdown process as required.  There is no return from this function call, regardless of whether the jump is successful.</P><P>Although this function has a return value, it never actually returns it. On success, it ends the process. On failure, it raises a fatal error.</P><P>You can specify which Data Management scene to jump to using the <span class="argument">scene</span> parameter.</P><TABLE><THEAD><TR bgcolor="#ccccdd"><TH>Value</TH><TH>Jump Destination</TH></TR></THEAD><TR><TD><tt>nn::applet::CTR::DATA_MANAGEMENT_STREETPASS</tt></TD><TD>The chance encounter management screen (default).</TD></TR></TABLE><P>The application executes from the beginning upon returning from System Settings.  You can check whether there has been a return jump from system settings using <tt><a href="../../../nn/applet/CTR/IsFromMset.html">nn::applet::CTR::IsFromMset</a></tt>. </P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/29</dt>
+        <dd><item xmlns="">Deleted unnecessary comments.</item><br />
+        </dd>
+        <dt>2011/10/19</dt>
+        <dd><item xmlns="">Added a note that the function's return value can never actually be returned.</item><br />
+        </dd>
+        <dt>2011/09/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

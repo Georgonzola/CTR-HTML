@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+bool Initialize(
+     void * workBuffer,
+     size_t workBufferSize,
+     <a href="../../../../nn_types/u32.html">u32</a> numImages = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>workBuffer</th>
+          <td>Specifies the work buffer for the encoder object. Must be aligned to <emphasis>BUFFER_ALIGNMENT</emphasis> (4 bytes). <br />
+ The buffer size is calculated by <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetWorkBufferSize.html">GetWorkBufferSize</a></code>. <br />
+ Each encoder object requires its own work buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>workBufferSize</th>
+          <td>Specifies the size of the buffer in bytes. Specify the return value of <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetWorkBufferSize.html">GetWorkBufferSize</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numImages</th>
+          <td>Specifies the number of images to store in MP format. <br />
+ Specify a value either equal to or less than the value that was specified when <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetWorkBufferSize.html">GetWorkBufferSize</a></code> was called. <br />
+ The default is <code>0</code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> on success. Returns <code>false</code> on failure. Check the alignment of <emphasis>workBuffer</emphasis> and the other parameters. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the encoder object.</p><p>It also initializes the work buffer for the encoder object.</p><p>After initializing once you do not need to initialize again until after finalization, as long as the number of images stored in MP format does not change. As long as the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderNext.html">StartMpEncoderNext</a></code> function has been called, initializing again causes no problems.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment.</item><br />
+        </dd>
+        <dt>2010/04/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

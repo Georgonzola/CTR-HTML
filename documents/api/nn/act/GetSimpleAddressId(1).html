@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>GetSimpleAddressId</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/act/Overview.html">act</a>::GetSimpleAddressId Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">nn::Result</a> GetSimpleAddressId(
+     <a href="../../nn/cfg/CTR/SimpleAddressId/Overview.html">nn::cfg::SimpleAddressId</a> * pSimpleAddressId
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pSimpleAddressId</th>
+          <td>Gets a point to a buffer that returns an ID for the account's residence information. When the account is not a network account, <code>NN_ACT_INVALID_SIMPLE_ADDRESS_ID</code> is set to <code>pSimpleAddressId->id</code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>ResultSuccess</code> on success. <br />
+ Returns <code><a href="../../nn/act/ResultNotInitialized/Overview.html">ResultNotInitialized</a></code> when the account library is not initialized. <br />
+ Returns <code><a href="../../nn/act/ResultInvalidPointer/Overview.html">ResultInvalidPointer</a></code> when an invalid pointer (such as a <code>NULL</code> pointer) is passed as an argument. <br /> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the residence information for the system account. Gets the residence information for the Nintendo Network account associated with the system account. Note that this function does not trigger any communication because it gets the value the system cached for the locale. <br /><br />
+ If the function fails, the value set in the buffer is undefined.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/09/11</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

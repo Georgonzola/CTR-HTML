@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::ServiceDescription</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::ServiceDescription Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct ServiceDescription
+{
+   wchar_t * itemName;
+   wchar_t * description;
+   wchar_t * disclaimer;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The structure that represents service-item information.</p><p>Note that unlike other string representations in the EC library, this one is in UTF-16LE encoding.</p></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">itemName</span>
+            </th>
+            <td width="100">wchar_t *</td>
+            <td>A pointer to a NULL-terminated UTF-16LE string that indicates a service name. The string must be no longer than 32 characters, including the terminating <code>NULL</code> character. Add the <code><br /></code> symbol to insert a line break. The EC <a href="../../../../nn/applet/Overview.html">applet</a> automatically wraps strings that do not fit on a single line, but make sure that the string is no longer than two lines.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">description</span>
+            </th>
+            <td width="100">wchar_t *</td>
+            <td>A pointer to a NULL-terminated UTF-16LE string that indicates service details. The string must be no longer than 128 characters, including the terminating <code>NULL</code> character. Add the <code><br /></code> symbol to insert a line break. If the string does not fit on one line, the EC <a href="../../../../nn/applet/Overview.html">applet</a> automatically wraps the text.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">disclaimer</span>
+            </th>
+            <td width="100">wchar_t *</td>
+            <td>A pointer to a NULL-terminated UTF-16LE string that indicates a service disclaimer. The string must be no longer than 1024 characters, including the terminating <code>NULL</code> character. Add the <code><br /></code> symbol to insert a line break. <br />
+ We recommend that you consider displaying a disclaimer within the application if it might exceed the 1024 character limitation that the EC <a href="../../../../nn/applet/Overview.html">applet</a> had, because there are no problems with the proprietary display of a disclaimer within the application instead of within the EC <a href="../../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr> </table>
+      </div>
+    </a>
+  </body>
+</html>

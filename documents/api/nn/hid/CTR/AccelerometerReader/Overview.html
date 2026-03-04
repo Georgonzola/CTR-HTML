@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::hid::CTR::AccelerometerReader</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::AccelerometerReader Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class AccelerometerReader : private <a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable< AccelerometerReader ></a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for loading sampling data from the accelerometer.</p><h3>Sampling Rate</h3><p>The accelerometer starts sampling when the first instance is generated, sampling data at intervals of roughly 10 milliseconds. Sampling stops when no instances exist. <BR /> If you want to monitor the exact timing of sampling, you can use the <tt><a href="../../../../nn/hid/CTR/Accelerometer/Overview.html">Accelerometer</a></tt> class to know precisely when sampling occurs.  <BR /><BR /> No sampling is done right after generating a class instance or right after recovering from sleep, so there are times when the <tt><a href="../../../../nn/hid/CTR/AccelerometerReader/Read.html">Read</a></tt> and <tt><a href="../../../../nn/hid/CTR/AccelerometerReader/ReadLatest.html">ReadLatest</a></tt> functions do not get valid results.  Waiting until results have been sampled at least once avoids this situation, so we recommend calling the <tt><a href="../../../../nn/hid/CTR/HidBase/WaitSampling.html">nn::hid::CTR::HidBase::WaitSampling</a></tt> function of the <tt><a href="../../../../nn/hid/CTR/Accelerometer/Overview.html">nn::hid::CTR::Accelerometer</a></tt> class right after generating a class instance or when recovering from sleep.  This wait time is the same as the sampling frequency, up to a maximum of approximately 10 milliseconds.</p><h3>Generating and Destroying Instances and Sampling Processes</h3><p>As mentioned, the generation and destruction of instances is linked to the switching of sampling processes. Because the switching of sampling processes puts a load on the system, try to use the same instance while using the accelerometer and otherwise refrain from frequent generation and destruction of instances. <BR /> Below is an example of <i>what to avoid</i>.</p><pre>
+   void GetAccelerometerValue(f32* x,f32* y,f32* z)
+   {
+      AccelerometerReader reader;	// Generate instance: Start of sampling.
+      AccelerometerStatus status;
+
+      reader.ReadLatest( &status );     // Get value.
+      *x = status.x;
+      *y = status.y;
+      *z = status.z;
+      
+      return;                   // Destroy reader: Sampling stops.
+   }
+   
+   void MainLoop() // Loop called once per frame.
+   {
+       ... some sort of processing ...
+       GetAccelerometerValue( &x, &y, &z );  // Value obtained once in every frame.
+       
+       ... some sort of processing ...
+   }
+   </pre><p>In this example, an instance of <tt>AccelerometerReader</tt> is created and destroyed on the stack in every frame. Because the process does not wait the minimal time for sampling by the accelerometer, in some cases appropriate values are not obtained.  This design is bad. Revise the design by, for example, creating the instance in the heap so that the instance continues to exist throughout the interval during which the application needs to get the acceleration.</p><h3>Output Value Processing Features</h3><p>This class includes the following features to process output values.<BR /><table><tr><th>Acceleration Variation Tolerance</th><td>You can apply a correction to control any major variation in acceleration during continuous sampling.</td></tr><tr><th>Offset Correction</th><td>Outputs after subtracting the specified value from sampling results.</td></tr><tr><th>Axial Rotation</th><td>Outputs sampling results multiplied by an optional rotation matrix. Enables the output of values as if the accelerometer is on an incline.</td></tr></table><BR /> All processing features are disabled by default. Configure and enable them as needed.  For details, see the various API references.</p><h3>Axis Orientation</h3><p>The default accelerometer sensors are as follows.<BR /><table><tr><th>X+</th><td>The direction indicated by Left on the +Control Pad</td></tr><tr><th>Y+</th><td>The direction normal to and outward from the touch screen</td></tr><tr><th>Z+</th><td>The direction indicated by Up on the +Control Pad</td></tr></table></p><h3>Recalibration from the HOME Menu</h3><p>Effective from the first network update, the HOME Menu has a feature enabling users to recalibrate the accelerometer whenever they like. <br /><br /> Therefore, in some cases, correction of the accelerometer in accordance with the user's environment may take place while the system is transitioning from the application to the HOME Menu upon pressing the HOME Button. <br /> After this operation, the values obtained by the <tt><a href="../../../../nn/hid/CTR/AccelerometerReader/Read.html">Read</a></tt> and <tt><a href="../../../../nn/hid/CTR/AccelerometerReader/ReadLatest.html">ReadLatest</a></tt> functions are the corrected values. In most cases, the corrected values accurately reflect the user's environment. <br /><br /> The applications, however, do not need to take any special measures to deal with this.</p></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/hid/CTR/AccelerometerReader/MAX_READ_NUM.html">MAX_READ_NUM</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s8.html">s8</a></td>
+            <td>The maximum number of data samples that can be read.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Constructors/Destructors</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/AccelerometerReader.html">AccelerometerReader</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/~AccelerometerReader.html">~AccelerometerReader</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Reading Sampling Data</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/Read.html">Read</a>
+            </th>
+            <td>Loads sampling data from the accelerometer starting with the newest samples. Does not load any data that has been previously loaded.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/ReadLatest.html">ReadLatest</a>
+            </th>
+            <td>Loads the newest sampling data from the accelerometer. Unlike the <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Read.html">nn::hid::CTR::AccelerometerReader::Read</a></code> function, this function can load the same sampling data more than once.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Control Functions for Acceleration Variation Tolerance</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/GetSensitivity.html">GetSensitivity</a>
+            </th>
+            <td>Gets the settings for sensitivity and play tolerance for the change in acceleration between samples.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/SetSensitivity.html">SetSensitivity</a>
+            </th>
+            <td>Sets the sensitivity and play tolerance for the change in acceleration between samples.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Axial Rotation</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/EnableAxisRotation.html">EnableAxisRotation</a>
+            </th>
+            <td>Enables axial rotation of the accelerometer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/DisableAxisRotation.html">DisableAxisRotation</a>
+            </th>
+            <td>Disables axial rotation of the accelerometer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/IsEnableAxisRotation.html">IsEnableAxisRotation</a>
+            </th>
+            <td>Checks whether axial rotation is enabled or disabled for the accelerometer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/SetAxisRotationMatrix.html">SetAxisRotationMatrix</a>
+            </th>
+            <td>Specifies the rotation matrix used for axial rotation of the accelerometer's sampling data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/GetAxisRotationMatrix.html">GetAxisRotationMatrix</a>
+            </th>
+            <td>Gets the rotation matrix currently specified to use for axial rotation of the accelerometer's sampling data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/ResetAxisRotationMatrix.html">ResetAxisRotationMatrix</a>
+            </th>
+            <td>Initializes the rotation matrix to use for transforming the accelerometer's sampling data.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Offset</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/EnableOffset.html">EnableOffset</a>
+            </th>
+            <td>Enables the accelerometer offset.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/DisableOffset.html">DisableOffset</a>
+            </th>
+            <td>Disables the accelerometer offset.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/IsEnableOffset.html">IsEnableOffset</a>
+            </th>
+            <td>Checks whether the accelerometer offset is enabled or disabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/SetOffset.html">SetOffset</a>
+            </th>
+            <td>Sets the accelerometer offset value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/GetOffset.html">GetOffset</a>
+            </th>
+            <td>Gets the accelerometer offset value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/ResetOffset.html">ResetOffset</a>
+            </th>
+            <td>Resets the accelerometer offset value to the default.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Others</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/AccelerometerReader/ConvertToAcceleration.html">ConvertToAcceleration</a>
+            </th>
+            <td>Converts the raw sampling data from the accelerometer into acceleration values (in g's).</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<b>nn::hid::CTR::AccelerometerReader</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/08/19</dt>
+        <dd><item xmlns="">Deprecated the SetOffsetFromBaseStatus function.</item><br />
+        </dd>
+        <dt>2013/06/28</dt>
+        <dd><item xmlns="">Revised the examples of when to avoid creating and destroying instances and sampling processes.</item><br />
+        </dd>
+        <dt>2012/01/12</dt>
+        <dd><item xmlns="">Corrected the indication that frequent generation and destruction of instances was prohibited.</item><br /><item xmlns="">Updated the text about recalibration from the HOME Menu.</item><br /><item xmlns="">Restructured the description about the timing of the start of sampling.</item><br />
+        </dd>
+        <dt>2011/10/06</dt>
+        <dd><item xmlns="">Noted you may not be able to get values using the example of what not to do.</item><br />
+        </dd>
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Added text about the creation and destruction of instances.</item><br />
+        </dd>
+        <dt>2011/03/15</dt>
+        <dd><item xmlns="">Added a note about the possibility of recalibration from the HOME Menu.</item><br />
+        </dd>
+        <dt>2010/12/06</dt>
+        <dd><item xmlns="">Added explanation of conditions under which sampling stops.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Retrieve</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/Overview.html">ContentSetGroupCatalog</a>::Retrieve Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a> Retrieve(
+     <a href="../../../../nn_types/u32.html">u32</a> startOffset,
+     size_t numItems,
+     <a href="../../../../nn/ec/CTR/ContentSetGroupCatalogFilter/Overview.html">ContentSetGroupCatalogFilter</a> & filter
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>startOffset</th>
+          <td>Offset to get the content set group from the search results matching the filter.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numItems</th>
+          <td>Number of content sets to get.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>filter</th>
+          <td>Filter to use for the search.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. For more information about handling <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> objects, see the <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> reference. The results returned by the <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code> function are shown below.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultSessionInvalid</th>
+          <td>Invalid session.</td>
+        </tr>
+        <tr>
+          <th>ResultNewSessionRequired</th>
+          <td>A new session is required.</td>
+        </tr>
+        <tr>
+          <th>ResultSessionPreparedTitleNotFound</th>
+          <td>The title set in <emphasis>filter</emphasis> has not been initialized in this session, or no data titles have been initialized.</td>
+        </tr>
+        <tr>
+          <th>ResultCatalogInvalidArgument</th>
+          <td>An invalid filter was set for <emphasis>filter</emphasis>.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfFilterMemory</th>
+          <td>The buffer set by <code><a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">ContentSetCatalogFilter</a></code> is too small.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfCatalogMemory</th>
+          <td>The buffer configured for the catalog is too small.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfCatalogMemoryError</th>
+          <td>The buffer set in the catalog is too small to hold the search results.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfSystemMemoryError</th>
+          <td>Insufficient system memory.</td>
+        </tr>
+        <tr>
+          <th>ResultAcNotConnectedError</th>
+          <td>Either not connected to the Internet, or the connection was lost.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraNeedsReconnect</th>
+          <td>Infrastructure reconnection was requested.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraReportError</th>
+          <td>Infrastructure reported an error.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraReceiveError</th>
+          <td>Failed to receive from the infrastructure connection.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraInvalidResponseError</th>
+          <td>Invalid response from the infrastructure connection.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraNeedsUpdateError</th>
+          <td>Infrastructure updated, so the system must be updated.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraTimeoutError</th>
+          <td>Infrastructure communication timeout.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraBusyError</th>
+          <td>The infrastructure connection is busy.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Searches for content set groups.</p><p>This function requires an Internet connection because it communicates with the Nintendo eShop server.</p><p>When this function is called, it first uses the buffer set by <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalogFilter/Overview.html">ContentSetGroupCatalogFilter</a></code> to create a search query for the Nintendo eShop server. The function returns <code><a href="../../../../nn/ec/CTR/ResultOutOfFilterMemory/Overview.html">ResultOutOfFilterMemory</a></code> if the buffer for creating the search query is too small.</p><p>Make sure to set the buffer size large enough when calling <code><a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">ContentSetCatalogFilter</a></code>.</p><p>The search results returned by the Nintendo eShop server are extracted temporarily in system memory. The function returns <code><a href="../../../../nn/ec/CTR/ResultOutOfSystemMemoryError/Overview.html">ResultOutOfSystemMemoryError</a></code> if there is not enough system memory for this operation. You can avoid running out of memory by adjusting the number of content set groups obtained each time, and calling this function multiple times with an offset specified to search through the content set groups a little at a time.</p><p>Use the <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/GetTotalNumMatched.html">ContentSetGroupCatalog::GetTotalNumMatched</a></code> function to get the total number of content set groups that matched the filter.</p><p>The function then copies the content set group information from the search results extracted in system memory to the buffer configured by the constructor. Only part of the content set group information is copied if this buffer is too small to hold all of it.</p><p>Use the <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/GetNumRetrieved.html">ContentSetGroupCatalog::GetNumRetrieved</a></code> function to get the number of content set groups stored in the buffer.</p><p>The function returns <code><a href="../../../../nn/ec/CTR/ResultOutOfCatalogMemory/Overview.html">ResultOutOfCatalogMemory</a></code> or <code><a href="../../../../nn/ec/CTR/ResultOutOfCatalogMemoryError/Overview.html">ResultOutOfCatalogMemoryError</a></code> if the buffer is too small to hold even one item.</p><p>Note that adding and updating the items registered to the Nintendo eShop server can change the content set groups that match the filter and the content set groups that can be obtained with one search query.</p><p>If you do not plan for additions and updates, adding and updating items may not be possible in your application after it is released. To avoid this problem, adequately verify that you can add and update items under the expected conditions of actual operations.</p><p>The other member functions of this class must not be called if this function does not return successfully.</p><p>If this function is called multiple times, the <code><a href="../../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> objects obtained from previous calls are invalidated.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/26</dt>
+        <dd><item xmlns="">Noted the importance of verifying the addition and updating of items under assumed actual operation situations.</item><br />
+        </dd>
+        <dt>2011/11/09</dt>
+        <dd><item xmlns="">Added <code><a href="../../../../nn/ec/CTR/ResultNewSessionRequired/Overview.html">ResultNewSessionRequired</a></code> to the results returned by <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code>. Added a note about communication with the Nintendo eShop server.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

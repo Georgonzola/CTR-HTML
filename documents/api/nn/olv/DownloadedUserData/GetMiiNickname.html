@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetMiiNickname</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/olv/Overview.html">olv</a>::<a href="../../../nn/olv/DownloadedUserData/Overview.html">DownloadedUserData</a>::GetMiiNickname Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void GetMiiNickname(
+     wchar_t * miiNickname,
+     <a href="../../../nn_types/u32.html">u32</a> miiNicknameMaxLength
+) const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>miiNickname</th>
+          <td>The buffer that stores the nickname of the Mii. <br /></td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>miiNicknameMaxLength</th>
+          <td>The length of the buffer that stores the nickname of the Mii, including the terminating null character. <br />
+ Make sure that you specify a size of at least <code>nn::olv::MII_NICKNAME_BUFF_LENGTH</code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the nickname of the Mii of the user.</p><p>Note that if you call this function in one of the following invalid states, it stops on an assertion in the debug and development versions, and returns without doing anything in the release version. <br /><itemizedlist><listitem><para>If <code>NULL</code> is specified for the miiNickname argument. <br /></para></listitem><listitem><para>If a value less than that of <code>nn::olv::MII_NICKNAME_BUFF_LENGTH</code> is specified for the miiNicknameMaxLength argument. <br /></para></listitem></itemizedlist></p><p><bold>Note:</bold><br />
+ The Mii nickname might contain characters that are not supported by the application. <br />
+ Handle this so that it does not corrupt the screen display or hinder the progress of your application. <br />
+ For more information, see the section about the display of nicknames and creator names in the 3DS Guidelines.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/08</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

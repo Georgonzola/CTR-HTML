@@ -1,0 +1,671 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<script type="text/javascript" src="../template/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../template/js/jquery/thickbox3.js"></script>
+<script type="text/javascript" src="../template/js/jquery/swfobject.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/thickbox.css" />
+<script type="text/javascript" src="../template/js/common/manualLib.js"></script>
+<script type="text/javascript" src="../tocData.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/template.css" />
+<title>5. Using Independent Licensee Servers</title>
+</head>
+<body data-reassemble="autoindex=no,forceNoLabel=yes,autoindextab=fold">
+<div id="autoindex_content">
+<div class="body_content">
+<noscript>
+<div style="border: 4 double black; margin: 4px; padding: 2px; font-weight: bold; background-color: FFFFCC;">
+<p>Some features in this documentation are unavailable because JavaScript is not enabled in your browser.</p>
+<p>The table of contents is available only if JavaScript is enabled. Enable JavaScript and reload this page.</p>
+</div>
+</noscript>
+
+<!-- 5. ライセンシー独自サーバーの利用 -->
+<div class="pagetitle" id="PageId_47814868">5. Using Independent Licensee Servers</div>
+<div class="text">
+<p>In addition to servers provided by Nintendo, applications can connect to servers that are provided and operated independently by licensees (&quot;independent servers&quot;).</p>
+<p>This chapter includes a description of the authentication process when an application connects to an independent server, and notes on using account information on an independent server.</p>
+<p>
+  <a name="Anchor_47814868_WiiU"></a>
+</p>
+<!--Remove-->
+<p>
+  <a name="Anchor_47814868_CTR"></a>
+</p>
+<div class="platform_CTR">
+  <p></p>
+  <div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+    <div class="notice_right">
+<p>Authentication information specific to friend accounts is included in service tokens for independent servers acquired using the NEX library. See the <I>CTR-NEX Manual</I> when getting service tokens for independent servers using the NEX library. For guidelines on the use of account information by independent servers, see the <I>CTR Guidelines</I>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 5.1. 独自サーバー接続時の認証 -->
+<h1 class="general" id="PageId_47814894">5.1. Authenticating When Connecting to an Independent Server</h1>
+<div class="text">
+<p>When connecting to an independent server, both the client-side application and the server must authenticate with the Nintendo Network.</p>
+
+<!-- 5.1.1. 認証の仕組み -->
+<h2 class="general" id="PageId_47814896">5.1.1. Authentication Mechanism</h2>
+<div class="text">
+<p>When connecting to an independent server, authentication is handled using <B>service tokens</B> issued by the account server. A service token guarantees to an external server that the client account and device have been successfully authenticated. When an application requests a service token, that service token must pass through Nintendo Network authentication before it is issued, so that the application can handle the result of authentication based on the response to the request. Service tokens are also issued in encrypted form. The server can verify that the client connecting to it has successfully been authenticated by decrypting and validating the service token that was sent from connection source to the server.</p>
+<p>To issue a service token, a <B>client ID</B> unique to each independent server is required. Also, service token decryption requires a <strong>client secret</strong> encryption key. To receive a client ID and client secret, you must register your independent server on the Nintendo Online Title Management System (OMAS). To get the independent server's service token from the application, you must also associate the independent server and the application's title information in OMAS. At that time, multiple applications can be associated with a single independent server. For more information, see the How to Use page on the OMAS site.</p>
+<p>There are two versions of the service token specifications: V1 and V2. Both versions can be used by independent services, but V2 provides stronger security. We recommend using V2 unless there is a specific reason to do otherwise, such as maintaining compatibility with previous titles.</p>
+<p>
+  <a name="Anchor_47814896_WiiU"></a>
+</p>
+<div class="figure">
+<a name="AutoAnchor_47814896_figure001"></a>Figure 5-1. Independent Server Authentication</div>
+<!--Remove-->
+<p>
+  <a name="Anchor_47814896_CTR"></a>
+</p>
+<div class="platform_CTR">
+  <p>
+    <img src="../Attachments/Attach_47814896/47940162.png" />
+  </p>
+</div>
+<p></p>
+<div class="warning">
+<div class="warning_left"><B>Note:</B></div>
+  <div class="warning_right">
+    <p>
+<span>A service (such as one of the features documented in 5.7.</span> <a href="javascript: Guideline.viewPage('../Pages/Page_47814868.html#PageId_47815078','','5',1,1,1);">Web API for Independent Servers</a><span>) is authenticated using the client ID and client secret. You must handle both the client ID and client secret as highly confidential information. Do <B>not</B> give the client secret to the application to decrypt the service token.</span>
+    </p>
+  </div>
+</div>
+</div>
+<!-- 5.1.2. サービストークン(V1)の仕様 -->
+<h2 class="general" id="PageId_82033207">5.1.2. Service Token (V1) Specifications</h2>
+<div class="text">
+<p>A service token (V1) is a string of up to 512 characters before encryption.</p>
+<p>A service token (V1) is decrypted as follows.</p>
+<ol>
+<li>Decodes data in <CODE>Base64</CODE>.</li>
+<li>Decrypts data using AES. The AES parameters are CBC mode, a key length of 128 bits, an IV of all <CODE>0</CODE>, and padding of <CODE>PKCS#7</CODE>.</li>
+</ol>
+<p>Decrypted service tokens have the following format.</p>
+<table class="table">
+  <tbody>
+    <tr>
+      <td>
+<pre>\key\value\key\value...(repeats)...\h\value</pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>The following table describes the keys to register.</p>
+<div class="table">
+<a name="AutoAnchor_82033207_table002"></a>Table 5-1. Keys and Their Meanings</div>
+<table class="table">
+  <tbody>
+    <tr>
+<th>Identifier</th>
+<th>Description</th>
+<th>Comments</th>
+    </tr>
+    <tr>
+<td>z</td>
+<td>Platform ID</td>
+<td>Information used to identify the platform. Fixed to <CODE>0</CODE> for the CTR.</td>
+    </tr>
+    <tr>
+<td>u</td>
+<td>Principal ID</td>
+      <td>
+<p>A constant 32-bit numeric value that is assigned to each Nintendo Network account. It is denoted as a decimal number of up to 10 digits.</p>
+      </td>
+    </tr>
+    <tr>
+<td>a</td>
+<td>Account ID</td>
+<td>The user's <span>Nintendo Network</span> ID.</td>
+    </tr>
+    <tr>
+<td colspan="1">s</td>
+<td colspan="1">Server environment</td>
+      <td colspan="1">
+<p>A string that identifies the environment of the account server that issued the service token. It is denoted as a two-character string consisting of one capital letter, followed by one number.</p>
+      </td>
+    </tr>
+    <tr>
+<td colspan="1">v</td>
+<td colspan="1">Game version</td>
+<td colspan="1">The version of the client-side application that obtained the service token. It is denoted as a 4-digit hexadecimal number. Letters are uppercase.<br /> This value is shifted right by 4 bits, and it matches the remaster version value specified with the RSF file. (For the least significant 4 bits of the game version, the bits added by Nintendo for administrative purposes are added.)</td>
+    </tr>
+    <tr>
+<td colspan="1">e</td>
+<td colspan="1">Unique ID</td>
+<td colspan="1">The unique ID of the client-side application that obtained the service token. It is denoted as a 5-digit hexadecimal number. Letters are uppercase.</td>
+    </tr>
+    <tr>
+<td colspan="1">t</td>
+<td colspan="1">The time the token was issued</td>
+<td colspan="1">The Unix timestamp from when the token was generated.</td>
+    </tr>
+    <tr>
+<td colspan="1">h</td>
+<td colspan="1">Tampering check hash value</td>
+      <td colspan="1">
+<p>The first eight characters of the SHA-1 hash value of the string value, minus the <CODE>\h\value</CODE> portion. Letters are lowercase.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>Although the order of the values is not guaranteed, the <CODE>tampering</CODE> check hash value is always last. A value never includes a backslash symbol ('\').</p>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>Sample decryption code is included at the end of this document as an appendix.</p>
+  </div>
+</div>
+</div>
+<!-- 5.1.3. サービストークン(V2)の仕様 -->
+<h2 class="general" id="PageId_82033191">5.1.3. Service Token (V2) Specifications</h2>
+<div class="text">
+<p>Service token (V2) is a string of up to <strong>524</strong> characters prior to decryption. (Differences from service token V1 are indicated with <strong>bold</strong> text.)</p>
+<p>A service token (V2) is decrypted as follows.</p>
+<ol>
+<li>Decodes data in <CODE>Base64</CODE>.</li>
+<li>Decrypts data using AES. The AES parameter is CBC mode, the key length is 128 bits, the IV is <strong>the value included in the API response (leave as BASE64 encoded)</strong>, and the padding is PKCS#7.</li>
+</ol>
+<p>Decrypted service tokens have the following format.</p>
+<table class="table">
+  <tbody>
+    <tr>
+      <td>
+<pre>\key\value\key\value...(repeats)...\h\value</pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>The following table describes the keys to register.</p>
+<div class="table">
+<a name="AutoAnchor_82033191_table002"></a>Table 5-2. Keys and Their Meanings</div>
+<table class="table">
+  <tbody>
+    <tr>
+<th>Identifier</th>
+<th>Description</th>
+<th>Comments</th>
+    </tr>
+    <tr>
+<td>z</td>
+<td>Platform ID</td>
+<td>Information used to identify the platform. Fixed to <CODE>0</CODE> for the CTR.</td>
+    </tr>
+    <tr>
+<td>u</td>
+<td>Principal ID</td>
+      <td>
+<p>A constant 32-bit numeric value that is assigned to each Nintendo Network account. It is denoted as a decimal number of up to 10 digits.</p>
+      </td>
+    </tr>
+    <tr>
+<td>a</td>
+<td>Account ID</td>
+<td>The user's <span>Nintendo Network</span> ID.</td>
+    </tr>
+    <tr>
+<td colspan="1">s</td>
+<td colspan="1">Server environment</td>
+      <td colspan="1">
+<p>A string that identifies the environment of the account server that issued the service token. It is denoted as a two-character string consisting of one capital letter, followed by one number.</p>
+      </td>
+    </tr>
+    <tr>
+<td colspan="1">v</td>
+<td colspan="1">Game version</td>
+<td colspan="1">The version of the client-side application that obtained the service token. It is denoted as a 4-digit hexadecimal number. Letters are uppercase.<br />This value is shifted right by 4 bits, and it matches the remaster version value specified with the RSF file. (For the least significant 4 bits of the game version, the bits added by Nintendo for administrative purposes are added.)</td>
+    </tr>
+    <tr>
+<td colspan="1">e</td>
+<td colspan="1">Unique ID</td>
+<td colspan="1">The unique ID of the client-side application that obtained the service token. It is denoted as a 5-digit hexadecimal number. Letters are uppercase.</td>
+    </tr>
+    <tr>
+<td colspan="1">t</td>
+<td colspan="1">The time the token was issued</td>
+<td colspan="1">The Unix timestamp from when the token was generated.</td>
+    </tr>
+    <tr>
+<td colspan="1">h</td>
+<td colspan="1">Tampering check hash value</td>
+<td colspan="1">The <strong>entire</strong> SHA-1 hash value of the string value, minus the <CODE>\h\value</CODE> portion. Letters are lowercase.</td>
+    </tr>
+  </tbody>
+</table>
+<p>Although the order of the values is not guaranteed, the <CODE>tampering</CODE> check hash value is always last. A value never includes a backslash symbol ('\').</p>
+<p>
+<strong>The service token (V2) response includes the token signature.<strong>The signature is in the PKCS #1 v1.5 format. It is generated using the sha256WithRSAEncryption algorithm and then BASE64 encoded.</strong></strong>
+</p>
+<p>
+<strong>You can use the server's public key to verify that the service token (V2) is an authentic token published by Nintendo. Use the following public key to authenticate signatures in both the <strong>development and production environments</strong>.</strong>
+</p>
+<div class="code_block">
+  <pre class="code">-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApu5aRscPC88NlCUQMaY2
+uYhSbsElLQ0w8j/1PU2eJ3WgJ708cgtfjGXf6FKqsr3Y61imC2lBG0ZAy03aTYpJ
+G3icAekHd4kupd9m1YP+sqfALIf6thtzBPPDuV0xoB5gzcbdTULYDdMYbtKdoHKL
+UjJHORmtiqF6pmwYWxcRmCTmQby/wtuMUBVZc+e+sl4r6pKLkGD+eLfv2y0ctI44
+CfHuDNMU3rXiBlDADLIek/k34ksEZ9c1Hgol9YBFMko5jsknIiAeZ0jsPCKxJCZV
+U4XkNZOGDYLY04ABWYlqQ1VTnI5LonyLqvsujgsAadBBzzU2UCM4BrZ+FenGowHK
+mQIDAQAB
+-----END PUBLIC KEY-----
+</pre>
+</div>
+<p>
+<strong>This public key is subject to change. Check the support site for the latest information.</strong>
+</p>
+<p></p>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>Sample decryption code is included at the end of this document as an appendix.</p>
+  </div>
+</div>
+</div>
+<!-- 5.1.4. 実装 -->
+<h2 class="general" id="PageId_47814939">5.1.4. Implementation</h2>
+<div class="text">
+<p>To request a service token, the application must call the <CODE>nn::act::AcquireIndependentServiceToken</CODE> function, passing in the client ID as an argument. If the application passes authentication, and a service token is obtained, the function returns success. The application then sends this service token to the independent server. The independent server decrypts the service token received using the client secret, and verifies the token using the tampering check hash value contained in the decryption result.</p>
+<p>If the service token cannot be obtained, because of either an authentication failure or a communication failure, the <CODE>nn::act::AcquireIndependentServiceToken</CODE> function returns failure. Generally, the application does not need to keep track of the reason for the failure. It only needs to get the error code corresponding to the failure from the <CODE>nn::act::GetErrorCode</CODE> function, and display the error code and message in the error viewer. However, some failures are caused by implementation errors in the application. Developers must fix these errors during development so that they do not occur in production.</p>
+<p>If the application successfully obtains the service token, but for some reason a communication error later occurs with the independent server, handle the error appropriately in the application and display the error if necessary.</p>
+<p>
+  <a name="Anchor_47814939_WiiU"></a>
+</p>
+<!--Remove-->
+<p>
+  <a name="Anchor_47814939_CTR"></a>
+</p>
+<div class="platform_CTR">
+  <p></p>
+  <div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+    <div class="notice_right">
+<p>The client ID of the independent server and the unique ID of the application cannot be used except in the combination registered in OMAS. You must register these IDs in OMAS before using them. You must also set appropriate unique IDs in the RSF file before using an application to get a service token.</p>
+    </div>
+  </div>
+  <p></p>
+</div>
+<p></p>
+<p></p>
+</div>
+</div>
+<!-- 5.2. 独自サーバー環境の分離 -->
+<h1 class="general" id="PageId_47814969">5.2. Separating Independent Server Environments</h1>
+<div class="text">
+<p>When setting up an independent server, we highly recommend that you provide an environment for testing and development that is separate from the production environment so that the typical user is not affected by development and testing once you start providing service.</p>
+<p>The following procedure is conceivable for switching the independent server environment that an application running on the CTR connects to.</p>
+
+<!-- 5.2.1. ダミー DNS サーバー -->
+<h2 class="general" id="PageId_47814973">5.2.1. Dummy DNS Server</h2>
+<div class="text">
+<p>You can set up a DNS server that resolves the hostname of the independent server into a different IP address than the production environment, and then specify that DNS server in CTR network settings or in the access point.</p>
+<p>Note that if a third party has set up a DNS server with the same settings, you can similarly switch the IP address you connect to even from a retail system.</p>
+</div>
+
+<!-- 5.2.2. サービスロケーター -->
+<h2 class="general" id="PageId_47814983">5.2.2. Service Locator</h2>
+<div class="text">
+<div class="wiki-content">
+<p>You can assign different access points based on the specified account server environment by encrypting a service token once on a shared independent server for all environments.</p>
+<p>Usually, development hardware gets a service token from the development environment account server, and retail hardware gets a service token from the production environment account server.</p>
+<p>You must use this method along with another method if you want to perform more intricate switching between independent server environments without linking to an account server.</p>
+</div>
+</div>
+</div>
+
+<!-- 5.3. 複数のアカウントサーバー環境への対応 -->
+<h1 class="general" id="PageId_47814988">5.3. Supporting Multiple Account Server Environments</h1>
+<div class="text">
+<p>The independent server must take into account the possibility that service tokens generated by multiple account servers may be received. The account server issuing the service token can be distinguished from other account servers as follows based on a value included in the decrypted service token.</p>
+<ul>
+<li>D1 through D9: Development environment</li>
+<li>L1 through L9: Production environment</li>
+<li>S1 through S9: Lotcheck environment</li>
+</ul>
+<p>Account IDs and principal IDs on different account servers may conflict. To identify a Nintendo network account on an independent server, use a unique ID based on a combination of the account server environment name and the principal ID, instead of just the principal ID. Just in case a problem occurs, make sure that you do not mix IDs from different environments, even if you use a dummy DNS server or service locator to ensure there is no access from accounts belonging to different environments.</p>
+<p>Finally, if the independent server directly accesses the web API of the account server, the request URL differs for each account server. Make sure that you do not apply the Web API response to a different account server environment.</p>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>The number of account server environments may be increased temporarily or permanently in the future. Make sure that unexpected notifications of environment information do not affect your independent server in the production environment.</p>
+  </div>
+</div>
+
+<!-- 5.3.1. 任天堂による検証への対応 -->
+<h2 class="general" id="PageId_47814996">5.3.1. Support for Testing by Nintendo</h2>
+<div class="text">
+<p>In addition to the Lotcheck performed before an application master ROM is uploaded, Nintendo tests compatibility with existing titles before releasing a system update. During this testing, Nintendo accesses your server through an account registered with the Lotcheck environment account server so that the independent server can distinguish that access from access by CTR retail hardware on the market.</p>
+<p>Although you are not absolutely required to support the compatibility testing that is performed at irregular intervals before system updates after uploading an application master ROM, Nintendo can perform more thorough testing on your application if your independent server allows constant access from accounts in the Lotcheck environment. In addition, you can ensure that typical users are not affected during the Lotcheck of localized versions and patches by quarantining each environment against access from accounts.</p>
+<p>If you do not want Nintendo to access an independent server from a Lotcheck environment account during testing or if special settings, such as for a dummy DNS server, are required before accessing the server, be sure to indicate that fact in your Lotcheck submission documents.</p>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>Because account server environments other than the development and production environments, such as the Lotcheck environment, are only used temporarily, they do not need to support the account server Web API. Please contact Nintendo support if you need support because of the particular configuration or features of your independent server.</p>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- 5.4. 独自サーバーアカウントとニンテンドーネットワークアカウントの関連付け -->
+<h1 class="general" id="PageId_47815000">5.4. Associating Independent Server Accounts With Nintendo Network Accounts</h1>
+<div class="text">
+<p>If you want to associate an independent server account with a Nintendo Network account, associate the independent account ID with the principal ID that is contained in the service token. If there is no licensee independent account, you can use the principal ID as the user ID on the independent server.</p>
+<div class="warning">
+<div class="warning_left"><B>Note:</B></div>
+  <div class="warning_right">
+    <p>
+<span>Do not use the account ID for association, because it could change.</span>
+    </p>
+  </div>
+</div>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>After you have finished associating the accounts, the application can determine whether to require users to enter the password of the independent-server account when connecting to the independent server.</p>
+  </div>
+</div>
+<p>The licensee must manage the Nintendo Network account and its associated account. Nintendo will not manage information about whether a Nintendo or other account is associated with an independent server.</p>
+<p>If you want to store independent-server account IDs and passwords without associating them with Nintendo Network accounts, store them in the account-specific save data on the CTR.</p>
+<p>The namespace of the account ID and principal ID differ depending on the account server environment. If your independent server is not divided into a development, Lotcheck, or production environment, account associations could pose problems. You must handle this in some way, such as by managing account IDs and principal IDs together with the server environment values in the service tokens, or by clearing the account information before and after Lotcheck.</p>
+</div>
+
+<!-- 5.5. ユーザー情報の利用 -->
+<h1 class="general" id="PageId_47815010">5.5. Using User Information</h1>
+<div class="text">
+<p>If you need to use user information registered for the current account on the independent server, the application on the CTR must get this information using the account library, and send it to the independent server. Nintendo generally does not provide a means for independent servers to communicate directly with the account server to get information.</p>
+<p>You must gain the user's consent before sending user information from a CTR application to an independent server. For example, use user information as the default values when you ask the user to enter information for an independent service. However, prior consent is not required for the following information.</p>
+<ul>
+<li>Principal ID</li>
+<li>Account ID</li>
+<li>Account Mii Data (including the nickname and birthday)</li>
+<li>Friend List</li>
+<li>Blacklist</li>
+<li>Country of Residence</li>
+<li>Region of Residence</li>
+<li>Time Zone/Offset</li>
+</ul>
+<p>Do not send user information from an account on the console other than the current account to the server.</p>
+
+<!-- 5.5.1. 更新への対応 -->
+<h2 class="general" id="PageId_47815015">5.5.1. Supporting Updates</h2>
+<div class="text">
+<p>All fields other than the principal ID, persistent ID, and transferable ID are subject to change, either due to update by the user or a modification by Nintendo for operational reasons. If you maintain any of this information on the independent server, you must update it to the latest information on the CTR system when the user next accesses the independent server.</p>
+</div>
+
+<!-- 5.5.2. アカウント ID 変更への対応 -->
+<h2 class="general" id="PageId_47815020">5.5.2. Supporting Modification of Account IDs</h2>
+<div class="text">
+<div class="wiki-content">
+<p>Although users cannot change their account IDs once they have been created, Nintendo administrators may change them for operational reasons. If the independent server stores the user's account ID, it must check periodically whether it has changed, and update the information on the independent server if it has.</p>
+<p>Nintendo provides a web API to support this. You can use this API to get a list of Nintendo Network accounts from the account server whose account IDs have changed during a specified period. The web API returns the results as a list of principal IDs. You must then use a different function in the web API for converting principal IDs into account IDs, and get a list of the latest account IDs. For more information, see the web API specifications (described below).</p>
+</div>
+</div>
+
+<!-- 5.5.3. 削除されたアカウントへの対応 -->
+<h2 class="general" id="PageId_47815067">5.5.3. Supporting Account Deletions</h2>
+<div class="text">
+<div class="wiki-content">
+<p>If you are associating Nintendo Network accounts with accounts on your independent server, when the Nintendo Network account is deleted, you must either disassociate the account on the independent server, or delete it. In either case, the independent server must periodically check for deleted Nintendo Network accounts, and appropriately handle any accounts on the independent server associated with them.</p>
+<p>Nintendo provides a web API to support this. You can use this API to get a list of account IDs from the account server that have been deleted during a specified period. For more information, see the web API specifications (described below).</p>
+</div>
+</div>
+</div>
+
+<!-- 5.6. セキュリティ対策 -->
+<h1 class="general" id="PageId_47815070">5.6. Security</h1>
+<div class="text">
+<div class="wiki-content">
+<p>You must take the following measures when obtaining a service token from the account server and sending it to an independent server.</p>
+  <ul>
+    <li>
+<span>You must encrypt the entire communication path. If it is impossible to encrypt the communication path, prevent snooping on the path by setting a short expiration period.</span>
+    </li>
+<li>Take measures to prevent replay attacks.</li>
+  </ul>
+<p>Each independent server is responsible for implementing security measures on communication after authentication using the service token is complete. However, when identifying users who are accessing the independent server, use the principal ID included with the service token rather than the principal ID obtained directly from the client for authentication.</p>
+</div>
+</div>
+
+<!-- 5.7. 独自サーバー向け Web API -->
+<h1 class="general" id="PageId_47815078">5.7. Web API for Independent Servers</h1>
+<div class="text">
+<p>Although generally you must get account information by using a CTR system, some operations cannot be made by using the CTR. In these cases, Nintendo provides a feature for the independent server to connect directly to the account server. At present, the following features are available from the web API: getting a list of users whose account IDs have changed, getting a list of users whose accounts have been deleted, and converting between principal IDs and account IDs.</p>
+
+<!-- 5.7.1. 各 API の共通仕様 -->
+<h2 class="general" id="PageId_47815082">5.7.1. Specifications Common Throughout the API</h2>
+<div class="text">
+<div class="wiki-content">
+<p>The following specifications are common to all API functions described below.</p>
+  <ul>
+<li>Communication Protocol<ul><li>HTTP over TLS</li></ul></li>
+<li>Required HTTP Request Headers<br /><ul><li>X-Nintendo-Client-ID: The client ID issued to you when you submitted your application for development.</li><li>X-Nintendo-Client-Secret: The client secret issued to you when you submitted your application for development.</li></ul></li>
+<li>Response HTTP status code<ul><li>If a normal response is returned, the HTTP status code is <CODE>200</CODE>.</li><li>If an HTTP status code other than <CODE>200</CODE> is returned, there may be a server problem or a mistake in the request format.</li></ul></li>
+<li>Response XML Format<ul><li>Line breaks and indentation are not significant, and their presence is not guaranteed. Obtain data from the response using an XML parser or other means.</li></ul></li>
+  </ul>
+</div>
+</div>
+
+<!-- 5.7.2. アカウント ID を変更したユーザーの一覧取得 API -->
+<h2 class="general" id="PageId_47815084">5.7.2. API Function for Getting the List of Users With Changed Account IDs</h2>
+<div class="text">
+<p>You can use this function to get a list of the principal IDs of users whose account IDs have been changed by a Nintendo administrator. If you store account IDs on the independent server, you must periodically check the results from this function, and get a list of the users whose account IDs have changed. If any of the users in that list are on the independent server, use the function for converting between principal IDs and account IDs (see below) to get the new account IDs, and overwrite the account IDs on the independent server.</p>
+<p>We recommend calling this function about once per day. Although it is also fine to check once per hour, please do not check any more frequently than that. However, if there are a lot of responses, you can call the function a number of times while changing the offset value. Up to three retries are allowed if a function call fails because of a problem with the account server.</p>
+<ul>
+<li>Request URL<ul><li>Development environment:&nbsp;<CODE><a href="https://game-dev.accountws.nintendo.net/v1/api/admin/changed_userid">https://game-dev.accountws.nintendo.net/v1/api/admin/changed_userid</a></CODE></li><li>Production environment:&nbsp;<CODE><a class="external-link" href="https://accountws.nintendo.net/v1/api/admin/changed_userid" rel="nofollow">https://accountws.nintendo.net/v1/api/admin/changed_userid</a></CODE></li></ul></li>
+<li>Request Method<ul><li>GET</li></ul></li>
+<li>Request Parameters (Query String)<br /><ul><li><SPAN class="argument">startdate</SPAN>: Starting date and time of the search period (UTC). <B>Note:</B> Required.</li><li><SPAN class="argument">enddate</SPAN>: Ending date and time of the search period (UTC). <B>Note:</B> If not specified, it is the date and time executed.</li><li><SPAN class="argument">offset</SPAN>: Offset value. <B>Note:</B> If not specified, it is 0.</li><li><SPAN class="argument">limit</SPAN>: Maximum number of responses (1 to 1000). <B>Note:</B> If not specified, it is 1000.</li></ul></li>
+<li>Response Fields<ul><li><SPAN class="argument">total</SPAN>: Total number of records matching the search conditions.</li><li><SPAN class="argument">pid</SPAN>: Principal ID of the user.</li><li><SPAN class="argument">timestamp</SPAN>: Date and time the account ID was changed (UTC).</li></ul></li>
+</ul>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<span>The time and date format is <I>YYYY-MM-DD</I> (example: 2012-12-01) or <I>YYYY-MM-DDThh:mm:ss</I></span> <span>(example: 2012-12-01T08:00:00). If the time is omitted, the range of 00:00:00 to 23:59:59 is specified.</span>
+  </div>
+</div>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>If there are more than 1000 matches, increase the offset value to get the matches beyond the 1000th.</p>
+  </div>
+</div>
+<p>Below are a sample request and response. The results are in ascending order by date modified.</p>
+<div class="code">
+<a name="AutoAnchor_47815084_code001"></a>Code 5-1. Sample Request and Response to Get the List of Users With Changed Account IDs</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  GET /v1/api/admin/changed_userid?strdate=2012-12-01&amp;enddate=2012-12-01 HTTP/1.1
+<span class="num">0002</span>  Host: game-dev.accountws.nintendo.net:443
+<span class="num">0003</span>  X-Nintendo-Client-ID: 0123456789abcdef0123456789abcdef
+<span class="num">0004</span>  X-Nintendo-Client-Secret: 0123456789abcdef0123456789abcdef
+<span class="num">0005</span>  Connection: close
+<span class="num">0006</span>   
+<span class="num">0007</span>  HTTP/1.1 200 OK
+<span class="num">0008</span>  Content-Length: xxx
+<span class="num">0009</span>  Content-Type: application/xml; charset=UTF-8
+<span class="num">0010</span>  Date: Tue, 24 Jul 2012 06:21:39 GMT
+<span class="num">0011</span>  Server: xxx
+<span class="num">0012</span>  Connection: close
+<span class="num">0013</span>   
+<span class="num">0014</span>  &lt;modified_persons total=&quot;28&quot; startdate=&quot;2012-12-01T00:00:00&quot; enddate=&quot;2012-12-01T23:59:59&quot; offset=&quot;0&quot; limit=&quot;1000&quot;&gt;
+<span class="num">0015</span>    &lt;modified_person timestamp=&quot;2012-12-01T00:48:23&quot;&gt;
+<span class="num">0016</span>      &lt;pid&gt;1357262754&lt;/pid&gt;
+<span class="num">0017</span>    &lt;/modified_person&gt;
+<span class="num">0018</span>    &lt;modified_person timestamp=&quot;2012-12-01T02:18:08&quot;&gt;
+<span class="num">0019</span>      &lt;pid&gt;1011680135&lt;/pid&gt;
+<span class="num">0020</span>    &lt;/modified_person&gt;
+<span class="num">0021</span>    &lt;modified_person timestamp=&quot;2012-12-01T05:03:48&quot;&gt;
+<span class="num">0022</span>      &lt;pid&gt;842379520&lt;/pid&gt;
+<span class="num">0023</span>    &lt;/modified_person&gt;
+<span class="num">0024</span>    ...
+<span class="num">0025</span>  &lt;/modified_persons&gt;
+</pre>
+</div>
+</div>
+
+<!-- 5.7.3. アカウントを削除したユーザーの一覧取得 API -->
+<h2 class="general" id="PageId_47815088">5.7.3. API Function for Getting the List of Users With Deleted Accounts</h2>
+<div class="text">
+<p>You can use this web API function to get a list of principal IDs of accounts that have been deleted during a specified search period (start and end date/times). If you store account information on the independent server, you must periodically check the results from this function, and get a list of the users whose accounts have been deleted. If any of the users on your independent server are on this list, you must take appropriate measures, such as deleting any personally identifiable information.</p>
+<p>We recommend calling this function about once per day. Although it is also fine to check once per hour, please do not check any more frequently than that. However, if there are a lot of responses, you can call the function a number of times while changing the offset value. Up to three retries are allowed if a function call fails because of a problem with the account server.</p>
+<ul>
+<li>Request URL<ul><li>Development environment:&nbsp;<CODE><a href="https://game-dev.accountws.nintendo.net/v1/api/admin/deleted">https://game-dev.accountws.nintendo.net/v1/api/admin/deleted</a></CODE></li><li>Product environment:&nbsp;<CODE><a class="external-link" href="https://accountws.nintendo.net/v1/api/admin/deleted" rel="nofollow">https://accountws.nintendo.net/v1/api/admin/deleted</a></CODE></li></ul></li>
+<li>Request Method<ul><li>GET</li></ul></li>
+<li>Request Parameters (Query String)<br /><ul><li><CODE>startdate</CODE>: Starting date and time of the search period (UTC). <B>Note:</B> Required.</li><li><SPAN class="argument">enddate</SPAN>: Ending date and time of the search period (UTC). <B>Note:</B> Required.</li><li><CODE>offset</CODE>: Offset value. <B>Note:</B> If not specified, it is 0.</li><li><CODE>limit</CODE>: Maximum number of responses (1 to 1000). <B>Note:</B> If not specified, it is 1000.</li></ul></li>
+<li>Response Fields<ul><li><CODE>total</CODE>: Total number of records matching the search conditions.</li><li><SPAN class="argument">pid</SPAN>: The target user's principal account ID.</li><li><SPAN class="argument">timestamp</SPAN>: Date and time the account was deleted (UTC).</li></ul></li>
+</ul>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>Use the following date/time format: YYYY-MM-DDThh:mm:ss. (Example: 2012-12-01T08:00:00).</p>
+  </div>
+</div>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>The account deletion date and time is the date and time the account is actually deleted on the server.<br />Consider the following set of operations in the system menu:.<!--Remove--><div class="platform_CTR"><B>User Settings</B> &gt; <B>Delete This User</B></div>When an account is deleted in this way, it can take up to 24 hours for the account to be actually deleted from the server in the development environment, and up to one month in the production environment.<br /> If the user is deleted from the Account Developer Portal, the user's account is deleted from the server immediately. For the latest Account Developer Portal information, see the Network Error Simulation Manual.</p>
+  </div>
+</div>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>If there are more than 1000 matches, increase the offset value to get the matches beyond the 1000th.</p>
+  </div>
+</div>
+<p>Below are a sample request and response. The results are in ascending order by date deleted.</p>
+<div class="code">
+<a name="AutoAnchor_47815088_code002"></a>Code 5-2. Sample Request and Response to the Get List of Users With Deleted Accounts</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  GET /v1/api/admin/deleted?strdate=2012-12-01&amp;enddate=2012-12-01 HTTP/1.1
+<span class="num">0002</span>  Host: game-dev.accountws.nintendo.net:443
+<span class="num">0003</span>  X-Nintendo-Client-ID: 0123456789abcdef0123456789abcdef
+<span class="num">0004</span>  X-Nintendo-Client-Secret: 0123456789abcdef0123456789abcdef
+<span class="num">0005</span>  Connection: close
+<span class="num">0006</span>   
+<span class="num">0007</span>  HTTP/1.1 200 OK
+<span class="num">0008</span>  Content-Length: xxx
+<span class="num">0009</span>  Content-Type: application/xml; charset=UTF-8
+<span class="num">0010</span>  Date: Tue, 24 Jul 2012 06:21:39 GMT
+<span class="num">0011</span>  Server: xxx
+<span class="num">0012</span>  Connection: close
+<span class="num">0013</span>   
+<span class="num">0014</span>  &lt;deleted_persons total=&quot;14&quot; startdate=&quot;2012-12-01T00:00:00&quot; enddate=&quot;2012-12-01T23:59:59&quot; offset=&quot;0&quot; limit=&quot;1000&quot;&gt;
+<span class="num">0015</span>    &lt;deleted_person timestamp=&quot;2012-12-01T03:17:42&quot;&gt;
+<span class="num">0016</span>      &lt;pid&gt;1357262754&lt;/pid&gt;
+<span class="num">0017</span>    &lt;/deleted_person&gt;
+<span class="num">0018</span>    &lt;deleted_person timestamp=&quot;2012-12-01T04:47:54&quot;&gt;
+<span class="num">0019</span>      &lt;pid&gt;1011680135&lt;/pid&gt;
+<span class="num">0020</span>    &lt;/deleted_person&gt;
+<span class="num">0021</span>    &lt;deleted_person timestamp=&quot;2012-12-01T13:42:08&quot;&gt;
+<span class="num">0022</span>      &lt;pid&gt;842379520&lt;/pid&gt;
+<span class="num">0023</span>    &lt;/deleted_person&gt;
+<span class="num">0024</span>    ...
+<span class="num">0025</span>  &lt;/deleted_persons&gt;
+</pre>
+</div>
+</div>
+
+<!-- 5.7.4. プリンシパル ID - アカウント ID 変換 API -->
+<h2 class="general" id="PageId_47815091">5.7.4. API Function for Converting Between Principal IDs and Account IDs</h2>
+<div class="text">
+<p>Use this function to convert back and forth between corresponding account IDs and principal IDs.</p>
+<p>In general, call this function along with the API function described in 5.7.2. <a href="javascript: Guideline.viewPage('../Pages/Page_47814868.html#PageId_47815084','','5',1,1,1);">API Function for Obtaining a List of Users With Changed Account IDs</a>. To change account IDs on an independent server, get a list of principal IDs of the users with the API function for getting a list of users whose account IDs have changed, and then use this function to convert those principal IDs into new account IDs. As with the API function for getting a list of users whose account IDs have changed, do not call this function frequently when you do use it. Before calling this function, also narrow down the list of principal IDs for users whose account IDs have changed that you retrieved via the API, to those users who are required for your independent server.</p>
+<p>Although it is fine to use this function for other purposes, contact Nintendo support if you need to call it frequently.</p>
+<ul>
+<li>Request URL<ul><li>Development environment:&nbsp;<CODE><a class="external-link" href="https://game-dev.accountws.nintendo.net/v1/api/admin/mapped_ids" rel="nofollow">https://game-dev.accountws.nintendo.net/v1/api/admin/mapped_ids</a></CODE></li><li>Product environment:&nbsp;<CODE><a class="external-link" href="https://accountws.nintendo.net/v1/api/admin/mapped_ids" rel="nofollow">https://accountws.nintendo.net/v1/api/admin/mapped_ids</a></CODE></li></ul></li>
+<li>Request Method<ul><li>GET or POST</li></ul></li>
+<li>Request Headers (only required for POST)<ul><li>Content-type: application/xml</li></ul></li>
+<li>Request Parameters (for GET)<ul><li><SPAN class="argument">input_type</SPAN>: <SPAN class="argument">pid</SPAN> or <SPAN class="argument">user_id</SPAN></li><li><SPAN class="argument">output_type</SPAN>: <SPAN class="argument">user_id</SPAN> or <SPAN class="argument">pid</SPAN></li><li><SPAN class="argument">input</SPAN>: One or more principal IDs or account IDs to convert, separated by commas (up to 1000).</li></ul></li>
+<li>Request Parameters (for POST)<ul><li><p>Send the following XML.</p></li></ul></li>
+</ul>
+<div class="code">
+<a name="AutoAnchor_47815091_code003"></a>Code 5-3. Sample XML for Request Data</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  <span class="nt">&lt;mapped_ids&gt;</span>
+<span class="num">0002</span>    <span class="nt">&lt;input_type&gt;</span>pid<span class="nt">&lt;/input_type&gt;</span>
+<span class="num">0003</span>    <span class="nt">&lt;output_type&gt;</span>user_id<span class="nt">&lt;/output_type&gt;</span>
+<span class="num">0004  </span>  <span class="nt">&lt;input&gt;</span>First conversion-target PID.<span class="nt">&lt;/input&gt;</span>
+<span class="num">0005  </span>  <span class="nt">&lt;input&gt;</span>Second conversion-target PID.<span class="nt">&lt;/input&gt;</span>
+<span class="num">0006</span>    ...
+<span class="num">0007</span>  <span class="nt">&lt;/mapped_ids&gt;</span>
+</pre>
+</div>
+<ul>
+<li>Response Fields<br /><ul><li><SPAN class="argument">in_id</SPAN>: The principal ID or account ID of the user.</li><li><SPAN class="argument">out_id</SPAN>: The account ID or principal ID of the user.</li></ul></li>
+</ul>
+<p>Below are a sample request and response.</p>
+<div class="code">
+<a name="AutoAnchor_47815091_code004"></a>Code 5-4. Sample (GET) Request and Response for Converting Principal IDs to Account IDs</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  GET /v1/api/admin/mapped_ids?input_type=pid&amp;output_type=user_id&amp;input=1357262754,1011680135,842379520 HTTP/1.1
+<span class="num">0002</span>  Host: game-dev.accountws.nintendo.net:443
+<span class="num">0003</span>  X-Nintendo-Client-ID: 0123456789abcdef0123456789abcdef
+<span class="num">0004</span>  X-Nintendo-Client-Secret: 0123456789abcdef0123456789abcdef
+<span class="num">0005</span>  Connection: close
+<span class="num">0006</span>   
+<span class="num">0007</span>  HTTP/1.1 200 OK
+<span class="num">0008</span>  Content-Length: xxx
+<span class="num">0009</span>  Content-Type: application/xml; charset=UTF-8
+<span class="num">0010</span>  Date: Tue, 24 Jul 2012 06:21:39 GMT
+<span class="num">0011</span>  Server: xxx
+<span class="num">0012</span>  Connection: close
+<span class="num">0013</span>   
+<span class="num">0014</span>  &lt;mapped_ids&gt;
+<span class="num">0015</span>    &lt;mapped_id&gt;&lt;in_id&gt;1357262754&lt;/in_id&gt;&lt;out_id&gt;nin_taro&lt;/out_id&gt;&lt;/mapped_id&gt;
+<span class="num">0016</span>    &lt;mapped_id&gt;&lt;in_id&gt;1011680135&lt;/in_id&gt;&lt;out_id&gt;nin_jiro&lt;/out_id&gt;&lt;/mapped_id&gt;
+<span class="num">0017</span>    &lt;mapped_id&gt;&lt;in_id&gt;842379520&lt;/in_id&gt;&lt;out_id&gt;nin_hanako&lt;/out_id&gt;&lt;/mapped_id&gt;
+<span class="num">0018</span>  &lt;/mapped_ids&gt;
+</pre>
+</div>
+<div class="code">
+<a name="AutoAnchor_47815091_code005"></a>Code 5-5. Sample (POST) Request and Response for Converting Principal IDs to Account IDs</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  POST /v1/api/admin/mapped_ids HTTP/1.1
+<span class="num">0002</span>  Host: game-dev.accountws.nintendo.net:443
+<span class="num">0003</span>  X-Nintendo-Client-ID: 0123456789abcdef0123456789abcdef
+<span class="num">0004</span>  X-Nintendo-Client-Secret: 0123456789abcdef0123456789abcdef
+<span class="num">0005</span>  Content-Length: xxx
+<span class="num">0006</span>  Content-Type: application/xml
+<span class="num">0007</span>  Connection: close
+<span class="num">0008</span>   
+<span class="num">0009</span>  &lt;mapped_ids&gt;
+<span class="num">0010</span>    &lt;input_type&gt;pid&lt;/input_type&gt;
+<span class="num">0011</span>    &lt;output_type&gt;user_id&lt;/output_type&gt;
+<span class="num">0012</span>    &lt;input&gt;1357262754&lt;/input&gt;
+<span class="num">0013</span>    &lt;input&gt;1011680135&lt;/input&gt;
+<span class="num">0014</span>    &lt;input&gt;842379520&lt;/input&gt;
+<span class="num">0015</span>  &lt;/mapped_ids&gt;
+<span class="num">0016</span>  
+<span class="num">0017</span>  HTTP/1.1 200 OK
+<span class="num">0018</span>  Content-Length: xxx
+<span class="num">0019</span>  Content-Type: application/xml; charset=UTF-8
+<span class="num">0020</span>  Date: Tue, 24 Jul 2012 06:21:39 GMT
+<span class="num">0021</span>  Server: xxx
+<span class="num">0022</span>  Connection: close
+<span class="num">0023</span>  
+<span class="num">0024</span>  &lt;mapped_ids&gt;
+<span class="num">0025</span>    &lt;mapped_id&gt;&lt;in_id&gt;1357262754&lt;/in_id&gt;&lt;out_id&gt;nin_taro&lt;/out_id&gt;&lt;/mapped_id&gt;
+<span class="num">0026</span>    &lt;mapped_id&gt;&lt;in_id&gt;1011680135&lt;/in_id&gt;&lt;out_id&gt;nin_jiro&lt;/out_id&gt;&lt;/mapped_id&gt;
+<span class="num">0027</span>    &lt;mapped_id&gt;&lt;in_id&gt;842379520&lt;/in_id&gt;&lt;out_id&gt;nin_hanako&lt;/out_id&gt;&lt;/mapped_id&gt;
+<span class="num">0028</span>  &lt;/mapped_ids&gt;
+</pre>
+</div>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>If you specify a non-existent ID in the <SPAN class="argument">input</SPAN> element of the request, the corresponding <SPAN class="argument">out_id</SPAN> in the response field will be empty. Even in such cases, any other IDs specified at the same time are converted correctly if they exist.</p>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

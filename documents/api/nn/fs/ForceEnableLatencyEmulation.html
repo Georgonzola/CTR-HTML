@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>ForceEnableLatencyEmulation</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::ForceEnableLatencyEmulation Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void ForceEnableLatencyEmulation(
+     bool isEmulateEndurance = true,
+     <a href="../../nn_types/s64.html">s64</a> constantWait = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td />
+          <th>isEmulateEndurance</th>
+          <td>
+            </td>
+        </tr>
+        <tr>
+          <td />
+          <th>constantWait</th>
+          <td>
+            </td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This function can no longer be used to enable or disable latency emulation. At present, this function only calls the <code><a href="../../nn/fs/InitializeLatencyEmulation.html">InitializeLatencyEmulation()</a></code> function internally.</p><h3>Notes on writing an application to a CTR flash card using PARTNER-CTR-Debugger or IS-CTR-DEBUGGER</h3><div class="section">CTR flash cards have a function that sets the access speed from the card. The "development card speed setting" configured by the PARTNER-CTR-Debugger or IS-CTR-DEBUGGER when it writes the program is reflected as the access speed. <br /> When the SDK's latency emulation is enabled, this access speed is added during game card access. <br /> Use these functions as needed while debugging your application. (For example, you can enable just one of them.)</div></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/03/10</dt>
+        <dd><item xmlns="">Added information about IS-CTR-DEBUGGER.</item><br />
+        </dd>
+        <dt>2011/03/15</dt>
+        <dd><item xmlns="">Added a description of the access speed setting feature of CTR flash cards.</item><br />
+        </dd>
+        <dt>2011/02/21</dt>
+        <dd><item xmlns="">Added a feature to always emulate a fixed period of waiting.</item><br />
+        </dd>
+        <dt>2010/11/11</dt>
+        <dd><item xmlns="">Added specific wait values.</item><br />
+        </dd>
+        <dt>2010/11/09</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

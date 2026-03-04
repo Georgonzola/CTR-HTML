@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::gr::CTR::RenderState::WBuffer</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/gr/Overview.html">gr</a>::<a href="../../../../../nn/gr/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/gr/CTR/RenderState/Overview.html">RenderState</a>::WBuffer Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class WBuffer</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for setting the <code>w</code> buffer.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">wScale</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Scale value when the <code>w</code> buffer is enabled. The type is <code>f32</code>. If <code>wScale</code> is <code>0</code>, the <code>w</code> buffer is disabled. The initial value is <code>0</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnablePolygonOffset</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Enables or disables the polygon offset. The type is <code>bool</code>. The polygon offset can generally be used at the same time as the <code>w</code> buffer.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">polygonOffsetUnit</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>The scaling value corresponding to the minimum resolvable depth value. The type is <code>f32</code>. The minimum resolvable depth value depends on the bit value of the depth buffer. The initial value is <code>0</code>. When the <code>w</code> buffer is enabled and the depth buffer is 24 bits, this applies a constant value to the polygon offset to prevent disappearing due to precision errors.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">depthRangeNear</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Sets the depth value for the near plane in the clip space. The type is <code>f32</code>. The initial value is <code>0</code>. Set so that <code>0 <= depthRangeNear <= depthRangeFar <= 1</code>. If the <code>w</code> buffer is enabled, this setting is ignored and <code>0</code> is set.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">depthRangeFar</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Sets the depth value for the far plane in the clip space. The type is <code>f32</code>. The initial value is <code>1</code>. Set so that <code>0 <= depthRangeNear <= depthRangeFar <= 1</code>. If the <code>w</code> buffer is enabled, this setting is ignored and <code>1</code> is set.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">depthRangeBit</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Sets the bit value of the depth buffer. The type is <code>f32</code>. The initial value is <code>24</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/WBuffer/WBuffer.html">WBuffer</a>
+            </th>
+            <td>Initializes <code>w</code> buffer settings to the initial values.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/WBuffer/MakeCommand.html">MakeCommand</a>
+            </th>
+            <td>Generates a rendering command based on information already set.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

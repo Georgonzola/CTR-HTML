@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/DataTitle/Overview.html">DataTitle</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a> Initialize(
+     const <a href="../../../../nn/ec/CTR/TitleInfo/Overview.html">TitleInfo</a> & titleInfo
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>titleInfo</th>
+          <td>Title information for which to get information.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. For more information about how to handle <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> objects, see the <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> reference. The results returned by the <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code> function are shown below.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultDataTitleNotOwned</th>
+          <td>The specified data title has never been initialized.</td>
+        </tr>
+        <tr>
+          <th>ResultDataTitleNotFound</th>
+          <td>The specified data title was not found.</td>
+        </tr>
+        <tr>
+          <th>ResultFsMediaAccessFailedError</th>
+          <td>An error occurred accessing the SD card.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes an instance of the <code><a href="../../../../nn/ec/CTR/DataTitle/Overview.html">DataTitle</a></code> class.</p><p>Initializes the data title you are getting content information for. This function must be called before you use the member functions of the <code><a href="../../../../nn/ec/CTR/DataTitle/Overview.html">DataTitle</a></code> class. The function returns <code><a href="../../../../nn/ec/CTR/ResultDataTitleNotOwned/Overview.html">ResultDataTitleNotOwned</a></code> if the data title has never been initialized on this <a href="../../../../nn/ec/CTR/Overview.html">CTR</a> system. The function returns <code><a href="../../../../nn/ec/CTR/ResultDataTitleNotFound/Overview.html">ResultDataTitleNotFound</a></code> if the data title has been initialized, but is not downloaded. This may occur when the data title has been deleted from the Data Management screen, or the SD card has been exchanged. If the data title information is needed to manage content, use the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function to get this information. Swapping the SD card after this function succeeds and before calling other member functions can cause the other member functions to return unexpected errors. If you detect that the SD card has been removed, destroy the initialized object instance and initialize a new instance.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/14</dt>
+        <dd><item xmlns="">Now returns <code><a href="../../../../nn/ec/CTR/ResultDataTitleNotOwned/Overview.html">ResultDataTitleNotOwned</a></code> if the data title has never been initialized. Added <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values.</item><br />
+        </dd>
+        <dt>2011/09/06</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

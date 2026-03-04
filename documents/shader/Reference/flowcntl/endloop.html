@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>endloop - End loop statement</title>
+  </head>
+  <body>
+    <h1>endloop - End loop statement</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+endloop
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <p>
+        None.<br />
+      </p>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Specifies the end of a loop control block that was started by the <CODE>loop</CODE> instruction.<br />
+      </p>
+      <p class="warning">
+        There must be at least one instruction between <CODE>loop</CODE> and <CODE>endloop</CODE>.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+for ( int i = 0, aL = src.init ; i < src.count+1 ; i++, aL += src.step )
+{
+    ...
+}
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+defi i0, 10, 0, 1
+
+loop    i0
+    add     r0, r0, c0[ aL ]    // Add the total of c0, c1, ... , c9 to r0
+endloop
+</pre>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

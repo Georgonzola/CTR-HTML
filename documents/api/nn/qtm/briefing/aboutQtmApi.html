@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+    <title>QTM: About Face and Eye Tracking</title>
+</head>
+<body>
+    <h1>QTM: Face Tracking</h1>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#Summary">Overview</a></li>
+      <li><a href="#Attention">Notes</a></li>
+      <li><a href="#DevelopmentFlow">Development Flow</a></li>
+      <li><a href="#StereoCam">Using 3D Rendering</a></li>
+      <li><a href="#Guideline">Prohibitions</a></li>
+      <li><a href="#Sample">Sample Demos</a></li>
+      <li><a href="#Reference">Reference Materials</a></li>
+      <li><a href="#History">Revision History</a></li>
+    </ul>
+
+    <a name="Summary"><h2>Overview</h2></a>
+    <p>
+        The stereoscopic field of view has been increased with SNAKE because of the super-stable 3D feature. The super-stable 3D feature can be used with SNAKE systems. It detects the user's face, tracks and predicts the position of the user's eyes, and adjusts the stereoscopic effect of the 3D screen based on the user's position. The super-stable 3D feature is run automatically, so developers do not need to do anything to make it happen. <br /> However, if you want to know the location of the user's eyes as obtained by the super-stable 3D feature, you'll need to call the QTM API.
+    </p>
+
+    <a name="Attention"><h2>Notes</h2></a>
+    <p>
+        <ul>
+            <li>The super-stable 3D feature can only be used on SNAKE systems.<br /> CTR systems do not receive any benefit from this feature.<br /></li>
+            <li>The super-stable 3D feature is implemented using the camera images and gyro values.</li>
+            <li>The super-stable 3D feature is disabled when game applications need to access the camera. The disabling occurs from the time the camera library is initialized to the time it is finalized.</li>
+            <li>Game applications that need to obtain gyro values can do so while leaving the super-stable 3D feature enabled.</li>
+        </ul>
+    </p>
+
+    <a name="DevelopmentFlow"><h2>Development Flow</h2></a>
+    <p>
+        It is possible to obtain the position of the user's eyes by calling the <CODE>GetTrackingData</CODE> function. The super-stable 3D feature calculates the position of the user's eyes based on camera images and gyro values. It uses gyro values to capture the quick motions that are typical of handheld devices. <br /><br /> The <CODE>GetTrackingData</CODE> function returns the position of the user's eyes at the point in time when the function was called. <br /><br /> There is some important information about the camera operations to keep in mind. At the time when the system is processing camera images to obtain the eye position, 30 ms will have elapsed since the image was captured. Using this value as is results in outdated positional information from the perspective of the game application. The <CODE>GetTrackingData</CODE> function runs a predictive process based on the system time when called, and the previous eye position to calculate the current position.
+    </p>
+    <p>
+        When the <CODE>GetTrackingData</CODE> function call is made in an irregular cadence, the predictive precision between multiple frames will also experience some irregularity. However, if <CODE>GetTrackingData</CODE> is called at the same time in every rendering frame, the effect of the timing variance is reduced, smoothing the position data.  <br /><br /> <CODE>GetTrackingData</CODE> gets two statuses about the user's position.:
+        <ul>
+            <li><SPAN class="argument">isValid</SPAN> flag<br /> Set to <CODE>true</CODE> if the user is in front of the camera and the user's position is known with a high degree of certainty.<br /> Set to <CODE>false</CODE> if the user cannot be found or if the positional information has a low degree of certainty. Even if <SPAN class="argument">isValid</SPAN> is <CODE>false</CODE>, <CODE>GetTrackingData</CODE> returns the eye position. In this case, the eye position is derived from the user position (assumed to be directly in front of the system) as well as the gyro values. This functionality is designed to cover cases when the user cannot be found, but is assumed to be directly in front of the system, and is moving the system while keeping his or her head in the same place.</li>
+            <li><SPAN class="argument">isClipped</SPAN> flag<br /> Indicates that the user position has been clipped because it is either too close or too far from the extents of the camera's field of view. <I>Clipping</I> refers to a phenomenon wherein the eye coordinates cannot be followed past a certain point (the clip position). As a verb, <I>clip</I> indicates the act of correcting the eye position using this clip position. The clip position is the same for all SNAKE systems. The constraints on this clip position make it possible to handle edge cases with the assumption that all SNAKE consoles are guaranteed to have the same maximum values, regardless of any individual differences among their cameras' field of view.</li>
+        </ul>
+    </p>
+   
+    <a name="StereoCam"><h2>Using 3D Rendering</h2></a>
+    <p>
+        If you want to use the user position for rendering a 3D scene, refer to the <CODE><a href="../../../nn/ulcd/CTR/DynamicStereoCamera/Overview.html">DynamicStereoCamera</a></CODE> class.
+    </p>
+
+    <a name="Guideline"><h2>Prohibitions</h2></a>
+    <p>
+        <h3>Prohibition Against Game Content That Requires Face Tracking</h3>
+        <p>
+          Face tracking is not guaranteed to detect properly on all people in every conceivable condition. As a result, using the tracking effect as a control that is required in order to advance through a game is prohibited. Consider face tracking to be a feature that enhances the 3D effect.
+        </p>
+        <h3>Prohibition Against Initializing the QTM Library in Software That Does Not Support Face Tracking</h3>
+        <p>
+          It is possible to verify whether you have done this by seeing whether <CODE>NINTENDO:QtmInitialize</CODE> is displayed in the Middleware List within the <B>Basic Information (CIA)</B> tab in Master Editor.
+        </p>
+    </p>
+
+    <a name="Sample"><h2>Sample Demos</h2></a>
+    <div class="section">
+    <dl>
+    <dt><CODE>SampleDemos/qtm/TrackingSimple</CODE></dt>
+    <dd>A simple demo that displays the eye position using the <CODE>qtm</CODE> library.</dd>
+    <dt><CODE>SampleDemos/qtm/ExtDynamicStereoCamera</CODE></dt>
+    <dd>A demo of 3D rendering using the <CODE>qtm</CODE> and <CODE>ulcd</CODE> libraries.</dd>
+    </dl>
+    </div>
+    <a name="Reference"><h2>Reference Materials</h2></a>
+    <p>
+For more information about using with 3D rendering, see the <I>3DS Programming Manual: Dynamic Stereoscopy</I>.
+    </p>
+    <a name="History"><h2>Revision History</h2></a>
+    <div class="section">
+      <dl class="history">
+        <dt>2014-10-28</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

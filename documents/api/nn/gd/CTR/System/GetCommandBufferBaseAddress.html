@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetCommandBufferBaseAddress</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/System/Overview.html">System</a>::GetCommandBufferBaseAddress Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> GetCommandBufferBaseAddress(
+     RecordedPacketId * packetId,
+     <a href="../../../../nn_types/u32.html">u32</a> ** commandBufferAddr
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>packetId</th>
+          <td>Specifies a saved packet object.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>commandBufferAddr</th>
+          <td>Specifies the address storing the base address value of the command buffer being saved.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td>Some parameters were set to <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultSystemNoPacketRecorded</th>
+          <td>The command list object has not been saved. Be sure to call <code><a href="../../../../nn/gd/CTR/System/StartRecordingPackets.html">StartRecordingPackets</a></code> and <code><a href="../../../../nn/gd/CTR/System/StopRecordingPackets.html">StopRecordingPackets</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultSystemInvalidPacketId</th>
+          <td>packetId is invalid. For the flag argument of <code><a href="../../../../nn/gd/CTR/System/StartRecordingPackets.html">System::StartRecordingPackets</a></code>, specify either <code>RECORD_COMMAND_LIST_COPY</code> or <code>RECORD_3D_COMMAND_BUFFER_FOR_JUMP</code>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the base address of the saved command buffer.</p><p>This function is enabled only when saved packet data is copied to a user buffer. (When <code><a href="../../../../nn/gd/CTR/System/StartRecordingPackets.html">System::StartRecordingPackets</a></code> is executed by <code>RecordingPacketUsage</code>, it is not <code>RECORD_COMMAND_LIST_NO_COPY</code>.)) The base address of the command buffer is used to modify a saved command buffer. The command list object must be saved with the <code><a href="../../../../nn/gd/CTR/System/GetCommandBufferOffset.html">System::GetCommandBufferOffset</a></code> function.</p><!-- write here --></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../../nn/gd/CTR/System/StartRecordingPackets.html">System::StartRecordingPackets</a><br /><a href="../../../../nn/gd/CTR/System/GetCommandBufferOffset.html">System::GetCommandBufferOffset</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

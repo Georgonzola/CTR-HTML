@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Flags</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/olv/Overview.html">olv</a>::<a href="../../../nn/olv/DownloadPostDataListParam/Overview.html">DownloadPostDataListParam</a>::Flags Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum Flags;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>FLAG_NONE</th>
+          <td>The state when no flags are specified.</td>
+        </tr>
+        <tr>
+          <th>FLAG_FILTER_BY_FRIEND</th>
+          <td>Download posts from users who are <a href="../../../nn/friends/Overview.html">friends</a>. <br />
+ This flag is disabled if the <code><a href="../../../nn/olv/DownloadPostDataListParam/SetSearchPid.html">SetSearchPid</a></code> function is used to specify a principal ID for the Nintendo Network ID. <br />
+ This flag is disabled if the <code><a href="../../../nn/olv/DownloadPostDataListParam/SetPostId.html">SetPostId</a></code> function is used to specify a post ID. <br /></td>
+        </tr>
+        <tr>
+          <th>FLAG_FILTER_BY_FOLLOW</th>
+          <td>Download posts from users you are following. <br />
+ This flag is disabled if the <code><a href="../../../nn/olv/DownloadPostDataListParam/SetSearchPid.html">SetSearchPid</a></code> function is used to specify a principal ID for the Nintendo Network ID. <br />
+ This flag is disabled if the <code><a href="../../../nn/olv/DownloadPostDataListParam/SetPostId.html">SetPostId</a></code> function is used to specify a post ID. <br /></td>
+        </tr>
+        <tr>
+          <th>FLAG_FILTER_BY_SELF</th>
+          <td>Download your own posts. <br />
+ This flag is disabled if the <code><a href="../../../nn/olv/DownloadPostDataListParam/SetSearchPid.html">SetSearchPid</a></code> function is used to specify a principal ID for the Nintendo Network ID. <br />
+ This flag is disabled if the <code><a href="../../../nn/olv/DownloadPostDataListParam/SetPostId.html">SetPostId</a></code> function is used to specify a post ID. <br /></td>
+        </tr>
+        <tr>
+          <th>FLAG_FILTER_BY_BODY_TEXT</th>
+          <td>Download only text posts. <br />
+ You cannot specify <code><span>FLAG_FILTER_BY_BODY_MEMO</span></code> at the same time. <br />
+ This flag is disabled if the <code><a href="../../../nn/olv/DownloadPostDataListParam/SetPostId.html">SetPostId</a></code> function is used to specify a post ID. <br /></td>
+        </tr>
+        <tr>
+          <th>FLAG_FILTER_BY_BODY_MEMO</th>
+          <td>Download only handwritten memo posts. <br />
+ You cannot specify <code><span>FLAG_FILTER_BY_BODY_TEXT</span></code> at the same time. <br />
+ This flag is disabled if the <code><a href="../../../nn/olv/DownloadPostDataListParam/SetPostId.html">SetPostId</a></code> function is used to specify a post ID. <br /></td>
+        </tr>
+        <tr>
+          <th>FLAG_DISTINCT_PID</th>
+          <td>Get only a single post from each user. <br />
+ This flag is disabled if the <code><a href="../../../nn/olv/DownloadPostDataListParam/SetPostId.html">SetPostId</a></code> function is used to specify a post ID. <br /></td>
+        </tr>
+        <tr>
+          <th>FLAG_WITH_MII_DATA</th>
+          <td>Include Mii data in the post data to download.</td>
+        </tr>
+        <tr>
+          <th>FLAG_WITH_EMPATHY_ADDED</th>
+          <td>Include flags for whether you have already given Yeahs to posts in the post data to download.</td>
+        </tr>
+        <tr>
+          <th>FLAG_WITH_SPOILER</th>
+          <td>Also downloads posts with spoilers and posts with spoilers in review. <br />
+ This flag is disabled if the <code><a href="../../../nn/olv/DownloadPostDataListParam/SetPostId.html">SetPostId</a></code> function is used to specify a post ID. <br /></td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Flags that can be specified in the <code><a href="../../../nn/olv/DownloadPostDataListParam/SetFlags.html">SetFlags</a></code> function.</p><p><itemizedlist><listitem><para>You can specify <code><span>FLAG_FILTER_BY_FRIEND</span></code> / <code><span>FLAG_FILTER_BY_FOLLOW</span></code> / <code><span>FLAG_FILTER_BY_SELF</span></code> in combinations to filter the posts to download. <br /></para></listitem><listitem><para>When <code>FLAG_WITH_SPOILER</code> is not specified, posts with spoilers or with spoilers in review are not downloaded. <br /></para></listitem></itemizedlist></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/23</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

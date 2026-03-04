@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>EC_GenerateRIVToken</title>
+  </head>
+  <body>
+    <h1>EC_GenerateRIVToken Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+int EC_GenerateRIVToken(
+     const char * privKey,
+     const char * itemCode,
+     const unsigned char refId[EC_REF_ID_SIZE],
+     time_t validUntil,
+     char ** rivToken,
+     void *(*)(size_t) allocator,
+     void(*)(void *) deallocator
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>privKey</th>
+          <td>A private key string.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>itemCode</th>
+          <td>The item code for the requested item.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>refId[EC_REF_ID_SIZE]</th>
+          <td>The reference ID for the requested item.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>validUntil</th>
+          <td>The amount of time until the RIV token expires in seconds since 00:00:00 UTC January 1, 1970.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>rivToken</th>
+          <td>The buffer to write the RIV token to.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>allocator</th>
+          <td>An allocator for allocating a buffer for storing the license information for each item. Specify <code>NULL</code> to make the function use the system's <code>malloc</code> function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>deallocator</th>
+          <td>A deallocator for deallocating the buffer allocated by allocator. Specify <code>NULL</code> to make the function use the system's <code>free</code> function.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>EC_OK</th>
+          <td>Success.</td>
+        </tr>
+        <tr>
+          <th>EC_OUT_OF_MEMORY</th>
+          <td>Insufficient memory to complete the process.</td>
+        </tr>
+        <tr>
+          <th>EC_CRYPTO_ERROR</th>
+          <td>Internal encryption error while signing RIV token.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Generates an RIV token based on the specified private key, item code, reference ID, and expiration date. The generated RIV token is a variable length, NULL-terminated string.</p><p>RIV tokens are used to verify that the specified item code and reference ID have not been illegally modified.</p><p>The caller of this function must pass an allocator/deallocator to allocate a buffer for storing the RIV token. The caller of this function is responsible for deallocating the allocated buffer. Deallocate the buffer after sending the RIV token to the client.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/01/08</dt>
+        <dd><item xmlns="">Changed <code>rivToken</code> to an out parameter.</item><br />
+        </dd>
+        <dt>2011/12/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

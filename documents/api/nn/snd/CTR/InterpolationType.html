@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>InterpolationType</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/snd/Overview.html">snd</a>::<a href="../../../nn/snd/CTR/Overview.html">CTR</a>::InterpolationType Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum InterpolationType;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>INTERPOLATION_TYPE_POLYPHASE</th>
+          <td>Indicates polyphase (4-point) interpolation.</td>
+        </tr>
+        <tr>
+          <th>INTERPOLATION_TYPE_LINEAR</th>
+          <td>Indicates linear interpolation.</td>
+        </tr>
+        <tr>
+          <th>INTERPOLATION_TYPE_NONE</th>
+          <td>Indicates no interpolation.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>An enumerated type representing the interpolation method.</p><p>Indicates which interpolation algorithm is used during sampling rate conversion.  To get or set this value, use the <tt><a href="../../../nn/snd/CTR/Voice/SetInterpolationType.html">nn::snd::CTR::Voice::SetInterpolationType</a></tt> or <tt><a href="../../../nn/snd/CTR/Voice/GetInterpolationType.html">nn::snd::CTR::Voice::GetInterpolationType</a></tt> function respectively. </p><p>When <tt>INTERPOLATION_TYPE_NONE</tt> is specified, neighboring sample values are used during interpolation.  There may be noise in the interpolated results.</p><p>When <tt>INTERPOLATION_TYPE_LINEAR</tt> is specified, linear interpolation is used.</p><p>When <tt>INTERPOLATION_TYPE_POLYPHASE</tt> is specified, 4-point interpolation is used.  The appropriate polyphase filter to use for interpolation is selected from the configured sample rate and pitch. Of the three algorithms, this one has the best sound quality.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/24</dt>
+        <dd><item xmlns="">Added a description of each algorithm.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

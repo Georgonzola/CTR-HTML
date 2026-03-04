@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::snd::CTR::FxDelay::Param</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/snd/CTR/FxDelay/Overview.html">FxDelay</a>::Param Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct Param
+{
+   <a href="../../../../../nn_types/u32.html">u32</a> m_DelayTime;
+   <a href="../../../../../nn_types/f32.html">f32</a> m_FeedbackGain;
+   <a href="../../../../../nn_types/f32.html">f32</a> m_Damping;
+   bool m_IsEnableSurround;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A structure for delay parameters.</p><p><code>m_DelayTime</code> indicates the delay time. The value is in milliseconds. The larger the value, the more delayed the reverberation. In addition, when you increase the size of <code>m_DelayTime</code>, you must increase the size of memory that can be obtained by the <code><a href="../../../../../nn/snd/CTR/FxDelay/GetRequiredMemSize.html">GetRequiredMemSize</a></code> function.</p><p>The initial value is 250.</p><p><code>m_FeedbackGain</code> indicates the feedback gain for the delay sound. You must set a value in the range from <code>0.0f</code> to <code>1.0f</code>. The greater the value, the more the delay sound falls off. Specifying <code>0.0f</code> results in a one-shot delay (no feedback). This value is initially <code>0.4f</code>.</p><p><code>m_Damping</code> indicates how the low-pass filter (LPF) is applied. You must set a value in the range from <code>0.0f</code> to <code>1.0f</code>. The greater this value is made to be, the lower the cutoff frequency. Setting <code>0.0f</code> results in the low-pass filter not being applied at all. This value is initially <code>0.5f</code>.</p><p>When <code>m_IsEnableSurround</code> is <code>true</code>, the surround components (rear left and right) are also delayed.</p><p>When <code>false</code>, delay processing is skipped for the surround components and that processing load is decreased.</p><p>On the other hand, when <code>true</code>, the processing load increases, and the amount of needed memory to be obtained from the <code><a href="../../../../../nn/snd/CTR/FxDelay/GetRequiredMemSize.html">GetRequiredMemSize</a></code> function increases.</p><p>If <code>m_DelayTime</code> is changed while an effect is executing, noise may be generated.</p><p>In addition, if you continually change <code>m_FeedbackGain</code> and <code>m_Damping</code> even while an effect is executing, noise does not occur.</p><p>Call <code><a href="../../../../../nn/snd/CTR/FxDelay/SetParam.html">SetParam</a></code> to change parameters while an effect is being executed.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_DelayTime</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u32.html">u32</a></td>
+            <td>Delay time (in milliseconds). The initial value is 250.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_FeedbackGain</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Feedback gain. Specify a value from 0.0.f to 1.0.f. This value is initially <code>0.4f</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_Damping</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Low-pass filter damping. Specify a value from 0.0.f to 1.0.f. This value is initially <code>0.5f</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_IsEnableSurround</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Flag indicating whether to enable delay processing for surround channels. The initial value is <code>false</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/snd/CTR/FxDelay/Param/Param.html">Param</a>
+            </th>
+            <td>Constructor.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

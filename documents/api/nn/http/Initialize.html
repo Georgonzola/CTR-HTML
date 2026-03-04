@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/http/Overview.html">http</a>::Initialize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> Initialize(
+     <a href="../../nn_types/uptr.html">uptr</a> bufferAddress = 0,
+     size_t bufferSize = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>bufferAddress</th>
+          <td>Pointer to the start of the POST data buffer. Memory for the buffer must be <code>BUFFER_ALIGNMENT</code> (4096-byte) aligned.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>Size of the POST data buffer.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../nn/Result/Overview.html">Result</a></code> values. <br /><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded. The HTTP library can be used.</td>
+        </tr>
+        <tr>
+          <th>ResultClientProcessMaxErr</th>
+          <td>Error indicating that the maximum number of simultaneous client processes are already in use. Trying again later may succeed (if another module calls <code><a href="../../nn/http/Finalize.html">Finalize</a></code> in the meantime).</td>
+        </tr>
+        <tr>
+          <th>ResultIpcSessionMaxErr</th>
+          <td>Error indicating that the maximum number of simultaneous IPC sessions are already connected. Trying again later may succeed (if another IPC session succeeds in the meantime).</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyInitializedErr</th>
+          <td>Error indicating that initialization is already complete. The HTTP library can already be used.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates an unexpected error. (For more information, see <code><span>http_Result.h</span></code>.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the HTTP library. Processes that link against the HTTP library must call this before using the library.</p><p>You must use this function's arguments to set the POST data buffer before you can use the <code>AddPostData</code>-related functions of <code>nn::http::Connection</code> (the functions that register POST data before <code>Connect</code> runs). <br />
+ If you are not using the <code>AddPostData</code>-related functions you do not need to set anything in the argument. (In other words, even if you are using POST operations, nothing needs to be set in the argument if you use only <code>SendPostData</code>-related functions.)<br /><br />
+ The POST data buffer is used to temporarily store the registered POST data. <br />
+ For this reason, the buffer size must be at least as large as the maximum total amount of POST data that is registered at any one time. <br />
+ (The POST data registered in <code>nn::http::Connection</code> is stored temporarily in the POST data buffer, sent via POST when <code>nn::http::Connection::Connect</code> executes, and freed when <code>nn::http::Connection::Finalize</code> executes. Accordingly, the size of the POST data buffer must be at least as large as the maximum total amount of POST data registered to the <code>nn::http::Connection</code> object at any one time before <code>Finalize</code>.)</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

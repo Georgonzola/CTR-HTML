@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetActiveUniform</title>
+  </head>
+  <body>
+    <h1>glGetActiveUniform Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetActiveUniform(
+     GLuint program,
+     GLuint index,
+     GLsizei bufsize,
+     GLsizei * length,
+     GLint * size,
+     GLenum * type,
+     char * name
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>program</th>
+          <td>Program object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>index</th>
+          <td>Uniform index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufsize</th>
+          <td>Size of the buffer specified for name.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>length</th>
+          <td>Region that stores the length of the string written to name, in bytes.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>size</th>
+          <td>Region that stores the size of the uniform.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>type</th>
+          <td>Region that stores the uniform types.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>name</th>
+          <td>Array that stores the uniform names.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the information of active uniforms.</p><P>Set <span class="argument">program</span> to the program object.</P><P>Set <span class="argument">index</span> to a value that is greater than or equal to 0 and is at least one less than the value obtained from <tt>glGetProgramiv</tt> with <tt>GL_ACTIVE_UNIFORMS</tt> specified.</P><P>Set <span class="argument">bufsize</span> to the size of the buffer specified in <span class="argument">name</span>.</P><P>The name, size (number of components), and data type of the active uniform specified by <span class="argument">index</span> in the object specified by <span class="argument">program</span> are stored in <span class="argument">name</span>, <span class="argument">size</span>, and <span class="argument">type</span>, respectively.</P><P>The <span class="argument">length</span> argument stores the size (in bytes) of the string saved in <span class="argument">name</span>.  If the number of characters in the vertex attribute name exceeds <span class="argument">bufsize</span>, then <span class="argument">bufsize</span>-1 characters are copied into <span class="argument">name</span> and NULL is inserted at the end.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">program</span> or <span class="argument">index</span> argument was set to an invalid value, or <span class="argument">bufsize</span> was set to a negative value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">program</span> argument is not linked correctly.</TD></TR></TABLE><!-- source program、indexに不正な値を指定した場合、bufsizeに負の値を指定した場合エラーGL_INVALID_VALUEを生成します。 programが正しくリンクされていない場合エラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glBlendFuncSeparate</title>
+  </head>
+  <body>
+    <h1>glBlendFuncSeparate Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glBlendFuncSeparate(
+     GLenum srcRGB,
+     GLenum dstRGB,
+     GLenum srcAlpha,
+     GLenum dstAlpha
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>srcRGB</th>
+          <td>Source blend factor for the RGB components for the blending feature.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstRGB</th>
+          <td>Destination blend factor for the RGB components for the blending feature.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcAlpha</th>
+          <td>Source blend factor for the alpha component for the blending feature.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstAlpha</th>
+          <td>Destination blend factor for the alpha component for the blending feature.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets source and destination blend factors for the blending feature. Applies different values to the RGB and alpha components.</p><!-- source srcRGB、dstRGB、srcAlpha、dstAlphaにはGL_ZERO、GL_ONE、GL_SRC_COLOR、GL_ONE_MINUS_SRC_COLOR、GL_DST_COLOR、 GL_ONE_MINUS_DST_COLOR、GL_SRC_ALPHA、GL_ONE_MINUS_SRC_ALPHA、GL_DST_ALPHA、GL_ONE_MINUS_DST_ALPHA、 GL_CONSTANT_COLOR、GL_ONE_MINUS_CONSTANT_COLOR、GL_CONSTANT_ALPHA、GL_ONE_MINUS_CONSTANT_ALPHA、およびGL_SRC_ALPHA_SATURATEが指定できます。 --><P>You can set <span class="argument">srcRGB</span>, <span class="argument">dstRGB</span>, <span class="argument">srcAlpha</span>, and <span class="argument">dstAlpha</span> to the following values.  (You cannot set <span class="argument">dstRGB</span> or <span class="argument">dstAlpha</span> to <tt>GL_SRC_ALPHA_SATURATE</tt> with POD.</P><P>In the table, (Fr,Fg,Fb,Fa) indicates the blend factors for each RGBA component, (Rs,Gs,Bs,As) indicates the input pixel color, (Rd,Gd,Bd,Ad) indicates the pixel color stored in the framebuffer, and (Rc,Gc,Bc,Ac) indicates the constant color set by <tt>glBlendColor</tt>.</P><P><TABLE><TR><TH>GL_ZERO</TH><TD>(Fr,Fg,Fb,Fa) = (0,0,0,0)</TD></TR><TR><TH>GL_ONE</TH><TD>(Fr,Fg,Fb,Fa) = (1,1,1,1)</TD></TR><TR><TH>GL_SRC_COLOR</TH><TD>(Fr,Fg,Fb,Fa) = (Rs,Gs,Bs,As)</TD></TR><TR><TH>GL_ONE_MINUS_SRC_COLOR</TH><TD>(Fr,Fg,Fb,Fa) = (1,1,1,1) - (Rs,Gs,Bs,As)</TD></TR><TR><TH>GL_DST_COLOR</TH><TD>(Fr,Fg,Fb,Fa) = (Rd,Gd,Bd,Ad)</TD></TR><TR><TH>GL_ONE_MINUS_DST_COLOR</TH><TD>(Fr,Fg,Fb,Fa) = (1,1,1,1) - (Rd,Gd,Bd,Ad)</TD></TR><TR><TH>GL_SRC_ALPHA</TH><TD>(Fr,Fg,Fb,Fa) = (As,As,As,As)</TD></TR><TR><TH>GL_ONE_MINUS_SRC_ALPHA</TH><TD>(Fr,Fg,Fb,Fa) = (1,1,1,1) - (As,As,As,As)</TD></TR><TR><TH>GL_DST_ALPHA</TH><TD>(Fr,Fg,Fb,Fa) = (Ad,Ad,Ad,Ad)</TD></TR><TR><TH>GL_ONE_MINUS_DST_ALPHA</TH><TD>(Fr,Fg,Fb,Fa) = (1,1,1,1) - (Ad,Ad,Ad,Ad)</TD></TR><TR><TH>GL_CONSTANT_COLOR</TH><TD>(Fr,Fg,Fb,Fa) = (Rc,Gc,Bc,Ac)</TD></TR><TR><TH>GL_ONE_MINUS_CONSTANT_COLOR</TH><TD>(Fr,Fg,Fb,Fa) = (1,1,1,1) - (Rc,Gc,Bc,Ac)</TD></TR><TR><TH>GL_CONSTANT_ALPHA</TH><TD>(Fr,Fg,Fb,Fa) = (Ac,Ac,Ac,Ac)</TD></TR><TR><TH>GL_ONE_MINUS_CONSTANT_ALPHA</TH><TD>(Fr,Fg,Fb,Fa) = (1,1,1,1) - (Ac,Ac,Ac,Ac)</TD></TR><TR><TH>GL_SRC_ALPHA_SATURATE</TH><TD>(Fr,Fg,Fb,Fa) = (min(As,1-Ad),min(As,1-Ad),min(As,1-Ad),1)</TD></TR></TABLE><!-- source GL_ZEROは、(Fr,Fg,Fb,Fa)= (0,0,0,0) GL_ONEは、(Fr,Fg,Fb,Fa)= (1,1,1,1) GL_SRC_COLORは、(Fr,Fg,Fb,Fa)= (Rs,Gs,Bs,As) GL_ONE_MINUS_SRC_COLORは、(Fr,Fg,Fb,Fa)= (1,1,1,1) - (Rs,Gs,Bs,As) GL_DST_COLORは、(Fr,Fg,Fb,Fa)= (Rd,Gd,Bd,Ad) GL_ONE_MINUS_DST_COLORは、(Fr,Fg,Fb,Fa)= (1,1,1,1) - (Rd,Gd,Bd,Ad) GL_SRC_ALPHAは、(Fr,Fg,Fb,Fa)= (As,As,As,As) GL_ONE_MINUS_SRC_ALPHAは、(Fr,Fg,Fb,Fa)= (1,1,1,1) - (As,As,As,As) GL_DST_ALPHAは、(Fr,Fg,Fb,Fa)= (Ad,Ad,Ad,Ad) GL_ONE_MINUS_DST_ALPHAは、(Fr,Fg,Fb,Fa)= (1,1,1,1) - (Ad,Ad,Ad,Ad) GL_CONSTANT_COLORは、(Fr,Fg,Fb,Fa)= (Rc,Gc,Bc,Ac) GL_ONE_MINUS_CONSTANT_COLORは、(Fr,Fg,Fb,Fa)= (1,1,1,1) - (Rc,Gc,Bc,Ac) GL_CONSTANT_ALPHAは、(Fr,Fg,Fb,Fa)= (Ac,Ac,Ac,Ac) GL_ONE_MINUS_CONSTANT_ALPHAは、(Fr,Fg,Fb,Fa)= (1,1,1,1) - (Ac,Ac,Ac,Ac) GL_SRC_ALPHA_SATURATEは、(Fr,Fg,Fb,Fa)= (min(As,1-Ad),min(As,1-Ad),min(As,1-Ad),1) --></P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">srcRGB</span>, <span class="argument">dstRGB</span>, <span class="argument">srcAlpha</span>, or <span class="argument">dstAlpha</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source コマンドリストオブジェクトをバインドしていない状態で呼び出すとGL_INVALID_OPERATIONを生成します。 srcRGB、dstRGB、srcAlpha、dstAlphaに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+    <title>olv : Image Formats Handled by the OLV Library</title>
+</head>
+<body>
+    <h1>OLV: Image Formats Handled by the OLV Library</h1>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#Summary">Overview</a></li>
+      <li><a href="#MemoFormat">Format for Handwritten Messages</a></li>
+      <li><a href="#AttachedFormat">Format for Attached Images and Attached Thumbnails</a></li>
+      <li><a href="#StampFormat">Format for Stamps and Stamp Masks</a></li>
+      <li><a href="#IconFormat">Format for Icons</a></li>
+    </ul>
+
+    <a name="Summary"><h2>Overview</h2></a>
+    <div class="section">
+      <p>
+        This section describes the image formats handled by the OLV library.
+      </p>
+    </div>
+    <a name="MemoFormat"><h2>Format for Handwritten Messages</h2></a>
+    <div class="section">
+      <p>
+        The library supports 1-bit color BMP images for the handwritten messages that can be used for posts and comments.<br /> The images must adhere to the following data format.
+      </p>
+      <p>
+        <ul>
+          <li>BMP image<br />
+            <TABLE>
+            <TR>
+              <TH>Content</TH>
+              <TH>Data</TH>
+              <TH>Size</TH>
+              <TH>Comments</TH>
+            </TR>
+            <TR>
+              <TD>File type</TD>
+              <TD>42 4D</TD>
+              <TD>2</TD>
+              <TD>'BM'</TD>
+            </TR>
+            <TR>
+              <TD>File size</TD>
+              <TD>00 13 00 00</TD>
+              <TD>4</TD>
+              <TD>4864 bytes</TD>
+            </TR>
+            <TR>
+              <TD>Reserved region</TD>
+              <TD>00 00 00 00</TD>
+              <TD>4</TD>
+              <TD>0</TD>
+            </TR>
+            <TR>
+              <TD>Image data offset</TD>
+              <TD>3E 00 00 00</TD>
+              <TD>4</TD>
+              <TD>62 bytes</TD>
+            </TR>
+            <TR>
+              <TD>Size of BMP data header</TD>
+              <TD>28 00 00 00</TD>
+              <TD>4</TD>
+              <TD>40 bytes</TD>
+            </TR>
+            <TR>
+              <TD>Width</TD>
+              <TD>40 01 00 00</TD>
+              <TD>4</TD>
+              <TD>320 pixels</TD>
+            </TR>
+            <TR>
+              <TD>Height</TD>
+              <TD>78 00 00 00</TD>
+              <TD>4</TD>
+              <TD>120 pixels</TD>
+            </TR>
+            <TR>
+              <TD>Planes</TD>
+              <TD>01 00</TD>
+              <TD>2</TD>
+              <TD>1</TD>
+            </TR>
+            <TR>
+              <TD>Bits</TD>
+              <TD>01 00</TD>
+              <TD>2</TD>
+              <TD>1 bit/pixel</TD>
+            </TR>
+            <TR>
+              <TD>Compression format</TD>
+              <TD>00 00 00 00</TD>
+              <TD>4</TD>
+              <TD>0 (no compression)</TD>
+            </TR>
+            <TR>
+              <TD>Size of image data</TD>
+              <TD>C2 12 00 00</TD>
+              <TD>4</TD>
+              <TD>4802 bytes</TD>
+            </TR>
+            <TR>
+              <TD>Horizontal resolution</TD>
+              <TD>12 0B 00 00</TD>
+              <TD>4</TD>
+              <TD>2834 pixels/m</TD>
+            </TR>
+            <TR>
+              <TD>Vertical resolution</TD>
+              <TD>12 0B 00 00</TD>
+              <TD>4</TD>
+              <TD>2834 pixels/m</TD>
+            </TR>
+            <TR>
+              <TD>Number of colors</TD>
+              <TD>00 00 00 00</TD>
+              <TD>4</TD>
+              <TD>0</TD>
+            </TR>
+            <TR>
+              <TD>Number of essential colors</TD>
+              <TD>00 00 00 00</TD>
+              <TD>4</TD>
+              <TD>0</TD>
+            </TR>
+            <TR>
+              <TD>Color palette (white)</TD>
+              <TD>FF FF FF 00</TD>
+              <TD>4</TD>
+              <TD></TD>
+            </TR>
+            <TR>
+              <TD>Color palette (black)</TD>
+              <TD>00 00 00 00</TD>
+              <TD>4</TD>
+              <TD></TD>
+            </TR>
+            <TR>
+              <TD>Image data</TD>
+              <TD>(Optional)</TD>
+              <TD>4800</TD>
+              <TD></TD>
+            </TR>
+            <TR>
+              <TD>Padding</TD>
+              <TD>00 00</TD>
+              <TD>2</TD>
+              <TD></TD>
+            </TR>
+            </TABLE>
+            </li>
+        </ul>
+      </p>
+    </div>
+    <a name="AttachedFormat"><h2>Format for Attached Images and Attached Thumbnails</h2></a>
+    <div class="section">
+      <p>
+        The library supports baseline JPEG compression and MPO as the image formats for image and thumbnail attachments that can be used for posts and comments.<br /> The specification for thumbnail attachments can be omitted.<br /> The images must adhere to the following data format.<br />
+      </p>
+      <p>
+        <ul>
+          <li>JPEG or MPO image.</li>
+          <li>Baseline JPEG compression format.</li>
+          <li>Combination of width x height and image format.<br />
+              <TABLE>
+              <TR><TH></TH><TH COLSPAN="2">Image Attachment</TH><TH COLSPAN="2">Thumbnail Attachment</TH></TR>
+              <TR><TH></TH><TH>Width x Height</TH><TH>Image Format</TH><TH>Width x Height</TH><TH>Image Format</TH></TR>
+              <TR><TH>Method 1</TH><TD>800 x 450</TD><TD>JPEG</TD><TD>171 x 96</TD><TD>JPEG</TD></TR>
+              <TR><TH>Method 2</TH><TD>400 x 240</TD><TD>JPEG</TD><TD>171 x 103</TD><TD>JPEG</TD></TR>
+              <TR><TH>Method 3</TH><TD>400 x 240</TD><TD>MPO</TD><TD>171 x 103</TD><TD>JPEG</TD></TR>
+              <TR><TH>Method 4</TH><TD>320 x 240</TD><TD>JPEG</TD><TD>171 x 128</TD><TD>JPEG</TD></TR>
+              <TR><TH>Method 5</TH><TD>640 x 480</TD><TD>JPEG</TD><TD>171 x 128</TD><TD>JPEG</TD></TR>
+              </TABLE>
+          </li>
+          <li>Size of attached image
+            <ul>
+              <li>Maximum of 512 KB.</li>
+            </ul>
+          </li>
+          <li>Size of attached thumbnail
+            <ul>
+              <li>Maximum of 128 KB.</li>
+              <li><B>Note:</B> If you specify a thumbnail attachment, the maximum size is 512 KB for the image and the thumbnail combined.</li>
+            </ul>
+          </li>
+        </ul>
+      </p>
+    </div>
+    <a name="StampFormat"><h2>Format for Stamps and Stamp Masks</h2></a>
+    <div class="section">
+      <p>
+        The library supports 1-bit color BMP images for the stamps and the stamp masks that the Post application uses for posts and comments.<br /> Stamps and stamp masks must be either small (100 x 100) or large (200 x 200).<br /> The stamp mask is the image data that specifies the transparent and opaque parts of the stamp image. Specify white for the opaque parts and black for the transparent parts.<br /> The images must adhere to the following data format.
+      </p>
+      <p>
+        <ul>
+          <li>Small BMP image<br />
+          <TABLE>
+          <TR>
+            <TH>Content</TH>
+            <TH>Data</TH>
+            <TH>Size</TH>
+            <TH>Comments</TH>
+          </TR>
+          <TR>
+            <TD>File type</TD>
+            <TD>42 4D</TD>
+            <TD>2</TD>
+            <TD>'BM'</TD>
+          </TR>
+          <TR>
+            <TD>File size</TD>
+            <TD>80 06 00 00</TD>
+            <TD>4</TD>
+            <TD>1664 bytes</TD>
+          </TR>
+          <TR>
+            <TD>Reserved region</TD>
+            <TD>00 00 00 00</TD>
+            <TD>4</TD>
+            <TD>0</TD>
+          </TR>
+          <TR>
+            <TD>Image data offset</TD>
+            <TD>3E 00 00 00</TD>
+            <TD>4</TD>
+            <TD>62 bytes</TD>
+          </TR>
+          <TR>
+            <TD>Size of BMP data header</TD>
+            <TD>28 00 00 00</TD>
+            <TD>4</TD>
+            <TD>40 bytes</TD>
+          </TR>
+          <TR>
+            <TD>Width</TD>
+            <TD>64 00 00 00</TD>
+            <TD>4</TD>
+            <TD>100 pixels</TD>
+          </TR>
+          <TR>
+            <TD>Height</TD>
+            <TD>64 00 00 00</TD>
+            <TD>4</TD>
+            <TD>100 pixels</TD>
+          </TR>
+          <TR>
+            <TD>Planes</TD>
+            <TD>01 00</TD>
+            <TD>2</TD>
+            <TD>1</TD>
+          </TR>
+          <TR>
+            <TD>Bits</TD>
+            <TD>01 00</TD>
+            <TD>2</TD>
+            <TD>1 bit/pixel</TD>
+          </TR>
+          <TR>
+            <TD>Compression format</TD>
+            <TD>00 00 00 00</TD>
+            <TD>4</TD>
+            <TD>0 (no compression)</TD>
+          </TR>
+          <TR>
+            <TD>Size of image data</TD>
+            <TD>42 06 00 00</TD>
+            <TD>4</TD>
+            <TD>1602 bytes</TD>
+          </TR>
+          <TR>
+            <TD>Horizontal resolution</TD>
+            <TD>12 0B 00 00</TD>
+            <TD>4</TD>
+            <TD>2834 pixels/m</TD>
+          </TR>
+          <TR>
+            <TD>Vertical resolution</TD>
+            <TD>12 0B 00 00</TD>
+            <TD>4</TD>
+            <TD>2834 pixels/m</TD>
+          </TR>
+          <TR>
+            <TD>Number of colors</TD>
+            <TD>00 00 00 00</TD>
+            <TD>4</TD>
+            <TD>0</TD>
+          </TR>
+          <TR>
+            <TD>Number of essential colors</TD>
+            <TD>00 00 00 00</TD>
+            <TD>4</TD>
+            <TD>0</TD>
+          </TR>
+          <TR>
+            <TD>Color palette (white)</TD>
+            <TD>FF FF FF 00</TD>
+            <TD>4</TD>
+            <TD><B>Note:</B> This represents the opaque parts in the mask image data.</TD>
+          </TR>
+          <TR>
+            <TD>Color palette (black)</TD>
+            <TD>00 00 00 00</TD>
+            <TD>4</TD>
+            <TD><B>Note:</B> This represents the transparent parts in the mask image data.</TD>
+          </TR>
+          <TR>
+            <TD>Image data</TD>
+            <TD>(Optional)</TD>
+            <TD>1600</TD>
+            <TD></TD>
+          </TR>
+          <TR>
+            <TD>Padding</TD>
+            <TD>00 00</TD>
+            <TD>2</TD>
+            <TD></TD>
+          </TR>
+          </TABLE>
+          <br />
+          </li>
+          <li>Large BMP image<br />
+          <TABLE>
+          <TR>
+            <TH>Content</TH>
+            <TH>Data</TH>
+            <TH>Size</TH>
+            <TH>Comments</TH>
+          </TR>
+          <TR>
+            <TD>File type</TD>
+            <TD>42 4D</TD>
+            <TD>2</TD>
+            <TD>'BM'</TD>
+          </TR>
+          <TR>
+            <TD>File size</TD>
+            <TD>20 16 00 00</TD>
+            <TD>4</TD>
+            <TD>5664 bytes</TD>
+          </TR>
+          <TR>
+            <TD>Reserved region</TD>
+            <TD>00 00 00 00</TD>
+            <TD>4</TD>
+            <TD>0</TD>
+          </TR>
+          <TR>
+            <TD>Image data offset</TD>
+            <TD>3E 00 00 00</TD>
+            <TD>4</TD>
+            <TD>62 bytes</TD>
+          </TR>
+          <TR>
+            <TD>Size of BMP data header</TD>
+            <TD>28 00 00 00</TD>
+            <TD>4</TD>
+            <TD>40 bytes</TD>
+          </TR>
+          <TR>
+            <TD>Width</TD>
+            <TD>C8 00 00 00</TD>
+            <TD>4</TD>
+            <TD>200 pixels</TD>
+          </TR>
+          <TR>
+            <TD>Height</TD>
+            <TD>C8 00 00 00</TD>
+            <TD>4</TD>
+            <TD>200 pixels</TD>
+          </TR>
+          <TR>
+            <TD>Planes</TD>
+            <TD>01 00</TD>
+            <TD>2</TD>
+            <TD>1</TD>
+          </TR>
+          <TR>
+            <TD>Bits</TD>
+            <TD>01 00</TD>
+            <TD>2</TD>
+            <TD>1 bit/pixel</TD>
+          </TR>
+          <TR>
+            <TD>Compression format</TD>
+            <TD>00 00 00 00</TD>
+            <TD>4</TD>
+            <TD>0 (no compression)</TD>
+          </TR>
+          <TR>
+            <TD>Size of image data</TD>
+            <TD>E2 15 00 00</TD>
+            <TD>4</TD>
+            <TD>5602 bytes</TD>
+          </TR>
+          <TR>
+            <TD>Horizontal resolution</TD>
+            <TD>12 0B 00 00</TD>
+            <TD>4</TD>
+            <TD>2834 pixels/m</TD>
+          </TR>
+          <TR>
+            <TD>Vertical resolution</TD>
+            <TD>12 0B 00 00</TD>
+            <TD>4</TD>
+            <TD>2834 pixels/m</TD>
+          </TR>
+          <TR>
+            <TD>Number of colors</TD>
+            <TD>00 00 00 00</TD>
+            <TD>4</TD>
+            <TD>0</TD>
+          </TR>
+          <TR>
+            <TD>Number of essential colors</TD>
+            <TD>00 00 00 00</TD>
+            <TD>4</TD>
+            <TD>0</TD>
+          </TR>
+          <TR>
+            <TD>Color palette (white)</TD>
+            <TD>FF FF FF 00</TD>
+            <TD>4</TD>
+            <TD><B>Note:</B> This represents the opaque parts in the mask image data.</TD>
+          </TR>
+          <TR>
+            <TD>Color palette (black)</TD>
+            <TD>00 00 00 00</TD>
+            <TD>4</TD>
+            <TD><B>Note:</B> This represents the transparent parts in the mask image data.</TD>
+          </TR>
+          <TR>
+            <TD>Image data</TD>
+            <TD>(Optional)</TD>
+            <TD>5600</TD>
+            <TD></TD>
+          </TR>
+          <TR>
+            <TD>Padding</TD>
+            <TD>00 00</TD>
+            <TD>2</TD>
+            <TD></TD>
+          </TR>
+          </TABLE>
+          </li>
+        </ul>
+      </p>
+    </div>
+    <a name="IconFormat"><h2>Format for Icons</h2></a>
+    <div class="section">
+      <p>
+        The library supports 32-bit color TGA images for the icons that can be used for communities.<br /> The images must adhere to the following data format.
+      </p>
+      <p>
+      <ul>
+        <li>TGA image
+          <ul>
+            <li>32-bit color</li>
+            <li>No RLE compression</li>
+            <li>No color map</li>
+            <li>48 x 48 (width x height)</li>
+            <li>Stored from lower left.</li>
+            <li>Data size (including header and footer)
+              <ul>
+                <li>9260 bytes (Can be 9234 if the footer is omitted)</li>
+              </ul>
+            </li>
+            <li><B>Note:</B> The 18-byte header must be a byte string like the following.<br /> 00 00 02 00 00 00 00 00 00 00 00 00 30 00 30 00 20 08 (hexadecimal).
+            </li>
+          </ul>
+        </li>
+      </ul>
+      </p>
+    </div>
+
+    <a name="History"><h2>Revision History</h2></a>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/09/30</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

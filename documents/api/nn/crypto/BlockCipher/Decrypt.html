@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Decrypt</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/crypto/Overview.html">crypto</a>::<a href="../../../nn/crypto/BlockCipher/Overview.html">BlockCipher</a>::Decrypt Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+virtual void Decrypt(
+     void * pDst,
+     const void * pSrc
+) const = 0;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Pointer to the buffer that receives decrypted data. This buffer must be at least as big as the size obtained by calling the <code>GetBlockSize</code> function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pSrc</th>
+          <td>Pointer to the buffer storing data to decrypt. This buffer must be the size obtained by calling the <code>GetBlockSize</code> function.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Decrypts.</p><p>Decryption takes a block-sized portion of ciphertext and converts it to plaintext. This loads a block-sized amount of data from pSrc, decrypts it, and writes the result to pDst.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

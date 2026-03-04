@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>UpdateCdata</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/crypto/Overview.html">crypto</a>::<a href="../../../nn/crypto/AuthenticatedDecryptor/Overview.html">AuthenticatedDecryptor</a>::UpdateCdata Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+virtual size_t UpdateCdata(
+     void * pDst,
+     size_t dstSize,
+     const void * pSrc,
+     size_t srcSize
+) = 0;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Pointer to the buffer storing the decryption results.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstSize</th>
+          <td>Size of the buffer specified by pDst.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pSrc</th>
+          <td>Pointer to the buffer storing the Cdata.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcSize</th>
+          <td>Cdata size in bytes.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the number of bytes written to pDst. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Specifies the Cdata and gets the decryption result.</p><p>The Cdata is the encrypted Pdata. The Pdata is data for MAC and also for encryption.</p><p>You must call the <code>UpdateAdataFinal</code> function before calling this function.</p><p>You can call this function multiple times before calling the <code>UpdateCdataFinal</code> function. Note, however, that input data is all handled as a single consolidation. The order of input is significant. The size of the buffer required for pDst is (the total of all size values specified in the <code>UpdateCdata</code> function calls, including the current call) - (the total of all <code>UpdateCdata</code> function return values, excluding the current call). For instance, assume you have called the <code>UpdateCdata</code> function three times and specified size values of 500, 600, and 700, and the return values were 450, 620, and 660. In your next call to the <code>UpdateCdata</code> function, you would have to specify a buffer in pDst that is as big as the size value for that plus (500 + 600 + 700) - (450 + 620 + 660) = 70 bytes. The value is (the total of all size values specified in the <code>UpdateCdata</code> function calls, including the current call) - (the total of all <code>UpdateCdata</code> function return values, excluding the current call). That is, the size of the buffer you must specify in pDst cannot be any bigger than (size + the block size).</p><p>The function fails and displays an error if the size of the return value is larger than the buffer size specified in dstSize. Data is not written to the buffer beyond the size specified in dstSize. If the size of the return value is not larger than dstSize, the function indicates a successful completion and writes the size of the return value in pDst.</p><p>If this function fails, decryption cannot continue. You must then try again, starting by calling the <code>Initialize</code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

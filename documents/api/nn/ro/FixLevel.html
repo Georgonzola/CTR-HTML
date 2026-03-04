@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>FixLevel</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/ro/Overview.html">ro</a>::FixLevel Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum FixLevel;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>FIX_LEVEL_0</th>
+          <td>Alias for <code>FIX_LEVEL_NONE</code>.</td>
+        </tr>
+        <tr>
+          <th>FIX_LEVEL_1</th>
+          <td>Alias for <code>FIX_LEVEL_INTERNAL</code>.</td>
+        </tr>
+        <tr>
+          <th>FIX_LEVEL_2</th>
+          <td>Alias for <code>FIX_LEVEL_INTERNAL_IMPORT</code>.</td>
+        </tr>
+        <tr>
+          <th>FIX_LEVEL_3</th>
+          <td>Alias for <code>FIX_LEVEL_INTERNAL_IMPORT</code>.</td>
+        </tr>
+        <tr>
+          <th>FIX_LEVEL_NONE</th>
+          <td>Memory is not freed.</td>
+        </tr>
+        <tr>
+          <th>FIX_LEVEL_INTERNAL</th>
+          <td>Releases memory storing data used for internal relocation.</td>
+        </tr>
+        <tr>
+          <th>FIX_LEVEL_INTERNAL_IMPORT</th>
+          <td>Releases memory storing data required to reference symbols of other modules and for internal relocation.</td>
+        </tr>
+        <tr>
+          <th>FIX_LEVEL_INTERNAL_IMPORT_EXPORT</th>
+          <td>Releases memory storing data required for internal relocation, referencing symbols in other modules, and referencing symbols included in the module in question.</td>
+        </tr>
+        <tr>
+          <th>FIX_LEVEL_MAX_BITS</th>
+          <td>
+        </td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This enumerated type is used to represent the level of memory to be released when <code>LoadModule</code> executes successfully.</p><p>The greater the amount of memory released, the stricter the restrictions.</p><h4><tt>FIX_LEVEL_NONE</tt></h4><p>No memory is released and all functions are available.</p><h4><tt>FIX_LEVEL_INTERNAL</tt></h4><p>The following operations are unavailable.</p><ul><li><tt><a href="../../nn/ro/LoadModule.html">nn::ro::LoadModule</a></tt> after <tt><a href="../../nn/ro/Module/Unload.html">nn::ro::Module::Unload</a></tt> has been called.</li></ul><p>The following operation is available.</p><ul><li>Automatically linking with symbols included in other modules.</li><li>Automatically linking with symbols included in the target module.</li><li>Getting the addresses of symbols included in the target module.</li></ul><h4><tt>FIX_LEVEL_INTERNAL_IMPORT</tt></h4><p>The following operations are unavailable.</p><ul><li><tt><a href="../../nn/ro/LoadModule.html">nn::ro::LoadModule</a></tt> after <tt><a href="../../nn/ro/Module/Unload.html">nn::ro::Module::Unload</a></tt> has been called.</li><li>Automatically linking with symbols included in other modules to be loaded later.</li></ul><p>The following operation is available.</p><ul><li>Automatically linking with symbols included in other modules to be loaded later.</li><li>Automatically linking with symbols included in the target module.</li><li>Getting the addresses of symbols included in the target module.</li></ul><h4><tt>FIX_LEVEL_INTERNAL_IMPORT_EXPORT</tt></h4><p>The following operations are unavailable.</p><ul><li><tt><a href="../../nn/ro/LoadModule.html">nn::ro::LoadModule</a></tt> after <tt><a href="../../nn/ro/Module/Unload.html">nn::ro::Module::Unload</a></tt> has been called.</li><li>Automatically linking with symbols included in other modules to be loaded later.</li><li>Automatically linking with symbols included in the target module.</li><li>Getting the addresses of symbols included in the target module.</li></ul><p>The following operation is available.</p><ul><li>Automatically linking with symbols included in other modules to be loaded later.</li></ul></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/07/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

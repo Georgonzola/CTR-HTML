@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>CalculateHmacSha1</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/crypto/Overview.html">crypto</a>::CalculateHmacSha1 Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void CalculateHmacSha1(
+     void * pOut,
+     const void * pData,
+     size_t size,
+     const void * pKeyData,
+     size_t keySize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pOut</th>
+          <td>Pointer to the location in which to store the <code>HMAC</code> value (<code>OUTPUT_ALIGNMENT</code> (4-byte) alignment).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pData</th>
+          <td>Pointer to the input data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Length of the input data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pKeyData</th>
+          <td>Specifies a pointer to the key data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>keySize</th>
+          <td>Length of the key data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Performs HMAC-SHA1 calculation.</p><p><span class="argument">pOut</span> is a 4-byte aligned pointer. It requires <tt>Sha1Context::HASH_SIZE (=20)</tt> bytes of space as the destination for storing the indicated hash.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent alignment restrictions.</item><br />
+        </dd>
+        <dt>2011/03/04</dt>
+        <dd><item xmlns="">Added note about 4-byte alignment restriction.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

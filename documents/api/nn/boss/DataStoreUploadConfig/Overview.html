@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::boss::DataStoreUploadConfig</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::DataStoreUploadConfig Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct DataStoreUploadConfig
+{
+   <a href="../../../nn_types/u32.html">u32</a> gameId;
+   wchar_t accessKey[MAX_ACCESS_KEY_LENGTH];
+   <a href="../../../nn_types/u16.html">u16</a> period;
+   <a href="../../../nn_types/u16.html">u16</a> dataType;
+   <a href="../../../nn_types/u16.html">u16</a> dstPrincipalIdNum;
+   <a href="../../../nn/boss/DstKind.html">DstKind</a> dstKind;
+   <a href="../../../nn_types/u32.html">u32</a> dstPrincipalId[MAX_DST_PRINCIPAL_ID];
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Definition of an internal structure that maintains upload information for <code>DataStore</code>.</p>
+    </div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">gameId</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>ID used to identify the game server.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">accessKey</span>
+            </th>
+            <td width="100">wchar_t</td>
+            <td>Key used to access the game server.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">period</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The number of days until data is automatically updated.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">dataType</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u16.html">u16</a></td>
+            <td>Value indicating the data type This is an application-defined value.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">dstPrincipalIdNum</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The number of message data sent destination settings.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">dstKind</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/DstKind.html">DstKind</a></td>
+            <td>Message data send destination type.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">dstPrincipalId</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Message data send destination ID.</td>
+          </tr> </table>
+      </div>
+    </a>
+  </body>
+</html>

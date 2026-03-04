@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetSendingY</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/y2r/Overview.html">y2r</a>::<a href="../../../nn/y2r/CTR/Overview.html">CTR</a>::SetSendingY Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetSendingY(
+     const void * pSrc,
+     size_t imageSize,
+     <a href="../../../nn_types/s16.html">s16</a> transferUnit,
+     <a href="../../../nn_types/s16.html">s16</a> transferStride = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pSrc</th>
+          <td>Specifies the image data to transfer. The buffer must be allocated from device memory.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>imageSize</th>
+          <td>Specifies the total size of the data to transfer. This size must be an integer multiple of <emphasis>transferUnit</emphasis>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>transferUnit</th>
+          <td>Specifies the size of a single transfer (one line).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>transferStride</th>
+          <td>Specifies an offset value (separate from <emphasis>transferUnit</emphasis>) to add to the transfer source address for each individual transfer.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures writing of Y data. The actual transfer operation takes place after the <code><a href="../../../nn/y2r/CTR/StartConversion.html">StartConversion</a></code> function is called. The system panics if <emphasis>pSrc</emphasis> is set to anything other than device memory.</p><p>You must use this function to configure transfer settings before you start converting data with the <tt><a href="../../../nn/y2r/CTR/StartConversion.html">nn::y2r::CTR::StartConversion</a></tt> function.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/02/07</dt>
+        <dd><item xmlns="">Added that the buffer must be acquired from device memory.</item><br />
+        </dd>
+        <dt>2010/09/24</dt>
+        <dd><item xmlns="">Explained when transfer settings must be made.</item><br />
+        </dd>
+        <dt>2010/02/02</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

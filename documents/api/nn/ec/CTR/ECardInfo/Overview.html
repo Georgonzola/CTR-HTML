@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::ECardInfo</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::ECardInfo Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ECardInfo : private nn::ec::CTR::detail::SessionHolder</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for getting download-voucher information.</p>
+    </div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardInfo/ECardInfo.html">ECardInfo</a>
+            </th>
+            <td>Constructor for configuring the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object and buffer. The <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object must have been initialized by the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function. The initialized data title maintained by the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object is the one that is searched. The specified buffer is used when calling the <code><a href="../../../../nn/ec/CTR/ECardInfo/Retrieve.html">ECardInfo::Retrieve</a></code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardInfo/~ECardInfo.html">~ECardInfo</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardInfo/Retrieve.html">Retrieve</a>
+            </th>
+            <td>Gets download voucher information. This function requires an Internet connection because it communicates with the Nintendo eShop server. Copies the download voucher information to the buffer specified in the constructor. Returns <code><a href="../../../../nn/ec/CTR/ResultOutOfCatalogMemory/Overview.html">ResultOutOfCatalogMemory</a></code> or <code><a href="../../../../nn/ec/CTR/ResultOutOfCatalogMemoryError/Overview.html">ResultOutOfCatalogMemoryError</a></code> if the buffer is too small to hold all the download voucher information. Any lowercase letters included in the download voucher ID input to this function are converted to uppercase before being sent to the Nintendo eShop server. The other member functions of this class must not be called if this function does not return successfully.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardInfo/GetTypeCode.html">GetTypeCode</a>
+            </th>
+            <td>Gets the download voucher code. You can configure a search filter for the items associated with the download voucher by passing the download voucher code obtained here to <code><a href="../../../../nn/ec/CTR/ECardCatalogFilter/SetECardTypeCode.html">ECardCatalogFilter::SetECardTypeCode</a></code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy">nn::ec::CTR::detail::SessionHolder<br />&nbsp;&nbsp;<b>nn::ec::CTR::ECardInfo</b>
+      </p>
+    </div>
+  </body>
+</html>

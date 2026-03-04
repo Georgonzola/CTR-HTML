@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"[]>
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        --></style>
+    <title>StereoCameraCalibrator</title>
+  </head>
+  <body>
+    <h1>StereoCameraCalibrator</h1>
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        <CODE>StereoCameraCalibrator</CODE> is a tool for manually setting the calibration data for the stereo cameras. This tool can set the following values.
+
+        <table class="table"><tbody>
+          <caption>Position Offsets</caption>
+          <tr><th>Parameter Name</th><th>Setting Name in the Tool</th><th>Member in the <CODE>StereoCameraCalibrationData</CODE> Structure</th></tr>
+          <tr><td>Scaling factor</td><td>scale</td><td>Scale</td></tr>
+          <tr><td>Angle of rotation around the light axis</td><td>rotZ</td><td>RotationZ</td></tr>
+          <tr><td>Amount of horizontal translation</td><td>transX</td><td>TranslationX</td></tr>
+          <tr><td>Amount of vertical translation</td><td>transY</td><td>TranslationY</td></tr>
+        </tbody></table>
+
+        <table class="table"><tbody>
+          <caption>Angles of View</caption>
+          <tr><th>Parameter Name</th><th>Setting Name in the Tool</th><th>Member in the <CODE>StereoCameraCalibrationData</CODE> Structure</th></tr>
+          <tr><td>Angle of view of the left camera</td><td>angleL</td><td>AngleOfViewLeft</td></tr>
+          <tr><td>Angle of view of the right camera</td><td>angleR</td><td>AngleOfViewRight</td></tr>
+        </tbody></table>
+
+        <B>Note:</B> Any values configured with this tool will be reset to their factory defaults if you run the <CODE>Config</CODE> tool and reset settings.
+      </p>
+    </div>
+
+    <h2>How to Calibrate Position Offsets</h2>
+    <div class="section">
+      <p>
+        <h4>Preparing the Chart</h4>
+          <p>
+            Print the chess chart (<CODE><a href="./chesschart-14mm-16x10.pdf" target="_blank">chesschart-14mm-16x10.pdf</a></CODE>) stored in the <CODE>documents/api/tools</CODE> folder. Place this chart 250 mm away from the CTR camera module. Both the camera and the chart must be horizontal.<br /> Note that the calibrated values will be erroneous if the distance between the camera module and the chart is not 250 mm, or if the camera module and chart are not both horizontal.<br /> <font color="red"><B>Note:</B> </font><br />Be sure to print the chart at actual size, because any scaling makes correct calibration impossible.
+          </p>
+        <h4>Calibrating the Values</h4>
+          <p>
+            Use Left/Right on the +Control Pad to select the setting to calibrate, and then use Up/Down to change its value. (For example, if you press Right on the +Control Pad while <CODE>rotZ</CODE> is selected, the cursor moves to <CODE>transX</CODE> on the next line.))<br /><br /> Adjust the values of <CODE>scale</CODE>, <CODE>rotZ</CODE>, <CODE>transX</CODE>, and <CODE>transY</CODE> so that the chess chart in the left image exactly overlaps the chess chart in the right image. For how to set <CODE>angleL</CODE> and <CODE>angleR</CODE>, see <B>How to Set the Angles of View</B>.
+          </p>
+        <h4>Setting the Parameters</h4>
+          <p>
+            Press the A Button to save all the calibrated values to the system as calibration data. Note that all calibration values are saved, not just the setting you have currently selected.<br /><br /> Press the B Button to cancel any adjustments you have made to the selected settings and reset them to the original values.
+          </p>
+      </p>
+    </div>
+
+    <h2>How to Set the Angles of View</h2>
+    <div class="section">
+      <p>
+        <h4>Preparing the Chart</h4>
+          <p>
+            Just as when calibrating the position offsets, print the chess chart (<CODE>chesschart-14mm-16x10.pdf</CODE>) stored in the <CODE>documents/api/tools</CODE> folder. Place this chart 250mm away from the CTR camera module.
+          </p>
+        <h4>Calibrating the Values</h4>
+          <p>
+To calibrate the left camera's angle of view, select <B>angleL</B> and press the B Button. To do the same for the right camera, select <B>angleR</B> and press the B Button.<br /><br />The upper screen displays only the image for the selected side, overlaid with two square icons. The calibration value is the default value: <CODE>66.0</CODE>.
+          </p>
+          <p>
+            If you adjust the value with Up/Down on the +Control Pad, the two icons overlaid on the image move closer or farther apart. Adjust the distance between these two icons so that they lie exactly on two squares of the chess chart whose centers are 84mm apart. Each square is 14 mm wide, so the squares you want the icons to lie on have 5 full squares between them.<br /> (See the following figure.)
+            <pre>
+            Adjust the value so that the icons lie exactly on the two end squares.
+            <img src="StereoCameraCalibrator.gif" alt="" height="120" width="360" align="center"></pre>
+            If the size of the chess square does not perfectly match the size of the icon, align the center of the icon with the center of the square.<br /> You can also use the Circle Pad to change the position of the icons. When you are making very fine adjustments, we recommend moving the icons rather than moving the camera module or the chart.
+          </p>
+        <h4>Setting the Parameters</h4>
+          <p>
+            Press the A Button to save all the calibrated values to the system as calibration data. Note that all calibration values are saved, not just the setting you have currently selected.<br /><br /> Press the B Button to cancel any adjustments you have made to the selected settings and reset them to the original values.
+          </p>
+      </p>
+    </div>
+
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/08</dt>
+        <dd>Initial version.<br />
+        </dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

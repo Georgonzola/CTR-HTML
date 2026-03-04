@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>SuspendScheduler</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/ndm/Overview.html">ndm</a>::SuspendScheduler Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> SuspendScheduler(
+     bool bAsync = false
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>bAsync</th>
+          <td>Specify <code>true</code> to return from the process without waiting for the suspension to complete. Specify this argument when you do not need to know whether suspension has completed and want to quickly perform the next process. <br />
+ Normally specify <code>false</code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a value that indicates whether the function succeeded.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultInvalidOperation</th>
+          <td>There are too many suspend operations.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Suspends the daemon manager that handles scheduling for all network daemons.</p><p><bold>Note:</bold> This function halts all <a href="../../nn/ndm/CTR/Overview.html">CTR</a> background processing. Be fully aware of the side effects and give close attention to the timing of calling this function. <br /><br />
+ Autonomous network connections and all autonomous daemon operations are suspended while scheduling is suspended. Any daemons currently connected to the network are disconnected immediately. The requests to stop scheduling are managed by a counter, so they can be nested. <br />
+ This halts all autonomous network processing, so unless you have strong reasons otherwise, use <code><a href="../../nn/ndm/Suspend.html">Suspend</a></code> or <code><a href="../../nn/ndm/SuspendDaemons.html">SuspendDaemons</a></code> to only halt specific daemons. <br /></p><p><br />
+ If you are conducting communication in the foreground using an Internet connection with something like <code>nn::ac::Connect</code> or <code>nn::friends::Login</code>, only call <code>SuspendScheduler</code> if necessary, and only after the connection process has completed. This enables you to halt just the features you do not need, without wasted work or resources. <br /><br /><bold>Note:</bold> Calling <code>nn::friends::Login</code> immediately after calling <code>SuspendScheduler</code> causes the system to log out from the friend server and then log in over a short time frame, which violates the 3DS Guidelines concerning connecting and disconnecting with friend servers and game servers.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

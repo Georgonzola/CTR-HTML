@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Clamp</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/ProceduralTextureStage/Overview.html">ProceduralTextureStage</a>::Clamp Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum Clamp;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>CLAMP_TO_ZERO</th>
+          <td>References the texture image inside the range of [-1.0, 1.0], and references the image of coordinate 0 outside that range.</td>
+        </tr>
+        <tr>
+          <th>CLAMP_TO_EDGE</th>
+          <td>The image in the texture is referenced inside the range of [-1.0, 1.0], and pixels at the edge of the texture are referenced outside that range.</td>
+        </tr>
+        <tr>
+          <th>CLAMP_SYMMETRICAL_REPEAT</th>
+          <td>Arranges the same image in a grid pattern.</td>
+        </tr>
+        <tr>
+          <th>CLAMP_MIRRORED_REPEAT</th>
+          <td>Flips the images in the even-numbered grid squares like in a mirror.</td>
+        </tr>
+        <tr>
+          <th>CLAMP_PULSE</th>
+          <td>Picks the pixel at the edge of the nearest texture as the pixel to use for rendering.</td>
+        </tr>
+        <tr>
+          <th>CLAMP_RESERVED_MAX_U32</th>
+          <td>
+        </td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The <code>enum</code> values for procedural texture clamping methods.</p><p>The clamping methods are basically the same as the wrapping modes for normal textures, but with the addition of modes like <code>CLAMP_PULSE</code> and <code>CLAMP_TO_ZERO</code>. During the clamping calculations, coordinate values that are not inside the range of [0.0, 1.0] are converted to coordinate values inside that range.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/06/03</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

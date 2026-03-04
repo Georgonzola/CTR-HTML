@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glCheckFramebufferStatus</title>
+  </head>
+  <body>
+    <h1>glCheckFramebufferStatus Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL GLenum GL_APIENTRY glCheckFramebufferStatus(
+     GLenum target
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Target.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the status of the current framebuffer. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Checks the status of the current framebuffer object.</p><P>Set <span class="argument">target</span> to <tt>GL_FRAMEBUFFER</tt>.</P><P>This function returns the following values.<TABLE><TR><TH>GL_FRAMEBUFFER_COMPLETE</TH><TD>The correct buffer has been attached to each attachment point.</TD></TR><TR><TH>GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT</TH><TD>Neither the color buffer nor the depth buffer has been attached.</TD></TR><TR><TH>GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT</TH><TD>A data region has not been allocated for the buffers configured at each attachment point.</TD></TR><TR><TH>GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT</TH><TD>The same render buffer object was attached to the color and depth buffers.</TD></TR><TR><TH>GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS</TH><TD>Buffers of differing sizes are attached to the different attachment points.</TD></TR></TABLE><!-- source 各アタッチメントポイントに正しいバッファがアタッチされている場合、GL_FRAMEBUFFER_COMPLETEを返します。 カラーバッファとデプスバッファのどちらもアタッチされていない場合、GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENTを返します。 各アタッチメントポイントに設定されたバッファのデータ領域が確保されていない場合、GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENTを返します。 カラーバッファとデプスバッファに同じレンダーバッファオブジェクトをアタッチした場合、GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENTを返します。 各アタッチメントポイントにアタッチされたバッファのサイズが異なる場合、GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONSを返します。 --></P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。targetに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

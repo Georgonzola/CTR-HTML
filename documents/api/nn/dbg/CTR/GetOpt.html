@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetOpt</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/dbg/Overview.html">dbg</a>::<a href="../../../nn/dbg/CTR/Overview.html">CTR</a>::GetOpt Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/dbg.h&gt;
+int GetOpt(
+     const char * optstring
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>optstring</th>
+          <td>Specifies the option string.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the found option character.  Returns -1 if no more option characters are found. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Analyzes options from the argument buffer, stored as a string.</p><P>Returns the next option character on each successive call.</P><P><span class="argument">optstring</span> is a string for holding the option characters.</P><P>You must have a parameter argument for the options if there is a : (colon) after the option character. These parameters can be specified successively, such as <tt>-A 123</tt>, or all together, such as <tt>-A123</tt>. Call <tt><a href="../../../nn/dbg/CTR/GetOptArg.html">nn::dbg::CTR::GetOptArg</a></tt> to get parameter arguments.</P><P>You can include or not include a parameter argument for the options if there is a :: (double colon) after the option character. Call <tt><a href="../../../nn/dbg/CTR/GetOptArg.html">nn::dbg::CTR::GetOptArg</a></tt> to get parameter arguments when you are using them.</P><P>The function returns <tt>?</tt> (a question mark) for any option characters that cannot be interpreted. Call <tt><a href="../../../nn/dbg/CTR/GetOptOpt.html">nn::dbg::CTR::GetOptOpt</a></tt> to get these characters.</P><PRE>
+Example:
+
+int c;
+const char* str;
+while( (c = <font color="red">nn::dbg::CTR::GetOpt("AB:C::")</font>) > 0 )
+{
+    switch (c)
+   {
+   case 'A':
+       NN_LOG("*** Found option A\n");
+       break;
+   case 'B':
+       if ( (str = nn::dbg::CTR::GetOptArg()) )
+       {
+           NN_LOG("*** Found option B with %s\n", str);
+       }
+       else
+       {
+           NN_LOG("*** Found option B\n");
+       }
+       break;
+   case 'C':
+       if ( (str = nn::dbg::CTR::GetOptArg()) )
+       {
+           NN_LOG("*** Found option C with %s\n", str);
+       }
+       else
+       {
+           NN_LOG("*** Found option B\n");
+       }
+       break;
+   case '?':
+   default: 
+       NN_LOG("*** Unknown option %c\n", nn::dbg::CTR::GetOptOpt() );
+   }
+}
+</PRE><P>Always returns -1 in release builds.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::Session</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::Session Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Session</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for managing sessions established with the eShop server. The <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object can only be initialized using the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function. Use the functions of the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> class to get information for initialized data titles. Even if data title information is specified in the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function, if initialized data title information cannot be found, the data on the eShop server cannot be used because it is not yet on sale or the sale period has ended. You must have an initialized <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object to initialize the other classes used to communicate with the eShop <a href="../../../../nn/ec/CTR/Server/Overview.html">Server</a>. When an EC library function returns a <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> instance with a <code><a href="../../../../nn/ec/CTR/ResultError/RequiresNewSession.html">ResultError::RequiresNewSession</a></code> method that returns <code>true</code>, the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object that was in use has become invalid. Call <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> again to reinitialize the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object. When a new <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object is initialized, old ones are automatically invalidated. A new <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object must be initialized when the removal of the SD card is detected, but you can avoid using the old <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object by calling <code><a href="../../../../nn/ec/CTR/Session/Invalidate.html">Session::Invalidate</a></code> to invalidate it explicitly. If service item information is passed to the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function, the initialization for the service item is always in a completed state because service items do not require initialization.</p>
+    </div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/Session/GetNumPreparedTitles.html">GetNumPreparedTitles</a>
+            </th>
+            <td>Returns the number of data titles initialized this session. If service item information is passed to the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function, that data is included in the count.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/Session/ListPreparedTitleInfos.html">ListPreparedTitleInfos</a>
+            </th>
+            <td>Lists information for data titles that have been initialized this session. If service item information is passed to the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function, that information is included.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/Session/FindPreparedTitleInfos.html">FindPreparedTitleInfos</a>
+            </th>
+            <td>Searches information for data titles that have been initialized this session. If service item information is passed to the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function, that information is included.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/Session/Validate.html">Validate</a>
+            </th>
+            <td>Confirms the validity of the session.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/Session/Invalidate.html">Invalidate</a>
+            </th>
+            <td>Invalidates the session. Explicitly invalidates a session. Use this function when you want to invalidate the session currently in use, such as when the SD card removal is detected. Calling this function has no effect if the session is already invalid.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/11/18</dt>
+        <dd><item xmlns="">Added a description of situations where the function cannot be used.</item><br />
+        </dd>
+        <dt>2014/10/22</dt>
+        <dd><item xmlns="">Added a description of service items.</item><br />
+        </dd>
+        <dt>2011/10/14</dt>
+        <dd><item xmlns="">Noted that when an EC library function returns a <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> instance with a <code><a href="../../../../nn/ec/CTR/ResultError/RequiresNewSession.html">ResultError::RequiresNewSession</a></code> method that returns <code>true</code>, the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object that was in use has become invalid.</item><br />
+        </dd>
+        <dt>2011/09/08</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

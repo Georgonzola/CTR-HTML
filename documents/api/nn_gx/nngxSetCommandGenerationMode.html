@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxSetCommandGenerationMode</title>
+  </head>
+  <body>
+    <h1>nngxSetCommandGenerationMode Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxSetCommandGenerationMode(
+     GLenum mode
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>mode</th>
+          <td>The output mode.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the command output mode.</p><P>Set <span class="argument">mode</span> to one of the following values.<TABLE><TR><TH>NN_GX_CMDGEN_MODE_CONDITIONAL</TH><TD>Commands are generated only for states that have changed.</TD></TR><TR><TH>NN_GX_CMDGEN_MODE_UNCONDITIONAL</TH><TD>Commands are generated for states that have changed.  Commands will be always generated for functions that are called, regardless of whether the state changed.</TD></TR></TABLE></P><P>The mode is set to <tt>NN_GX_CMDGEN_MODE_CONDITIONAL</tt> by default.  The following settings are affected by the <tt>NN_GX_CMDGEN_MODE_UNCONDITIONAL</tt> mode.<UL><LI>Uniform settings for the reserved fragment shader.</LI><LI>Integer uniform settings for the vertex shader.</LI><LI>Settings for lookup table data. If you set reserved uniform values that specify various lookup table IDs, commands are generated during validation to load lookup tables.  However, each lookup table must be enabled.</LI><LI>Functions that generate commands other than <tt>glDrawArrays</tt>, <tt>glDrawElements</tt>, and <tt>nngxValidateState</tt>.</LI></UL></P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_804D_DMP</TH><TD>The <span class="argument">mode</span> argument was set to an invalid value.</TD></TR></TABLE></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

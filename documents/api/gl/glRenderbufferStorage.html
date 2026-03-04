@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glRenderbufferStorage</title>
+  </head>
+  <body>
+    <h1>glRenderbufferStorage Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glRenderbufferStorage(
+     GLenum target,
+     GLenum internalformat,
+     GLsizei width,
+     GLsizei height
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Target render buffer object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>internalformat</th>
+          <td>Format of the region to allocate.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Width of the region to allocate.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Height of the region to allocate.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Allocates a data region for the current render buffer object.</p><P><span class="argument">target</span> is specified as <tt>GL_RENDERBUFFER</tt>.  To also specify the data region, set <span class="argument">target</span> to a bitwise OR that includes the following values.<UL><LI><tt>NN_GX_MEM_VRAMA</tt>: Allocate a region in VRAMA.</LI><LI><tt>NN_GX_MEM_VRAMB</tt>: Allocate a region in VRAMB.</LI></UL>If you do not specify these values, <tt>NN_GX_MEM_VRAMA</tt> is applied.  You cannot specify the data region with POD.</P><P>Set <span class="argument">internalformat</span> to the internal format. You can set <span class="argument">internalformat</span> to the following values.<TABLE><TR><TH>GL_RGBA8_OES</TH><TD>A 32-bit format that uses 8 bits for each of the RGBA components. </TD></TR><TR><th>GL_RGB565</th><TD>A 16-bit format that uses 5-bit red, 6-bit green, and 5-bit blue components. </TD></TR><TR><th>GL_RGBA4</th><TD>A 16-bit format that uses 4 bits for each of the RGBA components. </TD></TR><TR><th>GL_RGB5_A1</th><TD>A 16-bit format that uses 5 bits for each of the RGB components and 1 bit for the alpha component. </TD></TR><TR><th>GL_GAS_DMP</th><TD>A 32-bit format that uses 16 bits for each of the D1 and D2 density information components. </TD></TR><TR><th>GL_DEPTH_COMPONENT16</th><TD>A 16-bit format for the depth component. </TD></TR><TR><th>GL_DEPTH_COMPONENT24_OES</th><TD>A 24-bit format for the depth component. </TD></TR><TR><th>GL_DEPTH24_STENCIL8_EXT</th><TD>A 32-bit format that uses a 24-bit depth component and an 8-bit stencil component.</TD></TR></TABLE>You cannot specify <tt>GL_STENCIL_INDEX8</tt> from the OpenGL ES 2.0 standard. <!-- source internalformatで内部フォーマットを指定します。internalformatにはGL_RGBA8_OES、GL_RGB565、GL_RGBA4、GL_RGB5_A1、GL_GAS_DMP、GL_DEPTH_COMPONENT16、 GL_DEPTH_COMPONENT24_OES、GL_DEPTH24_STENCIL8_EXTが指定できます。OpenGLES2.0標準のGL_STENCIL_INDEX8は指定できません。GL_RGBA8_OESの場合、赤緑青アルファ各成分8ビットずつの32ビットフォーマットになります。 GL_RGB565の場合、赤が5ビット、緑が6ビット、青が5ビットの16ビットフォーマットになります。 GL_RGBA4の場合、赤緑青アルファ各成分が4ビットずつの16ビットフォーマットになります。 GL_RGB5_A1の場合、赤緑青各成分が5ビット、アルファが1ビットの16ビットフォーマットになります。 GL_GAS_DMPの場合、密度情報D1、D2各16ビットの32ビットフォーマットになります。 GL_DEPTH_COMPONENT16の場合、デプス成分が16ビットのフォーマットになります。 GL_DEPTH_COMPONENT24_OESの場合、デプス成分が24ビットのフォーマットになります。 GL_DEPTH24_STENCIL8_EXTの場合、デプス成分が24ビット、ステンシル成分が8ビットの32ビットフォーマットになります。 --></P><P>Set <span class="argument">width</span> and <span class="argument">height</span> to the width and height of the render buffer.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> or <span class="argument">internalformat</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">width</span> or <span class="argument">height</span> argument is negative, or the maximum supported size was exceeded.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>No render buffer is currently bound.</TD></TR><TR><th>GL_OUT_OF_MEMORY</th><TD>Failed to allocate the render buffer region.</TD></TR></TABLE><!-- source target、internalformatに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 width、heightが負の値の場合、またはサポートされている最大サイズを超える場合エラーGL_INVALID_VALUEを生成します。 サポートされている最大サイズはglGetIntegervにGL_MAX_RENDERBUFFER_SIZEを指定することで取得できます。 カレントにレンダーバッファがバインドされていない場合エラーGL_INVALID_OPERATIONを生成します。 レンダーバッファの領域の確保に失敗した場合エラーGL_OUT_OF_MEMORYを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

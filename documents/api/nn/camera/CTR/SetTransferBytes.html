@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetTransferBytes</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::SetTransferBytes Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetTransferBytes(
+     <a href="../../../nn/camera/CTR/Port.html">Port</a> port,
+     size_t bytes,
+     <a href="../../../nn_types/s16.html">s16</a> width,
+     <a href="../../../nn_types/s16.html">s16</a> height
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>port</th>
+          <td>Specifies which port to set the number of bytes for.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bytes</th>
+          <td>Specifies the number of bytes. <br />
+ All of the following conditions must be met. <br />
+ (1) The <emphasis>bytes</emphasis> parameter must be a multiple of 256 bytes.<br />
+ (2) The amount of data per frame (width * height * 2) must be a multiple of the bytes argument.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Specifies the width of the image to transfer. If trimming is enabled, specify (in pixels) the desired width of the trimmed image.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Specifies the height of the image to transfer. If trimming is enabled, specify the desired height (in pixels) of the trimmed image.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the number of bytes to save in the buffer.</p><p><bold>Note:</bold> Do not let the amount of data being saved exceed the capacity of the buffer (10 KB).</p><P>This function does not set any value if it is called during image capture (while the <tt><a href="../../../nn/camera/CTR/IsBusy.html">nn::camera::CTR::IsBusy</a></tt> function returns <tt>true</tt>).  To change settings, first call the <tt><a href="../../../nn/camera/CTR/StopCapture.html">nn::camera::CTR::StopCapture</a></tt> function to stop capturing, then wait for the <tt><a href="../../../nn/camera/CTR/IsBusy.html">nn::camera::CTR::IsBusy</a></tt> function's return value to change to <tt>false</tt>, and finally call this function. </P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/18</dt>
+        <dd><item xmlns="">Explained that settings cannot be applied while capturing.</item><br />
+        </dd>
+        <dt>2010/02/02</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

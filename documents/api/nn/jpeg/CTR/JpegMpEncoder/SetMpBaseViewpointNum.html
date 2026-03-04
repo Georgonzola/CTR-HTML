@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetMpBaseViewpointNum</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a>::SetMpBaseViewpointNum Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+void SetMpBaseViewpointNum(
+     <a href="../../../../nn_types/u32.html">u32</a> value
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>value</th>
+          <td>Specifies the base viewpoint number.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Registers the base viewpoint number to embed in the MP Attribute IFD.</p><p>This function is enabled if the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderFirst.html">StartMpEncoderFirst</a></code> or <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderNext.html">StartMpEncoderNext</a></code> function is used as the encoding function. It is invalid when using <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderLR.html">StartMpEncoderLR</a></code>. (The default value is registered.)</p><p>If you do not call this function, the library registers the default value (<code>1</code>). <br />
+ However, the value is only embedded when the image's MP type (<code><a href="../../../../nn/jpeg/CTR/MpTypeCode.html">MpTypeCode</a></code>) is <code><span>MP_TYPE_CODE_MULTI_VIEW_DISPARITY_IMAGE</span></code> (a stereoscopic image) or <code><span>MP_TYPE_CODE_MULTI_VIEW_MULTI_ANGLE_IMAGE</span></code> (a multi-angle image).</p><p>The same base viewpoint number must be embedded in all the individual images, so call this function before calling the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderFirst.html">StartMpEncoderFirst</a></code> function. If this function is called before <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderNext.html">StartMpEncoderNext</a></code>, it is ignored.</p><p>The values specified by this function are cleared after encoding of all the individual images completes, regardless of whether encoding succeeded or failed. The values specified by this function are also cleared if you call the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpBaseViewpointNum.html">ClearMpBaseViewpointNum</a></code> function, or if you reinitialize the encoder object using the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Initialize.html">Initialize</a></code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/22</dt>
+        <dd><item xmlns="">Added a link to MpTypeCode.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

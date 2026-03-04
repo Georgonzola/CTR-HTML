@@ -1,0 +1,955 @@
+﻿<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ctr_VertexShaderLinker</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size		: 150%;
+  font-family		: Arial;
+  border-bottom-width	: 5px;
+  border-bottom-style	: solid;
+  border-bottom-color	: #CD202C;
+  padding-bottom		: 1px;
+  margin-bottom		: 20px;
+  letter-spacing		: normal;
+  font-weight		: bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+h3 {
+    font-weight     : bold;
+    font-size       : 120%;
+    border-style    : none none solid solid;
+    border-width    : 0px 0px 2px 2px;
+    border-color    : #CD202C;
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+CODE {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+}
+table {
+  margin-top        : 2pt;
+  margin-bottom     : 2pt;
+  margin-left       : 0pt;
+  margin-right      : 0pt;
+  padding-left      : 0pt;
+  padding-right     : 0pt;
+  position          : relative;
+  left              : 12px;
+  font-family       : Arial;
+  font-size         : 10pt;
+  border-style      : none none none none;
+}
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+p.code {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+  background            : #e8f4f4;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+<h1>ctr_VertexShaderLinker</h1>
+
+<h2>Contents</h2>
+<ul style='list-style-type: none'>
+<li>1. <a href="#intro">Introduction</a></li>
+<li>2. <a href="#usage">How to Use</a>
+        <ul style='list-style-type: none'>
+<li>2.1 <a href="#command">Commands</a></li>
+<li>2.2 <a href="#input_file">Input Files</a></li>
+<li>2.3 <a href="#option">Options</a></li>
+        </ul>
+    </li>
+<li>3. <a href="#mapfile_format">Map File Output Feature</a></li>
+        <ul style='list-style-type: none'>
+<li>3.1 <a href="#Loading_objects_order">Loading Objects Order</a></li>
+<li>3.2 <a href="#Image_sizes">Image Sizes</a></li>
+<li>3.3 <a href="#Program_code_information">Program Code Information</a></li>
+<li>3.4 <a href="#Object_information">Object Information</a></li>
+<li>3.5 <a href="#Swizzle_pattern_data">Swizzle Pattern Data</a></li>
+        </ul>
+<li>4. <a href="#warn_level">Warning Level</a></li>
+<li>5. <a href="#consistency_check">Consistency Check Feature</a></li>
+        <ul style='list-style-type: none'>
+<li>5.1 <a href="#end_check">Checks for Execution of an <CODE>end</CODE> Instruction</a></li>
+<li>5.2 <a href="#input_check">Checks Reads from Input Registers</a></li>
+<li>5.3 <a href="#output_check">Checks Writes to Output Registers</a></li>
+        </ul>
+<li>6. <a href="#reg_initialize_check">Uninitialized Register Checker Feature</a></li>
+        <ul style='list-style-type: none'>
+<li>6.1 <a href="#temp_reg_check">Uninitialized Temporary Register Check</a></li>
+<li>6.2 <a href="#address_reg_check">Uninitialized Address Register Check</a></li>
+<li>6.3 <a href="#loopcount_reg_check">Uninitialized Loop Counter Register Check</a></li>
+<li>6.4 <a href="#status_reg_check">Uninitialized Status Register Check</a></li>
+        </ul>
+<li>7. <a href="#performance_check">Performance Check Features</a></li>
+        <ul style='list-style-type: none'>
+<li>7.1 <a href="#stall_cause">Detectable Reasons for Stalling</a></li>
+<li>7.2 <a href="#multi_stall">When Multiple Reasons for Stalling Occur</a></li>
+<li>7.3 <a href="#result">Result Output</a></li>
+        </ul>
+<li>8. <a href="#debug_build">Debug Build</a></li>
+<li>9. <a href="#err_code">Error Codes (Linker)</a></li>
+        <ul style='list-style-type: none'>
+<li>9.1 <a href="#err_mes_format">Error Message Format</a></li>
+<li>9.2 <a href="#err_message">Error Message</a></li>
+        </ul>
+<li>10. <a href="#history">Revision History</a></li>
+</ul>
+
+<h2><a name="intro">Introduction</a></h2>
+<P>
+<CODE>ctr_VertexShaderLinker</CODE> links object files output by <CODE>ctr_VertexShaderAssembler</CODE>, and outputs an executable file.
+</P>
+
+<h2><a name="usage">How to Use</a></h2>
+
+<h3><a name="command">Commands</a></h3>
+<p class="code">
+% ctr_VertexShaderLinker32 &lt;input filename&gt; [options...]
+</p>
+
+<p class="first_ja">
+Input files must be object files that include at least one <CODE>main</CODE> function. Options can be omitted. Help is displayed if the assembler is executed without any arguments.<br />
+</p>
+
+<h3><a name="input_file">Input Files</a></h3>
+<p class="first_ja">
+Specify the object files to enter in place of <CODE>&lt;input filename&gt;</CODE>.<br />If input files include more than one main object, the application must specify the same number of shader objects as there are main objects to the <CODE>glShaderBinary</CODE> function.<br />All shader objects access main objects in the order specified by arguments to <CODE>ctr_VertexShaderLinker32</CODE> at this time.<br />For the filename, specify a string of 128 or fewer alphanumeric characters that contains no spaces or any of the following symbols: <CODE>\ / :  * ? &quot; &lt; &gt; |</CODE>.  <br />
+</p>
+
+<h3><a name="option">Options</a></h3>
+<p class="first_ja">
+The following options can be specified in place of <CODE>[options...]</CODE>.<br />
+</p>
+
+<div class="table">
+<table border="1" summary="options">
+<thead>
+<tr>
+<th align="center">Option</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">-I&lt;file path&gt;</td>
+<td align="center">Specifies the file path of the input file.<br />Input files are looked for in the current directory, and in the order directories are specified using this option.</td>
+</tr>
+<tr>
+<td align="center">-O &lt;File Name&gt;</td>
+<td align="center">Specifies the output filename.<br />The default is <CODE>shader.bin</CODE>.</td>
+</tr>
+<tr>
+<td align="center">-M</td>
+<td align="center">Outputs a map file.<br />This file has the same name as the executable file, with its extension changed to <CODE>.map</CODE>. For more information about map files, see <a href="#mapfile_format">Map File Output Features</a>.</td>
+</tr>
+<tr>
+<td align="center">-debug</td>
+<td align="center">Links all object files with debug information included.</td>
+</tr>
+<tr>
+<td align="center">-nodebug</td>
+<td align="center">Links all object files without including debug information.</td>
+</tr>
+<tr>
+<td align="center">-warn_level=&lt;level&gt;</td>
+<td align="center">Specifies the warning level.<br />Sets the level of the warning, as specified by <CODE>&lt;level&gt;</CODE>. For more information about warning levels, see <a href="#warn_level">Warning Levels</a>.</td>
+</tr>
+<tr>
+<td align="center">-check_performance</td>
+<td align="center">Checks the performance of all main objects being linked.<br />For more information about performance checks, see <a href="#performance_check">Performance Check Features</a>.</td>
+</tr>
+<tr>
+<td align="center">-? or -help</td>
+<td align="center">Displays help.</td>
+</tr>
+<tr>
+<td align="center">-check_consistency</td>
+<td align="center">Checks the consistency of all main objects being linked.<br />This option is retained for compatibility. In the current specification, the consistency check is run based on the specified warning level. <br />For more information about consistency checking, see <a href="#consistency_check">Consistency Checker Feature</a>.<br />For more information about warning levels, see <a href="#warn_level">Warning Levels</a>.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="mapfile_format">Map File Output Feature</a></h2>
+<p>
+Information about executable files linked by executing <CODE>ctr_VertexShaderLinker32</CODE> with the <CODE>-M</CODE> option specified. The output file is called a map file.<br />The map file is generated using the same name as the executable file, with the extension changed to <CODE>.map</CODE>.<br /><br /><br /> The following information is generated: The loading objects order, image sizes, program code information, object information, and swizzle pattern data.<br /><br />
+</p>
+
+<h3><a name="Loading_objects_order">Loading Objects Order</a></h3>
+<p>
+This item shows the order in which main objects have been linked.<br />The order in which main objects are linked is in the same order that they were specified as arguments to <CODE>ctr_VertexShaderLinker32</CODE>. The order of objects shown here is the same as the order for each reference in the shader object that was specified by the <CODE>glShaderBinary</CODE> function. The main objects that are debug builds are also shown.<br />
+</p>
+
+<h3><a name="Image_sizes">Image Sizes</a></h3>
+<p>
+This item shows the size of the linked object files.<br />&quot;Instruction&quot; represents the number of assembler instructions, and &quot;Swizzle&quot; represents the number of swizzling and masking patterns. (For more information, see &quot;Number of Swizzling and Masking Patterns&quot; under &quot;Notes and Limitations.&quot;)<br /><CODE>Total</CODE> represents the total size after linking.<br />
+</p>
+
+<h3><a name="Program_code_information">Program Code Information</a></h3>
+<p>
+This item shows the storage location for program code inside the executable file.<br /> &quot;Program code offset&quot; represents the offset (in bytes) from the start of the file to the address at which program data is stored in the executable file. &quot;Program code size&quot; shows the size (in bytes) of program code data.<br />
+</p>
+
+<h3><a name="Object_information">Object Information</a></h3>
+<p>
+This item shows the symbol information, output data attribute information, and program start address for each main object that has been linked.<br /> Each of these, respectively, represent settings specified using a <CODE>#pragma bind_symbol</CODE> or <CODE>#pragma output_map</CODE> statement, and the program address set by the <CODE>main</CODE> label.<br />
+</p>
+
+<h3><a name="Swizzle_pattern_data">Swizzle Pattern Data</a></h3>
+<p>
+This item shows the swizzle pattern data of the executable file.<br />
+</p>
+<h2><a name="warn_level">Warning Level</a></h2>
+<p>
+Use the <CODE>-warn_level=&lt;level&gt;</CODE> option in <CODE>ctr_VertexShaderLinker32</CODE> to specify the warning level. Each level is described below.
+<ul>
+<li>Level 0: No warnings are output.</li>
+<li>Level 1: Standard warnings are output.</li>
+<li>Level 2: In addition to the standard warnings of level 1, warnings are also output when registers are read from before they are written to (that is, when uninitialized registers are read).</li>
+<li>Level 3: In addition to the warnings of level 2 and level 1, warnings are also output by the consistency checker feature.</li>
+</ul>
+If the <CODE>-warn_level</CODE> option is not specified, the linker runs at warning level 2 by default. An error occurs if a value outside of the range from 0 through 3 is specified for the level.<br />
+If the warning level is 2 or higher, the linking process takes longer because assembler instruction dependencies are checked in order from the start.<br />
+For more information about the warnings output with level 2 when uninitialized registers are read, see <a href="#reg_initialize_check">Uninitialized Register Checker Feature</a>.<br />
+For more information about the warnings output with level 3, see <a href="#consistency_check">Consistency Checker Feature</a>.<br /><br /> The warnings generated by the consistency checker when using level 3 warnings were output by the <CODE>-check_consistency</CODE> option in previous versions. That option remains for reasons of compatibility. If you specify the option it has the same result as specifying level 3 warnings.<br /> The following table shows the warning messages that are output for each warning level. The &quot;<CODE>○</CODE>&quot; symbol indicates that the warning message is output.
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th></th>
+<th colspan="3">Warning Level</th>
+</tr>
+<tr>
+<th>Warning Code</th>
+<th width="100">1</th>
+<th width="100">2 (default)</th>
+<th width="100">3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>40090001</td>
+<td></td>
+<td></td>
+<td>○</td>
+</tr>
+<tr>
+<td>40090002</td>
+<td></td>
+<td></td>
+<td>○</td>
+</tr>
+<tr>
+<td>40090003</td>
+<td></td>
+<td></td>
+<td>○</td>
+</tr>
+<tr>
+<td>40090004</td>
+<td></td>
+<td></td>
+<td>○</td>
+</tr>
+<tr>
+<td>40090005</td>
+<td></td>
+<td></td>
+<td>○</td>
+</tr>
+<tr>
+<td>40090006</td>
+<td></td>
+<td></td>
+<td>○</td>
+</tr>
+<tr>
+<td>40090007</td>
+<td></td>
+<td></td>
+<td>○</td>
+</tr>
+<tr>
+<td>40090008</td>
+<td></td>
+<td></td>
+<td>○</td>
+</tr>
+<tr>
+<td>40090009</td>
+<td></td>
+<td></td>
+<td>○</td>
+</tr>
+<tr>
+<td>4009000a</td>
+<td></td>
+<td></td>
+<td>○</td>
+</tr>
+<tr>
+<td>4009000b</td>
+<td>○</td>
+<td>○</td>
+<td>○</td>
+</tr>
+<tr>
+<td>4009000c</td>
+<td>○</td>
+<td>○</td>
+<td>○</td>
+</tr>
+<tr>
+<td>4009000d</td>
+<td></td>
+<td>○</td>
+<td>○</td>
+</tr>
+</tbody>
+</table>
+</div>
+</p>
+<h2><a name="consistency_check">Consistency Check Feature</a></h2>
+<p>
+The consistency check feature checks that the assembler has been implemented correctly.<br /> This feature is implemented in the linker and can be enabled by specifying the <CODE>-check_consistency</CODE> option to <CODE>ctr_VertexShaderLinker32.exe</CODE>.<br /> Several items are checked for each main object being linked. The check traverses each instruction in the main object from the <CODE>main</CODE> label up to the <CODE>endmain</CODE> label. A warning is output if an implementation of the item being checked is found.<br /><br /> Each instruction is checked according to the following conditions.<br />
+<ul>
+<li>For <CODE>call</CODE> instructions, it also checks the call destination.</li>
+<li>Conditional jump and conditional call instructions must not branch. (The branch destinations of <CODE>jpb</CODE>, <CODE>jpc</CODE>, <CODE>callb</CODE>, and <CODE>callc</CODE> instructions are not considered.)</li>
+<li>Both <CODE>if</CODE> and <CODE>else</CODE> instructions are checked for <CODE>ifb</CODE> and <CODE>ifc</CODE> instructions.</li>
+<li>Because an infinite loop results when a subroutine is called recursively by a <CODE>call</CODE> instruction, if the same subroutine is called inside a nested <CODE>call</CODE>, execution proceeds to the next instruction without executing that <CODE>call</CODE>.<br /> (A warning is output in this case.)</li>
+</ul>
+The consistency check checks the items listed below.
+<ul>
+<li>Checks for Execution of an <CODE>end</CODE> Instruction</li>
+<li>Checks Reads from Input Registers</li>
+<li>Checks Writes to Output Registers</li>
+</ul>
+Each item is described in detail below. The term &quot;<CODE>if</CODE> instruction&quot; used in this section, includes both <CODE>ifb</CODE> and <CODE>ifc</CODE> instructions.
+</p>
+
+<h3><a name="end_check">Checks for Execution of an end Instruction</a></h3>
+<p>
+This feature checks whether an <CODE>end</CODE> instruction has been called correctly. A warning is output for the following checked items.
+<ul>
+<li>When no <CODE>end</CODE> instruction can be found.</li>
+<li>When an <CODE>end</CODE> instruction is found between a pair of <CODE>loop-endloop</CODE> instructions.</li>
+<li>When an <CODE>end</CODE> instruction is found in only one pair of <CODE>if</CODE>-<CODE>else</CODE> or <CODE>else</CODE>-<CODE>endif</CODE> instructions. If no <CODE>else</CODE> instruction corresponds to an <CODE>if</CODE> instruction, a warning is output if an <CODE>end</CODE> instruction is found between a pair of <CODE>if-endif</CODE> instructions.</li>
+</ul>
+</p>
+
+<h3><a name="input_check">Checks Reads from Input Registers</a></h3>
+<p>
+This feature checks whether input registers are being used correctly. This check is performed on the input registers and components specified by using a <CODE>#pragma bind_symbol</CODE> statement. A warning is output for the following checked items.
+<ul>
+<li>When not all input registers are being used. Any register name or component name that is possibly not being used is reported.</li>
+<li>When the way an input register is used differs between <CODE>if-else</CODE> instructions and <CODE>else-endif</CODE> instructions. This is reported because the way in which input registers are used may differ, due to the way <CODE>if</CODE> instructions branch. If no <CODE>else</CODE> instruction corresponds to an <CODE>if</CODE> instruction, a warning is output if an input register is used between a pair of <CODE>if</CODE>-<CODE>endif</CODE> instructions.</li>
+</ul>
+</p>
+
+<h3><a name="output_check">Checks Writes to Output Registers</a></h3>
+<p>
+This feature checks whether output registers are being used correctly. Output registers specified using <CODE>#pragma output_map</CODE> statements are checked. All <CODE>xyzw</CODE> components are also checked. A warning is output for the following checked items.
+<ul>
+<li>When not all output registers are written to. Any register name or component name that is possibly not being written to is reported.</li>
+<li>When an output register is written to between a pair of <CODE>loop</CODE>-<CODE>endloop</CODE> instructions. This is reported because an output register may be written to more than once, depending on the number of times a <CODE>loop</CODE> instruction repeats.</li>
+<li>When the way an output register is used differs between <CODE>if</CODE>-<CODE>else</CODE> instructions and <CODE>else</CODE>-<CODE>endif</CODE> instructions. This is reported because the way in which output registers are used may differ, due to the way <CODE>if</CODE> instructions branch. If no <CODE>else</CODE> instruction corresponds to an <CODE>if</CODE> instruction, a warning is output if an output register is written to between a pair of <CODE>if</CODE>-<CODE>endif</CODE> instructions.</li>
+<li>When an output register is written more than once. Any register name or component name that may be written to more than once by a given instruction is reported.</li>
+</ul>
+</p>
+<h2><a name="reg_initialize_check">Uninitialized Register Checker Feature</a></h2>
+<p>
+The uninitialized register checker feature looks at registers that are read/written in the shader and outputs a warning when a register is read from before it is written to, because this might result in an undefined value being referenced. <br />This feature is part of the linker and is enabled by specifying the <CODE>-warn_level=2</CODE> (or <CODE>-warn_level=3</CODE>) option with <CODE>ctr_VertexShaderLinker32.exe</CODE>.  Several items are checked for each main object being linked. The check traverses each instruction in the main object from the <CODE>main</CODE> label up to the <CODE>endmain</CODE> label. A warning is output if it finds an implementation of the item it is checking for.<br /><br /> Each instruction is checked according to the following conditions.
+<ul>
+<li>For <CODE>call</CODE> instructions, it also checks the call destination.</li>
+<li>It assumes that conditional jump and conditional call instructions do not branch, (with no consideration for the branch destinations of <CODE>jpb</CODE>, <CODE>jpc</CODE>, <CODE>callb</CODE>, and <CODE>callc</CODE> instructions).</li>
+<li>Both <CODE>if</CODE> and <CODE>else</CODE> instructions are checked for <CODE>ifb</CODE> and <CODE>ifc</CODE> instructions.</li>
+<li>Because an infinite loop results when a subroutine is called recursively by a <CODE>call</CODE> instruction, if the same subroutine is called inside a nested <CODE>call</CODE> instruction, execution proceeds to the next instruction without executing that <CODE>call</CODE> instruction. (A warning is output in this case.)
+</ul>
+The following checks are conducted.
+<ul>
+<li><a href="#temp_reg_check">Uninitialized Temporary Register Check</a></li>
+<li><a href="#address_reg_check">Uninitialized Address Register Check</a></li>
+<li><a href="#loopcount_reg_check">Uninitialized Loop Counter Register Check</a></li>
+<li><a href="#status_reg_check">Uninitialized Status Register Check</a></li>
+</ul>
+</p>
+<h3><a name="temp_reg_check">Uninitialized Temporary Register Check</a></h3>
+<p>
+A warning is output if a temporary register is read before it is written to. A check is run on each component (x, y, z, and w).<br />If different temporary registers are written in <CODE>if-else</CODE> statements and <CODE>else-endif</CODE> statements, the checker determines that the registers might not be written to.</p>
+<h3><a name="address_reg_check">Uninitialized Address Register Check</a></h3>
+<p>
+A warning is output if an address register is read before it is written to. A check is run on each component (x and y).<br />If different address registers are written in <CODE>if-else</CODE> statements and <CODE>else-endif</CODE> statements, the checker determines that the registers might not be written to.
+</p>
+<h3><a name="loopcount_reg_check">Uninitialized Loop Counter Register Check</a></h3>
+<p>
+A warning is output if a loop counter register is read before it is written to. Values are written to loop counter registers by <CODE>loop</CODE> instructions. <br />If different loop counter registers are written in <CODE>if-else</CODE> statements and <CODE>else-endif</CODE> statements, the checker determines that the registers might not be written to.
+</p>
+<h3><a name="status_reg_check">Uninitialized Status Register Check</a></h3>
+<p>
+A warning is output if a status register is read before it is written to. Values are written to status registers by <CODE>cmp</CODE> instructions. <br />If different status registers are written in <CODE>if-else</CODE> statements and <CODE>else-endif</CODE> statements, the checker determines that the registers might not be written to.
+</p>
+<h2><a name="performance_check">Performance Check Features</a></h2>
+<p>
+Performance check features include a feature for detecting instructions that cause execution to stall and a feature that estimates the number of clock cycles required per vertex when executing from a shader assembler implementation.<br /> This feature is implemented in the linker, and can be enabled by specifying the <CODE>-check_performance</CODE> option to <CODE>ctr_VertexShaderLinker32.exe</CODE>.<br /> Each main object being linked is checked. The check traverses each instruction in the main object from the <CODE>main</CODE> label up to an <CODE>end</CODE> instruction or <CODE>endmain</CODE> label. Results of the check are output to the file and the command prompt that executed the linker. The output file is generated under the name of the binary file created by the linker, with its extension replaced by &quot;perf.txt.&quot; (It is generated in the same location as the binary file.)<br /> <br /> Each instruction is checked according to the following conditions.<br />
+<ul>
+<li>For <CODE>call</CODE> instructions, it also checks the call destination.</li>
+<li>Conditional jump and conditional call instructions must not branch.<br />(The branch destinations of <CODE>jpb</CODE>, <CODE>jpc</CODE>, <CODE>callb</CODE>, and <CODE>callc</CODE> instructions are not considered. This condition is always determined to be <CODE>FALSE</CODE>.)</li>
+<li>Only <CODE>else</CODE> instructions are checked for <CODE>ifb</CODE> and <CODE>ifc</CODE> instructions. (This condition is always determined to be <CODE>FALSE</CODE>.)</li>
+<li>Because an infinite loop results when a subroutine is called recursively by a <CODE>call</CODE> instruction, if the same subroutine is called inside a nested <CODE>call</CODE> instruction, execution proceeds to the next instruction without executing that <CODE>call</CODE> instruction.</li>
+</ul>
+The following items are included in output results.<br />
+<ul>
+<li>The total number of clock cycles for instructions being executed.</li>
+<li>The total number of instructions being executed.</li>
+<li>Instructions that result in stalling, the number of associated clock cycles, and the cause.</li>
+</ul>
+When calculating the total number of clock cycles, the number of clock cycles that execution is stalled is added as one clock cycle per instruction when a stall occurs.<br />The reasons output for stalling do not correspond to all of the actual hardware reasons that might result in a stall. Note that the total number of clock cycles calculated should only be used as a guideline, as it does not, necessarily, exactly match the clock cycles executed in actual hardware.<br />This feature is described in detail below.<br />
+</p>
+
+<h3><a name="stall_cause">Detectable Reasons for Stalling</a></h3>
+<p>
+You can use this feature to detect several reasons for stalling. Each associated item is described in detail below.<br />
+</p>
+
+<h4>Stalling Caused by Instruction Dependencies</h4>
+<p>
+You can detect stalling caused by dependency on the register used by an instruction.<br /> With two instructions where the second instruction references the calculation result of the first instruction, a stall occurs if the second instruction is called before the first instruction has completed its calculation and must wait (stall) to reference the result.<br /><br /> The number of clock cycles where execution stalls depends on the latency of the first instruction called and number of instructions executed between these two instructions. For more information about the latency of each instruction, see <I>Instruction Latency</I>. The register may be a temporary register or status register. For status registers, <CODE>ifc</CODE>, <CODE>callc</CODE>, and <CODE>breakc</CODE> may be dependent on <CODE>cmp</CODE>.<br /><br />*<br /> Example:<br />
+</p>
+<p class="code">
+dp4 r0 , r1 , r2<br /> add r3 , r4 , r0<br />
+</p>
+<p>
+In this example, the result calculated by <CODE>dp4</CODE> for <CODE>r0</CODE> is used by the <CODE>add</CODE> instruction that immediately follows. Because the latency of <CODE>dp4</CODE> is 5 clock cycles, a stall of 4 clock cycles is the detected result when <CODE>add</CODE> executes.<br /><br /><br /> Some instructions depend on more than one other instruction. In this case, the number of clock cycles for the instruction with the greatest stall time is used as the stall count for the dependent instruction.<br /> <br /> Example:<br />
+</p>
+<p class="code">
+dp4 r0.x , r1 , r2<br /> mov r0.y, c0<br /> add r3 , r4 , r0<br />
+</p>
+<p>
+In this example, the third <CODE>add</CODE> instruction depends on both <CODE>dp4</CODE> and <CODE>mov</CODE> for <CODE>r0</CODE>. <CODE>add</CODE> stalls for 3 clock cycles because of <CODE>dp4</CODE> and 1 clock cycle because of <CODE>mov</CODE>. Because the highest stall time of the two is 3 clock cycles, a stall of 3 clock cycles is used as the detected result.<br />
+</p>
+
+<h4>Stalling Caused by Calling the mova Instruction</h4>
+<p>
+A 3-clock cycle stall results unconditionally when <CODE>mova</CODE> is called.
+</p>
+
+<h4>Stalling Caused by Branching</h4>
+<p>
+A 2-clock cycle stall results if the program counter varies by other than +1 while executing a <CODE>call</CODE> or <CODE>if</CODE> instruction. A 2-clock cycle stall results at the instruction immediately after <CODE>ret</CODE> when execution returns from the source that called <CODE>call</CODE>.
+</p>
+
+<h3><a name="multi_stall">When Multiple Reasons for Stalling Occur</a></h3>
+<p>
+Some instructions may stall for multiple reasons. In this case, the stall clock cycle count for the reason having the longest stall time is used.<br /><br /> Example:<br />
+</p>
+<p class="code">
+main:<br />call label0 // Call to label0<br /> ...<br /> end<br /> <br /> label0:<br />dp4 r0.x , r1, r2<br /> mova a0.x, r0.x<br /> ret<br />
+</p>
+<p>
+In this example, when the <CODE>mova</CODE> instruction at the end of the subroutine named <CODE>label0</CODE> is reached, a 4-clock cycle stall occurs because of a dependency on the immediately preceding <CODE>dp4</CODE> instruction, a 3-clock cycle stall occurs when calling the <CODE>mova</CODE> itself, and a 2-clock cycle stall occurs due to branching. Because the longest stall time out of all these reasons for stalling is 4 clock cycles, the calculated result is a 4-clock cycle stall.
+</p>
+
+<h3><a name="result">Result Output</a></h3>
+<p>
+Results of the performance checks are output to a file and the command prompt that executed the linker.<br />The output file is generated under the name of the binary file created by the linker, with its extension replaced by <CODE>perf.txt</CODE>.<br /><br /> The following content is output to the file.<br /><br />
+</p>
+<p class="code">
+Main object:obj&yen;VShader.o<br /> <br /> Total executed clock count 14 clock<br /> Total executed instruction count 7 instructions<br /> <br /> Detail of stall<br /> ============================================================<br /> <br /> VShader.vsh(26):2 clock stall is caused by branch.<br /> <br /> VShader.vsh(36):4 clock stall is caused.<br /> |<br /> +--- 3 clock stall is by mova instruction.<br /> |<br /> +--- 2 clock stall is by branch.<br /> |<br /> +--- VShader.vsh(35):4 clock is to wait for this instruction to finish writing r0.<br /> <br /> VShader.vsh(30):1 clock stall is caused by reading temporary register.<br /> |<br /> +--- VShader.vsh(29):To wait for this instruction to finish writing r1.<br /> ...<br />
+</p>
+<p>
+&quot;Main object&quot; is the name of the main object being checked. Each check result is output for all main objects being linked.<br />&quot;Total executed clock count&quot; is the total number of clock cycles required for execution per vertex.<br />&quot;Total executed instruction count&quot; is the number of instructions executed.<br />The location where a stall occurred, the reason for the stall, and the number of clock cycles that execution stalled are listed under &quot;Detail of stall.&quot; For stalling due to instruction dependencies, the location of the instruction being depended upon and the register indicating the reason are shown.<br /> If there is more than one reason for a stall, the stall count for each separate reason and the stall clock cycle count of all results are taken together and shown.<br /><br />The check results are output in the order instructions are executed, starting from the <CODE>main</CODE> label. If the same subroutine is called more than once, the same stall details are shown multiple times because a check is made for each instance the subroutine executes.<br /><br />Details nearly identical to those output to file are also output to the command prompt where the linker was run. (Information about dependencies is indented.)<br />If the linker is executed from an environment such as Microsoft Visual Studio, you can jump to the shader assembler source file by clicking the output result of a reason for stalling in the output window. This is useful when you want to look at the location of a problem.<br />
+</p>
+
+<h2><a name="debug_build">Debug Build</a></h2>
+<p>
+All assembler objects being linked can be forced to form a debug build by specifying the <CODE>-debug</CODE> option to <CODE>ctr_VertexShaderLinker</CODE>.<br />All assembler objects being linked can be forced to form a non-debug build by specifying the <CODE>-nodebug</CODE> option to <CODE>ctr_VertexShaderLinker</CODE>.<br /><br /><br /> If a mixture of debug build and non-debug build assembler objects are linked and even one of the assembler objects referenced by each main object is a debug build, that main object also results in a debug build.<br /><br />
+</p>
+
+<h2><a name="err_code">Error Codes (Linker)</a></h2>
+
+<h3><a name="err_mes_format">Error Message Format</a></h3>
+<P>
+This page describes error messages output by the linker. Errors are output in the following format. <br /><br /> Input filename (line number of error): Error level (error code): Error description<br/> <br />The error level is either &quot;warning&quot; or &quot;error.&quot; Execution can continue for a &quot;warning&quot; level error. The input filename or error line number may not be displayed, depending on the type of error.<br />  <br />
+</P>
+
+
+<h3><a name="err_message">Error Messages</a></h3>
+<P>
+This table gives the error codes output by the linker and their description.
+</P>
+
+<h4><a name="8008xxxx">8008xxxx</a></h4>
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Error Code</th>
+<th align="center">Message / Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" rowspan="2">80080001</td><td> Input file is not specified.</td>
+</tr>
+<tr>
+<td>
+Input file not specified.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080005</td><td> &quot;argument&quot; is not found.</td>
+</tr>
+<tr>
+<td>
+Input file could not be found.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080006</td><td> Exceeded maximum number of long swizzle masks/patterns.</td>
+</tr>
+<tr>
+<td>
+The number of swizzling patterns for map exceeds the upper limit.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080007</td><td> Exceeded maximum number of swizzle masks/patterns.</td>
+</tr>
+<tr>
+<td>
+The number of swizzling patterns exceeds the upper limit.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8008000f</td><td> Label &quot;label name&quot; is duplicate.</td>
+</tr>
+<tr>
+<td>
+The same label name is defined more than once in the subroutine object.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080012</td><td> Cannot open output file.</td>
+</tr>
+<tr>
+<td>
+An executable file could not be generated.<br /> Check whether a read-only file having the same name already exists.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080014</td><td> &quot;input filename&quot; is invalid file format.</td>
+</tr>
+<tr>
+<td>
+The input file is not an object file.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080015</td><td> Some input files are the same name.</td>
+</tr>
+<tr>
+<td>
+Input files having the same name have been specified.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8008001d</td><td> &quot;label name&quot; is not subroutine.</td>
+</tr>
+<tr>
+<td>
+An <CODE>ret</CODE> instruction has not been set for a label called as a subroutine by the <CODE>call</CODE> instruction.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8008001f</td><td> &quot;label name&quot; cannot be found in input object files.</td>
+</tr>
+<tr>
+<td>
+The label referenced in the input file cannot be found.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080020</td><td> Vertex shader size is over the limit.</td>
+</tr>
+<tr>
+<td>
+The number of instructions in the shader exceeds the upper limit.<br /> Shaders consisting of up to 512 instructions can be linked.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080022</td><td> &quot;register name&quot; is duplicately defined in &quot;object name&quot; and &quot;object name&quot;.</td>
+</tr>
+<tr>
+<td>
+A register is defined as having different values by more than one object through use of the <CODE>def</CODE>, <CODE>defi</CODE>, or <CODE>defb</CODE> instructions.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080024</td><td> &quot;register name&quot; is duplicately defined in &quot;object name&quot; and &quot;object name&quot;.</td>
+</tr>
+<tr>
+<td>
+An output register is mapped to different output data attributes by more than one object through the use of a <CODE>#pragma output_map</CODE> statement.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080025</td><td> symbol &quot;symbol name&quot; is duplicately defined in &quot;object name&quot; and &quot;object name&quot;.</td>
+</tr>
+<tr>
+<td>
+A symbol name is bound to different registers by more than one object through the use of <CODE>#pragma bind_symbol</CODE> definitions.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8008002a</td><td> symbol &quot;symbol name&quot; in &quot;object name&quot; and &quot;symbol name&quot; in &quot;object name&quot; are bound to the same register.</td>
+</tr>
+<tr>
+<td>
+A symbol in an object is bound to the same input register as another symbol in an object through the use of <CODE>#pragma bind_symbol</CODE> definitions.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8008002b</td><td> &quot;label name&quot; is duplicately defined in &quot;subroutine object name&quot;.</td>
+</tr>
+<tr>
+<td>
+A label name in the main object is also defined in a subroutine object.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8008002c</td><td> &quot;output data attribute name&quot; is duplicately defined in &quot;object name&quot; and &quot;object name&quot;.</td>
+</tr>
+<tr>
+<td>
+An output data attribute is mapped to different output registers by more than one object through the use of a <CODE>#pragma output_map</CODE> statement.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8008002d</td><td> Main routine cannot be found.</td>
+</tr>
+<tr>
+<td>
+An object that includes both <CODE>main</CODE> and <CODE>endmain</CODE> labels is not included among input files.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8008002e</td><td> Cannot open map file.</td>
+</tr>
+<tr>
+<td>
+A map file cannot be generated.<br /> Check whether a read-only file having the same name already exists.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8008002f</td><td> No input attribute is defined.</td>
+</tr>
+<tr>
+<td>
+No input attributes are defined.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080030</td><td> No output map is defined.</td>
+</tr>
+<tr>
+<td>
+No output attributes are defined.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080031</td><td> -debug and -nodebug cannot be specified together.</td>
+</tr>
+<tr>
+<td>
+The <CODE>-debug</CODE> and <CODE>-nodebug</CODE> options cannot be specified at the same time.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080032</td><td> def(bi) in ***.obj and bind_symbol in ***.obj specify the same register **.</td>
+</tr>
+<tr>
+<td>
+The same register cannot be defined by both a <CODE>def</CODE> instruction and <CODE>bind_symbol</CODE>.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80080033</td><td> texture1 and texture2 need to be mapped to same register, if 4 textures are mapped.</td>
+</tr>
+<tr>
+<td>
+If four textures have been defined using an output_map statement, texture1 and texture2 must be mapped to the same register.<br />
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<h4><a name="4009xxxx">4009xxxx</a></h4>
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Error Code</th>
+<th align="center">Message / Description</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td align="center" rowspan="2">40090001</td><td> end instruction is not found.</td>
+</tr>
+<tr>
+<td>
+An <CODE>end</CODE> instruction could not be found.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">40090002</td><td> end instruction is found in loop statement.</td>
+</tr>
+<tr>
+<td>
+An <CODE>end</CODE> instruction was found between a pair of <CODE>loop-endloop</CODE> instructions.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">40090003</td><td> end instruction is found in only one of if and else statement.</td>
+</tr>
+<tr>
+<td>
+An <CODE>end</CODE> instruction was found in only one pair of <CODE>if-else</CODE> and <CODE>else-endif</CODE> statements.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">40090004</td><td> input register &quot;label name&quot; is not used.</td>
+</tr>
+<tr>
+<td>
+The input register defined in a <CODE>#pragma bind_symbol</CODE> statement may not be usable.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">40090005</td><td> The access patterns of input registers are different between if and else statement.</td>
+</tr>
+<tr>
+<td>
+The input register being used differs between a pair of <CODE>if-else</CODE> and a pair of <CODE>else-endif</CODE> statements.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">40090006</td><td> output register &quot;register name&quot; is not set.</td>
+</tr>
+<tr>
+<td>
+The output register defined by a <CODE>#pragma output_map</CODE> statement may not be written.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">40090007</td><td> output register is set in loop statement.</td>
+</tr>
+<tr>
+<td>
+The output register is written to between a pair of <CODE>loop-endloop</CODE> statements.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">40090008</td><td> The access patterns of output registers are different between if and else statement.</td>
+</tr>
+<tr>
+<td>
+The output register being written differs between a pair of <CODE>if-else</CODE> and a pair of <CODE>else-endif</CODE> statements.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">40090009</td><td> output register &quot;register name&quot; is already set before.</td>
+</tr>
+<tr>
+<td>
+The output register is being written to more than once.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">4009000a</td><td> Recursive call is found, and skipped.</td>
+</tr>
+<tr>
+<td>
+A subroutine is being called recursively. The <CODE>call</CODE> statement causing the subroutine to be called recursively is skipped by the consistency check feature.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">4009000b</td><td> Cannot open file for performance report.</td>
+</tr>
+<tr>
+<td>
+A file for storing output results of the performance check feature cannot be created.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">4009000c</td><td> mova instruction both before and after returning from subroutine might cause hardware hang-up.</td>
+</tr>
+<tr>
+<td>
+A malfunction may occur if a <CODE>mova</CODE> instruction occurs both immediately before and after a subroutine called by the <CODE>call</CODE>, <CODE>callb</CODE>, or <CODE>callc</CODE> instructions.<br /> See &quot;Malfunctions Caused by the mova Instruction.&quot;<br />
+</td>
+</tr>
+<tr>
+<td align="center" rowspan="2">4009000d</td><td> Register &quot;<I>register name</I>&quot; specified as an input source might not have been written.</td>
+</tr>
+<tr>
+<td>
+The register might be read from before it has been written to.<br />
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="history">Revision History</a></h2>
+    <dl class="history">
+      <dt>2013/06/14</dt>
+<dd>Added the <B>Warning Levels</B> and <B>Uninitialized Register Checker Feature</B> sections and revised related items.<br />
+      </dd>
+      <dt>2012/01/31</dt>
+<dd>Corrected the error code messages for error codes 800800{22, 24, 25, 2b, 2c}. <br />
+      </dd>
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

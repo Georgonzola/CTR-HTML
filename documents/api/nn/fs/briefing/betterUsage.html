@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+<title>File System: Improved Use of the File System</title>
+<style type="text/css">
+<!--
+    strong { color: red; }
+-->
+</style>
+</head>
+<body>
+    <h1>File System: Improved Use of the File System</h1>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#Performance">Performance</a>
+        <ul>
+           <li><a href="#Performance_Write">Optimizing Write Speed</a></li>
+        </ul>
+      </li>
+      <li><a href="#History">Revision History</a></li>
+    </ul>
+    
+    <h2><a name="Performance">Performance</a></h2>
+    <div class="section">
+    
+      <h3><a name="Performance_Write">Optimizing Write Speed</a></h3>
+      <div class="section">
+        <p>
+          It takes a relatively long time to make a single write operation for save data archives and expanded save data archives, because a lot of processing is carried out for improved robustness and security. Write times may be particularly excessive depending on the SD card. Note the following facts to minimize the associated adverse effects on performance.
+        </p>
+        <p>
+          <ul>
+            <li>Reduce the number of times files are opened and closed.</li>
+            <li>Reduce the number of time the cache is flushed.</li>
+            <li>Write data all at once using large buffers (500 KB or more).</li>
+          </ul>
+        </p>
+        <p>
+          <strong>Always keep these concepts in mind during the design phase whenever writing to a file is necessary. If you do not consider these concepts during the design phase, performance may be insufficient.</strong>
+        </p>
+        <p>
+          For example, consider a situation where 10 items of data of type <CODE>Data</CODE> need to be written into the file <CODE>arc:/data.dat</CODE>. Assume that the function <CODE>const Data* GetData(i);</CODE> gets the pointer to the <i>i</i>th data item. The following is just pseudo-code. Mounting and error handling are omitted for improved readability. <strong>When writing actual code, make sure that you carry out proper error handling according to the guidelines in <a href="./aboutErrorHandling.html"><CODE>Error Handling</CODE></a>.</strong>
+        </p>
+        <p>
+          First consider the simplest code.
+        </p>
+        <p>
+          <pre>
+nn::fs::CreateFile("arc:/data.dat", sizeof(Data) * 10);
+for (int i = 0; i &lt; 10; ++i)
+{
+    nn::fs::FileOutputStream f;
+    f.Initialize("arc:/data.dat", false);
+    f.Seek(sizeof(Data) * i);
+    f.Write(GetData(i), sizeof(Data), true);
+    f.Finalize();
+}
+          </pre>
+        </p>
+        <p>
+          This code writes to the file once per data item. This process represents a heavy load on the file system. Consider the following.
+        </p>
+        <p>
+          <pre>
+nn::fs::CreateFile("arc:/data.dat", sizeof(Data) * 10);
+nn::fs::FileOutputStream f;
+f.Initialize("arc:/data.dat", false);
+for (int i = 0; i &lt; 10; ++i)
+{
+    f.Write(GetData(i), sizeof(Data), true);
+}
+f.Finalize();
+          </pre>
+        </p>
+        <p>
+            Now the file is only opened once. The load on the system can be expected to decrease proportionally. However, the number of flushes made is still high.
+        </p>
+        <p>
+          <pre>
+nn::fs::CreateFile("arc:/data.dat", sizeof(Data) * 10);
+nn::fs::FileOutputStream f;
+f.Initialize("arc:/data.dat", false);
+for (int i = 0; i &lt; 10; ++i)
+{
+    f.Write(GetData(i), sizeof(Data), false);
+}
+f.Flush();
+f.Finalize();
+          </pre>
+        </p>
+        <p>
+          If you rewrite code as in the sample above, you can expect the load on the system to be even further reduced by performing only one flush at the end.
+        </p>
+        <p>
+          However, because <CODE>sizeof(Data)</CODE> is relatively small and the overhead required for a single write is large, it may take much longer than expected to write the entire amount. If that happens, you can improve the speed by collecting data and writing it all at once, like this:
+        </p>
+        <p>
+          <pre>
+nn::fs::CreateFile("arc:/data.dat", sizeof(Data) * 10);
+nn::fs::FileOutputStream f;
+f.Initialize("arc:/data.dat", false);
+bit8* buffer = new bit8[sizeof(Data) * 10];
+for (int i = 0; i &lt; 10; ++i)
+{
+    std::memcpy(buffer + sizeof(Data) * i, GetData(i), sizeof(Data));
+}
+f.Write(buffer, sizeof(Data) * 10, true);
+delete [] buffer;
+f.Finalize();
+          </pre>
+        </p>
+        <p>
+            If you cannot secure a large enough buffer to write all the data at once, you can also gather and write the data in portions, using code like this:
+        </p>
+        <p>
+          <pre>
+nn::fs::CreateFile("arc:/data.dat", sizeof(Data) * 10);
+nn::fs::FileOutputStream f;
+f.Initialize("arc:/data.dat", false);
+bit8* buffer = new bit8[sizeof(Data) * 5];
+for (int j = 0; j &lt; 2; ++j)
+{
+    for (int i = 0; i &lt; 5; ++i)
+    {
+        std::memcpy(buffer + sizeof(Data) * i, GetData(5 * j + i), sizeof(Data));
+    }
+    f.Write(buffer, sizeof(Data) * 5, false);
+}
+delete [] buffer;
+f.Flush();
+f.Finalize();
+          </pre>
+        </p>
+        <p>
+           
+        </p>
+        <p>
+          <strong>As a guideline, consider dividing data up into sizes that can be handled using a buffer size of 500 KB or more.</strong> <strong>Performance will likely drop significantly if data is written in smaller sizes than this.</strong> Finally, Nintendo strongly recommends that you allocate a buffer of 1 MB or larger, when writing excessively large amounts of data (10 MB or more) at once.
+        </p>
+      </div>
+    
+    </div>
+    
+    <h2><a name="History">Revision History</a></h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/01/23</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

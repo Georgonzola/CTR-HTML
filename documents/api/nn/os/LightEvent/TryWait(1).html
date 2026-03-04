@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>TryWait</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/LightEvent/Overview.html">LightEvent</a>::TryWait Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+bool TryWait(
+     <a href="../../../nn/fnd/TimeSpan/Overview.html">fnd::TimeSpan</a> timeout
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>timeout</th>
+          <td>Specifies the timeout.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if the flag was set. Returns <code>false</code> if the process timed out. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Waits the specified period for the flag to be set.</p><p>For an automatically resetting event, it clears the flag at the same time that the flag is set and the waiting stops.</p><p>When the timeout period elapses, control returns from this function even if the flag has not been set yet.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glDrawElements</title>
+  </head>
+  <body>
+    <h1>glDrawElements Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glDrawElements(
+     GLenum mode,
+     GLsizei count,
+     GLenum type,
+     const void * indices
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>mode</th>
+          <td>Primitive mode.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>count</th>
+          <td>The number of vertices to draw.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>type</th>
+          <td>Vertex index data type.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>indices</th>
+          <td>Pointer to vertex indices, or offset to the starting region in the vertex indices.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Draws primitives using vertex indices.</p><P>Uses a vertex index array to access an array of vertex data.  Set <span class="argument">mode</span> to one of the following values when the geometry shader is not in use.<TABLE><TR><TH>GL_TRIANGLES</TH><TD> Triangles </TD></TR><TR><TH>GL_TRIANGLE_STRIP</TH><TD> Triangle strip </TD></TR><TR><TH>GL_TRIANGLE_FAN</TH><TD> Triangle fan </TD></TR></TABLE><!-- source modeにはジオメトリシェーダを使用しない場合、GL_TRIANGLES、GL_TRIANGLE_STRIP、GL_TRIANGLE_FANのいずれかを指定します。 --></P><P>Specify a value of <tt>GL_GEOMETRY_PRIMITIVE_DMP</tt> when the geometry shader is in use.</P><P>Set <span class="argument">type</span> to the type of the vertex index array. Specify a value of <tt>GL_UNSIGNED_BYTE</tt> or <tt>GL_UNSIGNED_SHORT</tt>.</P><P>When vertex buffer objects are not in use, set <span class="argument">indices</span> with a pointer to the vertex indices. When vertex buffer objects are in use, set <span class="argument">indices</span> with the offset to the region to start using within the vertex indices.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">mode</span> or <span class="argument">type</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_FRAMEBUFFER_OPERATION</TH><TD>The framebuffer was configured incorrectly.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD><tt>GL_GEOMETRY_PRIMITIVE_DMP</tt> is specified for <tt>mode</tt> and a geometry shader is not linked to the current program. <BR /><tt>GL_GEOMETRY_PRIMITIVE_DMP</tt> is specified for <tt>mode</tt> and a geometry shader is linked to the current program. <BR /> The specified number of vertex attributes exceeds the maximum allowed (Note 1). <BR /> Placement restrictions on vertex data are violated (Note 2).</TD></TR></TABLE></P><P><b>Note 1:</b> Maximum of 16 when not using a vertex buffer, and a maximum of 12 when using a vertex buffer. <BR /><b>Note 2:</b> When using a vertex buffer and 12 vertex attributes are used as vertex arrays (when <tt><a href="../gl/glEnableVertexAttribArray.html">glEnableVertexAttribArray</a></tt> is called on all vertex attributes).</P><P>Also, because this function performs a process for each state corresponding to <tt>nngxValidateState</tt>, when using the gl API, an error may occur for reasons that are not listed.  In this case, you can narrow down the reason for the error by calling the <tt>nngxValidateState</tt> function for each state before calling this function.</P><P>In some cases, the library allocates an internal buffer when this function is called.  For more information, see the Functions That Allocate Internal Buffers Within the Library section in the <i>3DS Programming Manual: Basic Graphics</i>.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/11/18</dt>
+        <dd><item xmlns="">Noted that in some cases an internal buffer is allocated in the library.</item><br />
+        </dd>
+        <dt>2011/12/02</dt>
+        <dd><item xmlns="">Added information related to vertex attributes as causes of the <tt>GL_INVALID_OPERATION</tt> error.</item><br />
+        </dd>
+        <dt>2011/06/15</dt>
+        <dd><item xmlns="">Added internal processes and how to check error causes.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

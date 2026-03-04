@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>PreloadVoiceSel</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/voicesel/Overview.html">voicesel</a>::<a href="../../../nn/voicesel/CTR/Overview.html">CTR</a>::PreloadVoiceSel Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool PreloadVoiceSel();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Preloads the audio selector <a href="../../../nn/applet/Overview.html">applet</a>.</p><p>If you preload the audio selector applet, it starts faster than it would otherwise. <br /> If you do so, however, you must take the following into account.</p><p>Preloading is not complete after this function returns. <br /> After you use this function to preload the applet, you must always call either the <tt><a href="../../../nn/voicesel/CTR/WaitForPreloadVoiceSel.html">nn::voicesel::CTR::WaitForPreloadVoiceSel</a></tt> function or the <tt><a href="../../../nn/voicesel/CTR/IsRegisteredVoiceSel.html">nn::voicesel::CTR::IsRegisteredVoiceSel</a></tt> function to confirm that preloading has completed before calling the <tt><a href="../../../nn/voicesel/CTR/StartVoiceSel.html">nn::voicesel::CTR::StartVoiceSel</a></tt> function. </p><p>Also note that if some library applet other than the audio selector applet has been preloaded, you must cancel that preload before calling this function.</p><p>Applications must not be closed while the applet is preloaded.  If an application is preloaded, you must always call the <tt><a href="../../../nn/voicesel/CTR/CancelPreloadVoiceSel.html">nn::voicesel::CTR::CancelPreloadVoiceSel</a></tt> function to cancel the preload before closing the application. </p><p>Preloading of an applet can be canceled by calling <tt><a href="../../../nn/applet/CTR/ProcessHomeButton.html">nn::applet::CTR::ProcessHomeButton</a></tt> to move to the HOME Menu.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/24</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

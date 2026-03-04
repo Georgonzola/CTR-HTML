@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>MakePostVertexCacheEntryTypeCommand</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/gr/Overview.html">gr</a>::<a href="../../../nn/gr/CTR/Overview.html">CTR</a>::MakePostVertexCacheEntryTypeCommand Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/bit32.html">bit32</a> * MakePostVertexCacheEntryTypeCommand(
+     <a href="../../../nn_types/bit32.html">bit32</a> * command,
+     const <a href="../../../nn/gr/CTR/PostVertexCacheEntryType.html">PostVertexCacheEntryType</a> type
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>command</th>
+          <td>The start address for storing the rendering command.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>type</th>
+          <td>Specifies the number of entries to change.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the address that follows the end of the stored rendering command. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Changes the post-vertex cache to the specified number of entries.</p><p>This generates a command to change the number of entries in the post-vertex cache to 32 or 16. <br /> By default, it is set to 32.</p><p>The advantage of changing the number of entries to 16 is that doing so allows you to increase the maximum number of input vertex attributes to the geometry shader to 15. <br /> Decreasing the number of entries also lowers the cache hit rate and therefore increases the cost of processing on the GPU. <br /> Unless you need to do this, though, we recommend that you use 32 entries.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/11</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

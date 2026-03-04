@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>UpdateGameModeDescription</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::UpdateGameModeDescription Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> UpdateGameModeDescription(
+     const char16 description[MODE_DESCRIPTION_SIZE]
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>description[MODE_DESCRIPTION_SIZE]</th>
+          <td>Specifies a game mode description string.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation.<br /> <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>The process succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultRmcNotCalled</th>
+          <td>The process succeeded. Due to connection status and limitations of frequency of sending data, however, notification to the server and friends is delayed.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+<td>Invalid pointer passed as an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>The friend presence library is not initialized.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Another result may be returned, depending on the internal state of the daemon and other factors.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Updates the game mode description string.</p>
+<p>This string is sent to friends when you are online and is displayed in their friend lists.<br /><br />To simply display the string in friend lists, you do not need to call the <a href="../../../nn/friends/CTR/Login.html"><CODE>nn::friends::CTR::Login</CODE></a> function in advance. If the string is updated while the system is offline, it is sent automatically by the presence feature in a timely way as soon as the system can go online, provided that background operations have not been suspended by the <a href="../../../nn/ndm/Suspend.html"><CODE>nn::ndm::Suspend</CODE></a>, <a href="../../../nn/ndm/SuspendDaemons.html"><CODE>nn::ndm::SuspendDaemons</CODE></a>, or <a href="../../../nn/ndm/SuspendScheduler.html"><CODE>nn::ndm::SuspendScheduler</CODE></a> function.<br /><br />To apply the string set with this function in friend lists, you must start the application from either the HOME Menu or the development menu. Note that it will not be set correctly if the application is started from the debugger software using the PARTNER-CTR Debugger or IS-SNAKE-BOX. The size of the string that is passed to the argument can be as large as <CODE><a href="../../../nn/friends/CTR/MODE_DESCRIPTION_SIZE.html">nn::friends::CTR::MODE_DESCRIPTION_SIZE</a></CODE> characters, including newline and terminating characters, but the friend list is limited to the display of 16 double-byte characters x 2 lines, and anything exceeding that is cut off and not displayed.<br /><br />The strings that are displayed on the friend lists of other players have the following relationship with the system region.<br /><br /><B>Japan, the Americas, and Europe:</B> The characters for Japan, the Americas, and Europe are included in the system fonts.<br /><br /><B>China:</B> Simplified Chinese characters included in the system fonts.<br /><br /><B>Korea:</B>Hangul characters included in the system fonts.<br /><br /><B>Taiwan:</B> Traditional Chinese characters included in the system fonts.<br /><br />Characters that are not included here are replaced with the Nintendo extended character &quot;?&quot; (L'\xE011') for display For details about the character sets included in each font, see <I>3DS Overview</I>.<br /><br />For newlines, use L'\n'.<br /><br />This function does not change the game mode specified to the <a href="../../../nn/friends/CTR/UpdateGameMode.html"><CODE>nn::friends::CTR::UpdateGameMode</CODE></a> function.<br /><br />Follow the rules set in <B>Information Update Frequency</B> of the 3DS Guidelines when determining how often to call this function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/09/22</dt>
+        <dd>Added information about IS-SNAKE-BOX.<br />
+        </dd>
+        <dt>2014/02/06</dt>
+        <dd>Clarified that settings will not be reflected when started from the debugger.
+        </dd>
+        <dt>2011/11/07</dt>
+        <dd>Noted that you do not need to call the <CODE>nn::friends::CTR::Login</CODE> function in advance.<br />Noted that you must follow the guidelines when determining how often to call this function.<br />
+        </dd>
+        <dt>2011/10/26</dt>
+        <dd>Added that the game mode does not change.
+        </dd>
+        <dt>2011/09/15</dt>
+        <dd>Fixed unintended deletion of description details.
+        </dd>
+        <dt>2011/03/11</dt>
+        <dd>Added specific examples of return values.<br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd>Initial version.<br />
+        </dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

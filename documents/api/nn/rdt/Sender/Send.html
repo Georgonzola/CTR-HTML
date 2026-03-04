@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Send</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/rdt/Overview.html">rdt</a>::<a href="../../../nn/rdt/Sender/Overview.html">Sender</a>::Send Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Send(
+     const void * pBuf,
+     size_t bufSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pBuf</th>
+          <td>Pointer to the start of the data to send. It must not be a null pointer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufSize</th>
+          <td>The size of the data to send (in bytes). If this parameter is set to <code>0</code>, the function does nothing and returns a non-error value.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a value indicating whether data was successfully written to the send buffer. Specifically, this function may return the following: a value for which the <code><a href="../../../nn/Result/IsSuccess.html">nn::Result::IsSuccess</a></code> function returns <code>true</code>, or the result code <code><a href="../../../nn/rdt/ResultNotInitialized/Overview.html">ResultNotInitialized</a></code>, <code><a href="../../../nn/rdt/ResultDoNothing/Overview.html">ResultDoNothing</a></code>, <code><a href="../../../nn/rdt/ResultSendBufferIsNotAvailable/Overview.html">ResultSendBufferIsNotAvailable</a></code>, or <code><a href="../../../nn/rdt/ResultUntimelyFunctionCall/Overview.html">ResultUntimelyFunctionCall</a></code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Writes data to the send buffer.</p><p>After you confirm that this call has succeeded, you can free the memory pointed to by pBuf because the data it points to has already been copied to the send buffer. Calls to this function fail if it cannot write all of the requested data because the capacity of the send buffer is too small. No data is written to the send buffer at all in such cases. If <code><a href="../../../nn/rdt/Sender/Send.html">Send</a></code> fails, wait a short time and then try again. The <a href="../../../nn/act/Overview.html">act</a> of sending the data in the send buffer is actually executed by the <code><a href="../../../nn/rdt/Sender/Process.html">Process</a></code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

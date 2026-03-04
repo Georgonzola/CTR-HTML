@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::Initialize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Initialize();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyInitialized</th>
+          <td>Specifies that the library is already initialized.</td>
+        </tr>
+        <tr>
+          <th>ResultUsingOtherProcess</th>
+          <td>Cannot be used because another process is currently being used.</td>
+        </tr>
+        <tr>
+          <th>ResultIsSleeping</th>
+          <td>This function is unusable because the system cover is closed.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>There may be something physically wrong with the <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the <code>CAMERA</code> library and makes the cameras available for use.</p><p><b>Note:</b> This function may block for an extended period if a camera is restarting.</p><p>On SNAKE, the Super-Stable 3D feature is disabled from when the <tt>nn::camera::CTR::Initialize</tt> function is called until the <tt><a href="../../../nn/camera/CTR/Finalize.html">nn::camera::CTR::Finalize</a></tt> function is called.  In addition, note that these functions take longer to execute on SNAKE than on CTR due to the disabling and re-enabling of the Super-Stable 3D feature.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/06/29</dt>
+        <dd><item xmlns="">Added a description of the behavior of the Super-Stable 3D feature on SNAKE.</item><br />
+        </dd>
+        <dt>2010/07/17</dt>
+        <dd><item xmlns="">Added a description of operation during restart.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

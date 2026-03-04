@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::jpeg::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/jpeg/Overview.html">jpeg</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Namespace of the <a href="../../../nn/jpeg/CTR/Overview.html">CTR</a> JPEG compression/decompression library. (It can also be written without the <code>CTR</code> portion.)</p><h3>Decodable JPEG and MP Data Formats</h3><p>The <tt>nn::jpeg::JpegMpDecoder</tt> class can only decode JPEG data in baseline JPEG compression format. <br /><br /> The same applies to MP data formats. <br /><br /> In particular, decoding the following JPEG and MP formats fails.<ul><li>Progressive</li><li>Uncompressed</li></ul>It may be unable to decode JPEG images created by other than the <tt>nn::jpeg::JpegMpEncoder</tt> class, even if it is in baseline JPEG compression format. <br /><br /> If decoding fails, it may be possible to decode the image after removing the Exif data, the thumbnail, and APP<i>n</i> (where <i>n</i> is 0-15). For data in MP format, however, keep APP2 segments with MP-format related information.</p><h3>Handling of Data Quantization When Decoding</h3><p>In versions of the SDK earlier than 3.2, the Y component references <tt>QT0</tt> for DQT (the data quantization table), and the Cb and Cr components reference <tt>QT1</tt>. <br /> Images comprising other combinations were not decoded correctly, even when the decode function succeeded. <br /> For example, if only <tt>QT0</tt> is defined and gets referenced by all of the image components, all cases of <tt>QT1</tt> are treated as <tt>0</tt> and the image appears monochrome. <br /> Decoding works correctly in SDK 3.2 and later.</p><h3>Handling of APP1 Marker When Decoding</h3><p>If the data contains multiple APP1 sections, the Exif information that is found first is used and all other EXIF information is ignored. <br /> In SDK versions prior to version 3.2, a bug in the process for ignoring this information caused decoding to fail for images that had no Exif information in the first APP1 section. <br /> Decoding works correctly in SDK 3.2 and later. <br /> Even if the APP1 section contains Exif information, decoding fails when JPEG or MP-format data has an offset to IFD0 other than 8.</p><h3>Image Degradation After Repeated Encoding and Decoding</h3><p>The quality of an image degrades when it is encoded and then the result is decoded. <br /> We have confirmed that repeatedly encoding and decoding the same image causes noticeable degradation and emphasizes the green component of the image. <br /> Below is an example of a way to minimize this degradation. Implement it in your application if needed.</p><ul><li>When decoding, specify the pixel format as <tt>nn::jpeg::CTR::PIXEL_FORMAT_YUYV8</tt> before editing or encoding the image. <br /> If this is not feasible, consider specifying 8-bit color components like <tt>nn::jpeg::CTR::PIXEL_FORMAT_RGB8</tt> rather than <tt>nn::jpeg::CTR::PIXEL_FORMAT_CTR_RGB565</tt>.</li><li>Specify <tt>nn::jpeg::CTR::PIXEL_SAMPLING_YUV444</tt> for pixel sampling when encoding. <br /><tt>nn::jpeg::CTR::PIXEL_SAMPLING_YUV420</tt> is the most susceptible to degradation of image quality.</li><li>Specify high image quality when encoding.</li></ul></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">nn::jpeg::CTR::JpegMpDecoder</a>
+            </th>
+            <td>This class performs JPEG decoding.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">nn::jpeg::CTR::JpegMpEncoder</a>
+            </th>
+            <td>This class performs JPEG encoding.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/jpeg/CTR/MpIndex/Overview.html">nn::jpeg::CTR::MpIndex</a>
+            </th>
+            <td>Structure holding the MP Index IFD in a format easily processed by the library. The MP Index IFD is included in the data stored in MP format.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/jpeg/CTR/MpEntry/Overview.html">nn::jpeg::CTR::MpEntry</a>
+            </th>
+            <td>Structure holding an MP entry in a format easily processed by the library. MP entries are included in the data stored in MP format.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/jpeg/CTR/Rational/Overview.html">nn::jpeg::CTR::Rational</a>
+            </th>
+            <td><code>RATIONAL</code> (unsigned rational number) data type, used for members of the MP Attribute IFD and GPS IFD.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/jpeg/CTR/Srational/Overview.html">nn::jpeg::CTR::Srational</a>
+            </th>
+            <td><code>SRATIONAL</code> (signed rational number) data type, used for members of the MP Attribute IFD and GPS IFD.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/jpeg/CTR/MpAttribute/Overview.html">nn::jpeg::CTR::MpAttribute</a>
+            </th>
+            <td>Structure holding the MP Attribute IFD in a format easily processed by the library. The MP Attribute IFD is included in the data stored in MP format.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/jpeg/CTR/MpRegionsToBuildJpegData/Overview.html">nn::jpeg::CTR::MpRegionsToBuildJpegData</a>
+            </th>
+            <td>Structure holding the region information (pointer and byte count) for rebuilding the JPEG data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/jpeg/CTR/GpsData/Overview.html">nn::jpeg::CTR::GpsData</a>
+            </th>
+            <td>This structure maintains GPS IFD in a format easily processed by the library.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/jpeg/CTR/PixelSampling.html">PixelSampling</a>
+            </th>
+            <td>Enumerated type indicating the output format when encoding.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/jpeg/CTR/PixelFormat.html">PixelFormat</a>
+            </th>
+            <td>Enumerated type indicating the pixel format.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/jpeg/CTR/MpTypeFlag.html">MpTypeFlag</a>
+            </th>
+            <td>Flags included in the MP type information.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/jpeg/CTR/MpTypeDataFormat.html">MpTypeDataFormat</a>
+            </th>
+            <td>Data format included in the MP type information.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/jpeg/CTR/MpTypeCode.html">MpTypeCode</a>
+            </th>
+            <td>Type code included in the MP type information.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/jpeg/CTR/EncoderErrorCode.html">EncoderErrorCode</a>
+            </th>
+            <td>Gives the reason why the encoding just performed failed.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/jpeg/CTR/DecoderErrorCode.html">DecoderErrorCode</a>
+            </th>
+            <td>Gives the reason why the decoding or other operation just performed failed.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/jpeg/CTR/EncoderOption.html">EncoderOption</a>
+            </th>
+            <td>Options used when encoding.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/jpeg/CTR/DecoderOption.html">DecoderOption</a>
+            </th>
+            <td>Options used when decoding.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/DATE_TIME_SIZE.html">DATE_TIME_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Number of bytes in the buffer that stores date and time information. This constant is a string with the format "<tt>YYYY:MM:DD HH:MM:DD</tt>" terminated with <code>0x00</code>, for a total of 20 characters.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/IMAGE_UID_SIZE.html">IMAGE_UID_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Number of bytes in the JPEG's unique image ID. This also represents the number of bytes in one element of the MP format's unique ID list for individual images.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/MPF_VERSION_SIZE.html">MPF_VERSION_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The number of bytes of the MP format version.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/MP_ENTRY_SIZE.html">MP_ENTRY_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>This constant represents the number of bytes in one element of an MP-format MP entry. This is not the number of bytes in the <code><a href="../../../nn/jpeg/CTR/MpEntry/Overview.html">MpEntry</a></code> structure.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/GPS_VERSION_ID_SIZE.html">GPS_VERSION_ID_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The number of bytes of the GPS tag version.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/GPS_DATE_STAMP_SIZE.html">GPS_DATE_STAMP_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The number of bytes in the GPS date stamp.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/MIN_DECODER_SHRINK_LEVEL.html">MIN_DECODER_SHRINK_LEVEL</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The minimum value that can be specified for the shrink level when shrink decoding.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/MAX_DECODER_SHRINK_LEVEL.html">MAX_DECODER_SHRINK_LEVEL</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The maximum value that can be specified for the shrink level when shrink decoding.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/TWL_PHOTO_MAKER_NOTE_SIZE.html">TWL_PHOTO_MAKER_NOTE_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The number of bytes in a Maker Note for the Nintendo DSi Camera application.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/MAX_DECODER_OUTPUT_BUFFER_WIDTH.html">MAX_DECODER_OUTPUT_BUFFER_WIDTH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The maximum value (in pixels) that can be specified for the output image buffer width when decoding.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/MAX_ENCODER_INPUT_BUFFER_WIDTH.html">MAX_ENCODER_INPUT_BUFFER_WIDTH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The maximum value (in pixels) that can be specified for the input image buffer width when encoding.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/DEFAULT_THUMBNAIL_PIXEL_SAMPLING.html">DEFAULT_THUMBNAIL_PIXEL_SAMPLING</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/jpeg/CTR/PixelSampling.html">PixelSampling</a></td>
+            <td>Default thumbnail output format.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/DEFAULT_THUMBNAIL_WIDTH.html">DEFAULT_THUMBNAIL_WIDTH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Default thumbnail image width, in pixels.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/jpeg/CTR/DEFAULT_THUMBNAIL_HEIGHT.html">DEFAULT_THUMBNAIL_HEIGHT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Default thumbnail image height, in pixels.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/24</dt>
+        <dd><item xmlns="">Added information about image degradation after repeated encoding and decoding.</item><br />
+        </dd>
+        <dt>2011/10/06</dt>
+        <dd><item xmlns="">Described revisions in SDK 3.2.</item><br />
+        </dd>
+        <dt>2011/06/14</dt>
+        <dd><item xmlns="">Noted that in some cases the decode result is monochrome.</item><br />
+        </dd>
+        <dt>2011/04/08</dt>
+        <dd><item xmlns="">Revised the description of data examples that will cause decode failure.</item><br />
+        </dd>
+        <dt>2011/03/04</dt>
+        <dd><item xmlns="">Added information about decodable JPEG and MP data formats.</item><br />
+        </dd>
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added descriptions of GpsData, EncoderErrorCode, DecoderErrorCode, EncoderOption, and DecoderOption.</item><br />
+        </dd>
+        <dt>2010/04/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

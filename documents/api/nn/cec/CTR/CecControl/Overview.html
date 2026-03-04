@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::cec::CTR::CecControl</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cec/Overview.html">cec</a>::<a href="../../../../nn/cec/CTR/Overview.html">CTR</a>::CecControl Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class CecControl</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Changes StreetPass (CEC) status and gets information.</p><p>The StreetPass daemon state is managed by the system and the daemon runs automatically. <br />
+ When you access a message box (using <code>OpenMessageBox</code>, <code>ReadMessage</code>, <code>WriteMessage</code> or similar), the StreetPass daemon operations are suspended and it enters the IDLE state. <br /><br />
+ To conserve power, each time the system performs communication it records the communication peer, and does not communicate with that peer again until an average of four hours (zero to eight hours) and no more than eight hours have passed. <br />
+ Communication peers are remembered if (1) one or more items of data were sent or received or (2) communication was started, but no data was available to be sent or received (for example, if the inbox was full). <br />
+ Powering off the system does not erase this information. Up to 255 peers can be stored in memory. <br />
+ Note that you cannot use this class to begin communication and deliver data to communication peers at specified times. <br />
+ For debugging purposes, there is a method to reset the past communication peer information and allow exchanging data again with the same peers. To reset the information, specify <code>true</code> as an argument to <code><a href="../../../../nn/cec/CTR/CecControl/StartScanning.html">StartScanning</a></code>. This function is only available when debugging mode is enabled.</p><!-- write here --></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/CecControl/DaemonState.html">DaemonState</a>
+            </th>
+            <td>Value indicating the StreetPass (CEC) state returned by the <code><a href="../../../../nn/cec/CTR/CecControl/GetCecState.html">GetCecState</a></code> function. A message box can only be accessed when this value is <code>DAEMON_STATE_IDLE</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/CecControl/StartScanning.html">StartScanning</a>
+            </th>
+            <td>Starts CEC operations.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/CecControl/StopScanning.html">StopScanning</a>
+            </th>
+            <td>Manually halts StreetPass (<code>CEC</code>) operations.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/CecControl/GetCecState.html">GetCecState</a>
+            </th>
+            <td>Gets the <code>CEC</code> state.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/CecControl/EnterExclusiveState.html">EnterExclusiveState</a>
+            </th>
+            <td>Enters exclusive mode. (For debugging.)</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/CecControl/LeaveExclusiveState.html">LeaveExclusiveState</a>
+            </th>
+            <td>Ends exclusive mode. (For debugging.)</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

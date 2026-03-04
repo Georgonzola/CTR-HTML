@@ -1,0 +1,1188 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/ec/Overview.html">ec</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Namespace for the <a href="../../../nn/ec/CTR/Overview.html">CTR</a> E-Commerce API. (It can also be written without the <code>CTR</code> portion.) The <a href="../../../nn/ec/Overview.html">ec</a> library is the library for purchasing and managing add-on content and service items. The following is a rough description of the process for purchasing and downloading add-on content. 1. Call <code><a href="../../../nn/ec/CTR/Initialize.html">Initialize</a></code> to initialize the library. 2. Call the <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function to have the EC <a href="../../../nn/applet/Overview.html">applet</a> initialize a <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object and establish a session with the eShop server. 3. Use the initialized <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object to initialize the <code><a href="../../../nn/ec/CTR/ContentSetCatalog/Overview.html">ContentSetCatalog</a></code> object. 4. Call the <code><a href="../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function to search for content sets, and then call the <code><a href="../../../nn/ec/CTR/ContentSetCatalog/GetContentSet.html">ContentSetCatalog::GetContentSet</a></code> function to get the <code><a href="../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code>. 5. Call the <code><a href="../../../nn/ec/CTR/ContentSet/GetItemId.html">ContentSet::GetItemId</a></code> function to get the <code><a href="../../../nn/ec/CTR/ItemId/Overview.html">ItemId</a></code> for the content set to purchase. 6. Call the <code><a href="../../../nn/ec/CTR/EcApplet/RequestPurchaseContentSet.html">EcApplet::RequestPurchaseContentSet</a></code> function to have the EC <a href="../../../nn/applet/Overview.html">applet</a> purchase and download the content set. Use the <code><a href="../../../nn/ec/CTR/DataTitle/Overview.html">DataTitle</a></code> or <code><a href="../../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a></code> classes to manage purchased and downloaded add-on content. Use the <code><a href="../../../nn/ec/CTR/Server/Overview.html">Server</a></code> class for operations such as getting the balance and server time. When handling download codes, use the <code><a href="../../../nn/ec/CTR/ECardInfo/Overview.html">ECardInfo</a></code> class to get download code information; the <code><a href="../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code>, <code><a href="../../../nn/ec/CTR/ECardCatalogFilter/Overview.html">ECardCatalogFilter</a></code>, and <code><a href="../../../nn/ec/CTR/ECardCatalog/Overview.html">ECardCatalog</a></code> classes to search for redeemable items; and the <code><a href="../../../nn/ec/CTR/EcApplet/RequestRedeemContentSet.html">EcApplet::RequestRedeemContentSet</a></code> function to download the content being redeemed. The EC library features assume that a writable SD card has been inserted into the <a href="../../../nn/ec/CTR/Overview.html">CTR</a> system. <br />
+ Before downloading or deleting add-on content, be sure that a writable SD card is inserted in the <a href="../../../nn/ec/CTR/Overview.html">CTR</a> system. <br />
+ Perform this check inside the application before the downloading or deleting of add-on content, or call the <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function and then monitor for removal of the SD card until the point of downloading or deleting. <br />
+ Processing that uses the EC library halts if it detects that an SD card has been inserted or removed during such processing. For more information about how to detect SD card hot-swapping, see the API Reference Manual for the FS library. <br />
+ Note that if you are only reading the add-on content you do not need to check for a writable SD card. The EC library returns all strings encoded in UTF-8, with the exception of the string set in <code><a href="../../../nn/ec/CTR/ServiceDescription/Overview.html">ServiceDescription</a></code>. The string set in <code><a href="../../../nn/ec/CTR/ServiceDescription/Overview.html">ServiceDescription</a></code> is encoded in UTF-16. Use the <code><a href="../../../nn/enc/Overview.html">enc</a></code> library to convert between UTF-8 and UTF-16. None of the classes or functions in the <code><a href="../../../nn/ec/Overview.html">ec</a></code> library are thread-safe. Do not call library functions from multiple threads at the same time. The EC <a href="../../../nn/applet/Overview.html">applet</a> uses a thread with a priority of 17,22. If you have other threads running while the <a href="../../../nn/applet/Overview.html">applet</a> is running, be careful about their priority settings. Another thread with a priority of 15 is created to run the <a href="../../../nn/applet/Overview.html">applet</a>. The listings for the results returned by each API function are not intended to cover all of the results returned by their respective API functions. Note that results other than those listed may also be returned.</p>
+    </div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="2">Getting</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ContentInfo/Overview.html">nn::ec::CTR::ContentInfo</a>
+            </th>
+            <td>Class representing local content information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/DataTitle/Overview.html">nn::ec::CTR::DataTitle</a>
+            </th>
+            <td>Class for getting content information from data titles.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/MetaDataReader/Overview.html">nn::ec::CTR::MetaDataReader</a>
+            </th>
+            <td>Class for reading information from metadata content.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/PermanentItemRight/Overview.html">nn::ec::CTR::PermanentItemRight</a>
+            </th>
+            <td>Class representing a permanent license of a service item.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/SubscriptionItemRight/Overview.html">nn::ec::CTR::SubscriptionItemRight</a>
+            </th>
+            <td>Class representing a time-based license (subscription) of a service item.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/QuantityItemRight/Overview.html">nn::ec::CTR::QuantityItemRight</a>
+            </th>
+            <td>Class representing a usage-based license of a service item.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ServiceTitle/Overview.html">nn::ec::CTR::ServiceTitle</a>
+            </th>
+            <td>Class for getting license information for a service title.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Finding</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ContentSet/Overview.html">nn::ec::CTR::ContentSet</a>
+            </th>
+            <td>Class for getting content set information. Use the <code><a href="../../../nn/ec/CTR/ContentSetCatalog/GetContentSet.html">ContentSetCatalog::GetContentSet</a></code> function to get an instance of the <code><a href="../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code> class. Note that the <code><a href="../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code> instance is invalidated when the <code><a href="../../../nn/ec/CTR/ContentSetCatalog/Overview.html">ContentSetCatalog</a></code> instance from which it was obtained is destroyed, or when the <code><a href="../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function is called again.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">nn::ec::CTR::ContentSetCatalogFilter</a>
+            </th>
+            <td>Filter for using <code><a href="../../../nn/ec/CTR/ContentSetCatalog/Overview.html">ContentSetCatalog</a></code> to search for <code><a href="../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code> objects. Search by passing this class to the <code><a href="../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function to filter the <code><a href="../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code> search results.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ContentSetCatalog/Overview.html">nn::ec::CTR::ContentSetCatalog</a>
+            </th>
+            <td>Class for searching for content sets.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ContentSetGroup/Overview.html">nn::ec::CTR::ContentSetGroup</a>
+            </th>
+            <td>Class for getting content set group information. Use the <code><a href="../../../nn/ec/CTR/ContentSetGroupCatalog/GetContentSetGroup.html">ContentSetGroupCatalog::GetContentSetGroup</a></code> function to get an instance of the <code><a href="../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> class. Note that the <code><a href="../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> instance is invalidated when the <code><a href="../../../nn/ec/CTR/ContentSetGroupCatalog/Overview.html">ContentSetGroupCatalog</a></code> instance from which it was obtained is destroyed, or when the <code><a href="../../../nn/ec/CTR/ContentSetGroupCatalog/Retrieve.html">ContentSetGroupCatalog::Retrieve</a></code> function is called again.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ContentSetGroupCatalogFilter/Overview.html">nn::ec::CTR::ContentSetGroupCatalogFilter</a>
+            </th>
+            <td>Filter for using <code><a href="../../../nn/ec/CTR/ContentSetGroupCatalog/Overview.html">ContentSetGroupCatalog</a></code> to search for <code><a href="../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> objects. Search by passing this class to the <code><a href="../../../nn/ec/CTR/ContentSetGroupCatalog/Retrieve.html">ContentSetGroupCatalog::Retrieve</a></code> function to filter the <code><a href="../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> search results.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ContentSetGroupCatalog/Overview.html">nn::ec::CTR::ContentSetGroupCatalog</a>
+            </th>
+            <td>Class for searching for content set groups. Content set groups provide information about content sets grouped by user-defined keyword attribute values. Set a filter to group content sets by using <code><a href="../../../nn/ec/CTR/ContentSetGroupCatalogFilter/Overview.html">ContentSetGroupCatalogFilter</a></code>, and then call <code><a href="../../../nn/ec/CTR/ContentSetGroupCatalog/Retrieve.html">ContentSetGroupCatalog::Retrieve</a></code> to get a <code><a href="../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> as information grouped by <code><a href="../../../nn/ec/CTR/ContentSetGroupCatalog/GetContentSetGroup.html">ContentSetGroupCatalog::GetContentSetGroup</a></code>. Content sets are grouped by attribute values of the specified length. For example, assume that the attribute name <code>Color</code> has four content sets, having the values <code>BLACK</code>, <code>BLUE</code>, <code>GREEN</code>, and <code>BLACK</code>. Grouping these content sets in <code><a href="../../../nn/ec/CTR/ContentSetGroupCatalogFilter/SetAttributeGroupFilter.html">ContentSetGroupCatalogFilter::SetAttributeGroupFilter</a></code> with a filter specifying the attribute name "Color" and length "2" yields the following two groups. A group named <code>BL</code> containing 3 content sets. A group named <code>GR</code> containing 1 content set. If you specify a length of <code>0</code> in <code><a href="../../../nn/ec/CTR/ContentSetGroupCatalogFilter/SetAttributeGroupFilter.html">ContentSetGroupCatalogFilter::SetAttributeGroupFilter</a></code>, content sets are grouped by the attribute value. In this example, the following three groups are returned. A group named <code>BLACK</code> containing 2 content sets. A group named <code>GREEN</code> containing 1 content set. A group named <code>BLUE</code> containing 1 content set.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ECardInfo/Overview.html">nn::ec::CTR::ECardInfo</a>
+            </th>
+            <td>Class for getting download-voucher information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ECardItem/Overview.html">nn::ec::CTR::ECardItem</a>
+            </th>
+            <td>Class for getting information about items that can be redeemed using a download voucher. Use the <code><a href="../../../nn/ec/CTR/ECardCatalog/GetECardItem.html">ECardCatalog::GetECardItem</a></code> function to get an instance of the <code><a href="../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> class. Note that the <code><a href="../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> instance is invalidated when the <code><a href="../../../nn/ec/CTR/ECardCatalog/Overview.html">ECardCatalog</a></code> instance from which it was obtained is destroyed, or when the <code><a href="../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function is called again.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ECardCatalogFilter/Overview.html">nn::ec::CTR::ECardCatalogFilter</a>
+            </th>
+            <td>Filter for using <code><a href="../../../nn/ec/CTR/ECardCatalog/Overview.html">ECardCatalog</a></code> to search for <code><a href="../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> objects. Search by passing this class to the <code><a href="../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function to filter the <code><a href="../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> search results.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ECardCatalog/Overview.html">nn::ec::CTR::ECardCatalog</a>
+            </th>
+            <td>Class for finding items that can be redeemed using a download voucher.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ServiceItem/Overview.html">nn::ec::CTR::ServiceItem</a>
+            </th>
+            <td>Class for getting service item information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ServiceItemCatalogFilter/Overview.html">nn::ec::CTR::ServiceItemCatalogFilter</a>
+            </th>
+            <td>Filter for using <code><a href="../../../nn/ec/CTR/ServiceItemCatalog/Overview.html">ServiceItemCatalog</a></code> to search for <code><a href="../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a></code> objects.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ServiceItemCatalog/Overview.html">nn::ec::CTR::ServiceItemCatalog</a>
+            </th>
+            <td>Class for searching for service items.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">EC</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/EcApplet/Overview.html">nn::ec::CTR::EcApplet</a>
+            </th>
+            <td>Class for making requests of the EC <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Error</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultError/Overview.html">nn::ec::CTR::ResultError</a>
+            </th>
+            <td>Class for getting processing results and error determinations.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">eShop</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/Server/Overview.html">nn::ec::CTR::Server</a>
+            </th>
+            <td>Class for getting information from the Nintendo eShop server. Using the <code><a href="../../../nn/ec/CTR/Server/Overview.html">Server</a></code> class requires a <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object that has been initialized using the <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function. After initializing the <code><a href="../../../nn/ec/CTR/Server/Overview.html">Server</a></code> object, calling the <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function again, such as to reinitialize, causes the old session to be destroyed, with any further calls to any object functions returning a <code><a href="../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> that includes <code><a href="../../../nn/ec/CTR/ResultSessionInvalid/Overview.html">ResultSessionInvalid</a></code>. In such cases, use the newly initialized <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> to initialize a new instance of the <code><a href="../../../nn/ec/CTR/Server/Overview.html">Server</a></code> class, and then use that object.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Managing</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/Session/Overview.html">nn::ec::CTR::Session</a>
+            </th>
+            <td>Class for managing sessions established with the eShop server. The <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object can only be initialized using the <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function. Use the functions of the <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> class to get information for initialized data titles. Even if data title information is specified in the <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function, if initialized data title information cannot be found, the data on the eShop server cannot be used because it is not yet on sale or the sale period has ended. You must have an initialized <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object to initialize the other classes used to communicate with the eShop <a href="../../../nn/ec/CTR/Server/Overview.html">Server</a>. When an EC library function returns a <code><a href="../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> instance with a <code><a href="../../../nn/ec/CTR/ResultError/RequiresNewSession.html">ResultError::RequiresNewSession</a></code> method that returns <code>true</code>, the <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object that was in use has become invalid. Call <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> again to reinitialize the <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object. When a new <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object is initialized, old ones are automatically invalidated. A new <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object must be initialized when the removal of the SD card is detected, but you can avoid using the old <code><a href="../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object by calling <code><a href="../../../nn/ec/CTR/Session/Invalidate.html">Session::Invalidate</a></code> to invalidate it explicitly. If service item information is passed to the <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function, the initialization for the service item is always in a completed state because service items do not require initialization.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Result</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultTooManyContents/Overview.html">nn::ec::CTR::ResultTooManyContents</a>
+            </th>
+            <td>Too many pieces of content were specified.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultTooManyItems/Overview.html">nn::ec::CTR::ResultTooManyItems</a>
+            </th>
+            <td>Too many items were specified.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultPriceFormatInvalid/Overview.html">nn::ec::CTR::ResultPriceFormatInvalid</a>
+            </th>
+            <td>The format of the specified price is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultTooManyTitles/Overview.html">nn::ec::CTR::ResultTooManyTitles</a>
+            </th>
+            <td>Too many titles were specified.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultNotInitialized/Overview.html">nn::ec::CTR::ResultNotInitialized</a>
+            </th>
+            <td>Not initialized.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultUpdatedVersionRetrieved/Overview.html">nn::ec::CTR::ResultUpdatedVersionRetrieved</a>
+            </th>
+            <td>There is an updated version of the title found in the search results.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultTitleInvalid/Overview.html">nn::ec::CTR::ResultTitleInvalid</a>
+            </th>
+            <td>An invalid title was specified.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultInvalidSelectionFilter/Overview.html">nn::ec::CTR::ResultInvalidSelectionFilter</a>
+            </th>
+            <td>An invalid <code>SelectionFilter</code> was specified.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultNotImplemented/Overview.html">nn::ec::CTR::ResultNotImplemented</a>
+            </th>
+            <td>An unimplemented function was called.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultDataTitleNotFound/Overview.html">nn::ec::CTR::ResultDataTitleNotFound</a>
+            </th>
+            <td>A data title was not found.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultDataTitleContentInfoNotFound/Overview.html">nn::ec::CTR::ResultDataTitleContentInfoNotFound</a>
+            </th>
+            <td>Content information specified by the data title was not found.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultDataTitleContentNotFound/Overview.html">nn::ec::CTR::ResultDataTitleContentNotFound</a>
+            </th>
+            <td>Content specified by the data title was not found.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultMetaDataTitleNotFound/Overview.html">nn::ec::CTR::ResultMetaDataTitleNotFound</a>
+            </th>
+            <td>The data title to load metadata was not found.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultMetaDataInvalidFormat/Overview.html">nn::ec::CTR::ResultMetaDataInvalidFormat</a>
+            </th>
+            <td>Invalid metadata format.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultMetaDataContentNotFound/Overview.html">nn::ec::CTR::ResultMetaDataContentNotFound</a>
+            </th>
+            <td>Content information was not found in metadata.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultMetaDataIconNotFound/Overview.html">nn::ec::CTR::ResultMetaDataIconNotFound</a>
+            </th>
+            <td>An icon was not found in metadata.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultOutOfFilterMemory/Overview.html">nn::ec::CTR::ResultOutOfFilterMemory</a>
+            </th>
+            <td>The buffer configured for the filter is too small.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultCatalogInvalidArgument/Overview.html">nn::ec::CTR::ResultCatalogInvalidArgument</a>
+            </th>
+            <td>An invalid argument was specified for the catalog.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultSessionInvalid/Overview.html">nn::ec::CTR::ResultSessionInvalid</a>
+            </th>
+            <td>Invalid session.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultNewSessionRequired/Overview.html">nn::ec::CTR::ResultNewSessionRequired</a>
+            </th>
+            <td>A new session is required.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultSessionPreparedTitleNotFound/Overview.html">nn::ec::CTR::ResultSessionPreparedTitleNotFound</a>
+            </th>
+            <td>The data title specified for this session was not initialized.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletCloseApplicationRequested/Overview.html">nn::ec::CTR::ResultAppletCloseApplicationRequested</a>
+            </th>
+            <td>An application close was requested during the call to the <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultDataTitleNotOwned/Overview.html">nn::ec::CTR::ResultDataTitleNotOwned</a>
+            </th>
+            <td>The data title has never been initialized.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultServiceTitleNotOwned/Overview.html">nn::ec::CTR::ResultServiceTitleNotOwned</a>
+            </th>
+            <td>The service title item has never been purchased.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAccountNotCreated/Overview.html">nn::ec::CTR::ResultAccountNotCreated</a>
+            </th>
+            <td>The account has not been created.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultNotSupported/Overview.html">nn::ec::CTR::ResultNotSupported</a>
+            </th>
+            <td>The action is not supported.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultTicketEnvelopeSizeInvalid/Overview.html">nn::ec::CTR::ResultTicketEnvelopeSizeInvalid</a>
+            </th>
+            <td>The size of the ticket envelope is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultDataTitleInUse/Overview.html">nn::ec::CTR::ResultDataTitleInUse</a>
+            </th>
+            <td>The requested operation cannot be performed while data title content is mounted.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultOutOfCatalogMemory/Overview.html">nn::ec::CTR::ResultOutOfCatalogMemory</a>
+            </th>
+            <td>The buffer set for the catalog is too small.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultDataTitleContentNotDeletable/Overview.html">nn::ec::CTR::ResultDataTitleContentNotDeletable</a>
+            </th>
+            <td>Tried to delete content that cannot be deleted.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultNoEnoughSpaceError/Overview.html">nn::ec::CTR::ResultNoEnoughSpaceError</a>
+            </th>
+            <td>There is not enough space to perform the operation.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultECardInvalidIdError/Overview.html">nn::ec::CTR::ResultECardInvalidIdError</a>
+            </th>
+            <td>An invalid download voucher ID was specified.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultECardStatusRedeemedError/Overview.html">nn::ec::CTR::ResultECardStatusRedeemedError</a>
+            </th>
+            <td>The specified download voucher has already been redeemed.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultECardStatusRevokedError/Overview.html">nn::ec::CTR::ResultECardStatusRevokedError</a>
+            </th>
+            <td>An invalid download voucher was specified.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultECardStatusInactiveError/Overview.html">nn::ec::CTR::ResultECardStatusInactiveError</a>
+            </th>
+            <td>An invalid download voucher was specified.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultECardStatusUnknownError/Overview.html">nn::ec::CTR::ResultECardStatusUnknownError</a>
+            </th>
+            <td>The status of the download voucher is unknown.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultECardTypeLegacyPointsError/Overview.html">nn::ec::CTR::ResultECardTypeLegacyPointsError</a>
+            </th>
+            <td>The specified download voucher type cannot be used with the EC library.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultECardTypeCacheError/Overview.html">nn::ec::CTR::ResultECardTypeCacheError</a>
+            </th>
+            <td>The specified download voucher type cannot be used with the EC library.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultECardTypeUnknownError/Overview.html">nn::ec::CTR::ResultECardTypeUnknownError</a>
+            </th>
+            <td>The specified download voucher type cannot be used with the EC library.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultECardNoRedeemableItemsError/Overview.html">nn::ec::CTR::ResultECardNoRedeemableItemsError</a>
+            </th>
+            <td>The item to be redeemed was not found.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultFsMediaWriteProtectedError/Overview.html">nn::ec::CTR::ResultFsMediaWriteProtectedError</a>
+            </th>
+            <td>The SD card is write-protected.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultInfraNeedsReconnectError/Overview.html">nn::ec::CTR::ResultInfraNeedsReconnectError</a>
+            </th>
+            <td>You must reconnect to the eShop server.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultInfraReportError/Overview.html">nn::ec::CTR::ResultInfraReportError</a>
+            </th>
+            <td>The eShop server returned an error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultInfraReceiveError/Overview.html">nn::ec::CTR::ResultInfraReceiveError</a>
+            </th>
+            <td>Failed to receive from the eShop server.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultInfraInvalidResponseError/Overview.html">nn::ec::CTR::ResultInfraInvalidResponseError</a>
+            </th>
+            <td>Invalid response from the eShop server.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultInfraNeedsUpdateError/Overview.html">nn::ec::CTR::ResultInfraNeedsUpdateError</a>
+            </th>
+            <td>The eShop server updated. The system must also be updated.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultInfraTimeoutError/Overview.html">nn::ec::CTR::ResultInfraTimeoutError</a>
+            </th>
+            <td>Communication with the eShop server timed out.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultInfraBusyError/Overview.html">nn::ec::CTR::ResultInfraBusyError</a>
+            </th>
+            <td>The eShop server is busy.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultInfraInMaintenanceError/Overview.html">nn::ec::CTR::ResultInfraInMaintenanceError</a>
+            </th>
+            <td>The eShop server is down for maintenance.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultNetworkTimeoutError/Overview.html">nn::ec::CTR::ResultNetworkTimeoutError</a>
+            </th>
+            <td>Communication with the eShop server timed out.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultNetworkInMaintenanceError/Overview.html">nn::ec::CTR::ResultNetworkInMaintenanceError</a>
+            </th>
+            <td>The eShop server is down for maintenance.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultOutOfCatalogMemoryError/Overview.html">nn::ec::CTR::ResultOutOfCatalogMemoryError</a>
+            </th>
+            <td>The buffer configured for the catalog is too small.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultOutOfSystemMemoryError/Overview.html">nn::ec::CTR::ResultOutOfSystemMemoryError</a>
+            </th>
+            <td>Insufficient system memory.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultFsMediaAccessFailedError/Overview.html">nn::ec::CTR::ResultFsMediaAccessFailedError</a>
+            </th>
+            <td>Media file system access failed.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAcNotConnectedError/Overview.html">nn::ec::CTR::ResultAcNotConnectedError</a>
+            </th>
+            <td>The automatic connection has been interrupted.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletCancelled/Overview.html">nn::ec::CTR::ResultAppletCancelled</a>
+            </th>
+            <td>Applet processing was canceled by the user.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletHomeButton/Overview.html">nn::ec::CTR::ResultAppletHomeButton</a>
+            </th>
+            <td>The <a href="../../../nn/applet/Overview.html">applet</a> was closed by the user pressing the HOME Button.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletSoftwareReset/Overview.html">nn::ec::CTR::ResultAppletSoftwareReset</a>
+            </th>
+            <td>The <a href="../../../nn/applet/Overview.html">applet</a> was closed during processing by software reset.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletPowerButton/Overview.html">nn::ec::CTR::ResultAppletPowerButton</a>
+            </th>
+            <td>The <a href="../../../nn/applet/Overview.html">applet</a> was closed during processing because the user pressed the POWER Button.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletNotSupportedError/Overview.html">nn::ec::CTR::ResultAppletNotSupportedError</a>
+            </th>
+            <td>Called an API function that has not been implemented in the <a href="../../../nn/applet/Overview.html">applet</a>. You must not allow this error to occur in retail products.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletNotEnoughSpaceToDownloadContent/Overview.html">nn::ec::CTR::ResultAppletNotEnoughSpaceToDownloadContent</a>
+            </th>
+            <td>Could not download the content due to lack of free space on the SD card.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletNotEnoughSpaceToDownloadDatatitle/Overview.html">nn::ec::CTR::ResultAppletNotEnoughSpaceToDownloadDatatitle</a>
+            </th>
+            <td>Could not download the data title due to lack of free space on the SD card.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletNeedsDatatitleUpdate/Overview.html">nn::ec::CTR::ResultAppletNeedsDatatitleUpdate</a>
+            </th>
+            <td>The data title update was found. Call <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> again.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletNecessaryAttributeNotFound/Overview.html">nn::ec::CTR::ResultAppletNecessaryAttributeNotFound</a>
+            </th>
+            <td>Could not get the required item attribute. Configure the appropriate attributes on the server. You must not allow this error to occur in retail products.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletMetadataNotFound/Overview.html">nn::ec::CTR::ResultAppletMetadataNotFound</a>
+            </th>
+            <td>Could not get the content attribute. Configure the appropriate attributes in the metadata content. You must not allow this error to occur in retail products.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletDatatitleNotImported/Overview.html">nn::ec::CTR::ResultAppletDatatitleNotImported</a>
+            </th>
+            <td>The data title was not found. Call <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> again.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletTooManyDatatitles/Overview.html">nn::ec::CTR::ResultAppletTooManyDatatitles</a>
+            </th>
+            <td>The maximum number of titles that can be saved on the SD card has been exceeded.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletTooManyContents/Overview.html">nn::ec::CTR::ResultAppletTooManyContents</a>
+            </th>
+            <td>The maximum number of content instances that can be saved in a data title has been exceeded. Content cannot be purchased or downloaded until some existing content is deleted.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletAlreadyPurchased/Overview.html">nn::ec::CTR::ResultAppletAlreadyPurchased</a>
+            </th>
+            <td>Attempted to purchase a previously purchased item.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletItemUnpurchasable/Overview.html">nn::ec::CTR::ResultAppletItemUnpurchasable</a>
+            </th>
+            <td>The item requested for purchase was not for sale. Pass an item retrieved using <code><a href="../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> with the <code>Filter</code> set to <code>SelectionFilter == PURCHASABLE</code>. This result also occurs if an item is no longer for sale after the purchase request for the item was sent to the <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletItemNotFound/Overview.html">nn::ec::CTR::ResultAppletItemNotFound</a>
+            </th>
+            <td>Could not find the item requested for purchase. Pass an item retrieved using <code><a href="../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> with the <code>Filter</code> set to <code>SelectionFilter == PURCHASABLE</code>. This result also occurs if an item is no longer for sale after the purchase request for the item was sent to the <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletAlreadyDownloaded/Overview.html">nn::ec::CTR::ResultAppletAlreadyDownloaded</a>
+            </th>
+            <td>The content requested for download has already been downloaded. Use the <code><a href="../../../nn/ec/CTR/ContentInfo/IsOnDevice.html">ContentInfo::IsOnDevice</a></code> function to check whether the content has already been downloaded before making the request.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletRedeemableItemNotFound/Overview.html">nn::ec::CTR::ResultAppletRedeemableItemNotFound</a>
+            </th>
+            <td>No items were found that can be redeemed for the download code passed to the <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletAlreadyRedeemedItem/Overview.html">nn::ec::CTR::ResultAppletAlreadyRedeemedItem</a>
+            </th>
+            <td>The item that can be redeemed for the download code passed to the item has already been purchased or redeemed.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletNeedsSystemUpdate/Overview.html">nn::ec::CTR::ResultAppletNeedsSystemUpdate</a>
+            </th>
+            <td>A system update is required. EC services are unavailable until the system is updated.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletStandbyMode/Overview.html">nn::ec::CTR::ResultAppletStandbyMode</a>
+            </th>
+            <td>The eShop server is down for maintenance. EC services are unavailable for a short time.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletShopServiceTerminated/Overview.html">nn::ec::CTR::ResultAppletShopServiceTerminated</a>
+            </th>
+            <td>The eShop server service terminated.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletShopServiceUnavailable/Overview.html">nn::ec::CTR::ResultAppletShopServiceUnavailable</a>
+            </th>
+            <td>The eShop server service is unavailable.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletCountryChanged/Overview.html">nn::ec::CTR::ResultAppletCountryChanged</a>
+            </th>
+            <td>The EC service is not available because the country information of the system has changed.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletShopServerError/Overview.html">nn::ec::CTR::ResultAppletShopServerError</a>
+            </th>
+            <td>An error occurred during a transaction with the eShop server.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletImportFailed/Overview.html">nn::ec::CTR::ResultAppletImportFailed</a>
+            </th>
+            <td>An error occurred while importing the content.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletNotAgreeEulaError/Overview.html">nn::ec::CTR::ResultAppletNotAgreeEulaError</a>
+            </th>
+            <td>The user has not accepted the EULA version required for the <a href="../../../nn/applet/Overview.html">applet</a> to operate.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletWifiOffError/Overview.html">nn::ec::CTR::ResultAppletWifiOffError</a>
+            </th>
+            <td>The Wi-Fi was off when the <a href="../../../nn/applet/Overview.html">applet</a> was connecting to the network.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletRequiresReConnect/Overview.html">nn::ec::CTR::ResultAppletRequiresReConnect</a>
+            </th>
+            <td>Specifies the connection must be re-established. Call <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> again.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletFailedConnectError/Overview.html">nn::ec::CTR::ResultAppletFailedConnectError</a>
+            </th>
+            <td>An error occurred when the <a href="../../../nn/applet/Overview.html">applet</a> was connecting to the network.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletEcardUnavailable/Overview.html">nn::ec::CTR::ResultAppletEcardUnavailable</a>
+            </th>
+            <td>The download code cannot be used.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletInvalidRivToken/Overview.html">nn::ec::CTR::ResultAppletInvalidRivToken</a>
+            </th>
+            <td>Failed to validate the <code>RivToken</code> passed to the <a href="../../../nn/applet/Overview.html">applet</a>. You must not allow this error to occur in retail products.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletInvalidParameter/Overview.html">nn::ec::CTR::ResultAppletInvalidParameter</a>
+            </th>
+            <td>An invalid parameter was passed to the <a href="../../../nn/applet/Overview.html">applet</a>. You must not allow this error to occur in retail products.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletSdNotInserted/Overview.html">nn::ec::CTR::ResultAppletSdNotInserted</a>
+            </th>
+            <td>The SD card is not inserted.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletSdWriteProtected/Overview.html">nn::ec::CTR::ResultAppletSdWriteProtected</a>
+            </th>
+            <td>The SD card is write-protected.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletSdBroken/Overview.html">nn::ec::CTR::ResultAppletSdBroken</a>
+            </th>
+            <td>The SD card is broken.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletFailed/Overview.html">nn::ec::CTR::ResultAppletFailed</a>
+            </th>
+            <td>General error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletFailedError/Overview.html">nn::ec::CTR::ResultAppletFailedError</a>
+            </th>
+            <td>General error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletWrongPinCode/Overview.html">nn::ec::CTR::ResultAppletWrongPinCode</a>
+            </th>
+            <td>The process could not execute because the user entered an incorrect PIN code in the <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletInvalidVersion/Overview.html">nn::ec::CTR::ResultAppletInvalidVersion</a>
+            </th>
+            <td>The version of the data title on the client is newer than the one on the server.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletSdAccessError/Overview.html">nn::ec::CTR::ResultAppletSdAccessError</a>
+            </th>
+            <td>Failed to access the SD card due to bad contact or an illegal file format.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletDuplicateContentIndex/Overview.html">nn::ec::CTR::ResultAppletDuplicateContentIndex</a>
+            </th>
+            <td>There are content index duplicates among the items for purchase.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletFailedLoginError/Overview.html">nn::ec::CTR::ResultAppletFailedLoginError</a>
+            </th>
+            <td>Failed to log in to Nintendo Network.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletDataTitleInUse/Overview.html">nn::ec::CTR::ResultAppletDataTitleInUse</a>
+            </th>
+            <td>The requested operation cannot be performed while data title content is mounted. Do not mount the title passed by <code>RequestInitializeSession</code> when using the <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ResultAppletNeedsBalanceUpdate/Overview.html">nn::ec::CTR::ResultAppletNeedsBalanceUpdate</a>
+            </th>
+            <td>Detected that the balance needs to be updated while displaying the <a href="../../../nn/applet/Overview.html">applet</a>. Call <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> again.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/Money/Overview.html">nn::ec::CTR::Money</a>
+            </th>
+            <td>The structure that stores balance and price information. To display balance and price information on the screen, it is not enough to just display the string stored in the <code><a href="../../../nn/ec/CTR/Money/Overview.html">Money</a></code> structure. You must also display any currency prefix and suffix. Use the <code><a href="../../../nn/ec/CTR/Server/ConvertPrice.html">Server::ConvertPrice</a></code> function to convert the information in the <code><a href="../../../nn/ec/CTR/Money/Overview.html">Money</a></code> structure into a <code><a href="../../../nn/ec/CTR/PriceIndication/Overview.html">PriceIndication</a></code> structure. Make sure to display the converted <code><a href="../../../nn/ec/CTR/PriceIndication/Overview.html">PriceIndication</a></code> on the screen.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/PriceIndication/Overview.html">nn::ec::CTR::PriceIndication</a>
+            </th>
+            <td>The structure that stores balance and price notation strings. To display balance and price information on the screen, it is not enough to just display the string stored in the <code><a href="../../../nn/ec/CTR/Money/Overview.html">Money</a></code> structure. You must also display any currency prefix and suffix. Use the <code><a href="../../../nn/ec/CTR/Server/ConvertPrice.html">Server::ConvertPrice</a></code> function to convert the information in the <code><a href="../../../nn/ec/CTR/Money/Overview.html">Money</a></code> structure into a <code><a href="../../../nn/ec/CTR/PriceIndication/Overview.html">PriceIndication</a></code> structure. Then always display the converted <code><a href="../../../nn/ec/CTR/PriceIndication/Overview.html">PriceIndication</a></code> on the screen.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ItemId/Overview.html">nn::ec::CTR::ItemId</a>
+            </th>
+            <td>The structure that indicates item IDs.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/AttributeName/Overview.html">nn::ec::CTR::AttributeName</a>
+            </th>
+            <td>The structure that stores the item's attribute name.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/AttributeFilter/Overview.html">nn::ec::CTR::AttributeFilter</a>
+            </th>
+            <td>The structure for filtering item searches by attribute values. You can only use the <code>?</code> (for matching any single character) and <code>*</code> (for matching any multiple characters) wildcards for matching when specifying the <code>LIKE</code> filter. <code>value2</code> is only enabled when the filter type is <code>BETWEEN</code>, and is ignored for all other filter types. Using the filter type of <code>BETWEEN</code> matches attribute values between <code>value1</code> and <code>value2</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/OrderByAttribute/Overview.html">nn::ec::CTR::OrderByAttribute</a>
+            </th>
+            <td>The structure for specifying the sort order of item search results.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ECardTypeCode/Overview.html">nn::ec::CTR::ECardTypeCode</a>
+            </th>
+            <td>The structure that stores download codes.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/Rating/Overview.html">nn::ec::CTR::Rating</a>
+            </th>
+            <td>The structure that indicates rating information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/TitleInfo/Overview.html">nn::ec::CTR::TitleInfo</a>
+            </th>
+            <td>The structure that indicates title information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/PreparedTitleInfo/Overview.html">nn::ec::CTR::PreparedTitleInfo</a>
+            </th>
+            <td>The structure that indicates initialized data title information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ReferenceId/Overview.html">nn::ec::CTR::ReferenceId</a>
+            </th>
+            <td>Structure that stores service item <code><a href="../../../nn/ec/CTR/ReferenceId/Overview.html">ReferenceId</a></code> information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ServiceDescription/Overview.html">nn::ec::CTR::ServiceDescription</a>
+            </th>
+            <td>The structure that represents service-item information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ServiceItemId/Overview.html">nn::ec::CTR::ServiceItemId</a>
+            </th>
+            <td>The structure used when purchasing service items in a batch.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/PriceInfo/Overview.html">nn::ec::CTR::PriceInfo</a>
+            </th>
+            <td>Represents price information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/PurchaseInfo/Overview.html">nn::ec::CTR::PurchaseInfo</a>
+            </th>
+            <td>Represents the information used when confirming the purchase of a service.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/RedemptionInfo/Overview.html">nn::ec::CTR::RedemptionInfo</a>
+            </th>
+            <td>Represents the information used when confirming redemption of a service.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/SubscriptionInfo/Overview.html">nn::ec::CTR::SubscriptionInfo</a>
+            </th>
+            <td>Structure that represents subscription service item information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/IconData/Overview.html">nn::ec::CTR::IconData</a>
+            </th>
+            <td>The structure that stores icon data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ec/CTR/ContentMeta/Overview.html">nn::ec::CTR::ContentMeta</a>
+            </th>
+            <td>The structure that stores metadata content information.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/ec/CTR/NecessaryAttribute.html">NecessaryAttribute</a>
+            </th>
+            <td>An enumerated type indicating the required-attribute type.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/ec/CTR/SelectionFilter.html">SelectionFilter</a>
+            </th>
+            <td>An enumerated type specifying the item search range.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/ec/CTR/TitleType.html">TitleType</a>
+            </th>
+            <td>An enumerated type indicating the title type.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/ec/CTR/ECardItemType.html">ECardItemType</a>
+            </th>
+            <td>An enumerated type representing the types of items that can be exchanged using download vouchers.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/ec/CTR/ServiceItemType.html">ServiceItemType</a>
+            </th>
+            <td>An enumerated type representing service-item license types.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="typedef" id="typedef">
+      <h2>typedef Definitions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/ec/CTR/Price.html">Price</a>
+            </th>
+            <td>The structure that stores price information. The <code>typedef</code> for <code><a href="../../../nn/ec/CTR/Money/Overview.html">Money</a></code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/ITEM_CODE_LENGTH.html">ITEM_CODE_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The length of a <code>NULL</code>-terminated UTF-8 string that identifies that service item's item. In actual practice, it works out to be 16 characters plus the <code>NULL</code> terminator.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/REFERENCE_ID_LENGTH.html">REFERENCE_ID_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The length of the byte string that identifies the system item's <code><a href="../../../nn/ec/CTR/ReferenceId/Overview.html">ReferenceId</a></code>. Note that this is not the length of a string.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/SERVICE_ITEM_NAME_LENGTH.html">SERVICE_ITEM_NAME_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The maximum length (in characters) for service item names displayed in the EC <a href="../../../nn/applet/Overview.html">applet</a> (UTF-16LE encoded, including the null terminator).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/SERVICE_DESCRIPTION_LENGTH.html">SERVICE_DESCRIPTION_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The maximum length (in characters) for service item descriptions displayed in the EC <a href="../../../nn/applet/Overview.html">applet</a> (UTF-16LE encoded, including the null terminator).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/SERVICE_DISCLAIMER_LENGTH.html">SERVICE_DISCLAIMER_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The maximum length (in characters) for service item disclaimers displayed in the EC <a href="../../../nn/applet/Overview.html">applet</a> (UTF-16LE encoded, including the null terminator).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/SUBSCRIPTION_SERVICE_ITEM_NAME_LENGTH.html">SUBSCRIPTION_SERVICE_ITEM_NAME_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The maximum length (in characters) for the names of subscription service items displayed in the EC <a href="../../../nn/applet/Overview.html">applet</a> (UTF-16LE encoded, including the null terminator).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/SUBSCRIPTION_SERVICE_DESCRIPTION_LENGTH.html">SUBSCRIPTION_SERVICE_DESCRIPTION_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The maximum length (in characters) for the descriptions of subscription service items displayed in the EC <a href="../../../nn/applet/Overview.html">applet</a> (UTF-16LE encoded, including the null terminator).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/SUBSCRIPTION_SERVICE_DISCLAIMER_LENGTH.html">SUBSCRIPTION_SERVICE_DISCLAIMER_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The maximum length (in characters) for the disclaimers of subscription service items displayed in the EC <a href="../../../nn/applet/Overview.html">applet</a> (UTF-16LE encoded, including the null terminator).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/MAX_NUM_INITIALIZE_TITLES.html">MAX_NUM_INITIALIZE_TITLES</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The maximum number of titles for which initialization can be requested in <code><a href="../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/MAX_NUM_REDOWNLOAD_CONTENTS.html">MAX_NUM_REDOWNLOAD_CONTENTS</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The maximum number of content instances for which a re-download can be requested in <code><a href="../../../nn/ec/CTR/EcApplet/RequestDownloadContents.html">EcApplet::RequestDownloadContents</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/MAX_NUM_PURCHASABLE_SERVICE_ITEMS.html">MAX_NUM_PURCHASABLE_SERVICE_ITEMS</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The maximum number of service items that can be batch-purchased using the <code><a href="../../../nn/ec/CTR/EcApplet/RequestPurchaseServiceItems.html">EcApplet::RequestPurchaseServiceItems</a></code> function.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ec/CTR/MAX_NUM_PURCHASABLE_CONTENT_SETS.html">MAX_NUM_PURCHASABLE_CONTENT_SETS</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The maximum number of content sets that can be batch-purchased using the <code><a href="../../../nn/ec/CTR/EcApplet/RequestPurchaseContentSets.html">EcApplet::RequestPurchaseContentSets</a></code> function.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Initialize/Finalize</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/ec/CTR/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the <code><a href="../../../nn/ec/Overview.html">ec</a></code> library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/ec/CTR/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the <a href="../../../nn/ec/Overview.html">ec</a> library.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Features for Nintendo eShop REST API Service Items</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/ec/CTR/ShowPurchaseConfirmationDialog.html">ShowPurchaseConfirmationDialog</a>
+            </th>
+            <td>Makes a request to the EC <a href="../../../nn/applet/Overview.html">applet</a> to show the purchase confirmation screen.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/ec/CTR/ShowRedemptionConfirmationDialog.html">ShowRedemptionConfirmationDialog</a>
+            </th>
+            <td>Makes a request to the EC <a href="../../../nn/applet/Overview.html">applet</a> to show the redemption confirmation screen.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/ec/CTR/NeedsSystemUpdate.html">NeedsSystemUpdate</a>
+            </th>
+            <td>Returns whether a system update is needed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/ec/CTR/RequestRecurringSubscription.html">RequestRecurringSubscription</a>
+            </th>
+            <td>Makes an auto-billing request to the EC <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr> </table>
+      </div>
+    </a>
+  </body>
+</html>

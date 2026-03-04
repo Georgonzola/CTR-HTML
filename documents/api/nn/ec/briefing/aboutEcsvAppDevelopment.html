@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+    <style type="text/css">
+        tr.fig { background-color:transparent; padding:0; }
+        td.fig { text-align:center; border:0; padding:0; font-family:sans-serif; font-size:90%; }
+        dt.lis { margin-left:2.5em; display:list-item; line-height:2em; }
+        dd.lis { margin-left:3.5em; line-height:2em; }
+    </style>
+    <title>ECDK: Developing Applications That Support Service Items</title>
+</head>
+<body>
+    <h1>ECDK: Developing Applications That Support Service Items</h1>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#Summary">Overview</a></li>
+      <li><a href="#Attention">Notes</a></li>
+      <li><a href="#Composition">Overall Image of Service Items</a></li>
+      <li><a href="#eShop">Preparations on the eShop Server Side</a></li>
+      <li><a href="#Client">Preparations on the Client Side</a></li>
+      <li><a href="#Server">Preparations on the Independent Server Side</a></li>
+      <li><a href="#Debug">Debugging</a></li>
+      <li><a href="#Master">Notes to Consider for Independent Server Specifications and When Submitting Masters</a></li>
+      <li><a href="#ViewBalance">Displaying Account Balances</a></li>
+      <li><a href="#History">Revision History</a></li>
+    </ul>
+
+    <a name="Summary"><h2>Overview</h2></a>
+    <p>
+        Service items are the unit by which online services are sold, and are composed of information provided from two servers: the eShop server and the independent server owned by the game developer.
+    </p>
+    <p>
+        The game developer can limit the provision of online services based on licensing information in the service item.
+    </p>
+    <p>
+        This page describes the preparations required on the program side when selling service items.
+    </p>
+
+    <a name="Attention"><h2>Notes</h2></a>
+    <p>
+        <ul>
+            <li>The correct serial number must be written to the CTR system for applications that use the EC library. You can use the Config tool to check the system's serial number. Verify that the serial number matches the serial number printed on the back of the system. If the serial number is not written correctly and the printed serial number starts with EJF, the system can be repaired. Contact Nintendo. Any other serial number is for a prototype system that cannot be repaired.</li>
+            <li>Data titles created with the version of E-Commerce Kit for CTR-SDK 3.2 or later are not compatible with those created with E-Commerce Kit for CTR-SDK 3.1. (Compatible with version 3.2 and later.)<br /> Note that for this reason, the demo data titles on the server have been replaced and some of the 3.1 demo programs will not work. <br /> Also, for the same reason, when independent data titles are already used with 3.1 and you are replacing with SDK 3.2 or later, the data title must be rebuilt and uploaded to the server.</li>
+            <li>The system might freeze if the user removes the SD card while the ES applet is running for a purchase or otherwise.<br /> This issue has been noted in <a href="./../../../../ReleaseNotes/knownIssues.html">Symptoms Due to Design Limitations of Specifications</a> as follows: <B>[FS] Removing a card while it is being accessed may cause a fatal error or cause the system to stop operating</B>.<br /> This freeze is something that applications cannot overcome, so consider this to be an error that your application cannot handle.
+            </li>
+            <li>The development and production shop environments have some differences. <br />For example, the production environment eShop for the Korean region does not allow credit card payments, but the development environment shows the option.</li>
+        </ul>
+    </p>
+
+    <a name="Composition"><h2>Overall Image of Service Items</h2></a>
+    <p>
+        First, the typical process when a client uses a service item is shown.
+    </p>
+    <br />
+    <p>
+        <table style="width:auto">
+            <tr class="fig"><td class="fig">eShop Server</td><td class="fig"></td><td class="fig">1.3</td><td class="fig"></td><td class="fig">Independent Server</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">Request service item information.</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">-------------------------------&gt;</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">Item code / Service name /</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">Send information that contains the reference ID.</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">&lt;-------------------------------</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">Request service item information.</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">&lt;-------------------------------</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">Includes pricing and license configuration.</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">Send information.</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">-------------------------------&gt;</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">The service item selected by the user.</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">Request the <CODE>Riv</CODE> token.</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">-------------------------------&gt;</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">Generate and send the <CODE>Riv</CODE> token.</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">&lt;-------------------------------</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">Item code /</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">Specify the reference ID / <CODE>Riv</CODE> token.</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">Purchase the service item.</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">&lt;-------------------------------</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">Verify the <CODE>Riv</CODE> token, and if is not tampered with,</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">update the license information for the service</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">specified by the reference ID.</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig">-------------------------------&gt;</td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">Request the challenge Blob.</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">-------------------------------&gt;</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">Send the challenge Blob.</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">&lt;-------------------------------</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">From the ticket and challenge Blob,</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">the created ticket envelope</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">is sent, and service is requested.</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">-------------------------------&gt;</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">Verify the ticket envelope,</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">and if the license information for the service</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">is valid, provide service.</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig">&lt;-------------------------------</td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">|</td><td class="fig"></td><td class="fig">|</td><td class="fig"></td><td class="fig">|</td></tr>
+            <tr class="fig"><td class="fig">V</td><td class="fig"></td><td class="fig">V</td><td class="fig"></td><td class="fig">V</td></tr>
+        </table>
+    </p>
+    <br />
+    <p>
+        The following explanation is based on this diagram.
+    </p>
+
+
+    <a name="eShop"><h2>Preparations on the eShop Server Side</h2></a>
+        <p>
+        The game developer must register the following information on the eShop server.
+        </p>
+        <ul>
+          <li>Service item information (item code, price, sale period, license configuration)</li>
+        </ul>
+        <ul>
+          <li>Public key for <CODE>Riv</CODE> token verification</li>
+        </ul>
+        <p>
+          Any other service item information cannot be registered on the eShop server.
+        </p>
+        <p>
+          The item code is a string to identify the information of the service item registered on the eShop server.
+        </p>
+        <p>
+          The license configuration can be selected from one of the following three types.
+        </p>
+        <dl>
+          <dt class="lis">Permanent ticket</dt>
+          <dd class="lis">Select when selling a service that can be used permanently once purchased.</dd>
+          <dt class="lis">Subscription ticket</dt>
+          <dd class="lis">Select when selling a license to use a service in units of time.<br /> The determination of whether the license is valid at a particular point in time must be made by the independent server.</dd>
+          <dt class="lis">Consumable service ticket</dt>
+          <dd class="lis">Select when selling a license to use a service for a certain number of times.<br /> The independent server must manage the number of times the license has been used.</dd>
+        </dl>
+        <p>
+          The <CODE>Riv</CODE> token is a token generated on the independent server to verify the reference ID.
+        </p>
+        <p>
+          The public key to perform <CODE>Riv</CODE> token verification must be set on the eShop server.
+        </p>
+        <p>
+          The key requires an RSA key generated in PEM format.
+        </p>
+        <p>
+          The following is an example of generating a key with OpenSSL.
+        </p>
+<pre>openssl genrsa -out riv-private-key.pem -F4 1024
+openssl rsa -in riv-private-key.pem -out riv-public-key.pem -pubout</pre>
+        <p>
+          For instructions on registering information on the eShop server, see the documentation provided separately.
+        </p>
+
+    <a name="Client"><h2>Preparations on the Client Side</h2></a>
+        <p>
+          The game developer must implement the following features on the client.
+        </p>
+        <dl>
+          <dt class="lis">Get information about the service item from the independent server.</dt>
+          <dd class="lis">The game developer must implement this feature independently.</dd>
+          <dt class="lis">Get information about the service item from the eShop server.</dt>
+          <dd class="lis">Use <a href="../../../nn/ec/CTR/ServiceItemCatalog/Retrieve.html">nn::ec::CTR::ServiceItemCatalog::Retrieve</a> and <a href="../../../nn/ec/CTR/ECardCatalog/Retrieve.html">nn::ec::CTR::ECardCatalog::Retrieve</a>.</dd>
+          <dt class="lis">Get the <CODE>Riv</CODE> token from the independent server.</dt>
+          <dd class="lis">The game developer must implement this feature independently.</dd>
+          <dt class="lis">Purchase service items from the eShop server.</dt>
+          <dd class="lis">Use <a href="../../../nn/ec/CTR/EcApplet/RequestPurchaseServiceItem.html">nn::ec::CTR::EcApplet::RequestPurchaseServiceItem</a> or <a href="../../../nn/ec/CTR/EcApplet/RequestRedeemServiceItem.html">nn::ec::CTR::EcApplet::RequestRedeemServiceItem</a>.</dd>
+          <dt class="lis">Get the challenge Blob from the independent server.</dt>
+          <dd class="lis">The game developer must implement this feature independently.</dd>
+          <dt class="lis">Send the ticket envelope to the independent server.</dt>
+          <dd class="lis">Send the ticket envelope generated with <a href="../../../nn/ec/CTR/ServiceTitle/GetTicketEnvelope.html">nn::ec::CTR::ServiceTitle::GetTicketEnvelope</a>.</dd>
+          <dt class="lis">Request service to the independent server.</dt>
+          <dd class="lis">The game developer must implement this feature independently.</dd>
+        </dl>
+        <p>
+          Communication between the client and independent server must be protected with SSL or the like.
+        </p>
+        <p>
+          The application is responsible for protecting communication between the client and server, and so this communication is not a category in this library.
+        </p>
+        <p>
+          Use the Riv token and challenge Blob immediately after getting them.
+        </p>
+        <p>
+          The license information for the purchased service item is registered in the ticket after making a correspondence with the reference ID.
+        </p>
+        <p>
+          A single ticket can have and maintain a maximum of 3000 reference IDs.
+        </p>
+        <p>
+          For implementation examples of each of these features, see the sample code.
+        </p>
+
+    <a name="Server"><h2>Preparations on the Independent Server Side</h2></a>
+        <p>
+          The game developer must implement the following features on the independent server.
+        </p>
+        <p>
+          Incorporate the ECSV library into the independent server to be able to sell and manage service items. 
+        </p>
+        <dl>
+          <dt class="lis">Provide information about the service item to the client.</dt>
+          <dd class="lis">The game developer must implement this feature independently.</dd>
+          <dt class="lis">Send the <CODE>Riv</CODE> token to the client.</dt>
+          <dd class="lis">Send the <CODE>Riv</CODE> token generated by the <a href="../../../ecsv/EC_GenerateRIVToken.html">EC_GenerateRIVToken</a> function.</dd>
+          <dt class="lis">Send the challenge Blob to the client.</dt>
+          <dd class="lis">Send the challenge Blob generated by the <a href="../../../ecsv/EC_GetChallenge.html">EC_GetChallenge</a> function.</dd>
+          <dt class="lis">Verify the ticket envelope received from the client.</dt>
+          <dd class="lis">Use <a href="../../../ecsv/EC_VerifyExtendedTicket.html">EC_VerifyExtendedTicket</a>.</dd>
+          <dt class="lis">Verify license information for the service item specified from the client.</dt>
+          <dd class="lis">The game developer must implement this feature independently.</dd>
+          <dt class="lis">Provide the service to the client</dt>
+          <dd class="lis">The game developer must implement this feature independently.</dd>
+        </dl>
+        <p>
+          Communication between the client and independent server must be protected with SSL or the like.
+        </p>
+        <p>
+          The application is responsible for protecting communication between the client and server, and so this communication is not a category in this library.
+        </p>
+        <p>
+          The information for the service item provided from an independent server must include the following.
+        </p>
+        <dl>
+          <dt class="lis">Item code.</dt>
+          <dd class="lis">Specify the item code the indicates the corresponding information on the eShop server.</dd>
+          <dt class="lis">Service name</dt>
+          <dd class="lis">Name of the service item. There are no restrictions regarding settings on the server, but when displaying the service name using the EC applet on the client side, it can only be a maximum of 32 characters, including the NULL terminator.</dd>
+          <dt class="lis">Reference ID.</dt>
+          <dd class="lis">A 16-byte binary string to identify the service. You can freely specify this string.</dd>
+        </dl>
+        <p>
+          The item code and reference ID pair have a one-to-one correspondence with a single service item.
+        </p>
+        <p>
+         You can assign multiple item codes to a single reference ID or, conversely, assign multiple reference IDs to a single item code. However, the reference ID and license configuration must have a one-to-one correspondence.
+        </p>
+        <p>
+          To generate a <CODE>Riv</CODE> token, you must have a private key that corresponds to the public key for verification of the <CODE>Riv</CODE> token registered on the eShop server.
+        </p>
+        <p>
+          Generate a new <CODE>Riv</CODE> token and challenge Blob for each communication channel.
+        </p>
+        <p>
+          For implementation examples of each of these features, see the sample code.
+        </p>
+
+    <h3>Using OpenSSL With Independent Servers</h3>
+    <p>
+      The ECSV library uses features of OpenSSL.
+    </p>
+    <p>
+      But depending on the version of OpenSSL being used, the ECSV library may not operate correctly. To check whether the ECSV library can be used with the version of OpenSSL that you are using, use the following procedure.
+    </p>
+    <ol>
+        <li>
+          Using this command, extract the terminating 1180 bytes from the file <CODE>resources/ecsv/cert_dpki.sys</CODE> included in the CTR-SDK.
+          <ul>
+              <li><CODE>tail --bytes 1180 cert_dpki.sys &gt; cert_ec-pub-key.txt</CODE> </li>
+          </ul>
+        </li>
+        <li>
+          Execute this command.
+          <ul>
+              <li><CODE>openssl  x509  -in cert_ec-pub-key.txt  -noout  -text</CODE></li>
+          </ul>
+        </li>
+    </ol>
+    <p>
+      If the result parses correctly as in the following sample, you can use the ECSV library.
+    </p>
+    <pre>
+             Public Key Algorithm: id-ecPublicKey
+                        Public-Key: (233 bit)
+                        pub: 
+                            04:00:e4:84:23:ac:7e:49:e3:69:5d:61:6c:6f:f0:
+    </pre>
+    <p>
+      The output is similar to the following if you are using a version of OpenSSL that the ECSV library does not support.
+    </p>
+    <pre>
+        Subject Public Key Info:
+                    Public Key Algorithm: id-ecPublicKey
+                                Unable to load Public Key
+                                140204109485896:error:100AE081:elliptic curve routines:EC_GROUP_new_by_curve_name:unknown group:ec_curve.c:316:
+                                140204109485896:error:100D7010:elliptic curve routines:ECKEY_PUB_DECODE:EC lib:ec_ameth.c:206:
+    </pre>
+
+    <a name="Debug"><h2>Debugging</h2></a>
+      <p>
+        Game developers are asked to use the following procedures to confirm that user rights information is correctly tracking to what is registered in the Nintendo Network ID.
+      </p>
+      <p>
+        To run these procedures, you must use the System Updater that supports the registering of Nintendo Network IDs.
+      </p>
+      <p>
+        <b>Use the following procedure when an application does not require the registration of a Nintendo Network ID for the use of a service item. </b>
+      </p>
+      <ol>
+        <li>From System Settings, register a Nintendo Network ID.</li>
+        <li>Purchase a service item.</li>
+        <li>Confirm that you can use the service item purchased from within the application.</li>
+        <li>From System Settings, format the system.</li>
+        <li>Confirm that you cannot use the service item from within the application.</li>
+        <li>From the System Settings, reassociate the same Nintendo Network ID as in step 1.</li>
+        <li>Confirm that you can use the service item from within the application.</li>
+        <li>In System Settings, in Nintendo Network ID Settings, select <B>Delete Nintendo Network ID</B>, and delete the Nintendo Network ID.</li>
+        <li>Confirm that you cannot use the service item after starting the EC applet.</li>
+      </ol>
+      <p>
+         <b>Use the following procedure when an application requires the registration of a Nintendo Network ID for the use of a service item. </b>
+      </p>
+      <ol>
+        <li>From System Settings, register a Nintendo Network ID.</li>
+        <li>Purchase a service item.</li>
+        <li>Confirm that you can use the service item purchased from within the application.</li>
+        <li>From System Settings, format the system.</li>
+        <li>From System Settings, register a Nintendo Network ID that is different from the one registered in step 1.</li>
+        <li>Confirm that you cannot use the service item from within the application.</li>
+        <li>Once again, format the system, and from the System Settings, reassociate the same Nintendo Network ID as in step 1.</li>
+        <li>Confirm that you can use the service item from within the application.</li>
+        <li>In System Settings, in Nintendo Network ID Settings, select <B>Delete Nintendo Network ID</B>, and delete the Nintendo Network ID.</li>
+        <li>Confirm that you cannot use the service item after starting the EC applet.</li>
+      </ol>
+      <p>Note:</p>
+      <p>If the October 2014 system update has not been applied, the behavior differs depending on whether the following actions are taken between step 4 and step 6.</p>
+      <ul>
+          <li>Call the <CODE>nn::ec::EcApplet::RequestInitializeSession</CODE> function from the application.</li>
+          <li>Add to the balance with <CODE>EcDevTool</CODE>.</li>
+      </ul>
+      <p>If neither of these steps is taken, the license information for the service items remains on the system and the items are available at step 6 even if a different Nintendo Network ID is registered.</p>
+      <p>If either of these steps is performed, the rights information on the system is synced with the server, so the service item becomes unavailable in step 6.</p>
+      <p>If, on the other hand, the October 2014 system update has been applied, you do not need to take either action because the license information for service items saved to the 3DS is deleted when the system is initialized.</p>
+
+    <a name="Master"><h2>Notes to Consider for Independent Server Specifications and When Submitting Masters</h2></a>
+    <p>As called for in the specifications for the ECSV library, when placed on independent servers, you must switch the settings between development and production hardware. (In practical terms, the files for decryption and the environment variables are changed. Details are in the unpublished ECommerceServiceKit <I>Readme</I>.)</p>
+    <p>As a result, we recommend that you have two types of independent servers: development and production. Doing so enables you to continue development work after a release, and enables you to check the functionality of development hardware even when Nintendo is using the production hardware to perform Lotcheck after you submitted your master.</p>
+    <p>The following are examples of the work you can do in such circumstances.</p>
+    <ul>
+        <li>Use a DNS server to complete an environment where development hardware can connect to independent servers for development.</li>
+        <li>To establish valid SSL communications, install a server certificate meant for production on a development-use independent server.</li>
+    </ul>
+
+    <a name="compatibility_shop_account"><h2>Compatibility When Using Different eShop Accounts</h2></a>
+    <p>
+        Design and implement your application and independent server to prevent problems with compatibility when referencing the same save data from different eShop accounts (as per the account ID obtained with the <CODE>nn::ec::CTR::GetAccountId</CODE> function, or the <CODE>accountId</CODE> member of the <CODE>ECExtendedTicketInfo</CODE> structure that you can get using the <CODE>EC_VerifyExtendedTicket</CODE> function of the ECSV library).
+    </p>
+    <p>
+        Future plans are to change the specification such that when a Nintendo Network ID is deleted or the Nintendo eShop account activity is deleted, the application's save data will not be deleted but instead will remain available to use if an application is later repurchased.
+    </p>
+    <p>
+        Now as in the past, when an eShop account is deleted, both the downloaded application and its save data are deleted. In a future update, when a deleted application is repurchased,the previous save data will be inherited so that it can continue to be used.
+    </p>
+    <p>
+        As for applications that have card-based versions, there is already a path to using the save data from a different eShop account by inserting the 3DS Card in another 3DS system.
+    </p>
+
+    <a name="sync_rights"><h2>Syncing the License Information for Consumable Service Items When eShop Account Changes</h2></a>
+    <p>
+        When the mechanism of the ECSV library is used for consumable service items, the number of purchased items is stored in the 3DS in the same way as save data.
+    </p>
+    <p>
+        On the other hand, the number of consumed items is managed by the independent server. So when the independent server resets the number of consumed items to zero due to a change in the eShop account, the information about the number of purchased items must also be reset on the 3DS system. If not, the user might be able to reuse licenses that have already been consumed.
+    </p>
+    <p>
+        If you are storing service-unique account information in save data, or using the principal ID of the Nintendo Network ID as a key for managing license information on the independent server, devise some mechanism for detecting a change to the eShop account and syncing the license information.
+    </p>
+    <p>
+        To sync license information, call the <CODE>nn::ec::CTR::EcApplet::RequestInitializeSession</CODE> function.
+    </p>
+    <p>
+        The following example shows a change to the Nintendo Network ID.
+    </p>
+    <ol>
+        <li>
+            Synchronize the license information before creating save data for the first time, and store the principal ID of the Nintendo Network ID obtained using the <CODE>nn::act::GetPrincipalId</CODE> function to this save data.
+        </li>
+        <li>
+            If the value for the principal ID stored in the save data differs from the value obtained using the <CODE>nn::act::GetPrincipalId</CODE> function, call the <CODE>nn::ec::CTR::EcApplet::RequestInitializeSession</CODE> function to synchronize the license information, and then store the value of the <CODE>nn::act::GetPrincipalId</CODE> function in the save data.
+        </li>
+    </ol>
+    <p>
+        This call to the <CODE>nn::ec::CTR::EcApplet::RequestInitializeSession</CODE> function does not violate the guideline to not connect to the eShop server when using a service item.
+    </p>
+    <p>
+<B>Note:</B> This corresponds to <B>Prohibition Against Connecting to Nintendo eShop Server When Using a Service</B> in the 3DS Guidelines.
+    </p>
+
+    <a name="UseNNA"><h2>Notes on Using Nintendo Network Accounts</h2></a>
+    <p>If a Nintendo Network ID has been registered to a 3DS system and that system is later initialized or the NNID is deleted, the fate of the license information for service items will differ, depending on whether the October 2014 system update has been applied.</p>
+    <ul>
+        <li>For a 3DS system to which the October 2014 system update has not been applied:</li>
+        <ul>
+            <li>The license information for service items remains, even if the system is initialized or the NNID is deleted.</li>
+        </ul>
+        <li>For a 3DS system to which the October 2014 system update has been applied:</li>
+        <ul>
+            <li>The license information for service items is deleted when the system is initialized or the NNID is deleted.</li>
+        </ul>
+    </ul>
+<p>For more information about downloadable content rights data behavior, see <a href="./aboutEcAppDevelopment.html">ECDK: Developing Applications That Support Downloadable Content</a>.</p>
+
+    <a name="ViewBalance"><h2>Displaying Account Balances</h2></a>
+    <p>There is a possibility of the account balance changing even while the application is running, for example if the Theme Shop or another device sharing the same Nintendo Network ID is used.</p>
+    <p>When purchases are made, the correct balance is shown in the EC applet, so the application does not need to show the balance all the time. However, note that the balance can change this way if you plan to show the balance in your application.</p>
+
+    <a name="Disclaimer"><h2>Displaying Legal/Disclaimer Information</h2></a>
+    <p>When showing the service legal/disclaimer information by using ECSV functionality, set the information in the <tt>nn::ec::CTR::ServiceDescription</tt> structure, and pass this as an argument when requesting a purchase to the EC applet. </p>
+<p>This display will be limited to a maximum of 1024 characters, including NULL characters when displaying the legal/disclaimer in the EC applet.</p>
+    <p>When releasing an application in multiple languages and regions, localization may result in this limit being exceeded. </p>
+    <p>
+The legal/disclaimer information display may be done in the application, instead of the EC applet. We recommend considering implementing the legal/disclaimer information display in the application when this 1024 character limit is in risk of being exceeded.
+    </p>
+    
+    <a name="History"><h2>Revision History</h2></a>
+    <div class="section">
+
+      <dl>
+        <dt>2015/07/13</dt>
+<dd>Changed the maximum from 512 characters to 1024 characters in <B>Displaying Legal/Disclaimer Information</B>.</dd>
+        <dt>2015/03/13</dt>
+          <dd>Added the section <B>Displaying Legal/Disclaimer Information</B></dd>
+        <dt>2015/01/07</dt>
+          <dd>Added a section to <B>Notes</B> about the differences in the eShop development and production environments. </dd>
+        <dt>2014/12/03</dt>
+          <dd>Added a section to <B>Notes</B> about the system freezing when the SD card is removed.</dd>
+        <dt>2014/10/07</dt>
+          <dd>Added the section <B>Displaying Account Balances</B>.</dd>
+        <dt>2014/10/03</dt>
+          <dd>Added the section <B>Notes on Using Nintendo Network Accounts</B>.</dd>
+        <dt>2014/10/02</dt>
+          <dd>Rewrote the <B>Debugging</B> section to reflect the changes in behavior following the October 2014 system update.</dd>
+        <dt>2014/07/25</dt>
+          <dd>Added the <B>Compatibility When Using Different eShop Accounts</B> section.</dd>
+          <dd>Added the <B>Syncing the License Information for Consumable Service Items When eShop Account Changes</B> section.</dd>
+        <dt>2014/07/16</dt>
+          <dd>Added the <B>Using OpenSSL With Independent Servers</B> section.</dd>
+        <dt>2014/06/30</dt>
+          <dd>Added notes about the debugging steps for applications that require a Nintendo Network ID to "Debugging."</dd>
+        <dt>2014/03/25</dt>
+          <dd>Added the <B>Notes to Consider for Independent Server Specifications and When Submitting Masters</B> section.</dd>
+          <dd>Added information about the EC applet's restrictions for the display of service names to the <B>Preparations on the Independent Server Side</B> section.</dd>
+        <dt>2014/01/30</dt>
+          <dd>Added a description of the ECSV library.</dd>
+        <dt>2014/01/06</dt>
+          <dd>Added information about debugging.</dd>
+        <dt>2013/04/03</dt>
+          <dd>Made revisions to the license types.</dd>
+        <dt>2011/12/16</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

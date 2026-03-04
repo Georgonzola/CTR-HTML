@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>#pragma output_map ( data_name , mapped_register )</title>
+  </head>
+  <body>
+    <h1>#pragma output_map ( data_name , mapped_register )</h1>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Sets the attributes for the data output by the vertex shader. The settings determine which data will be output to the fragment pipeline.<br /> <br /> Specify one of the following for <SPAN class="argument">data_name</SPAN>:<br /> <br />
+        <table>
+          <tr><th>position</th><td>Vertex coordinates (x y z w)</td></tr>
+          <tr><th>color</th><td>Vertex color (R G B A)</td></tr>
+          <tr><th>texture0</th><td>Texture coordinate 0 (u v)</td></tr>
+          <tr><th>texture0w</th><td>Texture coordinate 0 third component  (w)</td></tr>
+          <tr><th>texture1</th><td>Texture coordinate 1 (u v)</td></tr>
+          <tr><th>texture2</th><td>Texture coordinate 2 (u v)</td></tr>
+          <tr><th>quaternion</th><td>Quaternion (x y z w)</td></tr>
+          <tr><th>view</th><td>View vector (x y z)</td></tr>
+          <tr><th>generic</th><td>Generic attribute (optional)</td></tr>
+        </table>
+        <br />Specify the corresponding output register to <SPAN class="argument">mapped_register</SPAN>. Since components can be specified, you can also pack multiple attributes into a single register.<br /> <br /> Use the <CODE>generic</CODE> attribute to use the geometry shader.<br /> <br />
+      </p>
+      <p class="notice">
+        Once everything has been written to the output registers specified by these settings, the processing in the vertex shader is forcibly stopped and the process transitions to the next set of vertex data. (The <CODE>end</CODE> instruction that follows the data must be called.)<br /> For this reason, in some cases instructions may not get executed after the last attribute data has been written to the output registers.<br />
+      </p>
+      <p>
+        Examples of what can happen to instructions meant to be executed after writing to the output registers:<br />
+<pre class="definition">
+mov     o0, r0
+mov     o1, r1  // If only o0,o1 has been specified, execution ends at this point.
+end             // The end instruction is required.
+nop             // In some cases this instruction may not be executed.
+nop             // In some cases this instruction may not be executed.
+</pre>
+      </p>
+      <p class="notice">
+        The vertex shader must write everything to the registers specified by these settings.<br /> (x, y, z and w must all be written to the specified registers. Even if all components have not been set in <CODE>output_map</CODE>, you still need to write all components by writing dummy values for those components that have not been set.)<br />
+      </p>
+      <p>
+        Examples of writing everything to specified output registers:<br />
+<pre class="definition">
+#pragma output_map ( position , o0 )
+#pragma output_map ( color , o1 )
+#pragma output_map ( texture0 , o2.xy )
+#pragma output_map ( texture1 , o3.xy )
+#pragma output_map ( texture2 , o4.xy )
+
+...
+mov     o0, r0
+mov     o1, r1
+mov     o2, r2  // o2,o3,o4 only specify x and y, but
+mov     o3, r3  // you also need to write arbitrary values to z and w.
+mov     o4, r4  //
+</pre>
+      </p>
+      <p class="notice">
+        After the vertex shader has written everything to the output registers specified by these settings, you must not use any instructions that read/write to registers. <br /> Behavior is not guaranteed if you use instructions that read or write to registers after the last write to the output registers has taken place.<br />
+      </p>
+      <p>
+        Examples of illegal instruction execution after the last write to the output registers:<br />
+<pre class="definition">
+mov     o0, r0
+mov     o1, r1  // If only o0,o1 has been specified, execution ends at this point.
+mov     r0, c0  // Execution of instructions that access registers is prohibited here.
+end             // The end instruction is required.
+mov     r1, c1 // Execution of instructions that access registers is prohibited here.
+</pre>
+      </p>
+      <p class="notice">
+        The vertex shader cannot write multiple times to a given output register. For every vertex process, write to each output register component only once.<br /> You also cannot write multiple times to a given component. Behavior is not guaranteed if you write multiple times.<br />
+      </p>
+      <p>
+        Examples related to writing multiple times to output registers:<br />
+<pre class="definition">
+//Example of correct process
+mov     o0.xy, c0
+mov     o0.zw, c1.w // Each component is written only once
+
+// Example of illegal process
+mov     o0.xy, c0
+mov     o0,    c1.w // o0.x and o0.y are written twice
+</pre>
+      </p>
+      <p class="notice">
+        For attributes other than the <CODE>generic</CODE> attribute, up to seven output registers can be specified for <CODE>output_map</CODE>.<br /> To set eight or more attributes (other than the <CODE>generic</CODE> attribute) in output registers, you will need to pack several attributes together and set them in an output register.<br /> If  attributes (other than the <CODE>generic</CODE> attribute) have been set for eight or more output registers, the <CODE>glShaderBinary</CODE> function will generate an <CODE>INVALID_OPERATION</CODE> error when loading. 
+      </p>
+      <p>
+        Example of packing multiple attributes into one output register:<br />
+<pre class="definition">
+#pragma output_map ( position , o0 )
+#pragma output_map ( color , o1 )
+#pragma output_map ( texture0 , o2.xy )
+#pragma output_map ( texture1 , o2.zw ) // Multiple attributes packed into o2
+
+...
+mov     o0, r0
+mov     o1, r1
+mov     o2.xy, r2.xy
+mov     o2.zw, r3.xxxy
+</pre>
+      </p>
+
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

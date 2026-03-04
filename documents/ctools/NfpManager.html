@@ -1,0 +1,385 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+        span.static_style
+        { 
+            font-size			: 8pt;
+            color				: white;
+            font-weight			: bold;
+            background			: #44f;
+            border-left			: solid 1px #aaf;
+            border-top			: solid 1px #aaf;
+            border-right		: solid 1px #00c;
+            border-bottom		: solid 1px #00c;
+            padding-left		: 2px;
+            padding-right		: 2px;
+        }
+
+        span.virtual_style
+        { 
+            font-size			 : 8pt;
+            color				 : white;
+            font-weight			: bold;
+            background			: #0a0;
+            border-left			: solid 1px #0f0;
+            border-top			: solid 1px #0f0;
+            border-right		: solid 1px #060;
+            border-bottom		: solid 1px #060;
+            padding-left		: 2px;
+            padding-right		: 2px; 
+        }
+
+        span.protected_style
+        { 
+            font-size			 : 8pt;
+            color				 : white;
+            font-weight			: bold;
+            background			: #444;
+            border-left			: solid 1px #ccc;
+            border-top			: solid 1px #ccc;
+            border-right		: solid 1px #222;
+            border-bottom		: solid 1px #222;
+            padding-left		: 2px;
+            padding-right		: 2px;
+        }
+        table.table, table.table td, table.table th
+        {
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        table.table
+        {
+            width: auto;
+            margin: 1em;
+            position	: static;
+            font-family	: Arial;
+        }
+
+        table.table td, table.table th
+        {
+            padding: 0.2em;
+        }
+
+        table.table td.number, table.table th.number
+        {
+            text-align: right;
+        }
+
+        table.table tbody tr th
+        {
+            text-align: left;
+            font-weight: normal;
+            width: auto;
+        }
+
+        table.table thead tr th,
+        table.table tbody tr th.category
+        {
+            padding: 0 0.2em;
+        }
+
+        table.table caption
+        {
+            font-weight: bold;
+            padding: 0.4em;
+        }
+        table.table th
+        {
+            font-weight			: bold;
+            background			: #acf;
+        }
+        --></style>
+    <title>NfpManager</title>
+</head>
+<body>
+
+<h1>NfpManager</h1>
+
+<h2>Table of Contents</h2>
+<ol>
+    <li><a href="#abstract">Overview</a></li>
+    <li><a href="#screen">UI Reference</a>
+    <ol>
+        <li><a href="#screen_status">Status Bar</a>
+        <li><a href="#screen_info">info Tab</a>
+        <li><a href="#screen_admin">admin Tab</a>
+        <li><a href="#screen_common">common Tab</a>
+        <li><a href="#screen_register">register Tab</a>
+        <li><a href="#screen_application">application Tab</a>
+        <li><a href="#screen_lower">Lower Screen</a>
+    </ol>
+    </li>
+    <li><a href="#command">Command</a>
+    <ol>
+        <li><a href="#command_connect">Connect</a>
+        <li><a href="#command_disconnect">Disconnect</a>
+        <li><a href="#command_start_detection">StartDetection</a>
+        <li><a href="#command_stop_detection">StopDetection</a>
+        <li><a href="#command_mount">Mount</a>
+<li><a href="#command_unmount">Unmount</a>
+        <li><a href="#command_restore">Restore</a>
+        <li><a href="#command_format">Format</a>
+        <li><a href="#command_create_application_area">CreateApplicationArea</a>
+        <li><a href="#command_write_application_area">WriteApplicationArea</a>
+        <li><a href="#command_delete_application_area">DeleteApplicationArea</a>
+        <li><a href="#command_set_nfp_register_info">SetNfpRegisterInfo</a>
+        <li><a href="#command_delete_nfp_register_info">DeleteNfpRegisterInfo</a>
+        <li><a href="#command_flush">Flush</a>
+        <li><a href="#command_delete_all_backup_data">DeleteAllBackupData</a>
+    </ol>
+    </li>
+    <li><a href="#history">Revision History</a></li>
+</ol>
+
+<h2 id="abstract">1. Introduction</h2>
+
+<div class="section">
+  <p>
+    NfpManager is a tool for managing NFP tags.<br /> Prepare the NFP tags in advance, using the NoftWriter tool to write to the tags the amiibo data you plan to use in your application.
+  <p>
+</div>
+
+<h2 id="screen">2. Screen Descriptions</h2>
+
+<div class="section">
+
+    <p>
+        An unusually large amount of information can be read off an NFP tag. Use the left/right buttons on the +Control Pad to switch between the tabs of NfpManager and view the various information.  This section describes the status indicators and the different information that is shown in each tab.
+    </p>
+
+    <p>
+        <img src="Fig/NfpManager_01.png" alt="The upper screen of NfpManager">
+    </p>
+
+    <h3 id="screen_status">2.1. Status Indicators</h3>
+
+    <dl>
+        <dt>NFP STATE</dt>
+        <dd>The state of the NFP library, as obtained by the <CODE>nn::nfp::GetNfpState</CODE> function.</dd>
+        <dt>TARGET STATE</dt>
+<dd>The status of the connection to NFC reader/writer, as obtained by the <CODE>nn::nfp::GetTargetConnectionStatus</CODE> function. For the New Nintendo 3DS, the state is always <CODE>CONNECTED</CODE>.</dd>
+        <dt>NEXT COMMAND</dt>
+        <dd>The command selected in the lower screen. Use the up/down buttons on the +Control Pad to change the selection.</dd>
+        <dt>LAST COMMAND</dt>
+        <dd>The most recently executed command. The information shown here changes when you execute a command using the A Button.</dd>
+        <dt>LAST RESULT</dt>
+        <dd>The result of the most recently executed command. In the screenshot, you can see that <CODE>StartDetection</CODE> was the last command executed and that it was successful.</dd>
+    </dl>
+
+    <h3 id="screen_info">2.2. info Tab</h3>
+
+    <p>
+        This information can be read not just from an NFP tag, but from any regular NFC tag.<br /> The information shown in this tab is valid from the time when the <CODE>StartDetection</CODE> command has been initiated and the tag has been detected.<br /> For an NFP tag, the UID is 7 bytes, the PROTOCOL is 0 (NFC-A), and the TYPE is 2 (Type 2).
+    </p>
+
+    <dl>
+        <dt>UID</dt>
+        <dd>The unique identifier of the tag. The size differs, depending on the tag.</dd>
+        <dt>PROTOCOL</dt>
+        <dd>The communications protocol of the tag. It can be either NFC-A (0), NFC-B (1), NFC-F (2), or ISO-15693 (6).</dd>
+        <dt>TYPE</dt>
+        <dd>The type of the tag.  It can be either Type 1 (1), Type 2 (2), Type 3 (4), Type 4A(8), Type 4B(16), or ISO-15693(32).</dd>
+    </dl>
+
+    <h3 id="screen_admin">2.3. admin Tab</h3>
+
+    <p>
+        Applications normally cannot get the information that is shown in this tab. It is displayed for debugging purposes and to check that the guidelines are being followed.<br /> Other information besides the items listed below may show up on this tab, but application developers do not need to concern themselves with that data. No information can be shown if the tag is not mounted.
+    </p>
+
+    <dl>
+        <dt>TITLE ID</dt>
+        <dd>The application title ID that was last written to the tag.</dd>
+        <dt>ACCESS ID</dt>
+        <dd>The access ID that was specified when the application-specific region was created.</dd>
+    </dl>
+
+    <h3 id="screen_common">2.4. common Tab</h3>
+
+    <p>
+        This tab shows the information in the shared region, as obtained by the <CODE>nn::nfp::GetNfpCommonInfo</CODE> function. No information can be shown if the tag is not mounted.
+    </p>
+
+    <dl>
+        <dt>LAST WRITE</dt>
+        <dd>The date when data was last written to the tag.</dd>
+        <dt>WRITE COUNTER</dt>
+        <dd>The total number of times data has been written since the tag was last formatted. The counter is not incremented if no data is changed by the write event.</dd>
+        <dt>CHARACTER ID</dt>
+        <dd>The character ID written to the ROM region of the tag.</dd>
+        <dt>SERIES ID</dt>
+        <dd>The series ID written to the ROM region of the tag.</dd>
+        <dt>NUMBERING ID</dt>
+        <dd>The numbering ID written to the ROM region of the tag.</dd>
+        <dt>NFP TYPE</dt>
+        <dd>The NFP tag type written to the ROM region of the tag.</dd>
+        <dt>NFP VERSION</dt>
+        <dd>The NFP tag version written to the ROM region of the tag.</dd>
+        <dt>APP AREA SIZE</dt>
+        <dd>The maximum amount of data that can be written to the application-specific region. Currently, the maximum size is always 216 bytes.</dd>
+    </dl>
+
+    <h3 id="screen_register">2.5. register Tab</h3>
+
+    <p>
+        This tab shows the initially registered information, as obtained by the <CODE>nn::nfp::GetNfpRegisterInfo</CODE> function. No information can be shown if none has been registered or if the tag is not mounted.
+    </p>
+
+    <dl>
+        <dt>FONT REGION</dt>
+        <dd>The font region for the nickname of the registered user.  For more information, see <CODE>nn::nfp::FontRegion</CODE>.</dd>
+        <dt>COUNTRY</dt>
+        <dd>The country ID of the registered user.  For more information, see <CODE>nn::cfg::CfgCountryCode</CODE>.</dd>
+        <dt>REGISTER DATE</dt>
+        <dd>The date when the nickname and owner's Mii were first registered.</dd>
+        <dt>NICKNAME</dt>
+        <dd>The nickname of the registered user.  Stored in UTF-16 BE.</dd>
+        <dt>MII DATA</dt>
+        <dd>The binary data for the owner's Mii.</dd>
+    </dl>
+
+    <h3 id="screen_application">2.6. application Tab</h3>
+
+    <p>
+        This tab shows the data that has been written to the application-specific region.<br /> No information can be shown if the application-specific region has not been created, or if the tag is not mounted, or if the access ID is not 0FF41E00.
+    </p>
+
+    <h3 id="screen_lower">2.7. Lower Screen</h3>
+
+    <p>
+        Select a command using the up/down buttons on the +Control Pad, and then execute that command using the A Button.<br /> For commands that require the presence of a tag, first set the NFP tag in the center of the system's lower screen and then execute the command.
+    </p>
+
+    <p>
+        <img src="Fig/NfpManager_02.png" alt="Lower screen of NfpManager">
+    </p>
+
+</div>
+
+<h2 id="command">3. Commands</h2>
+
+<div class="section">
+
+    <p>
+        In general, all of the commands correspond to the NFP library API functions. For more information, see the API reference documentation.
+    </p>
+
+    <h3 id="command_connect">3.1. Connect</h3>
+    <p>
+        Connects the 3DS to a peripheral NFC reader/writer.<br /> Turn on the NFC reader/writer, align the infrared port of the 3DS with the infrared port of the NFC reader/writer, and then execute this command.<br /> Select <CODE>TARGET STATE</CODE> in the upper screen to confirm the connection status.
+    </p>
+    <p>
+        This command is not necessary with the New Nintendo 3DS because the system has its own built-in NFC reader/writer.<br /> Regardless of whether you execute this command, <CODE>TARGET STATE</CODE> is always <CODE>CONNECTED</CODE> for the 3DS.
+    </p>
+
+    <h3 id="command_disconnect">3.2. Disconnect</h3>
+    <p>
+        Disconnects the 3DS from the NFC reader/writer.
+    </p>
+    <p>
+        This command is not necessary with the New Nintendo 3DS because the system has its own built-in NFC reader/writer.<br /> If you execute this command while a tag is in the process of being detected, it has the same effect as executing StopDetection.
+    </p>
+
+    <h3 id="command_start_detection">3.3. StartDetection</h3>
+    <p>
+        Initiates the process of tag detection.  If you are using a 3DS, first connect the system to a peripheral NFC reader/writer and then execute the command.
+    </p>
+    <p>
+        If this command succeeds, <CODE>NFP STATE</CODE> changes to <CODE>SEARCH</CODE> status. If you then introduce a tag, the status changes again to <CODE>ACTIVE</CODE>.<br /> After a tag has been detected, you cannot detect additional tags unless you either remove the tag and execute <CODE>StartDetection</CODE> again after the state has transitioned to <CODE>DEACTIVE</CODE>, or execute <CODE>StopDetection</CODE> to explicitly stop detection and then execute <CODE>StartDetection</CODE> again.
+    </p>
+
+    <h3 id="command_stop_detection">3.4. StopDetection</h3>
+    <p>
+        Halts the process of NFP tag detection.  The state transitions to INIT.
+    </p>
+
+    <h3 id="command_mount">3.5. Mount</h3>
+    <p>
+        Mounts an NFP tag and puts it in a state for reading and writing.<br /> This command can be executed only if a tag has been detected and the state is <CODE>ACTIVE</CODE>. If mounting succeeds, the state transitions to <CODE>MOUNT</CODE>.<br /> If the tag is not an NFP tag or if it is corrupt, this command will fail. Look at what is shown on the screen for <CODE>LAST RESULT</CODE> and perform the appropriate operation.
+    </p>
+
+<h3 id="command_unmount">3.6. Unmount</h3>
+    <p>
+Unmounts the NFP tag and releases the mount status.<br>Returns to the <CODE>ACTIVE</CODE> state.
+    </p>
+
+<h3 id="command_restore">3.7. Restore</h3>
+    <p>
+        If the <B>Mount</B> command is executed and the <CODE>LAST RESULT</CODE> status is <CODE>ResultNeedRestore</CODE>, the tag is corrupted but can be restored using the available backup data.<br /> Use the <B>Restore</B> command to restore the tag back to the state when it was last accessed by the system for reading and writing.<br /> If the tag is not corrupted, the <B>Restore</B> command cannot execute, even if the state is <CODE>ACTIVE</CODE>. If the tag is successfully restored, it is automatically mounted and put in the state for reading and writing.
+    </p>
+
+<h3 id="command_format">3.8. Format</h3>
+    <p>
+        If the <B>Mount</B> command is executed and the <CODE>LAST RESULT</CODE> status is <CODE>ResultNeedFormat</CODE>, the tag is corrupted and there is no available backup data for restoring the tag.<br /> Use the <B>Format</B> command to initialize all of the data written to the tag and put the tag in a usable state.<br /> If backup data for the tag remains in some other system and you have access to that system, you can use the <B>Restore</B> command.<br /> Unlike the <B>Restore</B> command, the <B>Format</B> command can execute even if the tag is not corrupted, providing that the state is <CODE>ACTIVE</CODE>. Also, the successfully formatted tag is not mounted automatically.
+    </p>
+
+<h3 id="command_create_application_area">3.9. CreateApplicationArea</h3>
+    <p>
+        Creates a new application-specific area.  Execute this command in the <CODE>MOUNT</CODE> state.<br /> The application-specific area created by NfpManager has the access ID 0FF41E00.<br /> NfpManager specifies just 4 bytes of data (0x00000000), and the remaining 212 bytes are filled with random numbers by the NFP library.
+    </p>
+    <p>
+        If <CODE>LAST RESULT</CODE> is <CODE>ResultAlreadyCreated</CODE>, execute the <B>DeleteApplicationArea</B> command to delete the application-specific area.<br /> Even if ERROR is displayed in the application tab of the upper screen, a separate application-specific area with a different <CODE>ACCESS ID</CODE> might be created.<br /> If <CODE>LAST RESULT</CODE> is <CODE>ResultOperationFailed</CODE>, writing failed and the tag data is probably corrupted.
+    </p>
+
+<h3 id="command_write_application_area">3.10. WriteApplicationArea</h3>
+    <p>
+        Updates the application-specific area.  Execute this command in the <CODE>MOUNT</CODE> state after an application-specific area has been created.<br /> NfpManager treats the first four bytes as the counter and increments the value every time you execute this command.<br /> However, this command only updates the cache in memory. To actually write data to the tag, you must execute the <B>Flush</B> command.
+    </p>
+    <p>
+        The command fails if the access ID of the application-specific area written to the tag is not <CODE>0FF41E00</CODE>.
+    </p>
+
+<h3 id="command_delete_application_area">3.11. DeleteApplicationArea</h3>
+    <p>
+        Deletes the application-specific area.  Execute this command in the <CODE>MOUNT</CODE> state.<br /> This command deletes any application-specific area that exists in the tag, regardless of the access ID.
+    </p>
+    <p>
+        If <CODE>LAST RESULT</CODE> is <CODE>ResultNeedCreate</CODE>, there is no application-specific area.<br /> If <CODE>LAST RESULT</CODE> is <CODE>ResultOperationFailed</CODE>, writing failed and the tag data is probably corrupted.
+    </p>
+
+<h3 id="command_set_nfp_register_info">3.12. SetNfpRegisterInfo</h3>
+    <p>
+        Registers initial information for the tag. Execute this command in the <CODE>MOUNT</CODE> state.<br /> The nickname and owner's Mii is obtained from the system, so create your own Mii before registering the initial information.<br /> This command only updates the cache in memory. To actually write data to the tag, you must execute the <B>Flush</B> command.
+    </p>
+
+<h3 id="command_delete_nfp_register_info">3.13. DeleteNfpRegisterInfo</h3>
+    <p>
+        Deletes initial information.  Execute this command in the <CODE>MOUNT</CODE> state.
+    </p>
+    <p>
+        If <CODE>LAST RESULT</CODE> is <CODE>ResultNeedCreate</CODE>, there is no initial information.<br /> If <CODE>LAST RESULT</CODE> is <CODE>ResultOperationFailed</CODE>, writing failed and the tag data is probably corrupted.
+    </p>
+
+<h3 id="command_flush">3.14. Flush</h3>
+    <p>
+        Writes the changes made with <CODE>WriteApplicationArea</CODE> and <CODE>SetNfpRegisterInfo</CODE> in the <CODE>MOUNT</CODE> state to the tag.
+    </p>
+    <p>
+        If <CODE>LAST RESULT</CODE> is <CODE>ResultOperationFailed</CODE>, writing failed and the tag data is probably corrupted.
+    </p>
+
+<h3 id="command_delete_all_backup_data">3.15. DeleteAllBackupData</h3>
+    <p>
+        Deletes all of the backup data for the NFP tag stored in the system. This command can be executed in any state, and it takes about five seconds.<br /> Backup data is created when the <B>Mount</B> command or any of the <CODE>Create</CODE>, <CODE>Delete</CODE> or <CODE>Flush</CODE> APIs are executed.
+    </p>
+    <p>
+        The need to format a tag (<CODE>Mount</CODE> returns <CODE>ResultNeedFormat</CODE>) arises only when there is no backup data, so this command is useful when deleting the backup data when you want to intentionally create this need.
+    </p>
+</div>
+
+<h2 id="history">4. Revision History</h2>
+<div class="section">
+    <dl class="history">
+        <dt>2015-02-04</dt>
+<dd>Revised the name to be NFC reader/writer.<br /></dd>
+        <dt>2014-11-14</dt>
+        <dd>Initial version.<br /></dd>
+    </dl>
+</div>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

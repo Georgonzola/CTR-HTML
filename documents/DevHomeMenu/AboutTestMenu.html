@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>Development Menu</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size		: 150%;
+  font-family		: Arial;
+  border-bottom-width	: 5px;
+  border-bottom-style	: solid;
+  border-bottom-color	: #CD202C;
+  padding-bottom		: 1px;
+  margin-bottom		: 20px;
+  letter-spacing		: normal;
+  font-weight		: bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+
+table {
+  margin-top        : 2pt;
+  margin-bottom     : 2pt;
+  margin-left       : 0pt;
+  margin-right      : 0pt;
+  padding-left      : 0pt;
+  padding-right     : 0pt;
+  position          : relative;
+  left              : 12px;
+  font-family       : Arial;
+  font-size         : 10pt;
+  border-style      : none none none none;
+}
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+p.code {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+  background            : #e8f4f4;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+
+<h1>Development Menu
+</h1>
+
+<h2>Contents</h2>
+    <ol>
+<li><a href="#ss01">Overview</a></li>
+<li><a href="#ss02">How to Use</a></li>
+<li><a href="#ss03">Notes</a></li>
+<li><a href="#ss04">Revision History</a></li>
+    </ol>
+
+<h2>1. <a name="ss01">Overview</a></h2>
+<p>The development menu is the screen that is first displayed when the power is turned on to the PARTNER-CTR Debugger, IS-SNAKE-BOX, IS-SPR-BOX, IS-CTR-BOX, or the development hardware.<br /><br /> It is a substitute for the HOME Menu for CTR devices and has minimal functionality.<br /> When the HOME Button is pressed while an application is running, that application is suspended and this menu is displayed.<br /> <br /> However, to return to the development menu, the application must handle a press of the HOME Button.<br />
+    </p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>2. <a name="ss02">How to Use</a></h2>
+<p>The following operations are possible on the development menu.</p>
+    <div class="table">
+    <table border="1">
+    <thead>
+        <tr>
+<th align="center">Input</th>
+<th align="center">Feature</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td align="center">START</td>
+<td align="left">Start <CODE>DevMenu</CODE>. When there is a suspended application, terminate that <br />application, and then start <CODE>DevMenu</CODE>.</td>
+        </tr>
+        <tr>
+<td align="center">A</td>
+<td align="left">Launches an application from a CTR Card.<br />However, if debugger software is running, applications will not start from CTR Cards.<br />If you are using PARTNER-CTR Debugger, select <B>CTR</B> &gt; <B>Card controls</B> and clear the option for <B>Control card emulation</B>.<br />If you are using IS-SNAKE-BOX or IS-SPR-BOX, select <B>Tools</B> &gt; <B>Launch from Game Card</B>.</td>
+        </tr>
+        <tr>
+<td align="center">X</td>
+<td align="left">Terminates a suspended application, if there is one.</td>
+        </tr>
+        <tr>
+<td align="center">B</td>
+<td align="left">Launches the System Settings. This operation is not available when the system mode is <CODE>dev1</CODE> (text also does not appear in the lower screen).</td>
+        </tr>
+        <tr>
+<td align="center">L Button</td>
+<td align="left">When there is a suspended application, the upper and lower screens (if stereoscopic view is enabled, there will be a total of three screen images) are output to the SD card as a set. This has no effect if an SD card is not inserted.<br />The filename is <CODE><I>time on system clock in yyyymmdd_hhmm format</I>_<I>Screen</I>_<I>Index</I>.bmp</CODE>.<br />It is saved to the <CODE>Capture</CODE> folder on the SD card.<br /><CODE>Note:</CODE> (Screen): UL = upper screen, left eye image; UR = upper screen, right eye image; LO = lower screen<br />(index): A five-digit numerical sequence incremented each time a save is performed from the time Dev Menu is started. Each image in a set of images has the same index number.</td>
+        </tr>
+        <tr>
+<td align="center">Right on +Control Pad + R Button</td>
+<td align="left">Switches wireless on and off.</td>
+        </tr>
+        <tr>
+<td align="center">HOME Button</td>
+<td align="left">Returns to a suspended application, if there is one.</td>
+        </tr>
+        <tr>
+<td align="center">POWER Button</td>
+<td align="left">Terminates a suspended application, if there is one.</td>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+
+<p>The following information is displayed on the upper screen.</p>
+    <ul>
+<li>Firmware version, CTR-SDK version</li>
+<li>System Mode</li>
+<li>Debug Mode enabled/disabled</li>
+<li>EULA agreement version and EULA version required for CTR-SDK</li>
+<li>Remaining battery life</li>
+<li>SD card information</li>
+<li>Setting value for allowing Miiverse screen capture posts</li>
+<li>User name</li>
+    </ul>
+<p>The following information is displayed on the lower screen.</p>
+    <ul>
+<li>The status of the Development Menu (related to the running of applications)</li>
+<li>Explanation of operations</li>
+    </ul>
+
+<h3>Making a Connection Through the Friend List</h3>
+<p>When the system is in a state where an Internet connection is possible and an application is started that has a join-in ID specified in Dev Menu, you can view the online status from the friend list started on the another system that is in a friend relationship. (Even if the application does not have a join-in ID, it is still possible to receive online notifications.)</p>
+<p>Your status does not appear as online when the game is not running, because it is not connected to the Internet. If you force-quit a stalled game from the Dev Menu, it instantaneously appears as offline. <br />
+    </p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+<h2>3. <a name="ss03">Notes</a></h2>
+<p>The development menu is a minimal implementation. Apart from its appearance, it has a number of restrictions that do not apply to the actual HOME Menu.<br /><br /> Its implementation for Sleep Mode differs from that of the HOME Menu, and in some instances it does not correctly handle situations in which timing is critical. As a result, if the system enters Sleep Mode during an application transition (this includes closing the application and returning), it may not recover.
+    </p>
+
+<p>If an application is loaded and executed while the development menu is displayed, execution tentatively stops at the start of the application. This enables debugging from a closer point to startup than when starting an application from the HOME Menu and using ATTACH. If the POWER Button is pressed after starting an application from the development menu, it may stop execution at the <CODE>nn::applet::Enable</CODE> function. <br />
+    </p>
+
+<p>Features that cause the application to exit, such as a jump to the System Settings, are not available when loaded from or attached to the debugger. To verify such features, either start them using the A Button or run them on development hardware, rather than loading them from or attaching them to the debugger.<br /> When loaded from or attached to the debugger, the system restarts after closing the application, and then returns to the dev menu. (That menu does not have a jump to System Settings.)<br />
+    </p>
+
+<p>When you exit an application loaded into emulation memory or one stored on a dedicated CTR card, if the system mode was not <CODE>prod</CODE>, the system returns to the dev menu with the system mode set to <CODE>prod</CODE>.<br />
+    </p>
+
+<p>Application region-checking is not performed by the development menu. <br />
+    </p>
+
+<p>You cannot perform DS Software Internet settings when starting System Settings from Dev Menu. <br />
+    </p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>4. <a name="ss04">Revision History</a></h2>
+    <dl>
+        <dt>2015-09-04</dt>
+<dd>Fixed inconsistent language.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2015-01-29</dt>
+<dd>Deleted the notation that Nintendo Network ID settings cannot be performed because they can now be performed.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2015-01-16</dt>
+<dd>Revised the description because the key bind for turning wireless on and off was changed.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2014-08-07</dt>
+<dd>Changed the debugger notation.
+        </dd>
+<dd>Added a method to start applications from CTR Cards on IS-CTR-DEBUGGER.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2014-04-03</dt>
+<dd>Added the settings value for whether screen capture posts are allowed as upper screen display information.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2014-03-14</dt>
+<dd>Added that the Nintendo Network ID settings and the DS Software Internet settings cannot be performed.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2014-03-11</dt>
+<dd>Deleted the note, now that wireless mode can be turned on and off with the R Button even when not in Debug mode.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2014-03-10</dt>
+<dd>Added information about IS-SNAKE-BOX.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2014-02-07</dt>
+<dd>Added the section Making a Connection Through the Friend List.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2013-11-01</dt>
+<dd>Added a description that the R Button switches wireless on and off.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2013-03-14</dt>
+<dd>Added a description of operations when exiting an application loaded into emulation memory.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2012-01-31</dt>
+<dd>Exchanged the assignments of the B Button and X Button and added the POWER Button.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2011-11-24</dt>
+<dd>Revised terminology. (Changed &quot;memory mode&quot; to &quot;system mode.&quot;)
+        </dd>
+    </dl>
+    <dl>
+        <dt>2011-10-19</dt>
+<dd>Added information specific to restrictions on use with the debugger.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2011-10-12</dt>
+<dd>Added information about starting the System Settings using the X Button.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2011-08-05</dt>
+<dd>Deleted mention that the wireless switch cannot be set ON/OFF.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2011-06-20</dt>
+<dd>Revised the <B>Note</B> section because there is now support for SD card hot swapping.
+        </dd>
+<dd>Added information about what is displayed in the upper screen.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2011-06-17</dt>
+<dd>Added mention that region-checking is not performed.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2011-05-31</dt>
+<dd>Added a description about starting applications from SD cards using the A Button.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2011-04-06</dt>
+<dd>Added note about detecting an SD card.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2011-03-30</dt>
+<dd>Added information about screen capture function for suspended applications.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2011-02-03</dt>
+<dd>Added information about the possibility of using the POWER Button to stop execution at the <CODE>Enable</CODE> function.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2011-01-31</dt>
+<dd>Added that the wireless switch cannot be turned on and off.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2010-12-13</dt>
+<dd>Added a note.
+        </dd>
+    </dl>
+    <dl>
+        <dt>2010-10-26</dt>
+<dd>Initial version.
+        </dd>
+    </dl>
+    <p>
+    <br />
+    </p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+  <hr /><p>CTR-06-0206-011-E<br />CONFIDENTIAL</p></body>
+</html>

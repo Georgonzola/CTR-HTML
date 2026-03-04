@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>InitializeConfig</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/swkbd/Overview.html">swkbd</a>::<a href="../../../nn/swkbd/CTR/Overview.html">CTR</a>::InitializeConfig Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void InitializeConfig(
+     <a href="../../../nn/swkbd/CTR/Config/Overview.html">Config</a> * pConfig
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pConfig</th>
+          <td>The <code><a href="../../../nn/swkbd/CTR/Config/Overview.html">Config</a></code> structure, initialized to default values.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the <code><a href="../../../nn/swkbd/CTR/Config/Overview.html">Config</a></code> structure to default values.</p><p>Before using the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure, you must always initialize it with this function.</p><p>This function sets the member variables of the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure as follows.</p><pre>
+
+    keyboardType                            = KEYBOARD_TYPE_FULL
+    bottomButtonType                        = BOTTOM_BUTTON_TYPE_2BUTTON
+    finishableCondition                     = FINISHABLE_CONDITION_NONE
+    maskMode                                = MASK_MODE_DISABLE
+    parentalControlsMode                    = PARENTAL_CONTROLS_MODE_DISABLE
+    upperScreenFlag                         = UPPER_SCREEN_NORMAL
+    textCheckFlag                           = TEXT_CHECK_DISABLE
+    extOutputDataFlag                       = EXT_OUTPUT_DATA_NONE
+    textLengthMax                           = TEXT_LENGTH_MAX_MAX
+    numUserWords                            = 0
+    numNumbersMax                           = 0
+    bottomButtonText                        = 0(fill)
+    tenkeyExtKeyChar                        = 0(fill)
+    guideText                               = 0(fill)
+    prediction                              = false
+    lineFeed                                = true
+    fixedWidthMode                          = false
+    homeButton                              = true
+    softwareReset                           = false
+    powerButton                             = true
+    communicateWithOtherRegions             = false
+    bootWithQwerty                          = false
+    bottomButtonToFinish[BOTTOM_BUTTON_0]   = false
+    bottomButtonToFinish[BOTTOM_BUTTON_1]   = false
+    bottomButtonToFinish[BOTTOM_BUTTON_2]   = true
+    displayLanguage                         = DISPLAY_LANGUAGE_DEFAULT
+
+    initialInputText                        = -1
+    userWordArray                           = -1
+    initialStatusData                       = -1
+    initialLearningData                     = -1
+    sharedMemorySize                        = 0
+    versionNumber                           = 0
+
+    returnCode                              = RETURN_CODE_UNKNOWN
+    statusData                              = -1
+    learningData                            = -1
+    inputText                               = -1
+    inputTextLength                         = 0
+
+    appTextCheckResult                      = APP_TEXT_CHECK_RESULT_OK
+    appTextCheckDialogText                  = 0(fill)
+
+    skipAtMarkCheck                         = false
+
+            </pre></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/05</dt>
+        <dd><item xmlns="">Added <span class="argument">displayLanguage</span> and <span class="argument">skipAtMarkCheck</span>.</item><br />
+        </dd>
+        <dt>2011/03/18</dt>
+        <dd><item xmlns="">Added specific information about settings.</item><br />
+        </dd>
+        <dt>2011/03/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

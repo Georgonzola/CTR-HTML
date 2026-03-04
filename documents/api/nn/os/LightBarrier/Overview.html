@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::LightBarrier</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::LightBarrier Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/os.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class LightBarrier : private <a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable< LightBarrier ></a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Synchronization mechanism that waits for the arrival of multiple threads.</p><p>Until the number of threads specified during initialization arrive, any threads that arrive early are made to wait.</p><p>This class cannot be used to wait for the arrival of <emphasis>M</emphasis> threads, where <emphasis>M</emphasis> is a subset of the total number of threads <emphasis>N</emphasis> (where <emphasis>M</emphasis> < <emphasis>N</emphasis>).</p><p>All member functions of this class are thread-safe with the exception of <code><a href="../../../nn/os/LightBarrier/Await.html">Await</a></code>, <code>Initialize</code>, and <code>Finalize</code>. The <code><a href="../../../nn/os/LightBarrier/Await.html">Await</a></code> function is only thread-safe between the number of threads specified by either the constructor or the <code><a href="../../../nn/os/LightBarrier/Initialize.html">Initialize</a></code> member function.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Initialization and Termination</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightBarrier/LightBarrier.html">LightBarrier</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightBarrier/Initialize.html">Initialize</a>
+            </th>
+            <td>Performs initialization.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightBarrier/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the object.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Obtaining Debug Info</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightBarrier/GetReleaseCount.html">GetReleaseCount</a>
+            </th>
+            <td>Gets the number of threads to wait for.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightBarrier/GetNumOfWaiting.html">GetNumOfWaiting</a>
+            </th>
+            <td>Gets the number of threads that are waiting.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Thread Blocking Control</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightBarrier/Await.html">Await</a>
+            </th>
+            <td>Waits for the arrival of another thread.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<b>nn::os::LightBarrier</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

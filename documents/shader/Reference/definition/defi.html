@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>defi - Define integer constants</title>
+  </head>
+  <body>
+    <h1>defi - Define integer constants</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+defi    dest, count, init, step
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Register</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>dest</th>
+          <td>
+            Integer register<br />
+          </td>
+        </tr>
+        <tr>
+          <th>count</th>
+          <td>
+            Integer value.<br />Specifies a value that is one less than the number of times to run the group of instructions situated between the <CODE>loop</CODE> and <CODE>endloop</CODE> instructions. You can specify values between 0 and 255 (inclusive).<br />
+          </td>
+        </tr>
+        <tr>
+          <th>init</th>
+          <td>
+            Integer value.<br />Specifies an initial value for the loop counter register. You can specify values between -128 and 127 (inclusive).<br /> Specified using two's complement when the integer value is given in hexadecimal.<br />
+          </td>
+        </tr>
+        <tr>
+          <th>step</th>
+          <td>
+            Integer value.<br />Specifies the amount by which to increment the loop-counter register for each loop iteration. You can specify values between -128 and 127 (inclusive).<br /> Specified using two's complement when the integer value is given in hexadecimal.<br />
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Sets the values of integer registers. Integer registers are used by <CODE>loop</CODE> instructions.<br />
+      </p>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+defi    i0 , 8 , 0 , 1  // Loops 9 times. aL has an initial value of 0 and is incremented by one during each loop iteration.
+defi    i1 , 10 , 4 , 2 // Loops 11 times. aL has an initial value of 4 and is incremented by two during each loop iteration.
+</pre>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

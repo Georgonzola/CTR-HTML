@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetInitialParam</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::GetInitialParam Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool GetInitialParam(
+     <a href="../../../nn/applet/CTR/AppletId.html">AppletId</a> * pSenderId,
+     <a href="../../../nn_types/u8.html">u8</a> * pParam,
+     size_t paramSize,
+     <a href="../../../nn_types/s32.html">s32</a> * pReadSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pSenderId</th>
+          <td>ID of the <a href="../../../nn/applet/Overview.html">applet</a> that sent the initial parameters.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pParam</th>
+          <td>The buffer that gets the initial parameters.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>paramSize</th>
+          <td>Buffer size (in bytes).</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pReadSize</th>
+          <td>Amount of data actually read in (in bytes).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if the parameter exists, or <code>false</code> if it does not. Even when <code>true</code> is returned, if <code>0</code> is stored in <emphasis>pReadSize</emphasis>, there are no valid initial parameters. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the initial parameter. When an application is started, it can be passed up to <code>NN_APPLET_PARAM_BUF_SIZE</code> bytes of data (the initial parameters). This function enables the application to receive those parameters. Normally, however, no initial parameters are set on the HOME Menu. Apart from setting initial parameters when starting applications from the HOME Menu, the initial parameters may also be set by the originating application during jumps between applications or by system applets when they start applications. The content of the parameters depends on the conventions used between applications or system applets. The library is not involved in handling the content.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>RegisterTask</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/boss/Overview.html">boss</a>::RegisterTask Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">nn::Result</a> RegisterTask(
+     <a href="../../nn/boss/Task/Overview.html">Task</a> * pTask,
+     <a href="../../nn/boss/TaskPolicy/Overview.html">TaskPolicy</a> * pPolicy,
+     <a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a> * pAction,
+     <a href="../../nn/boss/TaskOption/Overview.html">TaskOption</a> * pOption = NULL,
+     <a href="../../nn_types/u8.html">u8</a> taskStep = DEFAULT_STEP_ID
+);
+
+<a href="../../nn/Result/Overview.html">nn::Result</a> RegisterTask(
+     <a href="../../nn/boss/Task/Overview.html">Task</a> * pTask,
+     <a href="../../nn/boss/TaskPolicy/Overview.html">TaskPolicy</a> * pPolicy,
+     <a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a> * pAction,
+     const char * pFilePath,
+     <a href="../../nn/boss/TaskOption/Overview.html">TaskOption</a> * pOption = NULL,
+     <a href="../../nn_types/u8.html">u8</a> taskStep = DEFAULT_STEP_ID
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./RegisterTask(0).html">RegisterTask ( Task *, TaskPolicy *, TaskAction *, TaskOption *, u8 ) </a>
+          </td>
+          <td>Registers a task to BOSS (to the save region on the game device). To register tasks, you must prepare instances of the subclass of the <code><a href="../../nn/boss/TaskPolicy/Overview.html">TaskPolicy</a></code> class and the <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> class. (<code><a href="../../nn/boss/NsaDownloadAction/Overview.html">NsaDownloadAction</a></code> class, <code><a href="../../nn/boss/DataStoreDownloadAction/Overview.html">DataStoreDownloadAction</a></code> class, and <code><a href="../../nn/boss/DataStoreUploadAction/Overview.html">DataStoreUploadAction</a></code> class). <br />
+ For information about which attributes must be set, see the API Reference topic for each class. <br />
+ When you have finished registering a task, you can reuse each of these instances as necessary by calling the <code><a href="../../nn/boss/Initialize.html">Initialize()</a></code> function. <br />
+ You can issue a task execution instruction by calling the <code><a href="../../nn/boss/Task/Start.html">nn::boss::Task::Start()</a></code> function for a registered task. &#12288; Common <a href="../../nn/boss/Task/Overview.html">Task</a> Registration Errors 1. BOSS storage has not been registered when registering an NADL task (<code><a href="../../nn/boss/ResultStorageNotFound/Overview.html">ResultStorageNotFound</a></code>). Use <code><a href="../../nn/boss/RegisterStorage.html">RegisterStorage</a></code> to register BOSS storage for the NADL task. 2. A task with the same task ID has already been registered (<code><a href="../../nn/boss/ResultTaskIdAlreadyExist/Overview.html">ResultTaskIdAlreadyExist</a></code>). Either use <code><a href="../../nn/boss/UnregisterTask.html">UnregisterTask</a></code> to unregister the task, or reuse the task that has already been registered.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./RegisterTask(1).html">RegisterTask ( Task *, TaskPolicy *, TaskAction *, const char *, TaskOption *, u8 ) </a>
+          </td>
+          <td>Registers a task to BOSS (to the save region on the game device) in concert with the file specified as the target. At the present time, this function can be used only to register <code>DataStore</code> upload tasks. For more information, see <code><a href="../../nn/boss/RegisterTask.html">nn::boss::RegisterTask</a></code>, which has the same specification but without the argument to take the file path. <br /><br />
+ The file corresponding to the specified file path is copied to BOSS storage during the task registration process. Copying can take a long time (upwards of 10 seconds), depending on file size and SD card type. As a result, it can take a long time for this function to respond. <br /></td>
+        </tr> </table>
+    </div>
+    <h2>Description of RegisterTask ( Task *, TaskPolicy *, TaskAction *, TaskOption *, u8 ) </h2>
+    <div class="section"><!-- write here --></div>
+    <h2>Description of RegisterTask ( Task *, TaskPolicy *, TaskAction *, const char *, TaskOption *, u8 ) </h2>
+    <div class="section"><!-- write here --></div>
+  </body>
+</html>

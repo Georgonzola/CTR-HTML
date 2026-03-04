@@ -1,0 +1,627 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="en-US">
+
+<HEAD>
+    <META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+    <META http-equiv="Content-Style-Type" content="text/css">
+
+    <TITLE>CTR-SDK Build System Manual (for DLLs)</TITLE>
+
+    <STYLE>
+        h1.left
+        {
+            color: #46f;
+            font-size: 100%;
+        }
+        ul.left, ul.left ul
+        {
+            margin: 0;
+            padding: 0;
+        }
+        ul.left
+        {
+            font-size: 0.8em;
+        }
+        ul.left li
+        {
+            margin: 0;
+            padding: 0;
+            margin-left: 1em;
+            line-height: 1.5em;
+        }
+        ul.left li a
+        {
+            margin: 0;
+            padding: 0;
+        }
+
+        H1
+        {
+            font-weight         : bold;
+            font-size           : 250%;
+            text-align          : left;
+            color               : #46f;
+            margin-bottom       : 0px;
+        }
+
+        H2
+        {
+            font-weight         : normal;
+            font-size           : 180%;
+            margin              : 24pt 0pt 6pt 0pt;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+        }
+
+        H3
+        {
+            font-weight         : bold;
+            font-size           : 120%;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+            width: 75%;
+            margin              : 18pt 0pt 6pt 30pt;
+        }
+
+        H4
+        {
+            font-weight         : bold;
+            font-size           : 100%;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H5
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H6
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        DIV.date
+        {
+            text-align          : right;
+            color               : #46f;
+            margin-bottom       : 30pt;
+            line-height         : 150%;
+        }
+
+        P
+        {
+            margin              : 0pt 0pt 12pt 30pt;
+            line-height         : 150%;
+        }
+
+        OL,UL,DL
+        {
+            margin              : 6pt 0pt 6pt 50pt;
+        }
+        OL OL, UL UL
+        {
+            margin-left: 3em;
+        }
+
+        DT
+        {
+            font-family         : "Courier New", monospace;
+            margin-top : 0.3em;
+            margin-bottom : 0.3em;
+        }
+        DD
+        {
+            margin-top : 0.3em;
+            margin-bottom : 0.6em;
+        }
+
+        PRE
+        {
+            font-family         : "Courier New", monospace;
+            font-weight         : normal;
+
+            margin              : 0pt 0pt 20pt 50pt;
+            padding             : 2pt 8pt 2pt 8pt;
+            background-color    : #eee;
+
+            border-style        : solid;
+            border-width        : 1px;
+        }
+        em
+        {
+            font-style: normal;
+            color: red;
+        }
+        TABLE
+        {
+            margin-left         : 40pt;
+            margin-bottom       : 20pt;
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        TD
+        {
+            font-style          : normal;
+            padding             : 2pt 4pt 2pt 4pt;
+
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        div.footer
+        {
+            border-color: black;
+            padding-top: 0.5em;
+            border-top-style    : solid;
+            border-top-width    : 1px;
+            width:              100%;
+            margin-top: 2em;;
+        }
+        div.footer span
+        {
+            color               : #46f;
+            float: right;
+        }
+        table
+        {
+            border-collapse:    collapse;
+        }
+        table td
+        {
+        }
+        table th
+        {
+        }
+        ul
+        {
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        span.sample
+        {
+            color: gray;
+        }
+        DL.history
+        {
+            margin: 1em;
+        }
+        DL.history DT
+        {
+            font-family         : sans-serif;
+            font-weight         : bold;
+            font-size           : 0.8em;
+            margin              : 0px;
+        }
+        DL.history DD
+        {
+            font-size           : 0.9em;
+            margin              : 0px 0px 4px 0px;
+        }
+    </STYLE>
+    <SCRIPT type="text/javascript">
+    <!--
+        function DeleteRule(index)
+        {
+            var ss = document.styleSheets.item(0);
+
+            if( ss.removeRule )
+            {
+                ss.removeRule(index);
+            }
+            else
+            {
+                ss.deleteRule(index);
+            }
+        }
+        function OnClickAnchor(e, anchor)
+        {
+            window.parent.frames[1].location.hash = anchor;
+
+            if( e.preventDefault )
+            {
+                e.preventDefault();
+            }
+            else
+            {
+                e.returnValue = false;
+            }
+        }
+        function TravLeft(obj)
+        {
+            var ary = new Array();
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var a = c.childNodes.item(0);
+                        var text  = "";
+
+                        var anchor = "name-" + index;
+                        index++;
+
+                        if( a && a.tagName == "A" )
+                        {
+                            text  = a.innerHTML;
+                        }
+                        else
+                        {
+                            text  = c.innerHTML;
+                        }
+
+                        ary.push([c.tagName.substr(1,1), "<a target=\"right\" href=\"?right#" + anchor + "\" onclick=\"OnClickAnchor(event, '" + anchor + "')\">" + text + "</a>"]);
+                    }
+                    else
+                    {
+                        ary = ary.concat(TravLeft(c));
+                    }
+                }
+            }
+
+            return ary;
+        }
+        function TravRight(obj)
+        {
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var anchor = "name-" + index;
+                        index++;
+
+                        c.innerHTML = "<a name=\"" + anchor + "\">" + c.innerHTML + "</a>"
+                    }
+                    else
+                    {
+                        TravRight(c);
+                    }
+                }
+            }
+        }
+        function OnLoad_Left()
+        {
+            var test = TravLeft(document.body);
+            var test2 = "";
+            var level = 2;
+
+            test2 += "<h1 class='left'>" + document.title + "</h1>";
+            test2 += "<ul class='left'>";
+            for( var i in test )
+            {
+                while( test[i][0] > level )
+                {
+                    level++;
+                    test2 += "<ul>";
+                }
+                while( test[i][0] < level )
+                {
+                    level--;
+                    test2 += "</ul>";
+                }
+
+                test2 += "<li>" + test[i][1];
+            }
+            test2 += "</ul>";
+
+            document.body.innerHTML = test2;
+            DeleteRule(0);
+        }
+        function OnLoad_Right()
+        {
+            TravRight(document.body);
+        }
+        function OnLoad_Frame()
+        {
+            var myname = location.pathname.substr(location.pathname.lastIndexOf("/") + 1);
+
+            var f = document.createElement("frameset");
+            var l = document.createElement("frame");
+            var r = document.createElement("frame");
+
+            f.appendChild(l);
+            f.appendChild(r);
+            f.cols = "250,*";
+
+            l.src  = myname + "?left"  + location.hash;
+            r.src  = myname + "?right" + location.hash;
+            l.name = "left";
+            r.name = "right";
+
+            var h = document.documentElement;
+            var b = h.getElementsByTagName("body").item(0);
+
+            h.replaceChild(f, b);
+        }
+
+
+        if( ! window.opera )
+        {
+            var search = location.search;
+
+            if( search == "?left" )
+            {
+                window.onload = OnLoad_Left;
+            }
+            else if( search == "" )
+            {
+                window.onload = OnLoad_Frame;
+            }
+            else if( search == "?right" )
+            {
+                window.onload = OnLoad_Right;
+            }
+
+            if( search != "?right" )
+            {
+                var ss = document.styleSheets.item(0);
+
+                if( ss.addRule )
+                {
+                    ss.addRule("body", "display: none", 0);
+                }
+                else
+                {
+                    ss.insertRule("body {display: none}", 0);
+                }
+            }
+        }
+    //-->
+    </SCRIPT>
+</HEAD>
+
+<BODY>
+
+
+
+
+
+<H1>CTR-SDK Build System Manual (for DLLs)</H1>
+<DIV class="date">(2012/06/22)</DIV>
+
+
+
+
+
+<H2>Introduction</H2>
+
+<H3>About This Document</H3>
+<P>
+    This document provides information necessary to use the SDK build system to build CRO files and applications using CRO files.
+</P>
+<ul>
+    <li>Descriptions of added build-system variables
+    <li>Added tasks
+</ul>
+
+<P>
+    Information about the following can be found in the referenced documentation.
+</P>
+<ul>
+    <li>Information about developing your own build system:<br /><i><a href="BuildSystemDevelopmentGuideForDll.html" target="_parent">Guide to Developing a Build System (for DLLs)</a></i>
+<li>Information about developing a more sophisticated build system:<br /><i><a href="BuildSystemDevelopmentGuideForDllAdvanced.html" target="_parent">Guide to Developing a Build System (for High-Level DLLs)</a></i>
+</ul>
+
+<P>
+    This document assumes basic knowledge of CRO files. See the <i><a href="DllManual.html" target="_parent">DLL Manual</a></i> for a basic introduction to CRO files.
+</P>
+
+<H3>Notation Used in This Document</H3>
+<P>
+Content in shaded boxes, as shown below, indicate sample OMakefile code.
+</P>
+<pre>
+command option1 option2
+</pre>
+
+
+<H2>Added Variables</H2>
+<P>
+    The following build variables have been added for specifying and controlling CRO builds.
+</P>
+<ul>
+    <li><CODE>TARGET_MODULE</CODE>
+    <li><CODE>MODULE_LIST</CODE>
+    <li><CODE>MODULE_EXPORT_TYPE</CODE>
+    <li><CODE>MODULE_ENABLE_OFFSET</CODE>
+    <li><CODE>MODULE_ADD_DEBUG_INFO</CODE>
+</ul>
+<P>
+    These variables are described below.
+</P>
+
+<h3>TARGET_MODULE</h3>
+<P>
+    Specifies the name of the CRO module to create. It is used in place of <CODE>TARGET_PROGRAM</CODE>. Specifying a value for this variable builds the CRO file.
+</P>
+<P>
+    Sample Configuration:
+</P>
+<PRE>
+TARGET_MODULE   = TestModule1
+</PRE>
+
+<h3>MODULE_LIST</h3>
+<P>
+    Specifies a list of build directories automatically referenced by the module that the current OMakefile is building. If the module being built uses undefined symbols, then the build system looks for definitions in the modules specified by <CODE>MODULE_LIST</CODE>. If the build system cannot find definitions in any module, it raises a link error in the final static module.
+</P>
+<P>
+    Sample Configuration:
+</P>
+<PRE>
+MODULE_LIST     = ../App ../TestModule2 ../TestModule3
+</PRE>
+
+<h3>MODULE_EXPORT_TYPE</h3>
+<P>
+    Specifies the export type. The available values are <CODE>SYMBOL</CODE>, <CODE>INDEX</CODE>, and <CODE>OFFSET</CODE>. The default is <CODE>SYMBOL</CODE>.
+</P>
+<P>
+    The meanings of the various values are as follows.
+</P>
+<table>
+<tr><th>Specified Value  <th>Description
+<tr><td><CODE>SYMBOL</CODE>  <td>The export type is a name.
+<tr><td><CODE>INDEX</CODE>   <td>The export type is an index.
+<tr><td><CODE>OFFSET</CODE>  <td>The export type is an offset.
+</table>
+<P>
+    Sample Configuration:
+</P>
+<PRE>
+MODULE_EXPORT_TYPE  = INDEX
+</PRE>
+
+
+<h3>MODULE_ENABLE_OFFSET</h3>
+<P>
+    Specifies whether to perform the build procedure required when modules reference symbols with an export type of <CODE>OFFSET</CODE>.A specific build procedure is required when referencing a symbol exported as an offset. This build procedure requires that the module referencing the symbol must be built no earlier than the module that exports it. To satisfy this restriction, the SDK's build system assumes that all modules will be built simultaneously. You can prevent this build procedure by setting <CODE>MODULE_ENABLE_OFFSET</CODE> to <CODE>false</CODE>. This enables you to build each module whenever you like. However, you will no longer be able to reference symbols exported as offsets. The default value is <CODE>true</CODE>.
+</P>
+<P>
+    Sample Configuration:
+</P>
+<PRE>
+MODULE_BUILD_TYPE   = RSO
+</PRE>
+
+
+
+<h3>MODULE_ADD_DEBUG_INFO</h3>
+<P>
+Place the information required to debug the CRO object in the CRR object. The debugging information for the CRO object must be placed in the CRR object to debug the CRO source in the debugger. Setting <CODE>MODULE_ADD_DEBUG_INFO</CODE> to <CODE>true</CODE> allows debugging information to be placed in the CRR object, allowing the CRO source code to be debugged in the debugger. Setting <CODE>MODULE_ADD_DEBUG_INFO</CODE> to <CODE>false</CODE> does not allow the CRO source code to be debugged in the debugger. However, because it does not contain debugging information, CRR is smaller in size. The initial value is <CODE>true</CODE>.
+</P>
+<P>
+    Sample Configuration:
+</P>
+<PRE>
+MODULE_ENABLE_OFFSET    = false
+</PRE>
+
+
+
+<H2>Settings Required for Build</H2>
+<P>
+    The following are required for building CRO files or an application that uses them, in addition to the requirements for creating ordinary applications.
+</P>
+<ul>
+<li>Creating Build Directories for CRO Files
+<li>Creating an OMakefile for the CRO Build
+<li>Adding Code for CRO Files to the Application's OMakefile
+<li>Storing CRO, CRS, and CRR Files in ROM-FS
+</ul>
+
+<h3>Creating Build Directories for CRO Files</h3>
+<P>
+    The SDK's build system assumes that you will create static and dynamic modules in separate directories. It also creates each dynamic module in its own directory. You must therefore create directories for building each of your dynamic modules, separate from the directory for the application itself.
+</P>
+<P>
+    For example, the <CODE>ro</CODE> sample demo has the following directory structure.
+</P>
+<PRE>
+MODULE_ADD_DEBUG_INFO    = false
+</PRE>
+<P>
+    You must specify each of these build directories in <CODE>SUBDIRS</CODE> to target them for the build.
+</P>
+
+
+<h3>Creating an OMakefile for the CRO Build</h3>
+<P>
+    You must create an OMakefile with the settings for building CRO files in each CRO build directory. The minimum required contents of the OMakefile for creating CRO files are as follows.
+</P>
+<PRE>
+Parent Directory ┬ Application Build Directory
+                 │   ├ Source of static module
+                 │   └ OMakefile
+                 ├ Build directory of dynamic module 1
+                 │   ├ Source of dynamic module 1
+                 │   └ OMakefile
+                 ├ Build directory of dynamic module 2
+                 │   ├ Source of dynamic module 2
+                 │   └ OMakefile
+                 …
+                 ├ Build directory of dynamic module N
+                 │   ├ Source of dynamic module N
+                 │   └ OMakefile
+                 └ OMakefile
+</PRE>
+<P>
+Change the variables above as required to configure your CRO build. Also change the <CODE>TARGET_MODULE</CODE>, <CODE>MODULE_LIST</CODE>, and <CODE>SOURCES</CODE> settings in accordance with your project. 
+</P>
+<P>
+<B>Note:</B> The value of <CODE>TARGET_MODULE</CODE> must match the directory name. Also, do not include the target module (<CODE>Module1</CODE> in the example above) in <CODE>MODULE_LIST</CODE>.
+</P>
+
+<h3>Adding Code for CRO Files to the Application's OMakefile</h3>
+<P>
+    Specify an appropriate value for the <CODE>MODULE_LIST</CODE> variable in the application's OMakefile. Ordinarily, you should specify all the dynamic modules that the application uses.
+</P>
+<PRE>
+TARGET_MODULE   = <span class="sample">Module1</span>
+MODULE_LIST     = <span class="sample">../App ../Module2</span>
+SOURCES         = <span class="sample">module.cpp</span>
+
+include $(ROOT_OMAKE)/modulerules
+
+build: $(DEFAULT_TARGETS)
+</PRE>
+<P>
+    This setting causes the CRS and CRR files to be created in <CODE>images</CODE>.
+</P>
+
+<h3>Storing CRO, CRS, and CRR Files in ROM-FS</h3>
+<P>
+    The settings above generated CRO, CRS, and CRR files, so you must now store the generated files in ROM-FS. You can store CRO and CRS files in ROM-FS in any format you want, including compressed and archive formats. In contrast, there are strong restrictions on storing the CRR file. You must store it directly below a <CODE>.crr</CODE> directory that is directly under the ROM-FS root, without changing it in any way. The <CODE>.crr</CODE> directory must not contain any files other than the CRR file.
+</P>
+<P>
+    If you automate this process using <CODE>OMake</CODE>, the application's OMakefile must include code similar to the following example.
+</P>
+<PRE>
+MODULE_LIST     = ../Module1 ../Module2
+</PRE>
+<P>
+    You must change the values of variables between <CODE>MODULE_NAMES</CODE> and <CODE>STATIC_CRR</CODE> (inclusive) to appropriate values for your project. The example above assumes that <CODE>TARGET_PROGRAM</CODE> and <CODE>ROMFS_ROOT</CODE> are configured appropriately elsewhere.
+</P>
+
+
+
+
+
+
+
+<H2>Revision History</H2>
+<dl class="history">
+    <dt>2012/06/22</dt>
+    <dd>
+Added a link to <I>Guide to Developing a Build System (for High-Level DLLs)</I>.<br/>
+    </dd>
+
+    <dt>2011/09/26</dt>
+    <dd>
+        Added description of <CODE>MODULE_ADD_DEBUG_INFO</CODE> to <B>Added Variables</B>.<br /> Added the Revision History section.
+    </dd>
+
+    <dt>2011/08/03</dt>
+    <dd>
+        Initial version.
+    </dd>
+</dl>
+
+
+<div class="footer"><span>CTR-SDK Build System Manual (for DLLs)</span></div>
+
+  <hr /><p>CTR-06-0202-011-A<br />CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>CreateLocalCommunicationId</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/uds/Overview.html">uds</a>::<a href="../../../nn/uds/CTR/Overview.html">CTR</a>::CreateLocalCommunicationId Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/bit32.html">bit32</a> CreateLocalCommunicationId(
+     <a href="../../../nn_types/bit32.html">bit32</a> uniqueId,
+     bool isDemo = false
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>uniqueId</th>
+          <td>A unique ID. To communicate more than one title, specify the unique ID of any of the titles.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>isDemo</th>
+          <td>This flag is used when the same unique ID is used for both the retail and demo versions. Specify <code>true</code> for the demo if you do not want communication between the retail product and downloadable demo versions. <bold>Note:</bold> Always set this flag to <code>false</code> in retail products.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the local communication ID. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a local communication ID from a unique ID. This function uses a 20-bit unique ID assigned by Nintendo to generate a 32-bit value (a <emphasis>local communication ID</emphasis>) to use for UDS communication. <br />
+ If Nintendo has not assigned a unique ID to you, use one of the unique IDs for game prototypes (in the range from <code>0xFF000</code> through <code>0xFF3FF</code>). <br />
+ However, you must get a unique ID from Nintendo for your retail product. <br /><br />
+ This function is thread-safe.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/03</dt>
+        <dd><item xmlns="">Changed "demo" to "downloadable application demo."</item><br />
+        </dd>
+        <dt>2010/10/15</dt>
+        <dd><item xmlns="">Changed the text to make Description easier to understand.</item><br />
+        </dd>
+        <dt>2010/09/18</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

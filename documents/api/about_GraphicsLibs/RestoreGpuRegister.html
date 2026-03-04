@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"[]>
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css">
+      <!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        -->
+    </style>
+    <title>Restoring GPU Register Settings</title>
+  </head>
+  <body>
+    <h1>Restoring GPU Register Settings</h1>
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+You must restore the state of GPU register settings, or reset them, immediately after returning from the HOME Menu or an applet, or when switching from one graphics library to another.
+      </p>
+      <p>
+This is because the GPU register settings that the library assumes and the actual state of the settings differ when there is a library that generates commands based on the difference from when it was previously generated, such as the GL library.
+      </p>
+    </div>
+
+    <h3>Returning to the Application From an Applet (Including the HOME Menu)</h3>
+    <div class="section">
+      <p>
+When rendering by switching between multiple graphics libraries as discussed in the next section, after returning, conform to the method of the library that was used first.
+      </p>
+    <h4>When the Application Uses GL</h4>
+      <div class="section">
+         <p>
+Generate all commands by calling the <CODE><a href="../nn_gx/nngxUpdateState.html">nngxUpdateState</a> (NN_GX_STATE_ALL)</CODE> function when the next <CODE>Draw</CODE> is executed.
+         </p>
+         <p>
+Then, call the <a href="../nn_gx/nngxValidateState.html"><CODE>nngxValidateState</CODE></a> function to generate all functions, but unless they are bound to a command list and <font color="red">program objects are set</font> (see the Note), caution is needed as an error code will be generated. <B>Note:</B> Introduced from CTR-SDK 4.2 onward.
+         </p>
+      </div>
+    <h4>When the Application Uses GD</h4>
+      <div class="section">
+         <p>
+Generate all commands by calling the <CODE><a href="../nn/gd/CTR/System/ForceDirty.html">nn::gd::System::ForceDirty</a> (nn::gd::MODULE_ALL)</CODE> function when the next <CODE>Draw</CODE> is executed.
+         </p>
+      </div>
+
+    <h4>When the Application Uses GR</h4>
+      <div class="section">
+         <p>
+Because settings information is not maintained within the GR library, there is no API to restore the settings.<br /> When performing the next render, call the function needed to generate all the needed commands.<br /> Or, use a command buffer that includes all the needed commands.
+         </p>
+      </div>
+
+    <h4>Using Application-Specific Libraries</h4>
+      <div class="section">
+         <p>
+Reset all necessary registers for the first render after returning.<br /> If that library does not maintain settings information internally, handle it as indicated for the GR library.
+         </p>
+      </div>
+    </div>
+
+    <h3>When Switching From Another Graphics Library to the Library Used</h3>
+    <div class="section">
+      <p>
+Switching among multiple graphic libraries is like when you are rendering one frame.<br /> Other graphic libraries include the CTR Face Library.
+     </p>
+      <p>
+You can handle it in basically the same way as when returning from an applet.<br /> The volume of commands for register restoration increases with frequent switching of libraries, so try to keep the number of switches to a minimum.
+      </p>
+    </div>
+
+    <h3>Other Information</h3>
+    <div class="section">
+      <p>
+From CTR-SDK 4.2 on, the <CODE>nngxGetInitializationCommand</CODE> function, which can get initialization commands generated by the <CODE>nngxInitialize</CODE> function, has been made public.
+      </p>
+      <p>
+When there is an issue with rendering not working correctly when returning from an applet, confirm whether the rendering changes when initialization commands are executed after the return.
+      </p>
+    </div>
+
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/05/28</dt>
+        <dd>Initial version.<br /></dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

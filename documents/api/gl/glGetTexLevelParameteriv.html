@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetTexLevelParameteriv</title>
+  </head>
+  <body>
+    <h1>glGetTexLevelParameteriv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetTexLevelParameteriv(
+     GLenum target,
+     GLint level,
+     GLenum pname,
+     GLint * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>The target texture to get the parameters from.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>level</th>
+          <td>The mipmap level of the parameters to get.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>Parameters to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Pointer to a region that stores the parameters that were retrieved.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the texture level parameters.</p><P>You can set <span class="argument">target</span> to one of the following values. Procedural textures are not supported.<TABLE><TR><TH>GL_TEXTURE_2D</TH><TD>2D texture.</TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_NEGATIVE_X</th><TD>Face of a cube-map texture in the negative x direction. </TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_POSITIVE_X</th><TD>Face of a cube-map texture in the positive x direction. </TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_NEGATIVE_Y</th><TD>Face of a cube-map texture in the negative y direction.</TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_POSITIVE_Y</th><TD>Face of a cube-map texture in the positive y direction.</TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_NEGATIVE_Z</th><TD>Face of a cube-map texture in the negative z direction.</TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_POSITIVE_Z</th><TD>Face of a cube-map texture in the positive z direction.</TD></TR></TABLE></P><P>The values that can be specified in <span class="argument">pname</span> and the paramter that can be retrieved in <span class="argument">params</span> are shown in the table below.<TABLE><TR><th>GL_TEXTURE_WIDTH</th><TD>Width of texture (in pixels).</TD></TR><TR><th>GL_TEXTURE_HEIGHT</th><TD>Height of texture (in pixels).</TD></TR><!-- <TR> <TH>GL_TEXTURE_DEPTH</TH> <TD>テクスチャの奥行きのピクセル数（未対応のため必ず 0 が返ります）</TD> </TR> <TR> <TH>GL_TEXTURE_BORDER</TH> <TD>テクスチャボーダー幅のピクセル数（未対応のため必ず 0 が返ります）</TD> </TR> --><TR><th>GL_TEXTURE_INTERNAL_FORMAT</th><TD>Internal format of texture.</TD></TR><TR><th>GL_TEXTURE_RED_SIZE</th><TD>Red component of each pixel (in bits).</TD></TR><TR><th>GL_TEXTURE_GREEN_SIZE</th><TD>Green component of each pixel (in bits).</TD></TR><TR><th>GL_TEXTURE_BLUE_SIZE</th><TD>Blue component of each pixel (in bits).</TD></TR><TR><th>GL_TEXTURE_ALPHA</th><TD>Alpha component of each pixel (in bits).</TD></TR><TR><th>GL_TEXTURE_LUMINANCE_SIZE</th><TD>Luminance component of each pixel (in bits).</TD></TR><TR><th>GL_TEXTURE_INTENSITY_SIZE</th><TD>Intensity component of each pixel (in bits). Only valid with <tt>GL_SHADOW_DMP</tt> format.</TD></TR><TR><th>GL_TEXTURE_DEPTH_SIZE</th><TD>Depth component of each pixel (in bits). Only valid with <tt>GL_SHADOW_DMP</tt> format.</TD></TR><TR><th>GL_TEXTURE_DENSITY1_SIZE_DMP</th><TD>Density info 1 of each pixel (only valid with <tt>GL_GAS_DMP</tt> format; density information that does not take into account intersection with gas texture density information).</TD></TR><TR><th>GL_TEXTURE_DENSITY2_SIZE_DMP</th><TD>Density info 2 of each pixel (only valid with <tt>GL_GAS_DMP</tt> format; density information that takes into account intersection with gas texture density information).</TD></TR><TR><th>GL_TEXTURE_COMPRESSED</th><TD><tt>TRUE</tt> if the texture is a compressed format; <tt>FALSE</tt> if not compressed.</TD></TR><TR><th>GL_TEXTURE_COMPRESSED_IMAGE_SIZE</th><TD>If the texture is a compressed format, the byte size of the mipmap level specified by <span class="argument">level</span>.</TD></TR></TABLE></P><P>The internal-format values obtained by <tt>GL_TEXTURE_INTERNAL_FORMAT</tt> and the corresponding bit counts of the component pixels are as follows.<TABLE><TR><TH>Internal Formats</TH><TH>Red</TH><TH>Green (0/255/0)</TH><TH>Blue</TH><TH>alpha</TH><TH>Brightness</TH><TH>Intensity</TH><TH>Depth</TH><TH>Density 1</TH><TH>Density 2</TH></TR><TR><TD><tt>GL_RGBA4</tt></TD><TD>4</TD><TD>4</TD><TD>4</TD><TD>4</TD><TD /><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_RGB5_A1</tt></TD><TD>5</TD><TD>5</TD><TD>5</TD><TD>1</TD><TD /><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_RGBA</tt></TD><TD>8</TD><TD>8</TD><TD>8</TD><TD>8</TD><TD /><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_RGB565</tt></TD><TD>5</TD><TD>6</TD><TD>5</TD><TD /><TD /><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_RGB</tt></TD><TD>8</TD><TD>8</TD><TD>8</TD><TD /><TD /><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_ALPHA</tt></TD><TD /><TD /><TD /><TD>8</TD><TD /><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_ALPHA4_EXT</tt></TD><TD /><TD /><TD /><TD>4</TD><TD /><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_LUMINANCE</tt></TD><TD /><TD /><TD /><TD /><TD>8</TD><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_LUMINANCE4_EXT</tt></TD><TD /><TD /><TD /><TD /><TD>4</TD><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_LUMINANCE_ALPHA</tt></TD><TD /><TD /><TD /><TD>8</TD><TD>8</TD><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_LUMINANCE4_ALPHA4_EXT</tt></TD><TD /><TD /><TD /><TD>4</TD><TD>4</TD><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_SHADOW_DMP</tt></TD><TD /><TD /><TD /><TD /><TD /><TD>8</TD><TD>24</TD><TD /><TD /></TR><TR><TD><tt>GL_GAS_DMP</tt></TD><TD /><TD /><TD /><TD /><TD /><TD /><TD /><TD>16</TD><TD>16</TD></TR><TR><TD><tt>GL_HILO8_DMP</tt></TD><TD>8</TD><TD>8</TD><TD /><TD /><TD /><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_ETC1_RGB8_NATIVE_DMP</tt></TD><TD>8</TD><TD>8</TD><TD>8</TD><TD /><TD /><TD /><TD /><TD /><TD /></TR><TR><TD><tt>GL_ETC1_ALPHA_RGB8_A4_NATIVE_DMP</tt></TD><TD>8</TD><TD>8</TD><TD>8</TD><TD>4</TD><TD /><TD /><TD /><TD /><TD /></TR></TABLE></P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_OPERATION</TH><TD>If <tt>TEXTURE_COMPRESSED_IMAGE_SIZE</tt> is specified for an uncompressed texture.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> or <span class="argument">pname</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>If an unloaded mipmap level is specified in <span class="argument">level</span>.</TD></TR></TABLE></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/18</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

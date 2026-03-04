@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>nrm - Normalize</title>
+  </head>
+  <body>
+    <h1>nrm - Normalize</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+nrm     dest, src
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Registers</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>dest</th>
+          <td>
+            A temporary register.<br />
+          </td>
+        </tr>
+        <tr>
+          <th>src</th>
+          <td>
+            A temporary register or input register.<br />
+          </td>
+        </tr>
+      </table>
+      <p class="notice">
+        You cannot specify the same register for <SPAN class="argument">src</SPAN> and <SPAN class="argument">dest</SPAN>.<br />
+      </p>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Stores the normalized result of <SPAN class="argument">src</SPAN> in <SPAN class="argument">dest</SPAN>.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+tmp = sqrt ( src.x * src.x + src.y * src.y + src.z * src.z + src.w * src.w )
+dest.x = src.x* ( 1 / tmp )
+dest.y = src.y* ( 1 / tmp )
+dest.z = src.z* ( 1 / tmp )
+dest.w = src.w* ( 1 / tmp )
+</pre>
+    </div>
+
+    <h2>Macro Expansion</h2>
+    <div class="section">
+<pre class="definition">
+dp4     dest.x, src,    src
+rsq     dest.x, dest.x
+mul     dest,   src,    dest.x
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+nrm     r0,     v0
+</pre>
+    </div>
+
+    <h2>Timetable </h2>
+    <div class="section">
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th><th>13</th>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>rsq</th>
+          <td class="empty"></td>
+          <td class="stall" colspan="4">STALL</td>
+          <td class="read">read</td>
+          <td class="RSQ" colspan="2">RCP / RSQ</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mul</th>
+          <td class="empty" colspan="6"></td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

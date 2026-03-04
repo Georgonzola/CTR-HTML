@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glUniform4iv</title>
+  </head>
+  <body>
+    <h1>glUniform4iv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glUniform4iv(
+     GLint location,
+     GLsizei count,
+     const GLint * v
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>location</th>
+          <td>Uniform location.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>count</th>
+          <td>Number of <code>GL_INT_VEC4</code>-type or <code>GL_BOOL_VEC4</code>-type elements to set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>v</th>
+          <td>Array that stores the values to set.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets a <code>GL_INT_VEC4</code>-type uniform value, a <code>GL_BOOL_VEC4</code>-type uniform value, or array types of those types for a vertex shader, geometry shader, or reserved fragment shader.</p><P>Set <span class="argument">location</span> to the uniform variable's location.  Set <span class="argument">count</span> to the number of elements to configure in a uniform variable array.  Set <span class="argument">v</span> to an array storing the value(s) to set in the uniform variable or uniform variable array.</P><P>Calls to this function are ignored when <span class="argument">location</span> is -1.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">count</span> argument is negative.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">location</span> argument is not a location in the current program.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>There is no current program object.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called on a location with a different data type or component count.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The uniform variable array is smaller than the sum of <span class="argument">count</span>, the offset, and the location obtained from <tt>glGetUniformLocation</tt>.</TD></TR></TABLE><!-- source countが負の値の場合エラーGL_INVALID_VALUEを生成します。 locationがカレントのプログラムのロケーションではない場合エラーGL_INVALID_OPERATIONを生成します。 カレントにプログラムがない場合エラーGL_INVALID_OPERATIONを生成します。 データのコンポーネント数、およびTypeの異なるロケーションに対して呼び出した場合エラーGL_INVALID_OPERATIONを生成します。 glGetUniformLocationで取得されるロケーションの値に加算したオフセットとcountの和が ユニフォームの配列数を超える場合エラーGL_INVALID_OPERATIONを生成します。 予約フラグメントシェーダのユニフォームに設定範囲が決められている場合、 vに設定範囲外の値を指定するとエラーGL_INVALID_VALUE、またはGL_INVALID_ENUMのいずれかを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

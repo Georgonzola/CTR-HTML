@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetupBcwav</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/snd/CTR/Voice/Overview.html">Voice</a>::SetupBcwav Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool SetupBcwav(
+     <a href="../../../../nn_types/uptr.html">uptr</a> addrBcwav,
+     <a href="../../../../nn/snd/CTR/WaveBuffer/Overview.html">WaveBuffer</a> * pWaveBuffer0,
+     <a href="../../../../nn/snd/CTR/WaveBuffer/Overview.html">WaveBuffer</a> * pWaveBuffer1,
+     <a href="../../../../nn/snd/CTR/Bcwav/ChannelIndex.html">Bcwav::ChannelIndex</a> channelIndex = Bcwav::CHANNEL_INDEX_L
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>addrBcwav</th>
+          <td>Starting address of the BCWAV file. Must be aligned to <emphasis>BCWAV_ALIGNMENT</emphasis> (32 bytes). It must also be a multiple of <emphasis>BCWAV_UNITSIZE</emphasis> (32 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pWaveBuffer0</th>
+          <td>Pointer to the <code>nn::snd::WaveBuffer</code> used for the initial playback.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pWaveBuffer1</th>
+          <td>Pointer to the <code>nn::snd::WaveBuffer</code> used for looping playback.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>channelIndex</th>
+          <td>The channel to use.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if the operation succeeded, or <code>false</code> if it failed. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Parses a BCWAV file and prepares it for playback.</p><p>Configures the <tt>Voice</tt> and <tt>WaveBuffer</tt> settings based on the header information in the <tt>Bcwav</tt> file.  The user must prepare the <tt>WaveBuffer</tt> objects and pass those addresses in arguments <span class="argument">pWaveBuffer0</span> and <span class="argument">pWaveBuffer1</span>.</p><p>Only <span class="argument">pWaveBuffer0</span> is used when the loop flag in the <tt>Bcwav</tt> file is disabled.  You may specify <code>NULL</code> for <span class="argument">pWaveBuffer1</span> in such cases.</p><p>Both <span class="argument">pWaveBuffer0</span> and <span class="argument">pWaveBuffer1</span> are used when the loop flag in the <tt>Bcwav</tt> header is enabled, however. <span class="argument">pWaveBuffer0</span> is for the initial playback, and <span class="argument">pWaveBuffer1</span> is for loop playback.</p><p>If the <tt>Bcwav</tt> file audio is in stereo format, specify a value for the <span class="argument">channelIndex</span> argument to select either the left or right channel to assign to the <tt>Voice</tt> (you cannot use <tt>Voice</tt> with a stereo format). If the file is monaural, you must specify the left channel (<tt><span>nn::snd::CTR::Bcwav::CHANNEL_INDEX_L</span></tt>).</p><!-- <p> Bcwav ヘッダに含まれないパラメータのうち、本Function内部で自動的に初期化される Voice パラメータは以下の通りです（下記の「ボリューム」とは全体のボリュームのことであり、 本Functionでは <ref def="nn::snd::CTR::MixParam"/> の設定はされません）。 </p> <p> <table> <tr> <th>ボリューム</th> <td>1.0f</td> </tr> <tr> <th>ピッチ</th> <td>1.0f</td> </tr> </table> </p> --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2010/10/22</dt>
+        <dd><item xmlns="">Documented that, per a change in specifications, this no longer sets parameters not included in Bcwav header.</item><br />
+        </dd>
+        <dt>2010/07/22</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

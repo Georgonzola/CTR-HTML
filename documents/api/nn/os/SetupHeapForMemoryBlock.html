@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>SetupHeapForMemoryBlock</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/os/Overview.html">os</a>::SetupHeapForMemoryBlock Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+void SetupHeapForMemoryBlock(
+     size_t heapSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>heapSize</th>
+          <td>Specifies the size of the heap.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This function sets up the OS to emulate the same memory environment that was used in CTR-SDK 0.9 and prior versions.</p><p>Calling this function sets up a memory environment with the following characteristics:</p><ul><li>Sets the heap size in <span class="argument">heapSize</span>.</li><li>This enables use of the <tt><a href="../../nn/os/MemoryBlock/Overview.html">MemoryBlock</a></tt> class.</li><li>The entire heap region is configured for the <tt><a href="../../nn/os/MemoryBlock/Overview.html">MemoryBlock</a></tt> class.</li><li>The <tt><a href="../../nn/os/MemoryBlock/Overview.html">MemoryBlock</a></tt> class is used to set <tt><a href="../../nn/os/AutoStackManager/Overview.html">AutoStackManager</a></tt> for allocating the stack. </li></ul><p>If you use this function, you must not use the following functions.  Doing so could produce inconsistencies that prevent normal operations.</p><ul><li><a href="../../nn/os/SetHeapSize.html">nn::os::SetHeapSize</a></li><li><a href="../../nn/os/InitializeMemoryBlock.html">nn::os::InitializeMemoryBlock</a></li></ul><p>In addition, you must not directly access heap regions.  Be sure to access only those regions that have been allocated using the <tt><a href="../../nn/os/MemoryBlock/Overview.html">MemoryBlock</a></tt> class. </p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/12</dt>
+        <dd><item xmlns="">Revised text that failed to reflect the changed specifications.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

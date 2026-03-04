@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>TryDequeue</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/BlockingQueue/Overview.html">BlockingQueue</a>::TryDequeue Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+bool TryDequeue(
+     <a href="../../../nn_types/uptr.html">uptr</a> * pOut
+);
+
+bool TryDequeue(
+     <a href="../../../nn_types/uptr.html">uptr</a> * pOut,
+     <a href="../../../nn/fnd/TimeSpan/Overview.html">fnd::TimeSpan</a> timeout
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./TryDequeue(0).html">TryDequeue ( uptr * ) </a>
+          </td>
+          <td>Removes the first element from the front of the queue.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./TryDequeue(1).html">TryDequeue ( uptr *, fnd::TimeSpan ) </a>
+          </td>
+          <td>Removes the first element from the front of the queue. Waits for the specified time if the queue is empty.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of TryDequeue ( uptr * ) </h2>
+    <div class="section"><p>If the queue is not empty, retrieves the element at the front of the queue and returns <code>true</code>. If the queue is empty, does nothing and returns <code>false</code>.</p><p>If any threads are being blocked by <code><a href="../../../nn/os/BlockingQueue/Dequeue.html">Dequeue</a></code> or <code><a href="../../../nn/os/BlockingQueue/GetFront.html">GetFront</a></code> when the element is inserted, these threads are started.</p><!-- write here --></div>
+    <h2>Description of TryDequeue ( uptr *, fnd::TimeSpan ) </h2>
+    <div class="section"><p>If the queue is not empty, retrieves the element at the front of the queue and returns <code>true</code>. Returns <code>false</code> if the queue is empty and the timeout time elapses.</p><p>If any threads are being blocked by <code><a href="../../../nn/os/BlockingQueue/Dequeue.html">Dequeue</a></code> or <code><a href="../../../nn/os/BlockingQueue/GetFront.html">GetFront</a></code> when the element is inserted, these threads are started.</p><!-- write here --></div>
+  </body>
+</html>

@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::font::Glyph</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/font/Overview.html">font</a>::Glyph Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct Glyph
+{
+   const void * pTexture;
+   <a href="../../../nn/font/CharWidths/Overview.html">CharWidths</a> widths;
+   <a href="../../../nn_types/u8.html">u8</a> height;
+   <a href="../../../nn_types/u16.html">u16</a> texWidth;
+   <a href="../../../nn_types/u16.html">u16</a> texHeight;
+   <a href="../../../nn_types/u16.html">u16</a> cellX;
+   <a href="../../../nn_types/u16.html">u16</a> cellY;
+   <a href="../../../nn_types/u8.html">u8</a> isSheetUpdated;
+   TexFmt texFormat;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A structure that holds character glyph data.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">pTexture</span>
+            </th>
+            <td width="100">const void *</td>
+            <td>Pointer to a sheet.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">widths</span>
+            </th>
+            <td width="100"><a href="../../../nn/font/CharWidths/Overview.html">CharWidths</a></td>
+            <td>Character width information.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">height</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Cell height.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">texWidth</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The sheet's width.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">texHeight</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The sheet's height.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">cellX</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The x-coordinate of the cell's upper-left corner on the sheet.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">cellY</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The y-coordinate of the cell's upper-left corner on the sheet.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isSheetUpdated</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Returns <code>true</code> when the content of the sheet has been updated.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">texFormat</span>
+            </th>
+            <td width="100">TexFmt</td>
+            <td>The sheet's format.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/font/Glyph/Glyph.html">Glyph</a>
+            </th>
+            <td>Constructor.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

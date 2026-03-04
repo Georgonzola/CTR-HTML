@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxSetCmdlistParameteri</title>
+  </head>
+  <body>
+    <h1>nngxSetCmdlistParameteri Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxSetCmdlistParameteri(
+     GLenum pname,
+     GLint param
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>Parameter name.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>param</th>
+          <td>Parameter value.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets a parameter for the current command list.</p><P>Set <span class="argument">pname</span> to one of the following values.<TABLE><TR><TH>NN_GX_CMDLIST_RUN_MODE</TH><TD>Sets the command list to execution mode. You can only set <span class="argument">param</span> to <tt>NN_GX_CMDLIST_SERIAL_RUN</tt>.</TD></TR><TR><TH>NN_GX_CMDLIST_GAS_UPDATE</TH><TD>Sets whether to update the additive blend results for gas density information rendering when 3D execution command execution is ending. You can set <span class="argument">pname</span> to either <tt>GL_TRUE</tt> or <tt>GL_FALSE</tt>. (The default is <tt>GL_FALSE</tt>.)</TD></TR></TABLE></P><P>The following description details the <tt>NN_GX_CMDLIST_GAS_UPDATE</tt> setting.</P><P>When the <tt><a href="../nn_gx/nngxSplitDrawCmdlist.html">nngxSplitDrawCmdlist</a></tt> or <tt><a href="../nn_gx/nngxFlush3DCommand.html">nngxFlush3DCommand</a></tt> function is called with <span class="argument">param</span> set to <tt>GL_TRUE</tt>, the additive blend results for gas density information rendering are updated when the accumulated render command requests have ended their execution.  <BR /> When <span class="argument">param</span> is set to <tt>GL_FALSE</tt>, operations return to normal and commands to update the gas density information are accumulated only when necessary. <BR /> This setting is set for each command-list object. It takes effect if it is set to <tt>GL_TRUE</tt> at the time of command accumulation (<tt>nngxSplitDrawCmdlist</tt> or <tt>nngxFlush3DCommand</tt> function). It does not affect command execution if it is set to <tt>GL_TRUE</tt> when the commands are executed. <BR />There is no effect on render command requests accumulated for functions other than the <tt><a href="../nn_gx/nngxSplitDrawCmdlist.html">nngxSplitDrawCmdlist</a></tt> and <tt><a href="../nn_gx/nngxFlush3DCommand.html">nngxFlush3DCommand</a></tt> functions. </P><P>For more information about updating additive blend results for gas density information rendering, see the <tt>nngxSetGasAutoAccumulationUpdate</tt> function.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_8015_DMP</TH><TD>The current command list is running.</TD></TR><TR><TH>GL_ERROR_8016_DMP</TH><TD>The <span class="argument">pname</span> or <span class="argument">param</span> argument was set to an invalid value.</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxSetGasAutoAccumulationUpdate.html">nngxSetGasAutoAccumulationUpdate</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/01</dt>
+        <dd><item xmlns="">Added a description of NN_GX_CMDLIST_GAS_UPDATE to pname.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Added extended error code(s).</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

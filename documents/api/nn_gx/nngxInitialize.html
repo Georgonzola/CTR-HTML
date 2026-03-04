@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxInitialize</title>
+  </head>
+  <body>
+    <h1>nngxInitialize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL GLboolean NNGX_APIENTRY nngxInitialize(
+     GLvoid *(*)(GLenum, GLenum, GLuint, GLsizei) allocator,
+     void(*)(GLenum, GLenum, GLuint, GLvoid *) deallocator
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>allocator</th>
+          <td>Pointer to an allocator function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>deallocator</th>
+          <td>Pointer to a deallocator function.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>GL_TRUE</code> if initialization is successful; otherwise, returns <code>GL_FALSE</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the graphics library (DMPGL).</p><P>Set <span class="argument">allocator</span> to the function that DMPGL will use to allocate memory regions.  The allocator's first argument specifies the memory region and takes a value of <tt>NN_GX_MEM_FCRAM</tt>, <tt>NN_GX_MEM_VRAMA</tt>, or <tt>NN_GX_MEM_VRAMB</tt>.  The allocator's second argument specifies how memory will be used and takes a value of <tt>NN_GX_MEM_SYSTEM</tt>, <tt>NN_GX_MEM_TEXTURE</tt>, <tt>NN_GX_MEM_VERTEXBUFFER</tt>, <tt>NN_GX_MEM_RENDERBUFFER</tt>, <tt>NN_GX_MEM_DISPLAYBUFFER</tt>, or <tt>NN_GX_MEM_COMMANDBUFFER</tt>.  The allocator's third argument is the object name.  The allocator's fourth argument is the number of bytes of memory to allocate.  Implement the allocator so that it returns 0 when it fails and the memory address of the allocated region when it succeeds.</P><P>Set <span class="argument">deallocator</span> to the function that DMPGL uses to free memory regions.  The deallocator's first, second, and third arguments are the same as the allocator's.  The deallocator's fourth argument is the memory address to free.</P><P>Once this function has successfully initialized the library, it returns <tt>GL_FALSE</tt> if it is called again before the <tt><a href="../nn_gx/nngxFinalize.html">nngxFinalize</a></tt> function is called.</P><P>Between the point this function is called and the <tt><a href="../nn_gx/nngxFinalize.html">nngxFinalize</a></tt> function is called, one thread for internal processing is generated and one <tt><a href="../nn/os/Event/Overview.html">nn::os::Event</a></tt> object is allocated. </P><P>This function allocates a command buffer to initialize the GPU register, and a buffer for internal state management (passes requests to the allocator).  This function includes a buffer used for temporary allocation only, and a buffer that is kept until the <tt>nngxFinalize</tt> function is called.  The breakdown is as follows.<TABLE><TR><TH>order</TH><TH>Area</TH><TH>Usage</TH><TH>Requested size (bytes)</TH><TH>Note</TH></TR><TR><TD>1</TD><TD>Main memory (FCRAM)</TD><TD>SYSTEM</TD><TD>12252</TD><TD>For internal state management. Deallocated by a call to the <tt>nngxFinalize</tt> function.</TD></TR><TR><TD>2</TD><TD>Main memory (FCRAM)</TD><TD>SYSTEM</TD><TD>40</TD><TD>For internal state management. Deallocated by a call to the <tt>nngxFinalize</tt> function.</TD></TR><TR><TD>3</TD><TD>Main memory (FCRAM)</TD><TD>SYSTEM</TD><TD>632</TD><TD>For internal state management. Deallocated by a call to the <tt>nngxFinalize</tt> function.</TD></TR><TR><TD>4</TD><TD>Main memory (FCRAM)</TD><TD>SYSTEM</TD><TD>120</TD><TD>For internal state management. Deallocated by a call to the <tt>nngxFinalize</tt> function.</TD></TR><TR><TD>5</TD><TD>Main memory (FCRAM)</TD><TD>SYSTEM</TD><TD>460</TD><TD>For internal state management. Deallocated by a call to the <tt>nngxFinalize</tt> function.</TD></TR><TR><TD>6</TD><TD>Main memory (FCRAM)</TD><TD>SYSTEM</TD><TD>156</TD><TD>For internal state management. Deallocated by a call to the <tt>nngxFinalize</tt> function.</TD></TR><TR><TD>7</TD><TD>Main memory (FCRAM)</TD><TD>SYSTEM</TD><TD>60</TD><TD>For register initialization command. <FONT color="red">This is deallocated inside the function.</FONT></TD></TR><TR><TD>8</TD><TD>Main memory (FCRAM)</TD><TD>COMMANDBUFFER</TD><TD>65984</TD><TD>For register initialization command. <FONT color="red">This is deallocated inside the function.</FONT></TD></TR><TR><TD>9</TD><TD>Main memory (FCRAM)</TD><TD>SYSTEM</TD><TD>16384</TD><TD>Buffer for temporary use. <FONT color="red">This is deallocated inside the function.</FONT></TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxFinalize.html">nngxFinalize</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added See Also section.</item><br />
+        </dd>
+        <dt>2011/08/02</dt>
+        <dd><item xmlns="">Added information about internally created threads and events.</item><br />
+        </dd>
+        <dt>2011/04/01</dt>
+        <dd><item xmlns="">Added description of buffers requested from the allocator inside the nngxInitialize function.</item><br />
+        </dd>
+        <dt>2010/02/01</dt>
+        <dd><item xmlns="">Made revisions due to changes in the attribute specifications.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

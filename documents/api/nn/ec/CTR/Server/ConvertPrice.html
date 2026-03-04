@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>ConvertPrice</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/Server/Overview.html">Server</a>::ConvertPrice Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a> ConvertPrice(
+     <a href="../../../../nn/ec/CTR/PriceIndication/Overview.html">PriceIndication</a> * pOut,
+     const <a href="../../../../nn/ec/CTR/Money/Overview.html">Price</a> & price
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pOut</th>
+          <td>Buffer for getting converted price notation information.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>price</th>
+          <td>Pricing information to convert.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. The results returned by the <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code> function are shown below.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultSessionInvalid</th>
+          <td>Invalid session.</td>
+        </tr>
+        <tr>
+          <th>ResultPriceFormatInvalid</th>
+          <td>A negative number or a character other than a number is included in the <code>Price</code>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Converts price information into price notation information.</p>
+    </div>
+  </body>
+</html>

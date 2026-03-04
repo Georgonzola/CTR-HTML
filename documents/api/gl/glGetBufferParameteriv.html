@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetBufferParameteriv</title>
+  </head>
+  <body>
+    <h1>glGetBufferParameteriv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetBufferParameteriv(
+     GLenum target,
+     GLenum pname,
+     GLint * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>The target vertex buffer object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Region that stores the retrieved parameter.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a vertex buffer object parameter.</p><P>You can set <span class="argument">target</span> to the following values.<TABLE><TR><th>GL_ARRAY_BUFFER</th><TD> Vertex buffer. </TD></TR><TR><th>GL_ELEMENT_ARRAY_BUFFER</th><TD> index buffer </TD></TR></TABLE><!-- source targetにはGL_ARRAY_BUFFER、GL_ELEMENT_ARRAY_BUFFERを指定します。 --></P><P>You can set <span class="argument">pname</span> to the following values.<TABLE><TR><th>GL_BUFFER_SIZE</th><TD>Gets the vertex buffer size.</TD></TR><TR><th>GL_BUFFER_USAGE</th><TD>Gets the vertex buffer's <span class="argument">usage</span> (only <tt>GL_STATIC_DRAW</tt> is supported).</TD></TR><TR><th>GL_BUFFER_DATA_ADDR_DMP</th><TD>Gets the address of vertex data for the bound vertex buffer object(s).</TD></TR></TABLE><!-- source pnameにはGL_BUFFER_SIZE、GL_BUFFER_USAGEを指定します。GL_BUFFER_SIZEを指定した場合、頂点バッファのサイズを取得します。 GL_BUFFER_USAGEを指定した場合、頂点バッファのusage(GL_STATIC_DRAWのみサポート)を取得します。 --></P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_OPERATION</TH><TD>0 is bound to the current buffer object.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> or <span class="argument">pname</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source カレントのバッファオブジェクトに0がバインドされている場合エラーGL_INVALID_OPERATIONを生成します。 target、pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/05/12</dt>
+        <dd><item xmlns="">Added a value, GL_BUFFER_DATA_ADDR_DMP, that can be specified for pname.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

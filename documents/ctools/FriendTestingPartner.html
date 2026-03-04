@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        --></style>
+<title>FriendTestingPartner</title>
+  </head>
+  <body>
+<h1>FriendTestingPartner</h1>
+<h2>Overview</h2>
+    <div class="section">
+      <p>
+<CODE>FriendTestingPartner</CODE> is a tool that creates a high friend presence processing load to verify whether friend presence background processing affects the operations of the application.
+      </p>
+      <p>
+The tool provides a way to automatically perform the following actions frequently.
+        <ul>
+<li>Switching between online and offline.</li>
+<li>Updating the Currently Playing software.</li>
+<li>Updating the Currently Playing game mode description string.</li>
+<li>Updating the status message.</li>
+<li>Updating the Mii.</li>
+<li>Updating the Favorite Title.</li>
+        </ul>
+These features enable the CTR running this tool to send frequent notifications to other CTR systems with which friendships are established, indirectly triggering background processing of friend presence.
+      </p>
+      <p>
+When the local CTR is disconnected from the wireless AP or friend server, it automatically tries to reconnect and maintain the connection.
+      </p>
+    </div>
+<h2>How to Use</h2>
+    <div class="section">
+      <p>
+        <table class="table"><tbody>
+<tr><th>Button</th> <th>Operation</th></tr>
+<tr><td>+Control Pad</td> <td>Move the cursor.</td></tr>
+<tr><td>A</td> <td>Select.</td></tr>
+<tr><td>START</td> <td>Press and hold down to display only errors in the log.</td></tr>
+        </tbody></table>
+      </p>
+    </div>
+<h2>UI Reference</h2>
+    <div class="section">
+      <p>
+<h3>Master Control</h3>
+        <p>
+Controls overall tool operation.<font color="red">If this setting is not <CODE>RUN</CODE>, no status switching or updates occur even if individual settings are ON. </font>Also, even if this setting is <CODE>STOP</CODE>, reconnection to the wireless AP or friend server does not stop.
+        </p>
+<h3>Login/Logout</h3>
+        <p>
+Controls switching between online and offline.
+        </p>
+<h3>Playing Title</h3>
+        <p>
+Controls updates of the Currently Playing software. Cycles through the following titles (all are Japanese versions).
+          <ol>
+<li>System Settings</li>
+<li>Download Play</li>
+<li>Activity Log</li>
+<li>Health and Safety Information</li>
+<li>Nintendo 3DS Camera</li>
+<li>Nintendo 3DS Sound</li>
+<li>Mii Maker</li>
+<li>StreetPass Mii Plaza</li>
+<li>Nintendo Zone</li>
+<li>Face Raiders</li>
+<li>AR Games</li>
+          </ol>
+        </p>
+<h3>Mode Description</h3>
+        <p>
+Controls updates of the game mode description string. The updated description string shows the current date and time. When the Currently Playing software is updated, the game mode description string is deleted.
+        </p>
+<h3>Message</h3>
+        <p>
+Controls updates of the status message. The updated status message shows the current date and time (using numbers only).
+        </p>
+<h3>Mii Characters</h3>
+        <p>
+Controls updates of the Personal Mii. Cycles in order through the four Mii characters prepared in advance. The Mii names are Partner 1 through Partner 4.
+        </p>
+<h3>Favorite Title</h3>
+        <p>
+Controls updates to the Favorite Title. The titles cycled through by this setting are the same as those for the Currently Playing software.
+        </p>
+<h3>Wireless AP</h3>
+        <p>
+Indicates the connection status with the wireless AP. If the connection fails for some reason, displays the <CODE>Result</CODE> code and, if available, the error code.
+        </p>
+<h3>Friend Presence</h3>
+        <p>
+Indicates the connection status with the friend server. If the connection fails for some reason, displays the <CODE>Result</CODE> code and, if available, the error code.
+        </p>
+      </p>
+    </div>
+<h2>Cautions</h2>
+    <div class="section">
+      <p>
+Before running this tool, be sure to configure network settings and establish one or more friendships.
+      </p>
+      <p>
+This tool overwrites the following friend presence settings saved on the CTR system. To restore these settings to their original values, use the following procedure.
+        <ul>
+<li>Status message and Favorite Title: Reset from the friend list.</li>
+<li>Personal Mii: When the friend list is started, this Mii is automatically restored to the Personal Mii created in Mii Maker.</li>
+        </ul>
+      </p>
+      <p>
+There is a send limitation of once per 10 seconds for each setting in friend presence communication. Even when the local system is online, the timing at which this tool outputs the log might not synchronize with the timing at which the communication is actually performed.
+      </p>
+      <p>
+Operation stops while the HOME Menu is open. Even if the local system connects or disconnects to the AP or friend server during this period, the tool does not detect and output that to the log until tool operation resumes.
+      </p>
+    </div>
+<h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011-02-25</dt>
+<dd>Initial version.</dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

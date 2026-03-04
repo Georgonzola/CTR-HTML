@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StandardCoefficient</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/y2r/Overview.html">y2r</a>::<a href="../../../nn/y2r/CTR/Overview.html">CTR</a>::StandardCoefficient Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum StandardCoefficient;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>COEFFICIENT_ITU_R_BT_601</th>
+          <td>Conversion coefficients for <bold>ITU-R BT.601</bold>. The input values must be in the range <code>0<=Y,U,V<=255</code>.</td>
+        </tr>
+        <tr>
+          <th>COEFFICIENT_ITU_R_BT_709</th>
+          <td>Conversion coefficients for <bold>ITU-R BT.709</bold>. The input values must be in the range <code>0<=Y,U,V<=255</code>.</td>
+        </tr>
+        <tr>
+          <th>COEFFICIENT_ITU_R_BT_601_SCALING</th>
+          <td>Conversion coefficients for <bold>ITU-R BT.601</bold>. The input values must be in the ranges <code>16<=Y<=235</code> and <code>16<=U,V<=240</code>.</td>
+        </tr>
+        <tr>
+          <th>COEFFICIENT_ITU_R_BT_709_SCALING</th>
+          <td>Conversion coefficients for <bold>ITU-R BT.709</bold>. The input values must be in the ranges <code>16<=Y<=235</code> and <code>16<=U,V<=240</code>.</td>
+        </tr>
+        <tr>
+          <th>COEFFICIENT_MAX</th>
+          <td>
+        </td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enumerated type that indicates the standard conversion coefficient.</p><p>The conversion coefficients are as follows.  Choose appropriate conversion coefficients based on the range of your input values.</p><p><h3><tt>COEFFICIENT_ITU_R_BT_601</tt></h3>Assumes that the luminance signal Y is defined by the equation <tt>Y = 0.299R + 0.587G + 0.114B</tt>, that the YUV values fall in the range <tt>0≦Y,U,V≦255</tt>, and that the U and V offsets are 128.<table><thead><tr><td /><th>Y</th><th>( U - 128 )</th><th>( V - 128 )</th></tr></thead><tr><th>R =</th><td>1.000</td><td>0.000</td><td>1.402</td></tr><tr><th>G =</th><td>1.000</td><td>-0.344</td><td>-0.714</td></tr><tr><th>B =</th><td>1.000</td><td>1.772</td><td>0.000</td></tr></table></p><p><h3><tt>COEFFICIENT_ITU_R_BT_709</tt></h3>Assumes that the luminance signal Y is defined by the equation <tt>Y = 0.2126R + 0.7152G + 0.0722B</tt>, that the YUV values fall in the range <tt>0≦Y,U,V≦255</tt>, and that the U and V offsets are 128.<table><thead><tr><td /><th>Y</th><th>( U - 128 )</th><th>( V - 128 )</th></tr></thead><tr><th>R =</th><td>1.000</td><td>0.000</td><td>1.575</td></tr><tr><th>G =</th><td>1.000</td><td>-0.187</td><td>-0.468</td></tr><tr><th>B =</th><td>1.000</td><td>1.856</td><td>0.000</td></tr></table></p><p><h3><tt>COEFFICIENT_ITU_R_BT_601_SCALING</tt></h3>Assumes that the luminance signal Y is defined by the equation <tt>Y = 0.299R + 0.587G + 0.114B</tt>, that the YUV values fall in the ranges <tt>16≦Y≦235</tt> and <tt>16≦U,V≦240</tt>, and that the U and V offsets are 128.<table><thead><tr><td /><th>( Y - 16 )</th><th>( U - 128 )</th><th>( V - 128 )</th></tr></thead><tr><th>R =</th><td>1.164</td><td>0.000</td><td>1.596</td></tr><tr><th>G =</th><td>1.164</td><td>-0.392</td><td>-0.813</td></tr><tr><th>B =</th><td>1.164</td><td>2.017</td><td>0.000</td></tr></table></p><p><h3><tt>COEFFICIENT_ITU_R_BT_709_SCALING</tt></h3>Assumes that the luminance signal Y is defined by the equation <tt>Y = 0.2126R + 0.7152G + 0.0722B</tt>, that the YUV values fall in the ranges <tt>16≦Y≦235</tt> and <tt>16≦U,V≦240</tt>, and that the U and V offsets are 128.<table><thead><tr><td /><th>( Y - 16 )</th><th>( U - 128 )</th><th>( V - 128 )</th></tr></thead><tr><th>R =</th><td>1.164</td><td>0.000</td><td>1.793</td></tr><tr><th>G =</th><td>1.164</td><td>-0.213</td><td>-0.533</td></tr><tr><th>B =</th><td>1.164</td><td>2.112</td><td>0.000</td></tr></table></p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/07/11</dt>
+        <dd><item xmlns="">Listed the values of each conversion coefficient and the range of their input values.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

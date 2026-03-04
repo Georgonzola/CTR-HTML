@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>AppTextCheckCallback</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/swkbd/Overview.html">swkbd</a>::<a href="../../../nn/swkbd/CTR/Overview.html">CTR</a>::AppTextCheckCallback Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+typedef <a href="../../../nn/swkbd/CTR/AppTextCheckResult.html">AppTextCheckResult</a>(* nn::swkbd::CTR::AppTextCheckCallback)(const wchar_t **ppDialogText, const wchar_t *pInputText, u16 inputTextLength);</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>ppDialogText</th>
+          <td>The starting address of the <code>NULL</code>-terminated string to show on the dialog box.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pInputText</th>
+          <td>The starting address of the entered string.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>inputTextLength</th>
+          <td>Length of the entered string.</td>
+        </tr> </table>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Function type representing the callback for text checking performed by the application.</p><p>When text checking by the application is enabled—in other words, when the <tt>TEXT_CHECK_APP</tt> flag is set in the <tt>textCheckFlag</tt> member variable of the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure—this is the callback function invoked when the users finalize their input. <br /> The callback function is set by the <tt><a href="../../../nn/swkbd/CTR/StartKeyboardApplet.html">nn::swkbd::CTR::StartKeyboardApplet</a></tt> function. </p><p>The starting address of the user's text input is given by the <span class="argument">pInputText</span> argument and the length of the string is given by the <span class="argument">inputTextLength</span> argument. Return the result of the text check as a <tt><a href="../../../nn/swkbd/CTR/AppTextCheckResult.html">nn::swkbd::CTR::AppTextCheckResult</a></tt>-type value. </p><p>If the result of the text check is anything other than <tt>APP_TEXT_CHECK_RESULT_OK</tt>, store the starting address of the string to display in the dialog in the <span class="argument">ppDialogText</span> parameter. <br /> This string must be no longer than <tt><a href="../../../nn/swkbd/CTR/APP_TEXT_CHECK_DIALOG_TEXT_LENGTH_MAX.html">nn::swkbd::CTR::APP_TEXT_CHECK_DIALOG_TEXT_LENGTH_MAX</a></tt> and must be NULL-terminated.  <br /> When the result is <tt><tt><tt>APP_TEXT_CHECK_RESULT_OK</tt></tt></tt>, this process is not needed.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

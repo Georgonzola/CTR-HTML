@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Receive</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ir/Overview.html">ir</a>::<a href="../../../../nn/ir/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ir/CTR/Communicator/Overview.html">Communicator</a>::Receive Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">Result</a> Receive(
+     void * pDst,
+     size_t size,
+     size_t * pReceiveSize,
+     <a href="../../../../nn_types/s32.html">s32</a> * pRemainCount
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Specifies the address of the receive buffer to which to copy the data. Must be aligned to <emphasis>RECEIVE_BUFFER_ALIGNMENT</emphasis> (4 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the receive buffer size. <bold>Note:</bold> This buffer must be larger than the size of data actually being received.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pReceiveSize</th>
+          <td>Stores the size of the receive data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pRemainCount</th>
+          <td>Stores the remaining number of receive packets.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotConnected</th>
+          <td>Not in the connected state.</td>
+        </tr>
+        <tr>
+          <th>ResultCannotConfirm</th>
+          <td>ID has not been confirmed.</td>
+        </tr>
+        <tr>
+          <th>ResultNoData</th>
+          <td>There are no receive packets.</td>
+        </tr>
+        <tr>
+          <th>ResultBufferInsufficient</th>
+          <td>The size of the buffer where data are being copied is not large enough.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidData</th>
+          <td>Received invalid data.</td>
+        </tr>
+        <tr>
+          <th>ResultMachineSleep</th>
+          <td>Sleeping because the system is in Sleep Mode.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>The IR module may be malfunctioning.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>‏Receives data.</p><p>Copies the user data portion of a received packet to the specified buffer. Copying is performed one packet at a time, so call this function repeatedly when multiple packets are being received.</p><p>Because security information is appended to data before it is sent, the receiving process requires a buffer that is 48 to 53 bytes larger than the data size. The size of buffer required depends on the size of data sent. Calculate the value using the <code>CalculateBufferSizeToCommunicate</code> function. (Note that you do <bold>not</bold> use the <code>GetPacketSize</code> function.)<br />
+ In addition, the receive buffer must be aligned to <emphasis>RECEIVE_BUFFER_ALIGNMENT</emphasis> (4 bytes).</p><p>If there is any remaining receive data when the current connection is dropped, that data can be received the next time the connection is made.</p><p>For this function to succeed, you must first confirm the ID using the <code>RequireToConfirmId</code> function or the <code>WaitToConfirmId</code> function. <br /></p><p>Also note that if the passphrase specified by these functions differs from the passphrase configured by the communication partner, the two parties cannot establish communication. Data sending succeeds, but the receiving party treats the received data as invalid data.</p><p>Even if you have received invalid data, until you execute this function you cannot run the process to determine that the data is invalid. If you have received any data, you must either run this function to conduct the receiving process, or run the <code>DropNextReceiveData</code> function to destroy the data.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment.</item><br />
+        </dd>
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::crypto::Aes</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/crypto/Overview.html">crypto</a>::Aes Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">template &lt;size_t KeySize&gt;class Aes : public <a href="../../../nn/crypto/BlockCipher/Overview.html">nn::crypto::BlockCipher</a></pre>
+    </div>
+    <h2>Template Arguments</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>KeySize</th>
+          <td>
+    </td>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <td>size in bytes.</td>
+        </tr> </table>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for implementing AES ciphers.</p><p>Derived class from the <code><a href="../../../nn/crypto/BlockCipher/Overview.html">BlockCipher</a></code> class. Implements the AES (Rijndael) cipher. Do not use the <code>Encrypt</code> or <code>Decrypt</code> functions in this class, unless you know enough about encryption and have a firm understanding of what you are doing.</p><p>This class is a template class that has the key size as a template parameter. Use the <code><a href="../../../nn/crypto/Aes128.html">Aes128</a></code>, <code><a href="../../../nn/crypto/Aes192.html">Aes192</a></code>, or <code><a href="../../../nn/crypto/Aes256.html">Aes256</a></code> types when actually using.</p><!-- write here --></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/crypto/Aes/BLOCK_SIZE.html">BLOCK_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Constant representing the block size.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/crypto/Aes/KEY_SIZE.html">KEY_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Constant representing the key size.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/crypto/Aes/GetBlockSize.html">GetBlockSize</a>
+            </th>
+            <td>Gets the block size.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/crypto/Aes/GetKeySize.html">GetKeySize</a>
+            </th>
+            <td>Gets the key size in bytes.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/crypto/Aes/SetKey.html">SetKey</a>
+            </th>
+            <td>Sets the key.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/crypto/Aes/Encrypt.html">Encrypt</a>
+            </th>
+            <td>Encrypts using the AES algorithm.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/crypto/Aes/Decrypt.html">Decrypt</a>
+            </th>
+            <td>Decrypts using the AES algorithm.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/crypto/BlockCipher/Overview.html">nn::crypto::BlockCipher</a><br />&nbsp;&nbsp;<b>nn::crypto::Aes</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

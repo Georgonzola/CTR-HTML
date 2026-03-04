@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+    <title>olv : OLV Library Error Handling</title>
+</head>
+<body>
+    <h1>OLV: OLV Library Error Handling</h1>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#Summary">Overview</a></li>
+      <ul>
+        <li><a href="#Summary_Result">Handling nn::olv::Result</a></li>
+        <li><a href="#Summary_ErrorCode">Error Codes</a></li>
+        <li><a href="#Summary_FatalError">Errors That Must Not Occur in Retail Products</a></li>
+        <li><a href="#Summary_ReceverableError">Recoverable Errors</a></li>
+        <li><a href="#Summary_OtherError">Example of Error Handling</a></li>
+      </ul>
+      <li><a href="#ErrorHandling">Example of Error Handling</a></li>
+    </ul>
+
+    <a name="Summary"><h2>Overview</h2></a>
+    <div class="section">
+      <p>
+        This section describes the handling of OLV library errors.
+      </p>
+      <p>
+        The functions of the OLV library can generate a variety of errors even in the retail product, including errors related to the Parental Control settings and errors at unspecified times related to Internet communications.<br /> Design applications that support the OLV library to handle the errors returned by the library functions.<br /> Error codes that correspond to the errors returned by the OLV library functions can be used with the Error/EULA Display applet to prompt users to take corrective actions.
+      </p>
+    </div>
+
+      <a name="Summary_Result"><h3>Handling nn::olv::Result</h3></a>
+      <div class="section">
+        <p>
+          To keep actual error handling private, the details about <CODE>nn::olv::Result</CODE> are kept private and only a number of definitions encompassing <CODE>nn::olv::Result</CODE> are made.<br /> When handling OLV library errors, always use the <CODE>&lt;=</CODE> operator to determine the <CODE>nn::olv::Result</CODE> type, as in the following example.
+        </p>
+<pre>
+    if (olvResult.IsFailure())
+    {
+        if (olvResult &lt;= nn::olv::ResultLibraryPermanentError())
+        {
+            // This can catch errors of the type ResultLibraryPermanentError.
+        }
+        ...
+    }
+</pre>
+      </div>
+
+      <a name="Summary_ErrorCode"><h3>Error Codes</h3></a>
+      <div class="section">
+        <p>
+          When an OLV library error has occurred, use the <CODE>nn::olv::GetErrorCode</CODE> function to get the error code to pass it to the Error/EULA Display applet.<br /> Follow the example below to get and pass the error code to the Error/EULA Display applet.
+        </p>
+<pre>
+    if (olvResult.IsFailure())
+    {
+        u32 errorCode = nn::olv::GetErrorCode(olvResult); // This can get the error code to pass to the Error/EULA Display applet.
+
+        ...
+    }
+</pre>
+      </div>
+
+      <a name="Summary_FatalError"><h3>Errors That Must Not Occur in Retail Products</h3></a>
+      <div class="section">
+        <p>
+          The following errors are due to bugs in the application and should not occur in the retail product. Remove them during debugging.
+        </p>
+        <ul>
+          <li>nn::olv::ResultFatalError</li>
+          <li>nn::olv::ResultUsageError</li>
+        </ul>
+        <p>
+          If these errors occur, show them if necessary using the Error/EULA Display applet (if the result is due to a user operation), and do not make subsequent use of the library features.
+        </p>
+      </div>
+
+      <a name="Summary_ReceverableError"><h3>Recoverable Errors</h3></a>
+      <div class="section">
+        <p>
+          The following errors are recoverable errors, meaning the system might be able to recover from them if the user tries again.
+        </p>
+        <ul>
+          <li>nn::olv::ResultLibraryTemporaryError</li>
+          <li>nn::olv::ResultNetworkError</li>
+          <li>nn::olv::ResultServerTemporaryError</li>
+        </ul>
+        <p>
+          If these errors occur, show them if necessary using the Error/EULA Display applet (if the result is due to a user operation), and allow the user to try inputting again if possible.
+        </p>
+      </div>
+
+      <a name="Summary_OtherError"><h3>Other Error</h3></a>
+      <div class="section">
+        <p>
+          The following error does not need to be shown using the Error/EULA Display applet.
+        </p>
+        <ul>
+          <li>nn::olv::ResultCanceled</li>
+        </ul>
+        <p>
+          This is not an error to be displayed, so do not show it using the Error/EULA Display applet. However, allow the user to try inputting again if possible.
+        </p>
+      </div>
+
+    <a name="ErrorHandling"><h2>Example of Error Handling</h2></a>
+    <div class="section">
+      <p>
+        The following simplified C++ code provides guidelines for handling OLV library errors.
+      </p>
+<pre>
+    nn::olv::Result olvResult = nn::olv::Initialize(&amp;initializedData, &amp;initializeParam);
+
+    if (olvResult.IsFailure())
+    {
+        if (olvResult &lt;= nn::olv::ResultLibraryPermanentError() || 
+            olvResult &lt;= nn::olv::ResultServerPermanentError())
+        {
+            // Shows the error if necessary using the Error/EULA Display applet (if the result is due to a user operation).
+            olvErrorCode = nn::olv::GetErrorCode(olvResult);
+
+            // Disable subsequent use of the OLV library.
+            olvDisable = true;
+        }
+        else if (olvResult &lt;= nn::olv::ResultLibraryTemporaryError() || 
+            olvResult &lt;= nn::olv::ResultNetworkError() || 
+            olvResult &lt;= nn::olv::ResultServerTemporaryError())
+        {
+            // Shows the error if necessary using the Error/EULA Display applet (if the result is due to a user operation).
+            olvErrorCode = nn::olv::GetErrorCode(olvResult);
+
+            // Allow the user to try inputting again if possible.
+        }
+        else if (olvResult &lt;= nn::olv::ResultFatalError() || 
+            olvResult &lt;= nn::olv::ResultUsageError())
+        {
+            // Shows the error if necessary using the Error/EULA Display applet (if the result is due to a user operation).
+            olvErrorCode = nn::olv::GetErrorCode(olvResult);
+
+            // To be removed during debugging and ignored in the retail product.
+            NN_ASSERTMSG(0, "Error: %u", nn::olv::GetErrorCode(olvResult));
+        }
+        else
+        {
+            // This is not an error to be displayed, so do not show it using the Error/EULA Display applet. 
+            // Allow the user to try inputting again if possible.
+        }
+    }
+</pre>
+    </div>
+
+    <a name="History"><h2>Revision History</h2></a>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/09/30</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div><hr /><p>CONFIDENTIAL</p></body>
+</html>

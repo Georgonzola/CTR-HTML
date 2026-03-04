@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>Sample Demos Change Log</title>
+
+<link rel="stylesheet" href="../../css/nwdoc.css" type="text/css" />
+<link rel="stylesheet" href="../../css/release_note.css" type="text/css" />
+
+</head>
+<body class="nwdoc nwhiderightbar" nwai_levelbegin="2" nwai_levelend="2">
+  
+    <!-- ====================================================================== -->
+<h1>Sample Demos Change Log</h1>
+
+<h2>Contents</h2>
+
+<h3>CTR-SDK 11.4.0 (2015/09/07 - for System Updater 0.24.66)</h3><p><a href="#version_11_4_0_0">Update Details</a></p>
+<h4>Additions and Changes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_37-D01">37-D01:(BOSS) Added supplement stating that deleting tasks each time with the BOSS sample is not recommended [SampleDemos]</a></li>
+<li><a href="#note_37-D02">37-D02:(DevEnv) Added definition for alignment restriction [SDK|SampleDemos]</a></li>
+<li><a href="#note_37-D03"><span class="important_style">37-D03:(EC)★ Added eShop REST API feature that provides functions for listing and purchasing service items through the independent server [SDK|SystemUpdater|SampleDemos]</span></a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_37-D04">37-D04:(EC) Fixed upper character limit to Details Information and Legal/Disclaimer Information displayed when purchasing a service item [SDK|SystemUpdater|SampleDemos]</a></li>
+<li><a href="#note_37-D05">37-D05:(HID) Fixed error handling in hid/ExtraPad/AppRecommendedFlow sample [SampleDemos]</a></li>
+<li><a href="#note_37-D06">37-D06:(HID) Fixed bug where Circle Pad Pro operates unintentionally during search [SDK|SampleDemos]</a></li>
+<li><a href="#note_37-D07">37-D07:(NFP) Fixed processing when the NFP sample demo POWER button is pressed [SampleDemos]</a></li>
+</ul>
+
+
+<h3>Previous Revision Histories</h3>
+<p>For the previous change log, see <a href="SampleDemos_ChangeLog_old.html">here</a>.</p>
+
+<p>For change logs prior to CTR-SDK 7.2.1, see <a href="ChangeLog_CTR.html">here</a>.</p>
+
+<h2 id="version_11_4_0_0">Changes in CTR-SDK 11.4.0 (2015/09/07 - for System Updater 0.24.66)</h2>
+<h3 id="category_37_0">Additions and Changes</h3>
+<h3 id="note_37-D01" class="release_note"><span class="addition_style">Additions and Changes</span>37-D01:(BOSS) Added supplement stating that deleting tasks each time with the BOSS sample is not recommended [SampleDemos]</h3>
+<p class="release_note">Added supplementary comment regarding sample_nadl_simple in the BOSS sample demo stating that deleting and re-registering tasks each time is not recommended because there is a possibility that duplicate data is distributed.<br />Because registering and deleting each time in the sample makes it easy to understand, we will leave it the way it is.
+</p>
+<h3 id="note_37-D02" class="release_note"><span class="addition_style">Additions and Changes</span>37-D02:(DevEnv) Added definition for alignment restriction [SDK|SampleDemos]</h3>
+<p class="release_note">Added definitions for alignment and size restrictions for the following libraries.
+</p>
+<ul class="release_note"><li> aacdec
+</li>
+<li> aacenc
+</li>
+<li> act
+</li>
+<li> camera
+</li>
+<li> cec
+</li>
+<li> dlp
+</li>
+<li> fs
+</li>
+<li> gx
+</li>
+<li> hid
+</li>
+<li> http
+</li>
+<li> ir
+</li>
+<li> os
+</li>
+<li> rdt
+</li>
+<li> ro
+</li>
+<li> snd
+</li>
+<li> socket
+</li>
+<li> uds
+</li>
+</ul>
+<h3 id="note_37-D03" class="release_note"><span class="addition_style">Additions and Changes</span><span class="important_style">37-D03:(EC)★ Added eShop REST API feature that provides functions for listing and purchasing service items through the independent server [SDK|SystemUpdater|SampleDemos]</span></h3>
+<p class="release_note">Added eShop REST API feature that provides functions for listing and purchasing service items through the independent server.<br />In addition, the following was also added.
+</p>
+<ul class="release_note"><li> Manual containing required information for developing the independent server using the eShop REST API ($CTR_SDK/documents/TechnicalNotes/EShopRestApiManual)
+</li>
+<li> eShop REST API ec/ServiceItemRestApi Demo
+</li>
+</ul>
+<h3 id="category_37_0">Bug Fixes</h3>
+<h3 id="note_37-D04" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-D04:(EC) Fixed upper character limit to Details Information and Legal/Disclaimer Information displayed when purchasing a service item [SDK|SystemUpdater|SampleDemos]</h3>
+<p class="release_note">Fixed upper limit to character count of Details Information and Legal/Disclaimer Information displayed when purchasing a service item.<br />For Details Information, 64 characters was increased to 128 characters, and there is no longer a limit for line breaks.<br />For Legal/Disclaimer Information, 512 characters was increased to 1024 characters, and there is no longer a limit for line breaks.<br />The EC library and ServiceItem sample was fixed along with this.
+</p>
+<h3 id="note_37-D05" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-D05:(HID) Fixed error handling in hid/ExtraPad/AppRecommendedFlow sample [SampleDemos]</h3>
+<p class="release_note">Fixed inappropriate error handling during file operation in the hid/ExtraPad/AppRecommendedFlow sample.
+</p>
+<h3 id="note_37-D06" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-D06:(HID) Fixed bug where Circle Pad Pro operates unintentionally during search [SDK|SampleDemos]</h3>
+<p class="release_note">There was a bug where the Circle Pad Pro operated unintentionally during search.<br />In order to fix this, the working memory size passed to the nn::hid::CTR::ExtraPad::Initialize function was increased from 4096 to 12288 bytes.<br />Also, along with the working memory size increase, it was verified that the nn::hid::CTR::ExtraPad::Initialize function can receive this size.
+</p>
+<h3 id="note_37-D07" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-D07:(NFP) Fixed processing when the NFP sample demo POWER button is pressed [SampleDemos]</h3>
+<p class="release_note">Fixed incorrect processing when the POWER button is pressed in the NFP sample demo.<br />The NFP library must be closed when the POWER button is pressed and causes a transition from the application to the POWER Menu.
+</p>
+
+
+    <!-- ====================================================================== -->
+    <div id="nwfooter">
+      <div class="confidential_logo">
+Confidential
+      </div>
+      <div class="confidential_en">
+This document contains confidential and proprietary information of Nintendo and is also protected under the copyright laws of the United States and foreign countries. No part of this document may be released, distributed, transmitted or reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without permission in writing from Nintendo.
+      </div>
+      <div class="confidential_ja">
+The content of this document is confidential information, and must be handled using the strictest security measures. 
+      </div>
+      <div class="copyright">
+&copy; 2011-2015 Nintendo/HAL Laboratory, Inc. All rights reserved. <br />All company and product names in this document are the trademarks or registered trademarks of their respective companies.
+      </div>
+    </div>
+    
+  <hr><p>CONFIDENTIAL</p></body>
+</html>

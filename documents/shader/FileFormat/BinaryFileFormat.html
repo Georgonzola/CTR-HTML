@@ -1,0 +1,722 @@
+﻿<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>Executable Binary Files</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size             : 150%;
+  font-family           : Arial;
+  border-bottom-width   : 5px;
+  border-bottom-style   : solid;
+  border-bottom-color   : #CD202C;
+  padding-bottom        : 1px;
+  margin-bottom         : 20px;
+  letter-spacing        : normal;
+  font-weight           : bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+
+h3 {
+    font-weight     : bold;
+    font-size       : 120%;
+    border-style    : none none solid solid;
+    border-width    : 0px 0px 2px 2px;
+    border-color    : #CD202C;
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+CODE {
+  font-family       : "Courier New", monospace;
+  position          : normal;
+  left              : 12px;
+  font-size         : 90%;
+}
+table {
+  width             : 90%;
+  margin-top        : 2pt;
+  margin-bottom     : 2pt;
+  margin-left       : 0pt;
+  margin-right      : 0pt;
+  padding-left      : 0pt;
+  padding-right     : 0pt;
+  position          : relative;
+  left              : 12px;
+  font-family       : Arial;
+  font-size         : 90%;
+  border-style      : none none none none;
+}
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+p.code {
+  font-family       : "Courier New", monospace;
+  position          : normal;
+  left              : 12px;
+  font-size         : 90%;
+  background        : #e8f4f4;
+}
+
+p.notice {
+  color             : black;
+  font-weight       : bold;
+  font-size         : 90%;
+  border            : solid 1px black;
+  padding           : 1em;
+}
+
+-->
+</style>
+
+</head>
+<body>
+
+  <h1><a name="top">Executable Binary Files</a></h1>
+  <p>
+    This page describes the format of executable binary files created using <CODE>ctr_VertexShaderLinker32</CODE>.<br />
+  </p>
+
+  <h2><a name="block_list">File Organization</a></h2>
+  <p>
+    Executable binary files consist of the following blocks.<br /> <br />
+    <table>
+      <tr>
+<th>Blocks</th>
+<th>Structures</th>
+<th>Start Position Offset (in Bytes)</th>
+<th>Number of Blocks</th>
+<th>Size per Block (in Bytes)</th>
+      </tr>
+      <tr>
+        <th><a href="#file_header">Binary File Header</a></th>
+        <td>BINFILEHEADER</td>
+        <td>0</td>
+        <td>1</td>
+        <td>12</td>
+      </tr>
+      <tr>
+        <th><a href="#package_info">Package Information</a></th>
+        <td>----</td>
+        <td>12</td>
+        <td>1</td>
+        <td>----</td>
+      </tr>
+      <tr>
+        <th><a href="#exe_image_info">Executable Image Information</a></th>
+        <td>----</td>
+        <td>BINFILEHEADER.exeOffsetTop</td>
+        <td>BINFILEHEADER.exeCount</td>
+        <td>----</td>
+      </tr>
+    </table>
+    <br /> <br />
+  </p>
+
+  <h2><a name="file_header">Binary File Header</a></h2>
+  <p>
+    Binary files include a variable length binary file header located at the start of the file.<br /> <br /> The binary file header consists of the following.<br /> <br />
+<pre><p class="code">typedef struct tagBINFILEHEADER {
+  char signature[4];
+  unsigned int exeCount;
+  unsigned int exeOffsetTop;
+} BINFILEHEADER</p></pre>
+    <table>
+      <tr>
+        <th width="20%">Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>signature</td>
+        <td>Stores the string &quot;DVLB&quot;.</td>
+      </tr>
+      <tr>
+        <td>exeCount</td>
+        <td>The number of instances of executable image information.</td>
+      </tr>
+      <tr>
+        <td>exeOffsetTop</td>
+        <td>Stores the offset in bytes from the start of the file to the first byte of executable image information.<br />If <CODE>exeCount</CODE> is greater than 1, the binary file includes more than one instance of executable image information.<br />An offset in bytes to each instance of executable image information is stored every four bytes, immediately after <CODE>exeOffsetTop</CODE>.</td>
+      </tr>
+    </table>
+  </p>
+
+  <h2><a name="package_info">Package Information</a></h2>
+  <p>
+    Package information is located immediately after the binary file header.<br /> <br /> Package information consists of the following.<br /> <br />
+    <table>
+      <tr>
+<th>Blocks</th>
+<th>Structures</th>
+<th>Start Position Offset (in Bytes)</th>
+<th>Number of Blocks</th>
+<th>Size per Block (in Bytes)</th>
+      </tr>
+      <tr>
+        <th><a href="#package_header">Package Information Header</a></th>
+        <td>PKGHEADER</td>
+        <td>0</td>
+        <td>1</td>
+        <td>40</td>
+      </tr>
+      <tr>
+        <th><a href="#code_info">Program Code Information</a></th>
+        <td>----</td>
+        <td>PKGHEADER.instOffset</td>
+        <td>1</td>
+        <td>PKGHEADER.instCount</td>
+      </tr>
+      <tr>
+        <th><a href="#swizzle_info">Swizzle Data Information</a></th>
+        <td>SWIZZLEINFO</td>
+        <td>PKGHEADER.swizzleOffset</td>
+        <td>PKGHEADER.swizzleCount</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <th><a href="#line_info">Line Information</a></th>
+        <td>LINEINFO</td>
+        <td>PKGHEADER.lineOffset</td>
+        <td>PKGHEADER.lineCount</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <th><a href="#string_info">String Data</a></th>
+        <td>----</td>
+        <td>PKGHEADER.stringOffset</td>
+        <td>1</td>
+        <td>PKGHEADER.stringSize</td>
+      </tr>
+    </table>
+    <br /> <br />
+  </p>
+
+  <h3><a name="package_header">Package Information Header</a></h3>
+  <p>
+    The fixed header is located at the start of package information.<br /> You can get the location of data in each information block and the number of instances of data based on header information.<br /> <br /> The package information header consists of the following.<br />
+<pre><p class="code">typedef struct tagPKGHEADER {
+  char signature[4];
+  char     version[2];
+  unsigned short reserved0;
+  unsigned int instOffset;
+  unsigned int instCount;
+  unsigned int swizzleOffset;
+  unsigned int swizzleCount;
+  unsigned int lineOffset;
+  unsigned int lineCount;
+  unsigned int stringOffset;
+  unsigned int stringSize;
+} PKGHEADER</p></pre>
+    <table>
+      <tr>
+        <th width="20%">Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>signature</td>
+        <td>Stores the string &quot;DVLP&quot;.</td>
+      </tr>
+      <tr>
+        <td>version</td>
+        <td>Stores the linker tool version. The first byte represents the major version number and the second byte represents the minor version number.</td>
+      </tr>
+      <tr>
+        <td>instOffset</td>
+        <td>The byte index included in package information for the program code information block.</td>
+      </tr>
+      <tr>
+        <td>instCount</td>
+        <td>The number of instances of data in program code information.</td>
+      </tr>
+      <tr>
+        <td>swizzleOffset</td>
+        <td>The byte index included in package information for the swizzle data information block.</td>
+      </tr>
+      <tr>
+        <td>swizzleCount</td>
+        <td>The number of instances of data in swizzle data information.</td>
+      </tr>
+      <tr>
+        <td>lineOffset</td>
+        <td>The byte index included in package information for the line information block.</td>
+      </tr>
+      <tr>
+        <td>lineCount</td>
+        <td>The number of instances of line information.</td>
+      </tr>
+      <tr>
+        <td>stringOffset</td>
+        <td>The byte index inside package information to the string data block.</td>
+      </tr>
+      <tr>
+        <td>stringSize</td>
+        <td>The number of bytes of string data.</td>
+      </tr>
+    </table>
+  </p>
+
+  <h3><a name="code_info">Program Code Information</a></h3>
+  <p>
+The program code information block given by <CODE>instOffset</CODE> in the package information header stores the number of instances of program code information given by <CODE>instCount</CODE>.<br />Program code information is represented by 32-bit data that corresponds to a single shader assembler instruction. (Not including define instructions. Macro instructions and flow control instructions do not always have a one-to-one correspondence between a single instruction and a single instance of program code information.)<br />
+  </p>
+
+  <h3><a name="swizzle_info">Swizzle Data Information</a></h3>
+  <p>
+    The swizzle data information block given by <CODE>swizzleOffset</CODE> in the package information header stores the number of instances of swizzle data information given by <CODE>swizzleCount</CODE>.<br /> <br /> Swizzle data information consists of the following.<br /> <br />
+<pre><p class="code">typedef struct tagSWIZZLEINFO {
+  unsigned int   value;
+  unsigned short usedInfo;
+  unsigned short reserve;
+} SWIZZLEINFO</p></pre>
+    <table>
+      <tr>
+        <th width="20%">Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>value</td>
+        <td>Swizzle information data.</td>
+      </tr>
+      <tr>
+        <td>usedInfo</td>
+        <td>Internal information used during linking.</td>
+      </tr>
+      <tr>
+        <td>reserve</td>
+        <td>A reserved region.</td>
+      </tr>
+    </table>
+  </p>
+
+  <h3><a name="line_info">Line Information</a></h3>
+  <p>
+    The line information block, given by <CODE>lineOffset</CODE> in the package information header, stores the number of instances of line information given by <CODE>lineCount</CODE>.<br /> Line information has a one-to-one correspondence with program code information. It possesses the same information regarding the filename and number of lines for the shader assembler having program code information with the same index.<br /> <br /> Line information consists of the following.<br /> <br />
+<pre><p class="code">typedef struct tagLINEINFO {
+  unsigned int stringIndex;
+  unsigned int lineNo;
+} LINEINFO</p></pre>
+    <table>
+      <tr>
+        <th width="20%">Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>stringIndex</td>
+        <td>The index to the location where the shader assembler filename is stored for the corresponding program code. This is the byte index inside the string data block.</td>
+      </tr>
+      <tr>
+        <td>lineNo</td>
+        <td>The number of shader assembler lines for the corresponding program code.</td>
+      </tr>
+    </table>
+  </p>
+
+  <h3><a name="string_info">String Data</a></h3>
+  <p>
+    The string data block, given by <CODE>stringOffset</CODE> in the package information header, stores string data having the byte size given by <CODE>stringSize</CODE>.<br /> This includes strings such as the label name, symbol name, and filename. Each string is delimited by '\0'.<br />
+  </p>
+
+
+  <h2><a name="exe_image_info">Executable Image Information</a></h2>
+  <p>
+    Executable image information includes information set for each linked object file.<br /> Executable image information is created for each main object that is linked.<br /> The executable image file is located at the position given by the byte offset from the start of the file stored in <CODE>exeOffsetTop</CODE> in the binary file header. If there is more than one instance of executable image information, a byte offset is stored every four bytes immediately after <CODE>exeOffsetTop</CODE>.<br /> <br /> Executable image information consists of the following.<br /> <br />
+    <table>
+      <tr>
+<th>Blocks</th>
+<th>Structures</th>
+<th>Start Position Offset (in Bytes)</th>
+<th>Number of Blocks</th>
+<th>Size per Block (in Bytes)</th>
+      </tr>
+      <tr>
+        <th><a href="#exe_image_header">Executable Image Information Header</a></th>
+        <td>EXEIMAGEHEADER</td>
+        <td>0</td>
+        <td>1</td>
+        <td>64</td>
+      </tr>
+      <tr>
+        <th><a href="#setup_info">Setup Information</a></th>
+        <td>SETUPINFO</td>
+        <td>EXEIMAGEHEADER.setupOffset</td>
+        <td>EXEIMAGEHEADER.setupCount</td>
+        <td>20</td>
+      </tr>
+      <tr>
+        <th><a href="#label_info">Label Information</a></th>
+        <td>LABELINFO</td>
+        <td>EXEIMAGEHEADER.labelOffset</td>
+        <td>EXEIMAGEHEADER.labelCount</td>
+        <td>16</td>
+      </tr>
+      <tr>
+        <th><a href="#outmap_info">Outmap Information</a></th>
+        <td>OUTMAPINFO</td>
+        <td>EXEIMAGEHEADER.outmapOffset</td>
+        <td>EXEIMAGEHEADER.outmapCount</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <th><a href="#bindsymbol_info">Bind Symbol Information</a></th>
+        <td>BINDSYMBOLINFO</td>
+        <td>EXEIMAGEHEADER.bsymOffset</td>
+        <td>EXEIMAGEHEADER.bsymCount</td>
+        <td>8</td>
+      </tr>
+      <tr>
+<th><a href="#binary_string_info">String Data</a></th>
+        <td>----</td>
+        <td>EXEIMAGEHEADER.stringOffset</td>
+        <td>1</td>
+        <td>EXEIMAGEHEADER.stringSize</td>
+      </tr>
+    </table>
+    <br /> <br />
+  </p>
+
+  <h3><a name="exe_image_header">Executable Image Information Header</a></h3>
+  <p>
+    A header is located in each instance of executable image information.<br /> <br /> The executable image information header consists of the following.<br /> <br />
+<pre><p class="code">typedef struct tagEXEIMAGEHEADER {
+  char signature[4];
+  char     version[2];
+  unsigned char  shaderType;
+  unsigned char  mergeOutputMapsDebug;
+  unsigned int   mainAddr;
+  unsigned int   endAddr;
+  unsigned short inputMask;
+  unsigned short outputMask;
+  unsigned char  geometryDataMode;
+  unsigned char  startIndex;
+  unsigned char  variableSizedPrimitiveSize;
+  unsigned char  fixedSizedPrimitiveSize;
+  unsigned int   setupOffset;
+  unsigned int   setupCount;
+  unsigned int   labelOffset;
+  unsigned int   labelCount;
+  unsigned int   outmapOffset;
+  unsigned int   outmapCount;
+  unsigned int   bsymOffset;
+  unsigned int   bsymCount;
+  unsigned int stringOffset;
+  unsigned int stringSize;
+} EXEIMAGEHEADER</p></pre>
+    <table>
+      <tr>
+        <th width="20%">Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>signature</td>
+        <td>Stores the string &quot;DVLE&quot;.</td>
+      </tr>
+      <tr>
+        <td>version</td>
+        <td>Stores the assembler tool version. The first byte represents the major version number and the second byte represents the minor version number.</td>
+      </tr>
+      <tr>
+        <td>shaderType</td>
+        <td>Set to <CODE>0</CODE> if the executable image is a vertex shader assembler, or <CODE>1</CODE> if it is a geometry shader assembler.</td>
+      </tr>
+      <tr>
+        <td>mergeOutputMapsDebug</td>
+<td>Bit 0 is used for internal settings of the geometry shader.<br />Bit 1 indicates a debug build if set to <CODE>1</CODE>, and a non-debug build if set to <CODE>0</CODE>.<br />Bit 2 contains information about the suppression of linker warnings. This bit is set to <CODE>1</CODE> if <CODE>#pragma suppress_linker_warning_level2_level3</CODE> has been defined.</td>
+      </tr>
+      <tr>
+        <td>mainAddr</td>
+        <td>The program address set for the main label.</td>
+      </tr>
+      <tr>
+        <td>endAddr</td>
+        <td>The program address set for the <CODE>endmain</CODE> label.</td>
+      </tr>
+      <tr>
+        <td>inputMask</td>
+<td>Information about the input registers being used. <CODE>1</CODE> is set for input registers defined using <CODE>#pragma bind_symbol</CODE>.</td>
+      </tr>
+      <tr>
+        <td>outputMask</td>
+<td>Information about the output registers being used. <CODE>1</CODE> is set for output registers defined using<CODE> #pragma output_map</CODE>.</td>
+      </tr>
+      <tr>
+        <td>geometryDataMode</td>
+        <td>Internal information about the geometry shaders.</td>
+      </tr>
+      <tr>
+        <td>startIndex</td>
+        <td>Internal information about the geometry shaders.</td>
+      </tr>
+      <tr>
+<td>variableSizedPrimitiveSize</td>
+        <td>Internal information about the geometry shaders.</td>
+      </tr>
+      <tr>
+<td>fixedSizedPrimitiveSize</td>
+        <td>Internal information about the geometry shaders.</td>
+      </tr>
+      <tr>
+        <td>setupOffset</td>
+        <td>The offset in bytes from the start of the file to the setup information block.</td>
+      </tr>
+      <tr>
+        <td>setupCount</td>
+        <td>The number of instances of setup information.</td>
+      </tr>
+      <tr>
+        <td>labelOffset</td>
+        <td>The offset in bytes from the start of the file to the label information block.</td>
+      </tr>
+      <tr>
+        <td>labelCount</td>
+        <td>The number of instances of label information.</td>
+      </tr>
+      <tr>
+        <td>outmapOffset</td>
+        <td>The offset in bytes from the start of the file to the outmap information block.</td>
+      </tr>
+      <tr>
+        <td>outmapCount</td>
+        <td>The number of instances of outmap information.</td>
+      </tr>
+      <tr>
+        <td>bsymOffset</td>
+        <td>The offset in bytes from the start of the file to the bind symbol information block.</td>
+      </tr>
+      <tr>
+        <td>bsymCount</td>
+        <td>The number of instances of bind symbol information.</td>
+      </tr>
+      <tr>
+        <td>stringOffset</td>
+        <td>The offset in bytes from the start of the file to the string data block.</td>
+      </tr>
+      <tr>
+        <td>stringSize</td>
+        <td>The number of bytes of string data.</td>
+      </tr>
+    </table>
+  </p>
+
+  <h3><a name="setup_info">Setup Information</a></h3>
+  <p>
+    The setup information block, given by <CODE>setupOffset</CODE> in the executable image information header, stores the number of instances of setup information given by <CODE>setupCount</CODE>.<br /> Setup information is that information set by the shader assembler using the <CODE>def</CODE>, <CODE>defi</CODE>, and <CODE>defb</CODE> instructions.<br /> <br /> Setup information consists of the following.<br /> <br />
+<pre><p class="code">typedef struct tagSETUPINFO {
+  unsigned short type;
+  unsigned short index;
+  unsigned int   value[4];
+} SETUPINFO</p></pre>
+    <table>
+      <tr>
+        <th width="20%">Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>type</td>
+<td>0: Boolean register setting information.<br />1: Integer register setting information.<br />2: Floating point constant register setting information.</td>
+      </tr>
+      <tr>
+        <td>index</td>
+        <td>The register index.</td>
+      </tr>
+      <tr>
+        <td>value</td>
+<td>Stores <CODE>1</CODE> if value[0] is <CODE>true</CODE> or <CODE>0</CODE> if <CODE>false</CODE> for a Boolean register.<br />Stores three values defined by a <CODE>defi</CODE> instruction in Bit[7:0], Bit[15:8], and Bit[23:16], respectively, of value[0] for an integer register.<br />Converts four values defined using a <CODE>def</CODE> instruction to 24-bit floating point numbers, and stores them in value[0] through value[3] for a floating point constant register.<br /></td>
+      </tr>
+    </table>
+  </p>
+
+  <h3><a name="label_info">Label Information</a></h3>
+  <p>
+    The label information block, given by <CODE>labelOffset</CODE> in the executable image information header, stores the number of instances of label information given by <CODE>labelCount</CODE>.<br /> Label information represents information about labels used in the shader assembler.<br /> <br /> Label information consists of the following.<br /> <br />
+<pre><p class="code">typedef struct tagLABELINFO {
+  unsigned int index;
+  unsigned int address;
+  unsigned int length;
+  unsigned int stringIndex;
+} LABELINFO</p></pre>
+    <table>
+      <tr>
+        <th width="20%">Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>index</td>
+<td>The label information index. Indices are assigned in order, and labels are defined in the shader assembler starting from <CODE>0x00010000</CODE>.</td>
+      </tr>
+      <tr>
+        <td>address</td>
+        <td>The address of the shader program where the label is used.</td>
+      </tr>
+      <tr>
+        <td>length</td>
+        <td>The length in bytes from the address the label is used to the associated <CODE>ret</CODE> instruction. This is the subroutine length.</td>
+      </tr>
+      <tr>
+        <td>stringIndex</td>
+        <td>The byte index inside the string data block storing the label name.</td>
+      </tr>
+    </table>
+  </p>
+
+  <h3><a name="outmap_info">Outmap Information</a></h3>
+  <p>
+    The output information block, given by <CODE>outmapOffset</CODE> in the executable image information header, stores the number of instances of output information given by <CODE>outmapCount</CODE>.<br /> <CODE>Outmap</CODE> information represents information about <CODE>#pragma output_map</CODE> instructions defined in the shader assembler. <br /> <CODE>Outmap</CODE> information consists of the following.<br /> <br />
+<pre><p class="code">typedef struct tagOUTMAPINFO {
+  unsigned short type;
+  unsigned short index;
+  unsigned short mask;
+  unsigned short reserve;
+} OUTMAPINFO</p></pre>
+    <table>
+      <tr>
+        <th width="20%">Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>Stores the attribute type.<br /><br />0: position<br />1: quaternion<br />2: color<br />3: texcoord0<br />4: texcoord0w<br />5: texcoord1<br />6: texcoord2<br />8: view<br />9: generic<br /></td>
+      </tr>
+      <tr>
+        <td>index</td>
+        <td>The output register index.</td>
+      </tr>
+      <tr>
+        <td>mask</td>
+<td>The specified components. Represents <CODE>x</CODE>, <CODE>y</CODE>, <CODE>z</CODE>, and <CODE>w</CODE> beginning from the low-order bit.</td>
+      </tr>
+      <tr>
+        <td>reserve</td>
+<td>A reserved region.</td>
+      </tr>
+    </table>
+  </p>
+
+  <h3><a name="bindsymbol_info">Bind Symbol Information</a></h3>
+  <p>
+    The bind symbol information block, given by <CODE>bsymOffset</CODE> in the executable image information header, stores the number of instances of bind symbol information given by <CODE>bsymCount</CODE>.<br /> Bind symbol information represents information about <CODE>#pragma bind_symbol</CODE> instructions defined in the shader assembler. <br /> Bind symbol information consists of the following.<br /> <br />
+<pre><p class="code">typedef struct tagBINDSYMBOLINFO {
+  unsigned int stringIndex;
+  unsigned short startIndex;
+  unsigned short endIndex;
+} BINDSYMBOLINFO</p></pre>
+    <table>
+      <tr>
+        <th width="20%">Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>stringIndex</td>
+        <td>The byte index inside the string data block storing the symbol name.</td>
+      </tr>
+      <tr>
+        <td>startIndex</td>
+<td>The start register index.<br /><br />0&ndash;15: Input registers 0 to 15.<br />16 &ndash; 111: Floating point constant registers 0 to 95.<br />112 &ndash; 115: Integer registers 0 to 3.<br />120 &ndash; 135: Boolean registers 0 to 15.<br /></td>
+      </tr>
+      <tr>
+        <td>endIndex</td>
+        <td>The end register index. Values are the same as for <CODE>startIndex</CODE>.</td>
+      </tr>
+    </table>
+  </p>
+
+<h3><a name="binary_string_info">String Data</a></h3>
+  <p>
+    The string data block, given by <CODE>stringOffset</CODE> in the executable image information header, stores string data having the byte size given by <CODE>stringSize</CODE>.<br /> This includes strings such as the label name, symbol name, and filename. Each string is delimited by '\0'.<br />
+  </p>
+
+
+  <h2>Revision History</h2>
+    <dl class="history">
+      <dt>2013/06/14</dt>
+<dd>Added a description of the executable image information header to <CODE>mergeOutputMapsDebug</CODE>.<br />
+      </dd>
+      <dt>2012/12/10</dt>
+<dd>Changed member names in the executable image information header.<br />
+      </dd>
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

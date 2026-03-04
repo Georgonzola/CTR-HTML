@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>OpenApplicationArea</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/nfp/Overview.html">nfp</a>::<a href="../../../nn/nfp/CTR/Overview.html">CTR</a>::OpenApplicationArea Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> OpenApplicationArea(
+     <a href="../../../nn_types/bit32.html">bit32</a> accessId
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>accessId</th>
+          <td>The ID to use to access the application area.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+      <br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Mount succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidOperation</th>
+          <td>The library is not in the correct state.</td>
+        </tr>
+        <tr>
+          <th>ResultSleep</th>
+          <td>The system is in a sleep state.</td>
+        </tr>
+        <tr>
+          <th>ResultWifiOff</th>
+          <td>The Wi-Fi switch is set to off.</td>
+        </tr>
+        <tr>
+          <th>ResultAccessIdMisMatch</th>
+          <td>Cannot access the application area because the access IDs do not match.</td>
+        </tr>
+        <tr>
+          <th>ResultNeedCreate</th>
+          <td>No application area. The application area must be created.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Unexpected error. The tag must be mounted using the <code><a href="../../../nn/nfp/CTR/Mount.html">Mount()</a></code> function beforehand. If the <code><a href="../../../nn/nfp/ResultAccessIdMisMatch/Overview.html">ResultAccessIdMisMatch</a></code> error occurs, it means that another application is already using that amiibo. You can delete those settings by calling amiibo Settings from <code><a href="../../../nn/nfp/CTR/StartAmiiboSettings.html">StartAmiiboSettings()</a></code>. In such cases, specify <code><span>AMIIBO_SETTINGS_ERASE_GAMEDATA</span></code> as the <emphasis>mode</emphasis> parameter for the <code><a href="../../../nn/nfp/CTR/Input/Overview.html">Input</a></code> structure.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enables access to the application area.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/25</dt>
+        <dd><item xmlns="">Added a description of the requirement to mount the tag in advance.</item><br />
+        </dd>
+        <dt>2014/07/28</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

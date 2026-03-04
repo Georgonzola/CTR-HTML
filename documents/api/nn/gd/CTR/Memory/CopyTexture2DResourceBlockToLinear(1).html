@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CopyTexture2DResourceBlockToLinear</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a>::CopyTexture2DResourceBlockToLinear Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CopyTexture2DResourceBlockToLinear(
+     const Texture2DResource * source,
+     <a href="../../../../nn_types/s32.html">s32</a> srcMipLevelIndex,
+     <a href="../../../../nn_types/u32.html">u32</a> srcOffsetY,
+     <a href="../../../../nn_types/u8.html">u8</a> * dstAddr,
+     <a href="../../../../nn_types/u32.html">u32</a> dstWidth,
+     <a href="../../../../nn_types/u32.html">u32</a> dstHeight,
+     <a href="../../../../nn_types/u32.html">u32</a> dstFormat,
+     <a href="../../../../nn/gd/CTR/Memory/DownScalingMode.html">DownScalingMode</a> downScalingMode,
+     <span>gdBool</span> yFlip
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>source</th>
+          <td>Pointer to the <code>Texture2DResource</code> source.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcMipLevelIndex</th>
+          <td>Specifies the index of the mipmap level of the source. Specify <code>-1</code> to use the last mipmap level index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcOffsetY</th>
+          <td>Specifies the y offset of the source. This value must be a multiple of srcBlockSize and must be less than the height of the transfer source resource.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstAddr</th>
+          <td>Specifies the address of the destination.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstWidth</th>
+          <td>Specifies the width of the destination. This value must be equal to or less than the width of the source. (Or, a size of one half the width of the source when using mipmapping in the x-direction.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstHeight</th>
+          <td>Specifies the height of the destination. This value must be less than or equal to the height of the source minus srcOffsetY. (Or, a size of (<code>height-srcOffsetY)/2</code>) when using mipmapping in the y-direction.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstFormat</th>
+          <td>Specifies the pixel format of the destination.&#12290;</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>downScalingMode</th>
+          <td>Specifies antialiasing filter mode.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>yFlip</th>
+          <td>The copied image is flipped vertically when yflip is <code>GD_TRUE</code>. The image is not flipped when <code>GD_FALSE</code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for source or dstAddr.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLayout</th>
+          <td>Either the source resource is not <code>LAYOUT_BLOCK_8</code> or <code>LAYOUT_BLOCK_32</code> format, or the destination is not <code>LAYOUT_LINEAR</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidSubRegionResolution</th>
+          <td>The height or width of the source or destination is not a multiple of the memory layout.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureOffset</th>
+          <td>srcOffsetY, srcCountRow, or srcOffsetY are not multiples of the memory layout. Or, dstOffestY is larger than the destination. Or, the source offset is larger than the height of the source resource, or the destination offset is larger than the height of the destination resource.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureResolution</th>
+          <td>downScalingMode is invalid. Or, if the pixel format of the destination is 24-bit, the width of the source or the destination is not a multiple of 16.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureMipLevelIndex</th>
+          <td>The mipmap level index of the source or destination is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormat</th>
+          <td>The pixel format of the source or destination is invalid.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Adds a command for converting the source Texture2DResource resource from a block image to a linear image and transferring it to the specified address.</p><p>The following pixel formats can be specified for the source and destination. <br /><itemizedlist><listitem><para>NATIVE_FORMAT_RGBA_8888 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGB_888 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_4444 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_5551 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGB_565 <br /></para></listitem></itemizedlist>
+The source memory layout must be either <code>LAYOUT_BLOCK_8</code> or <code>LAYOUT_BLOCK_32</code>. The destination memory layout must be <code>LAYOUT_LINEAR</code>. The data transferred is automatically clipped if the source memory region (including srcMipLevelIndex and srcOffsetY) is bigger than the destination region (including downScalingMode). An error occurs if the source region is smaller than the destination region. When converting the pixel format, the source pixel size must be the same as or smaller than the destination pixel size. In other words, conversions that increase the pixel size are not possible. This process calls the <code>nngxAddB2LTransferCommand</code> function. <br />
+ This function adds commands to the command list. For more information, see the Programming Manual.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetDetailSize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::SetDetailSize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> SetDetailSize(
+     <a href="../../../nn/camera/CTR/CameraSelect.html">CameraSelect</a> select,
+     <a href="../../../nn_types/s16.html">s16</a> width,
+     <a href="../../../nn_types/s16.html">s16</a> height,
+     <a href="../../../nn_types/s16.html">s16</a> cropX0 = 0,
+     <a href="../../../nn_types/s16.html">s16</a> cropY0 = 0,
+     <a href="../../../nn_types/s16.html">s16</a> cropX1 = 639,
+     <a href="../../../nn_types/s16.html">s16</a> cropY1 = 479,
+     <a href="../../../nn/camera/CTR/Context.html">Context</a> context = CONTEXT_BOTH
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>select</th>
+          <td>Specifies which <a href="../../../nn/camera/Overview.html">camera</a> to change settings for.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Specifies the width of the output image.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Specifies the height of the output image.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>cropX0</th>
+          <td>Specifies the x-coordinate of the upper-left corner of the crop region when the original 640x480 image is cropped internally by the <a href="../../../nn/camera/Overview.html">camera</a> module. This parameter must be specified in the range [0, 639], regardless of the output size of the image. Specify a width for the crop region that is greater than or equal to the width of the output image. Specify an even value. Specify a value so that the value of <emphasis>cropX1</emphasis> - <emphasis>cropX0</emphasis> + 1 is a multiple of 4. If omitted, <code>0</code> is entered.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>cropY0</th>
+          <td>Specifies the y-coordinate of the upper-left corner of the crop region when the original 640 x 480 image is cropped internally by the <a href="../../../nn/camera/Overview.html">camera</a> module. This parameter must be specified in the range [0, 479], regardless of the output size of the image. Make the specification such that the vertical width of the block region is at or above the vertical width of the output image. If omitted, <code>0</code> is entered.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>cropX1</th>
+          <td>Specifies the x-coordinate of the lower-right corner of the crop region when the original 640 x 480 image is cropped internally by the <a href="../../../nn/camera/Overview.html">camera</a> module. This parameter must be specified in the range from 0 through 639, regardless of the output size of the image. Specify a width for the crop region that is greater than or equal to the width of the output image. Specify a value so that the value of <emphasis>cropX1</emphasis> - <emphasis>cropX0</emphasis> + 1 is a multiple of 4. If omitted, <code>639</code> is entered.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>cropY1</th>
+          <td>Specifies the y-coordinate of the lower-right corner of the crop region when the original 640 x 480 image is cropped internally by the <a href="../../../nn/camera/Overview.html">camera</a> module. This parameter must be specified in the range from 0 through 479, regardless of the output size of the image. Make the specification such that the vertical width of the block region is at or above the vertical width of the output image. If omitted, <code>479</code> is entered.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>context</th>
+          <td>Specifies which context to change settings for. If omitted, the settings are applied both to context A and context B.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultIsSleeping</th>
+          <td>This function is unusable because the system cover is closed.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>There may be something physically wrong with the <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the resolution (in pixels).</p><p>This function can be used to specify the cropping region. The cropping region is the region to be output from within the 640 x 480 image captured by the camera module.  For example, if an image size of 320 x 240 is specified, and the cropping region is specified as the full 640 x 480, the output image is the 640 x 480 image resized to 320 x 240.  Meanwhile, if an image size of 320 x 240 is specified, and the cropping region is specified as the 320 x 240 region in the center of the image, the cropping region is output at the full size without shrinking.  Consequently, change the cropping region size without changing the image size to produce a digital zoom effect.  Or, move the cropping region to produce a pan or tilt effect.  The cropping region size must be at least as big as the image size. You cannot produce a zoom effect by specifying an image size larger than the cropping region size.  Doing so causes this function to fail.</p><p>When the image size aspect ratio is not 4:3 and the cropping region is left as the default, the 640 x 480 image is reduced to match the specified image size, causing distortions on output.  We recommend using the same aspect ratios for the cropping region and the image size.</p><p><b>Note:</b> This function may block for an extended period if a camera is restarting.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/07/18</dt>
+        <dd><item xmlns="">Added the horizontal coordinate limitation for the crop region</item><br />
+        </dd>
+        <dt>2010/09/24</dt>
+        <dd><item xmlns="">Added a description of the cropping region.</item><br />
+        </dd>
+        <dt>2010/07/17</dt>
+        <dd><item xmlns="">Added an explanation about operation during restart.</item><br />
+        </dd>
+        <dt>2010/02/02</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

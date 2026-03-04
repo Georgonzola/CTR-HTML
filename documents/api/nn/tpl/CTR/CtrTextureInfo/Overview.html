@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::tpl::CTR::CtrTextureInfo</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/tpl/Overview.html">tpl</a>::<a href="../../../../nn/tpl/CTR/Overview.html">CTR</a>::CtrTextureInfo Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct CtrTextureInfo
+{
+   unsigned int filePathOffset;
+   unsigned int texDataSize;
+   unsigned int texDataOffset;
+   <a href="../../../../nn/tpl/CTR/CtrTexFormat.html">CtrTexFormat</a> texFormat;
+   unsigned short width;
+   unsigned short height;
+   unsigned char mipLevel;
+   unsigned char type;
+   unsigned short cubeDir;
+   unsigned int bitmapSizeOffset;
+   unsigned int srcFileTime;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Data representing a single texture.</p><p>This data structure represents the structure of the data contained in a texture package. The size of this structure is intentionally set to 32 bytes.</p><p>If the <code>-nt</code> option is specified when creating a texture package file, the <code>srcFileTime</code> member takes a value of <code>0</code>.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">filePathOffset</span>
+            </th>
+            <td width="100">unsigned int</td>
+            <td>Offset from the start of the file to the filename.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">texDataSize</span>
+            </th>
+            <td width="100">unsigned int</td>
+            <td>Size of the image data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">texDataOffset</span>
+            </th>
+            <td width="100">unsigned int</td>
+            <td>Offset from the start of the data region to the image data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">texFormat</span>
+            </th>
+            <td width="100"><a href="../../../../nn/tpl/CTR/CtrTexFormat.html">CtrTexFormat</a></td>
+            <td>Format.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">width</span>
+            </th>
+            <td width="100">unsigned short</td>
+            <td>Width.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">height</span>
+            </th>
+            <td width="100">unsigned short</td>
+            <td>Height.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">mipLevel</span>
+            </th>
+            <td width="100">unsigned char</td>
+            <td>Number of mipmap levels.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">type</span>
+            </th>
+            <td width="100">unsigned char</td>
+            <td>0: Cube / 1: 1D / 2: 2.0D</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">cubeDir</span>
+            </th>
+            <td width="100">unsigned short</td>
+            <td>0: x / 1:-x / 2: y / 3: -y / 4: z / 5: -z</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">bitmapSizeOffset</span>
+            </th>
+            <td width="100">unsigned int</td>
+            <td>Offset to the array of image sizes for each mipmap. This will be replaced by 1/4th of the actual offset.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">srcFileTime</span>
+            </th>
+            <td width="100">unsigned int</td>
+            <td>Timestamp of the source image file (used to check for changes).</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

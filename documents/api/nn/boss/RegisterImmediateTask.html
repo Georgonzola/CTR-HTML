@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>RegisterImmediateTask</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/boss/Overview.html">boss</a>::RegisterImmediateTask Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">nn::Result</a> RegisterImmediateTask(
+     <a href="../../nn/boss/Task/Overview.html">Task</a> * pTask,
+     <a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a> * pAction,
+     <a href="../../nn/boss/TaskPolicy/Overview.html">TaskPolicy</a> * pPolicy = NULL,
+     <a href="../../nn/boss/TaskOption/Overview.html">TaskOption</a> * pOption = NULL,
+     <a href="../../nn_types/u8.html">u8</a> taskStep = DEFAULT_STEP_ID
+);
+
+<a href="../../nn/Result/Overview.html">nn::Result</a> RegisterImmediateTask(
+     <a href="../../nn/boss/Task/Overview.html">Task</a> * pTask,
+     <a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a> * pAction,
+     const char * pFilePath,
+     <a href="../../nn/boss/TaskPolicy/Overview.html">TaskPolicy</a> * pPolicy = NULL,
+     <a href="../../nn/boss/TaskOption/Overview.html">TaskOption</a> * pOption = NULL,
+     <a href="../../nn_types/u8.html">u8</a> taskStep = DEFAULT_STEP_ID
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./RegisterImmediateTask(0).html">RegisterImmediateTask ( Task *, TaskAction *, TaskPolicy *, TaskOption *, u8 ) </a>
+          </td>
+          <td>Registers an immediate-execution task to BOSS (to the save region on the game device). To register a dedicated immediate-execution task, you must first prepare an instance of a subclass of the <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> class. <br />
+ For information about which attributes must be set, see the API Reference topic for each class. <br />
+ When you have finished registering a task, you can reuse each of these instances as necessary by calling the <code><a href="../../nn/boss/Initialize.html">Initialize()</a></code> function. <br />
+ You can issue a task execution instruction by calling the <code><a href="../../nn/boss/Task/StartImmediate.html">nn::boss::FgOnlyTask::StartImmediate()</a></code> function for a registered task. &#12288; Common <a href="../../nn/boss/Task/Overview.html">Task</a> Registration Errors 1. BOSS storage has not been registered when registering an NADL task (<code><a href="../../nn/boss/ResultStorageNotFound/Overview.html">ResultStorageNotFound</a></code>). Use <code><a href="../../nn/boss/RegisterStorage.html">RegisterStorage</a></code> to register BOSS storage for the NADL task.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./RegisterImmediateTask(1).html">RegisterImmediateTask ( Task *, TaskAction *, const char *, TaskPolicy *, TaskOption *, u8 ) </a>
+          </td>
+          <td>Registers an immediate-execution task to BOSS (to the save region on the game device) in concert with the file specified as the target. At the present time, this function can be used only to register <code>DataStore</code> upload tasks. For more information, see <code><a href="../../nn/boss/RegisterImmediateTask.html">nn::boss::RegisterImmediateTask</a></code>, which has the same specification but without the argument to take the file path. <br /><br />
+ The file corresponding to the specified file path is copied to BOSS storage during the task registration process. Copying can take a long time (upwards of 10 seconds), depending on file size and SD card type. As a result, it can take a long time for this function to respond. <br /></td>
+        </tr> </table>
+    </div>
+    <h2>Description of RegisterImmediateTask ( Task *, TaskAction *, TaskPolicy *, TaskOption *, u8 ) </h2>
+    <div class="section"><!-- write here --></div>
+    <h2>Description of RegisterImmediateTask ( Task *, TaskAction *, const char *, TaskPolicy *, TaskOption *, u8 ) </h2>
+    <div class="section"><!-- write here --></div>
+  </body>
+</html>

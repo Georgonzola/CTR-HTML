@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetPriority</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/snd/CTR/Voice/Overview.html">Voice</a>::SetPriority Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetPriority(
+     <a href="../../../../nn_types/s32.html">s32</a> priority
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>priority</th>
+          <td>Priority.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the priority of a voice.</p><p>The priority takes a value between <tt>0</tt> (the lowest) and <tt>VOICE_PRIORITY_NODROP</tt> (the highest).</p><p>The priority affects the behavior when getting voices and when controlling the DSP processing load.  See the description of the <tt><a href="../../../../nn/snd/CTR/AllocVoice.html">nn::snd::CTR::AllocVoice</a></tt> function. </p><p>Among voices that are set to the same level of priority, the voice that was set last takes the highest priority. Because the <tt><a href="../../../../nn/snd/CTR/AllocVoice.html">nn::snd::CTR::AllocVoice</a></tt> function sets the level of priority internally, <tt><a href="../../../../nn/snd/CTR/AllocVoice.html">nn::snd::CTR::AllocVoice</a></tt> is also included in the above description. </p><!-- <p> <ref def="nn::snd::CTR::AllocVoice"/> で VOICE_PRIORITY_NODROP を指定した Voice は、本Functionで優先度変更することができません。また通常優先度 （VOICE_PRIORITY_NODROP 未満の優先度）が指定されている Voice の優先度を VOICE_PRIORITY_NODROP に変更することもできません。 </p> --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/07/11</dt>
+        <dd><item xmlns="">Relaxed restrictions.</item><br />
+        </dd>
+        <dt>2011/05/26</dt>
+        <dd><item xmlns="">Added the ordering of voices set to the same priority level.</item><br />
+        </dd>
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added restrictions specific to priority and revised operations that can affect priority.</item><br />
+        </dd>
+        <dt>2010/01/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,957 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>Build System</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    margin          : 4px;
+    padding         : 4px;
+}
+
+h1 {
+    font-size		: 150%;
+    font-family		: Arial;
+    border-bottom-width	: 5px;
+    border-bottom-style	: solid;
+    border-bottom-color	: #CD202C;
+    padding-bottom	: 1px;
+    margin-bottom	: 20px;
+    letter-spacing	: normal;
+    font-weight		: bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+h3
+{
+    font-weight     : bold;
+    font-size       : 120%;
+
+    margin          : 20px 0px 10px 3px;
+    padding         : 0px;
+
+    border-style    : none none solid none;
+    border-width    : 0px 0px 2px 0px;
+    border-color    : #CD202C;
+}
+td {
+  vertical-align    : top;
+}
+th {
+  vertical-align    : top;
+}
+
+table.table, table.table td, table.table th
+{
+	border: solid 2px white;
+	border-collapse: collapse;
+	background-color: #e8f4f4;
+	vertical-align: middle;
+	padding: 0.2em 0.5em 0.2em 0.5em;
+}
+table.table th
+{
+	background-color: #c0d8d8;
+}
+
+pre
+{
+    font-family         : "Courier New", monospace;
+    font-weight         : normal;
+
+    margin              : 10pt 10pt 10pt 10pt;
+    padding             : 2pt 8pt 2pt 8pt;
+    background-color    : #eee;
+
+    border-style        : solid;
+    border-width        : 1px;
+}
+
+p {
+    margin-left     : 4px;
+}
+.enable   { background :#ffcccc; text-align : center }
+.disable  { text-align : center }
+.exsample { 
+    border-style       : none none none none;
+    background         : #e8f4f4;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<h1>Build System</h1>
+<h2>Contents</h2>
+<ul style='list-style-type: none'>
+    <li>1. <a href="#omake_rule">Using the <CODE>omake</CODE> Tool</a></li>
+        <ul style='list-style-type: none'>
+            <li>1.1 <a href="#omake_command">The <CODE>omake</CODE> Command</a></li>
+            <li>1.2 <a href="#omake_option"><CODE>omake</CODE> Options</a></li>
+            <li>1.3 <a href="#omake_target"><CODE>omake</CODE> Targets</a></li>
+            <li>1.4 <a href="#omake_param"><CODE>omake</CODE> Variables</a></li>
+        </ul>
+    <li>2. <a href="#buildswitch">How to Use Build Switches</a></li>
+        <ul style='list-style-type: none'>
+            <li>2.1 <a href="#build_env">Environment Variables Available When Building the SDK</a></li>
+            <li>2.2 <a href="#build_option">Build Options Available When Building the SDK</a></li>
+            <li>2.3 <a href="#build_param">Build Variables Configurable Within the <CODE>OMakefile</CODE> of CTR-SDK</a></li>
+            <ul style='list-style-type: none'>
+                <li>■<a href="#makerom">ctr_makerom</a></li>
+                <li>■<a href="#shader">Shader Assembler and Linker</a></li>
+            </ul>
+        </ul>
+    <li>3. <a href="#macro">Macros</a></li>
+    <li>4. <a href="#omakefile"><CODE>OMakefile</CODE></a>
+        <ul style='list-style-type: none'>
+            <li>4.1 <a href="#must_setting">Required Settings for Creating Applications</a></li>
+            <li>4.2 <a href="#various_setting">Settings for Specific Uses</a></li>
+            <ul style='list-style-type: none'>
+                <li>■<a href="#master_setting">Settings Required to Create Applications for Master Submission</a></li>
+                <li>■<a href="#dlp_setting">Settings Required to Create Applications for Download Play</a></li>
+                <li>■<a href="#sdapi_setting">Settings Required to Create Downloadable Applications</a></li>
+                <li>■<a href="#buildtype_setting">Branching Conditions by Build Type</a></li>
+            </ul>
+        </ul>
+    </li>
+</ul>
+<br/>
+<h2>1. <a name="omake_rule">Using the omake Tool</a></h2>
+This document describes the features of <CODE>OMake</CODE>. <CODE>OMake</CODE> is the command-line build environment of CTR-SDK. The following descriptions assume that the build environment can locate the <CODE>omake</CODE> executable through the <CODE>PATH</CODE> environment variable.
+<h3>1.1 <a name="omake_command">The omake Command</a></h3>
+The <CODE>omake</CODE> command is a tool for automating application build and other procedures. On start, the <CODE>omake</CODE> command loads a file containing build rules (<CODE>OMakefile</CODE> in the current directory), and then calls the compiler and linker according to those rules. <br/><br/>  CTR-SDK supports <CODE>OMake</CODE> version 0.9.8.5-3. It also supports <CODE>OMake</CODE> 0.9.8.5-3 patch 7, which includes modifications made by Nintendo. <br/><br/> Start the command from the <CODE>Cygwin</CODE> or <CODE>Windows</CODE> command prompt as follows.
+<pre>% omake</pre>
+You can change the operation of <CODE>omake</CODE> by using options, setting variables, and specifying the target name. <br/>
+<pre>% omake [OPTIONS] [VARIABLE=SETTING] [TARGET_NAME]</pre>
+To facilitate the creation of <CODE>OMakefiles</CODE>, CTR-SDK provides files (in the following directories) that contain frequently used build rules.
+<ul>
+  <li>Directory: <CODE>$CTR_SDK/build/omake</CODE></li>
+  <li>Definitions for variables and other elements: <CODE>commondefs</CODE></li>
+  <li>Build-rule definitions:  <CODE>modulerules</CODE></li>
+</ul>
+You can include <CODE>commondefs</CODE> and <CODE>modulerules</CODE> in your <CODE>OMakefile</CODE> when building your application. For information about coding an <CODE>OMakefile</CODE>, see <a href="#omakefile"><CODE>OMakefile</CODE></a>.
+
+<h3>1.2 <a name="omake_option">omake Options</a></h3>
+The following table describes some of the more frequently used options specific to <CODE>omake</CODE>. <br/><br/> 
+<table class="table"><tbody>
+  <tr>
+    <th>Options</th><th>Description</th>
+  </tr>
+  <tr>
+    <td><CODE>--version</CODE></td><td>Check the version.</td>
+  </tr>
+  <tr>
+    <td><CODE>-j &lt;PARALLEL_COUNT&gt;</CODE></td><td>Perform the specified number of parallel builds.</td>
+  </tr>
+  <tr>
+    <td><CODE>--verbose</CODE></td><td>Build while displaying the command that is being run.</td>
+  </tr>
+  <tr>
+    <td><CODE>--depend</CODE></td><td>Ignore dependencies in the build.</td>
+  </tr>
+  <tr>
+    <td><CODE>-U</CODE></td>
+    <td>
+      Ignore dependencies and the cache in the build. (This option is useful when you have deleted a header file, because it discards all cached dependencies when building.)
+    </td>
+  </tr>
+</tbody></table>
+
+<h3>1.3 <a name="omake_target">omake Targets</a></h3>
+This section describes targets defined by the CTR-SDK build system.
+<h4>Building</h4>
+<ul>
+  <li>Commands
+    <pre>% omake</pre>
+    <pre>% omake build</pre>
+  </li>
+  <li>Action <br/>
+    <p>Starts building and creates the final target.</p></li>
+  <li>Procedure</li>
+  <ol>
+    <li>Checks the dependencies under <CODE>OMakeroot</CODE>. </li>
+    <li>Executes the <CODE>omake build</CODE> command in directories where there are dependencies.</li>
+    <li>Creates directories as needed.</li>
+    <li>Compiles and assembles the files specified for <CODE><a href="#SOURCES">SOURCES</a></CODE> and generates object files.</li>
+    <li>Links the objects and creates the file specified by <CODE><a href="#TARGET_PROGRAM">TARGET_PROGRAM</a></CODE>. (Specify the filename in <CODE><a href="#TARGET_LIBRARY">TARGET_LIBRARY</a></CODE> if you want to generate a library file.)</li>
+    <li>If necessary, installs (copies) the generated files to a separate directory.</li>
+  </ol>
+</ul>
+<p><CODE>build</CODE> is the default target name when the target value for <CODE>omake</CODE> is omitted. You can perform the <CODE>omake build</CODE> action simply by typing <CODE>omake</CODE>. <br/><br/> <CODE>OMake</CODE> starts by checking all dependencies under <CODE>OMakeroot</CODE>. Even if you run the <CODE>omake</CODE> command somewhere under <CODE>OMakeroot</CODE>, it performs dependent builds. The command generates the build output in a directory named for the build type of the program being built and other attributes. For example, a build directory could be named <CODE>images/CTR-TS.Process.MPCore.[fast|small]/[Release|Development|Debug]</CODE>. For information about how to change the target's build type and other attributes, see <a href="#buildswitch">Build Switches</a>.</p>
+<h4>Deleting</h4>
+<ul>
+  <li>Command
+    <pre>% omake clean</pre></li>
+  <li>Action<br/>
+    <p>Deletes files generated by <CODE>omake build</CODE>.</p></li>
+  <li>Procedure</li>
+  <ol>
+    <li>Checks the dependencies under <CODE>OMakeroot</CODE>. </li>
+    <li>Executes the <CODE>omake clean</CODE> command in directories where there are dependencies.</li>
+    <li>Deletes items in <CODE>images</CODE> and <CODE>objects</CODE>.</li>
+  </ol>
+</ul>
+<h3>1.4 <a name="omake_param">omake Variables</a></h3>
+The following section describes how to use build switches. This section and <a href="#build_param">Build Variables Configurable Within the CTR-SDK's <CODE>OMakefile</CODE></a> describe the <CODE>omake</CODE> variables. <br/>
+<h2>2. <a name="buildswitch">How to Use Build Switches</a></h2>
+This section describes how to use the environment variables, build options, and build variables available in the CTR-SDK build system.
+
+<h3>2.1 <a name="build_env">Environment Variables Available When Building the SDK</a></h3>
+The following environment variables can be configured for the CTR-SDK build system. If an option is not set, the default value is used. <br/><br/>
+
+<table border="1" width="100%" cellspacing="0" cellpadding="2">
+  <COL span="1" width="160">
+  <tbody>
+    <tr bgcolor="#CCFFCC">
+      <th align="center"><strong>Environment Variable</strong></th>
+      <td align="center"><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <th align="left"><a name="CTRSDK_ROOT"><CODE>CTRSDK_ROOT</CODE></a><br/> <font color="#ff0000"><B>[Required]</B></font> </th>
+      <td align="left">
+        Directory where CTR-SDK is installed (the directory into which <CODE>$CTR_SDK</CODE> is extracted). <br/><br/>  Example (the Windows-format absolute path must be specified): <br/>
+        <table>
+          <td class="exsample"><CODE>CTRSDK_ROOT=C:/CTR_SDK</CODE></td>
+        </table><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><CODE><a name="ARMCC">ARMCC41BIN<br/>ARMCC41INC<br/>ARMCC41LIB</a></CODE></th>
+      <td align="left">
+        Directory where the ARM compiler is installed. <br/><br/> <strong style="color:#FF6633">Default: None. (Normally, these are set automatically during installation of the ARM compiler.)</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="CTRSDK_RVCT_VER"><CODE>CTRSDK_RVCT_VER</CODE></a></th>
+      <td align="left">
+        Sets the ARM compiler version to use for the build. If the environment variables corresponding to the specified ARM compiler have not been set, the newest ARM compiler that supports CTR-SDK is used. <br/> <font color="#ff0000">Operation is currently not guaranteed on compilers other than ARMCC 4.1.</font><br/>
+		<br/>
+		Example (to build with ARMCC 4.1): <br/><br/>
+        <table>
+          <td class="exsample"><CODE>CTRSDK_RVCT_VER=41</CODE></td>
+        </table>
+        Example (to build with ARMCC 5.X): <br/><br/>
+        <table>
+          <td class="exsample">CTRSDK_RVCT_VER=5</td>
+        </table><br/>
+        <strong style="color:#FF6633">Default: 41 (build with ARMCC 4.1).</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="CTRSDK_TARGETS"><CODE>CTRSDK_TARGETS</CODE></a></th>
+      <td align="left">
+        Sets the target hardware and optimization type in environment variables. <br/> The only hardware setting is <CODE>TS</CODE>, and the optimization type settings are <CODE>fast</CODE> and <CODE>small</CODE>. <br/>  <font color="#ff0000">If <CODE><a href="#FILTER">FILTER</a></CODE> is set, these options are ignored.</font><br/><br/> 
+        <table cellspacing="1" border="1" bgcolor="#CCFFCC">
+          <col span="1" width="120">
+          <tbody>
+            <tr>
+              <td><strong><CODE>CTR-TS.*</CODE></strong></td>
+              <td>Development hardware (debugger hardware or development system).</td>
+            </tr>
+          </tbody>
+        </table><br/>
+        <table cellspacing="1" border="1" bgcolor="#CCFFCC">
+          <col span="1" width="120">
+          <tbody>
+            <tr>
+              <td><strong><CODE>*.fast</CODE></strong></td>
+              <td>Optimized for speed.</td>
+            </tr>
+            <tr>
+              <td><strong><CODE>*.small</CODE></strong></td>
+              <td>Optimized for size.</td>
+            </tr>
+          </tbody>
+        </table><br/> Example (when supporting only <CODE>fast</CODE> builds on development hardware):<br/>
+        <table>
+          <td class="exsample"><CODE>CTRSDK_TARGETS=CTR-TS.Process.MPCore.fast</CODE></td>
+        </table>
+        Example (when supporting both <CODE>fast</CODE> and <CODE>small</CODE> builds on development hardware): <br/> 
+        <table>
+          <td class="exsample"><CODE>CTRSDK_TARGETS=CTR-TS.Process.MPCore.*</CODE></td>
+        </table><br/> <strong style="color:#FF6633">Default: <CODE>CTR-TS*MPCore*</CODE> (when supporting both <CODE>fast</CODE> and <CODE>small</CODE> on development hardware).</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="CTRSDK_BUILD_ROOT">CTRSDK_BUILD_ROOT</a></th>
+      <td align="left">
+        Sets the directory that contains the build system to use.<br/> To use your own build system, set the corresponding directory in this variable.<br/><br/> Example (the Windows-format absolute path must be specified): <br/>
+        <table>
+          <td class="exsample">CTRSDK_BUILD_ROOT=C:/CTR_SDK/build</td>
+        </table><br/>
+        <strong style="color:#FF6633">Default: $CTR_SDK/build</strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<h3>2.2 <a name="build_option">Build Options Available When Building the SDK</a></h3>
+The following build options are used when building the CTR-SDK (using the build system). <br/> They can be specified as arguments to the <CODE>omake</CODE> command. <br/>  If an option is not set, the default value is used. <br/> <br/>
+<table border="1" width="100%" cellspacing="0" cellpadding="2">
+  <COL span="1" width="160">
+  <tbody>
+    <tr bgcolor="#CCFFCC">
+      <th align="center"><strong>Build Options</strong></th>
+      <td align="center"><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <th align="left"><a name="BUILD"><CODE>BUILD</CODE></a></th>
+      <td align="left">
+        Sets the target build type. <br/> The four possible settings are <CODE>Debug</CODE>, <CODE>Development</CODE>, <CODE>Release</CODE>, and <CODE>full</CODE>. Specify <CODE>full</CODE> to build all build types. You can specify multiple types by delimiting them with commas. <br/><br/> Changing this setting changes the compile options and the libraries that are linked when running the <CODE>omake</CODE> command. <br/><br/>  The details for each build type are as follows. <br/>
+        <table cellspacing="1" border="1" bgcolor="#e8f4f4">
+          <col span="1" width="120">
+          <tbody>
+            <tr bgcolor="#CCFFCC">
+<td width="40%" align="center"><strong>Features</strong></td>
+<td width="20%" align="center"><strong>Debug</strong></td>
+<td width="20%" align="center"><strong>Development</strong></td>
+<td width="20%" align="center"><strong>Release</strong></td>
+            </tr>
+            <tr>
+<td><strong>Operations Guaranteed</strong></td>
+<td class="disable">No</td>
+<td colspan="2" class="enable">Software to Be Tested</td>
+            </tr>
+            <tr>
+              <td><strong>Debug Output Functions From OS API</strong></td>
+              <td colspan="2" class="enable">Enabled</td>
+              <td class="disable">Disabled</td>
+            </tr>
+            <tr>
+              <td><strong>Application Optimization</strong></td>
+              <td colspan="2" class="disable">OFF</td>
+              <td class="enable">ON</td>
+            </tr>
+            <tr>
+              <td><strong>Library Optimization</strong></td>
+              <td class="disable">OFF</td>
+              <td colspan="2" class="enable">ON</td>
+            </tr>
+            <tr>
+              <td><strong>CTR-SDK Internal Debugging Code</strong></td>
+              <td colspan="2" class="enable">Enabled</td>
+              <td class="disable">Disabled</td>
+            </tr>
+            <tr>
+              <td><strong>ASSERT</strong></td>
+              <td colspan="2" class="enable">Enabled</td>
+              <td class="disable">Disabled</td>
+            </tr>
+            <tr>
+              <td><strong>HostIO</strong></td>
+              <td colspan="2" class="enable">Enabled</td>
+              <td class="disable">Disabled</td>
+            </tr>
+          </tbody>
+        </table><br/> <CODE>Debug</CODE> builds disable the <CODE>gnu</CODE> extensions.<br/> Although debug information is included in the <CODE>Release</CODE> build object files, it is removed by <CODE>makerom</CODE>.<br/><br/> <strong style="color:#FF6633">Default: Development </strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="DEBUG_PRINT"><CODE>DEBUG_PRINT</CODE></a></th>
+      <td align="left">
+        Enables or disables debug output functions regardless of build type. <br/> Specifying <CODE>true</CODE> to the macro enables <CODE>NN_LOG</CODE> (OS debug output); specifying <CODE>false</CODE> leaves <CODE>NN_LOG</CODE> empty. <br/><br/>  However, the debug output used in CTR-SDK cannot be enabled or disabled. <br/><br/> <strong style="color:#FF6633">Default: For release builds, <CODE>false</CODE>; otherwise, <CODE>true</CODE></strong>.
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="ASSERT_WARNING"><CODE>ASSERT_WARNING</CODE></a></th>
+      <td align="left">
+Enables or disables <CODE>ASSERT</CODE>s and <CODE>WARNING</CODE>s regardless of build type. <br/>Specifying <CODE>true</CODE> to the macro enables <CODE>NN_*ASSERT/NN_WARNING</CODE>; specifying <CODE>false</CODE> leaves <CODE>NN_*ASSERT/NN_WARNING</CODE> empty. <br/><br/> However, CTR-SDK <CODE>ASSERT</CODE>s and <CODE>WARNING</CODE>s cannot be enabled or disabled. <br/><br/><strong style="color:#FF6633">Defaults: For release builds, <CODE>false</CODE>; otherwise, <CODE>true</CODE>.</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="FILTER"><CODE>FILTER</CODE></a></th>
+      <td align="left">
+        Sets the target hardware and optimization type. <br/> The only hardware setting is <CODE>TS</CODE>, and the optimization type settings are <CODE>fast</CODE> and <CODE>small</CODE>. <br/>  <font color="#ff0000">If these are set, the <a href="#CTRSDK_TARGETS"><CODE>CTRSDK_TARGETS</CODE></a> setting is ignored.</font><br/><br/> 
+        <table cellspacing="1" border="1" bgcolor="#CCFFCC">
+          <col span="1" width="120">
+          <tbody>
+            <tr>
+              <td><strong><CODE>CTR-TS.*</CODE></strong></td>
+              <td>Development hardware (debugger hardware or development system).</td>
+            </tr>
+          </tbody>
+        </table><br/>
+        <table cellspacing="1" border="1" bgcolor="#CCFFCC">
+          <col span="1" width="120">
+          <tbody>
+            <tr>
+              <td><strong><CODE>*.fast</CODE></strong></td>
+              <td>Optimized for speed.</td>
+            </tr>
+            <tr>
+              <td><strong><CODE>*.small</CODE></strong></td>
+              <td>Optimized for size.</td>
+            </tr>
+          </tbody>
+        </table><br/> Example (when supporting only <CODE>fast</CODE> builds on development hardware):<br/>
+        <table>
+          <td class="exsample"><CODE>FILTER=CTR-TS.Process.MPCore.fast</CODE></td>
+        </table>
+        Example (when supporting both <CODE>fast</CODE> and <CODE>small</CODE> builds on development hardware): <br/> 
+        <table>
+          <td class="exsample"><CODE>FILTER=CTR-TS.Process.MPCore.*</CODE></td>
+        </table><br/> <strong style="color:#FF6633">Default: <CODE>CTR-TS*MPCore*</CODE> (when supporting both <CODE>fast</CODE> and <CODE>small</CODE> on development hardware)</strong>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<h3>2.3 <a name="build_param">Build Variables Configurable Within the OMakefile of CTR-SDK</a></h3>
+The following options are available for setting build conditions per directory in the CTR-SDK <CODE>OMakefile</CODE>. <br/>  If an option is not set, the default value is used. <br/><br/> If you specify a path for the following build variables, you must generally specify the Windows-format absolute path or the relative path. You must generally set these build variables before referencing <CODE>modulerules</CODE>. <br/>
+<table border="1" width="100%" cellspacing="0" cellpadding="2">
+  <COL span="1" width="160">
+  <tbody>
+    <tr bgcolor="#CCFFCC">
+      <th width="20%" align="center"><strong>Build Variable</strong></th>
+      <td width="60%" align="center"><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <th align="left"><a name="SUPPORTED_TARGETS"><CODE>SUPPORTED_TARGETS</CODE></a><br/> <font color="#ff0000"><B>[Required]</B></font> </th>
+      <td align="left">
+        Sets the targets supported by the program. <br/> The only available hardware setting is <CODE>TS</CODE>, and the optimization type settings are <CODE>fast</CODE> and <CODE>small</CODE>. <br/><br/> 
+        <table cellspacing="1" border="1" bgcolor="#CCFFCC">
+          <col span="1" width="120">
+          <tbody>
+            <tr>
+              <td><strong><CODE>CTR-TS.*</CODE></strong></td>
+              <td>Development hardware (debugger hardware or development system).</td>
+            </tr>
+          </tbody>
+        </table><br/>
+        <table cellspacing="1" border="1" bgcolor="#CCFFCC">
+          <col span="1" width="120">
+          <tbody>
+            <tr>
+              <td><strong><CODE>*.fast</CODE></strong></td>
+              <td>Optimized for speed.</td>
+            </tr>
+            <tr>
+              <td><strong><CODE>*.small</CODE></strong></td>
+              <td>Optimized for size.</td>
+            </tr>
+          </tbody>
+        </table><br/> Example (when supporting only <CODE>fast</CODE> builds on development hardware):<br/>
+        <table>
+          <td class="exsample"><CODE>SUPPORTED_TARGETS = CTR-TS.Process.MPCore.fast</CODE></td>
+        </table>
+        Example (when supporting both <CODE>fast</CODE> and <CODE>small</CODE> builds on development hardware): <br/> 
+        <table>
+          <td class="exsample"><CODE>SUPPORTED_TARGETS = CTR-TS.Process.MPCore.*</CODE></td>
+        </table><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="CTR_APPTYPE"><CODE>CTR_APPTYPE</CODE></a></th>
+      <td align="left">
+        Sets the type of CTR application to create. You can specify multiple types by delimiting them with spaces. <br/> <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/>
+        <table cellspacing="1" border="1" bgcolor="#CCFFCC">
+          <col span="1" width="120">
+          <tbody>
+            <tr>
+<td><strong><CODE>CARD</CODE></strong></td>
+<td>Creates a CCI file for card-based software.</td>
+            </tr>
+            <tr>
+              <td><strong><CODE>NAND</CODE></strong></td>
+              <td>Creates a CIA file for DLP child devices.</td>
+            </tr>
+            <tr>
+              <td><strong><CODE>SD</CODE></strong></td>
+              <td>Creates a CIA file for downloadable applications.</td>
+            </tr>
+            <tr>
+              <td><strong><CODE>LIST</CODE></strong></td>
+              <td>Creates a CCL file.</td>
+            </tr>
+          </tbody>
+        </table><br/> <strong style="color:#FF6633">Default:  <CODE>CARD</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="SOURCES"><CODE>SOURCES</CODE></a></th>
+      <td align="left">
+        Enumerates the source files to compile or assemble. <br/> The build system attempts to generate object files, using the compiler or assembler, for the file extensions <CODE>.c</CODE>, <CODE>.cpp</CODE>, or <CODE>.s</CODE>. <br/> <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="INCLUDES"><CODE>INCLUDES</CODE></a></th>
+      <td align="left">
+        Specifies the directory if there are any include files specific to this program. <br/> <font color="#ff0000">By default, this variable is set to the <CODE>$CTR-SDK/include</CODE> and <CODE>$OMAKEROOT/include</CODE> directories. Any additional settings must be specified using the <CODE>+=</CODE> operator.</font><br/> <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> <strong style="color:#FF6633">Default:  <CODE>$CTR-SDK/include, $OMakeroot/include</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="OBJECTS"><CODE>OBJECTS</CODE></a></th>
+      <td align="left">
+        Specifies the object files to link. <br/><br/> Example (linking object file <CODE>xxx.o</CODE>):
+        <table>
+          <td class="exsample"><CODE>OBJECTS = xxx.o</CODE></td>
+        </table><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="LIBS"><CODE>LIBS</CODE></a></th>
+      <td align="left">
+        Specifies the libraries to link. The extension is not needed. <br/> The build system automatically links several standard libraries, but any special libraries required for a specific program must be explicitly specified. <br/><br/> A <CODE>fast</CODE> build normally links in the <CODE>libnn_xxx.fast</CODE> library to match the optimization type, but it is also possible to explicitly specify <CODE>libnn_xxx.fast</CODE>. <br/>  In this case, the specified library is linked regardless of the optimization type. <br/><br/> <font color="#ff0000">This variable is set by default to the standard library, so any additional settings must be specified using the <CODE>+=</CODE> operator.</font><br/> <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> Example (to link against the additional library <CODE>libnn_xxx</CODE>):<br/>
+        <table>
+          <td class="exsample"><CODE>LIBS += libnn_xxx</CODE></td>
+        </table>
+        Example (to link against the additional library <CODE>libnn_xxx.fast</CODE>):
+        <table>
+          <td class="exsample"><CODE>LIBS += libnn_xxx.fast</CODE></td>
+        </table><br/> <strong style="color:#FF6633">Default: Standard library (see <CODE>$CTR_SDK/build/omake/platforms/CTR.targetdefs.om</CODE>).</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="LIBFILES"><CODE>LIBFILES</CODE></a></th>
+      <td align="left">
+        Specifies program-specific libraries to link when building an image with <CODE>TARGET_PROGRAM</CODE> specified. <br/>  <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> Example (to add the <CODE>$TMP/libraries/CTR-TS.Process.MPCore/release/libnn_xxx.[fast|small].a</CODE> library):<br/>
+        <table>
+          <td class="exsample"><CODE>LIBFILES = $(TMP)/libraries/CTR-TS.Process.MPCore/release/libnn_xxx</CODE></td>
+        </table><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="LIBRARY_LIBFILES"><CODE>LIBRARY_LIBFILES</CODE></a></th>
+      <td align="left">
+        Specifies program-specific libraries to link when building an image with <CODE>TARGET_LIBRARY</CODE> specified. <br /> <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> Example (to add the <CODE>$TMP/libraries/CTR-TS.Process.MPCore/release/libnn_xxx.[fast|small].a</CODE> library):<br/>
+        <table>
+          <td class="exsample"><CODE>LIBRARY_LIBFILES = $(TMP)/libraries/CTR-TS.Process.MPCore/release/libnn_xxx</CODE> </td>
+        </table><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="TARGET_PROGRAM"><CODE>TARGET_PROGRAM</CODE></a></th>
+      <td align="left">
+        Specifies the name of the image to generate. The extension is not needed. <br/> Links the object files created by compiling or assembling the source files specified in <CODE><a href="#SOURCES">SOURCES</a></CODE> and creates the target file. The extension of the created target file is normally <CODE>.cci</CODE>. <br/> <font color="#ff0000">Note that the defined <a href="#macro">macro</a> is different when specifying <CODE>TARGET_PROGRAM</CODE> or <CODE>TARGET_LIBRARY</CODE>.</font><br/><br/>  <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><CODE><a name="TARGET_LIBRARY">TARGET_LIBRARY</a></CODE><br/><font color="#ff0000">[Caution]</font></th>
+      <td align="left">
+        Specifies the names of the library to build. The extension is not needed. <br/> Compiles or assembles the source files specified by <CODE><a href="#SOURCES">SOURCES</a></CODE> and links the resulting object files to create the library. <br/> <font color="#ff0000">Note that the defined <a href="#macro">macro</a> is different when specifying <CODE>TARGET_PROGRAM</CODE> or <CODE>TARGET_LIBRARY</CODE>.</font><br/><br/>  <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="CCFLAGS"><CODE>CCFLAGS</CODE></a></th>
+      <td align="left">
+        Set this variable when you want to change the options passed to the compiler when compiling source files or creating linker script files. <br/> <font color="#ff0000">This variable is set to the required options by default. Any additional options must be specified using the <CODE>+=</CODE> operator.</font><br/><br/> <strong style="color:#FF6633">Default: See <CODE>$CTR_SDK/build/omake/compilers/commondefs.cctype.RVCT.om</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="CCFLAGS_WARNING"><CODE>CCFLAGS_WARNING</CODE></a><br/><font color="#ff0000"><B>[Caution]</B></font> </th>
+      <td align="left">
+        Set this variable when you want to change the warning options passed to the compiler. <br/> <font color="#ff0000">Always set the warning options using this variable, not <CODE>CCFLAGS</CODE>.</font><br/> <font color="#ff0000">This variable is set to the required options by default. Any additional options must be specified using the <CODE>+=</CODE> operator.</font><br/><br/> <strong style="color:#FF6633">Default: See <CODE>$CTR_SDK/build/omake/compilers/commondefs.cctype.RVCT.om</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="CCFLAGS_DEV_OPT"><CODE>CCFLAGS_DEV_OPT</CODE></a></th>
+      <td align="left">
+        To change the optimization level of an application in a <CODE>Development</CODE> build, set this variable.  The specified optimization level does not affect <CODE>Release</CODE> or <CODE>Debug</CODE> builds. <br/><br/> <strong style="color:#FF6633">Default: See <CODE>$CTR_SDK/build/omake/compilers/commondefs.cctype.RVCT.om</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="CFLAGS"><CODE>CFLAGS</CODE></a></th>
+      <td align="left">
+        Set this variable when you want to change the options passed to the compiler only when compiling C files. <br/> <font color="#ff0000">This variable is set to the required options by default. Any additional options must be specified using the <CODE>+=</CODE> operator.</font><br/><br/> <strong style="color:#FF6633">Default: See <CODE>$CTR_SDK/build/omake/compilers/commondefs.cctype.RVCT.om</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="CXXFLAGS"><CODE>CXXFLAGS</CODE></a></th>
+      <td align="left">
+        Set this variable when you want to change the options passed to the compiler only when compiling C++ files. <br/> <font color="#ff0000">This variable is set to the required options by default. Any additional options must be specified using the <CODE>+=</CODE> operator.</font><br/><br/> <strong style="color:#FF6633">Default: See <CODE>$CTR_SDK/build/omake/compilers/commondefs.cctype.RVCT.om</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="ASFLAGS"><CODE>ASFLAGS</CODE></a></th>
+      <td align="left">
+        Set this variable when you want to change the options passed to the compiler only when compiling assembler files. <br/> <font color="#ff0000">This variable is set to the required options by default. Any additional options must be specified using the <CODE>+=</CODE> operator.</font><br/><br/> <strong style="color:#FF6633">Default: See <CODE>$CTR_SDK/build/omake/compilers/commondefs.cctype.RVCT.om</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="LDFLAGS"><CODE>LDFLAGS</CODE></a></th>
+      <td align="left">
+        Set this variable when you want to change the options passed to the linker. <br/> <font color="#ff0000">This variable is set to the required options by default. Any additional options must be specified using the <CODE>+=</CODE> operator.</font><br/><br/> <strong style="color:#FF6633">Default: See <CODE>$CTR_SDK/build/omake/compilers/commondefs.cctype.RVCT.om</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="LDFLAGS_WARNING"><CODE>LDFLAGS_WARNING</CODE></a></th>
+      <td align="left">
+        Set this variable when you want to change the warning options passed to the linker. <br/><br/> <font color="#ff0000">This variable is set to the required options by default. Any additional options must be specified using the <CODE>+=</CODE> operator.</font><br/><br/> <strong style="color:#FF6633">Default: See <CODE>$CTR_SDK/build/omake/compilers/commondefs.cctype.RVCT.om</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="LDFLAGS_INFO"><CODE>LDFLAGS_INFO</CODE></a></th>
+      <td align="left">
+        Set this variable when you want to change the options that are passed to the linker for generating a <CODE>.map</CODE> file or call-graph file.<br/><br/> <font color="#ff0000">This variable is set to the required options by default. Any additional options must be specified using the <CODE>+=</CODE> operator.</font><br/><br/> <strong style="color:#FF6633">Default: See <CODE>$CTR_SDK/build/omake/compilers/commondefs.cctype.RVCT.om</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="ENABLE_CPP_EXCEPTION"><CODE>ENABLE_CPP_EXCEPTION</CODE></a></th>
+      <td align="left">
+        Set this variable to <CODE>true</CODE> to enable C++ exceptions. <br/> <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> <strong style="color:#FF6633">Default:  <CODE>false</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="INSTALL_ROOT"><CODE>INSTALL_ROOT</CODE></a><br/><font color="#ff0000"><B>[Caution]</B></font> </th>
+      <td align="left">
+        Specifies the absolute or relative path to the installation directory. <br/> Use to change the installation directory for libraries and target files. <br/> <font color="#ff0000">This variable must be set before the <CODE>commondefs</CODE> file is included. (Setting the variable within <CODE>OMakeroot</CODE> is one way of ensuring this.)</font><br/><br/> Example (to change the installation directory to <CODE>.tmp</CODE>):<br/>
+        <table>
+          <td class="exsample"><CODE>INSTALL_ROOT = ./tmp</CODE></td>
+        </table><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="HOST_IO"><CODE>HostIO</CODE></a></th>
+      <td align="left">
+If set to <CODE>true</CODE>, <CODE>HostIO</CODE> is enabled regardless of build type. <br/><br/> <strong style="color:#FF6633">Defaults: For release builds, <CODE>false</CODE>; otherwise, <CODE>true</CODE>.</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="TARGET_BUILDTYPES"><CODE>TARGET_BUILDTYPES</CODE></a></th>
+      <td align="left">
+        Specifies the build type specified on the command line. <br/> Use this variable to exclude a particular build type or in other such cases. <br/> <font color="#ff0000">If you reference or set this variable, you must do so between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> Example (to exclude <span>Debug</span> builds): <br/><br/>
+        <table>
+          <td class="exsample"><CODE>TARGET_BUILDTYPES = $(filter Release Development, $(TARGET_BUILDTYPES))</CODE></td>
+        </table><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="CHILD_APPS"><CODE>CHILD_APPS</CODE></a></th>
+      <td align="left">
+        Specifies the child program to use for Download Play distribution. <br/> You must specify the directory path for this variable in Windows format, using the absolute or relative path. You must set this variable before referencing <CODE>modulerules</CODE>. <br/>  <br/> Example (specifying a <CODE>fast</CODE> child in a <CODE>Release</CODE> build): <br/> <br/>
+        <table>
+          <td class="exsample">
+    <CODE>CHILD_APPS[] = ../Child/images/CTR-TS.Process.MPCore.fast/Release/Child.cia</CODE></td>
+        </table><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="MANUAL_DIR"><CODE>MANUAL_DIR</CODE></a></th>
+      <td align="left">
+        Use this variable to add an e-manual to the application. <br /> Whether it is necessary to add an e-manual to the application depends on the application. For <CODE>MANUAL_DIR</CODE>, specify the directory where the e-manual resides. Place one file in this directory and name the file <CODE>Manual.bcma</CODE>. <br/>  You must specify the directory path for this variable in Windows format, using the absolute or relative path. You must set this variable before referencing <CODE>modulerules</CODE>. <br/>  <br/>Input example (from <CODE>SampleDemos/demo1/OMakefile</CODE>):)<br/>
+        <table>
+          <td class="exsample"><CODE>MANUAL_DIR = ./manual</CODE></td>
+        </table><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="MANUAL_DISCLOSURE"><CODE>MANUAL_DISCLOSURE</CODE></a></th>
+      <td align="left">
+        Use this variable to show the e-manual with advance downloading.<br> <br> When <CODE>MANUAL_DISCLOSURE</CODE> is set to <CODE>public</CODE>, the e-manual is shown with advance downloading.<br/> If <CODE>MANUAL_DISCLOSURE</CODE> is not set or is not set to <CODE>public</CODE>, the e-manual is not shown with advance downloading.<br/> You must set this variable before referencing <CODE>modulerules</CODE>.  <br/> <br/> Input example (Example of showing the e-manual with advance downloading.)<br/>
+        <table>
+          <tr><td class="exsample"><CODE>MANUAL_DIR = ./manual</CODE></td></tr>
+          <tr><td class="exsample">MANUAL_DISCLOSURE = public</td></tr>
+        </table><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<h4>■<a name="makerom">ctr_makerom</a></h4>
+<font color="#ff0000">The following settings are reflected in <CODE>ctr_makerom</CODE></font>, even though they are build variables that configure build conditions separately for each directory in the CTR-SDK's <CODE>OMakefile</CODE>. <br/><br/> 
+<table border="1" width="100%" cellspacing="0" cellpadding="2">
+  <COL span="1" width="160">
+  <tbody>
+    <tr bgcolor="#CCFFCC">
+      <th width="20%" align="center"><strong>Build Variable</strong></th>
+      <td width="60%" align="center"><strong>Description</strong></td>
+    </tr>
+    <tr bgcolor="#FFFFCC">
+      <th align="left"><a name="ROM_SPEC_FILE"><CODE>ROM_SPEC_FILE</CODE></a></th>
+      <td align="left">
+Specifies an RSF file describing the contents of a ROM file (<CODE>RomSpecFile</CODE>). <br/>The specified file is passed to <CODE>ctr_makerom</CODE> using the <CODE>-rsf</CODE> option. The file's settings serve as the basis to the creation of CCI files. <br/> <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> <strong style="color:#FF6633">Default: <CODE>$CTR-SDK/resources/specfiles/Application.rsf</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFCC">
+      <th align="left"><a name="DESCRIPTOR"><CODE>DESCRIPTOR</CODE></a></th>
+      <td align="left">
+        Specifies the DESC file. <br/> The specified file is passed to <CODE>ctr_makerom</CODE> with the <CODE>-desc</CODE> option, and the CCI files are created based on the settings in this file. <br/> <strong style="color:#FF6633">Default: <CODE>$CTR-SDK/resources/specfiles/Application.desc</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFCC">
+      <th align="left"><a name="MAKEROMFLAGS"><CODE>MAKEROMFLAGS</CODE></a></th>
+      <td align="left">
+        Set this variable when you want to specify the options passed to <CODE>ctr_makerom</CODE>. <br/>   <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFCC">
+      <th align="left"><a name="ROMFS_ROOT"><CODE>ROMFS_ROOT</CODE></a></th>
+      <td align="left">
+        Specifies the root path of the file system to include in the ROM. Setting this variable has the same effect (except for the following point) as setting the <CODE>HostRoot</CODE> in the <CODE>Rom</CODE> section of the RSF file, but if both are set, <CODE>HostRoot</CODE> has precedence. <br/>
+        <ul>
+        <li><font color="#ff0000">When <CODE>HostRoot</CODE> is specified in the RSF file, no dependency relationships are set between files and directories under the specified directory. Also, a rebuild is not performed even if the files under the ROM file system have been updated.</font></li>
+        </ul>
+        <font color="#ff0000">When you want to set the dependency relationships for files and directories under the directory specified in the RSF file, you must set them with <a href="#ROMFS_DEPENDENCIES"><CODE>ROMFS_DEPENDENCIES</CODE></a>.</font> This variable is also passed to <CODE>ctr_makerom</CODE> using <CODE>-DROMFS_ROOT=</CODE>. You can reference this value in <CODE>RSF</CODE> with the string &quot;<CODE>$(ROMFS_ROOT)</CODE>&quot;. You must set this variable before referencing <CODE>modulerules</CODE>. <br/><br/>  <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFCC">
+      <th align="left"><a name="ROMFS_DEPENDENCIES"><CODE>ROMFS_DEPENDENCIES</CODE></a></th>
+      <td align="left">
+        Sets dependency relationships for files under the specified ROM file system. <br/><br/> <font color="#ff0000">Files under the directory specified in <CODE><a href="#ROMFS_ROOT">ROMFS_ROOT</a></CODE> are configured in <CODE>ROMFS_DEPENDENCIES</CODE> in the build system. <br/> Note that when setting dependency relationships for files specified in the RSF file, they must be set explicitly with this variable. </font><br/> You must set this variable before referencing <CODE>modulerules</CODE>. <br/><br/>  <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFCC">
+      <th align="left"><a name="TITLE"><CODE>TITLE</CODE></a></th>
+      <td align="left">
+        Specifies the value passed to <CODE>ctr_makerom</CODE> in <CODE>-DTITLE=</CODE>. <br/>  The value can be referenced in the RSF file by using <CODE>$(TITLE)</CODE>. <br/><br/> <strong style="color:#FF6633">Default: CtrApp</strong>.
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFCC">
+      <th align="left"><a name="CTR_BANNER"><CODE>CTR_BANNER</CODE></a></th>
+      <td align="left">
+      	Specifies the banner file. The specified value is passed to <CODE>ctr_makerom</CODE> by using the <CODE>-banner</CODE> option. <br />  You must specify <CODE><a href="#CTR_NO_BANNER">CTR_NO_BANNER</a> = true</CODE> or <CODE><a href="#CTR_NO_BANNER_ICON">CTR_NO_BANNER_ICON</a> = true</CODE> when not using banners. The default value is used if this specification is omitted. <br/> <font color="#ff0000">If <CODE><a href="#CTR_BANNER_SPEC">CTR_BANNER_SPEC</a></CODE> is set, these options are ignored. </font><br/><br/> <strong style="color:#FF6633">Default:  <CODE>$CTR_SDK/resources/banner/Default.bnr</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFCC">
+      <th align="left"><a name="CTR_ICON"><CODE>CTR_ICON</CODE></a></th>
+      <td align="left">
+	Specifies the icon file. You can pass the specified value to <CODE>ctr_makerom</CODE> by using the <CODE>-icon</CODE> option. <br/> You must specify <CODE><a href="#CTR_NO_BANNER_ICON">CTR_NO_BANNER_ICON</a> = true</CODE> if you are not using icons. The default value is used if this specification is omitted. <br/> <font color="#ff0000">If <CODE><a href="#CTR_BANNER_SPEC">CTR_BANNER_SPEC</a></CODE> has been set, this setting is ignored.</font><br/><br/><strong style="color:#FF6633">Default: <CODE>$CTR_SDK/resources/banner/Default.icn</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFCC">
+      <th align="left"><a name="CTR_NO_BANNER"><CODE>CTR_NO_BANNER</CODE></a></th>
+      <td align="left">
+This variable must be set to <CODE>true</CODE> if not using banners. <br/> <font color="#ff0000">If <CODE><a href="#CTR_BANNER_SPEC">CTR_BANNER_SPEC</a></CODE> has been set, this setting is ignored.</font><br/><br/><strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFCC">
+      <th align="left"><a name="CTR_NO_BANNER_ICON"><CODE>CTR_NO_BANNER_ICON</CODE></a></th>
+      <td align="left">
+This variable must be set to <CODE>true</CODE> if you are not using banners or icons. <br /> <font color="#ff0000">If <CODE><a href="#CTR_BANNER_SPEC">CTR_BANNER_SPEC</a></CODE> has been set, this setting is ignored.</font><br/><br/><strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFCC">
+      <th align="left"><a name="CTR_BANNER_SPEC"><CODE>CTR_BANNER_SPEC</CODE></a></th>
+      <td align="left">
+        Specifies the BSF file to use as input to <CODE>ctr_makebanner</CODE> (BSF: BannerSpecFile). <br/> The files generated by <CODE>ctr_makebanner</CODE> are input into <CODE>ctr_makerom</CODE> unchanged using the <CODE>-banner</CODE> and <CODE>-icon</CODE> options. <br/> <font color="#ff0000">If these options are set, the <CODE><a href="#CTR_BANNER">CTR_BANNER</a></CODE>, <CODE><a href="#CTR_ICON">CTR_ICON</a></CODE>, <CODE><a href="#CTR_NO_BANNER">CTR_NO_BANNER</a></CODE>, and <CODE><a href="#CTR_NO_BANNER_ICON">CTR_NO_BANNER_ICON</a></CODE> settings are ignored. </font><br/><br/>  <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<h4>■<a name="shader">Shader Assembler and Linker</a></h4>
+<font color="#ff0000">The following settings relate to the shader assembler and linker</font>, even though they are build variables that configure build conditions separately for each directory in the CTR-SDK <CODE>OMakefile</CODE>. <br/><br/>
+<table border="1" width="100%" cellspacing="0" cellpadding="2">
+  <COL span="1" width="160">
+  <tbody>
+    <tr bgcolor="#CCFFCC">
+      <th width="20%" align="center"><strong>Build Variable</strong></th>
+      <td width="60%" align="center"><strong>Description</strong></td>
+    </tr>
+    <tr bgcolor="#CCCCFF">
+      <th align="left"><a name="SHADER_SOURCES"><CODE>SHADER_SOURCES</CODE></a></th>
+      <td align="left">
+        Enumerates the vertex shader assembler files (<CODE>.vsh</CODE>) to compile or assemble. <br/><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr bgcolor="#CCCCFF">
+      <th align="left"><a name="SHADER_INCLUDES"><CODE>SHADER_INCLUDES</CODE></a></th>
+      <td align="left">
+        Specifies the directory containing include files referenced when compiling vertex shader assembler files. <br/> <font color="#ff0000">By default, this variable is set to the <CODE>$CTR_SDK/resources/shaders</CODE> directory, so any additional settings must be specified using the <CODE>+=</CODE> operator.</font><br/> <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> <strong style="color:#FF6633">Default:  <CODE>$CTR_SDK/resources/shaders</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr bgcolor="#CCCCFF">
+      <th align="left"><a name="SHADER_OBJECTS"><CODE>SHADER_OBJECTS</CODE></a></th>
+      <td align="left">
+        Enumerates the object files to add during the shader binary build. <br/><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr bgcolor="#CCCCFF">
+      <th align="left"><a name="SHADER_OBJECTS_PREBUILT"><CODE>SHADER_OBJECTS_PREBUILT</CODE></a></th>
+      <td align="left">
+        Enumerates the object files to add during the shader binary build. <br/> This variable is used only for reserved geometry shaders. <br/> Specify the object files using paths relative to <CODE>$CTR_SDK/resources/shader</CODE>.<br/><br/>  <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr bgcolor="#CCCCFF">
+      <th align="left"><a name="TARGET_SHADER"><CODE>TARGET_SHADER</CODE></a></th>
+      <td align="left">
+        Specifies the names of the shader binary (SHBIN) files that are ultimately output. The extension is not needed. <br/> If you explicitly specify an empty name, the build system only assembles without linking. <br/><br/> <strong style="color:#FF6633">Default: shader</strong>.
+      </td>
+    </tr>
+    <tr bgcolor="#CCCCFF">
+      <th align="left"><a name="SHBIN_INSTALL_ROOT"><CODE>SHBIN_INSTALL_ROOT</CODE></a></th>
+      <td align="left">
+        Specifies the installation root directory for the shader binary file. <br/><br/> <strong style="color:#FF6633">Default: Value of <CODE>ROMFS_ROOT</CODE>.</strong> 
+      </td>
+    </tr>
+    <tr bgcolor="#CCCCFF">
+      <th align="left"><a name="SHADER_BINARY"><CODE>SHADER_BINARY</CODE></a></th>
+      <td align="left">
+        Sets the full path of the shader binary file. <br/> To use, set this path <font color="#ff0000">after including <CODE>modulerules</CODE></font>.<br/><br/>  <strong style="color:#FF6633">Default: Full path to the SHBIN file</strong>.
+      </td>
+    </tr>
+    <tr bgcolor="#CCCCFF">
+      <th align="left"><a name="SHADER_ASFLAGS"><CODE>SHADER_ASFLAGS</CODE></a></th>
+      <td align="left">
+        Set this variable to change the options assigned to the assembler when assembling vertex shader assembly language files (VSH files). <br/> If you specify the <CODE>-I</CODE> or <CODE>-O</CODE> options, use the respective build options. <br/><br/>  <font color="#ff0000">Although currently nothing is set by default, use the <CODE>+=</CODE> operator to specify additional options.</font><br/> <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> <strong style="color:#FF6633">Default: None</strong>
+      </td>
+    </tr>
+    <tr bgcolor="#CCCCFF">
+      <th align="left"><a name="SHADER_LDFLAGS"><CODE>SHADER_LDFLAGS</CODE></a></th>
+      <td align="left">
+        Set this variable when you want to change the options passed to the vertex shader linker. <br/> If you specify the <CODE>-I</CODE> or <CODE>-O</CODE> options, use the respective build options. <br/><br/>  <font color="#ff0000">Options are set in this variable by default. Use the <CODE>+=</CODE> operator to specify additional options. </font><br/>  <font color="#ff0000">You must configure this variable between the <CODE>include</CODE> statements for <CODE>commondefs</CODE> and <CODE>modulerules</CODE>.</font><br/><br/> <strong style="color:#FF6633">Default: -M</strong>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<h2>3. <a name="macro">Macros</a></h2>
+This section describes the C/C++ macros defined by the CTR-SDK. <br /> These macros can access values inside source code. They are used even inside CTR-SDK to switch various features. <br /><br />
+
+<table border="1" width="100%" cellspacing="0" cellpadding="2">
+  <COL span="1" width="160">
+  <tbody>
+    <tr bgcolor="#CCFFCC">
+      <th align="center"><strong>Macros</strong></th>
+      <td align="center"><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <th align="left"><a name="NN_BUILD_DEVELOPMENT"><CODE>NN_BUILD_DEVELOPMENT</CODE> </a></th>
+      <td align="left">
+        This macro is defined when building the image specified by <a href="#TARGET_PROGRAM"><CODE>TARGET_PROGRAM</CODE></a> using the <CODE>Development</CODE> build type. <br/>  Note that this macro is not defined when building an image specified by <a href="#TARGET_LIBRARY"><CODE>TARGET_LIBRARY</CODE></a>. <br/><br/> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="NN_BUILD_RELEASE"><CODE>NN_BUILD_RELEASE</CODE> </a></th>
+      <td align="left">
+        This macro is defined when building the image specified by <a href="#TARGET_PROGRAM"><CODE>TARGET_PROGRAM</CODE></a> using the <CODE>Release</CODE> build type. <br/>  Note that this macro is not defined when building an image specified by <a href="#TARGET_LIBRARY"><CODE>TARGET_LIBRARY</CODE></a>. <br/><br/> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="NN_BUILD_VERBOSE"><CODE>NN_BUILD_VERBOSE</CODE> </a></th>
+      <td align="left">
+        This macro is defined when making builds using the <CODE>Debug</CODE> or <CODE>Development</CODE> build type. <br /><br /> 
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="NN_EFFORT_FAST"><CODE>NN_EFFORT_FAST</CODE> </a></th>
+      <td align="left">
+        This macro is defined when making builds using the &quot;<CODE>fast</CODE>&quot; optimization type. <br /><br />
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="NN_EFFORT_SMALL"><CODE>NN_EFFORT_SMALL</CODE> </a></th>
+      <td align="left">
+        This macro is defined when making builds using the &quot;<CODE>small</CODE>&quot; optimization type. <br /><br />
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="NN_SWITCH_DISABLE_DEBUG_PRINT"><CODE>NN_SWITCH_DISABLE_DEBUG_PRINT</CODE> </a></th>
+      <td align="left">
+        This macro is defined when making builds using the <CODE>Release</CODE> build type if <CODE>false</CODE> has been specified for <a href="#DEBUG_PRINT"><CODE>DEBUG_PRINT</CODE></a>, or if <a href="#DEBUG_PRINT"><CODE>DEBUG_PRINT</CODE></a> has not been specified.
+      </td>
+    </tr>
+    <tr>
+      <th align="left"><a name="NN_SWITCH_DISABLE_ASSERT_WARNING"><CODE>NN_SWITCH_DISABLE_ASSERT_WARNING</CODE> </a></th>
+      <td align="left">
+        This macro is defined when making builds using the <CODE>Release</CODE> build type if <CODE>false</CODE> has been specified for <a href="#ASSERT_WARNING"><CODE>ASSERT_WARNING</CODE></a>, or if <a href="#ASSERT_WARNING"><CODE>ASSERT_WARNING</CODE></a> has not been specified.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+
+<h2>4. <a name="omakefile">OMakefile</a></h2>
+Normally, projects that use <CODE>OMake</CODE> have an <CODE>OMakefile</CODE> in each directory and <CODE>OMakeroot</CODE> in the project's root directory. General build settings are specified in <CODE>OMakeroot</CODE>, and build parameters specific to each subdirectory are specified in each <CODE>OMakefile</CODE>. <br/><br/>  This approach is also taken by the Sample Demos package in CTR-SDK: There is an <CODE>OMakefile</CODE> in each directory and an <CODE>OMakeroot</CODE> directly under <CODE>SampleDemos</CODE>. The <CODE>OMakefile</CODE> files include <CODE>modulerules</CODE> (build rules), while <CODE>OMakeroot</CODE> includes <CODE>commondefs</CODE> (general build options). <br/><br/>  <B>Note:</B> The following description assumes that your project has the same structure as <CODE>SampleDemos</CODE>. <br/><br/>  Start by describing the minimum settings needed to build an application.
+<h3>4.1 <a name="must_setting">Required Settings for Creating Applications</a></h3>
+Required variables: <CODE><a href="#SUPPORTED_TARGETS">SUPPORTED_TARGETS</a></CODE>, <CODE><a href="#SOURCES">SOURCES</a></CODE>, <CODE><a href="#TARGET_PROGRAM">TARGET_PROGRAM</a></CODE> 
+<pre>
+SUPPORTED_TARGETS = CTR-TS.Process.MPCore.*    # Target both fast and small builds.
+
+SOURCES[]         = main.cpp                   # Build the source file &quot;main.cpp.&quot;
+
+TARGET_PROGRAM    = test                       # The name of the image to generate is &quot;test.&quot;
+
+
+#---- In general, do not change the following line unless you want to define your own build rules.
+include $(ROOT_OMAKE)/modulerules    # Include modulerules.
+
+build: $(DEFAULT_TARGETS)            # Configure the rule to run when building.
+</pre><br/>
+<h3>4.2 <a name="various_setting">Settings for Specific Uses</a></h3>
+This section describes how to write an <CODE>OMakefile</CODE>. It is based on a specific real-world scenario. <br/> <B>Note:</B> This code is generally placed before the <CODE>include</CODE> statement for <CODE>modulerules</CODE> in <a href="#must_setting">Required Settings for Creating Applications</a>. <br/><br/> 
+<h4>■<a name="master_setting">Settings Required to Create Applications for Master Submission</a></h4>
+Required variables: <CODE><a href="#TITLE">TITLE</a></CODE>, <CODE><a href="#ROMFS_ROOT">ROMFS_ROOT</a></CODE>, <CODE><a href="#CTR_BANNER">CTR_BANNER</a></CODE>, <CODE><a href="#CTR_ICON">CTR_ICON</a></CODE>, <CODE><a href="#ROM_SPEC_FILE">ROM_SPEC_FILE</a></CODE>, <CODE><a href="#DESCRIPTOR">DESCRIPTOR</a></CODE> 
+<pre>
+#---- TITLE and ROMFS_ROOT can also be specified in the RSF file.
+TITLE             = CtrApp     # Specify the title of the application.
+ROMFS_ROOT        = ./romfs    # Specify the ROMFS root path.
+
+#---- CTR_BANNER and CTR_ICON can also be specified in the BSF file using CTR_BANNER_SPEC.
+CTR_BANNER        = $(CTRSDK_ROOT)/resources/banner/Default.bnr          # Specify the banner file.
+CTR_ICON          = $(CTRSDK_ROOT)/resources/banner/Default.icn          # Specify the icon file.
+
+
+ROM_SPEC_FILE     = $(CTRSDK_ROOT)/resources/specfiles/Application.rsf   # Specify the RSF file.
+DESCRIPTOR        = $(CTRSDK_ROOT)/resources/specfiles/Application.desc  # Specify the DESC file.
+</pre>
+<h4>■<a name="dlp_setting">Settings Required to Create Applications for Download Play</a></h4>
+Required variables: <CODE><a href="#CHILD_APPS">CHILD_APPS</a></CODE>, <CODE><a href="#CTR_APPTYPE">CTR_APPTYPE</a></CODE>, <CODE><a href="#ROM_SPEC_FILE">ROM_SPEC_FILE</a></CODE>, <CODE><a href="#DESCRIPTOR">DESCRIPTOR</a></CODE>, <CODE><a href="#CTR_ICON">CTR_ICON</a></CODE><br/><br/> Parent
+<pre>
+CHILD_APPS[]      = ../Child/images/CTR-TS.Process.MPCore.fast/Release/Child.cia  # Specify child programs.
+</pre>
+Child
+<pre>
+CTR_APPTYPE       = NAND
+CTR_ICON          = Child.icn                                         # Specify the child icon.
+
+ROM_SPEC_FILE     = Child.rsf                                         # Specify UniqueId and ChildIndex in the child RSF file.
+DESCRIPTOR        = $(CTRSDK_ROOT)/resources/specfiles/DlpChild.desc  # Specify the DESC file for the children.
+</pre>
+<h4>■<a name="sdapi_setting">Settings Required to Create Downloadable Applications</a></h4>
+Required variables: <CODE><a href="#CTR_APPTYPE">CTR_APPTYPE</a></CODE>, <CODE><a href="#MANUAL_DIR">MANUAL_DIR</a></CODE> 
+<pre>
+CTR_APPTYPE       = SD
+MANUAL_DIR        = ./manual    # Specify the directory where the e-manual is stored.
+</pre>
+<h4>■<a name="buildtype_setting">Branching Conditions by Build Type</a></h4>
+Required variables: <CODE><a href="#TARGET_BUILDTYPES">TARGET_BUILDTYPES</a></CODE><br/><br/>The following example illustrates how to create a <CODE>Release</CODE> build only in the <CODE>test</CODE> directory. <br/> 
+<pre>
+if $(equal $(filter Release,$(TARGET_BUILDTYPES)),Release)
+    .SUBDIRS: $(exist-dirs test)
+</pre>
+
+  <hr /><p>CTR-06-0205-011-B<br />CONFIDENTIAL</p></body>
+</html>

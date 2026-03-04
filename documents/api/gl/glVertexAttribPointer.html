@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glVertexAttribPointer</title>
+  </head>
+  <body>
+    <h1>glVertexAttribPointer Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glVertexAttribPointer(
+     GLuint index,
+     GLint size,
+     GLenum type,
+     GLboolean normalized,
+     GLsizei stride,
+     const void * ptr
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>index</th>
+          <td>Vertex attribute index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Number of vertex elements.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>type</th>
+          <td>Vertex data type.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>normalized</th>
+          <td>Specifies whether the attributes are normalized.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>stride</th>
+          <td>Stride size, in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>ptr</th>
+          <td>Pointer to vertex data (when a vertex buffer object with name 0 is bound).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets a vertex attribute array.</p><P>You can set <span class="argument">index</span> to a value that is greater than or equal to 0 and at least one less than the value that can be obtained by <tt>glGetIntegerv</tt> with <tt>GL_MAX_VERTEX_ATTRIBS</tt> specified.</P><P>Set <span class="argument">size</span> to the number of components: either 1, 2, 3, or 4.</P><P>Set <span class="argument">type</span> to the data type: <tt>GL_FLOAT</tt>, <tt>GL_SHORT</tt>, <tt>GL_BYTE</tt>, or <tt>GL_UNSIGNED_BYTE</tt>. You cannot specify <tt>GL_UNSIGNED_SHORT</tt> or <tt>GL_FIXED</tt> from the OpenGL ES 2.0 standard.</P><P>You must specify <tt>GL_FALSE</tt> for the <span class="argument">normalized</span> argument.</P><P>When vertex buffer objects are not in use, set <span class="argument">ptr</span> to a pointer to vertex data. When vertex buffer objects are in use, set <span class="argument">ptr</span> to the offset of the region to start using within the vertex data currently bound to <tt>GL_ARRAY_BUFFER</tt>.  You must set <span class="argument">ptr</span> to an address or offset value that is aligned to the type specified by <span class="argument">type</span>.</P><P>Set <span class="argument">stride</span> to the byte offset between consecutive vertex data. When 0 is specified, vertex data is handled as if there are no gaps between it.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">index</span> or <span class="argument">size</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">stride</span> argument was set to a negative value.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">type</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">normalized</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source index、sizeに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 strideに負の値を指定した場合エラーGL_INVALID_VALUEを生成します。 typeに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 normalizedに不正な値を指定した場合エラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/11</dt>
+        <dd><item xmlns="">Revised description for the normalized argument.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <title>Filter</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/gd/CTR/System/Overview.html">System</a>::<a href="../../../../../nn/gd/CTR/System/Debug/Overview.html">Debug</a>::Filter Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum Filter;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>FILTER_NONE</th>
+          <td>This filter does nothing. It is provided so that users can disable all filters.</td>
+        </tr>
+        <tr>
+          <th>FILTER_TEXTURE_8X8</th>
+          <td>Using this filter sets causes <code><a href="../../../../../nn/gd/Overview.html">gd</a></code> to set all texture units to a unique 8x8 texture. The 8x8 texture used for this filter is allocated in FCRAM.</td>
+        </tr>
+        <tr>
+          <th>FILTER_TEXTURE_CUSTOM</th>
+          <td>This filter sets all texture units to a custom texture. This custom texture can be defined by using the <code>System::debug::SetCustomTexture</code> function. If this filter is set without defining a custom texture, an 8x8 texture (used by the <code>System::debug::FILTER_TEXTURE_8X8</code> filter) is used instead.</td>
+        </tr>
+        <tr>
+          <th>FILTER_SAMPLER_STATE_FILTER_NEAREST_MIPMAP_NEAREST</th>
+          <td>This filter sets point sampling between texture mipmap levels and texture filtering.</td>
+        </tr>
+        <tr>
+          <th>FILTER_SAMPLER_STATE_FILTER_LINEAR_MIPMAP_NEAREST</th>
+          <td>This filter sets the <code><a href="../../../../../nn/gd/Overview.html">gd</a></code> sample state to use the nearest filter for mipmap level sampling and the linear filter for texel sampling.</td>
+        </tr>
+        <tr>
+          <th>FILTER_VIEWPORT_1X1</th>
+          <td>This filter sets a 1x1 viewport.</td>
+        </tr>
+        <tr>
+          <th>FILTER_SIMPLE_COMBINER</th>
+          <td>This <code><a href="../../../../../nn/gd/Overview.html">gd</a></code> filter is for the simple combiner configuration used to output all pixels as a fixed green color (0, 255, 0).</td>
+        </tr>
+        <tr>
+          <th>FILTER_DISABLE_BLENDING</th>
+          <td>This filter disables blending.</td>
+        </tr>
+        <tr>
+          <th>FILTER_DISABLE_DEPTH_STENCIL_TEST</th>
+          <td>This filter disables the depth and stencil tests.</td>
+        </tr>
+        <tr>
+          <th>FILTER_DISABLE_ALPHA_TEST</th>
+          <td>This filter disables the alpha test.</td>
+        </tr>
+        <tr>
+          <th>FILTER_LIGHTING_STAGE_1_LIGHT_MAX</th>
+          <td>This filter sets the maximum number of lights to one. If more than one light is enabled, the light enabled first is used.</td>
+        </tr>
+        <tr>
+          <th>FILTER_LIGHTING_STAGE_SIMPLE_LAYER_CONFIGURATION</th>
+          <td>This filter sets the light stage to a simple configuration to minimize the number of cycles.</td>
+        </tr>
+        <tr>
+          <th>FILTER_DISABLE_DRAW</th>
+          <td>This filter disables drawing.</td>
+        </tr>
+        <tr>
+          <th>FILTER_VISUALIZE_OVERDRAW</th>
+          <td>This filter is used to visualize overdraw. When this filter is used, <code><a href="../../../../../nn/gd/Overview.html">gd</a></code> sets the combiner so that both the fixed RGBA color (15,15,15,255) and the additional blend state can both be viewed. The more overdraw, the more pixels appear white. By combining this filter with <code>FILTER_DISABLE_DEPTH_STENCIL_TEST</code>, you can check for overdraw pixels destroyed (or not destroyed) by the depth test.</td>
+        </tr>
+        <tr>
+          <th>FILTER_DISABLE_CULLING</th>
+          <td>This filter disables culling.</td>
+        </tr>
+        <tr>
+          <th>FILTER_ENABLE_CULLING_CLOCKWISE</th>
+          <td>This filter sets the culling mode to <bold>clockwise</bold>.</td>
+        </tr>
+        <tr>
+          <th>FILTER_ENABLE_CULLING_COUNTERCLOCKWISE</th>
+          <td>This filter sets the culling mode to <bold>counterclockwise</bold>.</td>
+        </tr>
+        <tr>
+          <th>FILTER_RESERVED_MAX_U32</th>
+          <td>
+        </td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This enumerated type is used by the <code><a href="../../../../../nn/gd/CTR/System/Debug/SetFilter.html">System::Debug::SetFilter</a></code> function to specify the filters to use.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

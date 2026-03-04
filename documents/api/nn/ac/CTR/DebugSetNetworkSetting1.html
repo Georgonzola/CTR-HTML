@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>DebugSetNetworkSetting1</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/ac/Overview.html">ac</a>::<a href="../../../nn/ac/CTR/Overview.html">CTR</a>::DebugSetNetworkSetting1 Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> DebugSetNetworkSetting1(
+     const <a href="../../../nn_types/u8.html">u8</a> ssid[],
+     <a href="../../../nn_types/u8.html">u8</a> ssidLength,
+     <a href="../../../nn/ac/CTR/SecurityMode.html">SecurityMode</a> securityMode,
+     const <a href="../../../nn_types/u8.html">u8</a> key[],
+     <a href="../../../nn_types/u8.html">u8</a> keyLen
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>ssid[]</th>
+          <td>Access point SSID.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>ssidLength</th>
+          <td>Length of the access point SSID.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>securityMode</th>
+          <td>Encryption mode of the access point.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>key[]</th>
+          <td>Encryption key of the access point.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>keyLen</th>
+          <td>Length of the access point's encryption key.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the call completed successfully.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td>Failed to allocate memory.</td>
+        </tr>
+        <tr>
+          <th>ResultDebugOnly</th>
+          <td>Indicates that debug mode was disabled.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure for other reasons.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures network configuration 1.</p><p>The settings are immediately applied to NAND memory. <br /><br /><bold>Note:</bold> This function is provided for debugging purposes. It only works in Debug mode. <br /><br />
+ If you want to connect to the access point by using a setting specified from the product application, contact Nintendo support at <code>support.com</code>. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/02/19</dt>
+        <dd><item xmlns="">Added information about return values when debug mode is disabled</item><br />
+        </dd>
+        <dt>2012/12/20</dt>
+        <dd><item xmlns="">Added information for connecting to the AP from the product application.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

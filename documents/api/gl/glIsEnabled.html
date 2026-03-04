@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glIsEnabled</title>
+  </head>
+  <body>
+    <h1>glIsEnabled Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL GLboolean GL_APIENTRY glIsEnabled(
+     GLenum cap
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>cap</th>
+          <td>Name of the feature to check.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>GL_TRUE</code> if the feature is enabled. Otherwise, returns <code>GL_FALSE</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Checks whether special GL features are enabled.</p><P>Returns <tt>GL_TRUE</tt> if it is enabled and <tt>GL_FALSE</tt> if it is disabled.</P><P>You can set <tt>cap</tt> to the following values.<TABLE><TR><TH>GL_COLOR_LOGIC_OP</TH><TD>Determines whether logical operations are enabled for pixels.</TD></TR><TR><TH>GL_BLEND</TH><TD>Determines whether blend features are enabled.</TD></TR><TR><TH>GL_DEPTH_TEST</TH><TD>Determines whether depth tests are enabled.</TD></TR><TR><TH>GL_STENCIL_TEST</TH><TD>Determines whether stencil tests are enabled.</TD></TR><TR><TH>GL_SCISSOR_TEST</TH><TD>Determines whether scissoring is enabled.</TD></TR><TR><TH>GL_CULL_FACE</TH><TD>Determines whether culling is enabled.</TD></TR><TR><TH>GL_POLYGON_OFFSET_FILL</TH><TD>Determines whether polygon offsets are enabled.</TD></TR><TR><TH>GL_EARLY_DEPTH_TEST_DMP</TH><TD>Determines whether early depth tests are enabled.</TD></TR><TR><th>GL_DEPTH_STENCIL_COPY_DMP</th><TD>Determines whether the depth stencil copy feature is enabled.</TD></TR></TABLE><!-- source capにはGL_COLOR_LOGIC_OP、GL_BLEND、GL_DEPTH_TEST、GL_EARLY_DEPTH_TEST_DMP、 GL_STENCIL_TEST、GL_SCISSOR_TEST、GL_POLYGON_OFFSET_FILL、GL_CULL_FACEを指定します。GL_COLOR_LOGIC_OPはピクセルの論理演算の有効・無効を確認します。 GL_BLENDはブレンド機能の有効・無効を確認します。 GL_DEPTH_TESTはデプステストの有効・無効を確認します。 GL_STENCIL_TESTはステンシルテストの有効・無効を確認します。 GL_SCISSOR_TESTはシザリングの有効・無効を確認します。 GL_CULL_FACEはカリングの有効・無効を確認します。 GL_POLYGON_OFFSET_FILLはポリゴンオフセットの有効・無効を確認します。 GL_EARLY_DEPTH_TEST_DMPはアーリーデプステストの有効・無効を確認します。 --></P><P>You cannot specify <tt>GL_EARLY_DEPTH_TEST_DMP</tt> with POD.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">cap</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source capに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/12</dt>
+        <dd><item xmlns="">Added description of GL_DEPTH_STENCIL_COPY_DMP for the depth stencil copy feature.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

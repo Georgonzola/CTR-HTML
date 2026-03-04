@@ -1,0 +1,238 @@
+﻿<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ctr_VertexCacheSimulator </title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size		: 150%;
+  font-family		: Arial;
+  border-bottom-width	: 5px;
+  border-bottom-style	: solid;
+  border-bottom-color	: #CD202C;
+  padding-bottom		: 1px;
+  margin-bottom		: 20px;
+  letter-spacing		: normal;
+  font-weight		: bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+h3 {
+    font-weight     : bold;
+    font-size       : 120%;
+    border-style    : none none solid solid;
+    border-width    : 0px 0px 2px 2px;
+    border-color    : #CD202C;
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+CODE {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+}
+table {
+  margin-top        : 2pt;
+  margin-bottom     : 2pt;
+  margin-left       : 0pt;
+  margin-right      : 0pt;
+  padding-left      : 0pt;
+  padding-right     : 0pt;
+  position          : relative;
+  left              : 12px;
+  font-family       : Arial;
+  font-size         : 10pt;
+  border-style      : none none none none;
+}
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+p.code {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+  background            : #e8f4f4;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+<h1>ctr_VertexCacheSimulator</h1>
+
+<h2>Contents</h2>
+<ul style='list-style-type: none'>
+    <li>1. <a href="#intro">Introduction</a></li>
+    <li>2. <a href="#usage">How to Use</a>
+        <ul style='list-style-type: none'>
+            <li>2.1 <a href="#command">Commands</a></li>
+            <li>2.2 <a href="#input_file">Input Files</a></li>
+            <li>2.3 <a href="#option">Options</a></li>
+        </ul>
+    </li>
+    <li>3. <a href="#usecase">Case</a></li>
+    <li>4. <a href="#history">Revision History</a></li>
+</ul>
+
+<h2><a name="intro">Introduction</a></h2>
+<P>
+<CODE>ctr_VertexCacheSimulator</CODE> simulates the vertex cache of the GPU built into the CTR.
+</P>
+
+<h2><a name="usage">How to Use</a></h2>
+<h3><a name="command">Commands</a></h3>
+<p class="code">
+% ctr_VertexCacheSimulator32 &lt;input filename&gt; [options...]
+</p>
+
+<p class="first_ja">
+One filename for simulation target must be provided as the input file. Then, option specifications can be made. Option specifications are in no particular order.<br /> 
+</p>
+
+<h3><a name="input_file">Input Files</a></h3>
+<p class="first_ja">
+Specify the files to be input to &lt;input filename&gt;.<br />  Specifies the binary file of the <CODE>unsigned short</CODE>-type index array.
+</p>
+
+<h3><a name="option">Options</a></h3>
+<p class="first_ja">
+The following options can be specified in place of [options...].<br /> 
+</p>
+
+<div class="table">
+<table border="1" summary="options">
+<thead>
+<tr>
+<th align="center">Options</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td align="center">-s&lt;number of indices&gt;</td>
+<td align="center">Checks the number of indices.<br />  Specify a decimal value for the argument.<br />   And error is output if the specified number of indices and the number of indices in the input data differ.<br />  There is no error check if this option is not specified.</td>
+</tr>
+<tr>
+<td align="center">-m&lt;maximum index value&gt;</td>
+<td align="center">Checks the maximum index.<br />  Specify a decimal value for the argument.<br/>  An error is output if an index exceeding the value of the specified maximum index is discovered in the indices within the input data.<br />  There is no error check if this option is not specified.</td>
+</tr>
+<tr>
+<td align="center">-short_info_result</td>
+<td align="center">Outputs only the value of the cache hit-rate results.</td>
+</tr>
+<tr>
+<td align="center">-? or -help</td>
+<td align="center">Displays help.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="usecase">Case</a></h2>
+<p class="code">
+    C:\&gt;ctr_VertexCacheSimulator32.exe -?<br />  C:\&gt;ctr_VertexCacheSimulator32.exe index.bin<br /> C:\&gt;ctr_VertexCacheSimulator32.exe index.bin -s180<br /> C:\&gt;ctr_VertexCacheSimulator32.exe index.bin -m300<br /> C:\&gt;ctr_VertexCacheSimulator32.exe index.bin -m300 -s180<br /> C:\&gt;ctr_VertexCacheSimulator32.exe index.bin -m300 -s180 -short_info_result<br /> 
+</p>
+
+<h3><a name="result">Result Output</a></h3>
+<p>
+The output results are as indicated below. <br /> 
+</p>
+<p class="code">
+Input index count: xxx     (Index count of the input index array)<br /> Cache hit count:   xxx     (Number of vertices that had a cache hit)<br /> 
+</p>
+
+
+<h2><a name="history">Revision History</a></h2>
+    <dl class="history">
+      <dt>2013/01/28</dt>
+      <dd>Initial version.<br /> 
+      </dd>
+    </dl>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

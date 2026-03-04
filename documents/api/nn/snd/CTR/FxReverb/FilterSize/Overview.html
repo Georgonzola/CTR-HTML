@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::snd::CTR::FxReverb::FilterSize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/snd/CTR/FxReverb/Overview.html">FxReverb</a>::FilterSize Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct FilterSize
+{
+   <a href="../../../../../nn_types/u32.html">u32</a> m_Comb0;
+   <a href="../../../../../nn_types/u32.html">u32</a> m_Comb1;
+   <a href="../../../../../nn_types/u32.html">u32</a> m_AllPass;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This structure represents the filter size.</p><p><code>m_Comb0</code> and <code>m_Comb1</code> represent the size of comb filters used on back-end reverberations. (For more information, see the description in <code><a href="../../../../../nn/snd/CTR/FxReverb/Param/Overview.html">Param</a></code>.)</p><p>If this value is small, only a specific frequency is prominent and the sound becomes metallic. The initial value of <code>m_Comb0</code> is <code>19 * 160</code>, and the initial value of <code>m_Comb1</code> is <code>23 * 160</code>.</p><p><code>m_AllPass</code> indicates the size (delay length) of the full band pass filter applied to subsequent reverb sounds. When this value is large, the subsequent reverb sounds can be more detailed. The initial value is <code>13 * 160</code>.</p><p>160 originates in the number of samples processed in one audio frame (about 5 milliseconds). As for the initial values, such as 19, 23, 13, and so on, a value setting that is relatively prime is preferable.</p><p>If you are setting values that are not coprime, periods appear more easily in the reverb sound.</p><p>When you change these values while an effect is executing, noise may occur.</p><p><code>m_Combo0</code>, <code>m_Comb1</code>, and <code>m_AllPath</code> must be set to values greater than 0. If <code>0</code> is specified and the <code><a href="../../../../../nn/snd/CTR/FxReverb/SetParam.html">SetParam</a></code> function is called, operations halt on an assert failure in Debug and Development builds.</p><p>The <code><a href="../../../../../nn/snd/CTR/FxReverb/SetParam.html">SetParam</a></code> function returns <code>false</code> in Release builds.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_Comb0</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u32.html">u32</a></td>
+            <td>Size of comb filter 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_Comb1</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u32.html">u32</a></td>
+            <td>Size of comb filter 1.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_AllPass</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u32.html">u32</a></td>
+            <td>Coefficient for the full band pass filter.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/snd/CTR/FxReverb/FilterSize/FilterSize.html">FilterSize</a>
+            </th>
+            <td>Constructor.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

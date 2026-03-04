@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetDirection</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Light/Overview.html">Light</a>::SetDirection Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetDirection(
+     <a href="../../../../nn_types/f32.html">f32</a> X,
+     <a href="../../../../nn_types/f32.html">f32</a> Y,
+     <a href="../../../../nn_types/f32.html">f32</a> Z
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>X</th>
+          <td>Sets the x-coordinate of the light source.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>Y</th>
+          <td>Sets the y-coordinate of the light source.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>Z</th>
+          <td>Sets the z-coordinate of the light source.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This function is an immediate function. It sets the light direction. You must specify <code>SOURCE_TYPE_DIRECTIONAL</code> for the light type set using <code><a href="../../../../nn/gd/CTR/Light/SetLightType.html">SetLightType</a></code>. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer. )<br /><bold>Note:</bold> This function sets the same registers as the <code><a href="../../../../nn/gd/CTR/Light/SetDirection.html">Light::SetDirection</a></code> function.</p><p>The following format is used for the data inserted into the command buffer. <br />
+ 0x00000000 (Y &lt;&lt; 16) | X <br />
+ 0x00000004 [Reserved] <br />
+ 0x00000008 Z <br />
+ 0x0000000c [Reserved] <br />
+ X, Y, and Z use the 16-bit floating point format. This function converts from a 32-bit floating point format to a 16-bit floating point format.</p><!-- write here --></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../../nn/gd/CTR/Utils/Float32ToFloat16.html">Utils::Float32ToFloat16</a><br /><a href="../../../../nn/gd/CTR/Light/SetPosition.html">SetPosition</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxStopCmdlistSave</title>
+  </head>
+  <body>
+    <h1>nngxStopCmdlistSave Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxStopCmdlistSave(
+     GLuint * bufferoffset,
+     GLsizei * buffersize,
+     GLuint * requestid,
+     GLsizei * requestsize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>bufferoffset</th>
+          <td>Offset to the starting save address for the 3D command buffer, in bytes.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>buffersize</th>
+          <td>Size of the 3D command buffer to save, in bytes.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>requestid</th>
+          <td>ID of the command request to start saving.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>requestsize</th>
+          <td>The number of command requests saved.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Stops saving the command list object.</p><P>Stops saving the current command list object.  When you stop saving, the following information is returned: <span class="argument">bufferoffset</span> is the offset (in bytes) to the address at which you started saving the 3D command buffer; <span class="argument">buffersize</span> is the number of bytes saved in the 3D command buffer; <span class="argument">requestid</span> is the ID at which you started saving command requests; and <span class="argument">requestsize</span> is the number of command requests saved.  Reuse command lists with this information.</P><P>The offset (in bytes) to the address at which saving began is returned in <span class="argument">bufferoffset</span>. Add this offset to the starting address of the 3D command buffer to find the actual address at which the 3D command buffer started being saved.  To get the starting address of the 3D command buffer maintained by the command list that is currently bound, call the <tt><a href="../nn_gx/nngxGetCmdlistParameteri.html">nngxGetCmdlistParameteri</a></tt> function, specifying NN_GX_CMDLIST_TOP_BUFADDR for <span class="argument">pname</span>.</P><P>Calling this function does not cause a split command to be generated in the 3D command buffer.  Call the <tt><a href="../nn_gx/nngxSplitDrawCmdlist.html">nngxSplitDrawCmdlist</a></tt> function explicitly if a split command is required.  Command requests for 3D execution commands may not be saved at all if the 3D command buffer has not been split.  If the 3D command buffer does not have any split commands, you must copy it to reuse commands.</P><P>Calls to this function sometimes cause dummy commands to be generated in the 3D command buffer for padding.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_8036_DMP</TH><TD>Saving the command list has not started.</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxStartCmdlistSave.html">nngxStartCmdlistSave</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added See Also section.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

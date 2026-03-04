@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::Event</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::Event Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/os.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Event : public nn::os::EventBase</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for handling events. Events are synchronization objects that send notification that an event has occurred.</p><p>Generally, use the <code><a href="../../../nn/os/LightEvent/Overview.html">nn::os::LightEvent</a></code> class instead of <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code>. The <code><a href="../../../nn/os/LightEvent/Overview.html">nn::os::LightEvent</a></code> class is better than the <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> class in most respects, except that it cannot wait for multiple synchronization objects at the same time.</p><p>An event has two possible states: signaled and non-signaled. The <code>Wait</code> operation for an <code><a href="../../../nn/os/Event/Overview.html">Event</a></code> waits until the event enters the signaled state.</p><p>There are two types of events: those that are manually reset and those that are automatically reset. This characteristic can be configured by parameters during initialization.</p><p>Manually resetting events always remain in the signaled state from the time they are signaled with <code><a href="../../../nn/os/Event/Signal.html">Signal</a></code> until <code><a href="../../../nn/os/Event/ClearSignal.html">ClearSignal</a></code> is called. When such events are in the signaled state, all <code>Wait</code> operations waiting for them are released.</p><p>When an automatically resetting event is signaled by <code><a href="../../../nn/os/Event/Signal.html">Signal</a></code>, only one of the threads waiting on it is released: the thread with the highest priority among those threads that can be released. If more than one such thread has the highest priority, only one of them is released. No other threads are released.</p><p>You can create up to 32 <code><a href="../../../nn/os/Event/Overview.html">Event</a></code> objects. Note also that different functions might use up resources that count against this limit.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Event/Event.html">Event</a>
+            </th>
+            <td>Constructs and initializes an event.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Event/Initialize.html">Initialize</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Event/TryInitialize.html">TryInitialize</a>
+            </th>
+            <td>Tries to initialize an event.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Event/Finalize.html">Finalize</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Event/~Event.html">~Event</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Event/Signal.html">Signal</a>
+            </th>
+            <td>Puts the event in the signal state.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Event/Wait.html">Wait</a>
+            </th>
+            <td>Waits for the event to enter the signal state.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Event/ClearSignal.html">ClearSignal</a>
+            </th>
+            <td>Clears an event manually.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Event/GetCurrentCount.html">GetCurrentCount</a>
+            </th>
+            <td>Gets the number of <code><a href="../../../nn/os/Event/Overview.html">Event</a></code> objects that are currently being used.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Event/GetMaxCount.html">GetMaxCount</a>
+            </th>
+            <td>Gets the maximum number of <code><a href="../../../nn/os/Event/Overview.html">Event</a></code> objects being used simultaneously.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<a href="../../../nn/os/HandleObject/Overview.html">nn::os::HandleObject</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../nn/os/WaitObject/Overview.html">nn::os::WaitObject</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>nn::os::InterruptEvent</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>nn::os::EventBase</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::os::Event</b>
+      </p>
+    </div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../nn/os/Semaphore/Overview.html">nn::os::Semaphore</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

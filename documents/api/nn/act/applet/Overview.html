@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::act::applet</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/act/Overview.html">act</a>::applet Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Library namespace for using the login <a href="../../../nn/act/applet/Overview.html">applet</a>.</p><p>You must call the <code><a href="../../../nn/act/Initialize.html">nn::act::Initialize</a></code> function in advance and initialize the library to use any of the functions within the <a href="../../../nn/act/applet/Overview.html">nn::act::applet</a> namespace. In addition, when using the function for getting a token, the application must explicitly connect to a wireless access point. <br /><br />
+ For information about using this function, see the section in the <code><a href="../../../nn/act/Overview.html">nn::act</a></code> namespace that describes how to make API functions that trigger communication. <br /><br />
+ If you run the <code><a href="../../../nn/act/applet/AcquireIndependentServiceTokenV2.html">nn::act::applet::AcquireIndependentServiceTokenV2</a></code> or <code><a href="../../../nn/act/applet/AcquireOlvServiceToken.html">nn::act::applet::AcquireOlvServiceToken</a></code> function, the login <a href="../../../nn/act/applet/Overview.html">applet</a> runs, and processes such as password input and token acquisition that occur in conjunction with account authentication are handled by the function. The login <a href="../../../nn/act/applet/Overview.html">applet</a> continues to run until the series of account authentication and token acquisition processes end. <br /><br />
+ When the token acquisition function fails, the return value's result object is passed to the <code><a href="../../../nn/act/GetErrorCode.html">nn::act::GetErrorCode</a></code> function to get the network error code. In addition to displaying the network error code in the error display <a href="../../../nn/act/applet/Overview.html">applet</a>, terminate the application's token acquisition sequence. <br />
+ A <code><a href="../../../nn/act/ResultCanceled/Overview.html">nn::act::ResultCanceled</a></code> object, however, indicates that the user explicitly canceled the token acquisition sequence. If this object is returned, terminate the application's token acquisition sequence without displaying the error in the error display <a href="../../../nn/act/applet/Overview.html">applet</a>. The application has no need to individually handle errors other than <code><a href="../../../nn/act/ResultCanceled/Overview.html">nn::act::ResultCanceled</a></code>, but the application can optionally handle the <code><a href="../../../nn/act/ResultApplicationUpdateRequired/Overview.html">nn::act::ResultApplicationUpdateRequired</a></code> result to proceed to the sequence that performs a check for the download of patches.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Login Applet</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/act/applet/AcquireEcServiceToken.html">AcquireEcServiceToken</a>
+            </th>
+            <td>Gets a service token for an e-commerce service. Currently, this function can be used only to implement features for purchasing service items through an independent server. <br />
+ No parental control checks are performed by this function. Configure the application as needed to implement functionality corresponding to Parental Controls settings. <br /><br />
+ For <emphasis>pEcServiceToken</emphasis>, pass a pointer to a buffer at least as big as <code>NN_ACT_INDEPENDENT_SERVICE_TOKEN_SIZE</code> bytes. <br /><br />
+ This function starts the <a href="../../../nn/act/applet/Overview.html">applet</a>, and blocks for the duration. <br /><br />
+ If the function fails, the value set in the buffer is undefined.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/act/applet/Preload.html">Preload</a>
+            </th>
+            <td>Preloads the login <a href="../../../nn/act/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/act/applet/CancelPreload.html">CancelPreload</a>
+            </th>
+            <td>Cancels the preloading of the login <a href="../../../nn/act/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/act/applet/WaitForPreload.html">WaitForPreload</a>
+            </th>
+            <td>Waits for preloading of the login <a href="../../../nn/act/applet/Overview.html">applet</a> to complete.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/act/applet/IsRegistered.html">IsRegistered</a>
+            </th>
+            <td>Checks whether preloading of the login <a href="../../../nn/act/applet/Overview.html">applet</a> is complete.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/act/applet/AcquireIndependentServiceToken.html">AcquireIndependentServiceToken</a>
+            </th>
+            <td>Gets a service token for an independent service.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/act/applet/AcquireIndependentServiceTokenV2.html">AcquireIndependentServiceTokenV2</a>
+            </th>
+            <td>Gets a service token (version 2) for an independent service.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/act/applet/AcquireOlvServiceToken.html">AcquireOlvServiceToken</a>
+            </th>
+            <td>Gets a service token for the Miiverse.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/11/06</dt>
+        <dd><item xmlns="">Moved usage notes to the <a href="../../../nn/act/Overview.html">nn::act</a> namespace.</item><br /><item xmlns="">Added a description of handling <tt>nn::act::ResultApplicationUpdateRequired</tt>.</item><br />
+        </dd>
+        <dt>2013/08/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

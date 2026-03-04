@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxFilterBlockImage</title>
+  </head>
+  <body>
+    <h1>nngxFilterBlockImage Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxFilterBlockImage(
+     const GLvoid * srcaddr,
+     GLvoid * dstaddr,
+     GLsizei width,
+     GLsizei height,
+     GLenum format
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>srcaddr</th>
+          <td>Address of the source block image to transfer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstaddr</th>
+          <td>Transfer destination address.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Width of the source image to transfer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Height of the source image to transfer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>format</th>
+          <td>Pixel format of the block image.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Issues an antialiasing filter transfer command for a block image.</p><P>These antialias-filter and transfer command requests for block images accumulate in the current command list. <b>Block images</b> are either rendered images or PICA native format textures that are in 8-block addressing format. This operation transfers the image from the address specified in <span class="argument">srcaddr</span> to the address specified in <span class="argument">dstaddr</span> while applying a 2x2 antialias filter. The <span class="argument">srcaddr</span> and <span class="argument">dstaddr</span> addresses must be 8-byte aligned. For <span class="argument">width</span> and <span class="argument">height</span>, specify the dimensions of the transfer source image in pixels.</P><P>For <span class="argument">format</span>, specify one of the following pixel formats.<TABLE><TR><TH>GL_RGBA8_OES</TH><TD>RGBA8888, 32-bit</TD></TR><TR><th>GL_RGB8_OES</th><TD>RGB888, 24-bit</TD></TR><TR><th>GL_RGBA4</th><TD>RGBA4444, 16-bit</TD></TR><TR><th>GL_RGB5_A1</th><TD>RGBA5551, 16-bit</TD></TR><TR><th>GL_RGB565</th><TD>RGB565, 16-bit</TD></TR></TABLE></P><P>Depending on the <span class="argument">format</span>, there are restrictions on the possible settings for <span class="argument">width</span> and <span class="argument">height</span>. These are shown in the table below.<TABLE><TR><TD>format</TD><TD><tt>width</tt></TD><TD><tt>height</tt></TD></TR><TR><TD>GL_RGBA8_OES, GL_RGB8_OES</TD><TD>Must be a value of 64 or larger and a multiple of 64</TD><TD>Must be a value of 64 or larger and a multiple of 16</TD></TR><TR><TD>GL_RGBA4, GL_RGB5_A1, GL_RGB565</TD><TD>Must be a value of 128 or larger and a multiple of 128</TD><TD>Must be a value of 128 or larger and a multiple of 16</TD></TR></TABLE></P><P><tt>srcaddr</tt> and <tt>dstaddr</tt> must be stored in device memory or in VRAM.  If they are not stored in these regions, the Development/Debug builds stop on an assertion and the Release build quits without the addition of a transfer command.</P><P>If the transfer origin and destination regions overlap, the process works normally if <tt>srcaddr</tt> is equal in size or larger than <tt>dstaddr</tt>.  If <tt>srcaddr</tt> is smaller than <tt>dstaddr</tt>, the transfer result might be corrupted. <br /> If the data of either <tt>srcaddr</tt> or <tt>dstaddr</tt> is stored in device memory and will be directly referenced and edited by the CPU, you must use the <tt><a href="../nn_gx/nngxUpdateBufferLight.html">nngxUpdateBufferLight</a></tt> function to perform a cache operation before executing the transfer command. </P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_8068_DMP</TH><TD>0 is bound to the current command list, or the command request queue size is insufficient.</TD></TR><TR><TH>GL_ERROR_8069_DMP</TH><TD><span class="argument">srcaddr</span> or <span class="argument">dstaddr</span> is not 8-byte aligned.</TD></TR><TR><TH>GL_ERROR_806A_DMP</TH><TD><span class="argument">width</span> or <span class="argument">height</span> violate the restrictions imposed upon them by the specified <span class="argument">format</span>.</TD></TR><TR><TH>GL_ERROR_806B_DMP</TH><TD>The <span class="argument">format</span> argument is set to an invalid value.</TD></TR></TABLE></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/05/23</dt>
+        <dd><item xmlns="">Changed the cache operation function from <tt>nngxUpdateBuffer</tt> to <tt>nngxUpdateBufferLight</tt>.</item><br />
+        </dd>
+        <dt>2011/12/08</dt>
+        <dd><item xmlns="">Corrected a mistake about the restriction on values that can be set for <span class="argument">height</span> (changed "multiple of 8" to "multiple of 16").</item><br />
+        </dd>
+        <dt>2011/06/21</dt>
+        <dd><item xmlns="">Added mention of restrictions on the values for <span class="argument">srcaddr</span> and <span class="argument">dstaddr</span>.</item><br />
+        </dd>
+        <dt>2011/06/17</dt>
+        <dd><item xmlns="">Added text about the effect of the relationship between the values for <span class="argument">srcaddr</span> and <span class="argument">dstaddr</span>.</item><br />
+        </dd>
+        <dt>2010/06/09</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

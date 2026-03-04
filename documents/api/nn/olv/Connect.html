@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>Connect</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/olv/Overview.html">olv</a>::Connect Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/olv/Result/Overview.html">nn::olv::Result</a> Connect(
+     <a href="../../nn/olv/ConnectedData/Overview.html">nn::olv::ConnectedData</a> * connectedData,
+     const <a href="../../nn/olv/ConnectParam/Overview.html">nn::olv::ConnectParam</a> * connectParam
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>connectedData</th>
+          <td>The class that stores the connection results.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>connectParam</th>
+          <td>The class that stores the parameters used for the connection.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation. <br />
+ For information about handling the result, see the section about Error Handling or the descriptions of the <code><a href="../../nn/olv/Result/Overview.html">nn::olv::Result</a></code> values. <br /><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultUsageError</th>
+          <td>A usage error.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>A fatal error.</td>
+        </tr>
+        <tr>
+          <th>ResultCanceled</th>
+          <td>Canceled.</td>
+        </tr>
+        <tr>
+          <th>ResultNetworkError</th>
+          <td>A network error.</td>
+        </tr>
+        <tr>
+          <th>ResultServerPermanentError</th>
+          <td>A permanent server error.</td>
+        </tr>
+        <tr>
+          <th>ResultServerTemporaryError</th>
+          <td>A temporary server error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Processes OLV library connections.</p><p>Before calling this function you must use the <code><a href="../../nn/cfg/CTR/IsAgreedEula.html">nn::cfg::CTR::IsAgreedEula</a></code> function and confirm that the user has agreed to the EULA. <br />
+ If the EULA has not been agreed to, this function returns an error. For information about what to do when the EULA has not been agreed to, see the 3DS Guidelines. <br /></p><p>Before calling this function, you must initialize the HTTP library by calling the <code><a href="../../nn/http/Initialize.html">nn::http::Initialize</a></code> function. <br />
+ This function initiates Internet communication, during which time processing is blocked. <br />
+ This function is not thread-safe. Make sure not to execute any OLV library functions or class methods on another thread while calling this function. While this function is being called, you can call the <code><a href="../../nn/olv/Cancel.html">nn::olv::Cancel()</a></code> function from another thread to cancel communication processes. <br /></p><p>This function returns an error if an old service token has been specified for the <emphasis>connectParam</emphasis> parameter. When calling this function or retrying this function, specify the new service token that was just obtained by the <code><a href="../../nn/act/applet/AcquireOlvServiceToken.html">nn::act::applet::AcquireOlvServiceToken</a></code> function. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/08</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

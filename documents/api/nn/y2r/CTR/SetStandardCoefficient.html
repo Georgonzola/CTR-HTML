@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetStandardCoefficient</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/y2r/Overview.html">y2r</a>::<a href="../../../nn/y2r/CTR/Overview.html">CTR</a>::SetStandardCoefficient Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetStandardCoefficient(
+     <a href="../../../nn/y2r/CTR/StandardCoefficient.html">StandardCoefficient</a> no
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>no</th>
+          <td>Specifies the type of the standard conversion coefficients.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the standard conversion coefficients.</p><p>The initial value is not suitable for conversion, so you must specify the appropriate conversion coefficient for your intended purpose.</p><p>To convert the YUV data that is captured by the CTR camera, the most appropriate conversion result can be obtained by using the conversion coefficient obtained by calling the <tt><span>nn::y2r::CTR::nn::camera::CTR::GetSuitableY2rStandardCoefficient</span></tt> function.</p><p>Use <tt>COEFFICIENT_ITU_R_BT_601</tt> if you have used the JPEG library to output in YUV format images that were captured using the CTR system's cameras and encoded using the JPEG library.  You can get similar results if you had output to RGB directly from the JPEG library.</p><p>However, because the precision of the calculations is different, you may not get the exact same results.</p><p>When setting multiple items that are included in <tt><a href="../../../nn/y2r/CTR/PackageParameter/Overview.html">nn::y2r::CTR::PackageParameter</a></tt> (including those items that can be set by this function), we recommend using the <tt><a href="../../../nn/y2r/CTR/SetPackageParameter.html">nn::y2r::CTR::SetPackageParameter</a></tt> function instead. </p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/07</dt>
+        <dd><item xmlns="">Added that using the <tt>SetPackageParameter</tt> function is recommended.</item><br />
+        </dd>
+        <dt>2010/07/16</dt>
+        <dd><item xmlns="">Added information about the recommended settings.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

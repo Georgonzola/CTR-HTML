@@ -1,0 +1,1000 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"[]>
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <link rel="stylesheet" href="../css/page.css" type="text/css" />
+    <title>Find a Result Value</title>
+    <style type="text/css"><!--
+
+    div.searchBox
+    {
+        margin: 2em;
+        border: solid 2px #5782D1;
+        padding: 2em;
+    }
+    div.searchResult
+    {
+        margin: 2em;
+        border: solid 2px #5782D1;
+        padding: 2em;
+    }
+    div.resultRegion
+    {
+        margin-left: 4em;
+    }
+    div.arrow
+    {
+        text-align: center;
+        font-weight: 900;
+        color: black;
+        font-size: 1.2em;
+    }
+    #resultMessage
+    {
+    }
+    #resultUnknown
+    {
+        display: none;
+        margin-top: 1em;
+        width: 30em;
+    }
+    #resultUnknown th
+    {
+    }
+    #resultUnknown td
+    {
+        font-family: monospace;
+    }
+
+    --></style>
+    <script type="text/javascript"><!--
+
+
+var s_Level =
+{
+    1:  "LEVEL_INFO",
+    0:  "LEVEL_SUCCESS",
+  "-1":  "LEVEL_FATAL",
+  "-2":  "LEVEL_RESET",
+  "-3":  "LEVEL_REINIT",
+  "-4":  "LEVEL_USAGE",
+  "-5":  "LEVEL_PERMANENT",
+  "-6":  "LEVEL_TEMPORARY",
+  "-7":  "LEVEL_STATUS"
+};
+
+var s_Summary =
+{
+    0:  "SUMMARY_SUCCESS",
+    1:  "SUMMARY_NOTHING_HAPPENED",
+    2:  "SUMMARY_WOULD_BLOCK",
+    3:  "SUMMARY_OUT_OF_RESOURCE",
+    4:  "SUMMARY_NOT_FOUND",
+    5:  "SUMMARY_INVALID_STATE",
+    6:  "SUMMARY_NOT_SUPPORTED",
+    7:  "SUMMARY_INVALID_ARGUMENT",
+    8:  "SUMMARY_WRONG_ARGUMENT",
+    9:  "SUMMARY_CANCELLED",
+   10:  "SUMMARY_STATUS_CHANGED",
+   11:  "SUMMARY_INTERNAL",
+
+   63:  "SUMMARY_INVALID_RESULT_VALUE"
+
+};
+
+var s_Module =
+{
+    0:  "MODULE_COMMON",
+    2:  "MODULE_NN_UTIL",  
+    6:  "MODULE_NN_OS", 
+    7:  "MODULE_NN_DBG",
+   10:  "MODULE_NN_GX",
+   17:  "MODULE_NN_FS", 
+   19:  "MODULE_NN_HID",
+   20:  "MODULE_NN_CAMERA",
+   28:  "MODULE_NN_SOCKET",
+   30:  "MODULE_NN_ACC",
+   31:  "MODULE_NN_ROMFS", 
+   33:  "MODULE_NN_HIO",
+   35:  "MODULE_NN_MIC",
+   36:  "MODULE_NN_FND",
+   39:  "MODULE_NN_AC", 
+   40:  "MODULE_NN_HTTP",  
+   41:  "MODULE_NN_DSP",
+   42:  "MODULE_NN_SND",
+   43:  "MODULE_NN_DLP",
+   46:  "MODULE_NN_SSL",
+   48:  "MODULE_NN_NEX",
+   49:  "MODULE_NN_FRIENDS",
+   50:  "MODULE_NN_RDT",
+   51:  "MODULE_NN_APPLET",
+   53:  "MODULE_NN_PTM",
+   54:  "MODULE_NN_MIDI",  
+   57:  "MODULE_NN_FATFS", 
+   58:  "MODULE_NN_NGC",
+   59:  "MODULE_NN_CARD",  
+   60:  "MODULE_NN_CARDNOR",
+   61:  "MODULE_NN_SDMC",  
+   62:  "MODULE_NN_BOSS",  
+   63:  "MODULE_NN_DBM",
+   64:  "MODULE_NN_CFG",
+   66:  "MODULE_NN_CEC",
+   67:  "MODULE_NN_IR", 
+   68:  "MODULE_NN_UDS",
+   69:  "MODULE_NN_PL", 
+   71:  "MODULE_NN_GYROSCOPE",
+   74:  "MODULE_NN_NEWS",  
+   75:  "MODULE_NN_RO", 
+   76:  "MODULE_NN_GD", 
+   77:  "MODULE_NN_CARDSPI",
+   78:  "MODULE_NN_EC", 
+   79:  "MODULE_NN_WEBBRS",
+   81:  "MODULE_NN_ENC",
+   82:  "MODULE_NN_PIA",
+   83:  "MODULE_NN_ACT",
+   84:  "MODULE_NN_VCTL",
+   85:  "MODULE_NN_OLV",
+   86:  "MODULE_NN_NEIA",
+   87:  "MODULE_NN_NPNS",
+   88:  "MODULE_RESERVED_0",
+   89:  "MODULE_RESERVED_1",
+   90:  "MODULE_NN_AVD",
+   91:  "MODULE_NN_L2B",
+   92:  "MODULE_NN_MVD",
+   93:  "MODULE_NN_NFC",
+   94:  "MODULE_NN_UART",
+   95:  "MODULE_NN_SPM",
+   96:  "MODULE_NN_QTM",
+   97:  "MODULE_NN_NFP",
+
+  255:  "MODULE_INVALID_RESULT_VALUE"
+};
+
+var s_ModuleFs = 17;
+
+var s_Link =
+{
+  'd8600801': { name: "nn::util::ResultBufferFull",                                              addr: "../nn/util/ResultBufferFull/Overview.html"                                             },
+  'd9000802': { name: "nn::util::ResultBadData",                                                 addr: "../nn/util/ResultBadData/Overview.html"                                                },
+  'e0e00bf6': { name: "nn::util::ResultInvalidPtr",                                              addr: "../nn/util/ResultInvalidPtr/Overview.html"                                             },
+  'e0e04fee': { name: "nn::hid::CTR::MakeResultInvalidCombination",                              addr: "../nn/hid/CTR/MakeResultInvalidCombination/Overview.html"                              },
+  'e0a04ff9': { name: "nn::hid::CTR::MakeResultAlreadyInitialized",                              addr: "../nn/hid/CTR/MakeResultAlreadyInitialized/Overview.html"                              },
+  'e0804ffa': { name: "nn::hid::CTR::MakeResultNoConnection",                                    addr: "../nn/hid/CTR/MakeResultNoConnection/Overview.html"                                    },
+  'c9405001': { name: "nn::camera::CTR::ResultIsSleeping",                                       addr: "../nn/camera/CTR/ResultIsSleeping/Overview.html"                                       },
+  'c9405001': { name: "nn::y2r::CTR::ResultIsSleeping",                                          addr: "../nn/y2r/CTR/ResultIsSleeping/Overview.html"                                          },
+  'f9605002': { name: "nn::camera::CTR::ResultFatalError",                                       addr: "../nn/camera/CTR/ResultFatalError/Overview.html"                                       },
+  'c8a053f9': { name: "nn::camera::CTR::ResultUsingOtherProcess",                                addr: "../nn/camera/CTR/ResultUsingOtherProcess/Overview.html"                                },
+  'd82053f9': { name: "nn::camera::CTR::ResultAlreadyInitialized",                               addr: "../nn/camera/CTR/ResultAlreadyInitialized/Overview.html"                               },
+  'c9408c01': { name: "nn::mic::CTR::ResultShellClose",                                          addr: "../nn/mic/CTR/ResultShellClose/Overview.html"                                          },
+  'e0e08fec': { name: "nn::mic::CTR::ResultInvalidSize",                                         addr: "../nn/mic/CTR/ResultInvalidSize/Overview.html"                                         },
+  'c8208ff0': { name: "nn::mic::CTR::ResultBusy",                                                addr: "../nn/mic/CTR/ResultBusy/Overview.html"                                                },
+  'e0e08ff1': { name: "nn::mic::CTR::ResultMisalignedAddress",                                   addr: "../nn/mic/CTR/ResultMisalignedAddress/Overview.html"                                   },
+  'e0e08ff2': { name: "nn::mic::CTR::ResultMisalignedSize",                                      addr: "../nn/mic/CTR/ResultMisalignedSize/Overview.html"                                      },
+  'e1008ff3': { name: "nn::mic::CTR::ResultOutOfMemory",                                         addr: "../nn/mic/CTR/ResultOutOfMemory/Overview.html"                                         },
+  'e0e08ff7': { name: "nn::mic::CTR::ResultInvalidHandle",                                       addr: "../nn/mic/CTR/ResultInvalidHandle/Overview.html"                                       },
+  'd8208ff8': { name: "nn::mic::CTR::ResultNotInitialized",                                      addr: "../nn/mic/CTR/ResultNotInitialized/Overview.html"                                      },
+  'c8a08ff9': { name: "nn::mic::CTR::ResultUsingOtherProcess",                                   addr: "../nn/mic/CTR/ResultUsingOtherProcess/Overview.html"                                   },
+  'd8208ff9': { name: "nn::mic::CTR::ResultAlreadyInitialized",                                  addr: "../nn/mic/CTR/ResultAlreadyInitialized/Overview.html"                                  },
+  '00009c32': { name: "nn::ac::ResultWanConnected",                                              addr: "../nn/ac/ResultWanConnected/Overview.html"                                             },
+  '00009c33': { name: "nn::ac::ResultLanConnected",                                              addr: "../nn/ac/ResultLanConnected/Overview.html"                                             },
+  'e1209c46': { name: "nn::ac::ResultProcessing",                                                addr: "../nn/ac/ResultProcessing/Overview.html"                                               },
+  'c9209c64': { name: "nn::ac::ResultFailedStartup",                                             addr: "../nn/ac/ResultFailedStartup/Overview.html"                                            },
+  'c9209c65': { name: "nn::ac::ResultFailedConnectAp",                                           addr: "../nn/ac/ResultFailedConnectAp/Overview.html"                                          },
+  'c9209c66': { name: "nn::ac::ResultFailedDhcp",                                                addr: "../nn/ac/ResultFailedDhcp/Overview.html"                                               },
+  'c9209c67': { name: "nn::ac::ResultConflictIpAddress",                                         addr: "../nn/ac/ResultConflictIpAddress/Overview.html"                                        },
+  'c9209c68': { name: "nn::ac::ResultInvalidKeyValue",                                           addr: "../nn/ac/ResultInvalidKeyValue/Overview.html"                                          },
+  'c9209c69': { name: "nn::ac::ResultUnsupportAuthAlgorithm",                                    addr: "../nn/ac/ResultUnsupportAuthAlgorithm/Overview.html"                                   },
+  'c9609c6a': { name: "nn::ac::ResultDenyUsbAp",                                                 addr: "../nn/ac/CTR/ResultDenyUsbAp/Overview.html"                                            },
+  'c9209c96': { name: "nn::ac::ResultInvalidDns",                                                addr: "../nn/ac/ResultInvalidDns/Overview.html"                                               },
+  'c9209c97': { name: "nn::ac::ResultInvalidProxy",                                              addr: "../nn/ac/ResultInvalidProxy/Overview.html"                                             },
+  'c9209c98': { name: "nn::ac::ResultFailedConnTest",                                            addr: "../nn/ac/ResultFailedConnTest/Overview.html"                                           },
+  'c9209cc8': { name: "nn::ac::ResultUnsupportHotspot",                                          addr: "../nn/ac/ResultUnsupportHotspot/Overview.html"                                         },
+  'c9209cc9': { name: "nn::ac::ResultFailedHotspotAuthentication",                               addr: "../nn/ac/ResultFailedHotspotAuthentication/Overview.html"                              },
+  'c9209cca': { name: "nn::ac::ResultFailedHotspotConntest",                                     addr: "../nn/ac/ResultFailedHotspotConntest/Overview.html"                                    },
+  'c9209ccb': { name: "nn::ac::ResultUnsupportPlace",                                            addr: "../nn/ac/ResultUnsupportPlace/Overview.html"                                           },
+  'c9209d2c': { name: "nn::ac::ResultFailedScan",                                                addr: "../nn/ac/ResultFailedScan/Overview.html"                                               },
+  'e0a09d2d': { name: "nn::ac::ResultAlreadyConnecting",                                         addr: "../nn/ac/ResultAlreadyConnecting/Overview.html"                                        },
+  'e0a09d2e': { name: "nn::ac::ResultNotConnecting",                                             addr: "../nn/ac/ResultNotConnecting/Overview.html"                                            },
+  'c8a09d31': { name: "nn::ac::ResultInvalidLocation",                                           addr: "../nn/ac/ResultInvalidLocation/Overview.html"                                          },
+  'c9209f84': { name: "nn::ac::ResultNotAgreeEula",                                              addr: "../nn/ac/ResultNotAgreeEula/Overview.html"                                             },
+  'c8a09f85': { name: "nn::ac::ResultWifiOff",                                                   addr: "../nn/ac/ResultWifiOff/Overview.html"                                                  },
+  'f9609ff3': { name: "nn::ac::ResultOutOfMemory",                                               addr: "../nn/ac/ResultOutOfMemory/Overview.html"                                              },
+  'e0409ff4': { name: "nn::ac::ResultDebugOnly",                                                 addr: "../nn/ac/ResultDebugOnly/Overview.html"                                                },
+  '00209ff8': { name: "nn::ac::ResultNotInitialized",                                            addr: "../nn/ac/ResultNotInitialized/Overview.html"                                           },
+  '00209ff9': { name: "nn::ac::ResultAlreadyInitialized",                                        addr: "../nn/ac/ResultAlreadyInitialized/Overview.html"                                       },
+  'c8809ffa': { name: "nn::ac::ResultNotFoundAccessPoint",                                       addr: "../nn/ac/ResultNotFoundAccessPoint/Overview.html"                                      },
+  'c9209ffb': { name: "nn::ac::ResultCanceled",                                                  addr: "../nn/ac/ResultCanceled/Overview.html"                                                 },
+  'e0a09ffc': { name: "nn::ac::ResultAlreadyExists",                                             addr: "../nn/ac/ResultAlreadyExists/Overview.html"                                            },
+  'e0e09ffd': { name: "nn::ac::ResultInvalidArgumentOutOfRange",                                 addr: "../nn/ac/ResultInvalidArgumentOutOfRange/Overview.html"                                },
+  'e0409fff': { name: "nn::ac::ResultInvalidData",                                               addr: "../nn/ac/ResultInvalidData/Overview.html"                                              },
+  'd8a0a001': { name: "nn::http::ResultInvalidStatusErr",                                        addr: "../nn/http/ResultInvalidStatusErr/Overview.html"                                       },
+  'd8e0a002': { name: "nn::http::ResultInvalidParamErr",                                         addr: "../nn/http/ResultInvalidParamErr/Overview.html"                                        },
+  'd860a003': { name: "nn::http::ResultOutOfMemoryErr",                                          addr: "../nn/http/ResultOutOfMemoryErr/Overview.html"                                         },
+  'd8a0a004': { name: "nn::http::ResultCreateEventErr",                                          addr: "../nn/http/ResultCreateEventErr/Overview.html"                                         },
+  'd8a0a005': { name: "nn::http::ResultCreateMutexErr",                                          addr: "../nn/http/ResultCreateMutexErr/Overview.html"                                         },
+  'd8a0a006': { name: "nn::http::ResultCreateQueueErr",                                          addr: "../nn/http/ResultCreateQueueErr/Overview.html"                                         },
+  'd8a0a007': { name: "nn::http::ResultCreateThreadErr",                                         addr: "../nn/http/ResultCreateThreadErr/Overview.html"                                        },
+  'd8a0a00a': { name: "nn::http::ResultMessageSendToListenThreadErr",                            addr: "../nn/http/ResultMessageSendToListenThreadErr/Overview.html"                           },
+  'd8a0a00b': { name: "nn::http::ResultMessageRecvInListenThreadErr",                            addr: "../nn/http/ResultMessageRecvInListenThreadErr/Overview.html"                           },
+  'd8a0a00c': { name: "nn::http::ResultMessageRecvInCommunicationThreadErr",                     addr: "../nn/http/ResultMessageRecvInCommunicationThreadErr/Overview.html"                    },
+  'd8a0a014': { name: "nn::http::ResultConnectionNoMoreErr",                                     addr: "../nn/http/ResultConnectionNoMoreErr/Overview.html"                                    },
+  'd880a015': { name: "nn::http::ResultNoSuchConnectionErr",                                     addr: "../nn/http/ResultNoSuchConnectionErr/Overview.html"                                    },
+  'd8a0a016': { name: "nn::http::ResultConnectionStatusErr",                                     addr: "../nn/http/ResultConnectionStatusErr/Overview.html"                                    },
+  'd8a0a017': { name: "nn::http::ResultConnectionAddErr",                                        addr: "../nn/http/ResultConnectionAddErr/Overview.html"                                       },
+  'd8a0a018': { name: "nn::http::ResultConnectionCanceledErr",                                   addr: "../nn/http/ResultConnectionCanceledErr/Overview.html"                                  },
+  'd8a0a019': { name: "nn::http::ResultConnectionHostMaxErr",                                    addr: "../nn/http/ResultConnectionHostMaxErr/Overview.html"                                   },
+  'd8a0a01a': { name: "nn::http::ResultConnectionProcessMaxErr",                                 addr: "../nn/http/ResultConnectionProcessMaxErr/Overview.html"                                },
+  'd8a0a01e': { name: "nn::http::ResultRequestUrlErr",                                           addr: "../nn/http/ResultRequestUrlErr/Overview.html"                                          },
+  'd8a0a01f': { name: "nn::http::ResultRequestPortErr",                                          addr: "../nn/http/ResultRequestPortErr/Overview.html"                                         },
+  'd8a0a020': { name: "nn::http::ResultRequestUnknownMethodErr",                                 addr: "../nn/http/ResultRequestUnknownMethodErr/Overview.html"                                },
+  'd8a0a028': { name: "nn::http::ResultRequestHeaderErr",                                        addr: "../nn/http/ResultRequestHeaderErr/Overview.html"                                       },
+  'd8a0a029': { name: "nn::http::ResultRequestNoNewLineErr",                                     addr: "../nn/http/ResultRequestNoNewLineErr/Overview.html"                                    },
+  'd8a0a02a': { name: "nn::http::ResultBodyBufErr",                                              addr: "../nn/http/ResultBodyBufErr/Overview.html"                                             },
+  'd840a02b': { name: "nn::http::ResultBodyBufShortage",                                         addr: "../nn/http/ResultBodyBufShortage/Overview.html"                                        },
+  'd8a0a032': { name: "nn::http::ResultPostAddedAnotherErr",                                     addr: "../nn/http/ResultPostAddedAnotherErr/Overview.html"                                    },
+  'd8a0a033': { name: "nn::http::ResultPostBoundaryErr",                                         addr: "../nn/http/ResultPostBoundaryErr/Overview.html"                                        },
+  'd8a0a034': { name: "nn::http::ResultPostSendErr",                                             addr: "../nn/http/ResultPostSendErr/Overview.html"                                            },
+  'd8a0a035': { name: "nn::http::ResultPostUnknownEnctypeErr",                                   addr: "../nn/http/ResultPostUnknownEnctypeErr/Overview.html"                                  },
+  'd8a0a036': { name: "nn::http::ResultPostNoDataErr",                                           addr: "../nn/http/ResultPostNoDataErr/Overview.html"                                          },
+  'd8a0a03c': { name: "nn::http::ResultSslErr",                                                  addr: "../nn/http/ResultSslErr/Overview.html"                                                 },
+  'd8a0a03d': { name: "nn::http::ResultCertExistErr",                                            addr: "../nn/http/ResultCertExistErr/Overview.html"                                           },
+  'd8a0a03e': { name: "nn::http::ResultCrlExistErr",                                             addr: "../nn/http/ResultCrlExistErr/Overview.html"                                            },
+  'd8a0a046': { name: "nn::http::ResultDnsResolutionErr",                                        addr: "../nn/http/ResultDnsResolutionErr/Overview.html"                                       },
+  'd8a0a047': { name: "nn::http::ResultSocketSendErr",                                           addr: "../nn/http/ResultSocketSendErr/Overview.html"                                          },
+  'd8a0a048': { name: "nn::http::ResultSocketReceiveErr",                                        addr: "../nn/http/ResultSocketReceiveErr/Overview.html"                                       },
+  'd8a0a049': { name: "nn::http::ResultSocketConnectErr",                                        addr: "../nn/http/ResultSocketConnectErr/Overview.html"                                       },
+  'd8a0a04a': { name: "nn::http::ResultSocketKeepAliveDisconnected",                             addr: "../nn/http/ResultSocketKeepAliveDisconnected/Overview.html"                            },
+  'd8a0a050': { name: "nn::http::ResultGetProxySettingErr",                                      addr: "../nn/http/ResultGetProxySettingErr/Overview.html"                                     },
+  'd8a0a064': { name: "nn::http::ResultNotConnectedErr",                                         addr: "../nn/http/ResultNotConnectedErr/Overview.html"                                        },
+  'd8a0a065': { name: "nn::http::ResultAlreadyAssignHostErr",                                    addr: "../nn/http/ResultAlreadyAssignHostErr/Overview.html"                                   },
+  'd8a0a066': { name: "nn::http::ResultSessionErr",                                              addr: "../nn/http/ResultSessionErr/Overview.html"                                             },
+  'd8a0a067': { name: "nn::http::ResultClientProcessMaxErr",                                     addr: "../nn/http/ResultClientProcessMaxErr/Overview.html"                                    },
+  'd8a0a068': { name: "nn::http::ResultIpcSessionMaxErr",                                        addr: "../nn/http/ResultIpcSessionMaxErr/Overview.html"                                       },
+  'd820a069': { name: "nn::http::ResultTimeout",                                                 addr: "../nn/http/ResultTimeout/Overview.html"                                                },
+  'd8a0a0c8': { name: "nn::http::ResultNoCaCertStoreErr",                                        addr: "../nn/http/ResultNoCaCertStoreErr/Overview.html"                                       },
+  'd8a0a0c9': { name: "nn::http::ResultNoClientCertErr",                                         addr: "../nn/http/ResultNoClientCertErr/Overview.html"                                        },
+  'd8a0a0ca': { name: "nn::http::ResultCaCertStoreMaxErr",                                       addr: "../nn/http/ResultCaCertStoreMaxErr/Overview.html"                                      },
+  'd8a0a0cb': { name: "nn::http::ResultClientCertMaxErr",                                        addr: "../nn/http/ResultClientCertMaxErr/Overview.html"                                       },
+  'd8a0a0cc': { name: "nn::http::ResultFailToCreateCertStoreErr",                                addr: "../nn/http/ResultFailToCreateCertStoreErr/Overview.html"                               },
+  'd8a0a0cd': { name: "nn::http::ResultFailToCreateClientCertErr",                               addr: "../nn/http/ResultFailToCreateClientCertErr/Overview.html"                              },
+  'd8a0a0ce': { name: "nn::http::ResultNoCrlStoreErr",                                           addr: "../nn/http/ResultNoCrlStoreErr/Overview.html"                                          },
+  'd8a0a0cf': { name: "nn::http::ResultCrlStoreMaxErr",                                          addr: "../nn/http/ResultCrlStoreMaxErr/Overview.html"                                         },
+  'd8a0a0d0': { name: "nn::http::ResultFailToCreateCrlStoreErr",                                 addr: "../nn/http/ResultFailToCreateCrlStoreErr/Overview.html"                                },
+  'd960a3f4': { name: "nn::http::ResultNotImplementedErr",                                       addr: "../nn/http/ResultNotImplementedErr/Overview.html"                                      },
+  'd8a0a3f8': { name: "nn::http::ResultNotInitializedErr",                                       addr: "../nn/http/ResultNotInitializedErr/Overview.html"                                      },
+  'd8a0a3f9': { name: "nn::http::ResultAlreadyInitializedErr",                                   addr: "../nn/http/ResultAlreadyInitializedErr/Overview.html"                                  },
+  'c8a0a401': { name: "nn::dsp::CTR::ResultComponentNotLoaded",                                  addr: "../nn/dsp/CTR/ResultComponentNotLoaded/Overview.html"                                  },
+  'c8a0a7f8': { name: "nn::dsp::CTR::ResultNotInitialized",                                      addr: "../nn/dsp/CTR/ResultNotInitialized/Overview.html"                                      },
+  'c8a0a7fc': { name: "nn::dsp::CTR::ResultAlreadyExists",                                       addr: "../nn/dsp/CTR/ResultAlreadyExists/Overview.html"                                       },
+  'c8a0a801': { name: "nn::snd::CTR::ResultNoDspComponentLoaded",                                addr: "../nn/snd/CTR/ResultNoDspComponentLoaded/Overview.html"                                },
+  'e0e0abee': { name: "nn::snd::CTR::ResultInvalidUsage",                                        addr: "../nn/snd/CTR/ResultInvalidUsage/Overview.html"                                        },
+  '0820abf9': { name: "nn::snd::CTR::ResultAlreadyInitialized",                                  addr: "../nn/snd/CTR/ResultAlreadyInitialized/Overview.html"                                  },
+  'e0a0ac01': { name: "nn::dlp::CTR::ResultInvalidState",                                        addr: "../nn/dlp/CTR/ResultInvalidState/Overview.html"                                        },
+  'd960ac02': { name: "nn::dlp::CTR::ResultInternalError",                                       addr: "../nn/dlp/CTR/ResultInternalError/Overview.html"                                       },
+  'e0a0ac03': { name: "nn::dlp::CTR::ResultAlreadyOccupiedWirelessDevice",                       addr: "../nn/dlp/CTR/ResultAlreadyOccupiedWirelessDevice/Overview.html"                       },
+  'c940ac04': { name: "nn::dlp::CTR::ResultWirelessOff",                                         addr: "../nn/dlp/CTR/ResultWirelessOff/Overview.html"                                         },
+  'c880ac05': { name: "nn::dlp::CTR::ResultNotFoundServer",                                      addr: "../nn/dlp/CTR/ResultNotFoundServer/Overview.html"                                      },
+  'c860ac06': { name: "nn::dlp::CTR::ResultServerIsFull",                                        addr: "../nn/dlp/CTR/ResultServerIsFull/Overview.html"                                        },
+  'd8c0ac07': { name: "nn::dlp::CTR::ResultInvalidMediaType",                                    addr: "../nn/dlp/CTR/ResultInvalidMediaType/Overview.html"                                    },
+  'd960ac08': { name: "nn::dlp::CTR::ResultFailedToAccessMedia",                                 addr: "../nn/dlp/CTR/ResultFailedToAccessMedia/Overview.html"                                 },
+  'd8c0ac09': { name: "nn::dlp::CTR::ResultChildTooLarge",                                       addr: "../nn/dlp/CTR/ResultChildTooLarge/Overview.html"                                       },
+  'd8c0ac0a': { name: "nn::dlp::CTR::ResultIncommutable",                                        addr: "../nn/dlp/CTR/ResultIncommutable/Overview.html"                                        },
+  'd8c0ac0b': { name: "nn::dlp::CTR::ResultInvalidDlpVersion",                                   addr: "../nn/dlp/CTR/ResultInvalidDlpVersion/Overview.html"                                   },
+  'd8c0ac0c': { name: "nn::dlp::CTR::ResultInvalidRegion",                                       addr: "../nn/dlp/CTR/ResultInvalidRegion/Overview.html"                                       },
+  'c880afef': { name: "nn::dlp::CTR::ResultNoData",                                              addr: "../nn/dlp/CTR/ResultNoData/Overview.html"                                              },
+  'd8e0aff6': { name: "nn::dlp::CTR::ResultInvalidPointer",                                      addr: "../nn/dlp/CTR/ResultInvalidPointer/Overview.html"                                      },
+  'd8e0aff7': { name: "nn::dlp::CTR::ResultInvalidHandle",                                       addr: "../nn/dlp/CTR/ResultInvalidHandle/Overview.html"                                       },
+  'c920affb': { name: "nn::dlp::CTR::ResultDeniedFromServer",                                    addr: "../nn/dlp/CTR/ResultDeniedFromServer/Overview.html"                                    },
+  'd8e0affd': { name: "nn::dlp::CTR::ResultOutOfRange",                                          addr: "../nn/dlp/CTR/ResultOutOfRange/Overview.html"                                          },
+  'c920affe': { name: "nn::dlp::CTR::ResultConnectionTimeout",                                   addr: "../nn/dlp/CTR/ResultConnectionTimeout/Overview.html"                                   },
+  'e0e0c403': { name: "nn::friends::ResultNotFriendsResult",                                     addr: "../nn/friends/ResultNotFriendsResult/Overview.html"                                    },
+  'd8a0c405': { name: "nn::friends::ResultAcNotConnected",                                       addr: "../nn/friends/ResultAcNotConnected/Overview.html"                                      },
+  'c920c42c': { name: "nn::friends::ResultCoreTimeOut",                                          addr: "../nn/friends/ResultCoreTimeOut/Overview.html"                                         },
+  'c960c42e': { name: "nn::friends::ResultCoreCallInitiationFailure",                            addr: "../nn/friends/ResultCoreCallInitiationFailure/Overview.html"                           },
+  'c960c4a2': { name: "nn::friends::ResultTransportConnectionFailure",                           addr: "../nn/friends/ResultTransportConnectionFailure/Overview.html"                          },
+  '0000c4e1': { name: "nn::friends::ResultRmcNotCalled",                                         addr: "../nn/friends/ResultRmcNotCalled/Overview.html"                                        },
+  'e0e0c4e9': { name: "nn::friends::ResultInvalidArgument",                                      addr: "../nn/friends/ResultInvalidArgument/Overview.html"                                     },
+  'e0e0c4eb': { name: "nn::friends::ResultInvalidPrincipalId",                                   addr: "../nn/friends/ResultInvalidPrincipalId/Overview.html"                                  },
+  'c8a0c4ee': { name: "nn::friends::ResultLocalAccountNotLoaded",                                addr: "../nn/friends/ResultLocalAccountNotLoaded/Overview.html"                               },
+  'd8a0c4f5': { name: "nn::friends::ResultP2pInternetProhibited",                                addr: "../nn/friends/ResultP2pInternetProhibited/Overview.html"                               },
+  'd8a0c4f8': { name: "nn::friends::ResultMiiNotExists",                                         addr: "../nn/friends/ResultMiiNotExists/Overview.html"                                        },
+  'd8a0c4f9': { name: "nn::friends::ResultAddFriendProhibited",                                  addr: "../nn/friends/ResultAddFriendProhibited/Overview.html"                                 },
+  'd8a0c4fa': { name: "nn::friends::ResultInvalidPreference",                                    addr: "../nn/friends/ResultInvalidPreference/Overview.html"                                   },
+  'c960c501': { name: "nn::friends::ResultNasAuthenticationError",                               addr: "../nn/friends/ResultNasAuthenticationError/Overview.html"                              },
+  'c960c502': { name: "nn::friends::ResultAuthenticationTokenParseError",                        addr: "../nn/friends/ResultAuthenticationTokenParseError/Overview.html"                       },
+  'c960c503': { name: "nn::friends::ResultAuthenticationHttpConnectionError",                    addr: "../nn/friends/ResultAuthenticationHttpConnectionError/Overview.html"                   },
+  'c960c504': { name: "nn::friends::ResultAuthenticationDnsError",                               addr: "../nn/friends/ResultAuthenticationDnsError/Overview.html"                              },
+  'c960c505': { name: "nn::friends::ResultAuthenticationHttpGetProxySetting",                    addr: "../nn/friends/ResultAuthenticationHttpGetProxySetting/Overview.html"                   },
+  'c960c507': { name: "nn::friends::ResultAuthenticationValidationFailed",                       addr: "../nn/friends/ResultAuthenticationValidationFailed/Overview.html"                      },
+  'c960c508': { name: "nn::friends::ResultAuthenticationInvalidParam",                           addr: "../nn/friends/ResultAuthenticationInvalidParam/Overview.html"                          },
+  'c960c509': { name: "nn::friends::ResultAuthenticationPrincipalIdUnmatched",                   addr: "../nn/friends/ResultAuthenticationPrincipalIdUnmatched/Overview.html"                  },
+  'c960c50a': { name: "nn::friends::ResultAuthenticationMoveCountUnmatch",                       addr: "../nn/friends/ResultAuthenticationMoveCountUnmatch/Overview.html"                      },
+  'c960c50b': { name: "nn::friends::ResultAuthenticationUnderMaintenance",                       addr: "../nn/friends/ResultAuthenticationUnderMaintenance/Overview.html"                      },
+  'c960c50c': { name: "nn::friends::ResultAuthenticationUnsupportedVersion",                     addr: "../nn/friends/ResultAuthenticationUnsupportedVersion/Overview.html"                    },
+  'e0e0c7e9': { name: "nn::friends::ResultTooLarge",                                             addr: "../nn/friends/ResultTooLarge/Overview.html"                                            },
+  'c8a0c7ea': { name: "nn::friends::ResultNotAuthorized",                                        addr: "../nn/friends/ResultNotAuthorized/Overview.html"                                       },
+  'c8a0c7f4': { name: "nn::friends::ResultUnexpectedState",                                      addr: "../nn/friends/ResultUnexpectedState/Overview.html"                                     },
+  'e0e0c7f6': { name: "nn::friends::ResultInvalidPointer",                                       addr: "../nn/friends/ResultInvalidPointer/Overview.html"                                      },
+  'e0e0c7f7': { name: "nn::friends::ResultInvalidHandle",                                        addr: "../nn/friends/ResultInvalidHandle/Overview.html"                                       },
+  'd8a0c7f8': { name: "nn::friends::ResultNotInitialized",                                       addr: "../nn/friends/ResultNotInitialized/Overview.html"                                      },
+  '0820c800': { name: "nn::rdt::ResultDoNothing",                                                addr: "../nn/rdt/ResultDoNothing/Overview.html"                                               },
+  'c940c801': { name: "nn::rdt::ResultResetReceived",                                            addr: "../nn/rdt/ResultResetReceived/Overview.html"                                           },
+  'c8a0c802': { name: "nn::rdt::ResultUntimelyFunctionCall",                                     addr: "../nn/rdt/ResultUntimelyFunctionCall/Overview.html"                                    },
+  'e0e0c803': { name: "nn::rdt::ResultInvalidValue",                                             addr: "../nn/rdt/ResultInvalidValue/Overview.html"                                            },
+  'e0e0cbec': { name: "nn::rdt::ResultInvalidSize",                                              addr: "../nn/rdt/ResultInvalidSize/Overview.html"                                             },
+  'd080cbef': { name: "nn::rdt::ResultNoData",                                                   addr: "../nn/rdt/ResultNoData/Overview.html"                                                  },
+  'e0e0cbf1': { name: "nn::rdt::ResultMisalignedAddress",                                        addr: "../nn/rdt/ResultMisalignedAddress/Overview.html"                                       },
+  'd060cbf3': { name: "nn::rdt::ResultSendBufferIsNotAvailable",                                 addr: "../nn/rdt/ResultSendBufferIsNotAvailable/Overview.html"                                },
+  'f060cbf3': { name: "nn::rdt::ResultResendQueueIsFull",                                        addr: "../nn/rdt/ResultResendQueueIsFull/Overview.html"                                       },
+  'e0e0cbf6': { name: "nn::rdt::ResultNullPointer",                                              addr: "../nn/rdt/ResultNullPointer/Overview.html"                                             },
+  'e0a0cbf8': { name: "nn::rdt::ResultNotInitialized",                                           addr: "../nn/rdt/ResultNotInitialized/Overview.html"                                          },
+  '0820cbf9': { name: "nn::rdt::ResultAlreadyInitialized",                                       addr: "../nn/rdt/ResultAlreadyInitialized/Overview.html"                                      },
+  'c860cc01': { name: "nn::applet::CTR::ResultNoArea",                                           addr: "../nn/applet/CTR/ResultNoArea/Overview.html"                                           },
+  'c8a0cc02': { name: "nn::applet::CTR::ResultNotEmpty",                                         addr: "../nn/applet/CTR/ResultNotEmpty/Overview.html"                                         },
+  'd880cc03': { name: "nn::applet::CTR::ResultNoCaller",                                         addr: "../nn/applet/CTR/ResultNoCaller/Overview.html"                                         },
+  'c8a0cc04': { name: "nn::applet::CTR::ResultNotAllowed",                                       addr: "../nn/applet/CTR/ResultNotAllowed/Overview.html"                                       },
+  'c8a0cc05': { name: "nn::applet::CTR::ResultDifferentMode",                                    addr: "../nn/applet/CTR/ResultDifferentMode/Overview.html"                                    },
+  'c8a0cc06': { name: "nn::applet::CTR::ResultDifferentVersion",                                 addr: "../nn/applet/CTR/ResultDifferentVersion/Overview.html"                                 },
+  'e0a0cc07': { name: "nn::applet::CTR::ResultShutdownProcessing",                               addr: "../nn/applet/CTR/ResultShutdownProcessing/Overview.html"                               },
+  'e0a0cc08': { name: "nn::applet::CTR::ResultTransitionBusy",                                   addr: "../nn/applet/CTR/ResultTransitionBusy/Overview.html"                                   },
+  'c8a0cc09': { name: "nn::applet::CTR::ResultVersionMustLaunchDirectly",                        addr: "../nn/applet/CTR/ResultVersionMustLaunchDirectly/Overview.html"                        },
+  'c8a0cfef': { name: "nn::applet::CTR::ResultNoData",                                           addr: "../nn/applet/CTR/ResultNoData/Overview.html"                                           },
+  'c8a0cff0': { name: "nn::applet::CTR::ResultBusy",                                             addr: "../nn/applet/CTR/ResultBusy/Overview.html"                                             },
+  'e0a0cff8': { name: "nn::applet::CTR::ResultNotInitialized",                                   addr: "../nn/applet/CTR/ResultNotInitialized/Overview.html"                                   },
+  'e0a0cff9': { name: "nn::applet::CTR::ResultAlreadyInit",                                      addr: "../nn/applet/CTR/ResultAlreadyInit/Overview.html"                                      },
+  'c880cffa': { name: "nn::applet::CTR::ResultNotFound",                                         addr: "../nn/applet/CTR/ResultNotFound/Overview.html"                                         },
+  'c8a0cffc': { name: "nn::applet::CTR::ResultAlreadyExist",                                     addr: "../nn/applet/CTR/ResultAlreadyExist/Overview.html"                                     },
+  'c820d401': { name: "nn::pl::CTR::ResultIsWriting",                                            addr: "../nn/pl/CTR/ResultIsWriting/Overview.html"                                            },
+  'c8a0d402': { name: "nn::ptm::ResultNoAlarm",                                                  addr: "../nn/ptm/ResultNoAlarm/Overview.html"                                                 },
+  '0000d403': { name: "nn::ptm::ResultOverWriteAlarm",                                           addr: "../nn/ptm/ResultOverWriteAlarm/Overview.html"                                          },
+  'e100d7ef': { name: "nn::ptm::ResultWrongArgument",                                            addr: "../nn/ptm/ResultWrongArgument/Overview.html"                                           },
+  'd8a0d7f8': { name: "nn::ptm::ResultNotRegistered",                                            addr: "../nn/ptm/ResultNotRegistered/Overview.html"                                           },
+  'e0e0d7fd': { name: "nn::ptm::ResultInvalidAlarm",                                             addr: "../nn/ptm/ResultInvalidAlarm/Overview.html"                                            },
+  'd8e0f801': { name: "nn::boss::ResultInvalidPolicy",                                           addr: "../nn/boss/ResultInvalidPolicy/Overview.html"                                          },
+  'd8e0f802': { name: "nn::boss::ResultInvalidAction",                                           addr: "../nn/boss/ResultInvalidAction/Overview.html"                                          },
+  'd8e0f803': { name: "nn::boss::ResultInvalidOption",                                           addr: "../nn/boss/ResultInvalidOption/Overview.html"                                          },
+  'd8e0f804': { name: "nn::boss::ResultInvalidAppIdList",                                        addr: "../nn/boss/ResultInvalidAppIdList/Overview.html"                                       },
+  'd8e0f805': { name: "nn::boss::ResultInvalidTaskIdList",                                       addr: "../nn/boss/ResultInvalidTaskIdList/Overview.html"                                      },
+  'd8e0f806': { name: "nn::boss::ResultInvalidStepIdList",                                       addr: "../nn/boss/ResultInvalidStepIdList/Overview.html"                                      },
+  'd8e0f807': { name: "nn::boss::ResultInvalidNsDataIdList",                                     addr: "../nn/boss/ResultInvalidNsDataIdList/Overview.html"                                    },
+  'c8a0f808': { name: "nn::boss::ResultInvalidTaskStatus",                                       addr: "../nn/boss/ResultInvalidTaskStatus/Overview.html"                                      },
+  'd8e0f809': { name: "nn::boss::ResultInvalidPropertyValue",                                    addr: "../nn/boss/ResultInvalidPropertyValue/Overview.html"                                   },
+  'd8e0f80a': { name: "nn::boss::ResultInvalidNewArrivalEvent",                                  addr: "../nn/boss/ResultInvalidNewArrivalEvent/Overview.html"                                 },
+  'd8e0f80b': { name: "nn::boss::ResultInvalidNewArrivalFlag",                                   addr: "../nn/boss/ResultInvalidNewArrivalFlag/Overview.html"                                  },
+  'd8e0f80c': { name: "nn::boss::ResultInvalidOptoutFlag",                                       addr: "../nn/boss/ResultInvalidOptoutFlag/Overview.html"                                      },
+  'c8a0f80d': { name: "nn::boss::ResultInvalidTaskError",                                        addr: "../nn/boss/ResultInvalidTaskError/Overview.html"                                       },
+  'd8e0f80e': { name: "nn::boss::ResultInvalidNsDataValue",                                      addr: "../nn/boss/ResultInvalidNsDataValue/Overview.html"                                     },
+  'd8e0f80f': { name: "nn::boss::ResultInvalidNsDataInfo",                                       addr: "../nn/boss/ResultInvalidNsDataInfo/Overview.html"                                      },
+  'd8e0f810': { name: "nn::boss::ResultInvalidNsDataReadFlag",                                   addr: "../nn/boss/ResultInvalidNsDataReadFlag/Overview.html"                                  },
+  'd8e0f811': { name: "nn::boss::ResultInvalidNsDataTime",                                       addr: "../nn/boss/ResultInvalidNsDataTime/Overview.html"                                      },
+  'd8e0f812': { name: "nn::boss::ResultInvalidNextExecuteTime",                                  addr: "../nn/boss/ResultInvalidNextExecuteTime/Overview.html"                                 },
+  'd8e0f813': { name: "nn::boss::ResultHttpRequestHeaderPointerNull",                            addr: "../nn/boss/ResultHttpRequestHeaderPointerNull/Overview.html"                           },
+  'd8e0f814': { name: "nn::boss::ResultInvalidPolicyListAvailability",                           addr: "../nn/boss/ResultInvalidPolicyListAvailability/Overview.html"                          },
+  'd8e0f815': { name: "nn::boss::ResultInvalidTestModeAvailability",                             addr: "../nn/boss/ResultInvalidTestModeAvailability/Overview.html"                            },
+  'd8e0f816': { name: "nn::boss::ResultInvalidConfigParentalControl",                            addr: "../nn/boss/ResultInvalidConfigParentalControl/Overview.html"                           },
+  'd8e0f817': { name: "nn::boss::ResultInvalidConfigEulaAgreement",                              addr: "../nn/boss/ResultInvalidConfigEulaAgreement/Overview.html"                             },
+  'd8e0f818': { name: "nn::boss::ResultInvalidPolicyListEnvId",                                  addr: "../nn/boss/ResultInvalidPolicyListEnvId/Overview.html"                                 },
+  'd8e0f819': { name: "nn::boss::ResultInvalidPolicyListUrl",                                    addr: "../nn/boss/ResultInvalidPolicyListUrl/Overview.html"                                   },
+  'd8e0f81a': { name: "nn::boss::ResultInvalidTaskId",                                           addr: "../nn/boss/ResultInvalidTaskId/Overview.html"                                          },
+  'd8e0f81b': { name: "nn::boss::ResultInvalidTaskStep",                                         addr: "../nn/boss/ResultInvalidTaskStep/Overview.html"                                        },
+  'd8e0f81c': { name: "nn::boss::ResultInvalidPropertyType",                                     addr: "../nn/boss/ResultInvalidPropertyType/Overview.html"                                    },
+  'd8e0f81d': { name: "nn::boss::ResultInvalidUrl",                                              addr: "../nn/boss/ResultInvalidUrl/Overview.html"                                             },
+  'd8e0f81e': { name: "nn::boss::ResultInvalidFilePath",                                         addr: "../nn/boss/ResultInvalidFilePath/Overview.html"                                        },
+  'd8e0f81f': { name: "nn::boss::ResultInvalidTaskPriority",                                     addr: "../nn/boss/ResultInvalidTaskPriority/Overview.html"                                    },
+  'd8e0f820': { name: "nn::boss::ResultInvalidTaskTargetDuration",                               addr: "../nn/boss/ResultInvalidTaskTargetDuration/Overview.html"                              },
+  'd8e0f821': { name: "nn::boss::ResultActionCodeOutOfRange",                                    addr: "../nn/boss/ResultActionCodeOutOfRange/Overview.html"                                   },
+  'd8e0f822': { name: "nn::boss::ResultInvalidNsDataSeekPosition",                               addr: "../nn/boss/ResultInvalidNsDataSeekPosition/Overview.html"                              },
+  'd860f823': { name: "nn::boss::ResultInvalidMaxHttpRequestHeader",                             addr: "../nn/boss/ResultInvalidMaxHttpRequestHeader/Overview.html"                            },
+  'd860f824': { name: "nn::boss::ResultInvalidMaxClientCert",                                    addr: "../nn/boss/ResultInvalidMaxClientCert/Overview.html"                                   },
+  'd860f825': { name: "nn::boss::ResultInvalidMaxRootCa",                                        addr: "../nn/boss/ResultInvalidMaxRootCa/Overview.html"                                       },
+  'd8e0f826': { name: "nn::boss::ResultSchedulingPolicyOutOfRange",                              addr: "../nn/boss/ResultSchedulingPolicyOutOfRange/Overview.html"                             },
+  'd8e0f827': { name: "nn::boss::ResultApInfoTypeOutOfRange",                                    addr: "../nn/boss/ResultApInfoTypeOutOfRange/Overview.html"                                   },
+  'd8e0f828': { name: "nn::boss::ResultTaskPermissionOutOfRange",                                addr: "../nn/boss/ResultTaskPermissionOutOfRange/Overview.html"                               },
+  'd840f829': { name: "nn::boss::ResultWaitFinishTimeout",                                       addr: "../nn/boss/ResultWaitFinishTimeout/Overview.html"                                      },
+  'd840f82a': { name: "nn::boss::ResultWaitFinishTaskNotDone",                                   addr: "../nn/boss/ResultWaitFinishTaskNotDone/Overview.html"                                  },
+  'c8a0f82b': { name: "nn::boss::ResultIpcNotSessionInitialized",                                addr: "../nn/boss/ResultIpcNotSessionInitialized/Overview.html"                               },
+  'd860f82c': { name: "nn::boss::ResultIpcPropertySizeError",                                    addr: "../nn/boss/ResultIpcPropertySizeError/Overview.html"                                   },
+  'd860f82d': { name: "nn::boss::ResultIpcTooManyRequests",                                      addr: "../nn/boss/ResultIpcTooManyRequests/Overview.html"                                     },
+  'c8a0f82e': { name: "nn::boss::ResultAlreadyInitialized",                                      addr: "../nn/boss/ResultAlreadyInitialized/Overview.html"                                     },
+  'd860f82f': { name: "nn::boss::ResultOutOfMemory",                                             addr: "../nn/boss/ResultOutOfMemory/Overview.html"                                            },
+  'd860f830': { name: "nn::boss::ResultInvalidNumberOfNsd",                                      addr: "../nn/boss/ResultInvalidNumberOfNsd/Overview.html"                                     },
+  'd860f831': { name: "nn::boss::ResultNsDataInvalidFormat",                                     addr: "../nn/boss/ResultNsDataInvalidFormat/Overview.html"                                    },
+  'c8a0f832': { name: "nn::boss::ResultAppNotExist",                                             addr: "../nn/boss/ResultAppNotExist/Overview.html"                                            },
+  'c8a0f833': { name: "nn::boss::ResultTaskNotExist",                                            addr: "../nn/boss/ResultTaskNotExist/Overview.html"                                           },
+  'c8a0f834': { name: "nn::boss::ResultTaskStepNotExist",                                        addr: "../nn/boss/ResultTaskStepNotExist/Overview.html"                                       },
+  'c8a0f835': { name: "nn::boss::ResultApliIdAlreadyExist",                                      addr: "../nn/boss/ResultApliIdAlreadyExist/Overview.html"                                     },
+  'c8a0f836': { name: "nn::boss::ResultTaskIdAlreadyExist",                                      addr: "../nn/boss/ResultTaskIdAlreadyExist/Overview.html"                                     },
+  'c8a0f837': { name: "nn::boss::ResultTaskStepAlreadyExist",                                    addr: "../nn/boss/ResultTaskStepAlreadyExist/Overview.html"                                   },
+  'c8a0f838': { name: "nn::boss::ResultInvalidSequence",                                         addr: "../nn/boss/ResultInvalidSequence/Overview.html"                                        },
+  'c8a0f839': { name: "nn::boss::ResultDatabaseFull",                                            addr: "../nn/boss/ResultDatabaseFull/Overview.html"                                           },
+  'c8a0f83a': { name: "nn::boss::ResultCantUnregisterTask",                                      addr: "../nn/boss/ResultCantUnregisterTask/Overview.html"                                     },
+  'c8a0f83b': { name: "nn::boss::ResultTaskNotRegistered",                                       addr: "../nn/boss/ResultTaskNotRegistered/Overview.html"                                      },
+  'c8a0f83c': { name: "nn::boss::ResultInvalidFileHandle",                                       addr: "../nn/boss/ResultInvalidFileHandle/Overview.html"                                      },
+  'c8a0f83d': { name: "nn::boss::ResultInvalidTaskSchedulingPolicy",                             addr: "../nn/boss/ResultInvalidTaskSchedulingPolicy/Overview.html"                            },
+  'c8a0f83e': { name: "nn::boss::ResultInvalidHttpRequestHeader",                                addr: "../nn/boss/ResultInvalidHttpRequestHeader/Overview.html"                               },
+  'c8a0f83f': { name: "nn::boss::ResultInvalidHeadType",                                         addr: "../nn/boss/ResultInvalidHeadType/Overview.html"                                        },
+  'c8a0f840': { name: "nn::boss::ResultStorageAccessPermission",                                 addr: "../nn/boss/ResultStorageAccessPermission/Overview.html"                                },
+  'c8a0f841': { name: "nn::boss::ResultStorageInsufficiency",                                    addr: "../nn/boss/ResultStorageInsufficiency/Overview.html"                                   },
+  'c8a0f842': { name: "nn::boss::ResultStorageNotFound",                                         addr: "../nn/boss/ResultStorageNotFound/Overview.html"                                        },
+  'c8a0f843': { name: "nn::boss::ResultNsDataNotFound",                                          addr: "../nn/boss/ResultNsDataNotFound/Overview.html"                                         },
+  'c960f844': { name: "nn::boss::ResultInvalidNsDataGetHeadSize",                                addr: "../nn/boss/ResultInvalidNsDataGetHeadSize/Overview.html"                               },
+  'd840f845': { name: "nn::boss::ResultNsDataListSizeShortage",                                  addr: "../nn/boss/ResultNsDataListSizeShortage/Overview.html"                                 },
+  'd840f846': { name: "nn::boss::ResultNsDataListUpdated",                                       addr: "../nn/boss/ResultNsDataListUpdated/Overview.html"                                      },
+  'c8a0f847': { name: "nn::boss::ResultNotConnectApWithLocation",                                addr: "../nn/boss/ResultNotConnectApWithLocation/Overview.html"                               },
+  'c8a0f848': { name: "nn::boss::ResultNotConnectNetwork",                                       addr: "../nn/boss/ResultNotConnectNetwork/Overview.html"                                      },
+  'c8a0f849': { name: "nn::boss::ResultInvalidFriendcode",                                       addr: "../nn/boss/ResultInvalidFriendcode/Overview.html"                                      },
+  'c960f84a': { name: "nn::boss::ResultFileAccess",                                              addr: "../nn/boss/ResultFileAccess/Overview.html"                                             },
+  'c960f84b': { name: "nn::boss::ResultTaskAlreadyPaused",                                       addr: "../nn/boss/ResultTaskAlreadyPaused/Overview.html"                                      },
+  'c960f84c': { name: "nn::boss::ResultTaskAlreadyResumed",                                      addr: "../nn/boss/ResultTaskAlreadyResumed/Overview.html"                                     },
+  'c960f84d': { name: "nn::boss::ResultUnexpect",                                                addr: "../nn/boss/ResultUnexpect/Overview.html"                                               },
+  'd8e0f8c0': { name: "nn::boss::ResultInvalidStorageParameter",                                 addr: "../nn/boss/ResultInvalidStorageParameter/Overview.html"                                },
+  'd8e0f8c1': { name: "nn::boss::ResultCfgInfoTypeOutOfRange",                                   addr: "../nn/boss/ResultCfgInfoTypeOutOfRange/Overview.html"                                  },
+  'd860f8c2': { name: "nn::boss::ResultInvalidMaxHttpQuery",                                     addr: "../nn/boss/ResultInvalidMaxHttpQuery/Overview.html"                                    },
+  'd860f8c3': { name: "nn::boss::ResultInvalidMaxDataStoreDst",                                  addr: "../nn/boss/ResultInvalidMaxDataStoreDst/Overview.html"                                 },
+  'd860f8c4': { name: "nn::boss::ResultNSAListInvalidFormat",                                    addr: "../nn/boss/ResultNSAListInvalidFormat/Overview.html"                                   },
+  'c8a0f8c5': { name: "nn::boss::ResultNSAListDownloadTaskError",                                addr: "../nn/boss/ResultNSAListDownloadTaskError/Overview.html"                               },
+  'd8e0fbec': { name: "nn::boss::ResultInvalidSize",                                             addr: "../nn/boss/ResultInvalidSize/Overview.html"                                            },
+  'd8e0fbf6': { name: "nn::boss::ResultInvalidPointer",                                          addr: "../nn/boss/ResultInvalidPointer/Overview.html"                                         },
+  'c8a0fbfa': { name: "nn::boss::ResultNotFound",                                                addr: "../nn/boss/ResultNotFound/Overview.html"                                               },
+  'c8a0fbfc': { name: "nn::boss::ResultAlreadyExists",                                           addr: "../nn/boss/ResultAlreadyExists/Overview.html"                                          },
+  'd8e0fbfd': { name: "nn::boss::ResultOutOfRange",                                              addr: "../nn/boss/ResultOutOfRange/Overview.html"                                             },
+  'd8a10005': { name: "nn::cfg::CTR::ResultMountContentFailed",                                  addr: "../nn/cfg/CTR/ResultMountContentFailed/Overview.html"                                  },
+  'd8a10005': { name: "nn::cfg::CTR::ResultOutOfMemory",                                         addr: "../nn/cfg/CTR/ResultOutOfMemory/Overview.html"                                         },
+  'd90103fa': { name: "nn::cfg::CTR::ResultNotFound",                                            addr: "../nn/cfg/CTR/ResultNotFound/Overview.html"                                            },
+  'c8e10865': { name: "nn::cec::ResultBoxSizeFull",                                              addr: "../nn/cec/ResultBoxSizeFull/Overview.html"                                             },
+  'c8e10866': { name: "nn::cec::ResultBoxMessNumFull",                                           addr: "../nn/cec/ResultBoxMessNumFull/Overview.html"                                          },
+  'c8e10867': { name: "nn::cec::ResultBoxNumFull",                                               addr: "../nn/cec/ResultBoxNumFull/Overview.html"                                              },
+  'c8e10868': { name: "nn::cec::ResultBoxAlreadyExists",                                         addr: "../nn/cec/ResultBoxAlreadyExists/Overview.html"                                        },
+  'c8e10869': { name: "nn::cec::ResultMessTooLarge",                                             addr: "../nn/cec/ResultMessTooLarge/Overview.html"                                            },
+  'c8e1086a': { name: "nn::cec::ResultInvalidData",                                              addr: "../nn/cec/ResultInvalidData/Overview.html"                                             },
+  'c8e1086b': { name: "nn::cec::ResultInvalidId",                                                addr: "../nn/cec/ResultInvalidId/Overview.html"                                               },
+  'e0a1086c': { name: "nn::cec::ResultNotAgreeEula",                                             addr: "../nn/cec/ResultNotAgreeEula/Overview.html"                                            },
+  'e0a1086d': { name: "nn::cec::ResultParentalControlCec",                                       addr: "../nn/cec/ResultParentalControlCec/Overview.html"                                      },
+  'd0a1086e': { name: "nn::cec::ResultFileAccessFailed",                                         addr: "../nn/cec/ResultFileAccessFailed/Overview.html"                                        },
+  'c8a1086f': { name: "nn::cec::ResultSessionCanceled",                                          addr: "../nn/cec/ResultSessionCanceled/Overview.html"                                         },
+  'c8e10be9': { name: "nn::cec::ResultTooLarge",                                                 addr: "../nn/cec/ResultTooLarge/Overview.html"                                                },
+  'c8810bea': { name: "nn::cec::ResultNotAuthorized",                                            addr: "../nn/cec/ResultNotAuthorized/Overview.html"                                           },
+  'e0210beb': { name: "nn::cec::ResultAlreadyDone",                                              addr: "../nn/cec/ResultAlreadyDone/Overview.html"                                             },
+  'e0e10bee': { name: "nn::cec::ResultInvalidCombination",                                       addr: "../nn/cec/ResultInvalidCombination/Overview.html"                                      },
+  'c8810bef': { name: "nn::cec::ResultNoData",                                                   addr: "../nn/cec/ResultNoData/Overview.html"                                                  },
+  'c8a10bf0': { name: "nn::cec::ResultStateBusy",                                                addr: "../nn/cec/ResultStateBusy/Overview.html"                                               },
+  'c8a10bf2': { name: "nn::cec::ResultMisalignedSize",                                           addr: "../nn/cec/ResultMisalignedSize/Overview.html"                                          },
+  'c8610bf3': { name: "nn::cec::ResultBufferFull",                                               addr: "../nn/cec/ResultBufferFull/Overview.html"                                              },
+  'e0e10bf6': { name: "nn::cec::ResultInvalidPointer",                                           addr: "../nn/cec/ResultInvalidPointer/Overview.html"                                          },
+  'e0810bf8': { name: "nn::cec::ResultNotInitialized",                                           addr: "../nn/cec/ResultNotInitialized/Overview.html"                                          },
+  'e0e10bfd': { name: "nn::cec::ResultInvalidArgument",                                          addr: "../nn/cec/ResultInvalidArgument/Overview.html"                                         },
+  'c8a10c01': { name: "nn::ir::CTR::ResultMachineSleep",                                         addr: "../nn/ir/CTR/ResultMachineSleep/Overview.html"                                         },
+  'f9610c02': { name: "nn::ir::CTR::ResultFatalError",                                           addr: "../nn/ir/CTR/ResultFatalError/Overview.html"                                           },
+  'c8810c03': { name: "nn::ir::CTR::ResultSignatureNotFound",                                    addr: "../nn/ir/CTR/ResultSignatureNotFound/Overview.html"                                    },
+  'c9010c04': { name: "nn::ir::CTR::ResultdifferentSessionId",                                   addr: "../nn/ir/CTR/ResultdifferentSessionId/Overview.html"                                   },
+  'c9010c05': { name: "nn::ir::CTR::ResultInvalidCrc",                                           addr: "../nn/ir/CTR/ResultInvalidCrc/Overview.html"                                           },
+  'c8810c06': { name: "nn::ir::CTR::ResultFollowingDataNotExist",                                addr: "../nn/ir/CTR/ResultFollowingDataNotExist/Overview.html"                                },
+  'c8610c07': { name: "nn::ir::CTR::ResultFramingError",                                         addr: "../nn/ir/CTR/ResultFramingError/Overview.html"                                         },
+  'c8610c08': { name: "nn::ir::CTR::ResultOverrunError",                                         addr: "../nn/ir/CTR/ResultOverrunError/Overview.html"                                         },
+  'c8610c09': { name: "nn::ir::CTR::ResultPerformanceError",                                     addr: "../nn/ir/CTR/ResultPerformanceError/Overview.html"                                     },
+  'c8a10c0a': { name: "nn::ir::CTR::ResultModuleOtherError",                                     addr: "../nn/ir/CTR/ResultModuleOtherError/Overview.html"                                     },
+  'c8a10c0b': { name: "nn::ir::CTR::ResultAlreadyConnected",                                     addr: "../nn/ir/CTR/ResultAlreadyConnected/Overview.html"                                     },
+  'c8a10c0c': { name: "nn::ir::CTR::ResultAlreadyTryingToConnect",                               addr: "../nn/ir/CTR/ResultAlreadyTryingToConnect/Overview.html"                               },
+  'c8a10c0d': { name: "nn::ir::CTR::ResultNotConnected",                                         addr: "../nn/ir/CTR/ResultNotConnected/Overview.html"                                         },
+  'c8610c0e': { name: "nn::ir::CTR::ResultBufferFull",                                           addr: "../nn/ir/CTR/ResultBufferFull/Overview.html"                                           },
+  'c8610c0f': { name: "nn::ir::CTR::ResultBufferInsufficient",                                   addr: "../nn/ir/CTR/ResultBufferInsufficient/Overview.html"                                   },
+  'c8610c10': { name: "nn::ir::CTR::ResultPacketFull",                                           addr: "../nn/ir/CTR/ResultPacketFull/Overview.html"                                           },
+  'c8810c11': { name: "nn::ir::CTR::ResultTimeout",                                              addr: "../nn/ir/CTR/ResultTimeout/Overview.html"                                              },
+  'c8a10c12': { name: "nn::ir::CTR::ResultPeripheral",                                           addr: "../nn/ir/CTR/ResultPeripheral/Overview.html"                                           },
+  'c8a10c14': { name: "nn::ir::CTR::ResultCannotConfirmId",                                      addr: "../nn/ir/CTR/ResultCannotConfirmId/Overview.html"                                      },
+  'c8a10c14': { name: "nn::ir::CTR::ResultInvalidData",                                          addr: "../nn/ir/CTR/ResultInvalidData/Overview.html"                                          },
+  'e0e10fec': { name: "nn::ir::CTR::ResultInvalidSize",                                          addr: "../nn/ir/CTR/ResultInvalidSize/Overview.html"                                          },
+  'e0e10fed': { name: "nn::ir::CTR::ResultInvalidEnumValue",                                     addr: "../nn/ir/CTR/ResultInvalidEnumValue/Overview.html"                                     },
+  'c8810fef': { name: "nn::ir::CTR::ResultNoData",                                               addr: "../nn/ir/CTR/ResultNoData/Overview.html"                                               },
+  'c8610ff3': { name: "nn::ir::CTR::ResultOutOfResource",                                        addr: "../nn/ir/CTR/ResultOutOfResource/Overview.html"                                        },
+  'd8210ff8': { name: "nn::ir::CTR::ResultNotInitialized",                                       addr: "../nn/ir/CTR/ResultNotInitialized/Overview.html"                                       },
+  'd8210ff9': { name: "nn::ir::CTR::ResultAlreadyInitialized",                                   addr: "../nn/ir/CTR/ResultAlreadyInitialized/Overview.html"                                   },
+  'e0e10ffd': { name: "nn::ir::CTR::ResultOutOfRange",                                           addr: "../nn/ir/CTR/ResultOutOfRange/Overview.html"                                           },
+  'c8611001': { name: "nn::uds::CTR::ResultAlreadyNetworkIsFull",                                addr: "../nn/uds/CTR/ResultAlreadyNetworkIsFull/Overview.html"                                },
+  'c9411002': { name: "nn::uds::CTR::ResultWirelessOff",                                         addr: "../nn/uds/CTR/ResultWirelessOff/Overview.html"                                         },
+  'd1611004': { name: "nn::uds::CTR::ResultMiscellaneousSystemError",                            addr: "../nn/uds/CTR/ResultMiscellaneousSystemError/Overview.html"                            },
+  'e1211005': { name: "nn::uds::CTR::ResultMalformedData",                                       addr: "../nn/uds/CTR/ResultMalformedData/Overview.html"                                       },
+  'e1211008': { name: "nn::uds::CTR::ResultInvalidData",                                         addr: "../nn/uds/CTR/ResultInvalidData/Overview.html"                                         },
+  'e10113e9': { name: "nn::uds::CTR::ResultTooLarge",                                            addr: "../nn/uds/CTR/ResultTooLarge/Overview.html"                                            },
+  'c8a113ea': { name: "nn::uds::CTR::ResultInvalidState",                                        addr: "../nn/uds/CTR/ResultInvalidState/Overview.html"                                        },
+  'e10113ea': { name: "nn::uds::CTR::ResultNotAuthorized",                                       addr: "../nn/uds/CTR/ResultNotAuthorized/Overview.html"                                       },
+  'c86113f0': { name: "nn::uds::CTR::ResultBufferIsFull",                                        addr: "../nn/uds/CTR/ResultBufferIsFull/Overview.html"                                        },
+  'e10113f1': { name: "nn::uds::CTR::ResultMisalignedAddress",                                   addr: "../nn/uds/CTR/ResultMisalignedAddress/Overview.html"                                   },
+  'e10113f2': { name: "nn::uds::CTR::ResultMisalignedSize",                                      addr: "../nn/uds/CTR/ResultMisalignedSize/Overview.html"                                      },
+  'c86113f3': { name: "nn::uds::CTR::ResultOutOfResource",                                       addr: "../nn/uds/CTR/ResultOutOfResource/Overview.html"                                       },
+  'c8c113f4': { name: "nn::uds::CTR::ResultNotImplemented",                                      addr: "../nn/uds/CTR/ResultNotImplemented/Overview.html"                                      },
+  'e0a113f8': { name: "nn::uds::CTR::ResultNotInitialized",                                      addr: "../nn/uds/CTR/ResultNotInitialized/Overview.html"                                      },
+  'e06113f9': { name: "nn::uds::CTR::ResultAlreadyOccupiedWirelessDevice",                       addr: "../nn/uds/CTR/ResultAlreadyOccupiedWirelessDevice/Overview.html"                       },
+  'c88113fa': { name: "nn::uds::CTR::ResultNotFoundNetwork",                                     addr: "../nn/uds/CTR/ResultNotFoundNetwork/Overview.html"                                     },
+  'c90113fa': { name: "nn::uds::CTR::ResultInvalidNode",                                         addr: "../nn/uds/CTR/ResultInvalidNode/Overview.html"                                         },
+  'c92113fb': { name: "nn::uds::CTR::ResultDeniedFromMaster",                                    addr: "../nn/uds/CTR/ResultDeniedFromMaster/Overview.html"                                    },
+  'e10113fd': { name: "nn::uds::CTR::ResultOutOfRange",                                          addr: "../nn/uds/CTR/ResultOutOfRange/Overview.html"                                          },
+  'c92113fe': { name: "nn::uds::CTR::ResultConnectionTimeout",                                   addr: "../nn/uds/CTR/ResultConnectionTimeout/Overview.html"                                   },
+  'c8811402': { name: "nn::pl::ResultSharedFontNotFound",                                        addr: "../nn/pl/ResultSharedFontNotFound/Overview.html"                                       },
+  '00011464': { name: "nn::pl::ResultGameCoinDataReset",                                         addr: "../nn/pl/ResultGameCoinDataReset/Overview.html"                                        },
+  'c8a11465': { name: "nn::pl::ResultLackOfGameCoin",                                            addr: "../nn/pl/ResultLackOfGameCoin/Overview.html"                                           },
+  'd8e12801': { name: "nn::news::ResultInvalidSubjectSize",                                      addr: "../nn/news/ResultInvalidSubjectSize/Overview.html"                                     },
+  'd8e12802': { name: "nn::news::ResultInvalidMessageSize",                                      addr: "../nn/news/ResultInvalidMessageSize/Overview.html"                                     },
+  'd8e12803': { name: "nn::news::ResultInvalidPictureSize",                                      addr: "../nn/news/ResultInvalidPictureSize/Overview.html"                                     },
+  'd8e12804': { name: "nn::news::ResultInvalidPicture",                                          addr: "../nn/news/ResultInvalidPicture/Overview.html"                                         },
+  '00013000': { name: "nn::gd::CTR::ResultSuccess",                                              addr: "../nn/gd/CTR/ResultSuccess/Overview.html"                                              },
+  'e0e13001': { name: "nn::gd::CTR::ResultInvalidParameter",                                     addr: "../nn/gd/CTR/ResultInvalidParameter/Overview.html"                                     },
+  'e0e13002': { name: "nn::gd::CTR::ResultNullParameter",                                        addr: "../nn/gd/CTR/ResultNullParameter/Overview.html"                                        },
+  'e0e13003': { name: "nn::gd::CTR::ResultOutOfRangeParameter",                                  addr: "../nn/gd/CTR/ResultOutOfRangeParameter/Overview.html"                                  },
+  'd8613004': { name: "nn::gd::CTR::ResultOutOfMemory",                                          addr: "../nn/gd/CTR/ResultOutOfMemory/Overview.html"                                          },
+  'd8613005': { name: "nn::gd::CTR::ResultOutOfMemoryExt",                                       addr: "../nn/gd/CTR/ResultOutOfMemoryExt/Overview.html"                                       },
+  'e0e13006': { name: "nn::gd::CTR::ResultInvalidMemoryRegion",                                  addr: "../nn/gd/CTR/ResultInvalidMemoryRegion/Overview.html"                                  },
+  'e0e13007': { name: "nn::gd::CTR::ResultInvalidFunctionCall",                                  addr: "../nn/gd/CTR/ResultInvalidFunctionCall/Overview.html"                                  },
+  'e0e13008': { name: "nn::gd::CTR::ResultAlreadyReleased",                                      addr: "../nn/gd/CTR/ResultAlreadyReleased/Overview.html"                                      },
+  'e0e13009': { name: "nn::gd::CTR::ResultInputLayoutInvalidStreamSlots",                        addr: "../nn/gd/CTR/ResultInputLayoutInvalidStreamSlots/Overview.html"                        },
+  'e0e1300a': { name: "nn::gd::CTR::ResultInvalidTextureResolution",                             addr: "../nn/gd/CTR/ResultInvalidTextureResolution/Overview.html"                             },
+  'e0e1300b': { name: "nn::gd::CTR::ResultInvalidSubRegionResolution",                           addr: "../nn/gd/CTR/ResultInvalidSubRegionResolution/Overview.html"                           },
+  'e0e1300c': { name: "nn::gd::CTR::ResultInvalidTextureFormat",                                 addr: "../nn/gd/CTR/ResultInvalidTextureFormat/Overview.html"                                 },
+  'e0e1300d': { name: "nn::gd::CTR::ResultInvalidMemoryLayout",                                  addr: "../nn/gd/CTR/ResultInvalidMemoryLayout/Overview.html"                                  },
+  'e0e1300e': { name: "nn::gd::CTR::ResultInvalidMemoryLocation",                                addr: "../nn/gd/CTR/ResultInvalidMemoryLocation/Overview.html"                                },
+  'e0e1300f': { name: "nn::gd::CTR::ResultInvalidTextureMipLevelIndex",                          addr: "../nn/gd/CTR/ResultInvalidTextureMipLevelIndex/Overview.html"                          },
+  'e0e13010': { name: "nn::gd::CTR::ResultInvalidTextureMipLevelIndexForMipmapAutoGeneration",   addr: "../nn/gd/CTR/ResultInvalidTextureMipLevelIndexForMipmapAutoGeneration/Overview.html"   },
+  'e0e13011': { name: "nn::gd::CTR::ResultInvalidTextureFormatForCreatingRenderTarget",          addr: "../nn/gd/CTR/ResultInvalidTextureFormatForCreatingRenderTarget/Overview.html"          },
+  'e0e13012': { name: "nn::gd::CTR::ResultInvalidTextureFormatForCreatingDepthStencilTarget",    addr: "../nn/gd/CTR/ResultInvalidTextureFormatForCreatingDepthStencilTarget/Overview.html"    },
+  'e0e13013': { name: "nn::gd::CTR::ResultDifferentRenderTargetAndDepthStencilTargetResolution", addr: "../nn/gd/CTR/ResultDifferentRenderTargetAndDepthStencilTargetResolution/Overview.html" },
+  'e0e13014': { name: "nn::gd::CTR::ResultInvalidTextureUnitId",                                 addr: "../nn/gd/CTR/ResultInvalidTextureUnitId/Overview.html"                                 },
+  'e0e13016': { name: "nn::gd::CTR::ResultResourceAlreadyMapped",                                addr: "../nn/gd/CTR/ResultResourceAlreadyMapped/Overview.html"                                },
+  'e0e13017': { name: "nn::gd::CTR::ResultResourceNotMapped",                                    addr: "../nn/gd/CTR/ResultResourceNotMapped/Overview.html"                                    },
+  'e0e13018': { name: "nn::gd::CTR::ResultNoTextureBound",                                       addr: "../nn/gd/CTR/ResultNoTextureBound/Overview.html"                                       },
+  'e0e13019': { name: "nn::gd::CTR::ResultNoTextureCoordinates",                                 addr: "../nn/gd/CTR/ResultNoTextureCoordinates/Overview.html"                                 },
+  'e0e1301a': { name: "nn::gd::CTR::ResultInvalidShaderUniformName",                             addr: "../nn/gd/CTR/ResultInvalidShaderUniformName/Overview.html"                             },
+  'e0e1301b': { name: "nn::gd::CTR::ResultInvalidShaderUniform",                                 addr: "../nn/gd/CTR/ResultInvalidShaderUniform/Overview.html"                                 },
+  'e0e1301c': { name: "nn::gd::CTR::ResultInvalidShaderSignature",                               addr: "../nn/gd/CTR/ResultInvalidShaderSignature/Overview.html"                               },
+  'e0e1301d': { name: "nn::gd::CTR::ResultInvalidShaderOperation",                               addr: "../nn/gd/CTR/ResultInvalidShaderOperation/Overview.html"                               },
+  'e0e1301e': { name: "nn::gd::CTR::ResultSystemGeometryShaderIncompatibleWithImmediateDraw",    addr: "../nn/gd/CTR/ResultSystemGeometryShaderIncompatibleWithImmediateDraw/Overview.html"    },
+  'e0e1301f': { name: "nn::gd::CTR::ResultSystemNoCmdListBind",                                  addr: "../nn/gd/CTR/ResultSystemNoCmdListBind/Overview.html"                                  },
+  'e0e13020': { name: "nn::gd::CTR::ResultSystemInvalidCmdListBind",                             addr: "../nn/gd/CTR/ResultSystemInvalidCmdListBind/Overview.html"                             },
+  'e0e13021': { name: "nn::gd::CTR::ResultSystemReceiveErrorFromGlGetError",                     addr: "../nn/gd/CTR/ResultSystemReceiveErrorFromGlGetError/Overview.html"                     },
+  'e0e13022': { name: "nn::gd::CTR::ResultSystemNoPacketToRecord",                               addr: "../nn/gd/CTR/ResultSystemNoPacketToRecord/Overview.html"                               },
+  'e0e13023': { name: "nn::gd::CTR::ResultSystemNoPacketRecorded",                               addr: "../nn/gd/CTR/ResultSystemNoPacketRecorded/Overview.html"                               },
+  'e0e13024': { name: "nn::gd::CTR::ResultSystemAPacketIsAlreadyBeingRecorded",                  addr: "../nn/gd/CTR/ResultSystemAPacketIsAlreadyBeingRecorded/Overview.html"                  },
+  'e0e13025': { name: "nn::gd::CTR::ResultSystemInvalidPacketId",                                addr: "../nn/gd/CTR/ResultSystemInvalidPacketId/Overview.html"                                },
+  'e0e13026': { name: "nn::gd::CTR::ResultSystemRequestListInsertionIncompatibleWithJump",       addr: "../nn/gd/CTR/ResultSystemRequestListInsertionIncompatibleWithJump/Overview.html"       },
+  'c9213801': { name: "nn::ec::CTR::ResultAppletCancelled",                                      addr: "../nn/ec/CTR/ResultAppletCancelled/Overview.html"                                      },
+  'c9213802': { name: "nn::ec::CTR::ResultAppletHomeButton",                                     addr: "../nn/ec/CTR/ResultAppletHomeButton/Overview.html"                                     },
+  'c9213803': { name: "nn::ec::CTR::ResultAppletSoftwareReset",                                  addr: "../nn/ec/CTR/ResultAppletSoftwareReset/Overview.html"                                  },
+  'c9213804': { name: "nn::ec::CTR::ResultAppletPowerButton",                                    addr: "../nn/ec/CTR/ResultAppletPowerButton/Overview.html"                                    },
+  'e0c13805': { name: "nn::ec::CTR::ResultAppletNotSupportedError",                              addr: "../nn/ec/CTR/ResultAppletNotSupportedError/Overview.html"                              },
+  'c8613806': { name: "nn::ec::CTR::ResultAppletNotEnoughSpaceToDownloadContent",                addr: "../nn/ec/CTR/ResultAppletNotEnoughSpaceToDownloadContent/Overview.html"                },
+  'e0813807': { name: "nn::ec::CTR::ResultAppletNecessaryAttributeNotFound",                     addr: "../nn/ec/CTR/ResultAppletNecessaryAttributeNotFound/Overview.html"                     },
+  'e0813808': { name: "nn::ec::CTR::ResultAppletMetadataNotFound",                               addr: "../nn/ec/CTR/ResultAppletMetadataNotFound/Overview.html"                               },
+  'c8613809': { name: "nn::ec::CTR::ResultAppletTooManyContents",                                addr: "../nn/ec/CTR/ResultAppletTooManyContents/Overview.html"                                },
+  'e0e1380a': { name: "nn::ec::CTR::ResultAppletAlreadyPurchased",                               addr: "../nn/ec/CTR/ResultAppletAlreadyPurchased/Overview.html"                               },
+  'e0e1380b': { name: "nn::ec::CTR::ResultAppletItemUnpurchasable",                              addr: "../nn/ec/CTR/ResultAppletItemUnpurchasable/Overview.html"                              },
+  'c881380c': { name: "nn::ec::CTR::ResultAppletItemNotFound",                                   addr: "../nn/ec/CTR/ResultAppletItemNotFound/Overview.html"                                   },
+  'c8e1380d': { name: "nn::ec::CTR::ResultAppletAlreadyDownloaded",                              addr: "../nn/ec/CTR/ResultAppletAlreadyDownloaded/Overview.html"                              },
+  'c881380e': { name: "nn::ec::CTR::ResultAppletRedeemableItemNotFound",                         addr: "../nn/ec/CTR/ResultAppletRedeemableItemNotFound/Overview.html"                         },
+  'c8a1380f': { name: "nn::ec::CTR::ResultAppletAlreadyRedeemedItem",                            addr: "../nn/ec/CTR/ResultAppletAlreadyRedeemedItem/Overview.html"                            },
+  'c9613810': { name: "nn::ec::CTR::ResultAppletShopServerError",                                addr: "../nn/ec/CTR/ResultAppletShopServerError/Overview.html"                                },
+  'c8a13811': { name: "nn::ec::CTR::ResultAppletImportFailed",                                   addr: "../nn/ec/CTR/ResultAppletImportFailed/Overview.html"                                   },
+  'c8a13812': { name: "nn::ec::CTR::ResultAppletWifiOffError",                                   addr: "../nn/ec/CTR/ResultAppletWifiOffError/Overview.html"                                   },
+  'c8a13813': { name: "nn::ec::CTR::ResultAppletFailedConnectError",                             addr: "../nn/ec/CTR/ResultAppletFailedConnectError/Overview.html"                             },
+  'c8e13814': { name: "nn::ec::CTR::ResultAppletEcardUnavailable",                               addr: "../nn/ec/CTR/ResultAppletEcardUnavailable/Overview.html"                               },
+  'e0e13815': { name: "nn::ec::CTR::ResultAppletInvalidRivToken",                                addr: "../nn/ec/CTR/ResultAppletInvalidRivToken/Overview.html"                                },
+  'e0e13816': { name: "nn::ec::CTR::ResultAppletInvalidParameter",                               addr: "../nn/ec/CTR/ResultAppletInvalidParameter/Overview.html"                               },
+  'c8a13817': { name: "nn::ec::CTR::ResultAppletFailed",                                         addr: "../nn/ec/CTR/ResultAppletFailed/Overview.html"                                         },
+  'c8a13818': { name: "nn::ec::CTR::ResultAppletFailedError",                                    addr: "../nn/ec/CTR/ResultAppletFailedError/Overview.html"                                    },
+  'c8a13819': { name: "nn::ec::CTR::ResultAppletWrongPinCode",                                   addr: "../nn/ec/CTR/ResultAppletWrongPinCode/Overview.html"                                   },
+  'e0e1381a': { name: "nn::ec::CTR::ResultAppletDuplicateContentIndex",                          addr: "../nn/ec/CTR/ResultAppletDuplicateContentIndex/Overview.html"                          },
+  'c8a1381b': { name: "nn::ec::CTR::ResultAppletFailedLoginError",                               addr: "../nn/ec/CTR/ResultAppletFailedLoginError/Overview.html"                               },
+  'e0a1381c': { name: "nn::ec::CTR::ResultAppletDataTitleInUse",                                 addr: "../nn/ec/CTR/ResultAppletDataTitleInUse/Overview.html"                                 },
+  'e9413840': { name: "nn::ec::CTR::ResultAppletNeedsDatatitleUpdate",                           addr: "../nn/ec/CTR/ResultAppletNeedsDatatitleUpdate/Overview.html"                           },
+  'e8a13841': { name: "nn::ec::CTR::ResultAppletDatatitleNotImported",                           addr: "../nn/ec/CTR/ResultAppletDatatitleNotImported/Overview.html"                           },
+  'e8a13842': { name: "nn::ec::CTR::ResultAppletRequiresReConnect",                              addr: "../nn/ec/CTR/ResultAppletRequiresReConnect/Overview.html"                              },
+  'e8a13843': { name: "nn::ec::CTR::ResultAppletNeedsBalanceUpdate",                             addr: "../nn/ec/CTR/ResultAppletNeedsBalanceUpdate/Overview.html"                             },
+  'c9213860': { name: "nn::ec::CTR::ResultAppletNeedsSystemUpdate",                              addr: "../nn/ec/CTR/ResultAppletNeedsSystemUpdate/Overview.html"                              },
+  'c9213861': { name: "nn::ec::CTR::ResultAppletStandbyMode",                                    addr: "../nn/ec/CTR/ResultAppletStandbyMode/Overview.html"                                    },
+  'c9213862': { name: "nn::ec::CTR::ResultAppletShopServiceTerminated",                          addr: "../nn/ec/CTR/ResultAppletShopServiceTerminated/Overview.html"                          },
+  'c8c13863': { name: "nn::ec::CTR::ResultAppletShopServiceUnavailable",                         addr: "../nn/ec/CTR/ResultAppletShopServiceUnavailable/Overview.html"                         },
+  'c9213864': { name: "nn::ec::CTR::ResultAppletCountryChanged",                                 addr: "../nn/ec/CTR/ResultAppletCountryChanged/Overview.html"                                 },
+  'c8a13865': { name: "nn::ec::CTR::ResultAppletNotAgreeEulaError",                              addr: "../nn/ec/CTR/ResultAppletNotAgreeEulaError/Overview.html"                              },
+  'c8613866': { name: "nn::ec::CTR::ResultAppletTooManyDatatitles",                              addr: "../nn/ec/CTR/ResultAppletTooManyDatatitles/Overview.html"                              },
+  'c8613867': { name: "nn::ec::CTR::ResultAppletNotEnoughSpaceToDownloadDatatitle",              addr: "../nn/ec/CTR/ResultAppletNotEnoughSpaceToDownloadDatatitle/Overview.html"              },
+  'c8813868': { name: "nn::ec::CTR::ResultAppletSdNotInserted",                                  addr: "../nn/ec/CTR/ResultAppletSdNotInserted/Overview.html"                                  },
+  'c9213869': { name: "nn::ec::CTR::ResultAppletSdWriteProtected",                               addr: "../nn/ec/CTR/ResultAppletSdWriteProtected/Overview.html"                               },
+  'c921386a': { name: "nn::ec::CTR::ResultAppletSdBroken",                                       addr: "../nn/ec/CTR/ResultAppletSdBroken/Overview.html"                                       },
+  'd8a1386c': { name: "nn::ec::CTR::ResultAppletInvalidVersion",                                 addr: "../nn/ec/CTR/ResultAppletInvalidVersion/Overview.html"                                 },
+  'd8a1386d': { name: "nn::ec::CTR::ResultAppletSdAccessError",                                  addr: "../nn/ec/CTR/ResultAppletSdAccessError/Overview.html"                                  },
+  'e0613880': { name: "nn::ec::CTR::ResultTooManyContents",                                      addr: "../nn/ec/CTR/ResultTooManyContents/Overview.html"                                      },
+  'e0613881': { name: "nn::ec::CTR::ResultTooManyTitles",                                        addr: "../nn/ec/CTR/ResultTooManyTitles/Overview.html"                                        },
+  'e0a13882': { name: "nn::ec::CTR::ResultNotInitialized",                                       addr: "../nn/ec/CTR/ResultNotInitialized/Overview.html"                                       },
+  'e0e13883': { name: "nn::ec::CTR::ResultTitleInvalid",                                         addr: "../nn/ec/CTR/ResultTitleInvalid/Overview.html"                                         },
+  'e0e13884': { name: "nn::ec::CTR::ResultInvalidSelectionFilter",                               addr: "../nn/ec/CTR/ResultInvalidSelectionFilter/Overview.html"                               },
+  'e0c13886': { name: "nn::ec::CTR::ResultNotImplemented",                                       addr: "../nn/ec/CTR/ResultNotImplemented/Overview.html"                                       },
+  'c8813887': { name: "nn::ec::CTR::ResultDataTitleNotFound",                                    addr: "../nn/ec/CTR/ResultDataTitleNotFound/Overview.html"                                    },
+  'd8813888': { name: "nn::ec::CTR::ResultDataTitleContentInfoNotFound",                         addr: "../nn/ec/CTR/ResultDataTitleContentInfoNotFound/Overview.html"                         },
+  'd8813889': { name: "nn::ec::CTR::ResultDataTitleContentNotFound",                             addr: "../nn/ec/CTR/ResultDataTitleContentNotFound/Overview.html"                             },
+  'd881388a': { name: "nn::ec::CTR::ResultMetaDataTitleNotFound",                                addr: "../nn/ec/CTR/ResultMetaDataTitleNotFound/Overview.html"                                },
+  'd901388b': { name: "nn::ec::CTR::ResultMetaDataInvalidFormat",                                addr: "../nn/ec/CTR/ResultMetaDataInvalidFormat/Overview.html"                                },
+  'd881388c': { name: "nn::ec::CTR::ResultMetaDataIconNotFound",                                 addr: "../nn/ec/CTR/ResultMetaDataIconNotFound/Overview.html"                                 },
+  'd881388d': { name: "nn::ec::CTR::ResultMetaDataContentNotFound",                              addr: "../nn/ec/CTR/ResultMetaDataContentNotFound/Overview.html"                              },
+  'd861388e': { name: "nn::ec::CTR::ResultOutOfFilterMemory",                                    addr: "../nn/ec/CTR/ResultOutOfFilterMemory/Overview.html"                                    },
+  'e0e1388f': { name: "nn::ec::CTR::ResultCatalogInvalidArgument",                               addr: "../nn/ec/CTR/ResultCatalogInvalidArgument/Overview.html"                               },
+  'c8813890': { name: "nn::ec::CTR::ResultSessionPreparedTitleNotFound",                         addr: "../nn/ec/CTR/ResultSessionPreparedTitleNotFound/Overview.html"                         },
+  'c9413891': { name: "nn::ec::CTR::ResultAppletCloseApplicationRequested",                      addr: "../nn/ec/CTR/ResultAppletCloseApplicationRequested/Overview.html"                      },
+  'c8813894': { name: "nn::ec::CTR::ResultDataTitleNotOwned",                                    addr: "../nn/ec/CTR/ResultDataTitleNotOwned/Overview.html"                                    },
+  'c8813895': { name: "nn::ec::CTR::ResultServiceTitleNotOwned",                                 addr: "../nn/ec/CTR/ResultServiceTitleNotOwned/Overview.html"                                 },
+  'd8813896': { name: "nn::ec::CTR::ResultAccountNotCreated",                                    addr: "../nn/ec/CTR/ResultAccountNotCreated/Overview.html"                                    },
+  'e0c13897': { name: "nn::ec::CTR::ResultNotSupported",                                         addr: "../nn/ec/CTR/ResultNotSupported/Overview.html"                                         },
+  'e0e13898': { name: "nn::ec::CTR::ResultTicketEnvelopeSizeInvalid",                            addr: "../nn/ec/CTR/ResultTicketEnvelopeSizeInvalid/Overview.html"                            },
+  'e0a13899': { name: "nn::ec::CTR::ResultDataTitleInUse",                                       addr: "../nn/ec/CTR/ResultDataTitleInUse/Overview.html"                                       },
+  'd861389a': { name: "nn::ec::CTR::ResultOutOfCatalogMemory",                                   addr: "../nn/ec/CTR/ResultOutOfCatalogMemory/Overview.html"                                   },
+  'd8e1389b': { name: "nn::ec::CTR::ResultDataTitleContentNotDeletable",                         addr: "../nn/ec/CTR/ResultDataTitleContentNotDeletable/Overview.html"                         },
+  'e061389c': { name: "nn::ec::CTR::ResultTooManyItems",                                         addr: "../nn/ec/CTR/ResultTooManyItems/Overview.html"                                         },
+  'e0e1389d': { name: "nn::ec::CTR::ResultPriceFormatInvalid",                                   addr: "../nn/ec/CTR/ResultPriceFormatInvalid/Overview.html"                                   },
+  'c94138c0': { name: "nn::ec::CTR::ResultUpdatedVersionRetrieved",                              addr: "../nn/ec/CTR/ResultUpdatedVersionRetrieved/Overview.html"                              },
+  'd8a138c1': { name: "nn::ec::CTR::ResultSessionInvalid",                                       addr: "../nn/ec/CTR/ResultSessionInvalid/Overview.html"                                       },
+  'c94138c2': { name: "nn::ec::CTR::ResultNewSessionRequired",                                   addr: "../nn/ec/CTR/ResultNewSessionRequired/Overview.html"                                   },
+  'c8a13900': { name: "nn::ec::CTR::ResultECardStatusRedeemedError",                             addr: "../nn/ec/CTR/ResultECardStatusRedeemedError/Overview.html"                             },
+  'c8a13901': { name: "nn::ec::CTR::ResultECardStatusRevokedError",                              addr: "../nn/ec/CTR/ResultECardStatusRevokedError/Overview.html"                              },
+  'c8a13902': { name: "nn::ec::CTR::ResultECardStatusInactiveError",                             addr: "../nn/ec/CTR/ResultECardStatusInactiveError/Overview.html"                             },
+  'f9613903': { name: "nn::ec::CTR::ResultECardStatusUnknownError",                              addr: "../nn/ec/CTR/ResultECardStatusUnknownError/Overview.html"                              },
+  'c8a13904': { name: "nn::ec::CTR::ResultECardTypeLegacyPointsError",                           addr: "../nn/ec/CTR/ResultECardTypeLegacyPointsError/Overview.html"                           },
+  'c8a13905': { name: "nn::ec::CTR::ResultECardInvalidIdError",                                  addr: "../nn/ec/CTR/ResultECardInvalidIdError/Overview.html"                                  },
+  'c8a13906': { name: "nn::ec::CTR::ResultECardTypeCacheError",                                  addr: "../nn/ec/CTR/ResultECardTypeCacheError/Overview.html"                                  },
+  'f9613907': { name: "nn::ec::CTR::ResultECardTypeUnknownError",                                addr: "../nn/ec/CTR/ResultECardTypeUnknownError/Overview.html"                                },
+  'c8a13908': { name: "nn::ec::CTR::ResultECardNoRedeemableItemsError",                          addr: "../nn/ec/CTR/ResultECardNoRedeemableItemsError/Overview.html"                          },
+  'c8a13909': { name: "nn::ec::CTR::ResultFsMediaWriteProtectedError",                           addr: "../nn/ec/CTR/ResultFsMediaWriteProtectedError/Overview.html"                           },
+  'c941390a': { name: "nn::ec::CTR::ResultInfraReportError",                                     addr: "../nn/ec/CTR/ResultInfraReportError/Overview.html"                                     },
+  'c941390b': { name: "nn::ec::CTR::ResultInfraReceiveError",                                    addr: "../nn/ec/CTR/ResultInfraReceiveError/Overview.html"                                    },
+  'c941390c': { name: "nn::ec::CTR::ResultInfraInvalidResponseError",                            addr: "../nn/ec/CTR/ResultInfraInvalidResponseError/Overview.html"                            },
+  'c941390d': { name: "nn::ec::CTR::ResultInfraNeedsUpdateError",                                addr: "../nn/ec/CTR/ResultInfraNeedsUpdateError/Overview.html"                                },
+  'c941390e': { name: "nn::ec::CTR::ResultInfraTimeoutError",                                    addr: "../nn/ec/CTR/ResultInfraTimeoutError/Overview.html"                                    },
+  'c941390f': { name: "nn::ec::CTR::ResultInfraBusyError",                                       addr: "../nn/ec/CTR/ResultInfraBusyError/Overview.html"                                       },
+  'c9413910': { name: "nn::ec::CTR::ResultInfraInMaintenanceError",                              addr: "../nn/ec/CTR/ResultInfraInMaintenanceError/Overview.html"                              },
+  'c9413911': { name: "nn::ec::CTR::ResultNetworkTimeoutError",                                  addr: "../nn/ec/CTR/ResultNetworkTimeoutError/Overview.html"                                  },
+  'c9413912': { name: "nn::ec::CTR::ResultNetworkInMaintenanceError",                            addr: "../nn/ec/CTR/ResultNetworkInMaintenanceError/Overview.html"                            },
+  'c8613913': { name: "nn::ec::CTR::ResultOutOfCatalogMemoryError",                              addr: "../nn/ec/CTR/ResultOutOfCatalogMemoryError/Overview.html"                              },
+  'c8613914': { name: "nn::ec::CTR::ResultOutOfSystemMemoryError",                               addr: "../nn/ec/CTR/ResultOutOfSystemMemoryError/Overview.html"                               },
+  'c9413915': { name: "nn::ec::CTR::ResultFsMediaAccessFailedError",                             addr: "../nn/ec/CTR/ResultFsMediaAccessFailedError/Overview.html"                             },
+  'c8613916': { name: "nn::ec::CTR::ResultNoEnoughSpaceError",                                   addr: "../nn/ec/CTR/ResultNoEnoughSpaceError/Overview.html"                                   },
+  'c9413917': { name: "nn::ec::CTR::ResultAcNotConnectedError",                                  addr: "../nn/ec/CTR/ResultAcNotConnectedError/Overview.html"                                  },
+  'c9413940': { name: "nn::ec::CTR::ResultInfraNeedsReconnectError",                             addr: "../nn/ec/CTR/ResultInfraNeedsReconnectError/Overview.html"                             },
+  'c8813b00': { name: "nn::ec::CTR::ResultPatchTitleNotFound",                                   addr: "../nn/ec/CTR/ResultPatchTitleNotFound/Overview.html"                                   },
+  'c8a13b01': { name: "nn::ec::CTR::ResultPatchNotAppliedCorrectly",                             addr: "../nn/ec/CTR/ResultPatchNotAppliedCorrectly/Overview.html"                             },
+  'e0a13c01': { name: "nn::webbrs::CTR::ResultInvalidUrl",                                       addr: "../nn/webbrs/CTR/ResultInvalidUrl/Overview.html"                                       },
+  'e0a13c02': { name: "nn::webbrs::CTR::ResultUnavailableWebBrowser",                            addr: "../nn/webbrs/CTR/ResultUnavailableWebBrowser/Overview.html"                            },
+  'c8a13c03': { name: "nn::webbrs::CTR::ResultLocalCommMode",                                    addr: "../nn/webbrs/CTR/ResultLocalCommMode/Overview.html"                                    },
+  'e0a14c65': { name: "nn::act::ResultNotInitialized",                                           addr: "../nn/act/ResultNotInitialized/Overview.html"                                          },
+  'e0a14c67': { name: "nn::act::ResultNotConnected",                                             addr: "../nn/act/ResultNotConnected/Overview.html"                                            },
+  'e0a14c68': { name: "nn::act::ResultOutOfUserHeap",                                            addr: "../nn/act/ResultOutOfUserHeap/Overview.html"                                           },
+  'e0a14c6f': { name: "nn::act::ResultBusy",                                                     addr: "../nn/act/ResultBusy/Overview.html"                                                    },
+  'e0a14c70': { name: "nn::act::ResultCanceled",                                                 addr: "../nn/act/ResultCanceled/Overview.html"                                                },
+  'e0a14cbf': { name: "nn::act::ResultNotImplemented",                                           addr: "../nn/act/ResultNotImplemented/Overview.html"                                          },
+  'e0a14cc8': { name: "nn::act::ResultInvalidArgument",                                          addr: "../nn/act/ResultInvalidArgument/Overview.html"                                         },
+  'e0a14cc9': { name: "nn::act::ResultInvalidPointer",                                           addr: "../nn/act/ResultInvalidPointer/Overview.html"                                          },
+  'e0a14cca': { name: "nn::act::ResultOutOfRange",                                               addr: "../nn/act/ResultOutOfRange/Overview.html"                                              },
+  'e0a14ccb': { name: "nn::act::ResultInvalidSize",                                              addr: "../nn/act/ResultInvalidSize/Overview.html"                                             },
+  'e0a14ccc': { name: "nn::act::ResultInvalidFormat",                                            addr: "../nn/act/ResultInvalidFormat/Overview.html"                                           },
+  'e0a14ccd': { name: "nn::act::ResultInvalidHandle",                                            addr: "../nn/act/ResultInvalidHandle/Overview.html"                                           },
+  'e0a14cce': { name: "nn::act::ResultInvalidValue",                                             addr: "../nn/act/ResultInvalidValue/Overview.html"                                            },
+  'f8a14d2c': { name: "nn::act::ResultInternalError",                                            addr: "../nn/act/ResultInternalError/Overview.html"                                           },
+  'c8a14d91': { name: "nn::act::ResultAccountNotFound",                                          addr: "../nn/act/ResultAccountNotFound/Overview.html"                                         },
+  'c8a14da5': { name: "nn::act::ResultNotNetworkAccount",                                        addr: "../nn/act/ResultNotNetworkAccount/Overview.html"                                       },
+  'c8a14da6': { name: "nn::act::ResultNotLocalAccount",                                          addr: "../nn/act/ResultNotLocalAccount/Overview.html"                                         },
+  'c8a14df4': { name: "nn::act::ResultAuthenticationError",                                      addr: "../nn/act/ResultAuthenticationError/Overview.html"                                     },
+  'c8a14e9f': { name: "nn::act::ResultInvalidUniqueId",                                          addr: "../nn/act/ResultInvalidUniqueId/Overview.html"                                         },
+  'c8a14ea0': { name: "nn::act::ResultInvalidClientId",                                          addr: "../nn/act/ResultInvalidClientId/Overview.html"                                         },
+  'c8a14eaa': { name: "nn::act::ResultInvalidGameServerId",                                      addr: "../nn/act/ResultInvalidGameServerId/Overview.html"                                     },
+  'c8a14ec8': { name: "nn::act::ResultApplicationUpdateRequired",                                addr: "../nn/act/ResultApplicationUpdateRequired/Overview.html"                               },
+  'f8a15401': { name: "nn::olv::ResultFatalError",                                               addr: "../nn/olv/ResultFatalError/Overview.html"                                              },
+  'e0e15402': { name: "nn::olv::ResultUsageError",                                               addr: "../nn/olv/ResultUsageError/Overview.html"                                              },
+  'c9215403': { name: "nn::olv::ResultCanceled",                                                 addr: "../nn/olv/ResultCanceled/Overview.html"                                                },
+  'c8a1540a': { name: "nn::olv::ResultLibraryError",                                             addr: "../nn/olv/ResultLibraryError/Overview.html"                                            },
+  'c8a1540a': { name: "nn::olv::ResultLibraryPermanentError",                                    addr: "../nn/olv/ResultLibraryPermanentError/Overview.html"                                   },
+  'c8a1540b': { name: "nn::olv::ResultLibraryTemporaryError",                                    addr: "../nn/olv/ResultLibraryTemporaryError/Overview.html"                                   },
+  'c8a15414': { name: "nn::olv::ResultNetworkError",                                             addr: "../nn/olv/ResultNetworkError/Overview.html"                                            },
+  'c9015414': { name: "nn::olv::ResultNetworkDataError",                                         addr: "../nn/olv/ResultNetworkDataError/Overview.html"                                        },
+  'c8a1541e': { name: "nn::olv::ResultNetworkLibraryError",                                      addr: "../nn/olv/ResultNetworkLibraryError/Overview.html"                                     },
+  'c8a15428': { name: "nn::olv::ResultNetworkHttpError",                                         addr: "../nn/olv/ResultNetworkHttpError/Overview.html"                                        },
+  'c8a15432': { name: "nn::olv::ResultServerError",                                              addr: "../nn/olv/ResultServerError/Overview.html"                                             },
+  'c8a15432': { name: "nn::olv::ResultServerPermanentError",                                     addr: "../nn/olv/ResultServerPermanentError/Overview.html"                                    },
+  'c8a15433': { name: "nn::olv::ResultServerTemporaryError",                                     addr: "../nn/olv/ResultServerTemporaryError/Overview.html"                                    },
+  'e0e18002': { name: "nn::qtm::CTR::ResultInvalidArgument",                                     addr: "../nn/qtm/CTR/ResultInvalidArgument/Overview.html"                                     },
+  'c8a183ef': { name: "nn::qtm::CTR::ResultNoData",                                              addr: "../nn/qtm/CTR/ResultNoData/Overview.html"                                              },
+  'e0e18440': { name: "nn::nfp::ResultInvalidUsage",                                             addr: "../nn/nfp/ResultInvalidUsage/Overview.html"                                            },
+  'e0e18448': { name: "nn::nfp::ResultBufferIsSmall",                                            addr: "../nn/nfp/ResultBufferIsSmall/Overview.html"                                           },
+  'e0e18450': { name: "nn::nfp::ResultInvalidArgument",                                          addr: "../nn/nfp/ResultInvalidArgument/Overview.html"                                         },
+  'e0e18451': { name: "nn::nfp::ResultInvalidPointer",                                           addr: "../nn/nfp/ResultInvalidPointer/Overview.html"                                          },
+  'e0e18452': { name: "nn::nfp::ResultInvalidAlignment",                                         addr: "../nn/nfp/ResultInvalidAlignment/Overview.html"                                        },
+  'd0a18480': { name: "nn::nfp::ResultNeedRetry",                                                addr: "../nn/nfp/ResultNeedRetry/Overview.html"                                               },
+  'd0a18488': { name: "nn::nfp::ResultIsBusy",                                                   addr: "../nn/nfp/ResultIsBusy/Overview.html"                                                  },
+  'd0a18490': { name: "nn::nfp::ResultTimeOutError",                                             addr: "../nn/nfp/ResultTimeOutError/Overview.html"                                            },
+  'd0a18498': { name: "nn::nfp::ResultConnectionError",                                          addr: "../nn/nfp/ResultConnectionError/Overview.html"                                         },
+  'c88184c0': { name: "nn::nfp::ResultNotFound",                                                 addr: "../nn/nfp/ResultNotFound/Overview.html"                                                },
+  'c88184c8': { name: "nn::nfp::ResultTagNotFound",                                              addr: "../nn/nfp/ResultTagNotFound/Overview.html"                                             },
+  'c88184d0': { name: "nn::nfp::ResultCharacterNotFound",                                        addr: "../nn/nfp/ResultCharacterNotFound/Overview.html"                                       },
+  'c8a18500': { name: "nn::nfp::ResultBackupError",                                              addr: "../nn/nfp/ResultBackupError/Overview.html"                                             },
+  'c8a18508': { name: "nn::nfp::ResultNoBackupFile",                                             addr: "../nn/nfp/ResultNoBackupFile/Overview.html"                                            },
+  'c8a18510': { name: "nn::nfp::ResultBackupOpenFailed",                                         addr: "../nn/nfp/ResultBackupOpenFailed/Overview.html"                                        },
+  'c8a18518': { name: "nn::nfp::ResultBackupReadFailed",                                         addr: "../nn/nfp/ResultBackupReadFailed/Overview.html"                                        },
+  'c8a18520': { name: "nn::nfp::ResultBackupWriteFailed",                                        addr: "../nn/nfp/ResultBackupWriteFailed/Overview.html"                                       },
+  'c8a18540': { name: "nn::nfp::ResultFailed",                                                   addr: "../nn/nfp/ResultFailed/Overview.html"                                                  },
+  'c8a18548': { name: "nn::nfp::ResultOperationFailed",                                          addr: "../nn/nfp/ResultOperationFailed/Overview.html"                                         },
+  'c8a18550': { name: "nn::nfp::ResultDataAccessFailed",                                         addr: "../nn/nfp/ResultDataAccessFailed/Overview.html"                                        },
+  'f9618580': { name: "nn::nfp::ResultFatalError",                                               addr: "../nn/nfp/ResultFatalError/Overview.html"                                              },
+  'f9618588': { name: "nn::nfp::ResultUnexpected",                                               addr: "../nn/nfp/ResultUnexpected/Overview.html"                                              },
+  'c8a18600': { name: "nn::nfp::ResultInvalidOperation",                                         addr: "../nn/nfp/ResultInvalidOperation/Overview.html"                                        },
+  'c8c18608': { name: "nn::nfp::ResultNotSupported",                                             addr: "../nn/nfp/ResultNotSupported/Overview.html"                                            },
+  'c8a18610': { name: "nn::nfp::ResultNeedRestore",                                              addr: "../nn/nfp/ResultNeedRestore/Overview.html"                                             },
+  'c8a18618': { name: "nn::nfp::ResultNeedFormat",                                               addr: "../nn/nfp/ResultNeedFormat/Overview.html"                                              },
+  'c8a18620': { name: "nn::nfp::ResultNeedCreate",                                               addr: "../nn/nfp/ResultNeedCreate/Overview.html"                                              },
+  'c8a18628': { name: "nn::nfp::ResultNeedRegister",                                             addr: "../nn/nfp/ResultNeedRegister/Overview.html"                                            },
+  'c8a18630': { name: "nn::nfp::ResultAlreadyCreated",                                           addr: "../nn/nfp/ResultAlreadyCreated/Overview.html"                                          },
+  'c8a18638': { name: "nn::nfp::ResultAccessIdMisMatch",                                         addr: "../nn/nfp/ResultAccessIdMisMatch/Overview.html"                                        },
+  'c8a18640': { name: "nn::nfp::ResultNotBroken",                                                addr: "../nn/nfp/ResultNotBroken/Overview.html"                                               },
+  'c8a18648': { name: "nn::nfp::ResultUidMisMatch",                                              addr: "../nn/nfp/ResultUidMisMatch/Overview.html"                                             },
+  'c8c18650': { name: "nn::nfp::ResultInvalidFormatVersion",                                     addr: "../nn/nfp/ResultInvalidFormatVersion/Overview.html"                                    },
+  'd8c18658': { name: "nn::nfp::ResultNotImplemented",                                           addr: "../nn/nfp/ResultNotImplemented/Overview.html"                                          },
+  'c8a18660': { name: "nn::nfp::ResultSleep",                                                    addr: "../nn/nfp/ResultSleep/Overview.html"                                                   },
+  'c8a18668': { name: "nn::nfp::ResultWifiOff",                                                  addr: "../nn/nfp/ResultWifiOff/Overview.html"                                                 },
+  'c8218670': { name: "nn::nfp::ResultUpdateRequired",                                           addr: "../nn/nfp/ResultUpdateRequired/Overview.html"                                          },
+  'f9618680': { name: "nn::nfp::ResultIrFunctionError",                                          addr: "../nn/nfp/ResultIrFunctionError/Overview.html"                                         },
+  'f9618688': { name: "nn::nfp::ResultNfcTargetError",                                           addr: "../nn/nfp/ResultNfcTargetError/Overview.html"                                          },
+  'e0a18690': { name: "nn::nfp::ResultConnectCanceled",                                          addr: "../nn/nfp/ResultConnectCanceled/Overview.html"                                         }
+};
+
+var s_LinkFs =
+{
+  'c8804464': { name: "nn::fs::ResultNotFound",             addr: "../nn/fs/ResultNotFound/Overview.html",             min:  100, max:  179 },
+  'c8804482': { name: "nn::fs::ResultMediaNotFound",        addr: "../nn/fs/ResultMediaNotFound/Overview.html",        min:  130, max:  179 },
+  'c82044b4': { name: "nn::fs::ResultAlreadyExists",        addr: "../nn/fs/ResultAlreadyExists/Overview.html",        min:  180, max:  199 },
+  'c86044c8': { name: "nn::fs::ResultNotEnoughSpace",       addr: "../nn/fs/ResultNotEnoughSpace/Overview.html",       min:  200, max:  219 },
+  'c8a044dc': { name: "nn::fs::ResultArchiveInvalidated",   addr: "../nn/fs/ResultArchiveInvalidated/Overview.html",   min:  220, max:  229 },
+  'c92044e6': { name: "nn::fs::ResultOperationDenied",      addr: "../nn/fs/ResultOperationDenied/Overview.html",      min:  230, max:  339 },
+  'c9204504': { name: "nn::fs::ResultWriteProtected",       addr: "../nn/fs/ResultWriteProtected/Overview.html",       min:  260, max:  279 },
+  'c9604518': { name: "nn::fs::ResultMediaAccessError",     addr: "../nn/fs/ResultMediaAccessError/Overview.html",     min:  280, max:  339 },
+  'c8a04554': { name: "nn::fs::ResultNotFormatted",         addr: "../nn/fs/ResultNotFormatted/Overview.html",         min:  340, max:  359 },
+  'c8a04568': { name: "nn::fs::ResultBadFormat",            addr: "../nn/fs/ResultBadFormat/Overview.html",            min:  360, max:  389 },
+  'd9004586': { name: "nn::fs::ResultVerificationFailed",   addr: "../nn/fs/ResultVerificationFailed/Overview.html",   min:  390, max:  399 },
+  'd8604658': { name: "nn::fs::ResultOutOfResource",        addr: "../nn/fs/ResultOutOfResource/Overview.html",        min:  600, max:  629 },
+  'd9004676': { name: "nn::fs::ResultAccessDenied",         addr: "../nn/fs/ResultAccessDenied/Overview.html",         min:  630, max:  659 },
+  'e0e046bc': { name: "nn::fs::ResultInvalidArgument",      addr: "../nn/fs/ResultInvalidArgument/Overview.html",      min:  700, max:  729 },
+  'e0a046da': { name: "nn::fs::ResultNotInitialized",       addr: "../nn/fs/ResultNotInitialized/Overview.html",       min:  730, max:  749 },
+  'e02046ee': { name: "nn::fs::ResultAlreadyInitialized",   addr: "../nn/fs/ResultAlreadyInitialized/Overview.html",   min:  750, max:  759 },
+  'e0c046f8': { name: "nn::fs::ResultUnsupportedOperation", addr: "../nn/fs/ResultUnsupportedOperation/Overview.html", min:  760, max:  779 }
+};
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+function FormatLength(n, len)
+{
+    var str = "" + n;
+    while( str.length < len )
+    {
+        str = " " + str;
+    }
+    return str;
+}
+
+function SetResult(msg, link)
+{
+    if( link )
+    {
+        document.getElementById("resultMessage").innerHTML = "";
+        document.getElementById("resultLink")   .innerHTML = msg;
+        document.getElementById("resultLink")   .href      = link;
+    }
+    else
+    {
+        document.getElementById("resultMessage").innerHTML = msg;
+        document.getElementById("resultLink")   .innerHTML = "";
+        document.getElementById("resultLink")   .href      = "";
+    }
+}
+
+function OnTextChanged_Result()
+{
+    var v = document.getElementById("codeValue").value;
+
+    var v2 = v.replace(/[^0-9xa-f]/gi,"");
+    var v3 = v2.replace(/0x/i, "");
+
+    if( v3.length < 8 )
+    {
+        var d = 8 - v3.length;
+        document.getElementById("remainMessage").innerHTML = "(Another " + d + " digits)";
+    }
+    else if( v3.length > 8 )
+    {
+        var od = v3.length - 8;
+        document.getElementById("remainMessage").innerHTML = "( " + od + " digits over)";
+    }
+    else
+    {
+        document.getElementById("remainMessage").innerHTML = "";
+    }
+    if( v3.length != 8 )
+    {
+        document.getElementById("resultUnknown").style.display = "none";
+        SetResult("(None)");
+        return;
+    }
+
+    v3 = v3.toLowerCase();
+    var result = parseInt(v3, 16);
+
+    var r_module  = ((result >> 10) & 0xFF);
+    if ( r_module == s_ModuleFs )
+    {
+        // FS is range Result
+        var r_description = ((result >> 0) & 0x3FF);
+        var link = null;
+        for ( var i in s_LinkFs )
+        {
+            // If Description is settled in a range
+            if ( r_description >= s_LinkFs[i]["min"] && r_description <= s_LinkFs[i]["max"] )
+            {
+                var fsResult = parseInt(i, 16);
+                if ( (result & 0xFFFFFC00) == (fsResult & 0xFFFFFC00) )
+                {
+                    // When a range repeats, a range gives priority to minimum one
+                    if ( link === null || s_LinkFs[i]["max"] - s_LinkFs[i]["min"] < s_LinkFs[link]["max"] - s_LinkFs[link]["min"] )
+                    {
+                        link = i;
+                    }
+                }
+            }
+        }
+
+        if ( link !== null )
+        {
+            document.getElementById("resultUnknown").style.display = "none";
+            SetResult(s_LinkFs[link]["name"], s_LinkFs[link]["addr"]);
+            return;
+        }
+    }
+
+    if( s_Link[v3] )
+    {
+        document.getElementById("resultUnknown").style.display = "none";
+        SetResult(s_Link[v3]["name"], s_Link[v3]["addr"]);
+    }
+    else
+    {
+        // Calculate each element
+        var r_level   = ((result >> 27) & 0x1F);
+        var r_summary = ((result >> 21) & 0x3F);
+
+        r_level = (r_level > 15) ? r_level - 32: r_level;
+
+        var levelText   = FormatLength(r_level, 3)   + "  ";
+        var summaryText = FormatLength(r_summary, 3) + "  ";
+        var moduleText  = FormatLength(r_module, 3)  + "  ";
+
+        levelText   += (s_Level[r_level]     ? s_Level[r_level]:     "(unknown)");
+        summaryText += (s_Summary[r_summary] ? s_Summary[r_summary]: "(unknown)");
+        moduleText  += (s_Module[r_module]   ? s_Module[r_module]:   "(unknown)");
+
+        SetResult("Not applicable");
+        document.getElementById("resultLevel")  .innerHTML = levelText;
+        document.getElementById("resultSummary").innerHTML = summaryText;
+        document.getElementById("resultModule") .innerHTML = moduleText;
+
+        document.getElementById("resultUnknown").style.display = "block";
+    }
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+
+function CallMember(obj, member)
+{
+    return function()
+    {
+        return member.apply(obj, arguments);
+    };
+}
+
+function CallWithParam(func, params)
+{
+    return function()
+    {
+        return func.apply(window, params);
+    };
+}
+
+function RegisterEventHandler(obj, type, listener, handler, useCapture)
+{
+    if( ! listener.eventHandlerHelpers )
+    {
+        listener.eventHandlerHelpers = new Array();
+    }
+
+    var id = "" + type + handler + useCapture;
+    var helper = listener.eventHandlerHelpers[id];
+
+    if( obj.addEventListener )
+    {
+        if( ! helper )
+        {
+            helper = new function(obj, cb)
+                {
+                    this.obj = obj;
+                    this.cb = cb;
+                    this.handleEvent = function(e)
+                    {
+                        return this.cb.apply(this.obj, arguments);
+                    }
+                }(listener, handler);
+
+            listener.eventHandlerHelpers[id] = helper;
+        }
+        obj.addEventListener(type, helper, useCapture);
+    }
+    else
+    {
+        if( ! helper )
+        {
+            helper = CallMember(listener, handler);
+            listener.eventHandlerHelpers[id] = helper;
+        }
+        obj.attachEvent("on" + type, helper);
+    }
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+function OnLoad()
+{
+    RegisterEventHandler(document.getElementById("codeValue"), "mouseup", this, OnTextChanged_Result, false);
+    RegisterEventHandler(document.getElementById("codeValue"), "keyup", this, OnTextChanged_Result, false);
+    RegisterEventHandler(document.getElementById("codeValue"), "change", this, OnTextChanged_Result, false);
+
+    document.getElementById("codeValue").focus();
+    OnTextChanged_Result();
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+window.onload = OnLoad;
+
+
+//-->
+</script>
+</head>
+<body>
+
+<h1>Find a Result Value</h1>
+<p>
+Finds a <CODE>Result</CODE> value from a 32-bit value. <br />
+<noscript>You must enable JavaScript to use this page.</noscript>
+</p>
+
+<div class="searchBox">
+    Result value: <input type="text" size="20" id="codeValue" /> <span class="remain" id="remainMessage"></span>
+</div>
+
+<div class="arrow">↓</div>
+
+<div class="searchResult">
+    Search results: <span id="resultMessage"></span><a id="resultLink" href=""></a><br />
+    <div class="resultRegion">
+        <table id="resultUnknown">
+        <tr><th>Level</th>  <td id="resultLevel"></td></tr>
+        <tr><th>Summary</th><td id="resultSummary"></td></tr>
+        <tr><th>Module</th> <td id="resultModule"></td></tr>
+        </table>
+    </div>
+</div>
+
+<h2>Revision History</h2>
+<div class="section">
+  <dl class="history">
+    <dt>2012/04/27</dt>
+      <dd>Initial version.</dd>
+  </dl>
+</div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>
+

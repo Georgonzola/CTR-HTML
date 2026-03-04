@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::fnd::ExpHeapTemplate</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fnd/Overview.html">fnd</a>::ExpHeapTemplate Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">template &lt;class LockPolicy&gt;class ExpHeapTemplate : public <a href="../../../nn/fnd/ExpHeapBase/Overview.html">nn::fnd::ExpHeapBase</a></pre>
+    </div>
+    <h2>Template Arguments</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>LockPolicy</th>
+          <td>Specifies the lock policy to use during operations on the heap.</td>
+        </tr> </table>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class template for the extended heap.</p><p>In classes that instantiate this class template, mutual exclusion is done using the lock policy specified by this function. For the lock policy, you can either specify one of the classes declared within the <code><a href="../../../nn/os/LockPolicy/Overview.html">nn::os::LockPolicy</a></code> class, or specify a class that instantiates the class template. Neither operation nor compatibility is guaranteed if you specify any other class for the <emphasis>LockPolicy</emphasis> parameter.</p><p>Locking is only performed on operations within the heap. If you want to perform operations on the heap hierarchy, you must take additional appropriate measures to ensure exclusive access.</p><!-- write here --></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/Allocator/Overview.html">nn::fnd::ExpHeapTemplate::Allocator</a>
+            </th>
+            <td><a href="../../../nn/fnd/ExpHeapTemplate/Allocator/Overview.html">Allocator</a> class for the expanded heap.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/ExpHeapTemplate.html">ExpHeapTemplate</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the heap.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/Invalidate.html">Invalidate</a>
+            </th>
+            <td>Invalidates the heap.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/Finalize.html">Finalize</a>
+            </th>
+            <td>If the heap is valid, it destroys it.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/~ExpHeapTemplate.html">~ExpHeapTemplate</a>
+            </th>
+            <td>Destructor. Calls <code><a href="../../../nn/fnd/ExpHeapTemplate/Finalize.html">Finalize</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/Allocate.html">Allocate</a>
+            </th>
+            <td>Allocates memory from the extended heap.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/Free.html">Free</a>
+            </th>
+            <td>Frees a memory block that was allocated from the extended heap.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/FreeV.html">FreeV</a>
+            </th>
+            <td>Frees a memory block that was allocated from the extended heap.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/ResizeBlock.html">ResizeBlock</a>
+            </th>
+            <td>Changes the size of a memory block that was allocated from the extended heap.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/VisitAllBlocks.html">VisitAllBlocks</a>
+            </th>
+            <td>Calls a user-specified <code>visitor</code> function on all memory blocks that have been allocated from the extended heap.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/GetStartAddress.html">GetStartAddress</a>
+            </th>
+            <td>Gets the starting address of the extended heap's memory region.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/GetTotalSize.html">GetTotalSize</a>
+            </th>
+            <td>Gets the memory size assigned to the extended heap.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/GetTotalFreeSize.html">GetTotalFreeSize</a>
+            </th>
+            <td>Gets the available memory size of the extended heap.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/GetAllocatableSize.html">GetAllocatableSize</a>
+            </th>
+            <td>Gets the size of the memory block that can be allocated from the extended heap.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/Adjust.html">Adjust</a>
+            </th>
+            <td>Use of this function is NOT recommended. This function frees unused areas at the tail of the extended heap to reduce the amount of memory the extended heap uses.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/CheckHeap.html">CheckHeap</a>
+            </th>
+            <td>Checks whether the extended heap has been destroyed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/CheckBlock.html">CheckBlock</a>
+            </th>
+            <td>Checks memory blocks that have been allocated from the extended heap.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/HasAddress.html">HasAddress</a>
+            </th>
+            <td>Determines whether the specified address is located within a heap.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/Dump.html">Dump</a>
+            </th>
+            <td>Displays the information in the heap. (For debugging.)</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/fnd/ExpHeapTemplate/Create.html">Create</a>
+            </th>
+            <td>Creates an extended heap within a parent heap.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<span>nn::fnd::IntrusiveLinkedList</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../nn/fnd/HeapBase/Overview.html">nn::fnd::HeapBase</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../nn/fnd/ExpHeapBase/Overview.html">nn::fnd::ExpHeapBase</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::fnd::ExpHeapTemplate</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

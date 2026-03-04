@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetArgc</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/dbg/Overview.html">dbg</a>::<a href="../../../nn/dbg/CTR/Overview.html">CTR</a>::GetArgc Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/dbg.h&gt;
+int GetArgc(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">The number of argument strings (including the application's own name) stored in the startup argument buffer. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the number of arguments from the argument buffer, stored as a string array.</p><P>Returns <tt>0</tt> if there is no startup argument buffer.</P><P>The number of arguments includes the string of the application's name. For example, if the application was started with the two explicit arguments <tt>-A 123</tt>, the function returns three values.  For more information about the application's name string, see <tt><a href="../../../nn/dbg/CTR/Argv0String.html">nn::dbg::CTR::Argv0String</a></tt>. </P><P>Use the <tt><a href="../../../nn/dbg/CTR/GetArgv.html">nn::dbg::CTR::GetArgv</a></tt> function to get the argument values.</P><P>Always returns <tt>0</tt> in release builds.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

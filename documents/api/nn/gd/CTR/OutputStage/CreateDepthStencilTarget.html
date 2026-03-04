@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CreateDepthStencilTarget</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/OutputStage/Overview.html">OutputStage</a>::CreateDepthStencilTarget Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CreateDepthStencilTarget(
+     const Texture2DResource * texture2DResource,
+     const <a href="../../../../nn/gd/CTR/DepthStencilTargetDescription/Overview.html">DepthStencilTargetDescription</a> * desc,
+     DepthStencilTarget ** depthStencil
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>texture2DResource</th>
+          <td>Specifies a pointer to an already created <code>Texture2DResource</code> object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>desc</th>
+          <td>Specifies parameters for creating a <code>DepthStencilTarget</code>.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>depthStencil</th>
+          <td>Specifies the address storing a pointer to the created depth stencil target object.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td>Some parameters were set to <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureMipLevelIndex</th>
+          <td><code>m_mipLevelIndex</code> in <code><a href="../../../../nn/gd/CTR/DepthStencilTargetDescription/Overview.html">DepthStencilTargetDescription</a></code> is larger than the mipmap level of the specified resource.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureResolution</th>
+          <td>The height or width of <code>Texture2DResource</code> is 0 or greater than 1024, or the size is not a multiple of 8. Alternatively, the memory layout of the Texture2DResource resource is <code>LAYOUT_BLOCK_32</code>, but the height and width of the Texture2DResource resource is not a multiple of 32.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormatForCreatingDepthStencilTarget</th>
+          <td>The pixel format of Texture2DResource is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLocation</th>
+          <td>The memory type of Texture2DResource is not VRAM.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td>Cannot allocate memory.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLayout</th>
+          <td>The memory layout is invalid. Specify either <code>LAYOUT_BLOCK_8</code> or <code>LAYOUT_BLOCKE_32</code>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a depth stencil target from a <code>Texture2DResource</code>.</p><p>The following pixel formats can be specified for Texture2DResource. <br /><itemizedlist><listitem><para>NATIVE_FORMAT_DEPTH_16 <br /></para></listitem><listitem><para>NATIVE_FORMAT_DEPTH_24 <br /></para></listitem><listitem><para>NATIVE_FORMAT_DEPTH_24_STENCIL_8 <br /></para></listitem></itemizedlist></p><!-- write here --></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><code><a href="../../../../nn/gd/CTR/Resource/CreateTexture2DResource.html">Resource::CreateTexture2DResource</a></code> to create a <code>Texture2DResource</code> object.<br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

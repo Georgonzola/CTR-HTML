@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxClearCmdlist</title>
+  </head>
+  <body>
+    <h1>nngxClearCmdlist Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxClearCmdlist(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Clears accumulated commands in the current command list.</p><P>When the command list is cleared, the 3D command buffer and command requests become unused.  (This reverts the data region for the command list to the state immediately after it was allocated.)</P><P>Callbacks set with <tt><a href="../nn_gx/nngxEnableCmdlistCallback.html">nngxEnableCmdlistCallback</a></tt> are cleared, but callbacks set with <tt><a href="../nn_gx/nngxEnableCmdlistCallback.html">nngxEnableCmdlistCallback</a>(-1)</tt>, which are invoked when all command requests are done executing, are not cleared. </P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_800F_DMP</TH><TD>This function was called on a running command list.</TD></TR></TABLE></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/06/19</dt>
+        <dd><item xmlns="">Added information about the relationship with the <tt>nngxEnableCmdlistCallback</tt> function.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Added extended error codes.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>StartScanning</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cec/Overview.html">cec</a>::<a href="../../../../nn/cec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/cec/CTR/CecControl/Overview.html">CecControl</a>::StartScanning Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">nn::Result</a> StartScanning(
+     bool reset = false
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>reset</th>
+          <td>If set to <code>true</code>, the list of remembered communication peers is deleted, and it becomes possible to reconnect with the same peer. Doing this enables data to be exchanged again not only for the currently set message box, but for all message boxes (all applications). <br />
+ This can only be set in debugging mode. <br /><br />
+ If you reset in a state other than communication halted (where the <code><a href="../../../../nn/cec/CTR/CecControl/DaemonState.html">DaemonState</a></code> value that can be obtained with <code><a href="../../../../nn/cec/CTR/CecControl/GetCecState.html">GetCecState</a></code> is <code>DAEMON_STATE_IDLE</code>), the list may not be deleted. <br />
+ Call <code><a href="../../../../nn/cec/CTR/CecControl/StopScanning.html">StopScanning</a></code> in advance to halt communication, and then use <code>StartScanning(reset = true)</code>. The list will be destroyed, and reconnection with the same peer will be possible.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"><code><a href="../../../../nn/Result/Overview.html">nn::Result</a></code><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultStateBusy</th>
+          <td>Operations did not start because <code>Initialize</code> was not run or some similar reason.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Starts CEC operations.</p><p>Using this function transitions to a state in which communication can be started. The actual start of communication is controlled by the system ( <code><a href="../../../../nn/ndm/Overview.html">nn::ndm</a></code>). Using this function does not cancel other communication (for example, Internet or local communication) or begin StreetPass immediately. <br />
+ The <code><a href="../../../../nn/cec/CTR/MessageBox/OpenMessageBox.html">MessageBox::OpenMessageBox</a></code> function calls <code><a href="../../../../nn/cec/CTR/CecControl/StopScanning.html">StopScanning</a></code> and transitions to the communication stopped state. <code>StartScanning(reset = false)</code> is called from within the <code>MessageBox::CloseMessageBox</code> function, and transitions to the communication possible state. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/03</dt>
+        <dd><item xmlns="">Added a description of the reset argument.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

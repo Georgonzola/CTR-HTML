@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Finalize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/uds/Overview.html">uds</a>::<a href="../../../nn/uds/CTR/Overview.html">CTR</a>::Finalize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void Finalize();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Finalizes the UDS library. After executing, other communication features become usable.</p><p>Releases the communication device held by the <code><a href="../../../nn/uds/CTR/Initialize.html">Initialize</a></code> function. The receive buffer specified by the <code><a href="../../../nn/uds/CTR/Initialize.html">Initialize</a></code> function can be accessed from the application after this function's execution completes. <br />
+ Finalizes the event received by the <code><a href="../../../nn/uds/CTR/Initialize.html">Initialize</a></code> function, which is used to send notifications of connection status updates. Destroys an <code>endpoint</code> that has not been destroyed. <br />
+ The buffer allocated by the <code><a href="../../../nn/uds/CTR/Attach.html">Attach</a></code> function is released. <br /><br />
+ This function is thread-unsafe.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/14</dt>
+        <dd><item xmlns="">Noted that the buffer assigned by the <tt>Attach</tt> function is released.</item><br /><item xmlns="">Noted that an endpoint that has not been destroyed will be destroyed.</item><br />
+        </dd>
+        <dt>2010/10/15</dt>
+        <dd><item xmlns="">Revised the description to make it easier to understand.</item><br />
+        </dd>
+        <dt>2010/09/27</dt>
+        <dd><item xmlns="">Noted that the reception buffer specified in the Initialize function becomes accessible after this function completes.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

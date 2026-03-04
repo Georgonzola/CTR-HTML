@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/DataStoreUploadAction/Overview.html">DataStoreUploadAction</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Initialize(
+     <a href="../../../nn_types/u32.html">u32</a> gameServerId,
+     const wchar_t * pAccessKey,
+     <a href="../../../nn/boss/DstKind.html">DstKind</a> dstKind,
+     <a href="../../../nn_types/u16.html">u16</a> dataType,
+     <a href="../../../nn_types/u16.html">u16</a> period
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>gameServerId</th>
+          <td>Specifies the ID used to identify game servers. (For more information, see the documentation in the NEX library.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pAccessKey</th>
+          <td>Specifies the key used to access the game server. (Specify no more than 8 characters. For more information, see the documentation in the NEX library.)</td>
+        </tr>
+        <tr>
+          <td />
+          <th>dstKind</th>
+          <td>
+            </td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dataType</th>
+          <td>Specifies a value representing the data type.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>period</th>
+          <td>Specifies the number of days before the data is automatically deleted. (For more information, see the documentation in the NEX library.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>taskSetting</th>
+          <td>Specifies the message data destination type. (For more information, see the documentation in the NEX library.)</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that initialization succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>The pointer to the access key string is NULL.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidSize</th>
+          <td>The access key string length is <code>0</code> or exceeds the maximum number of characters allowed.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Use this function to configure DataStore upload.</p><p>When registering tasks, use the following functions. <br /><br />
+ For normal execution:<br /><code><a href="../../../nn/Result/Overview.html">nn::Result</a> RegisterTask(Task* pTask, TaskPolicy* pPolicy, TaskAction* pAction, const char* pFilePath, TaskOption* pOption=NULL, u8 taskStep=DEFAULT_STEP_ID);</code><br />
+ For immediate execution:<br /><code><a href="../../../nn/Result/Overview.html">nn::Result</a> RegisterImmediateTask(Task* pTask, TaskAction* pAction, const char* pFilePath, TaskPolicy* pPolicy=NULL, TaskOption* pOption=NULL, u8 taskStep=DEFAULT_STEP_ID);</code><br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

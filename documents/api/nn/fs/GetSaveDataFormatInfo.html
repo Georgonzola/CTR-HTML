@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>GetSaveDataFormatInfo</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::GetSaveDataFormatInfo Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> GetSaveDataFormatInfo(
+     size_t * maxFiles,
+     size_t * maxDirectories,
+     bool * isDuplicateAll
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>maxFiles</th>
+          <td>The maximum number of files.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>maxDirectories</th>
+          <td>The maximum number of directories.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>isDuplicateAll</th>
+          <td>Sets whether the entire save data region is being duplicated.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotFormatted</th>
+          <td>Data region not formatted. Format the data region by calling the <code><a href="../../nn/fs/FormatSaveData.html">FormatSaveData</a></code> function.</td>
+        </tr>
+        <tr>
+          <th>ResultBadFormat</th>
+          <td>Invalid format. Format the data region by calling the <code><a href="../../nn/fs/FormatSaveData.html">FormatSaveData</a></code> function.</td>
+        </tr>
+        <tr>
+          <th>ResultVerificationFailed</th>
+          <td>Either verification failed or some form of tampering was detected. Format the data region by calling the <code><a href="../../nn/fs/FormatSaveData.html">FormatSaveData</a></code> function.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>An unexpected or fatal error occurred.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the format parameter for the save data region.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/01/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

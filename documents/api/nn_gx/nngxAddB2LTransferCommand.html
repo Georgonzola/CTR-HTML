@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxAddB2LTransferCommand</title>
+  </head>
+  <body>
+    <h1>nngxAddB2LTransferCommand Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxAddB2LTransferCommand(
+     const GLvoid * srcaddr,
+     GLsizei srcwidth,
+     GLsizei srcheight,
+     GLenum srcformat,
+     GLvoid * dstaddr,
+     GLsizei dstwidth,
+     GLsizei dstheight,
+     GLenum dstformat,
+     GLenum aamode,
+     GLboolean yflip,
+     GLsizei blocksize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>srcaddr</th>
+          <td>Address of the source block image to transfer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcwidth</th>
+          <td>Width of the source image to transfer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcheight</th>
+          <td>Height of the source image to transfer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcformat</th>
+          <td>Pixel format of the source image to transfer.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>dstaddr</th>
+          <td>Address that stores the linear image to which to the data is transferred.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstwidth</th>
+          <td>Width of the destination image.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstheight</th>
+          <td>Height of the destination image.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstformat</th>
+          <td>Pixel format of the destination image.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>aamode</th>
+          <td>Antialiasing filter mode.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>yflip</th>
+          <td>Specifies whether to vertically flip the image when transferring it.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>blocksize</th>
+          <td>Block image block size (8 or 32).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Adds a command to convert and transfer a block image to a linear image.</p><P>This function converts a block image to a linear image. (In other words, it converts from the format used for rendering to the format used for display.) Although the <tt>nngxTransferRenderImage</tt> function provides equivalent functionality, this function has more general uses. Also, unlike <tt>nngxTransferRenderImage</tt>, this function only adds a transfer request command without adding a 3D split command.</P><P>Specify the start address of the transfer source block image using the <span class="argument">srcaddr</span> parameter. Specify the start address of the transfer destination linear image using the <span class="argument">dstaddr</span> parameter. Both <span class="argument">srcaddr</span> and <span class="argument">dstaddr</span> must be 16-byte aligned.</P><P>Specify the original image's width and height in pixels using <span class="argument">srcwidth</span> and <span class="argument">srcheight</span>. Specify the transferred image's width and height in pixels using <span class="argument">dstwidth</span> and <span class="argument">dstheight</span>. These dimensions must all be multiples of the block size. The block size is either 8 or 32. However, if the transferred image uses 24 bits per pixel and a block size of 8, both the original and transferred images must have widths that are multiples of 16. This function neither converts nor transfers if any of the image dimensions is 0. The width and height of the transferred image must be less than or equal to the width and height of the original image.</P><P>There are minimum size restrictions on the width and height for both the original image and the transferred image. The minimum width and height for the original image is 128 pixels. The minimum width and height for the transferred image depends on the anti-alias setting. If anti-aliasing is disabled, then the minimum width and height are both 128 pixels. If 2x1 anti-aliasing is enabled, then the minimums are 64 pixels for width and 128 pixels for height. If 2x2 anti-aliasing is enabled, then the minimums are both 64 pixels.</P><P>Specify the pixel format of the original and transferred images using <span class="argument">srcformat</span> and <span class="argument">dstformat</span>. Specify the pixel format with one of the following macros.<TABLE><TR><TH>GL_RGBA8_OES</TH><TD>32-bit RGBA8</TD></TR><TR><th>GL_RGB8_OES</th><TD>RGB8 (24 bits)</TD></TR><TR><th>GL_RGBA4</th><TD>RGBA4 (16 bits)</TD></TR><TR><th>GL_RGB5_A1</th><TD>RGBA5551 (16 bits)</TD></TR><TR><th>GL_RGB565</th><TD>RGB565 (16 bits)</TD></TR></TABLE></P><P>Conversions that increase the pixel size are not possible. For example, you cannot convert from a 24-bit format to a 32-bit format or from a 16-bit format to either a 24-bit or 32-bit format.</P><P>Specify the antialiasing filter mode with <span class="argument">aamode</span>. Specify the mode with one of the following macros.<TABLE><TR><th>NN_GX_ANTIALIASE_NOT_USED</th><TD>No antialiasing</TD></TR><TR><th>NN_GX_ANTIALIASE_2x1</th><TD>Transfer with 2x1 antialiasing</TD></TR><TR><th>NN_GX_ANTIALIASE_2x2</th><TD>Transfer with 2x2 antialiasing</TD></TR></TABLE>When antialiasing is enabled, the transferred image is shrunk in half in the filtering direction. Specifically, 2x2 antialiasing shrinks the image in half vertically <i>and</i> horizontally, and 2x1 antialiasing shrinks the image in half horizontally.</P><P>The transferred image is flipped vertically when <span class="argument">yflip</span> is <tt>GL_TRUE</tt>. It is not flipped when <span class="argument">yflip</span> is <tt>GL_FALSE</tt>. Nonzero values are considered to be <tt>GL_TRUE</tt>.</P><P>For <span class="argument">blocksize</span>, specify <tt>8</tt> or <tt>32</tt>. When set to 8, the transfer source image is transferred using a block size of 8. When set to 32, the transfer source image is transferred using a block size of 32.</P><P><tt>srcaddr</tt> and <tt>dstaddr</tt> must be stored in device memory or in VRAM.  If they are not stored in these regions, the Development/Debug builds stop on an assertion and the Release build quits without the addition of a transfer command. <br /> If the data of either <tt>srcaddr</tt> or <tt>dstaddr</tt> is stored in device memory and will be directly referenced and edited by the CPU, you must use the <a href="../nn_gx/nngxUpdateBufferLight.html">nngxUpdateBufferLight</a> function to perform caching operations before executing the transfer command. </P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_807C_DMP</TH><TD>0 is bound to the current command list or the command request queue is full.</TD></TR><TR><TH>GL_ERROR_807D_DMP</TH><TD><span class="argument">srcaddr</span> or <span class="argument">dstaddr</span> is not 16-byte aligned.</TD></TR><TR><TH>GL_ERROR_807E_DMP</TH><TD><span class="argument">blocksize</span> is neither 8 nor 32.</TD></TR><TR><TH>GL_ERROR_807F_DMP</TH><TD><span class="argument">aamode</span> is an invalid value.</TD></TR><TR><TH>GL_ERROR_8080_DMP</TH><TD><span class="argument">srcformat</span> and <span class="argument">dstformat</span> are invalid values.</TD></TR><TR><TH>GL_ERROR_8081_DMP</TH><TD><span class="argument">dstformat</span> has a larger pixel size than <span class="argument">srcformat</span>.</TD></TR><TR><TH>GL_ERROR_8082_DMP</TH><TD><span class="argument">srcwidth</span>, <span class="argument">srcheight</span>, <span class="argument">dstwidth</span>, or <span class="argument">dstheight</span> is an invalid value.</TD></TR><TR><TH>GL_ERROR_8083_DMP</TH><TD>The width or height of the transferred image is larger than the original image.</TD></TR><TR><TH>GL_ERROR_80B7_DMP</TH><TD>The width or height in the color buffer for the original image is less than the minimum value (128 pixels).</TD></TR><TR><TH>GL_ERROR_80B8_DMP</TH><TD>The width or height in the display buffer for the transferred image is less than the minimum value (128 pixels, or 64 pixels if anti-aliasing is enabled).</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxAddL2BTransferCommand.html">nngxAddL2BTransferCommand</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/09/04</dt>
+        <dd><item xmlns="">Added a description of the restrictions on the buffers for the original image and the transferred image, and also added the errors GL_ERROR_80B7_DMP and GL_ERROR_80B8_DMP.</item><br />
+        </dd>
+        <dt>2014/05/23</dt>
+        <dd><item xmlns="">Changed the cache operation function from <tt>nngxUpdateBuffer</tt> to <tt>nngxUpdateBufferLight</tt>.</item><br />
+        </dd>
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added the &lt;b&gt;See Also&lt;/b&gt; section.</item><br />
+        </dd>
+        <dt>2011/06/21</dt>
+        <dd><item xmlns="">Added mention of a restriction on <tt>srcaddr</tt> and the use of the <tt>nngxUpdateBuffer</tt> function to flush the cache.</item><br />
+        </dd>
+        <dt>2011/05/26</dt>
+        <dd><item xmlns="">Made a minor revision to the description of the difference with the <tt>nngxTransferRenderImage</tt> function (the presence/absence of split commands).</item><br />
+        </dd>
+        <dt>2010/09/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

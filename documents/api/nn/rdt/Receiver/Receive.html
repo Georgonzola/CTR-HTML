@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Receive</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/rdt/Overview.html">rdt</a>::<a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a>::Receive Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Receive(
+     void * pBuf,
+     size_t * pRecvSize,
+     size_t bufSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pBuf</th>
+          <td>Specifies the starting address of the buffer where the received data is written.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pRecvSize</th>
+          <td>Stores the number of bytes that were read from the receive buffer. If no data was readable, this parameter is set to <code>0</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufSize</th>
+          <td>Holds the size, in bytes, of the buffer where the received data is written. If this parameter is set to <code>0</code>, the function does nothing and returns a non-error value.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Specifically, this function may return the following: a value for which the <code><a href="../../../nn/Result/IsSuccess.html">nn::Result::IsSuccess()</a></code> function returns <code>true</code>, or the <code><a href="../../../nn/rdt/ResultDoNothing/Overview.html">ResultDoNothing</a></code>, <code><a href="../../../nn/rdt/ResultNotInitialized/Overview.html">ResultNotInitialized</a></code>, <code><a href="../../../nn/rdt/ResultNullPointer/Overview.html">ResultNullPointer</a></code>, or <code><a href="../../../nn/rdt/ResultUntimelyFunctionCall/Overview.html">ResultUntimelyFunctionCall</a></code> result code. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Reads the data that has accumulated in the receive buffer. Reads the byte string that was sent from the <code><a href="../../../nn/rdt/Sender/Overview.html">Sender</a></code> instance and has accumulated in the receive buffer. This byte string is guaranteed to be obtainable in a form that maintains the byte sequence sent by <code><a href="../../../nn/rdt/Sender/Send.html">nn::rdt::Sender::Send</a></code>. We recommend calling this function every game frame to improve throughput.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

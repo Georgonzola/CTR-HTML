@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CreateTexture2DResource</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Resource/Overview.html">Resource</a>::CreateTexture2DResource Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CreateTexture2DResource(
+     const <a href="../../../../nn/gd/CTR/Texture2DResourceDescription/Overview.html">Texture2DResourceDescription</a> * description,
+     const void * initialData,
+     <span>gdBool</span> autoGenerateMipMapsFromData,
+     Texture2DResource ** texture2DResource,
+     <span>gdBool</span> copyInitialData = GD_TRUE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>description</th>
+          <td>Specifies the descriptor for creating a 2D texture resource.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>initialData</th>
+          <td>Specifies the initialization data for the texture resource. Specify <code>NULL</code> if there is no initialization data. If there is mipmap data, all of the levels must be specified. Set autoGenerateMipMapsFromData to <code>GD_FALSE</code>. If you are using automatically created mipmaps, specify only the top level of mipmap data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>autoGenerateMipMapsFromData</th>
+          <td>If automatic mipmap generation is enabled, uses the <code><a href="../../../../nn/gd/CTR/Memory/GenerateMipMaps.html">Memory::GenerateMipMaps</a></code> function to generate them automatically from initialData. <code><a href="../../../../nn/gd/CTR/Memory/GenerateMipMaps.html">Memory::GenerateMipMaps</a></code> can generate mipmaps with a resolution of 32 (sometimes 64) or greater. For more information, see the <code><a href="../../../../nn/gd/CTR/Memory/GenerateMipMaps.html">Memory::GenerateMipMaps</a></code> API reference. This can be used when the hardware resolution is 8 or higher. If you want to use a mipmap with resolution lower than 32, you must generate the mipmap manually. Specify <code>GD_FALSE</code> for autoGenerateMipMapsFromData.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>texture2DResource</th>
+          <td>Specifies the address storing the created 2D texture resource.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>copyInitialData</th>
+          <td>This parameter is used when initialization data is specified. The default is <code>true</code>. When this parameter is <code>true</code>, a memory area is allocated in the function (either FCRAM or VRAM specified by the descriptor), and then the initialization data is copied to the allocated memory. When this parameter is <code>false</code>, the texture2DResource memory address becomes the one allocated by the user (the address of initialData). In this case, the user must allocate a sufficient memory area with the correct memory alignment. If resources use some mipmaps, sufficient memory area must be allocated to all the mipmaps. Also, the user is responsible for releasing the data memory area after releasing the resource.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for description or texture2DResource.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureResolution</th>
+          <td><code>0</code> was specified for either <code>m_Width</code> or <code>m_Height</code> in <code><a href="../../../../nn/gd/CTR/Texture2DResourceDescription/Overview.html">Texture2DResourceDescription</a></code>. The result is also returned if the layout is <code>LAYOUT_BLOCK_32</code> and the size is not correctly aligned. Also, this result is returned if a mipmap cannot be created for the given size of <code>m_Width</code> or <code>m_Height</code> in <code><a href="../../../../nn/gd/CTR/Texture2DResourceDescription/Overview.html">Texture2DResourceDescription</a></code>. The specified size must be a power of 2.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureMipLevel</th>
+          <td>The mipmap level index for Index is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLayout</th>
+          <td>The memory layout is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLocation</th>
+          <td>The memory type is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormat</th>
+          <td>The pixel format is invalid. This result is also returned if the initialization data is in ETC format and mipmaps cannot be automatically created.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td>Cannot obtain memory for the resource</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemoryExt</th>
+          <td>Cannot obtain memory for the data.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureMipLevelIndexForMipmapAutoGeneration</th>
+          <td>If autoGenerateMipMapsFromData is enabled, the last mipmap level must have a resolution of 8x8 or better. Or, the last mipmap level generated must have a resolution of 32 bits or better if the pixel format is 32 or 24.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a 2D texture resource.</p><p>This function adds commands to the command list. For more information, see the Programming Manual.</p><!-- write here --></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../../nn/gd/CTR/Texture2DResourceDescription/Overview.html">Texture2DResourceDescription</a><br /><a href="../../../../nn/gd/CTR/Resource/Helper/ConvertTextureResourceToNativeFormat.html">Helper::ConvertTextureResourceToNativeFormat</a><br /><a href="../../../../nn/gd/CTR/Resource/Helper/ConvertCompressedTextureResourceToNativeFormat.html">Helper::ConvertCompressedTextureResourceToNativeFormat</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

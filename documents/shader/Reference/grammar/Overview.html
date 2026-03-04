@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>Syntax</title>
+  </head>
+  <body>
+    <h1>Syntax</h1>
+    <div class="section">
+      <p>
+      </p>
+    </div>
+
+    <h2><a name="grammar">Assembler Instruction Coding</a></h2>
+    <div class="section">
+      <p>
+        Assembler instructions are coded using the structure described below. Comments can be omitted.<br />
+<pre class="definition">
+&lt;Operation&gt; [Operands] [Comments]
+</pre>
+        <br /> Example:<br />
+<pre class="definition">
+add     r0, r1, r2  // r0 = r1 + r2
+mul     r3, c0, v0  // r3 = c0 + v0
+</pre>
+        <br /> Assembler instructions are coded using ASCII characters according to the rules described below.<br />
+        <dl>
+          <dt><b>Operation</b></dt>
+          <dd>For operation, specify an assembler instruction to execute. You cannot code multiple operations on the same line.</dd>
+          <br /><br />
+          <dt><b>Operands</b></dt>
+          <dd>Operand name [operand]<br />Specifies the operand names, such as registers and values, used in the operation. Enter at least one space or tab after the operation and before the operand name. If you are coding multiple operands, separate them with commas. You can also enter one or more spaces or tabs between operands.</dd>
+          <br /><br />
+          <dt><b>Comment</b></dt>
+          <dd>Anything coded after a set of double slashes (&quot; // &quot;)  is treated as comments. Any coding enclosed between &quot;/*&quot; and &quot;*/&quot; is also treated as comments.</dd>
+          <br /><br />
+        </dl>
+      </p>
+    </div>
+
+    <h2><a name="masking">Masking Output Components</a></h2>
+    <div class="section">
+      <p>
+        When outputting calculation results to registers that have multiple components, you can specify which components to output.<br /> Only the values for the specified components will be updated. If nothing has been specified, all components will be updated.<br /> Specify components this order: x, y, z, w. (You cannot specify them in other orders, such as &quot;wzyx&quot;.)<br /> <br />Examples:<br />
+<pre class="definition">
+add     r0.x,  r1, r2   // The x component is updated. The yzw components are not updated.
+mov     r0.yz, r1       // The yz components are updated. The xw components are not updated.
+dp3     r0,    r1, r2   // All components (xyzw) are updated.
+</pre>
+      </p>
+    </div>
+
+    <h2><a name="swizzling">Swizzling (Rearranging Input Components)</a></h2>
+    <div class="section">
+      <p>
+        If you are using a register that has multiple components as an input operand, you can rearrange (swizzle) the components used for computations.<br /> If this is not specified, the components will be used in this order: x, y, z, w. <br /> <br /> If fewer than four components are specified, the component specified last will be repeated.<br /> <br /> Example:<br />
+<pre class="definition">
+add     r0, r1.xzyy, r2     // r0.x = r1.x + r2.x
+                            // r0.y = r1.z + r2.y
+                            // r0.z = r1.y + r2.z
+                            // r0.w = r1.y + r2.w
+mov     r0, r1.ywz          // r0.x = r1.y
+                            // r0.y = r1.w
+                            // r0.z = r1.z
+                            // r0.w = r1.z ; The last specified component (z) is repeated
+add     r0, r1.zw, r2.xy    // r0.x = r1.z + r2.x
+                            // r0.y = r1.w + r2.y
+                            // r0.z = r1.w + r2.y
+                            // r0.w = r1.w + r2.y
+</pre>
+        <br /> Note that if input components are swizzled, the parsing of masking for the output components will differ if fewer than four components have been specified.<br /> The x, y, z, and w components specified for masking of output components will be applied respectively to the 1st, 2nd, 3rd, and 4th input components after swizzling has been performed.<br /> <br /> Example:<br />
+<pre class="definition">
+mov     r0.x, r1.xy         // r0.x = r1.x ; (r1.<span style="color: red;">x</span>yyy)
+mov     r0.y, r1.xy         // r0.y = r1.y ; (r1.x<span style="color: red;">y</span>yy)
+mov     r0.z, r1.xy         // r0.z = r1.y ; (r1.xy<span style="color: red;">y</span>y)
+mov     r0.w, r1.xy         // r0.w = r1.y ; (r1.xyy<span style="color: red;">y</span>)
+add     r0.zw, r1.yx, r2.wz // r0.z = r1.x + r2.z;(r1.yx<span style="color: red;">x</span>x + r2.wz<span style="color: red;">z</span>z)
+                            // r0.w = r1.x + r2.z;(r1.yxx<span style="color: red;">x</span> + r2.wzz<span style="color: red;">z</span>)
+</pre>
+        In the above examples, the red-colored input components are used for the output components. <br /> <br />
+      </p>
+    </div>
+
+    <h2><a name="minus_sign">Adding the Negative Sign ( - ) to Input Components</a></h2>
+    <div class="section">
+      <p>
+        You can attach the negative sign ( - ) to input operands.<br /> <br /> Example:<br />
+<pre class="definition">
+add     r0,  r1, -r2    // r0 = r1 – r2
+mul     r0, –r1,  r2    // r0 = (–r1) * r2
+</pre>
+      </p>
+    </div>
+
+    <h2><a name="input_offset">Offsetting the Input Operand Register Index</a></h2>
+    <div class="section">
+      <p>
+        You can offset input operand register numbers by enclosing them in square brackets (&quot;[ ]&quot;).<br /> A sum of multiple integers can be enclosed in brackets. If the offset integer sum exceeds the number of registers, an error will occur when assembling.<br /> <br /> You can offset floating-point constant registers only, or address registers as well as loop-counter registers.<br /> For address registers, you need to specify either the x component or the y component.<br /> Behavior is undefined if the total combined index offset of the address registers and loop counter registers is outside the range of [0, 95].<br /> <br /> Example:<br />
+<pre class="definition">
+c2              // Index is 2
+v[5 + 2]        // Index is 5 + 2
+r8[1 + 2 + 4]   // Index is 8 + 1 + 2 + 4
+c[3 + a0.x]     // Index is 3 + a0.x
+c4[11 + aL]     // Index is 4 + 11 + aL
+</pre>
+      </p>
+    </div>
+
+    <h2><a name="label">Labels</a></h2>
+    <div class="section">
+      <p>
+Labels can specify jumps to <CODE>call</CODE> instructions and <CODE>jpb</CODE> instructions.<br /><br /> Labels take the form of names comprising a combination of ASCII alphanumeric characters and underscores (&quot;_&quot;) followed by a colon.<br /> You cannot use reserved words (like the register names r0, c0) or names that represent numbers (either decimal or hexadecimal, such as <CODE>123</CODE> or <CODE>0xf</CODE>).<br /> Lines that contain code labels cannot contain anything other than comments.<br /> <br /> Example:<br />
+<pre class="definition">
+function0:
+    mov r0, r1
+    ...
+    ret
+
+main:
+    ...
+    call    function0
+</pre>
+
+        <h3>The main Label</h3>
+        <div class="section">
+          <p>
+            The vertex shader invariably starts from a <CODE>main</CODE> label.<br /> Shaders that do not have the <CODE>main</CODE> label are referenced as subroutines.<br /> When the assembler file for the vertex shader is being assembled and linked, you must link a main object that contains at least one <CODE>main</CODE> label. An <CODE>endmain</CODE> label must also be set in this main object.<br /> <br />Set the <CODE>endmain</CODE> label immediately after the final executed instruction. (The final executed instruction is the instruction that gets written to the output register last.)<br />
+          </p>
+        </div>
+        <h3>Label Name Conflicts</h3>
+        <div class="section">
+          <p>
+            You cannot use the same label name more than once in an object file. Also, if you link multiple object files, you cannot use the same label name in multiple object files for subroutines.<br /> Main objects do not reference each other, so it is all right to use the same label name in multiple main objects.<br />
+          </p>
+        </div>
+      </p>
+    </div>
+
+    <h2><a name="reserved">Reserved Words</a></h2>
+    <div class="section">
+      <p>
+        The following strings are defined as reserved words by the assembler. Do not use these reserved words for such things as label names and symbol names.<br /> <br /> <br /> <b>・Register names</b><br />
+<pre class="definition">
+v0-v15, r0-r15, c0-c95, a0, b0-b15, i0-i3, aL, o0-o15
+</pre>
+        <br /> <b>・Assembler instructions</b><br />
+<pre class="definition">
+def, defb, defi,
+add, dp3, dp4, dph, dst, exp, flr, litp, log, mad, max, min, mov, mova, mul, nop, rcp, rsq, sge, slt,
+sub, abs, crs, frc, lrp, m3x2, m3x3, m3x4, m4x3, m4x4, nrm, pow, sgn, sincos,
+call, callc, callb, jpb, jpc, ret, ifb, ifc, else, endif, loop, endloop, breakc, cmp, end
+</pre>
+        <br /> <b>・Pre-processor</b><br />
+<pre class="definition">
+include, define, undef, ifdef, ifndef, if, defined, else, elif, endif, error, pragma, bind_symbol, output_map
+</pre>
+      </p>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

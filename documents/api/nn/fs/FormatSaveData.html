@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>FormatSaveData</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::FormatSaveData Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> FormatSaveData(
+     size_t maxFiles,
+     size_t maxDirectories,
+     bool isDuplicateAll = false
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>maxFiles</th>
+          <td>Specifies the maximum number of files.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxDirectories</th>
+          <td>Specifies the maximum number of directories.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>isDuplicateAll</th>
+          <td>Specifies whether to duplicate the entire save data region.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotEnoughSpace</th>
+          <td>The values of <emphasis>maxFiles</emphasis> and <emphasis>maxDirectories</emphasis> are too large for save data. <br />
+ You must not allow this error to occur in retail products.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>An unexpected or fatal error occurred.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Formats the save data region. Formats an application-specific save data region. Calling this function erases any save data that may have existed there. When you format this save data region, you can specify the maximum number of files and directories that it can hold. Note that you cannot create any more than this number of files and directories. When formatting with <emphasis>isDuplicateAll</emphasis> set to <code>true</code>, be sure to call the <code><a href="../../nn/fs/CommitSaveData.html">CommitSaveData</a></code> function before unmounting the save data.</p><h3>Important</h3><div class="section">When mounting save data, always make sure that you unmount before formatting. Otherwise, the <tt><a href="../../nn/fs/MountSaveData.html">nn::fs::MountSaveData</a></tt> function returns success, but operations on the mounted archive are not guaranteed.</div><h3> About SaveDataSize</h3><div class="section">If the value specified for <span class="argument">SaveDataSize</span> in the <tt><a href="../../../tools/ctr_makerom.html#rsf">RSF</a></tt> file differs from the actual size of the backup memory, the backup memory size takes precedence.  Even when 128 KB is specified for <span class="argument">SaveDataSize</span>, if 512 KB of backup memory is being used, it formats with a size of 512 KB.  Formatting is still possible even if 0 KB is specified. <br /> If you use a different backup memory size in development than in your product, manage available space with care. <br /><br /> If the value specified in <span class="argument">SaveDataSize</span> differs from the size of the backup memory used in the product, it causes an error in checking when the master ROM is submitted.</div></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/01/20</dt>
+        <dd><item xmlns="">Changed the parameter specified in the RSF file to <tt>SaveDataSize</tt> instead of <tt>BackupMemoryType</tt>.</item><br />
+        </dd>
+        <dt>2011/03/25</dt>
+        <dd><item xmlns="">Added cautions about <tt>BackupMemoryType</tt>.</item><br />
+        </dd>
+        <dt>2011/02/07</dt>
+        <dd><item xmlns="">Included a note about formatting when mounted.</item><br />
+        </dd>
+        <dt>2010/12/14</dt>
+        <dd><item xmlns="">Added return values.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

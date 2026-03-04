@@ -1,0 +1,1747 @@
+﻿<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ctr_VertexShaderAssembler</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size		: 150%;
+  font-family		: Arial;
+  border-bottom-width	: 5px;
+  border-bottom-style	: solid;
+  border-bottom-color	: #CD202C;
+  padding-bottom		: 1px;
+  margin-bottom		: 20px;
+  letter-spacing		: normal;
+  font-weight		: bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+h3 {
+    font-weight     : bold;
+    font-size       : 120%;
+    border-style    : none none solid solid;
+    border-width    : 0px 0px 2px 2px;
+    border-color    : #CD202C;
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+CODE {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+}
+table {
+  margin-top        : 2pt;
+  margin-bottom     : 2pt;
+  margin-left       : 0pt;
+  margin-right      : 0pt;
+  padding-left      : 0pt;
+  padding-right     : 0pt;
+  position          : relative;
+  left              : 12px;
+  font-family       : Arial;
+  font-size         : 10pt;
+  border-style      : none none none none;
+}
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+p.code {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+  background            : #e8f4f4;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+<h1>ctr_VertexShaderAssembler</h1>
+
+<h2>Contents</h2>
+<ul style='list-style-type: none'>
+    <li>1. <a href="#intro">Introduction</a></li>
+    <li>2. <a href="#usage">How to Use</a>
+        <ul style='list-style-type: none'>
+            <li>2.1 <a href="#command">Commands</a></li>
+            <li>2.2 <a href="#input_file">Input Files</a></li>
+            <li>2.3 <a href="#option">Options</a></li>
+        </ul>
+    </li>
+    <li>3. <a href="#debug_build">Debug Build</a></li>
+    <li>4. <a href="#err_code">Error Codes (Assembler)</a></li>
+        <ul style='list-style-type: none'>
+            <li>4.1 <a href="#err_mes_format">Error Message Format</a></li>
+            <li>4.2 <a href="#err_message">Error Message</a></li>
+        </ul>
+    <li>5. <a href="#history">Revision History</a></li>
+</ul>
+
+<h2><a name="intro">Introduction</a></h2>
+<P>
+<CODE>ctr_VertexShaderAssembler</CODE> assembles assembler files written in assembler language, conforming to proprietary PICA specifications, and outputs the corresponding object files.
+</P>
+
+<h2><a name="usage">How to Use</a></h2>
+
+<h3><a name="command">Commands</a></h3>
+<p class="code">
+% ctr_VertexShaderAssembler32 &lt;input filename&gt; [options...]
+</p>
+
+<p class="first_ja">
+An input filename must be specified. Options can be omitted. Help is displayed if the assembler is executed without any arguments.<br />
+</p>
+
+<h3><a name="input_file">Input Files</a></h3>
+<p class="first_ja">
+Specify the assembler files to be input in place of &lt;input filename&gt;.<br /> Files encoded in Shift-JIS and UTF-8 (byte-order marked) are supported.<br /> CRLF is supported for newline codes.<br /> For the filename, specify a string of 128 or fewer characters that contains no spaces, by using ASCII alphanumeric characters and symbols other than \ / :  * ? &quot; &lt; &gt; and |. <br /> * ? <br />
+</p>
+
+<h3><a name="option">Options</a></h3>
+<p class="first_ja">
+The following options can be specified in place of <CODE>[options...]</CODE>.<br />
+</p>
+
+<div class="table">
+<table border="1" summary="options">
+<thead>
+<tr>
+<th align="center">Options</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">-O &lt;File Name&gt;</td>
+<td align="center">Specifies the output filename.<br /> The filename &quot;input_file_name.obj&quot; is used, if no output filename is specified.</td>
+</tr>
+<tr>
+<td align="center">-I&lt;file path&gt;</td>
+<td align="center">Specifies the file path of the input file.<br /> Specify a file path that contains both the assembler file and files included in the assembler file.<br /> The input file and include files are detected in the order in which directories are specified using this option.</td>
+</tr>
+<tr>
+<td align="center">-D&lt;key&gt;[=&lt;value&gt;]</td>
+<td align="center">Defines a macro.<br /> Specify the macro name in &lt;key&gt; and the macro value in &lt;value&gt;. &lt;value&gt; can be omitted.</td>
+</tr>
+<tr>
+<td align="center">-debug</td>
+<td align="center">Creates an object file with debug information.<br /> If this option is not specified, the output object file will not include the full path of the input file.</td>
+</tr>
+<tr>
+<td align="center">-nowarning</td>
+<td align="center">Sets execution so that warning messages are not output.</td>
+</tr>
+<tr>
+<td align="center">-preprocess</td>
+<td align="center">Executes preprocessing only.<br /> This option executes preprocessing on the input assembler file and outputs the result of deleting inactive text, such as blank lines and comments, to the standard output.<br /> File information is added to output results in the form &quot;# line_number file_name.&quot; Assembler macro instructions are replaced with expanded instructions. Note, however, that macros are not replaced with expanded instructions if there is a syntax error in the macro instruction itself.</td>
+</tr>
+<tr>
+<td align="center">-dependency</td>
+<td align="center">Outputs assembler file dependencies.<br /> This option executes only preprocessing on the input assembler file, and outputs the names of all input files and include files referenced in input files to the standard output.<br /> The <CODE>-preprocess</CODE> option is ignored if specified along with the <CODE>-preprocess</CODE> option.</td>
+</tr>
+<tr>
+<td align="center">-? or -help</td>
+<td align="center">Displays help.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="debug_build">Debug Build</a></h2>
+<p>
+Specifying the <CODE>-debug</CODE> option to the <CODE>ctr_VertexShaderAssembler</CODE> results in a debug build.<br /> Debug build assembler objects can be debugged using the shader debugger, but the operation speed on POD decreases.<br /><br /> <br /> If the <CODE>-debug</CODE> option is not specified, the file path of the input files is removed from object files.<br /><br /> If the full path of input files is unknown, the shader debugger might not be able to locate the source file.<br /><br />
+</p>
+
+<h2><a name="err_code">Error Codes (Assembler)</a></h2>
+
+<h3><a name="err_mes_format">Error Message Format</a></h3>
+<P>
+This page describes error messages output by the assembler. Errors are saved in the following format. <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;Input filename (line number of error): Error level (error code): Error description<br/> <br /> Errors have an error level of either &quot;warning&quot; or &quot;error.&quot; Execution can continue for a &quot;warning&quot; level error. The input filename or error line number may not be displayed, depending on the type of error.<br />  <br />
+</P>
+
+
+<h3><a name="err_message">Error Message</a></h3>
+<P>
+This table gives the error codes output by the assembler and their description.
+</P>
+
+<a name="8001xxxx"><h4>8001xxxx</h4></a>
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Error Code</th>
+<th align="center">Message / Description</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td align="center" rowspan="2">80010001</td><td>The -O option cannot be specified more than once.</td>
+</tr>
+<tr>
+<td>
+The -O option can be specified only once.<br/>
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80010003</td><td> Definition key is not specified with -D option</td>
+</tr>
+<tr>
+<td>
+A key defined for the -D option has not been specified.<br /> Specify this option using the format -Dkey or -Dkey=value.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80010004</td><td> Definition value is not specified with &lsquo;parameter name&rsquo; macro.</td>
+</tr>
+<tr>
+<td>
+The value of the defined macro for the -D option has not been set correctly.<br /> Specify this option using the format -Dkey or -Dkey=value.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80010005</td><td> &lsquo;parameter name&rsquo; includes illegal character.</td>
+</tr>
+<tr>
+<td>
+An attempt was made to use the -D option to define a macro that uses illegal characters.<br /> Macro names must consist of ASCII alphanumeric characters and may include an underscore (&quot;_&quot;).
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80010006</td><td> &lsquo;macro name&rsquo; macro is redefined.</td>
+</tr>
+<tr>
+<td>
+Two or more macros having the same name have been defined using the -D option.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80010007</td><td> Only one assembler file can be specified as input.</td>
+</tr>
+<tr>
+<td>
+Two or more assembler files have been specified as input. Only one assembler file can be specified.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80010008</td><td> Input file is not specified.</td>
+</tr>
+<tr>
+<td>
+No assembler file has been specified as input.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8001000b</td><td> &lsquo;macro name&rsquo; macro name cannot start from number.</td>
+</tr>
+<tr>
+<td>
+The macro name defined with the -D option cannot start with a number.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8001000d</td><td> Unknown options are specified.</td>
+</tr>
+<tr>
+<td>
+An unknown option was specified.
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<a name="8003xxxx"><h4>8003xxxx</h4></a>
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Error Code</th>
+<th align="center">Message / Description</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td align="center" rowspan="2">80030001</td><td> Cannot open &lsquo;filename&rsquo;</td>
+</tr>
+<tr>
+<td>
+The specified assembler file cannot be opened.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030002</td><td> Include filename is not specified.</td>
+</tr>
+<tr>
+<td>
+The filename has not been specified in an #include statement.<br/> Specify the filename using the format:<br />#include &quot;filename&quot;
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030003</td><td> Syntax error in #include</td>
+</tr>
+<tr>
+<td>
+The format of the #include statement is incorrect.<br /> Specify the filename using the format:<br />#include &quot;filename&quot;
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030004</td><td> Cannot open the include file &quot;filename&quot;.</td>
+</tr>
+<tr>
+<td>
+The include file cannot be opened.<br /> Specify an include path using the -I option.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030005</td><td> Definition key is not specified.</td>
+</tr>
+<tr>
+<td>
+The format of the #define statement is incorrect.<br /> Specify using the format:<br />#define key value.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030006</td><td> Definition key includes an illegal character.</td>
+</tr>
+<tr>
+<td>
+Macro names defined using <CODE>#define</CODE> must consist of ASCII alphanumeric characters and may include an underscore (&quot;_&quot;).<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030007</td><td> &lsquo;macro name&rsquo; macro is redefined.</td>
+</tr>
+<tr>
+<td>
+A macro defined using <CODE>#define</CODE> has been redefined elsewhere.<br/>
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030008</td><td> Definition key is not specified.</td>
+</tr>
+<tr>
+<td>
+The format of the <CODE>#undef</CODE> statement is incorrect.<br /> Specify using the format:<br />#undef key.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003000b</td><td> Correspondent &quot;#ifdef&quot; is not found.</td>
+</tr>
+<tr>
+<td>
+The assembler could not find the <CODE>#ifdef</CODE> statement that corresponds to the <CODE>#endif</CODE> statement.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003000c</td><td> Undefined directive.</td>
+</tr>
+<tr>
+<td>
+An unsupported pre-processor pseudo instruction has been specified.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003000d</td><td> #ifdef is not closed.</td>
+</tr>
+<tr>
+<td>
+The assembler could not find the <CODE>#endif</CODE> statement that corresponds to the <CODE>#ifdef</CODE> statement.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003000e</td><td> Syntax error. Macro is not specified.</td>
+</tr>
+<tr>
+<td>
+A macro has not been defined for the <CODE>#ifdef</CODE> statement.<br />Specify using the format:<br /><CODE>#ifdef macro</CODE><br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003000f</td><td> Syntax error. Invalid string is detected after macro.</td>
+</tr>
+<tr>
+<td>
+The format of the <CODE>#ifdef</CODE> statement is incorrect.<br /> Specify using the format:<br />#ifdef macro.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030010</td><td> Syntax error. Macro is not specified.</td>
+</tr>
+<tr>
+<td>
+A macro has not been defined for the <CODE>#ifndef</CODE> statement.<br /> Specify using the format:<br />#ifndef macro.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030011</td><td> Syntax error. Invalid string is detected after macro.</td>
+</tr>
+<tr>
+<td>
+The format of the <CODE>#ifndef</CODE> statement is incorrect.<br /> Specify using the format:<br />#ifndef macro.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030012</td><td> Syntax Error. Invalid string is detected after directive.</td>
+</tr>
+<tr>
+<td>
+Macro names defined using <CODE>#if</CODE>, <CODE>#ifdef</CODE>, or <CODE>#ifndef</CODE> must consist of ASCII alphanumeric characters and may include an underscore (&quot;_&quot;).<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030013</td><td> Syntax Error. Invalid string is detected after directive.</td>
+</tr>
+<tr>
+<td>
+An illegal string was detected after an <CODE>#else</CODE> statement.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030014</td><td> Correspondent &quot;#ifdef&quot; is not found.</td>
+</tr>
+<tr>
+<td>
+The assembler could not find the <CODE>#ifdef</CODE> statement that corresponds to the <CODE>#else</CODE> statement.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030015</td><td> Syntax error. Invalid expression is detected.</td>
+</tr>
+<tr>
+<td>
+The format of the <CODE>#if</CODE> statement is incorrect.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030017</td><td> Syntax error. Invalid expression is detected.</td>
+</tr>
+<tr>
+<td>
+The macro listed after the <CODE>#if</CODE> statement includes illegal characters.<br /> Macro names specified using <CODE>#if</CODE> must consist of ASCII alphanumeric characters and may include an underscore (&quot;_&quot;).<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030018</td><td> <CODE>#error</CODE></td>
+</tr>
+<tr>
+<td>
+This error is output intentionally by an <CODE>#error</CODE> statement.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030019</td><td> The top character of the definition key must not be a number.</td>
+</tr>
+<tr>
+<td>
+The first character of the macro name defined using <CODE>#define</CODE> must not be a number.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003001a</td><td> Macro parentheses have not been closed properly.</td>
+</tr>
+<tr>
+<td>
+Parentheses using in a <CODE>#define</CODE> definition have not been paired properly.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003001b</td><td> Invalid character is detected in macro argument.</td>
+</tr>
+<tr>
+<td>
+A function macro argument includes an illegal string.<br /> Macro names must consist of ASCII alphanumeric characters and may include an underscore (&quot;_&quot;).<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003001c</td><td> Duplicate macro argument is detected.</td>
+</tr>
+<tr>
+<td>
+More than one function macro argument uses the same string.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003001d</td><td> Invalid macro argument is specified.</td>
+</tr>
+<tr>
+<td>
+An attempt was made to use a macro function defined using illegal code.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003001e</td><td> pragma command bind_symbol is invalid format.</td>
+</tr>
+<tr>
+<td>
+The <CODE>#pragma bind_symbol</CODE> statement is invalid.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003001f</td><td> Undefined pragma command.</td>
+</tr>
+<tr>
+<td>
+An unsupported pragma command has been specified.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030020</td><td> Start index should be less than or equal to end index.</td>
+</tr>
+<tr>
+<td>
+The start register index of the <CODE>#pragma bind_symbol</CODE> statement is greater than the end register index.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030021</td><td> Binding symbol name is duplicated.</td>
+</tr>
+<tr>
+<td>
+The symbol name used in the <CODE>#pragma bind_symbol</CODE> statement is defined again elsewhere.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030022</td><td> Invalid register index is specified.</td>
+</tr>
+<tr>
+<td>
+An invalid register index has been defined by a <CODE>#pragma bind_symbol</CODE> statement.<br /> (Exceeds the maximum number of registers.)<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030023</td><td> Specified registers are already bound to other symbol.</td>
+</tr>
+<tr>
+<td>
+The same input register has been bound to more than one symbol by a <CODE>#pragma bind_symbol</CODE> statement.<br /> Only one symbol name can be bound to an input register.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030024</td><td> Pragma command output_map is invalid format.</td>
+</tr>
+<tr>
+<td>
+The <CODE>#pragma output_map</CODE> statement is invalid.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030025</td><td> Invalid data name is specified for pragma command output_map.</td>
+</tr>
+<tr>
+<td>
+An invalid data attribute name has been specified in a <CODE>#pragma output_map</CODE> statement.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003002c</td><td> Specified register is already mapped.</td>
+</tr>
+<tr>
+<td>
+The register specified in a <CODE>#pragma output_map</CODE> statement has already been specified for another <CODE>output_map</CODE>.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8003002d</td><td> Specified attribute is already mapped.</td>
+</tr>
+<tr>
+<td>
+The data attribute name specified in a <CODE>#pragma output_map</CODE> statement has already been specified for another <CODE>output_map</CODE>.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030033</td><td> If all textures are mapped, texture1 and texture2 need to be mapped to same register.</td>
+</tr>
+<tr>
+<td>
+When all textures have been defined using a <CODE>#pragma output_map</CODE> statement, <CODE>texture1</CODE> and <CODE>texture2</CODE> must be mapped to the same register.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80030034</td><td> comment /* */ is not closed.</td>
+</tr>
+<tr>
+<td>
+A comment of the form /* ... */ has not been terminated correctly.<br />
+</td>
+</tr>
+<tr>
+<td align="center" rowspan="2">8003003b</td><td> The pragma command <CODE>suppress_linker_warning_level2_level3</CODE> is in an invalid format.</td>
+</tr>
+<tr>
+<td>
+The <CODE>#pragma suppress_linker_warning_level2_level3</CODE> statement is invalid.<br />
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<a name="8004xxxx"><h4>8004xxxx</h4></a>
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Error Code</th>
+<th align="center">Message / Description</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td align="center" rowspan="2">80040001</td><td> No vertex shader instruction.</td>
+</tr>
+<tr>
+<td>
+No shader instruction has been coded.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040005</td><td> loop instruction is not closed by endloop.</td>
+</tr>
+<tr>
+<td>
+The assembler cannot find the <CODE>endloop</CODE> instruction that corresponds to the given <CODE>loop</CODE> instruction.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040007</td><td> if or else instruction is not closed by endif.</td>
+</tr>
+<tr>
+<td>
+The assembler cannot find the <CODE>endif</CODE> instruction that corresponds to the given <CODE>ifc</CODE> or <CODE>ifb</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040009</td><td> Unknown instruction.</td>
+</tr>
+<tr>
+<td>
+An unknown shader instruction has been coded.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004000c</td><td> The number of operand is short.</td>
+</tr>
+<tr>
+<td>
+There are not enough operands.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004000d</td><td> There are some extra operands.</td>
+</tr>
+<tr>
+<td>
+An unnecessary operand or operands have been specified.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004000e</td><td> &quot;operand&quot; is unknown operand type.</td>
+</tr>
+<tr>
+<td>
+An operand of unknown type has been specified.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004000f</td><td> &quot;operand&quot; is invalid format operand.</td>
+</tr>
+<tr>
+<td>
+An operand has been specified in an invalid format.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040010</td><td> &quot;operand&quot; is invalid offset.</td>
+</tr>
+<tr>
+<td>
+The given register offset is invalid.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040011</td><td> &quot;operand&quot; is invalid address register offset.</td>
+</tr>
+<tr>
+<td>
+The offset given for the address register is invalid.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040012</td><td> &quot;operand&quot; include unknown component.</td>
+</tr>
+<tr>
+<td>
+An unknown component is specified.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040015</td><td> break instruction is not between loop and endloop.</td>
+</tr>
+<tr>
+<td>
+There is no <CODE>break</CODE> instruction between the given <CODE>loop</CODE> and <CODE>endloop</CODE> instructions.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040016</td><td> loop instruction nest achieved limit.</td>
+</tr>
+<tr>
+<td>
+The number of <CODE>loop</CODE> instructions exceeds the maximum number that can be nested.<br /> <CODE>loop</CODE> instructions can be nested up to four levels deep.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040017</td><td> Correspondent loop instruction is not found.</td>
+</tr>
+<tr>
+<td>
+The assembler cannot find the <CODE>loop</CODE> instruction that corresponds to the given <CODE>endloop</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004001a</td><td> if instruction nest achieved limit.</td>
+</tr>
+<tr>
+<td>
+The number of <CODE>ifb</CODE> or <CODE>ifc</CODE> instructions exceeds the maximum number that can be nested.<br /> <CODE>ifb</CODE> and <CODE>ifc</CODE> instructions can be nested up to a total of eight times.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004001b</td><td> Correspondent if instruction is not found.</td>
+</tr>
+<tr>
+<td>
+The assembler cannot find the <CODE>ifc</CODE> or <CODE>ifb</CODE> instruction that corresponds to the given <CODE>else</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004001d</td><td> loop instruction is not closed, but ret instruction is called.</td>
+</tr>
+<tr>
+<td>
+An <CODE>ret</CODE> instruction cannot be placed between <CODE>loop</CODE> and <CODE>endloop</CODE> instructions.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004001f</td><td> if else instruction is not closed, but ret instruction is called.</td>
+</tr>
+<tr>
+<td>
+An <CODE>ret</CODE> instruction cannot be placed between an <CODE>ifc</CODE>, <CODE>ifb</CODE>, or <CODE>else</CODE> instruction and an <CODE>endif</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040021</td><td> &quot;operand&quot; is invalid format operand.</td>
+</tr>
+<tr>
+<td>
+An operand has been specified in an invalid format.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040022</td><td> &quot;operand&quot; is invalid index.</td>
+</tr>
+<tr>
+<td>
+An invalid index has been specified for the operand register.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040023</td><td> &quot;operand&quot; is invalid format operand.</td>
+</tr>
+<tr>
+<td>
+Parentheses used to specify the offset for the operand register are not paired correctly.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040024</td><td> &quot;operand&quot; is invalid offset.</td>
+</tr>
+<tr>
+<td>
+An invalid offset has been specified for the operand register.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040025</td><td> &quot;operand&quot; is invalid offset.</td>
+</tr>
+<tr>
+<td>
+A register that cannot be used in an index specification is being used for the offset specification of the operand register.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040026</td><td> &quot;operand&quot; is invalid offset.</td>
+</tr>
+<tr>
+<td>
+An invalid index has been specified for the operand register.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040027</td><td> Correspondent if instruction is not found.</td>
+</tr>
+<tr>
+<td>
+The assembler cannot find the <CODE>ifc</CODE> or <CODE>ifb</CODE> instruction that corresponds to the given <CODE>endif</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004002a</td><td> Const register definition is duplicate.</td>
+</tr>
+<tr>
+<td>
+The floating point constant register defined by the given <CODE>def</CODE> instruction has been defined again elsewhere.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004002b</td><td> Bool register definition is duplicate.</td>
+</tr>
+<tr>
+<td>
+The boolean register defined by the given <CODE>defb</CODE> instruction has been defined again elsewhere.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004002c</td><td> Integer register definition is duplicate.</td>
+</tr>
+<tr>
+<td>
+The integer register defined by the given <CODE>defi</CODE> instruction has been defined again elsewhere.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040031</td><td> &quot;label name&quot; is already used label name.</td>
+</tr>
+<tr>
+<td>
+The same label name is being used elsewhere.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040032</td><td> Invalid label name is specified.</td>
+</tr>
+<tr>
+<td>
+The label name includes an invalid string.<br /> Label names must consist of ASCII alphanumeric characters and may include an underscore (&quot;_&quot;).<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040035</td><td> Error occurred while replacing macro instruction.</td>
+</tr>
+<tr>
+<td>
+An error occurred while replacing a macro instruction.<br /> Check whether a floating point const register automatically defined by <CODE>sincos</CODE> (for instance) has already been defined using a <CODE>def</CODE> instruction.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040039</td><td> Cannot break from if statement.</td>
+</tr>
+<tr>
+<td>
+A <CODE>break</CODE> instruction cannot be placed in code controlled by an <CODE>ifb</CODE> or <CODE>ifc</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004003a</td><td> ret instruction cannot be used just after endloop or endif.</td>
+</tr>
+<tr>
+<td>
+An <CODE>ret</CODE> instruction cannot be called immediately after an <CODE>endloop</CODE> or <CODE>endif</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004003b</td><td>At least 1 instruction need to be between if and else.</td>
+</tr>
+<tr>
+<td>
+At least one assembler instruction must be included between an <CODE>ifb</CODE> or <CODE>ifc</CODE> instruction and the corresponding <CODE>else</CODE> instruction.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004003c</td><td>At least one instruction needs to be between <CODE>else</CODE> and <CODE>endif</CODE>.</td>
+</tr>
+<tr>
+<td>
+At least one assembler instruction must be included between an <CODE>else</CODE> instruction and the corresponding <CODE>endif</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004003d</td><td>def instruction cannot specify the register defined by pragma bind_symbol.</td>
+</tr>
+<tr>
+<td>
+Registers specified in a <CODE>#pragma bind_symbol</CODE> statement cannot be specified in a <CODE>def</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004003e</td><td>defb instruction cannot specify the register defined by pragma bind_symbol.</td>
+</tr>
+<tr>
+<td>
+Registers specified in a <CODE>#pragma bind_symbol</CODE> statement cannot be specified in a <CODE>defb</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8004003f</td><td>defi instruction cannot specify the register defined by pragma bind_symbol.</td>
+</tr>
+<tr>
+<td>
+Registers specified in a <CODE>#pragma bind_symbol</CODE> statement cannot be specified in a <CODE>defi</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040040</td><td>At least 1 instruction need to be between loop and endloop.</td>
+</tr>
+<tr>
+<td>
+At least one assembler instruction must be included between a <CODE>loop</CODE> instruction and the corresponding <CODE>endloop</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040041</td><td>mova cannot be called continuously.</td>
+</tr>
+<tr>
+<td>
+The <CODE>mova</CODE> instruction cannot be called consecutively.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80040042</td><td> ret cannot be called just after jpb and jpc.</td>
+</tr>
+<tr>
+<td>
+An <CODE>ret</CODE> instruction cannot be called immediately after a <CODE>jpb</CODE> or <CODE>jpc</CODE> instruction.<br />
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<a name="8005xxxx"><h4>8005xxxx</h4></a>
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Error Code</th>
+<th align="center">Message / Description</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td align="center" rowspan="2">80050001</td><td> Cannot open output file.</td>
+</tr>
+<tr>
+<td>
+The output file cannot be opened.<br /> Check whether there is another file having the same name with a read-only attribute.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80050003</td><td> The size of swizzle register is short.</td>
+</tr>
+<tr>
+<td>
+The number of swizzling or masking patterns exceeds the upper limit.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80050005</td><td> <CODE>ret</CODE> instruction cannot be found for Label &quot;label name.&quot;</td>
+</tr>
+<tr>
+<td>
+An <CODE>ret</CODE> instruction has not been set for the label.<br /> An <CODE>ret</CODE> instruction is required for labels called as subroutines.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80050007</td><td> The number of label is too big.</td>
+</tr>
+<tr>
+<td>
+The number of labels cannot exceed 65535.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8005000a</td><td> The exceptional jump is detected.</td>
+</tr>
+<tr>
+<td>
+An exceptional jump is being made.<br /> See &quot;Instructions That Cannot be Continuously Called.&quot;
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8005000b</td><td> Cannot jump out from if statement and loop statement.</td>
+</tr>
+<tr>
+<td>
+An exceptional jump cannot be made using the <CODE>jbp</CODE> or <CODE>jpc</CODE> instructions from within a pair of <CODE>ifc</CODE> or <CODE>ifb</CODE> and <CODE>endif</CODE> instructions, or from within a pair of <CODE>loop</CODE> and <CODE>endloop</CODE> instructions.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8005000c</td><td> breakc cannot be called just before endloop instruction.</td>
+</tr>
+<tr>
+<td>
+The <CODE>breakc</CODE> instruction cannot be called immediately before an <CODE>endloop</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8005000d</td><td> jpb and jpc cannot be called just before endloop instruction.</td>
+</tr>
+<tr>
+<td>
+A <CODE>jpb</CODE> or <CODE>jpc</CODE> instruction cannot be called immediately before an <CODE>endloop</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8005000e</td><td> jpb and jpc cannot be called just before endif instruction.</td>
+</tr>
+<tr>
+<td>
+A <CODE>jpb</CODE> or <CODE>jpc</CODE> instruction cannot be called immediately before an <CODE>endif</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8005000f</td><td> jpb and jpc cannot be called just before else instruction.</td>
+</tr>
+<tr>
+<td>
+A <CODE>jpb</CODE> or <CODE>jpc</CODE> instruction cannot be called immediately before an <CODE>else</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80050010</td><td> jpb and jpc cannot jump into if statement and loop statement.</td>
+</tr>
+<tr>
+<td>
+An internal jump using the <CODE>jpb</CODE> or <CODE>jpc</CODE> instruction cannot be made inside a pair of <CODE>if</CODE> and <CODE>endif</CODE> instructions or a pair of <CODE>loop</CODE> and <CODE>endloop</CODE> instructions.<br />
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<a name="8006xxxx"><h4>8006xxxx</h4></a>
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Error Code</th>
+<th align="center">Message / Description</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td align="center" rowspan="2">80060004</td><td> &quot;operand&quot; is invalid operand type.</td>
+</tr>
+<tr>
+<td>
+An operand that is not supported by a shader instruction has been specified.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060005</td><td> Value cannot be specified for &quot;operand&quot;.</td>
+</tr>
+<tr>
+<td>
+A direct value cannot be specified for the operand.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060006</td><td> Index cannot be specified for &quot;operand&quot;.</td>
+</tr>
+<tr>
+<td>
+A register number cannot be specified for the operand.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060007</td><td>Component cannot be specified for &quot;operand&quot;.</td>
+</tr>
+<tr>
+<td>
+A component cannot be specified for the operand.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060009</td><td> &lsquo; - &rsquo; cannot be specified for &quot;operand&quot;.</td>
+</tr>
+<tr>
+<td>
+&quot;-&quot; cannot be specified for the operand.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006000b</td><td> Offset index cannot be specified for &quot;operand&quot;.</td>
+</tr>
+<tr>
+<td>
+An index offset cannot be specified for the operand.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006000c</td><td> Address register offset cannot be specified for &quot;operand&quot;.</td>
+</tr>
+<tr>
+<td>
+An address register index offset cannot be specified for the operand.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006000d</td><td> Loop counter register offset cannot be specified for &quot;operand&quot;.</td>
+</tr>
+<tr>
+<td>
+A loop counter index offset cannot be specified for the operand.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006000e</td><td> Loop counter register and address register cannot be specified together.</td>
+</tr>
+<tr>
+<td>
+A loop counter register and address register cannot be specified at the same time.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006000f</td><td> Index is not specified in &quot;operand&quot;.</td>
+</tr>
+<tr>
+<td>
+A register number has not been specified for the operand register.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060010</td><td> Invalid index is specified in &quot;operand&quot;.</td>
+</tr>
+<tr>
+<td>
+The register number of the operand exceeds the number of registers.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060011</td><td> Invalid mask is specified for dest.</td>
+</tr>
+<tr>
+<td>
+Masking has not been specified correctly for the operand dest.<br /> Specify masking in the order of x, y, z, w.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060012</td><td> Multiple constant registers cannot be specified at the same time.</td>
+</tr>
+<tr>
+<td>
+More than one floating point constant register cannot be specified at the same time for an operand.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060016</td><td> <CODE>Src</CODE> must have one of the following masks. .x|.y|.z|.w.</td>
+</tr>
+<tr>
+<td>
+Either .x, .y, .z, or .w must be specified for swizzling for the src operand.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060017</td><td>Src0 and dest cannot be the same.</td>
+</tr>
+<tr>
+<td>
+The same register cannot be specified for <SPAN class="argument">src0</SPAN> and <SPAN class="argument">dest</SPAN>.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060018</td><td> Src0 cannot have any swizzle except the default swizzle (.xyzw)</td>
+</tr>
+<tr>
+<td>
+Swizzling other than .xyzw cannot be specified src0.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060019</td><td> <CODE>Dest</CODE> must have one of the following masks. .x|.y|.z|.xy|.xz|.yz|.xyz.</td>
+</tr>
+<tr>
+<td>
+Any one of .x, .y, .z, .xy, .xz, .yz, or .xyz must be specified as the masking for dest.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006001b</td><td> Dest must have &quot;mask pattern&quot; mask.</td>
+</tr>
+<tr>
+<td>
+The masking indicated by the mask pattern must be specified for dest.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006001f</td><td> Dest and src0 cannot be the same.</td>
+</tr>
+<tr>
+<td>
+The same register cannot be specified for <SPAN class="argument">dest</SPAN> and <SPAN class="argument">src0</SPAN>.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060020</td><td> Dest and src cannot be the same.</td>
+</tr>
+<tr>
+<td>
+The same register cannot be specified for <SPAN class="argument">dest</SPAN> and <SPAN class="argument">src</SPAN>.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060021</td><td> <CODE>Src0</CODE> must have one of the following masks. .x|.y|.z|.w.</td>
+</tr>
+<tr>
+<td>
+Any one of .x, .y, .z, or .w must be specified as the swizzling for src0.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060022</td><td> <CODE>Src1</CODE> must have one of the following masks. .x|.y|.z|.w.</td>
+</tr>
+<tr>
+<td>
+Any one of .x, .y, .z, or .w must be specified as the swizzling for src1.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060023</td><td> Dest and src1 cannot be the same.</td>
+</tr>
+<tr>
+<td>
+The same register cannot be specified for <SPAN class="argument">dest</SPAN> and <SPAN class="argument">src1</SPAN>.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060024</td><td> All operand must be the different register.</td>
+</tr>
+<tr>
+<td>
+All operands must have a different register.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060025</td><td> <CODE>Dest</CODE> must have one of the following masks. .x|.y|.xy.</td>
+</tr>
+<tr>
+<td>
+Any one of .x, .y, or .xy must be specified as the masking for dest.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060026</td><td> Source modifier and swizzling cannot be specified for src1 and src2.</td>
+</tr>
+<tr>
+<td>
+Swizzling and negative signs cannot be specified for src1 and src2.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060028</td><td> Dest and src1 cannot be the same.</td>
+</tr>
+<tr>
+<td>
+The same register cannot be specified for <SPAN class="argument">dest</SPAN> and <SPAN class="argument">src1</SPAN>.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060029</td><td> Src1 cannot have any swizzle except the default swizzle (.xyzw)</td>
+</tr>
+<tr>
+<td>
+Swizzling other than .xyzw cannot be specified for src1.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006002a</td><td> <CODE>Dest</CODE> must have one of the following masks. .x|.y|.z|.xy|.xz|.yz|.xyz.</td>
+</tr>
+<tr>
+<td>
+Any one of .x, .y, .z, .xy, .xz, .yz, or .xyz must be specified as the masking for dest.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006002c</td><td> Source modifier and swizzling cannot be specified for src1.</td>
+</tr>
+<tr>
+<td>
+Swizzling and negative signs cannot be specified for src1.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006002d</td><td> Source modifier and swizzling cannot be specified for src2.</td>
+</tr>
+<tr>
+<td>
+Swizzling and negative signs cannot be specified for src2.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006002e</td><td> Invalid index is specified in &quot;operand&quot;.</td>
+</tr>
+<tr>
+<td>
+An invalid register number has been specified by the operand.<br /> The <CODE>m4x4</CODE> and other instructions specify the first number of the register for the operand. Check whether the register number used after macro expansion exceeds the maximum number of registers.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006002f</td><td> Constant register cannot be used for src0.</td>
+</tr>
+<tr>
+<td>
+A floating point constant register cannot be used for src0.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060030</td><td> Compare mode must be 0 or 1, 2, 3, 4, 5.</td>
+</tr>
+<tr>
+<td>
+A value from 0 through 5 must be specified for the comparison mode used by the <CODE>cmp</CODE> instruction.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060031</td><td> Status register bit must be 0 or 1.</td>
+</tr>
+<tr>
+<td>
+A value of 0 or 1 must be specified for the status register value.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060032</td><td> Condition mode is 0:OR 1:AND 2:OnlyStatus0 3:OnlyStatus1.</td>
+</tr>
+<tr>
+<td>
+A condition mode of 0 (OR), 1 (AND), 2 (OnlyStatus0), or 3 (OnlyStatus1) must be specified.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060033</td><td> Address register component must be x or y.</td>
+</tr>
+<tr>
+<td>
+x or y must be specified for the address register component.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060036</td><td> Src0 and src1 cannot be the same.</td>
+</tr>
+<tr>
+<td>
+The same register cannot be specified for <SPAN class="argument">src0</SPAN> and <SPAN class="argument">src1</SPAN>.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060037</td><td> Src1 and src2 cannot be the same.</td>
+</tr>
+<tr>
+<td>
+The same register cannot be specified for <SPAN class="argument">src1</SPAN> and <SPAN class="argument">src2</SPAN>.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060038</td><td> Dest and src2 cannot be the same.</td>
+</tr>
+<tr>
+<td>
+The same register cannot be specified for <SPAN class="argument">dest</SPAN> and <SPAN class="argument">src2</SPAN>.
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006003b</td><td> Loop count must be in the range [0, 255].</td>
+</tr>
+<tr>
+<td>
+The loop count for an integer register defined in a <CODE>defi</CODE> instruction must have a value in the range 0 through 255.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006003c</td><td> Loop counter initial value must be in the range [0, 255].</td>
+</tr>
+<tr>
+<td>
+The initial loop counter register value for an integer register defined in a <CODE>defi</CODE> statement must have a value in the range 0 through 255.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">8006003d</td><td> Loop counter step must be in the range [-128, 127].</td>
+</tr>
+<tr>
+<td>
+The loop counter register increment value for an integer register defined in a <CODE>defi</CODE> statement must have a value in the range -128 through 127.<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">80060040</td><td> Multiple input registers cannot be specified at the same time.</td>
+</tr>
+<tr>
+<td>
+More than one input register cannot be specified for a src operand at the same time. However, the same register can be registered twice at the same time.<br /> Example)<br/> add r0 , v0 , v0 // Does not result in an error<br/> add r0 , v0, v1 // Results in an error<br />
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<a name="400xxxxx"><h4>400xxxxx</h4></a>
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Warning Code</th>
+<th align="center">Warning Message / Description</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td align="center" rowspan="2">40070001</td><td> Label &quot;label name&quot; is undefined.</td>
+</tr>
+<tr>
+<td>
+The label cannot be found.<br/> (This can be resolved through a link if another object includes the label.)<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">40070003</td><td> mova instruction both before else and after endif might cause hardware hang-up.</td>
+</tr>
+<tr>
+<td>
+A hardware error may result if a <CODE>mova</CODE> instruction is included both immediately before an <CODE>else</CODE> instruction and immediately after an <CODE>endif</CODE> instruction. See &quot;Malfunctions Caused by the mova Instruction.&quot;<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">40070004</td><td> mova instruction at both first and last code in loop statement might cause hardware hang-up.</td>
+</tr>
+<tr>
+<td>
+A hardware error may result if a <CODE>mova</CODE> instruction is included both immediately after a <CODE>loop</CODE> instruction and immediately before an <CODE>endloop</CODE> instruction. See &quot;Malfunctions Caused by the mova Instruction.&quot;<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">400a0001</td><td> The series of four instructions from here might cause hardware hang-up if this instruction stalled more than three clock cycles.</td>
+</tr>
+<tr>
+<td>
+A series of four instructions matches conditions for a hardware malfunction. If execution stalls for three or more clock cycles on the error line, hardware may malfunction. <br />  See &quot;Malfunctions Caused by Executing Certain Instruction Sequences.&quot;<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">400a0002</td><td> The series of four instructions from here might cause hardware hang-up if this instruction stalled more than one clock cycle.</td>
+</tr>
+<tr>
+<td>
+A series of four instructions matches conditions for a hardware malfunction. If execution stalls for two or more clock cycles on the error line, hardware may malfunction. <br />  See &quot;Malfunctions Caused by Executing Certain Instruction Sequences.&quot;<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">400a0003</td><td> mova instruction just before end instruction might cause hardware hang-up.</td>
+</tr>
+<tr>
+<td>
+Hardware malfunction may result if a <CODE>mova</CODE> instruction is included immediately before an <CODE>end</CODE> instruction.<br /> See &quot;Malfunctions Caused by the mova Instruction.&quot;<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">400a0004</td><td> mova instruction just before the last instruction writing to output register might cause hardware hang-up.</td>
+</tr>
+<tr>
+<td>
+Hardware malfunction may result if a <CODE>mova</CODE> instruction is followed by an instruction that writes to an output register, and then followed by an <CODE>end</CODE> instruction. See &quot;Malfunctions Caused by the mova Instruction.&quot;<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">400a0005</td><td> mova instruction just before branch instruction might cause hardware hang-up if mova stalled for register dependency.</td>
+</tr>
+<tr>
+<td>
+Hardware malfunction may result if a <CODE>mova</CODE> instruction is included immediately before a branch instruction, and execution stalls if a register depends on an instruction included even before that.<br /> See &quot;Malfunctions Caused by the mova Instruction.&quot;<br />
+</td>
+</tr>
+
+<tr>
+<td align="center" rowspan="2">400a0006</td><td> The <CODE>mova</CODE> instruction and the following two instructions might cause the hardware to hang if a 1-clock cycle stall occurs immediately after the <CODE>mova</CODE> instruction.</td>
+</tr>
+<tr>
+<td>
+An illegal operation may occur if the instruction immediately after the <CODE>mova</CODE> instruction reads a temporary register and then the <CODE>mova</CODE> instruction and the following two instructions all read an input register or temporary register. For more information, see &quot;Illegal Operations Caused by the Register Dependencies of Instructions Before and After the <CODE>mova</CODE> Instruction.&quot;<br />
+</td>
+</tr>
+
+
+</tbody>
+</table>
+</div>
+
+
+<h2><a name="history">Revision History</a></h2>
+    <dl class="history">
+      <dt>2013/06/14</dt>
+<dd>Added the warning code <CODE>8003003b</CODE>.<br />
+      </dd>
+      <dt>2012/06/20</dt>
+<dd>Added the warning code <CODE>400a0006</CODE>.<br />
+      </dd>
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

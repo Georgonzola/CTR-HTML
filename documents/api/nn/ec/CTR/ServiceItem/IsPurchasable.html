@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>IsPurchasable</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a>::IsPurchasable Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool IsPurchasable() const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if the content is available for purchase, or <code>false</code> otherwise. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Determines whether the service item is available for purchase.</p><p>As one determination of whether purchase is possible, checks whether the sales start date and time has been reached. To determine whether it has been reached, the standard time for each country is used.</p><p>Always returns <code>true</code> if <code><a href="../../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a></code> objects were searched with <code><a href="../../../../nn/ec/CTR/SelectionFilter.html">SelectionFilter</a></code> set to <code>SELECTION_FILTER_PURCHASABLE</code>.</p><p>This function also returns search hits for items set to "initial purchase only" that have already been purchased. Handle items set to initial purchase only on IMAS either on your independent server or in your application so that users do not mistakenly purchase them again (so that no purchase requests are sent to the EC <a href="../../../../nn/applet/Overview.html">applet</a>).</p><p>You can check whether an item is set to initial purchase only using the <code><a href="../../../../nn/ec/CTR/ServiceItem/IsInitialPurchaseOnly.html">IsInitialPurchaseOnly</a></code> function.</p><p>For consumable tickets or time-based (subscription) pass service items that are set to initial purchase only and have already been purchased, the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestPurchaseServiceItem.html">EcApplet::RequestPurchaseServiceItem</a></code> function returns <code><a href="../../../../nn/ec/CTR/ResultInfraReportError/Overview.html">ResultInfraReportError</a></code> if you attempt to purchase them again. (See the Note below.)</p><p><bold>Note:</bold> This error is different from the <code><a href="../../../../nn/ec/CTR/ResultAppletAlreadyPurchased/Overview.html">ResultAppletAlreadyPurchased</a></code> error (attempted to purchase an item that has already been purchased). The <code><a href="../../../../nn/ec/CTR/ResultAppletAlreadyPurchased/Overview.html">ResultAppletAlreadyPurchased</a></code> error only occurs when attempting to purchase items such as DLC and permanent pass service items that would result in the user having overlapping items.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/07/17</dt>
+        <dd><item xmlns="">Added that the function returns search hits for items set to "initial purchase only" on IMAS in addition to a method for preventing users from mistakenly purchasing the same items again.</item><br />
+        </dd>
+        <dt>2012/02/28</dt>
+        <dd><item xmlns="">Added that the standard time for each country is used in the determination of whether the sales start date and time has been reached.</item><br />
+        </dd>
+        <dt>2011/10/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

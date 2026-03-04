@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<script type="text/javascript" src="../template/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../template/js/jquery/thickbox3.js"></script>
+<script type="text/javascript" src="../template/js/jquery/swfobject.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/thickbox.css" />
+<script type="text/javascript" src="../template/js/common/manualLib.js"></script>
+<script type="text/javascript" src="../tocData.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/template.css" />
+<title>5. Cautions When Using the eShop REST API</title>
+</head>
+<body data-reassemble="autoindex=no,forceNoLabel=yes,autoindextab=fold">
+<div id="autoindex_content">
+<div class="body_content">
+<noscript>
+<div style="border: 4 double black; margin: 4px; padding: 2px; font-weight: bold; background-color: FFFFCC;">
+<p>Some features in this documentation are unavailable because JavaScript is not enabled in your browser.</p>
+<p>The table of contents is available only if JavaScript is enabled. Enable JavaScript and reload this page.<br /><br /></p>
+</div>
+</noscript>
+
+<!-- 5. eShop REST API を利用する上での注意点 -->
+<div class="pagetitle" id="PageId_58754343">5. Cautions When Using the eShop REST API</div>
+<div class="text">
+
+<!-- 5.1. eShop REST API を使用するためには -->
+<h1 class="general" id="PageId_58754329">5.1. Using the eShop REST API</h1>
+<div class="text">
+<h4 id="Anchor_58754329_ニンテンドーeショップへのアクセス">Access to Nintendo eShop</h4>
+<p>The device with a registered Nintendo Network account must have accessed the Nintendo eShop once before using the eShop REST API. You cannot use eShop REST API functionality even if you start an application that supports eShop REST API before having accessed the Nintendo eShop.</p>
+<p>Accessing the Nintendo eShop may be done by starting the EC applet within the application, or by starting the Nintendo eShop application.</p>
+<div class="notice">
+  <div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+    <p>The EcDevTool can be used to access the Nintendo eShop when testing in the development environment.</p>
+  </div>
+</div>
+<h4 id="Anchor_58754329_ZipCodeとProvinceの設定">Setting ZIP Code and Province</h4>
+<p>If the country is set to USA, then the purchase cannot be made unless a ZIP Code is entered. Similarly, if the country is set to Canada, the province must be set. If these settings are not performed, a <CODE>030-3551</CODE> error is returned when making a purchase.</p>
+<p>
+  As the ZIP Code and province cannot be set in the purchase confirmation menu applet, users must run the EC applet and use the EcDevTool to set them in items such as the purchase samples in downloadable content.</p>
+<div class="notice">
+  <div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+    <p>In a production environment, the ZIP code and province can also be set from the Nintendo eShop.</p>
+  </div>
+</div>
+</div>
+
+<!-- 5.2. 本体日時の設定 -->
+<h1 class="general" id="PageId_58754345">5.2. Setting the System Date and Time</h1>
+<div class="text">
+<p>When using the eShop REST API, communications between the application and the independent server are encrypted by using a certificate.</p>
+<p>Note that the communication may be determined to be illegal and cause an error if the system date and time are not correctly set.</p>
+</div>
+
+<!-- 5.3. 本体更新チェックの実装 -->
+<h1 class="general" id="PageId_59483981">5.3. Implementing System Update Check</h1>
+<div class="text">
+<p>When using the eShop REST API, use the <CODE>nn::ec::CTR::NeedsSystemUpdate</CODE> function to verify system update.</p>
+<p>As this does not check the system update in the purchase confirmation menu applet, even if the display within the applet is changed due to a system update, if the update is not detected on the application side, it advances to the purchase while still using the old display. Because of that, use the <CODE>nn::ec::CTR::PurchaseConfirmationApplet::RequestShowDialog</CODE> function to check the system update before calling the purchase confirmation menu applet.</p>
+<p>Although it is not necessary to check the system update each time the purchase confirmation menu applet runs, run the check once for each login to the independent server.</p>
+</div>
+
+<!-- 5.4. 本体設定から言語情報を変更した場合の挙動について -->
+<h1 class="general" id="PageId_80136778">5.4. Behavior When Changing the Language Information in System Settings</h1>
+<div class="text">
+<p>The <VAR>lang</VAR> parameter can be set on several of the eShop REST API requests. This parameter can also be omitted. If omitted, the Nintendo Network account eShop language is used. However, this value could be different from the value set in the system.</p>
+<p>The account eShop language setting is updated to the language set in the system when Nintendo eShop or an EC applet, connects to it. If it is necessary to switch languages and check the notation, a display within the application should be performed after updating the eShop language of the account and therefore after the language has been updated.</p>
+</div>
+</div>
+</div>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

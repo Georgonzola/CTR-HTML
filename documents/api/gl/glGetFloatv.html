@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetFloatv</title>
+  </head>
+  <body>
+    <h1>glGetFloatv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetFloatv(
+     GLenum pname,
+     GLfloat * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Array storing the retrieved parameters.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets GL parameter settings as <code>GLfloat</code> values.</p><P>Set <span class="argument">pname</span> to one of the following values.</P><P><TABLE><TR><TH>GL_COLOR_CLEAR_VALUE</TH><TD>Get the clear value for the color buffer. </TD></TR><TR><TH>GL_DEPTH_CLEAR_VALUE</TH><TD>Get the clear value for the depth buffer. </TD></TR><TR><TH>GL_BLEND_COLOR</TH><TD>Get the value of the blend constant color. </TD></TR><TR><TH>GL_DEPTH_RANGE</TH><TD>Get the depth value range. </TD></TR><TR><TH>GL_POLYGON_OFFSET_FACTOR</TH><TD>Get the scaling factor for the polygon offset. </TD></TR><TR><TH>GL_POLYGON_OFFSET_UNITS</TH><TD>Get the unit value of the polygon offset.</TD></TR></TABLE><!-- source pnameにはGL_COLOR_CLEAR_VALUE、GL_DEPTH_CLEAR_VALUE、GL_BLEND_COLOR、 GL_DEPTH_RANGE、GL_POLYGON_OFFSET_FACTOR、GL_POLYGON_OFFSET_UNITSが指定できます。 GL_COLOR_CLEAR_VALUEはカラーバッファのクリア値を取得します。 GL_DEPTH_CLEAR_VALUEはデプスバッファのクリア値を取得します。 GL_BLEND_COLORはブレンドコンスタントカラーの値を取得します。 GL_DEPTH_RANGEはデプス値の範囲値を取得します。 GL_POLYGON_OFFSET_FACTORはポリゴンオフセットのスケールファクターを取得します。 GL_POLYGON_OFFSET_UNITSはポリゴンオフセットの単位値を取得します。 --></P><P>You can also specify any setting that can be obtained by <tt>glGetBoolean</tt> or <tt>glGetIntegerv</tt>, but you will get values that have all been cast to type <tt>GLfloat</tt>.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">pname</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

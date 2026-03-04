@@ -1,0 +1,854 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::jpeg::CTR::JpegMpEncoder</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::JpegMpEncoder Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/jpeg.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class JpegMpEncoder : private <a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable< JpegMpEncoder ></a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This class performs JPEG encoding.</p><!-- write here --></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/BUFFER_ALIGNMENT.html">BUFFER_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the work buffer specified in <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Initialize.html">Initialize</a></code> must be aligned to. It is defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SRC_ALIGNMENT.html">SRC_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the buffer for image data specified by <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartJpegEncoder.html">StartJpegEncoder</a></code>, <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderLR.html">StartMpEncoderLR</a></code>, <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderFirst.html">StartMpEncoderFirst</a></code>, or <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderNext.html">StartMpEncoderNext</a></code> must be aligned to. It is defined as 4 bytes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Initialize/Finalize</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetWorkBufferSize.html">GetWorkBufferSize</a>
+            </th>
+            <td>Calculates the number of bytes in the work buffer for the encoder object. The application must handle the allocation and deallocation of the buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/JpegMpEncoder.html">JpegMpEncoder</a>
+            </th>
+            <td>Constructs an encoder object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the encoder object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the encoder object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/~JpegMpEncoder.html">~JpegMpEncoder</a>
+            </th>
+            <td>Destructor. Calls <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Finalize.html">Finalize()</a></code>.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Settings Prior to Encoding</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetThumbnailSize.html">SetThumbnailSize</a>
+            </th>
+            <td>Specifies the thumbnail image size and output format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetInputBufferWidth.html">SetInputBufferWidth</a>
+            </th>
+            <td>Sets the width of the input image buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetOption.html">SetOption</a>
+            </th>
+            <td>Specifies JPEG encoding options.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetOption.html">GetOption</a>
+            </th>
+            <td>Gets the specified encoding options.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Exif Information Registration</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetDateTimeNow.html">GetDateTimeNow</a>
+            </th>
+            <td>Gets the current date and time and creates a string that can be used as the argument value in a call to <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetDateTime.html">SetDateTime</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetDateTime.html">SetDateTime</a>
+            </th>
+            <td>Registers the date and time an image was taken, for embedding in the JPEG file.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetSoftware.html">SetSoftware</a>
+            </th>
+            <td>Registers the software name to embed in the Exif IFD of a JPEG file.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetUserMakerNote.html">SetUserMakerNote</a>
+            </th>
+            <td>Registers various pieces of data to embed in the Maker Note part of a JPEG file.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetImageUid.html">SetImageUid</a>
+            </th>
+            <td>Registers the unique image ID to embed in the EXIF IFD of a JPEG file.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetOrientation.html">SetOrientation</a>
+            </th>
+            <td>Registers the image orientation to embed in the EXIF IFD of a JPEG file.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearOrientation.html">ClearOrientation</a>
+            </th>
+            <td>Specifies not to embed the image orientation in the JPEG EXIF IFD (default operation).</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">MP Entry Information Registration</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpTypeFlags.html">SetMpTypeFlags</a>
+            </th>
+            <td>Registers values to embed in the MP entry: the various flags for the individual image type management data and the dependent image entry numbers.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Storing IFD Information by MP Attribute</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpIndividualNum.html">SetMpIndividualNum</a>
+            </th>
+            <td>Registers the individual image number to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpIndividualNum.html">ClearMpIndividualNum</a>
+            </th>
+            <td>Resets the individual image number to embed in the MP Attribute IFD to the default value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPanOrientation.html">SetMpPanOrientation</a>
+            </th>
+            <td>Registers the image placement to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpPanOrientation.html">ClearMpPanOrientation</a>
+            </th>
+            <td>Instructs not to embed image location in the MP Attribute IFD (default operation).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPanOverlapH.html">SetMpPanOverlapH</a>
+            </th>
+            <td>Registers the horizontal overlap to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpPanOverlapH.html">ClearMpPanOverlapH</a>
+            </th>
+            <td>Instructs not to embed horizontal overlap in the MP Attribute IFD (default operation).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPanOverlapV.html">SetMpPanOverlapV</a>
+            </th>
+            <td>Registers the vertical overlap to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpPanOverlapV.html">ClearMpPanOverlapV</a>
+            </th>
+            <td>Instructs not to embed vertical overlap in the MP Attribute IFD. (Default functionality.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpBaseViewpointNum.html">SetMpBaseViewpointNum</a>
+            </th>
+            <td>Registers the base viewpoint number to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpBaseViewpointNum.html">ClearMpBaseViewpointNum</a>
+            </th>
+            <td>Resets the base viewpoint number to embed in the MP Attribute IFD to the default value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpConvergenceAngle.html">SetMpConvergenceAngle</a>
+            </th>
+            <td>Registers the convergence angle to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpConvergenceAngle.html">ClearMpConvergenceAngle</a>
+            </th>
+            <td>Resets the convergence angle to embed in the MP Attribute IFD to the default value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpBaselineLength.html">SetMpBaselineLength</a>
+            </th>
+            <td>Registers the baseline length to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpBaselineLength.html">ClearMpBaselineLength</a>
+            </th>
+            <td>Resets the baseline length to embed in the MP Attribute IFD to the default value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpVerticalDivergence.html">SetMpVerticalDivergence</a>
+            </th>
+            <td>Registers the vertical divergence to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpVerticalDivergence.html">ClearMpVerticalDivergence</a>
+            </th>
+            <td>Instructs not to embed horizontal overlap in the MP Attribute IFD (default operation).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpAxisDistanceX.html">SetMpAxisDistanceX</a>
+            </th>
+            <td>Registers the horizontal (x-axis) distance to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpAxisDistanceX.html">ClearMpAxisDistanceX</a>
+            </th>
+            <td>Instructs the system not to embed horizontal (x-axis) distance in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpAxisDistanceY.html">SetMpAxisDistanceY</a>
+            </th>
+            <td>Registers the vertical (y-axis) distance to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpAxisDistanceY.html">ClearMpAxisDistanceY</a>
+            </th>
+            <td>Instructs the system not to embed vertical (y-axis) distance in the MP Attribute IFD (default operation).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpAxisDistanceZ.html">SetMpAxisDistanceZ</a>
+            </th>
+            <td>Registers the line-of-sight (z-axis) distance to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpAxisDistanceZ.html">ClearMpAxisDistanceZ</a>
+            </th>
+            <td>Instructs the system not to embed depth (z-axis) distance in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpYawAngle.html">SetMpYawAngle</a>
+            </th>
+            <td>Registers the yaw angle to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpYawAngle.html">ClearMpYawAngle</a>
+            </th>
+            <td>Instructs not to embed yaw angle in the MP Attribute IFD (default operation).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPitchAngle.html">SetMpPitchAngle</a>
+            </th>
+            <td>Registers the pitch angle to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpPitchAngle.html">ClearMpPitchAngle</a>
+            </th>
+            <td>Instructs not to embed pitch angle in the MP Attribute IFD (default operation).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpRollAngle.html">SetMpRollAngle</a>
+            </th>
+            <td>Registers the roll angle to embed in the MP Attribute IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearMpRollAngle.html">ClearMpRollAngle</a>
+            </th>
+            <td>Instructs not to embed roll angle in the MP Attribute IFD (default operation).</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Registering GPS_IFD Information</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/InitializeGpsData.html">InitializeGpsData</a>
+            </th>
+            <td>Initializes the structure used for registering GPS IFD data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsVersionId.html">SetGpsVersionId</a>
+            </th>
+            <td>Stores the GPS tag version in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsVersionId.html">ClearGpsVersionId</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the GPS tag version.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsLatitude.html">SetGpsLatitude</a>
+            </th>
+            <td>Stores latitude in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsLatitude.html">ClearGpsLatitude</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the latitude.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsLongitude.html">SetGpsLongitude</a>
+            </th>
+            <td>Stores longitude in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsLongitude.html">ClearGpsLongitude</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the longitude.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsAltitude.html">SetGpsAltitude</a>
+            </th>
+            <td>Stores altitude in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsAltitude.html">ClearGpsAltitude</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record altitude.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsTimeStamp.html">SetGpsTimeStamp</a>
+            </th>
+            <td>Stores the GPS time stamp (atomic clock time) in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsTimeStamp.html">ClearGpsTimeStamp</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record GPS time (atomic clock time).</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsSatellites.html">SetGpsSatellites</a>
+            </th>
+            <td>Stores the satellite signals used for positioning in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsSatellites.html">ClearGpsSatellites</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the satellite signals.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsStatus.html">SetGpsStatus</a>
+            </th>
+            <td>Stores GPS receiver status in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsStatus.html">ClearGpsStatus</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record GPS receiver status.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsMeasureMode.html">SetGpsMeasureMode</a>
+            </th>
+            <td>Stores the GPS positioning method in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsMeasureMode.html">ClearGpsMeasureMode</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the GPS positioning method.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsDop.html">SetGpsDop</a>
+            </th>
+            <td>Stores the reliability (dilution of precision) in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsDop.html">ClearGpsDop</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the DOP (dilution of precision) of positioning.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsSpeed.html">SetGpsSpeed</a>
+            </th>
+            <td>Stores velocity in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsSpeed.html">ClearGpsSpeed</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the velocity.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsTrack.html">SetGpsTrack</a>
+            </th>
+            <td>Stores the movement (track) direction in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsTrack.html">ClearGpsTrack</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the movement direction.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsImgDirection.html">SetGpsImgDirection</a>
+            </th>
+            <td>Stores the orientation of the captured image in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsImgDirection.html">ClearGpsImgDirection</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the orientation of the captured image.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsMapDatum.html">SetGpsMapDatum</a>
+            </th>
+            <td>Stores the map data used for positioning in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsMapDatum.html">ClearGpsMapDatum</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the map data used for positioning.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsDestLatitude.html">SetGpsDestLatitude</a>
+            </th>
+            <td>Stores the latitude of the destination in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsDestLatitude.html">ClearGpsDestLatitude</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the latitude of the destination.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsDestLongitude.html">SetGpsDestLongitude</a>
+            </th>
+            <td>Stores the latitude of the destination in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsDestLongitude.html">ClearGpsDestLongitude</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the longitude of the destination.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsDestBearing.html">SetGpsDestBearing</a>
+            </th>
+            <td>Stores the bearing to the destination in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsDestBearing.html">ClearGpsDestBearing</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the bearing to the destination.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsDestDistance.html">SetGpsDestDistance</a>
+            </th>
+            <td>Stores the distance to the destination in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsDestDistance.html">ClearGpsDestDistance</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the distance to the destination.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsProcessingMethod.html">SetGpsProcessingMethod</a>
+            </th>
+            <td>Stores the GPS positioning method in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsProcessingMethod.html">ClearGpsProcessingMethod</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the name of the positioning method.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsAreaInformation.html">SetGpsAreaInformation</a>
+            </th>
+            <td>Stores the GPS position name in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsAreaInformation.html">ClearGpsAreaInformation</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the place name of the location.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsDateStamp.html">SetGpsDateStamp</a>
+            </th>
+            <td>Registers the GPS date stamp in the GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsDateStamp.html">ClearGpsDateStamp</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to register the GPS date-time stamp.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsDifferential.html">SetGpsDifferential</a>
+            </th>
+            <td>Stores the GPS differential in GPS IFD.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsDifferential.html">ClearGpsDifferential</a>
+            </th>
+            <td>By default, GPS IFD is instructed not to record the GPS differential.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsData.html">SetGpsData</a>
+            </th>
+            <td>Embeds GPS_IFD in JPEG.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsData.html">ClearGpsData</a>
+            </th>
+            <td>By default, JPEG is instructed not to imbed GPS IFD.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Encoding</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartJpegEncoder.html">StartJpegEncoder</a>
+            </th>
+            <td>Runs the JPEG encoder.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderLR.html">StartMpEncoderLR</a>
+            </th>
+            <td>Runs the JPEG encoder on two images and stores the results in Extended MP format (for stereoscopic display).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderFirst.html">StartMpEncoderFirst</a>
+            </th>
+            <td>JPEG-encodes an image and stores it as the starting image in MP format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderNext.html">StartMpEncoderNext</a>
+            </th>
+            <td>JPEG-encodes an image and appends it to the encoded results from the immediately previous call to either <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderFirst.html">StartMpEncoderFirst</a></code> or this function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetMpRegionsToBuildJpegData.html">GetMpRegionsToBuildJpegData</a>
+            </th>
+            <td>Gets the memory region information for reconstructing the JPEG data from the encoding result of the previous call to <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderFirst.html">StartMpEncoderFirst</a></code>, <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderNext.html">StartMpEncoderNext</a></code>, or <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderLR.html">StartMpEncoderLR</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetLastError.html">GetLastError</a>
+            </th>
+            <td>Gets the cause of the error generated by the immediately previous call to the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderFirst.html">StartMpEncoderFirst</a></code>, <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderNext.html">StartMpEncoderNext</a></code>, or <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderLR.html">StartMpEncoderLR</a></code> functions.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<b>nn::jpeg::CTR::JpegMpEncoder</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added a description of functions used to store GPS information.  Organized the descriptions of member functions into separate categories.</item><br />
+        </dd>
+        <dt>2010/04/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

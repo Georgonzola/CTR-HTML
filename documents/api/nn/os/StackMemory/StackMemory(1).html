@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StackMemory</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/StackMemory/Overview.html">StackMemory</a>::StackMemory Constructor</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+explicit StackMemory(
+     void * pMem,
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pMem</th>
+          <td>Pointer to the beginning of the memory region to partition. It must be aligned to <emphasis>MEMORY_ALIGNMENT</emphasis> (4069 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Size of the memory region to partition. The <emphasis>size</emphasis> parameter must be a multiple of <emphasis>MEMORY_UNITSIZE</emphasis> (4096 bytes).</td>
+        </tr> </table>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Constructs an object and partitions a memory region.</p><p>Internally calls the <code><a href="../../../nn/os/StackMemory/Initialize.html">Initialize</a></code> function.</p><p>For this reason, this function can only partition memory allocated from the heap region. It cannot partition buffers allocated statically from the code region, and it cannot partition regions in device memory.</p><p>For more information, see <code><a href="../../../nn/os/StackMemory/Initialize.html">Initialize</a></code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2011/12/19</dt>
+        <dd><item xmlns="">Noted that memory must be allocated from the heap region.</item><br />
+        </dd>
+        <dt>2010/08/18</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

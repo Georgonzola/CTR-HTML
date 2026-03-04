@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>StartPortalApp</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/olv/Overview.html">olv</a>::StartPortalApp Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/olv/Result/Overview.html">nn::olv::Result</a> StartPortalApp(
+     const <a href="../../nn/olv/StartPortalAppParam/Overview.html">nn::olv::StartPortalAppParam</a> * startParam
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>startParam</th>
+          <td>The class that stores the parameters used when starting the Miiverse application.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation. <br />
+ For information about handling the result, see the section about Error Handling or the descriptions of the <code><a href="../../nn/olv/Result/Overview.html">nn::olv::Result</a></code> values. <br /><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultUsageError</th>
+          <td>A usage error.</td>
+        </tr>
+        <tr>
+          <th>ResultLibraryPermanentError</th>
+          <td>A permanent library error.</td>
+        </tr>
+        <tr>
+          <th>ResultLibraryTemporaryError</th>
+          <td>A temporary library error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Starts the Miiverse application.</p><p>If this function succeeds, you must call the <code><a href="../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting()</a></code> function to wait for the start event of the application. <br />
+ Note that the working buffer specified for the <emphasis>startParam</emphasis> argument with the <code><a href="../../nn/olv/StartPortalAppParam/SetWork.html">nn::olv::StartPortalAppParam::SetWork()</a></code> function must not be cleared until either the <code><a href="../../nn/olv/Resume.html">nn::olv::Resume()</a></code> or the <code><a href="../../nn/olv/Finalize.html">nn::olv::Finalize()</a></code> function is called after the start event of the application. <br />
+ This function is not thread-safe. Make sure not to execute any OLV library functions or class methods on another thread while calling this function. <br /></p><p>The PARTNER-CTR series Debugger and the IS-CTR series debugger both have less available memory for the Miiverse application than the actual retail product. You may find that errors occur when starting the Miiverse application to check it. <br />
+ (This issue does not occur on the various development devices or on IS-SNAKE Devkit (with the standard 2 GB of memory or more).)<br /></p><p>If you are in an environment where you are using the development menu in PARTNER-CTR Debugger, first load the application into emulator memory and then press the A Button to start the application. (Communities may not be displayed properly if you run the Miiverse application by dragging the file into the window, selecting <bold>File</bold> > <bold>Load</bold>, or using the <bold>L</bold> command.</p><p>Depending on the system mode setting, this function might not work correctly. For more information, see the documentation under CTR Tools > Configuration.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/06/09</dt>
+        <dd><item xmlns="">Noted that the application might not work correctly depending on the system mode setting.</item><br />
+        </dd>
+        <dt>2014/10/08</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

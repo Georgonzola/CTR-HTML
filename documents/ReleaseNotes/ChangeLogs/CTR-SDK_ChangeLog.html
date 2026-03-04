@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>CTR-SDK Change Log</title>
+
+<link rel="stylesheet" href="../../css/nwdoc.css" type="text/css" />
+<link rel="stylesheet" href="../../css/release_note.css" type="text/css" />
+
+</head>
+<body class="nwdoc nwhiderightbar" nwai_levelbegin="2" nwai_levelend="2">
+  
+    <!-- ====================================================================== -->
+<h1>CTR-SDK Change Log</h1>
+
+<h2>Contents</h2>
+
+<h3>CTR-SDK 11.4.0 (2015/09/07 - for System Updater 0.24.66)</h3><p><a href="#version_11_4_0_0">Update Details</a></p>
+<h4>Additions and Changes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_37-S01">37-S01:(BOSS) Changed document related to BOSS [SDK]</a></li>
+<li><a href="#note_37-S03">37-S03:(CEC) Added function that obtains whether StreetPass box can be created [SDK]</a></li>
+<li><a href="#note_37-S04">37-S04:(CEC) Added information on icon data and description data formats [SDK]</a></li>
+<li><a href="#note_37-S05">37-S05:(DevEnv) Updated nn.h [SDK]</a></li>
+<li><a href="#note_37-S06">37-S06:(DevEnv) Added definition for alignment restriction [SDK|SampleDemos]</a></li>
+<li><a href="#note_37-S07">37-S07:(DevEnv) Added and fixed system mode explanation [SDK]</a></li>
+<li><a href="#note_37-S09">37-S09:(DevEnv) Added library for standard linking [SDK]</a></li>
+<li><a href="#note_37-S10">37-S10:(DLP) Added warning in patch manual for when titles using fake clients are updated [SDK]</a></li>
+<li><a href="#note_37-S12">37-S12:(EC) Added nn::ec::CTR::PurchaseConfirmationApplet::RequestShowDialog member variable reference [SDK]</a></li>
+<li><a href="#note_37-S13"><span class="important_style">37-S13:(EC)★ Added eShop REST API feature that provides functions for listing and purchasing service items through the independent server [SDK|SystemUpdater|SampleDemos]</span></a></li>
+<li><a href="#note_37-S15">37-S15:(EC) Added that Error 005-5637 will occur if local ticket is not deleted when reverting downloadable content [SDK]</a></li>
+<li><a href="#note_37-S16">37-S16:(ERREULA) Added description of value that specifies the nn::erreula::CTR::Config structure&rsquo;s useLanguage member [SDK]</a></li>
+<li><a href="#note_37-S17">37-S17:(FS) Added operation for searching multiple media when mounting save data [SDK]</a></li>
+<li><a href="#note_37-S18">37-S18:(FS) Updated document related to the rollback prevention feature [SDK]</a></li>
+<li><a href="#note_37-S20">37-S20:(HIO) Updated the <CODE>HostIO</CODE> library manufactured by IS [SDK]</a></li>
+<li><a href="#note_37-S21">37-S21:(HIO) Added explanation of the nn::hio::SerialChannel::Flush function behavior [SDK]</a></li>
+<li><a href="#note_37-S22">37-S22:(NFP) Added 0x to items that display hexadecimal tag information in NfpUtil [SDK]</a></li>
+<li><a href="#note_37-S23">37-S23:(NFP) Deleted nn::nfp::ResultDataAccessFailed [SDK]</a></li>
+<li><a href="#note_37-S24">37-S24:(NFP) Added feature to rewrite NFP tag ROM regions in NoftWriter [SDK]</a></li>
+<li><a href="#note_37-S25">37-S25:(NFP) Added feature to display NFT file Character Name and Character ID in NoftWriter [SDK]</a></li>
+<li><a href="#note_37-S26">37-S26:(OS) Added warning about excessive calling of the nn::os::Thread::Sleep function [SDK]</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_37-S02">37-S02:(CEC) Fixed bug where the icon and title were broken in the StreetPass box imported with the CecBoxTool [SDK]</a></li>
+<li><a href="#note_37-S08">37-S08:(DevEnv) Fixed bug where unbootable CCI are created [SDK]</a></li>
+<li><a href="#note_37-S11">37-S11:(EC) Fixed bug where downloadable content is not deleted when EcDevTool shop account is deleted [SDK]</a></li>
+<li><a href="#note_37-S14">37-S14:(EC) Fixed upper character limit to Details Information and Legal/Disclaimer Information displayed when purchasing a service item [SDK|SystemUpdater|SampleDemos]</a></li>
+<li><a href="#note_37-S19">37-S19:(HID) Fixed bug where Circle Pad Pro operates unintentionally during search [SDK|SampleDemos]</a></li>
+<li><a href="#note_37-S27">37-S27:(SND) Fixed bug that caused a deadlock when the sound library is under high load [SDK]</a></li>
+</ul>
+
+
+<h3>Previous Revision Histories</h3>
+<p>For the previous change log, see <a href="CTR-SDK_ChangeLog_old.html">here</a>.</p>
+
+<p>For change logs prior to CTR-SDK 7.2.1, see <a href="ChangeLog_CTR.html">here</a>.</p>
+
+<h2 id="version_11_4_0_0">Changes in CTR-SDK 11.4.0 (2015/09/07 - for System Updater 0.24.66)</h2>
+<h3 id="category_37_0">Additions and Changes</h3>
+<h3 id="note_37-S01" class="release_note"><span class="addition_style">Additions and Changes</span>37-S01:(BOSS) Changed document related to BOSS [SDK]</h3>
+<p class="release_note">Changed the following document related to BOSS.
+</p>
+<ul class="release_note"><li> Added in the BossLotcheckTool <B>Clear BOSS DB in the system</B> explanation that expanded save data must be deleted when debugging without any BOSS information registered.
+</li>
+<li> Added to the reference that nn::boss::FgOnlyTask must be specified in the nn::boss::RegisterImmediateTask function.
+</li>
+<li> Changed <B>Application ID</B> notation in the nn::boss::ResultStorageNotFound class description to a more appropriate expression.
+</li>
+</ul>
+<h3 id="note_37-S03" class="release_note"><span class="addition_style">Additions and Changes</span>37-S03:(CEC) Added function that obtains whether StreetPass box can be created [SDK]</h3>
+<p class="release_note">Added nn::cec::MessageBox::CanCreateMessageBox function that obtains whether StreetPass box can be created.
+</p>
+<h3 id="note_37-S04" class="release_note"><span class="addition_style">Additions and Changes</span>37-S04:(CEC) Added information on icon data and description data formats [SDK]</h3>
+<p class="release_note">Added information on icon data and description data formats to the API reference.
+</p>
+<h3 id="note_37-S05" class="release_note"><span class="addition_style">Additions and Changes</span>37-S05:(DevEnv) Updated nn.h [SDK]</h3>
+<p class="release_note">Updated <CODE>nn.h</CODE> to allow use by all CTR-SDK API functions by using an <CODE>include</CODE> statement.
+</p>
+<h3 id="note_37-S06" class="release_note"><span class="addition_style">Additions and Changes</span>37-S06:(DevEnv) Added definition for alignment restriction [SDK|SampleDemos]</h3>
+<p class="release_note">Added definitions for alignment and size restrictions for the following libraries.
+</p>
+<ul class="release_note"><li> aacdec
+</li>
+<li> aacenc
+</li>
+<li> act
+</li>
+<li> camera
+</li>
+<li> cec
+</li>
+<li> dlp
+</li>
+<li> fs
+</li>
+<li> gx
+</li>
+<li> hid
+</li>
+<li> http
+</li>
+<li> ir
+</li>
+<li> os
+</li>
+<li> rdt
+</li>
+<li> ro
+</li>
+<li> snd
+</li>
+<li> socket
+</li>
+<li> uds
+</li>
+</ul>
+<h3 id="note_37-S07" class="release_note"><span class="addition_style">Additions and Changes</span>37-S07:(DevEnv) Added and fixed system mode explanation [SDK]</h3>
+<p class="release_note">The following system mode additions and fixes were done.
+</p>
+<ul class="release_note"><li> Added alert when system mode is set in the various functions that call system applets.
+</li>
+<li> Fixed system mode explanation portion in Config.html.
+</li>
+</ul>
+<h3 id="note_37-S09" class="release_note"><span class="addition_style">Additions and Changes</span>37-S09:(DevEnv) Added library for standard linking [SDK]</h3>
+<p class="release_note">Added the following to the standard linked libraries in the CTR-SDK build system.
+</p>
+<ul class="release_note"><li> aacdec
+</li>
+<li> aacenc
+</li>
+<li> extrapad
+</li>
+<li> qtm
+</li>
+<li> webbrs
+</li>
+</ul>
+<h3 id="note_37-S10" class="release_note"><span class="addition_style">Additions and Changes</span>37-S10:(DLP) Added warning in patch manual for when titles using fake clients are updated [SDK]</h3>
+<p class="release_note">Added warning in patch manual for when titles using fake clients are updated.
+</p>
+<h3 id="note_37-S12" class="release_note"><span class="addition_style">Additions and Changes</span>37-S12:(EC) Added nn::ec::CTR::PurchaseConfirmationApplet::RequestShowDialog member variable reference [SDK]</h3>
+<p class="release_note">Clarified that nn::ec::CTR::PurchaseConfirmationApplet::RequestShowDialog returns Result::IsSuccess when users select the purchase button in the EC applet.
+</p>
+<h3 id="note_37-S13" class="release_note"><span class="addition_style">Additions and Changes</span><span class="important_style">37-S13:(EC)★ Added eShop REST API feature that provides functions for listing and purchasing service items through the independent server [SDK|SystemUpdater|SampleDemos]</span></h3>
+<p class="release_note">Added eShop REST API feature that provides functions for listing and purchasing service items through the independent server.<br />In addition, the following was also added.
+</p>
+<ul class="release_note"><li> Manual containing required information for developing the independent server using the eShop REST API ($CTR_SDK/documents/TechnicalNotes/EShopRestApiManual)
+</li>
+<li> eShop REST API ec/ServiceItemRestApi Demo
+</li>
+</ul>
+<h3 id="note_37-S15" class="release_note"><span class="addition_style">Additions and Changes</span>37-S15:(EC) Added that Error 005-5637 will occur if local ticket is not deleted when reverting downloadable content [SDK]</h3>
+<p class="release_note">Clarified in <B>EDCK: Developing Applications That Support Downloadable Content</B> that Error 005-5637 occurs if local ticket is not deleted when reverting downloadable content.
+</p>
+<h3 id="note_37-S16" class="release_note"><span class="addition_style">Additions and Changes</span>37-S16:(ERREULA) Added description of value that specifies the nn::erreula::CTR::Config structure&rsquo;s useLanguage member [SDK]</h3>
+<p class="release_note">Added description of value that specifies the nn::erreula::CTR::Config structure&rsquo;s useLanguage member.
+</p>
+<h3 id="note_37-S17" class="release_note"><span class="addition_style">Additions and Changes</span>37-S17:(FS) Added operation for searching multiple media when mounting save data [SDK]</h3>
+<p class="release_note">Added point about searching multiple media when mounting other titles with the nn::fs::MountSaveData function, and point about skipping from search with unformatted media.
+</p>
+<h3 id="note_37-S18" class="release_note"><span class="addition_style">Additions and Changes</span>37-S18:(FS) Updated document related to the rollback prevention feature [SDK]</h3>
+<p class="release_note">Added link to rollback prevention feature in the SaveDataFiler description.
+</p>
+<h3 id="note_37-S20" class="release_note"><span class="addition_style">Additions and Changes</span>37-S20:(HIO) Updated the <CODE>HostIO</CODE> library manufactured by IS [SDK]</h3>
+<p class="release_note">IS' <CODE>HostIO</CODE> library for the debugger has been updated to the 20150707 version.
+</p>
+<h3 id="note_37-S21" class="release_note"><span class="addition_style">Additions and Changes</span>37-S21:(HIO) Added explanation of the nn::hio::SerialChannel::Flush function behavior [SDK]</h3>
+<p class="release_note">Added explanation of the nn::hio::SerialChannel::Flush function behavior on the host side.
+</p>
+<h3 id="note_37-S22" class="release_note"><span class="addition_style">Additions and Changes</span>37-S22:(NFP) Added 0x to items that display hexadecimal tag information in NfpUtil [SDK]</h3>
+<p class="release_note">Changed such that 0x is added to items that display hexadecimal tag information in NfpUtil.
+</p>
+<h3 id="note_37-S23" class="release_note"><span class="addition_style">Additions and Changes</span>37-S23:(NFP) Deleted nn::nfp::ResultDataAccessFailed [SDK]</h3>
+<p class="release_note">Deleted nn::nfp::ResultDataAccessFailed from $CTR_SDK/include/nn/nfp/nfp_Result.h.<br />The NFP library function does not return nn::nfp::ResultDataAccessFailed.
+</p>
+<h3 id="note_37-S24" class="release_note"><span class="addition_style">Additions and Changes</span>37-S24:(NFP) Added feature to rewrite NFP tag ROM regions in NoftWriter [SDK]</h3>
+<p class="release_note">Added feature to rewrite NFP tag ROM regions in NoftWriter.<br />See the CTR Tools NoftWriter explanation page ($CTR_SDK/documents/ctools/NoftWriter.html) for details.
+</p>
+<h3 id="note_37-S25" class="release_note"><span class="addition_style">Additions and Changes</span>37-S25:(NFP) Added feature to display NFT file Character Name and Character ID in NoftWriter [SDK]</h3>
+<p class="release_note">Added feature to display NFT file Character Name and Character ID in NoftWriter.<br />See the CTR Tools NoftWriter explanation page ($CTR_SDK/documents/ctools/NoftWriter.html) for details.
+</p>
+<h3 id="note_37-S26" class="release_note"><span class="addition_style">Additions and Changes</span>37-S26:(OS) Added warning about excessive calling of the nn::os::Thread::Sleep function [SDK]</h3>
+<p class="release_note">Added that performance is reduced when the nn::os::Thread::Sleep function is called excessively within a short time interval and places a heavy load on the whole system.
+</p>
+<h3 id="category_37_0">Bug Fixes</h3>
+<h3 id="note_37-S02" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-S02:(CEC) Fixed bug where the icon and title were broken in the StreetPass box imported with the CecBoxTool [SDK]</h3>
+<p class="release_note">Fixed bug where icon and title information cannot be restored correctly when importing the StreetPass box with the CecBoxTool.
+</p>
+<h3 id="note_37-S08" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-S08:(DevEnv) Fixed bug where unbootable CCI are created [SDK]</h3>
+<p class="release_note">Fixed bug where correct CCI were not created when size exceeded 16MB after static memory compression in ctr_makerom.
+</p>
+<h3 id="note_37-S11" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-S11:(EC) Fixed bug where downloadable content is not deleted when EcDevTool shop account is deleted [SDK]</h3>
+<p class="release_note">Fixed bug where downloadable content was not deleted when EcDevTool shop account was deleted.
+</p>
+<h3 id="note_37-S14" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-S14:(EC) Fixed upper character limit to Details Information and Legal/Disclaimer Information displayed when purchasing a service item [SDK|SystemUpdater|SampleDemos]</h3>
+<p class="release_note">Fixed upper limit to character count of Details Information and Legal/Disclaimer Information displayed when purchasing a service item.<br />For Details Information, 64 characters was increased to 128 characters, and there is no longer a limit for line breaks.<br />For Legal/Disclaimer Information, 512 characters was increased to 1024 characters, and there is no longer a limit for line breaks.<br />The EC library and ServiceItem sample was fixed along with this.
+</p>
+<h3 id="note_37-S19" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-S19:(HID) Fixed bug where Circle Pad Pro operates unintentionally during search [SDK|SampleDemos]</h3>
+<p class="release_note">There was a bug where the Circle Pad Pro operated unintentionally during search.<br />In order to fix this, the working memory size passed to the nn::hid::CTR::ExtraPad::Initialize function was increased from 4096 to 12288 bytes.<br />Also, along with the working memory size increase, it was verified that the nn::hid::CTR::ExtraPad::Initialize function can receive this size.
+</p>
+<h3 id="note_37-S27" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-S27:(SND) Fixed bug that caused a deadlock when the sound library is under high load [SDK]</h3>
+<p class="release_note">Fixed bug that caused a deadlock when the sound library function is called frequently within a short period of time.
+</p>
+
+
+    <!-- ====================================================================== -->
+    <div id="nwfooter">
+      <div class="confidential_logo">
+Confidential
+      </div>
+      <div class="confidential_en">
+This document contains confidential and proprietary information of Nintendo and is also protected under the copyright laws of the United States and foreign countries. No part of this document may be released, distributed, transmitted or reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without permission in writing from Nintendo.
+      </div>
+      <div class="confidential_ja">
+The content of this document is confidential information, and must be handled using the strictest security measures. 
+      </div>
+      <div class="copyright">
+&copy; 2011-2015 Nintendo/HAL Laboratory, Inc. All rights reserved. <br />All company and product names in this document are the trademarks or registered trademarks of their respective companies.
+      </div>
+    </div>
+    
+  <hr><p>CONFIDENTIAL</p></body>
+</html>

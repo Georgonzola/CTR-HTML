@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>PixelFormat</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../nn/jpeg/CTR/Overview.html">CTR</a>::PixelFormat Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum PixelFormat;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>PIXEL_FORMAT_YUYV8</th>
+          <td>Pixel format of images captured by <a href="../../../nn/camera/Overview.html">camera</a> devices. With 4 bytes (2 pixels) representing a single pair, the order beginning from the first byte is: Y component (left side), U component, Y component (right side), and V component.</td>
+        </tr>
+        <tr>
+          <th>PIXEL_FORMAT_CTR_RGB565</th>
+          <td>Equivalent to the GPU texture formats <code>GL_RGB</code> and <code>GL_UNSIGNED_SHORT_5_6_5</code>. The upper-left pixel in the image is positioned first in memory. V-clipping is used when the graphics library converts images in this format to the native PICA format. The CPU processing time of the graphics library increases with conversion.</td>
+        </tr>
+        <tr>
+          <th>PIXEL_FORMAT_CTR_RGB565_BLOCK8</th>
+          <td>Equivalent to the GPU texture formats <code>GL_RGB_NATIVE_DMP</code> and <code>GL_UNSIGNED_SHORT_5_6_5</code>. The output buffer for decoding functions must have 128-byte alignment to be directly accessible by the GPU. This library only checks for 4-byte alignment.</td>
+        </tr>
+        <tr>
+          <th>PIXEL_FORMAT_RGB8</th>
+          <td>Equivalent to the GPU texture formats <code>GL_RGB</code> and <code>GL_UNSIGNED_BYTE</code>. Just as with <code>PIXEL_FORMAT_CTR_RGB565</code>, the upper-left pixel of the image comes first in memory.</td>
+        </tr>
+        <tr>
+          <th>PIXEL_FORMAT_CTR_RGB8_BLOCK8</th>
+          <td>Equivalent to the GPU texture formats <code>GL_RGB_NATIVE_DMP</code> and <code>GL_UNSIGNED_BYTE</code>. Uses the same alignment as <code>PIXEL_FORMAT_CTR_RGB565_BLOCK8</code>.</td>
+        </tr>
+        <tr>
+          <th>PIXEL_FORMAT_RGBA8</th>
+          <td>Equivalent to the GPU texture formats <code>GL_RGBA</code> and <code>GL_UNSIGNED_BYTE</code>. The alpha component is ignored during encoder input, and output as 0xFF during decoder output. Just as with <code>PIXEL_FORMAT_CTR_RGB565</code>, the upper-left pixel of the image comes first in memory.</td>
+        </tr>
+        <tr>
+          <th>PIXEL_FORMAT_CTR_RGBA8_BLOCK8</th>
+          <td>Equivalent to the GPU texture formats <code>GL_RGBA_NATIVE_DMP</code> and <code>GL_UNSIGNED_BYTE</code>. Uses the same alignment as <code>PIXEL_FORMAT_CTR_RGB565_BLOCK8</code>.</td>
+        </tr>
+        <tr>
+          <th>PIXEL_FORMAT_BGR8</th>
+          <td>Equivalent to the LCD display buffer format <code>GL_RGB8_OES</code>. The order of color components is reversed compared to <code>PIXEL_FORMAT_RGB8</code>.</td>
+        </tr>
+        <tr>
+          <th>PIXEL_FORMAT_ABGR8</th>
+          <td>Equivalent to the LCD display buffer format <code>GL_RGBA8_OES</code>. (See the note.) The order of color components is reversed compared to <code>PIXEL_FORMAT_RGBA8</code>. The alpha component is handled in the same way as with <code>PIXEL_FORMAT_RGBA8</code>. <bold>Note:</bold> This format is no longer supported by the GX library as of CTR-SDK version 1.1. (It cannot be specified as a display buffer format.) This library will continue to support it for the purposes of backward compatibility and image processing.</td>
+        </tr>
+        <tr>
+          <th>NUM_PIXEL_FORMATS</th>
+          <td>
+        </td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enumerated type indicating the pixel format.</p><p>Supported as both encoder input and decoder output.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/03</dt>
+        <dd><item xmlns="">Added note that PIXEL_FORMAT_ABGR8 is no longer supported by the GX library.</item><br />
+        </dd>
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added Description.</item><br />
+        </dd>
+        <dt>2010/04/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>OpenSessions</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dlp/Overview.html">dlp</a>::<a href="../../../../nn/dlp/CTR/Overview.html">CTR</a>::<a href="../../../../nn/dlp/CTR/Server/Overview.html">Server</a>::OpenSessions Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">nn::Result</a> OpenSessions(
+     bool isManualAccept = false,
+     <a href="../../../../nn_types/u8.html">u8</a> channel = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>isManualAccept</th>
+          <td><code>true</code>: Allows client connections using the <code><a href="../../../../nn/dlp/CTR/Server/AcceptClient.html">AcceptClient</a></code> function. <code>false</code>: Allows client connections unconditionally.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>channel</th>
+          <td>Specify the channel as 0 (auto select), 1, 6, or 11. On the production device, 0 is forcibly selected.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">The following <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values are returned as the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the session started successfully.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfRange</th>
+          <td>An invalid channel was specified.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidState</th>
+          <td>The state is invalid. Use with <code>SERVER_STATE_INITIALIZED</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultWirelessOff</th>
+          <td>Communications cannot occur in this state (sleep or the wireless switch is off).</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Begins download sessions.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

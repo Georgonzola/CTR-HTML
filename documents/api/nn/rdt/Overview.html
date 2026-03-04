@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::rdt</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::rdt Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the library for reliable local communication.</p><p><bold>Overview:</bold> The RDT library is a class library that uses the features of the UDS library to implement reliable data communication (that is, communication without data loss or corruption). (Only <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> knows whether all data was received. For more information, see the note later in this section.)</p><p>In addition, RDT was designed to send and receive relatively large amounts of data (more than a few dozen KBs). It does not perform very well in situations where small chunks of data (under 1 KB) are frequently being sent and received.</p><p><code><a href="../../nn/rdt/Sender/Overview.html">Sender</a></code> class: Class that represents a device sending data. A <code><a href="../../nn/rdt/Sender/Overview.html">Sender</a></code> sends data to instances of the <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> class (described below). The <code><a href="../../nn/rdt/Sender/Overview.html">Sender</a></code> class implements retransmission and other features that ensure that data that is sent is always received, even if errors like packet loss occur during communication.</p><p><code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> class: Class that represents a device receiving data. A <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> class receives data from an instance of the aforementioned <code><a href="../../nn/rdt/Sender/Overview.html">Sender</a></code> class. The receiver sends appropriate response confirmations to the sender and the arrived data is reconstructed in the correct order, so the byte string obtained by the application is guaranteed to be preserved in the same order as the byte string that was sent.</p><p>UDS setup: Before an application can use RDT, it must first set up UDS. In other words, do not initialize the RDT library until a network has been created, the local host has connected to that network, and the transmission of data via UDS has become possible. Setting up UDS communication is the responsibility of the application. The same is true for dismantling the network that was created.</p><p>Features: The RDT class library involves a unidirectional flow of raw data from the <code><a href="../../nn/rdt/Sender/Overview.html">Sender</a></code> to the <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code>. If bidirectional communication is required, you must create another <code><a href="../../nn/rdt/Sender/Overview.html">Sender</a></code>/<code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> pair.</p><p>Non-blocking operation: Function calls in the RDT class library do not block. Calls to member functions such as <code><a href="../../nn/rdt/Sender/Open.html">Sender::Open</a></code>, <code><a href="../../nn/rdt/Receiver/Wait.html">Receiver::Wait</a></code>, <code><a href="../../nn/rdt/Sender/Send.html">Sender::Send</a></code>, and <code><a href="../../nn/rdt/Receiver/Receive.html">Receiver::Receive</a></code> return immediately. The actual sending and receiving is handled by the <code>Process</code> function that has been provided for both classes.</p><p><code>Process</code> function: This function must be called at least at intervals of each game frame (that is, less than 50 milliseconds) until the application calls the <code><a href="../../nn/rdt/Sender/Finalize.html">Sender::Finalize</a></code> and <code><a href="../../nn/rdt/Receiver/Finalize.html">Receiver::Finalize</a></code> functions. If <code>Process</code> is not called periodically, no actual communication or state transitions occur. (Although a few functions, including <code>Cancel</code>, are exceptions to that rule.) You can sometimes improve performance of sending and receiving data by calling the <code>Process</code> function several times in a row.</p><p>Memory allocation: The RDT library does not allocate memory dynamically. Any memory required by the library must be provided to the library by the application when <code>Initialize</code> is called. <bold>Note:</bold> When providing this memory, pay attention to its alignment.</p><p><bold>Note:</bold> Only <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> knows whether all data was received. Only when <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> is in a state of having completed receiving data (<code>RECEIVER_STATE_WAITING_FINISHED</code> or <code>RECEIVER_STATE_FINISHED</code>) can all data be considered received. There is no guarantee that <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> has received data even if <code><a href="../../nn/rdt/Sender/Overview.html">Sender</a></code> enters the send complete status (<code>SENDER_STATE_CLOSING</code> or <code>SENDER_STATE_CLOSED</code>). As a consequence, to use the RDT library to make certain that data sending and receiving takes place requires a session that controls data sends and receives in addition to sending data with one <code><a href="../../nn/rdt/Sender/Overview.html">Sender</a></code> and <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> set. For more information, see the sample demos.</p><p>The RDT library implicitly consumes two <code>nn::uds::EndpointDescriptor</code> objects per each <code><a href="../../nn/rdt/Sender/Overview.html">Sender</a></code> or <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> instance.</p><!-- write here --></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../nn/rdt/Receiver/Overview.html">nn::rdt::Receiver</a>
+            </th>
+            <td>Class representing a device receiving data. The following description shows how to use the <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> class. Detailed instructions on calling <code><a href="../../nn/rdt/Receiver/Process.html">Process</a></code> have been left out of the following description. In actual practice, <code><a href="../../nn/rdt/Receiver/Process.html">Process</a></code> must be called periodically at a frequency of about once per game frame or less.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/Sender/Overview.html">nn::rdt::Sender</a>
+            </th>
+            <td>Represents a device that sends data. The following description shows how to use the <code><a href="../../nn/rdt/Sender/Overview.html">Sender</a></code> class. Detailed instructions on calling <code><a href="../../nn/rdt/Sender/Process.html">Process</a></code> have been left out of the following description. In actual practice, <code><a href="../../nn/rdt/Sender/Process.html">Process</a></code> must be called periodically at a frequency of about once per game frame or less.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultAlreadyInitialized/Overview.html">nn::rdt::ResultAlreadyInitialized</a>
+            </th>
+            <td>Indicates that a function exited without doing anything because initialization had already finished. (This is not an error.)</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultDoNothing/Overview.html">nn::rdt::ResultDoNothing</a>
+            </th>
+            <td>Indicates that a function exited without doing anything. (This is not an error.)</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultNotInitialized/Overview.html">nn::rdt::ResultNotInitialized</a>
+            </th>
+            <td>Indicates an uninitialized instance.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultSendBufferIsNotAvailable/Overview.html">nn::rdt::ResultSendBufferIsNotAvailable</a>
+            </th>
+            <td>Indicates that the <code><a href="../../nn/rdt/Sender/Send.html">Sender::Send</a></code> function attempted to write data to the send buffer, but the send buffer did not have enough free space.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultInvalidSize/Overview.html">nn::rdt::ResultInvalidSize</a>
+            </th>
+            <td>Indicates that an invalid size was specified as an argument.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultMisalignedAddress/Overview.html">nn::rdt::ResultMisalignedAddress</a>
+            </th>
+            <td>Indicates that a memory address with an invalid alignment was passed as an argument.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultNullPointer/Overview.html">nn::rdt::ResultNullPointer</a>
+            </th>
+            <td>Indicates an error caused by specifying a null pointer as an argument.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultResetReceived/Overview.html">nn::rdt::ResultResetReceived</a>
+            </th>
+            <td>Indicates that a reset signal was received from a peer, and there was a state transition to <code>CLOSED</code>. The reset signal is sent in response to mistaken connection requests and when <code><a href="../../nn/rdt/Sender/Cancel.html">Sender::Cancel</a></code> or <code><a href="../../nn/rdt/Receiver/Cancel.html">Receiver::Cancel</a></code> is executed. When this reset signal is received, the instance changes state to <code>CLOSED</code>. Depending on the situation, you may want to handle this by trying to reconnect again or by disconnecting altogether.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultResendQueueIsFull/Overview.html">nn::rdt::ResultResendQueueIsFull</a>
+            </th>
+            <td>Indicates that the internal resend queue for the RDT library was full.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultUntimelyFunctionCall/Overview.html">nn::rdt::ResultUntimelyFunctionCall</a>
+            </th>
+            <td>Indicates that a function was called at the wrong time. Call some functions, such as <code><a href="../../nn/rdt/Sender/Open.html">Sender::Open</a></code> and <code><a href="../../nn/rdt/Receiver/Wait.html">Receiver::Wait</a></code>, only at particular times or instance states. For example, do not call <code><a href="../../nn/rdt/Sender/Open.html">Sender::Open</a></code> when the instance is already in the <code>SENDER_STATE_OPENED</code> state. This result code is returned in such situations.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultNoData/Overview.html">nn::rdt::ResultNoData</a>
+            </th>
+            <td>A result code that is used only within the library. Indicates that no segments have been received.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ResultInvalidValue/Overview.html">nn::rdt::ResultInvalidValue</a>
+            </th>
+            <td>A result code that indicates that an argument value was invalid.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../nn/rdt/ReceiverConfig/Overview.html">nn::rdt::ReceiverConfig</a>
+            </th>
+            <td>Structure that contains all configuration information passed to <code>Initialize</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/rdt/SenderConfig/Overview.html">nn::rdt::SenderConfig</a>
+            </th>
+            <td>Structure that contains all configuration information passed to <code>Initialize</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/rdt/SenderState.html">SenderState</a>
+            </th>
+            <td>Enumerated type that indicates the state of a <code><a href="../../nn/rdt/Sender/Overview.html">Sender</a></code> instance.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/rdt/ReceiverState.html">ReceiverState</a>
+            </th>
+            <td>Enumerated type that indicates the state of a <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> instance.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/rdt/LOG_LEVEL_NONE.html">LOG_LEVEL_NONE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/bit32.html">bit32</a></td>
+            <td>Constant that indicates that a log is not output in any way.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/rdt/LOG_LEVEL_ALL.html">LOG_LEVEL_ALL</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/bit32.html">bit32</a></td>
+            <td>Constant that indicates that all logs are output.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/rdt/SetLogLevel.html">SetLogLevel</a>
+            </th>
+            <td>Configures the log output level for the RDT library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/rdt/GetLogLevel.html">GetLogLevel</a>
+            </th>
+            <td>Gets the log output level configured for the RDT library.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/05/09</dt>
+        <dd><item xmlns="">Added mention in the description of the Receiver class that the order of the sent byte string is preserved.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>AutoConnection</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ir/Overview.html">ir</a>::<a href="../../../../nn/ir/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ir/CTR/Communicator/Overview.html">Communicator</a>::AutoConnection Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">Result</a> AutoConnection(
+     <a href="../../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> sendReplyDelay,
+     <a href="../../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> waitRequestMin,
+     <a href="../../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> waitRequestMax,
+     <a href="../../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> waitReplyMin,
+     <a href="../../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> waitReplyMax
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>sendReplyDelay</th>
+          <td>Specifies the amount of time to delay before sending a connection reply.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>waitRequestMin</th>
+          <td>Specifies the minimum time to wait for a connection request.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>waitRequestMax</th>
+          <td>Specifies the maximum time to wait for a connection request.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>waitReplyMin</th>
+          <td>Specifies the minimum time to wait for a connection reply.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>waitReplyMax</th>
+          <td>Specifies the maximum time to wait for a connection reply.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultBufferInsufficient</th>
+          <td>The buffer was insufficient, so the connection process could not proceed.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyConnected</th>
+          <td>Already in the connected state.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyTryingToConnect</th>
+          <td>In the process of connecting.</td>
+        </tr>
+        <tr>
+          <th>ResultMachineSleep</th>
+          <td>Sleeping because the system is in Sleep Mode.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>The IR module may be malfunctioning.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Tries to make an authenticated connection. This function can specify ranges of minimum and maximum times to wait for connection requests and connection replies. It can also specify an amount of time to delay before sending a connection reply. When specifying the amount of time to wait for a connection request, specify a value that is larger than the time it takes to receive <code>CONNECTION_REQUEST_PACKET_SIZE</code> of data at the current baud rate. If you specify a shorter time, the system may time out before the connection request packet has been received and the connection will not be accepted. For the same reason, when specifying the amount of time to wait for a connection request, specify a value that is larger than the time it takes to receive <code>CONNECTION_REPLY_PACKET_SIZE</code> of data. If you specify a small value, such as <code>0</code>, for the wait time, the processing load is very heavy. Take care to not unintentionally specify a small value.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

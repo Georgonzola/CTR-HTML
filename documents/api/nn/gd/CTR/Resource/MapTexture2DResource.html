@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>MapTexture2DResource</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Resource/Overview.html">Resource</a>::MapTexture2DResource Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> MapTexture2DResource(
+     Texture2DResource * texture2DResource,
+     <a href="../../../../nn_types/s32.html">s32</a> mipLevelIndex,
+     <a href="../../../../nn/gd/CTR/Resource/MapUsage.html">MapUsage</a> usage,
+     void ** data
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>texture2DResource</th>
+          <td>Specifies the pointer to the 2D texture resource for the data pointer being obtained.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>mipLevelIndex</th>
+          <td>Specifies the pointer to the mipmap level index for the data pointer being obtained. If -1 is specified, the last mipmap level is used.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>usage</th>
+          <td>Specifies how the resource is to be used.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>data</th>
+          <td>Specifies the address for storing the pointer to the obtained data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for either texture2DResource or data.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryRegion</th>
+          <td>Either the resource memory type or the usage method is invalid. It might be that an attempt was made by <code>MAP_WRITE_ONLY</code> or <code>MAP_READ_WRITE</code> to get a memory region that was allocated to VRAM.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureMipLevelIndex</th>
+          <td>mipLevelIndex is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultResourceAlreadyMapped</th>
+          <td>The resource has already been mapped.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a data pointer to the specified resource.</p><p>User applications can directly edit only the memory region allocated for <span>Memory::FCRAM</span>. You must check that all 3D commands have executed using this function to prevent memory to be acquired from being modified by CPU execution.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>ReadUncompLZ</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/cx/Overview.html">cx</a>::ReadUncompLZ Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/cx.h&gt;
+<a href="../../nn_types/s32.html">s32</a> ReadUncompLZ(
+     <a href="../../nn/cx/UncompContextLZ/Overview.html">UncompContextLZ</a> * context,
+     const void * data,
+     <a href="../../nn_types/u32.html">u32</a> len
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>context</th>
+          <td>Pointer to the decompressed context</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>data</th>
+          <td>Pointer to compressed data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>len</th>
+          <td>The size of the data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the size of the remaining data to be decompressed. Returns a negative value if an error has occurred. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Streaming decompression of LZ77 compressed data.</p><p>This API supports both LZ compression (backward compatibility) and LZ extended compression.</p><p>If an error occurs, the negative value defined by <tt><a href="../../nn/cx/ErrorCode.html">nn::cx::ErrorCode</a></tt> returns.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/04/06</dt>
+        <dd><item xmlns="">Added text about the value returned when an error occurs.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>Limitations Due to Shader Specifications</title>
+  </head>
+  <body>
+    <h1><a name="top">Limitations Due to Shader Specifications</a></h1>
+    <div class="section">
+      <p>
+        Vertex shaders have the following limitations due to hardware characteristics.<br />
+      </p>
+    </div>
+
+    <h2><a name="shader_start">Starting and Stopping a Shader</a></h2>
+    <div class="section">
+      <p>
+        Shaders start execution beginning from a <CODE>main</CODE> label.<br /> All output registers specified by #<CODE>pragma output_map</CODE> are written (writing all components x, y, z, and w). Execution ends by calling the <CODE>end</CODE> instruction, and then starts for the next vertex.<br /> Correct operations will not result if the registers specified by <CODE>#pragma output_map</CODE> are not written to. The <CODE>end</CODE> instruction must be called explicitly at the end of the routine.<br /> <br />Because all required processing will be assumed to have completed once all output registers are written to , it is undefined whether instructions called after the last instruction that writes to an output register will execute. <br />In addition, sometimes abnormal operations result when an instruction called after the last instruction to write to an output register reads from or writes to a register. Do not call any instruction other than an <CODE>nop</CODE> between the last instruction to write to an output register and the <CODE>end</CODE> instruction.<br /> <br />Each output register can be written to only once. Operations are not guaranteed if the same output register is written to more than once. The same is true when writing to each component.<br /> <br /> Sometimes abnormal operations result if an input register is never read during the processing for a single vertex.<br /> Always use an instruction that reads one or more components of one or more input registers.<br />
+      </p>
+    </div>
+
+    <h2><a name="step">Number of Steps</a></h2>
+    <div class="section">
+      <p>
+        The number of program steps is limited to 512.<br /> The <CODE>def</CODE>, <CODE>defi</CODE>, <CODE>defb</CODE>, <CODE>ret</CODE>, <CODE>else</CODE>, <CODE>endif</CODE>, and <CODE>endloop</CODE> instructions are not counted as steps.<br />
+      </p>
+    </div>
+
+
+    <h2><a name="swizzling">Number of Swizzling and Masking Patterns</a></h2>
+    <div class="section">
+      <p>
+        There is a limit on the combined number of output component masking patterns, input component swizzling patterns, and input component signs.<br /> This limit is 128. Of these, the number of patterns that can be used with a <CODE>mad</CODE> instruction is 32.<br /> <br /> Example 1<br />
+<pre class="definition">
+add     r0, r1.xy,  -r2.zw
+add     r2, r0.x,    r3
+mul     r3, r2.xy,  -r3.zw
+add     r4, r2.xxxx, r5.xyzw
+</pre>
+        With this set of instructions, the first and third instructions use the same pattern.<br /> The combined number of patterns is two, because the second and fourth instructions also have the same pattern.<br /> <br /> <br /> Example 2<br />
+<pre class="definition">
+add     r0, r1.xy,  -r2.zw
+mul     r2.xy, r0.x,   c2.y
+mad     r3,    r2.xy, -r3.zw, r1.w
+cmp     0, 1, r1.x, c0.y
+</pre>
+        With this set of instructions, the first and third instructions are treated as having the same pattern because, except for src2, the combination of operands of the third instruction, <CODE>mad</CODE>, is the same as that of the first instruction, <CODE>add</CODE>. This pattern can also be used with a <CODE>mad</CODE> instruction.<br /> The second and fourth instructions are viewed as having the same pattern because the combination of src0 and src1 of the fourth instruction is the same as the combination of src0 and scr1 of the second instruction (<CODE>mul</CODE>).<br />
+      </p>
+    </div>
+
+    <h2><a name="flowcontrol">Limitations on Control Instructions</a></h2>
+    <div class="section">
+      <p>
+        An instruction that terminates control must be called if an instruction that starts control is called. Specifically, instructions must be called in the following pairs.<br />
+<pre class="definition">
+ifb (- else) - endif
+ifc (- else) - endif
+call - ret
+callb - ret
+callc - ret
+loop - endloop
+</pre>
+        In these control blocks, it is illegal to jump to a location outside the control block using the <CODE>jpc</CODE> or <CODE>jpb</CODE> jump instruction.<br /> The <CODE>ret</CODE> instruction cannot be called within an <CODE>if</CODE> block or a <CODE>loop</CODE> block.<br /> <br /> Operations are undefined when nested <CODE>call</CODE> instructions are invoked immediately before a <CODE>ret</CODE> instruction.<br /> <br /> Also, you cannot use a <CODE>jpc</CODE> or <CODE>jpb</CODE> jump instruction to jump from inside a block enclosed by the <CODE>main</CODE> and <CODE>endmain</CODE> labels to an outside location.<br /> Furthermore, you cannot jump from inside a subroutine to outside that subroutine. <br />You cannot jump from inside a subroutine to a <CODE>ret</CODE> instruction. Operations are undefined if this type of control is used.<br />
+      </p>
+    </div>
+
+    <h2><a name="register">Registers That Cannot be Used Simultaneously</a></h2>
+    <div class="section">
+      <p>
+        In general,you cannot specify more than one floating point constant register to an assembler instruction that specifies more than one src operand.<br /> Also, you cannot specify more than one input register.<br /> Note, however, that you can specify several input registers as long as they have the same index.<br />
+
+<pre class="definition">
+add     r0, c0, c0  // Error
+add     r0, c0, c1  // Error
+add     r0, v0, v0  // No error
+add     r0, v0, v1  // Error
+</pre>
+        When using macro instructions, error checking is performed after macro expansion.<br />
+      </p>
+    </div>
+
+    <h2><a name="exceptional_result">Calculation Results of Exceptional Processing</a></h2>
+    <div class="section">
+      <p>
+        Vertex shaders behave as follows regarding output of exceptional calculations.<br /> <br />
+        <ul>
+          <li><CODE>NaN</CODE> is output for the logarithm of -0 or negative values.</li>
+          <li><CODE>NaN</CODE> is output for the square root of -0 and negative values.</li>
+          <li><CODE>NaN</CODE> is output for calculations that use <CODE>NaN</CODE> as an input value. (Excluding the <CODE>cmp</CODE> instruction.)</li>
+          <li>Outputs negative infinity when infinity is subtracted from a given numeric value.</li>
+          <li>Outputs negative infinity for the logarithm of 0 or a non-normalized number. (The term &quot;non-normalized number&quot; indicates a number with an exponent of 0 and mantissa other than 0.)</li>
+          <li>Outputs infinity if an overflow occurs.</li>
+          <li>Outputs negative infinity if an underflow occurs.</li>
+          <li>Outputs infinity or negative infinity upon division by +0 or -0.</li>
+          <li>Sometimes <CODE>NaN</CODE> is output if the result of a calculation made using the <CODE>rcp</CODE>, <CODE>rsq</CODE>, <CODE>exp</CODE>, or <CODE>log</CODE> instruction is infinity or negative infinity.</li>
+        </ul>
+        <br />The values infinity, negative infinity, and <CODE>NaN</CODE> can be used with the <CODE>cmp</CODE> instruction. For more information, see <a href="../flowcntl/cmp.html">cmp - Compare</a>.
+      </p>
+    </div>
+
+    <h2><a name="false_output">Limitations on the Output of Illegal Data</a></h2>
+    <div class="section">
+      <p>
+        Of all the data that can be output from a vertex shader (data written to an output register), operations are not guaranteed if <CODE>NaN</CODE> (Not a Number) is output for a vertex coordinate.<br /> Make sure that <CODE>NaN</CODE> is not output as the result of vertex shader calculations or input from an application as a vertex attribute or uniform value.<br />
+      </p>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

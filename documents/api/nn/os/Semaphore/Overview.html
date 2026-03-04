@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::Semaphore</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::Semaphore Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/os.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Semaphore : public nn::os::InterruptEvent</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for handling semaphores. Semaphores are synchronization objects that have counters.</p><p>Generally, use the <code><a href="../../../nn/os/LightSemaphore/Overview.html">nn::os::LightSemaphore</a></code> class instead of <code><a href="../../../nn/os/Semaphore/Overview.html">nn::os::Semaphore</a></code>. The <code><a href="../../../nn/os/LightSemaphore/Overview.html">nn::os::LightSemaphore</a></code> class is better than the <code><a href="../../../nn/os/Semaphore/Overview.html">nn::os::Semaphore</a></code> class in most respects, except that it cannot wait for multiple synchronization objects.</p><p>The semaphore <code>Wait</code> operation first waits for the semaphore counter to become greater than zero, and then increments the semaphore counter by one. <code>Wait</code> operations are not released while the semaphore counter is zero.</p><p>Call <code><a href="../../../nn/os/Semaphore/Release.html">Release</a></code> to increment a semaphore's counter.</p><p>For more information about synchronization objects, see the reference for the <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> class.</p><p>You can create up to eight <code><a href="../../../nn/os/Semaphore/Overview.html">Semaphore</a></code> objects. Note also that different functions might use up resources that count against this limit.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Semaphore/Semaphore.html">Semaphore</a>
+            </th>
+            <td>Constructs and initializes a semaphore.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Semaphore/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes a semaphore that has already been constructed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Semaphore/TryInitialize.html">TryInitialize</a>
+            </th>
+            <td>Tries to initialize a semaphore that has already been constructed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Semaphore/Finalize.html">Finalize</a>
+            </th>
+            <td>Destroys a semaphore.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Semaphore/~Semaphore.html">~Semaphore</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Semaphore/Release.html">Release</a>
+            </th>
+            <td>Releases a semaphore (performs a "V operation") and increases the counter value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Semaphore/Acquire.html">Acquire</a>
+            </th>
+            <td>Acquires a semaphore (performs a "<tt>P</tt> operation") and decrements the counter value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Semaphore/TryAcquire.html">TryAcquire</a>
+            </th>
+            <td>Tries to acquire a semaphore (performs a "<tt>P</tt> operation").</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Semaphore/GetCurrentCount.html">GetCurrentCount</a>
+            </th>
+            <td>Gets the number of <code><a href="../../../nn/os/Semaphore/Overview.html">Semaphore</a></code> objects that are currently being used.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Semaphore/GetMaxCount.html">GetMaxCount</a>
+            </th>
+            <td>Gets the maximum number of <code><a href="../../../nn/os/Semaphore/Overview.html">Semaphore</a></code> objects that can be used simultaneously.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<a href="../../../nn/os/HandleObject/Overview.html">nn::os::HandleObject</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../nn/os/WaitObject/Overview.html">nn::os::WaitObject</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>nn::os::InterruptEvent</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::os::Semaphore</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

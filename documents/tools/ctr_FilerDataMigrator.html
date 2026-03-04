@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>ctr_FilerDataMigrator</title>
+    <style type="text/css">
+    <!--
+    body {
+    /*
+        font-size       : 10pt;
+    */
+        font-weight     : normal;
+        color           : #000000;
+        margin          : 8px;
+    }
+    
+    div {
+        width           : 98%;
+        white-space     : nowrap;
+    }
+    
+    div.title {
+        text-align      : left;
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        color           : #202020;
+        border-style    : double;
+        border-width    : 8px;
+        /* タイトルを囲む枠線の色を指定 */
+        border-color    : #CD202C;
+    
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+    
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+    
+        margin          : 4px;
+        padding         : 4px;
+    }
+    H1 {
+      font-size		: 150%;
+      font-family		: Arial;
+      border-bottom-width	: 5px;
+      border-bottom-style	: solid;
+      border-bottom-color	: #CD202C;
+      padding-bottom		: 1px;
+      margin-bottom		: 20px;
+      letter-spacing		: normal;
+      font-weight		: bold;
+    }
+    
+    h2 {
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        border-style    : none none solid double;
+        border-width    : 0px 0px 2px 8px;
+        /* 見出しの線の色を指定 */
+        border-color    : #CD202C;
+    
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+    
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+    
+        margin-left     : 2px;
+        padding-left    : 4px;
+    }
+    CODE {
+      font-family		: "Courier New", monospace;
+      position		: normal;
+      left			: 12px;
+      font-size		: 10pt;
+    }
+    table {
+      margin-top        : 2pt;
+      margin-bottom     : 2pt;
+      margin-left       : 0pt;
+      margin-right      : 0pt;
+      padding-left      : 0pt;
+      padding-right     : 0pt;
+      position          : relative;
+      left              : 12px;
+      font-family       : Arial;
+      font-size         : 10pt;
+      border-style      : none none none none;
+    }
+    td,th {
+      padding           : 2pt;
+      border-width      : 2pt;
+      border-style      : none none none none;
+      font-style        : normal;
+      text-align        : left;
+    }
+    td {
+      background        : #e8f4f4;
+      font-weight       : normal;
+    }
+    th {
+      background        : #c0d8d8;
+      font-weight       : bold;
+    }
+    
+    p {
+        margin-left     : 4px;
+    }
+    p.code {
+      font-family		: "Courier New", monospace;
+      position		: normal;
+      left			: 12px;
+      font-size		: 10pt;
+      background            : #e8f4f4;
+    }
+    
+    -->
+    </style>
+
+  </head>
+  <body>
+    <h1>ctr_FilerDataMigrator</h1>
+    <h2>Description</h2>
+    <p>
+      <CODE>ctr_FilerDataMigrator</CODE> is a tool for converting application save data that was exported by using <a href="../ctools/SaveDataFiler.html"><CODE>SaveDataFiler</CODE></a> in CTR-SDK 4.2.0 and earlier to a format handled by the new <a href="../ctools/SaveDataFiler.html"><CODE>SaveDataFiler</CODE></a> in CTR-SDK 4.2.1 and later.
+    </p>
+    <p>
+      In CTR-SDK 4.2.1 and later, <a href="../ctools/SaveDataFiler.html"><CODE>SaveDataFiler</CODE></a> can handle data that was exported by using <a href="../ctools/SaveDataFiler.html"><CODE>SaveDataFiler</CODE></a> in  CTR-SDK 4.2.0 and earlier, but there are limitations on some features. For more information, see <a href="../ctools/SaveDataFiler.html"><CODE>SaveDataFiler</CODE></a>.
+    </p>
+    <h2>How to Use</h2>
+    <h3>Commands</h3>
+    
+    <p class="code">
+    <CODE>% ctr_FilerDataMigrator32.exe [targetDir] [uniqueId]</CODE>
+    </p>
+    
+    <p>
+    You must specify <CODE>targetDir</CODE> and <CODE>uniqueId</CODE>.<br />
+    <table class="table"><tbody>
+      <tr>
+        <td><CODE>targetDir</CODE></td>
+        <td>Specifies the directory of the data to convert.<br /> Specifies the dated directory created in <CODE>sdmc:/filer/UserSaveData/</CODE> when application save data was exported by using <a href="../ctools/SaveDataFiler.html"><CODE>SaveDataFiler</CODE></a>.
+        </td>
+      </tr>
+      <tr>
+        <td><CODE>uniqueId</CODE></td>
+        <td>Specifies the unique ID of the application from which the save data was exported.</td>
+      </tr>
+    </tbody></table>
+    </p>
+    
+    <h4><font color="red">Important Note Regarding Data Conversion</font></h4>
+    <p>
+    The data in the directory specified by <CODE>targetDir</CODE> is directly rewritten.<br /> Make sure to back up the data before running this tool.
+    </p>
+    
+    <p>
+    This tool converts only application save data.<br /> (Data created in <CODE>sdmc:/filer/UserSaveData/</CODE> by using <a href="../ctools/SaveDataFiler.html"><CODE>SaveDataFiler</CODE></a>.) <br /> Do not try to convert data other than application save data.
+    </p>
+    
+    <h2>Revision History</h2>
+    <dl class="history">
+      <dt>2012/06/15</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>UploadLookUpTableColorMapFloat</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/ProceduralTextureStage/Overview.html">ProceduralTextureStage</a>::UploadLookUpTableColorMapFloat Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> UploadLookUpTableColorMapFloat(
+     <a href="../../../../nn_types/u32.html">u32</a> index,
+     <a href="../../../../nn_types/f32.html">f32</a> ** Map,
+     <a href="../../../../nn_types/f32.html">f32</a> ** MapDelta,
+     <a href="../../../../nn_types/u32.html">u32</a> lutSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>index</th>
+          <td>Specifies the index of the lookup table for setting data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>Map</th>
+          <td>Specifies the lookup table data. Specifies the four lookup tables R, G, B and A.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>MapDelta</th>
+          <td>Specifies the delta data. Specifies the four lookup tables R, G, B and A.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>lutSize</th>
+          <td>Specifies the data size of the lookup table. Map and MapDelta must be the same size.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for Map, MapDelta, or lutSize.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfRangeParameter</th>
+          <td>The sum of the values specified for lutSize and index is equal to or larger than 256 (the maximum size of a color lookup table.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the color lookup table for procedural textures. The floating point value you specify is converted into fixed point data by this function and then sent to the GPU. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</p><p>This function first uses <code><a href="../../../../nn/gd/CTR/ProceduralTextureStage/Helper/ConvertColorLookUpTableDataFloatToNative.html">ProceduralTextureStage::Helper::ConvertColorLookUpTableDataFloatToNative</a></code> to convert from a float to the specified integer value.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

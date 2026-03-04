@@ -1,0 +1,639 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::camera::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the <a href="../../../nn/camera/CTR/Overview.html">CTR</a><a href="../../../nn/camera/Overview.html">camera</a> library. (It can also be written without the <code>CTR</code> portion.)</p><P>Regardless of the sleep state, the camera operations now stop when the cover of the system is closed. <br /> When the system is closed during capture, capture resumes when the system is opened. Note that because a process equivalent to the <tt><a href="../../../nn/camera/CTR/Activate.html">nn::camera::CTR::Activate</a>(SELECT_NONE)</tt> function is performed internally when the system is closed, there is a period of instability for the images that were written with the <tt><a href="../../../nn/camera/CTR/Activate.html">nn::camera::CTR::Activate</a></tt> reference immediately after starting. <br /> In addition, according to the timing when the cover is closed, the <tt><a href="../../../nn/camera/CTR/IsBusy.html">nn::camera::CTR::IsBusy</a></tt> function written to the <tt><a href="../../../nn/camera/CTR/IsBusy.html">nn::camera::CTR::IsBusy</a></tt> reference might enter a state where <tt>true</tt> is always returned.  This state is canceled when the cover is opened, but when a process to transition to sleep when the cover is closed is implemented, exercise caution to keep the <tt><a href="../../../nn/camera/CTR/IsBusy.html">nn::camera::CTR::IsBusy</a></tt> function from entering an infinite polling loop. </P><P>The camera functions are not all thread-safe, so they must not be called simultaneously from multiple threads. Note also that the camera functions must not be called during applet transitions.</P><p><b>Note:</b> When shutting down the application, if the <tt><a href="../../../nn/camera/CTR/Finalize.html">nn::camera::CTR::Finalize</a></tt> function is not called after stopping capture with the <tt><a href="../../../nn/camera/CTR/StopCapture.html">nn::camera::CTR::StopCapture</a></tt> function and stopping the cameras with the <tt><a href="../../../nn/camera/CTR/Activate.html">nn::camera::CTR::Activate</a>(SELECT_NONE)</tt> function, there may be audible noise while on the HOME Menu.</p></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/camera/CTR/ResultIsSleeping/Overview.html">nn::camera::CTR::ResultIsSleeping</a>
+            </th>
+            <td>Indicates that the function you attempted to call cannot be used because the system cover is closed.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/camera/CTR/ResultFatalError/Overview.html">nn::camera::CTR::ResultFatalError</a>
+            </th>
+            <td>Indicates that the <a href="../../../nn/camera/Overview.html">camera</a> failed to reboot. Something may be physically wrong with the <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/camera/CTR/ResultAlreadyInitialized/Overview.html">nn::camera::CTR::ResultAlreadyInitialized</a>
+            </th>
+            <td>Indicates that the <a href="../../../nn/camera/Overview.html">camera</a> library has already been initialized.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/camera/CTR/ResultUsingOtherProcess/Overview.html">nn::camera::CTR::ResultUsingOtherProcess</a>
+            </th>
+            <td>Indicates that this process cannot use the cameras because another process is currently using them.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/camera/CTR/StereoCameraCalibrationData/Overview.html">nn::camera::CTR::StereoCameraCalibrationData</a>
+            </th>
+            <td>Structure that gives calibration information for the stereo cameras.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/camera/CTR/PackageParameterCameraSelect/Overview.html">nn::camera::CTR::PackageParameterCameraSelect</a>
+            </th>
+            <td>Structure for batch-configuring parameters without context but with cameras specified.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/camera/CTR/PackageParameterContext/Overview.html">nn::camera::CTR::PackageParameterContext</a>
+            </th>
+            <td>Structure for batch-configuring parameters with context and with cameras specified. Use this structure when you specify the size with <code>SetSize</code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/camera/CTR/PackageParameterContextDetail/Overview.html">nn::camera::CTR::PackageParameterContextDetail</a>
+            </th>
+            <td>Structure for batch-configuring parameters with context and with cameras specified. Use when specifying the size with <code>SetDetailSize</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/CameraSelect.html">CameraSelect</a>
+            </th>
+            <td>Enumerated type that represents combinations of cameras.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/Port.html">Port</a>
+            </th>
+            <td>Enumerated type that indicates a camera's connection target port.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/Context.html">Context</a>
+            </th>
+            <td>Enumerated type that indicates the <a href="../../../nn/camera/Overview.html">camera</a> context.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/Flip.html">Flip</a>
+            </th>
+            <td>Enumerated type that indicates flipping types.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/Size.html">Size</a>
+            </th>
+            <td>Enumerated type that indicates resolutions.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/FrameRate.html">FrameRate</a>
+            </th>
+            <td>Enumerated type that indicates framerates.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/WhiteBalance.html">WhiteBalance</a>
+            </th>
+            <td>Enumerated type that indicates white balance.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/PhotoMode.html">PhotoMode</a>
+            </th>
+            <td>Enumerated type that indicates the photo mode.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/Effect.html">Effect</a>
+            </th>
+            <td>Enumerated type that indicates effects.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/Contrast.html">Contrast</a>
+            </th>
+            <td>Enumerated type that indicates contrast (gamma curve) patterns.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/LensCorrection.html">LensCorrection</a>
+            </th>
+            <td>Enumerated type that indicates the degree of lens correction to apply.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/camera/CTR/ShutterSoundType.html">ShutterSoundType</a>
+            </th>
+            <td>Enumerated type that indicates the types of shutter sounds.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/camera/CTR/BUFFER_ALIGNMENT.html">BUFFER_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the receive buffer address specified in the <code><a href="../../../nn/camera/CTR/SetReceiving.html">SetReceiving</a></code> function must be aligned to. Defined as 4 bytes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the <code>CAMERA</code> library and makes the cameras available for use.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the <code>CAMERA</code> library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/StartCapture.html">StartCapture</a>
+            </th>
+            <td>Starts capturing.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/StopCapture.html">StopCapture</a>
+            </th>
+            <td>Stops capturing.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/IsBusy.html">IsBusy</a>
+            </th>
+            <td>Gets whether the <a href="../../../nn/camera/Overview.html">camera</a> is currently capturing image data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/ClearBuffer.html">ClearBuffer</a>
+            </th>
+            <td>Clears the buffer and the error flags.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetVsyncInterruptEvent.html">GetVsyncInterruptEvent</a>
+            </th>
+            <td>Gets the event used to detect <a href="../../../nn/camera/Overview.html">camera</a> V-Sync interrupts.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetBufferErrorInterruptEvent.html">GetBufferErrorInterruptEvent</a>
+            </th>
+            <td>Gets the event used to detect <a href="../../../nn/camera/Overview.html">camera</a> buffer error interrupts and reboots.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetReceiving.html">SetReceiving</a>
+            </th>
+            <td>Configures loading of image data. Only a single frame is received, so this function must be set once per <a href="../../../nn/camera/Overview.html">camera</a> frame. The system panics if <emphasis>pDst</emphasis> is set to anything other than device memory.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/IsFinishedReceiving.html">IsFinishedReceiving</a>
+            </th>
+            <td>Gets whether image data transfer is complete.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetTransferLines.html">SetTransferLines</a>
+            </th>
+            <td>Sets the number of lines to save in the buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetMaxLines.html">GetMaxLines</a>
+            </th>
+            <td>Gets the maximum number of lines that can be saved in the buffer. The buffer can save up to a maximum of 10 KB of data, but to avoid buffer errors this function instead takes 5 KB (half of that maximum value) as its standard when it returns the number of lines. If the number of lines, <code>lines</code>, does not satisfy all of the following conditions, this function stops internally. <br />
+ (1) The amount of transfer data (<code>width * lines * 2</code>) must be a multiple of 256 bytes.<br />
+ (2) The <emphasis>height</emphasis> parameter must be a multiple of the <emphasis>lines</emphasis> parameter.<br />
+ (3) The amount of transfer data (<code>width * lines * 2</code>) must be 5 KB (5120 bytes) or less.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetTransferBytes.html">SetTransferBytes</a>
+            </th>
+            <td>Sets the number of bytes to save in the buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetTransferBytes.html">GetTransferBytes</a>
+            </th>
+            <td>Gets the current setting for the number of bytes to save to the buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetMaxBytes.html">GetMaxBytes</a>
+            </th>
+            <td>Gets the maximum number of bytes that can be saved in the buffer. The buffer can save up to a maximum of 10 KB of data, but to avoid buffer errors this function instead takes 5 KB (half of that maximum value) as its standard when it returns the number of bytes. <br />
+ Execution halts within this function if the following condition is not met. <br />
+ • The amount of data per image frame (<code>width * height * 2</code>) must be a multiple of 256 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetLineBytes.html">GetLineBytes</a>
+            </th>
+            <td>Gets the number of bytes in one line.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetFrameBytes.html">GetFrameBytes</a>
+            </th>
+            <td>Gets the number of bytes in one frame.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetTrimming.html">SetTrimming</a>
+            </th>
+            <td>Enables or disables trimming.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/IsTrimming.html">IsTrimming</a>
+            </th>
+            <td>Determines whether trimming is enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetTrimmingParams.html">SetTrimmingParams</a>
+            </th>
+            <td>Sets the positions to which to trim.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetTrimmingParams.html">GetTrimmingParams</a>
+            </th>
+            <td>Gets the positions to which to trim.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetTrimmingParamsCenter.html">SetTrimmingParamsCenter</a>
+            </th>
+            <td>Sets the trimming positions relative to the center of the <a href="../../../nn/camera/Overview.html">camera</a> image.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/Activate.html">Activate</a>
+            </th>
+            <td>Activates a <a href="../../../nn/camera/Overview.html">camera</a>. (<bold>Note:</bold>)<br />
+ For the first four frames after the cameras are activated, the images may be extremely dark. Including these four frames, automatic exposure takes approximately 14 frames indoors and 30 frames outdoors to stabilize after the <a href="../../../nn/camera/Overview.html">camera</a> is started.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SwitchContext.html">SwitchContext</a>
+            </th>
+            <td>Switches the context of <a href="../../../nn/camera/Overview.html">camera</a> settings.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetExposure.html">SetExposure</a>
+            </th>
+            <td>Sets the exposure.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetWhiteBalance.html">SetWhiteBalance</a>
+            </th>
+            <td>Sets the white balance.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetSharpness.html">SetSharpness</a>
+            </th>
+            <td>Sets the sharpness.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetAutoExposure.html">SetAutoExposure</a>
+            </th>
+            <td>Enables or disables the auto-exposure function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/IsAutoExposure.html">IsAutoExposure</a>
+            </th>
+            <td>Gets whether the auto-exposure function is enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetAutoWhiteBalance.html">SetAutoWhiteBalance</a>
+            </th>
+            <td>Enables or disables automatic white balance.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/IsAutoWhiteBalance.html">IsAutoWhiteBalance</a>
+            </th>
+            <td>Gets whether automatic white balance is enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/FlipImage.html">FlipImage</a>
+            </th>
+            <td>Configures flipping of images.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetDetailSize.html">SetDetailSize</a>
+            </th>
+            <td>Sets the resolution (in pixels).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetSize.html">SetSize</a>
+            </th>
+            <td>Sets the resolution.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetFrameRate.html">SetFrameRate</a>
+            </th>
+            <td>Sets the frame rate.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetPhotoMode.html">SetPhotoMode</a>
+            </th>
+            <td>Sets the photo mode.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetEffect.html">SetEffect</a>
+            </th>
+            <td>Sets an image effect.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetContrast.html">SetContrast</a>
+            </th>
+            <td>Sets the image contrast (gamma curve).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetLensCorrection.html">SetLensCorrection</a>
+            </th>
+            <td>Sets the degree of lens correction. As referred to here, <emphasis>lens correction</emphasis> fixes a phenomenon called <emphasis>vignetting</emphasis>, where there is a difference in brightness between the center and edges of an image, by increasing the brightness of the edges to more closely match that of the center.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetAutoExposureWindow.html">SetAutoExposureWindow</a>
+            </th>
+            <td>Sets the region within the view to use as the basis for calculating auto-exposure (the response frame).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetAutoWhiteBalanceWindow.html">SetAutoWhiteBalanceWindow</a>
+            </th>
+            <td>Sets the region within the view to use as the basis for calculating auto white balance (the response frame).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetNoiseFilter.html">SetNoiseFilter</a>
+            </th>
+            <td>Sets the noise filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SynchronizeVsyncTiming.html">SynchronizeVsyncTiming</a>
+            </th>
+            <td>Synchronizes the <a href="../../../nn/camera/Overview.html">camera</a> V-Sync signal timing. However, this function can never perfectly synchronize timing so that there is absolutely no discrepancy.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetLatestVsyncTiming.html">GetLatestVsyncTiming</a>
+            </th>
+            <td>Gets the timing history of <a href="../../../nn/camera/Overview.html">camera</a> V-Sync signal inputs.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetBrightnessSynchronization.html">SetBrightnessSynchronization</a>
+            </th>
+            <td>Configures the start and end of brightness synchronization.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetStereoCameraCalibrationData.html">GetStereoCameraCalibrationData</a>
+            </th>
+            <td>Gets calibration data for the stereo <a href="../../../nn/camera/Overview.html">camera</a> positions.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetParallaxOnChart.html">GetParallaxOnChart</a>
+            </th>
+            <td>Calculates the parallax in the measurement chart when the calibration data of stereo cameras is measured.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetParallax.html">GetParallax</a>
+            </th>
+            <td>Calculates the parallax at a specific distance from the stereo <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetStereoCameraCalibrationMatrix.html">GetStereoCameraCalibrationMatrix</a>
+            </th>
+            <td>Calculates a correction matrix to match the left-camera image to the right-camera image in 3D space.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetStereoCameraCalibrationMatrixEx.html">GetStereoCameraCalibrationMatrixEx</a>
+            </th>
+            <td>Calculates a correction matrix to match the left-camera image to the right-camera image in 3D space.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetPackageParameterWithoutContext.html">SetPackageParameterWithoutContext</a>
+            </th>
+            <td>Batch-configures settings for a <a href="../../../nn/camera/Overview.html">camera</a> with no context specified.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/SetPackageParameterWithContext.html">SetPackageParameterWithContext</a>
+            </th>
+            <td>Batch-configures settings for a <a href="../../../nn/camera/Overview.html">camera</a> with context specified. Use when configuring resolution with an enumerated type.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/GetSuitableY2rStandardCoefficient.html">GetSuitableY2rStandardCoefficient</a>
+            </th>
+            <td>Get the Y2R conversion coefficient suited to the data output by the <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/camera/CTR/PlayShutterSound.html">PlayShutterSound</a>
+            </th>
+            <td>Plays back the shutter sound and temporarily turns off the <a href="../../../nn/camera/Overview.html">camera</a> LED.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/04/06</dt>
+        <dd><item xmlns="">Added an explanation about noise that might be generated in the HOME Menu depending on the shutdown procedure.</item><br />
+        </dd>
+        <dt>2010/12/27</dt>
+        <dd><item xmlns="">Added an explanation about calling camera functions during applet transitions.</item><br />
+        </dd>
+        <dt>2010/11/01</dt>
+        <dd><item xmlns="">Added an explanation about functionality when the cover is closed.</item><br />
+        </dd>
+        <dt>2010/10/04</dt>
+        <dd><item xmlns="">Added an explanation about functionality when the camera recovers from sleep.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

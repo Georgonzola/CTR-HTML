@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Unload</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/ro/Overview.html">ro</a>::<a href="../../../nn/ro/Module/Overview.html">Module</a>::Unload Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> Unload();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Releases this module.</p><p>This function frees memory related to this module that is under the management of the <a href="../../../nn/ro/Overview.html">ro</a> library so that it can be used for other purposes.</p><p>This function also restores references from other modules to this module to unresolved status.</p><p>The phrase "memory related to this module under the management of the ro library" specifically refers to that memory specified using the pRo and pBuffer arguments of the <code>LoadModule</code> function when loading this module.</p><p>Note, however, that, depending on the value specified in the fixLevel parameter, some memory is already released at the time the <code>LoadModule</code> function succeeds.</p><p>If <code>FIX_LEVEL_NONE</code> has been specified in <code>LoadModule</code>, the status before execution of <code>LoadModule</code> is restored.</p><p>Note, however, that the content of overwritten variables is not restored.</p><p>If execution of this function succeeds, the instance of the target is already released. This instance must not be accessed thereafter.</p><p>Usually, you must call the <code>DoFinalize</code> function before this one.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/07/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

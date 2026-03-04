@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>RequestManageBalance</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/EcApplet/Overview.html">EcApplet</a>::RequestManageBalance Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a> RequestManageBalance();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. For more information about handling <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> objects, see the <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> reference. The <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code> function returns the following results.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultSessionInvalid</th>
+          <td>Invalid session.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletWrongPinCode</th>
+          <td>The entered PIN code did not match the one configured on the system.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletCloseApplicationRequested</th>
+          <td>Application shutdown was requested. Close the application immediately.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletCancelled</th>
+          <td>The process was canceled by user operation.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletPowerButton</th>
+          <td>The process was canceled by the user pressing the POWER Button.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletWifiOffError</th>
+          <td>Wi-Fi is off.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailedConnectError</th>
+          <td>Connection failed for another reason.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailedError</th>
+          <td>Another error occurred. (General error.)</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailed</th>
+          <td>The same general error as <code><a href="../../../../nn/ec/CTR/ResultAppletFailedError/Overview.html">ResultAppletFailedError</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletRequiresReConnect</th>
+          <td>The server connection has been ended, because there has been no user input for a long time.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletNeedsBalanceUpdate</th>
+          <td>Detected that the balance needs to be updated while displaying the <a href="../../../../nn/applet/Overview.html">applet</a>. Call <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession()</a></code> again.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> manage an account balance.</p><p>This function requires an Internet connection because it communicates with the Nintendo eShop server.</p><p>The EC <a href="../../../../nn/applet/Overview.html">applet</a> displays a user interface for adding funds to an account using a credit card or prepaid card.</p><p>If you display the balance again after this function returns, call <code><a href="../../../../nn/ec/CTR/Server/GetBalance.html">Server::GetBalance</a></code> again to get the balance, because it is possible that the balance will have changed when this function returns.</p><p>Sometimes there are requests to close the application during a call to the EC <a href="../../../../nn/applet/Overview.html">applet</a>. Close the application immediately after receiving <code><a href="../../../../nn/ec/CTR/ResultAppletCloseApplicationRequested/Overview.html">ResultAppletCloseApplicationRequested</a></code>.</p></div>
+  </body>
+</html>

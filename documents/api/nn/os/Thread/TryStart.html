@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>TryStart</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/Thread/Overview.html">Thread</a>::TryStart Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+template &lt;typename Stack&gt;<a href="../../../nn/Result/Overview.html">nn::Result</a> TryStart(
+     void(*)() f,
+     Stack & stack,
+     <a href="../../../nn_types/s32.html">s32</a> priority = DEFAULT_THREAD_PRIORITY,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_USE_PROCESS_VALUE
+);
+
+template &lt;typename T, typename U, typename Stack&gt;<a href="../../../nn/Result/Overview.html">nn::Result</a> TryStart(
+     void(*)(T) f,
+     U param,
+     Stack & stack,
+     <a href="../../../nn_types/s32.html">s32</a> priority = DEFAULT_THREAD_PRIORITY,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_USE_PROCESS_VALUE
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./TryStart(0).html">TryStart ( void(*)(), Stack &, s32, s32 ) </a>
+          </td>
+          <td>Tries to initialize and run a thread.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./TryStart(1).html">TryStart ( void(*)(T), U, Stack &, s32, s32 ) </a>
+          </td>
+          <td>Tries to initialize and run a thread.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of TryStart ( void(*)(), Stack &, s32, s32 ) </h2>
+    <div class="section"><p>Initializes and runs a thread, but returns an error when it fails because of a lack of resources, or for some other reason.</p></div>
+    <h2>Description of TryStart ( void(*)(T), U, Stack &, s32, s32 ) </h2>
+    <div class="section"><p>Initializes and runs a thread, but returns an error when it fails because of a lack of resources, or for some other reason.</p></div>
+  </body>
+</html>

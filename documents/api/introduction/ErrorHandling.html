@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/page.css" type="text/css" />
+    <title>Error Handling</title>
+</head>
+<body>
+    <h1>Error Handling</h1>
+
+    <h2>Overview</h2>
+
+    <p>
+        Errors on the CTR system can be broadly classified into the following categories.
+    </p>
+
+    <h3> Unrecoverable Fatal Errors </h3>
+
+    <p>
+        A <I>fatal error</I> is an error due to a hardware bug or other error that is not supposed to occur in the retail product. The system cannot recover from such an error and there is no means of handling the error.
+    </p>
+    <p>
+        As a general rule, when a fatal error occurs, the error is not passed to the application but instead the system halts and displays FATAL ERROR on the screen. If this error occurs, check the manual in accordance with the message and, if the problem cannot be resolved, contact Nintendo Support as a last resort.
+    </p>
+    <p>
+        The system just halts if it cannot even display the error.
+    </p>
+
+    <h3> Recoverable Errors </h3>
+
+    <p>
+    It is possible to recover from the following types of errors.
+    </p>
+    
+    <ul>
+        <li>Incorrect settings</li>
+        <li>Communication error</li>
+        <li>File capacity exceeded or insufficient free space</li>
+        <li>Corrupted save data</li>
+        <li>Software inconsistency (recoverable by reinitializing and other means)</li>
+        <li>A fatal error that allows the system to continue to run (such as a broken camera)</li>
+    </ul>
+    
+    <p>
+    If any of these types of errors are encountered, have the application conduct the relevant error handling to try to recover, and if necessary use the error display applet to inform the user that an error has occurred. In principle, the application can continue to operate.
+    </p>
+    
+    <h2> Handling Errors </h2>
+    
+    <p>
+    Most SDK interfaces return an instance of the <CODE>nn:Result</CODE> class when it is possible to return an error. For more information, see the <CODE>nn::Result</CODE> class.
+    </p>
+    
+    <p>
+    For more information about the error handling by each library, see the references for each library.
+    </p>
+    
+    <h3> Handling of Fatal Errors </h3>
+    
+    <p>
+    When a fatal error occurs, the system normally responds internally so there is no need to return an error to the application. However, when the same state occurs in the application's processing, you can use the following macro to output the FATAL ERROR screen like that displayed by the system.
+    </p>
+    
+    <pre>
+    #include &lt;nn/err.h&gt;
+    
+    NN_ERR_THROW_FATAL(result);
+    </pre>
+    
+    <p>
+    When a <span class="argument">Result</span> type argument is given for this macro, if the result is fatal (<CODE>LEVEL_FATAL</CODE>) or one not expected to occur in the final retail product (like <CODE>LEVEL_USAGE</CODE> or <CODE>LEVEL_PERMANENT</CODE>), the process transitions to the display of the FATAL ERROR screen.
+    </p>
+
+    <pre>
+    NN_ERR_THROW_FATAL_IF_FATAL_ONLY(result);
+    </pre>
+
+    <p>
+    When this macro is used, the FATAL ERROR screen appears only if the <SPAN class="argument">result</SPAN> type is <CODE>LEVEL_FATAL</CODE>.
+    </p>
+
+    <pre>
+    NN_ERR_THROW_FATAL_ALL(result);
+    </pre>
+
+    <p>
+    When this macro is used, the FATAL ERROR screen appears unless the <SPAN class="argument">result</SPAN> type is success (<CODE>LEVEL_SUCCESS</CODE>). (Only use this macro if it is specified in the recommended error handling sequence for each library.)
+    </p>
+    <p>
+    The FATAL ERROR screen shows a message for end users in the lower screen. On development hardware only, details about the error appear in the upper screen. In either case, the system stops and can no longer be operated other than turning off the system.
+    </p>
+    <p>
+    Using these macros from the application is not a problem by itself, but note that displaying the FATAL ERROR screen in this way can lead users to contact User Support. Avoid using these macros to handle errors that occur normally because of the execution environment or user operations.
+    </p>
+    
+    <h3> Error Handling Relating to File Operations </h3>
+    
+    <p>
+    A wide variety of errors can occur and be returned by the system, depending on factors such as the authority to access different media and different files.
+    </p>
+    
+    <p>
+    In some cases such as when the save data is corrupted, the error handling must even include application sequences.
+    </p>
+    
+    <p>
+    For this reason, the processing methods for errors returned by the system are different from those of the other libraries. For more information, see the <A href="../nn/fs/Overview.html">nn::fs</A> documentation.
+    </p>
+    
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/01</dt>
+		<dd>Added descriptions of <CODE>NN_ERR_THROW_FATAL_IF_FATAL_ONLY</CODE> and <CODE>NN_ERR_THROW_FATAL_ALL</CODE>, and partially revised other information.</dd>
+        <dt>2010/10/27</dt>
+		<dd>Initial version.</dd>
+      </dl>
+    </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

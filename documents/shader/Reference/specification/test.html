@@ -1,0 +1,1196 @@
+﻿<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>Hardware Specifications</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size		: 150%;
+  font-family		: Arial;
+  border-bottom-width	: 5px;
+  border-bottom-style	: solid;
+  border-bottom-color	: #CD202C;
+  padding-bottom		: 1px;
+  margin-bottom		: 20px;
+  letter-spacing		: normal;
+  font-weight		: bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+CODE {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+}
+table {
+  margin-top        : 2pt;
+  margin-bottom     : 2pt;
+  margin-left       : 0pt;
+  margin-right      : 0pt;
+  padding-left      : 0pt;
+  padding-right     : 0pt;
+  position          : relative;
+  left              : 12px;
+  font-family       : Arial;
+  font-size         : 10pt;
+  border-style      : none none none none;
+}
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+p.code {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+  background            : #e8f4f4;
+}
+
+-->
+</style>
+<link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+
+</head>
+<body>
+<a name="top"></a>
+
+<h1>Hardware Specifications</h1>
+
+
+
+    <div>
+      Stage Structure Conceptual Diagram<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
+        </tr>
+        <tr>
+          <th>inst.1</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+        <tr>
+          <th>inst.2</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+        <tr>
+          <th>inst.3</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+    <br /> <br />
+
+    <div>
+      Flow control (when the PC changes by +2)<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+        </tr>
+        <tr>
+          <th>inst.1</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="flow">ifb</td>
+          <td class="stall" colspan="1">STALL</td>
+        </tr>
+        <tr>
+          <th>inst.2</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="drop">drop</td>
+        </tr>
+        <tr>
+          <th>inst.3</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+        <tr>
+          <th>inst.4</th>
+          <td class="empty" colspan="3"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+    <br /> <br />
+
+    <div>
+      Flow control (when the PC changes by +3 or more)<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th>
+        </tr>
+        <tr>
+          <th>inst.1</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="flow">ifb</td>
+          <td class="stall" colspan="2">STALL</td>
+        </tr>
+        <tr>
+          <th>inst.2</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="decode">decode</td>
+          <td class="drop">drop</td>
+        </tr>
+        <tr>
+          <th>inst.3</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="drop">drop</td>
+        </tr>
+        <tr>
+          <th>inst.n</th>
+          <td class="empty" colspan="3"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+        <tr>
+          <th>inst.n+1</th>
+          <td class="empty" colspan="4"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+    <br /> <br />
+
+    <div>
+      Assuming a forced stall for 3 clock cycles when the <CODE>mova</CODE> instruction is executed<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th>
+        </tr>
+        <tr>
+          <th>mova</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MOVA">mova</td>
+          <td class="write" colspan="2">write</td>
+          <td class="dummy"></td>
+        </tr>
+        <tr>
+          <th>inst.2</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+        <tr>
+          <th>inst.3</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+    <br /> <br />
+
+    <div>
+      Assuming another fetch is performed when the <CODE>mova</CODE> instruction is executed<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th><th>13</th>
+        </tr>
+        <tr>
+          <th>mova</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="mova">mova</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="dummy"></td>
+        </tr>
+        <tr>
+          <th>inst.2</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+        <tr>
+          <th>inst.3</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="drop">drop</td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+        <tr>
+          <th>inst.4</th>
+          <td class="empty" colspan="3"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="drop">drop</td>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="exec">exec</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+
+      <br /> <br />
+
+      When two instructions can execute in parallel (when <CODE>read</CODE> can overlap <CODE>write</CODE> of the previous instruction)<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th>
+        </tr>
+        <tr>
+          <th>dp3</th>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="1">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>add</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="read">read</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>add</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>add</th>
+          <td class="empty" colspan="3"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+      
+      <br /> <br />
+      
+      When <CODE>dp3</CODE> and <CODE>mad</CODE> are called in succession repeatedly without any concern for the ability to run in parallel<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th>
+        </tr>
+        <tr>
+          <th>dp3</th>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="1">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp3</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="1">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp3</th>
+          <td class="empty" colspan="3"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="4"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp3</th>
+          <td class="empty" colspan="5"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="6"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="4">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp3</th>
+          <td class="empty" colspan="7"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="4">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="8"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="5">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+      
+      <br /> <br />
+      
+      When two instructions are executed in parallel and the combination of <CODE>dp3</CODE> and <CODE>mad</CODE> are called repeatedly<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th>
+          <th>21</th><th>22</th><th>23</th><th>24</th>
+        </tr>
+        <tr>
+          <th>dp3</th>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="1">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp3</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="1">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp3</th>
+          <td class="empty" colspan="3"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="6"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="1">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp3</th>
+          <td class="empty" colspan="7"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="10"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="1">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp3</th>
+          <td class="empty" colspan="11"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="14"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="stall" colspan="1">STALL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+
+      <br /> <br />
+      
+      Details for when <CODE>sincos</CODE> has been called<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th>
+          <th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th>
+        </tr>
+        <tr>
+          <th>mov</th>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mov</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mul</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="3"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="decode">decode</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="4"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="fetch">fetch</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="decode">decode</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mov</th>
+          <td class="empty" colspan="7"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="fetch">fetch</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="11"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mad</th>
+          <td class="empty" colspan="15"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="decode">decode</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mul</th>
+          <td class="empty" colspan="16"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="fetch">fetch</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="decode">decode</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+      
+      <br /> <br />
+      
+      When two instructions are executed in parallel and <CODE>dp4</CODE> is called repeatedly<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="wait" colspan="2">wait         1</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+<td class="wait" colspan="2">wait</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+      
+      <br /> <br />
+      
+      When the <CODE>write</CODE> of <CODE>dp4</CODE> is canceled by <CODE>mov</CODE>, and <CODE>mul</CODE> stalls due to <CODE>dp4</CODE><br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th><th>13</th>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="cancel">cancel</td>
+        </tr>
+        <tr>
+          <th>mov</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mul</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+      
+      <br /> <br />
+
+      When the <CODE>write</CODE> of <CODE>dp4</CODE> is canceled by <CODE>mov</CODE>, but <CODE>mul</CODE> can execute even though the execution of <CODE>dp4</CODE> is not complete<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="cancel">cancel</td>
+        </tr>
+        <tr>
+          <th>mov</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mul</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+      
+      <br /> <br />
+
+      When the <CODE>write</CODE> of <CODE>dp4</CODE> is canceled by <CODE>mov</CODE>, and <CODE>mul</CODE> cannot execute until the execution of <CODE>dp4</CODE> has ended (only <CODE>write</CODE> is canceled)<br />
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="cancel">cancel</td>
+        </tr>
+        <tr>
+          <th>mov</th>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mul</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="decode">decode</td>
+          <td class="wait" colspan="2">wait</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>dp4</th>
+          <td class="empty" colspan="2"></td>
+          <td class="prefetch">p.fetch</td>
+          <td class="fetch">fetch</td>
+          <td class="wait" colspan="2">wait</td>
+          <td class="decode">decode</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="ADD">ADD</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+      
+
+
+    </div>
+
+
+    <h2>Timetable</h2>
+    <div>
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th>
+<!--           <th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th> -->
+        </tr>
+        <tr>
+          <th>test</th>
+          <td class="empty" colspan="1"></td>
+          <td class="prefetch" colspan="1">p.fetch</td>
+          <td class="fetch" colspan="2">fetch</td>
+          <td class="exec" colspan="1">exec</td>
+          <td class="drop">drop</td>
+          <td class="stall" colspan="1">STALL</td>
+          <td class="read">read</td>
+          <td class="wait" colspan="1">wait</td>
+          <td class="write">write</td>
+          <td class="cancel">cancel</td>
+          <td class="flow">branch</td>
+          <td class="flow">if</td>
+          <td class="flow">call</td>
+          <td class="flow">ret</td>
+          <td class="flow">jump</td>
+          <td class="flow">loop</td>
+          <td class="flow">break</td>
+          <td class="dummy" colspan="2"></td>
+        </tr>
+        <tr>
+          <th>test</th>
+          <td class="ADD">ADD</td>
+          <td class="MUL">MUL</td>
+          <td class="EXP" colspan="2">EXP</td>
+          <td class="LOG" colspan="2">LOG</td>
+          <td class="FLOOR">FLOOR</td>
+          <td class="MAX">MAX</td>
+          <td class="MIN">MIN</td>
+          <td class="MOVA" colspan="4">mova</td>
+          <td class="RCP" colspan="2">RCP / RSQ</td>
+          <td class="CMP" colspan="2">CMP</td>
+          <td class="NOP">NOP</td>
+          <td class="LITP">LITP</td>
+          <td class="dummy"></td>
+        </tr>
+
+        <tr>
+          <th>ifb</th>
+          <td class="fetch" colspan="2">fetch</td>
+          <td class="flow">branch</td>
+        </tr>
+        <tr>
+          <th>...</th>
+          <td class="empty" colspan="1"></td>
+          <td class="fetch" colspan="2">fetch</td>
+        </tr>
+        <tr>
+          <th>...</th>
+          <td class="empty" colspan="2"></td>
+          <td class="fetch" colspan="1">fetch</td>
+        </tr>
+        <tr>
+          <th>...</th>
+          <td class="empty" colspan="3"></td>
+          <td class="fetch" colspan="2">fetch</td>
+          <td class="exec" colspan="3">exec</td>
+        </tr>
+        <tr>
+          <th>...</th>
+          <td class="empty" colspan="4"></td>
+          <td class="fetch" colspan="2">fetch</td>
+          <td class="exec" colspan="2">exec</td>
+        </tr>
+
+      </table>
+
+    </div>
+
+    <div>
+      <br /><br /><br />
+      <table class="timetable" style="width: 60px;">
+        <tr>
+          <td class="FLOOR">FLOOR</td>
+        </tr>
+      </table>
+      <table class="timetable" style="width: 120px;">
+        <tr>
+          <td class="EXP">EXP</td>
+        </tr>
+      </table>
+    </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

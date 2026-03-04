@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>DeleteContents</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/DataTitle/Overview.html">DataTitle</a>::DeleteContents Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a> DeleteContents(
+     const <a href="../../../../nn_types/u16.html">u16</a> indexList[],
+     size_t numIndexes
+) const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>indexList[]</th>
+          <td>Index list of content to delete.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numIndexes</th>
+          <td>Number of indices.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. The results returned by the <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code> function are shown below.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultDataTitleContentNotFound</th>
+          <td>Indicates that the specified content was not found.</td>
+        </tr>
+        <tr>
+          <th>ResultFsMediaWriteProtectedError</th>
+          <td>The SD card is write-protected.</td>
+        </tr>
+        <tr>
+          <th>ResultFsMediaAccessFailedError</th>
+          <td>An error occurred accessing the SD card.</td>
+        </tr>
+        <tr>
+          <th>ResultNoEnoughSpaceError</th>
+          <td>There is not enough temporary space for deletion.</td>
+        </tr>
+        <tr>
+          <th>ResultDataTitleInUse</th>
+          <td>One of the pieces of content of the specified data title is being mounted.</td>
+        </tr>
+        <tr>
+          <th>ResultDataTitleContentNotDeletable</th>
+          <td>Non-deletable content was specified.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Deletes content.</p><p>Required content with a content index of 0 cannot be deleted.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Noted that <code><a href="../../../../nn/ec/CTR/ResultDataTitleContentNotDeletable/Overview.html">ResultDataTitleContentNotDeletable</a></code> is returned when non-deletable content is specified.</item><br />
+        </dd>
+        <dt>2011/10/17</dt>
+        <dd><item xmlns="">Noted that <code><a href="../../../../nn/ec/CTR/ResultFsMediaWriteProtectedError/Overview.html">ResultFsMediaWriteProtectedError</a></code> can be returned when the SD card is write-protected.</item><br />
+        </dd>
+        <dt>2011/10/14</dt>
+        <dd><item xmlns="">Added a <code><a href="../../../../nn/Result/Overview.html">Result</a></code>.</item><br />
+        </dd>
+        <dt>2011/09/06</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

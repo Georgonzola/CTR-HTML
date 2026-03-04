@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CopyPacket</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/System/Overview.html">System</a>::CopyPacket Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CopyPacket(
+     RecordedPacketId * source,
+     RecordedPacketId ** packetId,
+     <a href="../../../../nn/gd/CTR/Memory/MemoryLocation.html">Memory::MemoryLocation</a> memory
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>source</th>
+          <td>Specifies the saved packet to be copied.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>packetId</th>
+          <td>Specifies the new saved packet ID.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>memory</th>
+          <td>Specifies the memory location at which to save the packetId data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td>Some parameters were set to <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultSystemInvalidPacketId</th>
+          <td>The command list object is invalid or saving the command list object has not started. Be sure to execute <code><a href="../../../../nn/gd/CTR/System/StartRecordingPackets.html">StartRecordingPackets</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryRegion</th>
+          <td>An invalid memory location was specified.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td><a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a> allocation failed.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Copies a saved packet.</p><p>When a packet is created, this function executes if <code>RECORD_COMMAND_LIST_COPY</code> or <code>RECORD_3D_COMMAND_BUFFER_FOR_JUMP</code> has been specified for RecordingPacketUsage. A saved packet specified by <code>RECORD_COMMAND_LIST_COPY</code> cannot be copied to <code>Memory::VRAM</code>. <code><span>Memory::FCRAM</span></code> or <code>Memory::VRAM</code> can be specified as the destination to copy <code>RECORD_3D_COMMAND_BUFFER_FOR_JUMP</code> save packets. If a packet is created in <code>Memory::VRAM</code>, a DMA transfer request command for copying the packet to VRAM is created. In this case, you must check that the original saved packet is released after DMA transfer is finished before the user uses a new packet.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

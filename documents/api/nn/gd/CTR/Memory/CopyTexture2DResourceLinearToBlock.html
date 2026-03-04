@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CopyTexture2DResourceLinearToBlock</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a>::CopyTexture2DResourceLinearToBlock Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CopyTexture2DResourceLinearToBlock(
+     const Texture2DResource * source,
+     <a href="../../../../nn_types/s32.html">s32</a> srcMipLevelIndex,
+     <a href="../../../../nn_types/u32.html">u32</a> srcOffsetY,
+     <a href="../../../../nn_types/s32.html">s32</a> srcCountRow,
+     const Texture2DResource * dest,
+     <a href="../../../../nn_types/s32.html">s32</a> dstMipLevelIndex,
+     <a href="../../../../nn_types/u32.html">u32</a> dstOffestY
+);
+
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CopyTexture2DResourceLinearToBlock(
+     <a href="../../../../nn_types/u8.html">u8</a> * srcAddr,
+     <a href="../../../../nn_types/u32.html">u32</a> width,
+     <a href="../../../../nn_types/u32.html">u32</a> height,
+     const Texture2DResource * dest,
+     <a href="../../../../nn_types/s32.html">s32</a> dstMipLevelIndex,
+     <a href="../../../../nn_types/u32.html">u32</a> dstOffestY
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./CopyTexture2DResourceLinearToBlock(0).html">CopyTexture2DResourceLinearToBlock ( const Texture2DResource *, s32, u32, s32, const Texture2DResource *, s32, u32 ) </a>
+          </td>
+          <td>Adds a command to the current command list. This command converts the source <code>Texture2DResource</code> resource to the specified <code>Texture2DResource</code> (converting it from a linear image to a block image) and then transfers it.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./CopyTexture2DResourceLinearToBlock(1).html">CopyTexture2DResourceLinearToBlock ( u8 *, u32, u32, const Texture2DResource *, s32, u32 ) </a>
+          </td>
+          <td>Adds a command for converting the image at the specified address from a linear image to a block image and transferring it to the destination Texture2DResource in the current command list.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of CopyTexture2DResourceLinearToBlock ( const Texture2DResource *, s32, u32, s32, const Texture2DResource *, s32, u32 ) </h2>
+    <div class="section"><p>The following pixel formats can be specified for the source and destination. <br /><itemizedlist><listitem><para>NATIVE_FORMAT_RGBA_8888 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGB_888 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_4444 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_5551 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGB_565 <br /></para></listitem></itemizedlist>
+The source memory layout must be <code>LAYOUT_LINEAR</code>. The destination memory layout must be either <code>LAYOUT_BLOCK_8</code> or <code>LAYOUT_BLOCK_32</code>. If the pixel size of the transfer destination image is 24 bits, the horizontal width in pixels must be a multiple of 32. The width of the transfer source and destination resource must match. This process calls the <code>nngxAddL2BTransferCommand</code> function. <br />
+ This function adds commands to the command list. For more information, see the Programming Manual.</p><!-- write here --></div>
+    <h2>Description of CopyTexture2DResourceLinearToBlock ( u8 *, u32, u32, const Texture2DResource *, s32, u32 ) </h2>
+    <div class="section"><p>The following pixel formats can be specified for the destination. <br /><itemizedlist><listitem><para>NATIVE_FORMAT_RGBA_8888 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGB_888 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_4444 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_5551 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGB_565 <br /></para></listitem></itemizedlist>
+The source memory layout must be <code>LAYOUT_LINEAR</code>. The destination memory layout must be either <code>LAYOUT_BLOCK_8</code> or <code>LAYOUT_BLOCK_32</code>. If the pixel size of the transfer destination image is 24 bits, the width must be a multiple of 32. This process calls the <code>nngxAddL2BTransferCommand</code> function. <br />
+ This function adds commands to the command list. For more information, see the Programming Manual.</p><!-- write here --></div>
+  </body>
+</html>

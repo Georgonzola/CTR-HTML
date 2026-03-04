@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>CTR-SDK API</title>
+    <link rel="stylesheet" href="../css/page.css" type="text/css" />
+    <style>
+    h4
+    {
+        margin-left: 0.8em;
+        padding-left: 0.3em;
+        border-bottom: solid 1px #4499FF;
+        width: 20em;
+    }
+    code
+    {
+        display: inline;
+    }
+    pre
+    {
+        margin-left: 2em;
+    }
+    </style>
+</head><body>
+
+    <h1>zlib</h1>
+
+    <h2>Overview</h2>
+    <p>
+        This is a description of the zlib included in the CTR-SDK, in addition to a description of how to use zlib.
+    </p>
+
+
+    <h2>About zlib</h2>
+    <p>
+        zlib is an open-source library for compressing and decompressing data using the deflate algorithm. It is distributed from <a href="http://www.zlib.net/">http://www.zlib.net/</a>.
+    </p>
+
+
+    <h2>The zlib Included in the CTR-SDK</h2>
+    <p>
+        The CTR-SDK uses a version of zlib, 1.2.7, that is modified to be compatible with the CTR-SDK.
+    </p>
+    <p>
+        The modifications are listed below.
+    </p>
+    <ul>
+    <li>The following two files, <CODE>fcntl.h</CODE> and <CODE>sys/types.h</CODE>, are not included.</li>
+    <li>Padding warnings are suppressed with pragmas.</li>
+    <li>When <CODE>Z_PREFIX</CODE> is enabled, the prefix is changed from <CODE>z</CODE> to <CODE>nncxZlib</CODE>.</li>
+    <li>There is support for detection with CTR Master Editor.</li>
+    <li>Changed the version number. (Change based on license conditions.)</li>
+    </ul>
+    <p>
+        All files that begin with <CODE>gz</CODE> are excluded from compilations.
+    </p>
+
+
+    <h2>Using zlib</h2>
+    <p>
+        The zlib included in the CTR-SDK can be used in the following two ways.
+    </p>
+
+    <h3>Using via the cx Library</h3>
+    <p>
+        The following functions in the <CODE>cx</CODE> library use zlib internally. You can easily use zlib by using these functions.
+    </p>
+    <ul>
+    <li><a href="../nn/cx/CompressDeflate.html">nn::cx::CompressDeflate</a></li>
+    <li><a href="../nn/cx/CompressZlib.html">nn::cx::CompressZlib</a></li>
+    <li><a href="../nn/cx/CompressGzip.html">nn::cx::CompressGzip</a></li>
+    <li><a href="../nn/cx/UncompressDeflate.html">nn::cx::UncompressDeflate</a></li>
+    <li><a href="../nn/cx/UncompressZlib.html">nn::cx::UncompressZlib</a></li>
+    <li><a href="../nn/cx/UncompressGzip.html">nn::cx::UncompressGzip</a></li>
+    <li><a href="../nn/cx/InitUncompContextDeflate.html">nn::cx::InitUncompContextDeflate</a></li>
+    <li><a href="../nn/cx/InitUncompContextZlib.html">nn::cx::InitUncompContextZlib</a></li>
+    <li><a href="../nn/cx/InitUncompContextGzip.html">nn::cx::InitUncompContextGzip</a></li>
+    <li><a href="../nn/cx/ReadUncompDeflate.html">nn::cx::ReadUncompDeflate</a></li>
+    <li><a href="../nn/cx/ReadUncompZlib.html">nn::cx::ReadUncompZlib</a></li>
+    <li><a href="../nn/cx/ReadUncompGzip.html">nn::cx::ReadUncompGzip</a></li>
+    </ul>
+    <p>
+        To use these functions, you must include the <code>nn/cx.h</code> file.
+    </p>
+
+    <h3>Directly Using the zlib API</h3>
+    <p>
+        For those who understand the zlib API, you can use the original zlib API. However, GZIP file access functions cannot be used.
+    </p>
+    <p>
+        To prevent conflicts with a zlib that may have been prepared for an application, the existing zlib API is not enabled for use by default. <br />For this reason, to use the <CODE>zlib</CODE> API you must include the <code>zlib.h</code> file in the source code and then add either <code>libzlib.fast.a</code> or <code>libzlib.small.a</code> to the link targets.
+    </p>
+    <p>
+        When using the SDK build system, add <code>libzlib</code> to the <code>LIBS</code> variable with <code>OMakefile</code>.
+    </p>
+<pre>
+LIBS        +=   libzlib
+</pre>
+
+
+    <h2>Revision History</h2>
+    <div class="section">
+        <dl class="history">
+            <dt>2012/05/25</dt>
+            <dd>Initial version.</dd>
+        </dl>
+    </div>
+
+
+<hr /><p>CONFIDENTIAL</p></body></html>

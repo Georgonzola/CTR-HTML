@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::qtm::CTR::TrackingData</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/qtm/Overview.html">qtm</a>::<a href="../../../../nn/qtm/CTR/Overview.html">CTR</a>::TrackingData Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct TrackingData
+{
+   bool isValid;
+   bool isClipped;
+   <a href="../../../../nn/math/VEC2/Overview.html">nn::math::VEC2</a> leftEyePlanar;
+   <a href="../../../../nn/math/VEC2/Overview.html">nn::math::VEC2</a> rightEyePlanar;
+   <a href="../../../../nn/math/VEC2/Overview.html">nn::math::VEC2</a> leftEyeTangent;
+   <a href="../../../../nn/math/VEC2/Overview.html">nn::math::VEC2</a> rightEyeTangent;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Structure that stores face detection results.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>This flag indicates whether the retrieved coordinates are valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isClipped</span>
+            </th>
+            <td width="100">bool</td>
+            <td>This flag indicates whether the retrieved data is clipped within the valid range.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">leftEyePlanar</span>
+            </th>
+            <td width="100"><a href="../../../../nn/math/VEC2/Overview.html">nn::math::VEC2</a></td>
+            <td>Normalized x-coordinate and y-coordinate for the left eye. The x-axis uses a range of [-1.0,1.0] and the y-axis uses a range of [-0.75, 0.75] with the center of the image as the origin (0, 0).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">rightEyePlanar</span>
+            </th>
+            <td width="100"><a href="../../../../nn/math/VEC2/Overview.html">nn::math::VEC2</a></td>
+            <td>Normalized x-coordinate and y-coordinate for the right eye. The x-axis uses a range of [-1.0,1.0] and the y-axis uses a range of [-0.75, 0.75] with the center of the image as the origin (0, 0).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">leftEyeTangent</span>
+            </th>
+            <td width="100"><a href="../../../../nn/math/VEC2/Overview.html">nn::math::VEC2</a></td>
+            <td>Tangent value for the z-axis (<a href="../../../../nn/camera/Overview.html">camera</a> optic axis) of the left eye position. Represents the angle from the optic axis of the IN <a href="../../../../nn/camera/Overview.html">camera</a>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">rightEyeTangent</span>
+            </th>
+            <td width="100"><a href="../../../../nn/math/VEC2/Overview.html">nn::math::VEC2</a></td>
+            <td>Tangent value for the z-axis (<a href="../../../../nn/camera/Overview.html">camera</a> optic axis) of the right eye position. Represents the angle from the optic axis of the IN <a href="../../../../nn/camera/Overview.html">camera</a>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

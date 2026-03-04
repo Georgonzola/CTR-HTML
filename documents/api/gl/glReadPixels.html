@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glReadPixels</title>
+  </head>
+  <body>
+    <h1>glReadPixels Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glReadPixels(
+     GLint x,
+     GLint y,
+     GLsizei width,
+     GLsizei height,
+     GLenum format,
+     GLenum type,
+     void * pixels
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>x</th>
+          <td>X-coordinate of the lower-left corner of the rectangular region of the render buffer to read.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>y</th>
+          <td>Y-coordinate of the lower-left corner of the rectangular region of the render buffer to read.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>The width of the rectangular region to read.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>The height of the rectangular region to read.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>format</th>
+          <td>Format of the pixel data to store.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>type</th>
+          <td>Type of the pixel data of store.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pixels</th>
+          <td>Array that stores the pixel data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Reads pixel data from a rectangular region of the current render buffer.</p><P>Set <span class="argument">x</span> to the x coordinate of the lower-left corner of the rectangular region to read from the render buffer.  Set <span class="argument">y</span> to the y coordinate of the lower-left corner of the rectangular region to read from the render buffer.</P><P>Set <span class="argument">width</span> equal to the width of the rectangular region to read.  Set <span class="argument">height</span> equal to the height of the rectangular region to read.</P><P>Use <span class="argument">format</span> and <span class="argument">type</span> to configure the format of the data to read. The following combinations can be used.</P><TABLE><THEAD><TR><TD>format</TD><TD>type</TD></TR></THEAD><TR><TD><tt>GL_RGBA</tt></TD><TD><tt>GL_UNSIGNED_BYTE</tt>, <tt>GL_UNSIGNED_SHORT_4_4_4_4</tt>, <tt>GL_UNSIGNED_SHORT_5_5_5_1</tt></TD></TR><TR><TD><tt>GL_RGB</tt></TD><TD><tt>GL_UNSIGNED_BYTE</tt>, <tt>GL_UNSIGNED_SHORT_5_6_5</tt></TD></TR><TR><TD><tt>GL_BGRA</tt></TD><TD><tt>GL_UNSIGNED_BYTE</tt>, <tt>GL_UNSIGNED_SHORT_4_4_4_4</tt>, <tt>GL_UNSIGNED_SHORT_5_5_5_1</tt></TD></TR><TR><TD><tt>GL_LUMINANCE_ALPHA</tt></TD><TD><tt>GL_UNSIGNED_BYTE</tt></TD></TR><TR><TD><tt>GL_LUMINANCE</tt></TD><TD><tt>GL_UNSIGNED_BYTE</tt></TD></TR><TR><TD><tt>GL_ALPHA</tt></TD><TD><tt>GL_UNSIGNED_BYTE</tt></TD></TR><TR><TD><tt>GL_DEPTH_COMPONENT</tt></TD><TD><tt>GL_UNSIGNED_INT</tt>, <tt>GL_UNSIGNED_INT24_DMP</tt>, <tt>GL_UNSIGNED_SHORT</tt>, <tt>GL_UNSIGNED_BYTE</tt></TD></TR><TR><TD><tt>GL_STENCIL_INDEX</tt></TD><TD><tt>GL_UNSIGNED_BYTE</tt></TD></TR><TR><TD><tt>GL_DEPTH24_STENCIL8_EXT</tt></TD><TD><tt>GL_UNSIGNED_INT</tt></TD></TR></TABLE><!-- source formatにはGL_RGBA、GL_RGB、GL_BGRA、GL_LUMINANCE_ALPHA、GL_LUMINANCE、GL_ALPHAが指定できます。 formatがGL_RGBAの場合、typeにGL_UNSIGNED_BYTE、GL_UNSIGNED_SHORT_4_4_4_4、GL_UNSIGNED_SHORT_5_5_5_1が指定できます。 formatがGL_RGBの場合、typeにGL_UNSIGNED_BYTE、GL_UNSIGNED_SHORT_5_6_5が指定できます。 formatがGL_BGRAの場合、typeにGL_UNSIGNED_BYTE、GL_UNSIGNED_SHORT_4_4_4_4、GL_UNSIGNED_SHORT_5_5_5_1が指定できます。 formatがGL_LUMINANCE_ALPHA、GL_LUMINANCE、GL_ALPHAの場合、typeにGL_UNSIGNED_BYTEが指定できます。 --><P>The pixel data is read into <span class="argument">pixels</span>.</P><P>Use <tt>glRenderBlockModeDMP</tt> to set the block mode. Make sure the same block mode is configured when rendering the color buffer and when using this function to read the color buffer. You cannot get the content of the color buffer correctly when the block modes differ.</P><P>Each pixel's depth value is read from the depth buffer in order starting with the least-significant bits. When <span class="argument">type</span> is <tt>GL_UNSIGNED_INT24_DMP</tt>, for example, three bytes are obtained for a single pixel in order from the least-significant to the most-significant eight bits. If the depth value is actually rendered with a different bit width than the <span class="argument">type</span> setting, the obtained value is converted for use with the <span class="argument">type</span> setting.</P><P>When reading the content of a stencil buffer, the format of the current depth buffer must be <tt>GL_DEPTH24_STENCIL8_EXT</tt>. When <span class="argument">format</span> is <tt>GL_STENCIL_INDEX</tt>, each pixel stencil value is read into each byte of <span class="argument">pixels</span> (where 1 byte corresponds to 1 pixel). When the <span class="argument">format</span> argument is <tt>GL_DEPTH24_STENCIL8_EXT</tt> each pixel is read into 4 bytes as follows: the least-significant 8 bits of the depth value, the middle 8 bits, the most-significant 8 bits of the depth value, the 8-bit stencil value.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">x</span> or <span class="argument">y</span> argument is negative; the sum of <span class="argument">x</span> and <span class="argument">width</span> is greater than the width (in pixels) of the color buffer; or the sum of <span class="argument">y</span> and <span class="argument">height</span> is greater than the height (in pixels) of the color buffer.</TD></TR><TR><TH>GL_INVALID_FRAMEBUFFER_OPERATION</TH><TD>The framebuffer was configured incorrectly.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">width</span> or <span class="argument">height</span> argument is negative.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>Invalid combination of <span class="argument">format</span> and <span class="argument">type</span>.</TD></TR><TR><th>GL_OUT_OF_MEMORY</th><TD>Failed to allocate temporary memory that is used internally.</TD></TR></TABLE><!-- source x、yが負の値の場合、xとwidthの和がカラーバッファの横幅のピクセル数を超える場合、 yとheightの和がカラーバッファの縦幅のピクセル数を超える場合エラーGL_INVALID_OPERATIONを生成します。 フレームバッファの設定が正しく行われていない場合エラーGL_INVALID_FRAMEBUFFER_OPERATIONを生成します。 width、heightが負の場合エラーGL_INVALID_VALUEを生成します。 formatとtypeの組み合わせが不正な場合エラーGL_INVALID_OPERATIONを生成します。 内部で使用する一時メモリの確保に失敗した場合エラーGL_OUT_OF_MEMORYを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/01</dt>
+        <dd><item xmlns="">Corrected the text.</item><br />
+        </dd>
+        <dt>2010/08/12</dt>
+        <dd><item xmlns="">Added description of how stencil buffer is read. Revised description of error occurring for invalid combinations for the format and type arguments.</item><br />
+        </dd>
+        <dt>2010/06/09</dt>
+        <dd><item xmlns="">Added information on support for reading from the depth buffer.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

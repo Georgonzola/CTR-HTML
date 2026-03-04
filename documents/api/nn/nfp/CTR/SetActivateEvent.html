@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetActivateEvent</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/nfp/Overview.html">nfp</a>::<a href="../../../nn/nfp/CTR/Overview.html">CTR</a>::SetActivateEvent Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> SetActivateEvent(
+     <a href="../../../nn/os/Event/Overview.html">nn::os::Event</a> * pEvent
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pEvent</th>
+          <td>Specifies an event to use for tag detection notification.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+      <br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>The event was set successfully.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>An invalid pointer to the parameter was specified.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidOperation</th>
+          <td>The library is not in the correct state.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Unexpected error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets an event indicating that a tag was detected.</p><p>Call this function after the NFP library is initialized and before the <code>StartDetection</code> function starts tag detection. When a tag is detected, a notification with the event specified in this function is sent. This event occurs even when non-NFP tags are detected.</p><p>The NFC reader and writer can detect amiibo tags. The New Nintendo 3DS can detect amiibo and various (Japanese) transportation-related integrated circuit cards (Suica, PASMO, Kitaca, TOICA, manaca, ICOCA, SUGOCA, nimoca, and Hayakaken).</p><p>Other NFC tags may be detectable, but operations with the NFP library are not guaranteed.</p><p>The event is managed within the API function, so there is no need for the user to initialize or release it. <bold>Note:</bold> The event is initialized to <code>isManualReset = false </code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/07/28</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

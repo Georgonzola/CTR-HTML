@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxCopyCmdlist</title>
+  </head>
+  <body>
+    <h1>nngxCopyCmdlist Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxCopyCmdlist(
+     GLuint scmdlist,
+     GLuint dcmdlist
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>scmdlist</th>
+          <td>The source command list object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dcmdlist</th>
+          <td>The destination command list object.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Copies a command list object to another command list object.</p><P>Copies the commands accumulated in a command list.  Set <span class="argument">scmdlist</span> equal to the command list to copy and <span class="argument">dcmdlist</span> equal to the destination command list.  Commands copied into the command list overwrite any commands that have already been accumulated there.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_8047_DMP</TH><TD>Currently bound command list specified for <span class="argument">dcmdlist</span>.</TD></TR><TR><TH>GL_ERROR_8048_DMP</TH><TD>Invalid value specified for <span class="argument">scmdlist</span>.</TD></TR><TR><TH>GL_ERROR_8049_DMP</TH><TD>Invalid value specified for <span class="argument">dcmdlist</span>.</TD></TR><TR><TH>GL_ERROR_804A_DMP</TH><TD>Same value specified for both <span class="argument">scmdlist</span> and <span class="argument">dcmdlist</span>.</TD></TR><TR><TH>GL_ERROR_804B_DMP</TH><TD>Command list specified for <span class="argument">dcmdlist</span> is currently being executed.</TD></TR><TR><TH>GL_ERROR_804C_DMP</TH><TD>Size of the commands accumulated in <span class="argument">scmdlist</span> exceeds the maximum size of the 3D command buffer or of the command request list specified by <span class="argument">dcmdlist</span>.</TD></TR></TABLE></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,518 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::friends::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Namespace of the <a href="../../../nn/friends/CTR/Overview.html">CTR</a><a href="../../../nn/friends/Overview.html">friends</a> library. (It can also be written without the <code>CTR</code> portion.)</p><p>The success and failure values returned by functions in the namespace may be expanded. Unless you are handling specific results, capture the entire success or failure using the <code><a href="../../../nn/Result/IsSuccess.html">nn::Result::IsSuccess</a></code> or <code><a href="../../../nn/Result/IsFailure.html">nn::Result::IsFailure</a></code> function.</p><p>The value stored in the output parameter when a function fails is not fixed.</p><p>The friend library must be initialized to make most function calls (excluding calls to functions such as <code><a href="../../../nn/friends/CTR/Initialize.html">nn::friends::CTR::Initialize</a></code>, <code><a href="../../../nn/friends/CTR/Finalize.html">nn::friends::CTR::Finalize</a></code>, and <code><a href="../../../nn/friends/CTR/IsInitialized.html">nn::friends::CTR::IsInitialized</a></code>). In non-release builds, the library stops on an assertion if you attempt to call functions that require library initialization without first initializing the library.</p><!-- write here --></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/friends/CTR/PlatformCode.html">PlatformCode</a>
+            </th>
+            <td>Enumerated type representing platform types.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/friends/CTR/AttributeFlag.html">AttributeFlag</a>
+            </th>
+            <td>Enumerated type representing friend relationships using attribute flags.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/friends/CTR/NotificationType.html">NotificationType</a>
+            </th>
+            <td>Enumerated type representing notification types.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/friends/CTR/NotificationMask.html">NotificationMask</a>
+            </th>
+            <td>Enumerated type representing notification bitmasks.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/friends/CTR/JoinAvailability.html">JoinAvailability</a>
+            </th>
+            <td>Enumerated type representing the status of accepting participation.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/friends/CTR/MatchmakeSystemType.html">MatchmakeSystemType</a>
+            </th>
+            <td>Enumerated type indicating the conditions under which joining in is allowed.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="typedef" id="typedef">
+      <h2>typedef Definitions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/friends/CTR/PrincipalId.html">PrincipalId</a>
+            </th>
+            <td>Represents a principal ID.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/friends/CTR/LocalFriendCode.html">LocalFriendCode</a>
+            </th>
+            <td>Represents a local friend code.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/friends/CTR/FriendKey.html">FriendKey</a>
+            </th>
+            <td>Structure for comprehensively handling the principal IDs and local friend codes of users.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/friends/CTR/Profile.html">Profile</a>
+            </th>
+            <td>Structure storing the profile information of a user.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/friends/CTR/MiiData.html">MiiData</a>
+            </th>
+            <td>Structure storing Mii data.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/friends/CTR/GameMode.html">GameMode</a>
+            </th>
+            <td>Structure that stores information about the game the local host is currently playing. This information is required in order for <a href="../../../nn/friends/Overview.html">friends</a> to join in.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/friends/CTR/MyPresence.html">MyPresence</a>
+            </th>
+            <td>Structure storing the local user's presence information.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/friends/CTR/FriendPresence.html">FriendPresence</a>
+            </th>
+            <td>Structure storing friend presence information.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/friends/CTR/EventNotification.html">EventNotification</a>
+            </th>
+            <td>Structure storing notifications of changes in the online states of the local host and <a href="../../../nn/friends/Overview.html">friends</a>.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/friends/CTR/ApproachContext.html">ApproachContext</a>
+            </th>
+            <td>This structure contains the friend presence account information of the current user, to enable other users to register the user as a friend.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/friends/CTR/INVALID_PRINCIPAL_ID.html">INVALID_PRINCIPAL_ID</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/friends/CTR/PrincipalId.html">PrincipalId</a></td>
+            <td>Invalid principal ID.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/friends/CTR/INVALID_LOCAL_FRIEND_CODE.html">INVALID_LOCAL_FRIEND_CODE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/friends/CTR/LocalFriendCode.html">LocalFriendCode</a></td>
+            <td>Invalid local friend code.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/friends/CTR/SCREEN_NAME_SIZE.html">SCREEN_NAME_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The number of elements in the buffer for the screen name. Includes the terminating character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/friends/CTR/MODE_DESCRIPTION_SIZE.html">MODE_DESCRIPTION_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The number of elements in the buffer for the game mode description string. Includes the terminating character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/friends/CTR/MII_SIZE.html">MII_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The size of the Mii binary data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/friends/CTR/FRIEND_LIST_SIZE.html">FRIEND_LIST_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The size of the friend list. The maximum number of users that can be registered to the friend list.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the friend presence library and makes the presence features available for use.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the friend presence library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/IsInitialized.html">IsInitialized</a>
+            </th>
+            <td>Checks whether the friend presence library is initialized.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/HasLoggedIn.html">HasLoggedIn</a>
+            </th>
+            <td>Checks the login status of the local user.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/Login.html">Login</a>
+            </th>
+            <td>Requests a login to the server.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/Logout.html">Logout</a>
+            </th>
+            <td>Retracts a login request to a server.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetMyPrincipalId.html">GetMyPrincipalId</a>
+            </th>
+            <td>Gets the local principal ID.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/IsMyPreferenceValid.html">IsMyPreferenceValid</a>
+            </th>
+            <td>Returns a value indicating whether the user has already configured how much personal information is disclosed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetMyPreference.html">GetMyPreference</a>
+            </th>
+            <td>Gets values that indicate how much personal information is disclosed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetMyProfile.html">GetMyProfile</a>
+            </th>
+            <td>Gets the local profile.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetMyPresence.html">GetMyPresence</a>
+            </th>
+            <td>Gets the local presence information.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetMyScreenName.html">GetMyScreenName</a>
+            </th>
+            <td>Gets the screen name of the user.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetMyMii.html">GetMyMii</a>
+            </th>
+            <td>Gets local Mii data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetFriendKeyList.html">GetFriendKeyList</a>
+            </th>
+            <td>Gets a list of the friend keys registered in the friend list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetFriendPresence.html">GetFriendPresence</a>
+            </th>
+            <td>Gets a list of friend presence information. Cannot acquire the invitation flag and game mode of a friend who has a different matchmaking game ID specified. <br /><br />
+ Returns an empty presence in this buffer if there is no friend corresponding to the key passed in the arguments. The function still returns success in this case. <br /><br />
+ The function retrieves an empty presence when a non-existent friend is specified. This state is represented by a <code><a href="../../../nn/friends/CTR/FriendPresence.html">nn::friends::CTR::FriendPresence</a></code> structure that sets <code>isValid</code> to <code>false</code>. If the friend is offline, or has made the online status private, the obtained presence sets <code>isValid</code> to <code>true</code>, but <code>isOnline</code> is <code>false</code>, and the <code>gameMode</code> structure is filled with zeros.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetFriendScreenName.html">GetFriendScreenName</a>
+            </th>
+            <td>Gets a list of friend screen names.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetFriendMii.html">GetFriendMii</a>
+            </th>
+            <td>Gets a list of friends' Mii data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetFriendProfile.html">GetFriendProfile</a>
+            </th>
+            <td>Gets a list of profiles of <a href="../../../nn/friends/Overview.html">friends</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetFriendAttributeFlags.html">GetFriendAttributeFlags</a>
+            </th>
+            <td>Gets a list of friend relationships. Friend relationships are represented as a bitwise OR of attributes. Friends that have established a friend relationship with the local host at least once have the <code><span>nn::friends::CTR::ATTRIBUTE_FLAG_ESTABLISHED</span></code> bit set to <code>1</code>. Friends that meet all of the following conditions have the <code><span>nn::friends::CTR::ATTRIBUTE_FLAG_REMOTE_ACCESSIBLE</span></code> bit set to <code>1</code>. <br /><br /></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/UnscrambleLocalFriendCode.html">UnscrambleLocalFriendCode</a>
+            </th>
+            <td>Decodes the encoded local friend code of a friend.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/UpdateGameModeDescription.html">UpdateGameModeDescription</a>
+            </th>
+            <td>Updates the game mode description string.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/UpdateGameMode.html">UpdateGameMode</a>
+            </th>
+            <td>Updates the game mode.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/AttachToEventNotification.html">AttachToEventNotification</a>
+            </th>
+            <td>Specifies an event that notifies of changes in the login states of the local host and <a href="../../../nn/friends/Overview.html">friends</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/SetNotificationMask.html">SetNotificationMask</a>
+            </th>
+            <td>Specifies the type of notification received. Signals events specified with <code><a href="../../../nn/friends/CTR/AttachToEventNotification.html">nn::friends::CTR::AttachToEventNotification</a></code>, and specifies the type of notification included in the history acquired with <code><a href="../../../nn/friends/CTR/GetEventNotification.html">nn::friends::CTR::GetEventNotification</a></code>. The initial state is the same state as specifying <code><span>nn::friends::CTR::NOTIFICATION_MASK_DEFAULT</span></code> in this function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetEventNotification.html">GetEventNotification</a>
+            </th>
+            <td>Gets the history of notifications of changes in the online states of the local user and <a href="../../../nn/friends/Overview.html">friends</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetLastResponseResult.html">GetLastResponseResult</a>
+            </th>
+            <td>Gets the result of the completed asynchronous operation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/ResultToErrorCode.html">ResultToErrorCode</a>
+            </th>
+            <td>Gets an error code from a friend presence library function result.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/IsFromFriendList.html">IsFromFriendList</a>
+            </th>
+            <td>Determines whether the application was started by pressing the "Join game being played" on the friend list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetMyApproachContext.html">GetMyApproachContext</a>
+            </th>
+            <td>Gets the local account information as a pack, required to be registered as the friend of another user.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/AddFriendWithApproach.html">AddFriendWithApproach</a>
+            </th>
+            <td>Adds a user that includes an approach context to the friend list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetApproachContextScreenName.html">GetApproachContextScreenName</a>
+            </th>
+            <td>Gets the display name of the user that is included in the approach context.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/friends/CTR/GetApproachContextMii.html">GetApproachContextMii</a>
+            </th>
+            <td>Gets the Mii of the user that is included in the approach context.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/20</dt>
+        <dd><item xmlns="">Added that if you call a function that requires library initialization and the library is not initialized, the non-Release builds stop on an assertion.</item><br />
+        </dd>
+        <dt>2013/12/10</dt>
+        <dd><item xmlns="">Added a description of handling function results.<br /> Added a description of the value stored in the output parameter when a function fails.</item><br />
+        </dd>
+        <dt>2011/12/16</dt>
+        <dd><item xmlns="">Added the <tt>ApproachContext</tt> structure.<br /> Added the <tt>GetMyApproachContext</tt> function.<br /> Added the <tt>AddFriendWithApproach</tt> function.<br /> Added the <tt>GetApproachContextScreenName</tt> function.<br /> Added the <tt>GetApproachContextMii</tt> function.</item><br />
+        </dd>
+        <dt>2011/09/07</dt>
+        <dd><item xmlns="">Added the <tt>IsMyPreferenceValid</tt> function.</item><br />
+        </dd>
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Added the <tt>UpdateGameMode</tt> function.<br /> Added the <tt>IsFromFriendList</tt> function.</item><br />
+        </dd>
+        <dt>2011/03/14</dt>
+        <dd><item xmlns="">Corrected typos.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

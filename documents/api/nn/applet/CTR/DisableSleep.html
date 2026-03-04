@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>DisableSleep</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::DisableSleep Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void DisableSleep(
+     bool isReplyReject = nn::applet::CTR::REPLY_REJECT_IF_LATER
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>isReplyReject</th>
+          <td>If <code>true</code>, performs <code>applet::ReplySleepQuery(applet::REPLY_REJECT)</code> when a sleep query comes.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Prohibits Sleep Mode.</p><!-- write here --><P>After you use this function to disable Sleep Mode, <B>and when <tt><a href="../../../nn/applet/CTR/IsActive.html">nn::applet::CTR::IsActive</a></tt> returns <tt>true</tt></B>, all values returned by the application to the sleep query callback (set by <tt><a href="../../../nn/applet/CTR/SetSleepQueryCallback.html">nn::applet::CTR::SetSleepQueryCallback</a></tt>) are thereafter handled as <tt>REPLY_REJECT</tt>.  When <tt><a href="../../../nn/applet/CTR/IsActive.html">nn::applet::CTR::IsActive</a></tt> returns <tt>false</tt>, the sleep query callback function return values are used.</P><P>The system will not transition to sleep if any application or applet returns <tt>REPLY_REJECT</tt> to a sleep query.</P><P>This effectively disables sleep, but note that sleep query callbacks are still called when the system is closed.</P><P>This function always works the same way up to this point, regardless of the specified argument values.</P><P>Specify one of the following as the value for the <span class="argument">isReplyReject</span> argument.</P><TABLE><THEAD><TR bgcolor="#ccccdd"><TH colspan="2">Value</TH><TH>Description</TH></TR></THEAD><TR><TD>true</TD><TD>applet::REPLY_REJECT_IF_LATER</TD><TD>Return <tt>REPLY_REJECT</tt> to sleep queries.</TD></TR><TR><TD>false</TD><TD>applet::NO_REPLY_REJECT</TD><TD>Return nothing to sleep queries.</TD></TR></TABLE><P>If <tt>true</tt> or <tt>applet::REPLY_REJECT_IF_LATER</tt> and sleep queries are enabled, the application returns <tt>REPLY_REJECT</tt> to any sleep queries.</P><P>If <tt>false</tt> or <tt>applet::NO_REPLY_REJECT</tt>, the application does not do this.  In other words, the application does nothing regardless of whether sleep queries are enabled.</P><P>Specifying <tt>true</tt> or <tt>false</tt> for the <span class="argument">isReplyReject</span> argument only affects whether the function returns <tt>applet::REPLY_REJECT</tt> for this single call, and has no effect on any later calls.</P><P>It causes no problems to call this function again after you have already used it to disable Sleep Mode.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/11/28</dt>
+        <dd><item xmlns="">Clarified that setting values are only used when active.</item><br />
+        </dd>
+        <dt>2010/12/31</dt>
+        <dd><item xmlns="">Explained that it is no problem to call this function more than once.</item><br />
+        </dd>
+        <dt>2010/12/01</dt>
+        <dd><item xmlns="">Added operating details.</item><br />
+        </dd>
+        <dt>2010/11/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::fs::DirectoryEntry</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fs/Overview.html">fs</a>::DirectoryEntry Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct DirectoryEntry
+{
+   wchar_t entryName[MAX_FILE_PATH_LENGTH+1];
+   <a href="../../../nn/fs/ShortName/Overview.html">ShortName</a> shortName;
+   <a href="../../../nn/fs/Attributes/Overview.html">nn::fs::Attributes</a> attributes;
+   <a href="../../../nn_types/s64.html">s64</a> entrySize;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Structure representing a directory entry.</p><p>The entrySize member variable is valid only on SDMC archives. Note that it has an undefined value on any other type of archive.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">entryName</span>
+            </th>
+            <td width="100">wchar_t</td>
+            <td>Indicates the entry's long filename.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">shortName</span>
+            </th>
+            <td width="100"><a href="../../../nn/fs/ShortName/Overview.html">ShortName</a></td>
+            <td>Indicates the entry's short filename.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">attributes</span>
+            </th>
+            <td width="100"><a href="../../../nn/fs/Attributes/Overview.html">nn::fs::Attributes</a></td>
+            <td>Indicates the entry's attributes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">entrySize</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/s64.html">s64</a></td>
+            <td>If the entry is a file, this indicates the file size. If it is a directory, this is 0.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/12/09</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

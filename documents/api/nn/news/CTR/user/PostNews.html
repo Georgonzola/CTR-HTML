@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>PostNews</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/news/Overview.html">news</a>::<a href="../../../../nn/news/CTR/Overview.html">CTR</a>::<a href="../../../../nn/news/CTR/user/Overview.html">user</a>::PostNews Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/Result/Overview.html">Result</a> PostNews(
+     const wchar_t * subject,
+     const wchar_t * message,
+     const <a href="../../../../nn_types/u8.html">u8</a> * picture = NULL,
+     size_t pictureSize = 0,
+     <a href="../../../../nn_types/u32.html">u32</a> serialId = 0,
+     <a href="../../../../nn_types/u32.html">u32</a> dataVersion = 0,
+     <a href="../../../../nn_types/u64.html">u64</a> jumpParam = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>subject</th>
+          <td>Specifies the subject. Use a <code>UTF16-LE</code> string of up to <code>SUBJECT_LEN</code> characters (including the null-terminator). Data is copied within the function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>message</th>
+          <td>Specifies the subject. Use a <code>UTF16-LE</code> string of up to <code>SUBJECT_LEN</code> characters (including the null-terminator). Data is copied within the function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>picture</th>
+          <td>Specify an image. Using the JPEG or MPO (2 JPEG file) format, make the size 400 x 240 pixels. Data is copied within the function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pictureSize</th>
+          <td>Specifies a size for the image, using a value equal to or less than <code>PICTURE_SIZE</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>serialId</th>
+          <td>Specifies the Notification serial ID. For now, always specify <code>0</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dataVersion</th>
+          <td>Specifies the Notification data version. For now, always specify <code>0</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>jumpParam</th>
+          <td>Specifies the jump parameter. You can get this value when the application was started from the Notifications <a href="../../../../nn/applet/Overview.html">applet</a>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Posts a message.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/04/07</dt>
+        <dd><item xmlns="">Added a parameter for jumping from Notifications to the application. (Details will be added when application jump specifications are published.)</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

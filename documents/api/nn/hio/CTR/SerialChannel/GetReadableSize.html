@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetReadableSize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hio/Overview.html">hio</a>::<a href="../../../../nn/hio/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hio/CTR/SerialChannel/Overview.html">SerialChannel</a>::GetReadableSize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/hio.h&gt;
+<a href="../../../../nn/Result/Overview.html">Result</a> GetReadableSize(
+     size_t * pSize,
+     <a href="../../../../nn_types/bit32.html">bit32</a> attr = ATTRIBUTE_NONE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pSize</th>
+          <td>Location where the size of the data is stored.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>attr</th>
+          <td>Reception attribute. <br />
+ When <code>ATTRIBUTE_NONE</code> is specified, this function gets the loadable size from the CTR-side buffer. <br />
+ When <code>ATTRIBUTE_IN_PC</code> is specified, this function gets the sum of the loadable sizes of the CTR-side and PC-side buffers.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the loadable size from the buffers and returns the result of the operation.</p><h3>Differences in Data Sizes Obtained</h3><p>Buffers for HostIO communication are provided on both the CTR and PC sides. Use the <span class="argument">attr</span> argument to specify one of two distinct measurements. The size information returned by these methods differs greatly.</p><p>If <tt>ATTRIBUTE_NONE</tt> is specified, the function returns the amount of data on the CTR that has been received from the PC and also read.  If <tt>Read</tt> has not yet been called, the obtained value is <tt>0</tt>.</p><p>When <tt>ATTRIBUTE_IN_PC</tt> is specified, this function communicates with the PC, and gets the sum of the loadable sizes of the CTR-side and PC-side buffers.  The value obtained in this case is the amount of data sent from the PC but not yet read by the CTR.  A delay of a few dozen milliseconds occurs during communication between the PC and CTR.</p><p>If you want to use this function to get the size of data that has been sent from the PC but not yet read by the CTR, specify <tt>ATTRIBUTE_IN_PC</tt>.  Make sure that you know the meaning of the value returned when you use <tt>ATTRIBUTE_NONE</tt>.</p><p><tt>ATTRIBUTE_NONE</tt> obtains the size of the data accumulated on the CTR side. It is therefore able to get the value quickly, without locks, thread switching, or communication between the PC and CTR.  Use <tt>ATTRIBUTE_NONE</tt> to reduce latency if your processing requirements are restricted primarily by the amount of data in the buffer stored on the CTR.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/23</dt>
+        <dd><item xmlns="">Added a description of attributes when retrieving receivable sizes.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

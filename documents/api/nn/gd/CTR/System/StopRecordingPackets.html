@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>StopRecordingPackets</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/System/Overview.html">System</a>::StopRecordingPackets Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> StopRecordingPackets(
+     RecordedPacketId ** packetId
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>packetId</th>
+          <td>Sets the address storing the save start ID pointer of the obtained command list object.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified in packetId.</td>
+        </tr>
+        <tr>
+          <th>ResultSystemNoPacketRecorded</th>
+          <td>Saving of command list objects has not started. Start saving them by calling the <code><a href="../../../../nn/gd/CTR/System/StartRecordingPackets.html">System::StartRecordingPackets</a></code> function.</td>
+        </tr>
+        <tr>
+          <th>ResultSystemInvalidCmdListBind</th>
+          <td>The command list to start saving differs from the current command list.</td>
+        </tr>
+        <tr>
+          <th>ResultSystemReceiveErrorFromGlGetError</th>
+          <td>The <code>nngxStopCmdlistSave</code> function or the <code>nngxExportCmdlist</code> function could not be executed correctly.</td>
+        </tr>
+        <tr>
+          <th>ResultSystemNoPacketToRecord</th>
+          <td>There was no saved data.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td>Could not allocate memory.</td>
+        </tr>
+        <tr>
+          <th>ResultSystemRequestListInsertionIncompatibleWithJump</th>
+          <td>(Only when <code>RECORD_3D_COMMAND_BUFFER_FOR_JUMP</code> is specified.) Jump cannot be used because command requests other than 3D execution commands are included.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidParameter</th>
+          <td>The parameter is invalid.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Stops saving the current command list object.</p><p>Command packets for function calls between the <code><a href="../../../../nn/gd/CTR/System/StartRecordingPackets.html">System::StartRecordingPackets</a></code> and <code><a href="../../../../nn/gd/CTR/System/StopRecordingPackets.html">System::StopRecordingPackets</a></code> functions are stored so that they can be reused later. When <code>RECORD_COMMAND_LIST_COPY</code> or <code>RECORD_3D_COMMAND_BUFFER_FOR_JUMP</code> is specified as the RecordingPacketUsage parameter of the <code><a href="../../../../nn/gd/CTR/System/StartRecordingPackets.html">System::StartRecordingPackets</a></code> function, command packets are stored in a user buffer. These command packets can be edited and executed when necessary. If <code>RECORD_COMMAND_LIST_NO_COPY</code> is specified as the <code>RecordingPacketUsage</code> parameter, the command packets saved in the <code><a href="../../../../nn/gd/Overview.html">gd</a></code> function's internal command buffer can be reused directly, without being copied. In this case, these command packets cannot be edited before they are executed and cannot be reused after the command buffer is cleared.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

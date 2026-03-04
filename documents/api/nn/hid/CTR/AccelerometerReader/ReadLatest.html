@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>ReadLatest</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">AccelerometerReader</a>::ReadLatest Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool ReadLatest(
+     <a href="../../../../nn/hid/CTR/AccelerometerStatus/Overview.html">AccelerometerStatus</a> * pBuf
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pBuf</th>
+          <td>Loads the sampling data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of loading sampling data.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>true</th>
+          <td>Read successful.</td>
+        </tr>
+        <tr>
+          <th>false</th>
+          <td>Could not read. (The data can be loaded immediately following the first sampling that occurs after an instance of <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">AccelerometerReader</a></code> has been generated or after the system wakes up from sleep.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Loads the newest sampling data from the accelerometer. Unlike the <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Read.html">nn::hid::CTR::AccelerometerReader::Read</a></code> function, this function can load the same sampling data more than once.</p><p>This function internally calculates the sensitivity as the change in acceleration between the current and previous data samples from the <code>ReadLatest</code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/aacdec/Overview.html">aacdec</a>::<a href="../../../nn/aacdec/CTR/Overview.html">CTR</a>::Initialize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool Initialize(
+     <a href="../../../nn/aacdec/CTR/Form.html">Form</a> form,
+     <a href="../../../nn/aacdec/CTR/Fs.html">Fs</a> fs = FS_UNKNOWN,
+     <a href="../../../nn/aacdec/CTR/CrcFlag.html">CrcFlag</a> crcFlag = CRC_FLAG_ON,
+     <a href="../../../nn/aacdec/CTR/ReversePlayFlag.html">ReversePlayFlag</a> revPlayFlag = REVERSE_PLAY_FLAG_OFF
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>form</th>
+          <td>The bitstream format.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>fs</th>
+          <td>The sampling frequency index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>crcFlag</th>
+          <td>The CRC flag.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>revPlayFlag</th>
+          <td>The reverse playback flag.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if initialization succeeded; otherwise, returns <code>false</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the decoder.</p><p>To decode RAW data, you need to specify a sampling frequency for <span class="argument">fs</span> (specifying some value other than FS_UNKNOWN).</p><p>To decode a new file, call the <a href="../../../nn/aacdec/CTR/Finalize.html">nn::aacdec::CTR::Finalize</a> function and then use this function to initialize the library again. If you begin decoding a new AAC file without first finalizing and re-initializing the library, the decoding result of the previous file will affect the decoding of the current file.  For more information, see the Implementation Notes section in <a href="../../../nn/aacdec/CTR/Overview.html">nn::aacdec::CTR</a>. </p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Added a note about decoding a new file.</item><br />
+        </dd>
+        <dt>2011/06/28</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

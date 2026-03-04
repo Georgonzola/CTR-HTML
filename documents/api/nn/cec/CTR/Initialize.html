@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/cec/Overview.html">cec</a>::<a href="../../../nn/cec/CTR/Overview.html">CTR</a>::Initialize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Initialize(
+     <a href="../../../nn/fnd/IAllocator/Overview.html">nn::fnd::IAllocator</a> & cecAllocFunc
+);
+
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Initialize();
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./Initialize(0).html">Initialize ( nn::fnd::IAllocator & ) </a>
+          </td>
+          <td>Connects to the CEC Daemon. This function must be called first to access all of the CEC functions.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./Initialize(1).html">Initialize (  ) </a>
+          </td>
+          <td>Connects to the CEC Daemon. This function must be called first to all access to the CEC functions. <br /><bold>Note:</bold> The version of <code>Initialize</code> that does not specify an allocator as an argument will be deprecated.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of Initialize ( nn::fnd::IAllocator & ) </h2>
+    <div class="section"><p>This function performs allocation when using the <code><a href="../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code> class. <br />
+ This function allocates the memory needed to process message data. As a guideline, memory about 20 to 40 KB larger than the maximum <code><a href="../../../nn/cec/CTR/Message/Overview.html">Message</a></code> size (<= 100 KB) used by applications is simultaneously used.</p></div>
+    <h2>Description of Initialize (  ) </h2>
+    <div class="section"><p>Initializing with the version of <code>Initialize</code> that does not specify an allocator results in no memory being allocated for the library, and does not allow box access. <br />
+ Initialize instead by using <code><a href="../../../nn/cec/CTR/Initialize.html">Initialize(nn::fnd::IAllocator& cecAllocFunc)</a></code>. <br /></p></div>
+  </body>
+</html>

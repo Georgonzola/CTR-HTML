@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetRootCa</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/TaskActionBase/Overview.html">TaskActionBase</a>::SetRootCa Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> SetRootCa(
+     <a href="../../../nn_types/u32.html">u32</a> inCaCertId
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>inCaCertId</th>
+          <td>Built-in CA certificate ID.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Successfully set.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMaxRootCa</th>
+          <td>The number of root CAs exceeds the maximum that can be set.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets a built-in root certificate for use.</p><p>It can be used alongside a private root certificate. <br />
+ You do not normally need to use this function to set a certificate unless you are using a data upload task. <br />
+ (The BOSS library automatically sets the required root certificate. ) <br />
+ Contact Nintendo if you are using a data upload task and you want to use a special built-in root certificate. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

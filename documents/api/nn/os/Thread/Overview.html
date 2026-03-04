@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::Thread</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::Thread Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/os.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Thread : public <a href="../../../nn/os/WaitObject/Overview.html">nn::os::WaitObject</a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Represents threads.</p><p>Threads have priorities. The thread priority is specified as an integer from <code>0</code> to <code>31</code>, with <code>0</code> indicating the highest priority. Standard threads specify the <code>DEFAULT_THREAD_PRIORITY</code> of <code>16</code>.</p><p>Threads need stack memory to operate. Stack memory is created by directly specifying a memory region or by using <code><a href="../../../nn/os/AutoStackManager/Overview.html">AutoStackManager</a></code>.</p><p>To directly specify a memory region, pass the stack region to the <code><a href="../../../nn/os/Thread/Start.html">Start</a></code> function when you start the thread. Pass a stack region that is an instance of a class that has a function similar to <code>uptr GetStackBottom()</code>. The <code><a href="../../../nn/os/StackMemoryBlock/Overview.html">StackMemoryBlock</a></code> and <code><a href="../../../nn/os/StackBuffer/Overview.html">StackBuffer</a></code> classes meet these requirements, so they can pass the stack region directly. When directly specifying a memory region, exercise sufficient care such that the stack memory is not disabled (by being released, etc.) before the thread terminates.</p><p>To use <code><a href="../../../nn/os/AutoStackManager/Overview.html">AutoStackManager</a></code> to manage the stack region, pass the stack size to the <code><a href="../../../nn/os/Thread/StartUsingAutoStack.html">StartUsingAutoStack</a></code> function when you start the thread.</p><p><a href="../../../nn/os/Thread/Overview.html">Thread</a> objects become valid after <code>Start</code>-series functions have been left. Note that it is not at the point when a thread starts running. The <code>IsValid</code> function can be used to check whether an object is valid.</p><p>You must explicitly call <code><a href="../../../nn/os/Thread/Join.html">Join</a></code> before destroying a thread object that was started using <code><a href="../../../nn/os/Thread/Start.html">Start</a></code>.</p><p>You cannot call <code><a href="../../../nn/os/Thread/Detach.html">Detach</a></code>.</p><p>You must explicitly call either <code><a href="../../../nn/os/Thread/Join.html">Join</a></code> or <code><a href="../../../nn/os/Thread/Detach.html">Detach</a></code> before destroying a thread object that was started using <code><a href="../../../nn/os/Thread/StartUsingAutoStack.html">StartUsingAutoStack</a></code>.</p><p><code><a href="../../../nn/os/Thread/Overview.html">Thread</a></code> objects inherit <code><a href="../../../nn/os/WaitObject/Overview.html">WaitObject</a></code> objects. When a thread is released from waiting, it means that the thread has exited. When that <code><a href="../../../nn/os/Thread/Join.html">Join</a></code> operation must occur without blocking, call a function like <code><a href="../../../nn/os/WaitObject/WaitOne.html">WaitOne</a></code> or <code><a href="../../../nn/os/WaitObject/WaitAny.html">WaitObject::WaitAny</a></code> to confirm the releasing from waiting.</p><p>You can create up to 32 <code><a href="../../../nn/os/Thread/Overview.html">Thread</a></code> objects. Note that some functions might use up resources that count against this limit.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Constructors/Destructors</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/Thread.html">Thread</a>
+            </th>
+            <td>Instantiates an object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/~Thread.html">~Thread</a>
+            </th>
+            <td>Destroys the object.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Starting Threads</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/Start.html">Start</a>
+            </th>
+            <td>Initializes and runs a thread.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/TryStart.html">TryStart</a>
+            </th>
+            <td>Tries to initialize and run a thread.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/StartUsingAutoStack.html">StartUsingAutoStack</a>
+            </th>
+            <td>Initializes and runs a thread.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/TryStartUsingAutoStack.html">TryStartUsingAutoStack</a>
+            </th>
+            <td>Tries to initialize and run a thread.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Waiting for Termination and Releasing Resources</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/Finalize.html">Finalize</a>
+            </th>
+            <td>Destroys the thread object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/Join.html">Join</a>
+            </th>
+            <td>Waits for a thread to end.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/Detach.html">Detach</a>
+            </th>
+            <td>Detaches a thread so it is no longer subject to management.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/IsAlive.html">IsAlive</a>
+            </th>
+            <td>Gets whether the thread has completed.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Get and Set</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/GetId.html">GetId</a>
+            </th>
+            <td>Gets the thread ID of an instance's thread.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/GetPriority.html">GetPriority</a>
+            </th>
+            <td>Gets the thread priority of an instance.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/ChangePriority.html">ChangePriority</a>
+            </th>
+            <td>Sets the thread priority of an instance.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Thread/GetIdealProcessor.html">GetIdealProcessor</a>
+            </th>
+            <td>Gets the preferred processor number of an instance.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Thread/GetCurrentId.html">GetCurrentId</a>
+            </th>
+            <td>Gets the thread ID of the current thread.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Thread/GetCurrentPriority.html">GetCurrentPriority</a>
+            </th>
+            <td>Gets the priority of the current thread.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Thread/ChangeCurrentPriority.html">ChangeCurrentPriority</a>
+            </th>
+            <td>Sets the priority of the current thread.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Thread/GetCurrentProcessorNumber.html">GetCurrentProcessorNumber</a>
+            </th>
+            <td>Gets the processor number operating the current thread</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Current Thread Control</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Thread/Sleep.html">Sleep</a>
+            </th>
+            <td>Puts the current thread to sleep for the time specified.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Thread/Yield.html">Yield</a>
+            </th>
+            <td>Gives threads with the same priority level as the current thread a chance to run.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Others</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Thread/GetMainThread.html">GetMainThread</a>
+            </th>
+            <td>Gets the object that represents the main thread.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Thread/SetAutoStackManager.html">SetAutoStackManager</a>
+            </th>
+            <td>Changes the <code><a href="../../../nn/os/AutoStackManager/Overview.html">AutoStackManager</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Thread/GetCurrentCount.html">GetCurrentCount</a>
+            </th>
+            <td>Gets the number of <code><a href="../../../nn/os/Thread/Overview.html">Thread</a></code> objects that are currently being used.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Thread/GetMaxCount.html">GetMaxCount</a>
+            </th>
+            <td>Gets the maximum number of <code><a href="../../../nn/os/Thread/Overview.html">Thread</a></code> objects that can be used simultaneously.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<a href="../../../nn/os/HandleObject/Overview.html">nn::os::HandleObject</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../nn/os/WaitObject/Overview.html">nn::os::WaitObject</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::os::Thread</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

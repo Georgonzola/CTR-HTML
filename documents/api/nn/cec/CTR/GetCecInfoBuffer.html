@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetCecInfoBuffer</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/cec/Overview.html">cec</a>::<a href="../../../nn/cec/CTR/Overview.html">CTR</a>::GetCecInfoBuffer Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> GetCecInfoBuffer(
+     <a href="../../../nn_types/u32.html">u32</a> cecTitleId,
+     <a href="../../../nn_types/u8.html">u8</a> pCecInfoBuffer[],
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>cecTitleId</th>
+          <td>Specifies the StreetPass ID.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pCecInfoBuffer[]</th>
+          <td>Specifies the buffer to receive the <code><a href="../../../nn/cec/CTR/CecNotificationData/Overview.html">CecNotificationData</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the buffer size.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"><code><a href="../../../nn/Result/Overview.html">nn::Result</a></code><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultNoData</th>
+          <td>No data could be obtained.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets information about a <code><a href="../../../nn/cec/CTR/Message/Overview.html">Message</a></code> received in the immediately previous StreetPass communication.</p><p><code><a href="../../../nn/cec/CTR/GetCecEvent.html">GetCecEvent</a></code> can be used to determine whether, for example, there is data for a foreground application after receiving notification of the start of communication. <br /></p><p>The "most recent StreetPass communication" refers to the most recent StreetPass communication with another system. <br />
+ Note that this is not the last communication with the specified application. <br /></p><p>For example, say StreetPass communication occurs twice, with data exchanges for each application occurring as shown below. The information this function can receive is limited to that for the second communication, for Application A and Application D. <br />
+ The other application did not receive any data in the last communication and so no information can be obtained for it. <br /></p><p>First Communication: Application A (receives data), Application B (receives data), Application C (receives data) Second Communication: Application A (receives data), Application B (sends data), Application D (receives data)</p><p>When a specified application receives a message from an immediately prior communication, the value for <code><a href="../../../nn/cec/CTR/CecNotificationData/Overview.html">CecNotificationData.num</a></code> is <code>1</code>. When nothing is received, the value is <code>0</code>. <br />
+ This function can only get information about a single <code><a href="../../../nn/cec/CTR/Message/Overview.html">Message</a></code>, even when multiple messages are received as a group. In other words, the maximum value for <code><a href="../../../nn/cec/CTR/CecNotificationData/Overview.html">CecNotificationData.num</a></code> is <code>1</code>. <br /></p><p>It does not include information about received data that was discarded because it was duplicated. <br /></p><p>Only information from the most recent communication can be obtained. Information from communications prior to that cannot be obtained. <br /></p><p>This function can get information about communication that has just occurred. Subsequent box changes (such as the deletion of inbox messages) are not reflected. <br /></p><p>The <code><a href="../../../nn/cec/CTR/CecNotificationData/Overview.html">CecNotificationData.count</a></code> value is incremented every time StreetPass data is exchanged. <br />
+ This value is only incremented by 1 each time a StreetPass communication occurs regardless of how many applications exchanged data in that communication. <br />
+ Also, this value is reset to <code>0</code> every time the <a href="../../../nn/cec/CTR/Overview.html">CTR</a> system is restarted. <br />
+ You can check for changes in this value to determine whether any StreetPass communications have occurred. <br /></p></div>
+  </body>
+</html>

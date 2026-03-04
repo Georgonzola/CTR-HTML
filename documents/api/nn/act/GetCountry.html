@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>GetCountry</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/act/Overview.html">act</a>::GetCountry Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> GetCountry(
+     char * pCountry
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pCountry</th>
+          <td>Specifies an out pointer to the buffer that stores the country setting.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>ResultSuccess</code> on success. <br />
+ Returns <code><a href="../../nn/act/ResultNotInitialized/Overview.html">ResultNotInitialized</a></code> when the account library is not initialized. <br />
+ Returns <code><a href="../../nn/act/ResultInvalidPointer/Overview.html">ResultInvalidPointer</a></code> when an invalid pointer (such as a <code>NULL</code> pointer) is passed as an argument. <br /> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the country setting of the system account in ISO 3166-1 alpha-2 format. Gets the country setting of the Nintendo Network account associated with the system account in ISO 3166-1 alpha-2 format. However, this function gets the value the system cached for the locale, so calling this function does not trigger communication. <br /><br />
+ Pass a pointer to a buffer at least as big as <code>NN_ACT_COUNTRY_SIZE</code> bytes to pCountry. <br /><br />
+ When it is not a network account, the function succeeds and a blank string is copied to pCountry. <br /><br />
+ If the function fails, the value set in the buffer is undefined.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/08/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

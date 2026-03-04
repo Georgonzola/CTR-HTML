@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CreateTexture2DResourceCastFrom</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Resource/Overview.html">Resource</a>::CreateTexture2DResourceCastFrom Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CreateTexture2DResourceCastFrom(
+     const Texture2DResource * initialTexture2DResource,
+     <a href="../../../../nn/gd/CTR/Resource/NativeFormat.html">Resource::NativeFormat</a> format,
+     <a href="../../../../nn/gd/CTR/Memory/MemoryLayout.html">Memory::MemoryLayout</a> layout,
+     Texture2DResource ** texture2DResource
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>initialTexture2DResource</th>
+          <td>Specifies the original 2D texture to cast.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>format</th>
+          <td>Specifies the new pixel format.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>layout</th>
+          <td>Specifies the new memory layout.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>texture2DResource</th>
+          <td>Specifies the address storing the pointer to the created resource.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified in an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormat</th>
+          <td>The pixel format of format is invalid. The pixel size of the pixel format must be the same size as the pixel size for initialTexture2DResource.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td><a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a> cannot be allocated for the resource object.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Casts an existing <code>Texture2DResource</code> resource in a different format.</p><p>The new <code>Texture2DResource</code> resource uses the same memory region as the original resource, but it can be defined with a different pixel format and memory layout. The pixel format of the new resource must be the same size as the format of the original resource. This feature enables you to use <code>Texture2DResource</code> resources in a number of different ways. (For example, you can use a resource as a 2D texture in depth, shadow, and gas formats.)</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetMyScreenName</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::GetMyScreenName Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> GetMyScreenName(
+     <a href="../../../nn_types/char16.html">char16</a> screenName[SCREEN_NAME_SIZE]
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>screenName[SCREEN_NAME_SIZE]</th>
+          <td>Specifies the buffer that stores own's own screen name.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>An invalid pointer was passed as an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>The friend presence library is not initialized.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Other results can be returned depending on the internal state of the daemon.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the screen name of the user.</p><p>This function retrieves an empty display name if the user has not configured a Personal Mii in Mii Maker. The function still returns success in this case. <br /><br />
+ Mii nicknames may sometimes include characters that are not supported in the application. You must also include handling for these cases to prevent abnormalities in the way the application is displayed or progresses. For more information, see the section about the display of nicknames and creator names in the 3DS Guidelines.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/07/07</dt>
+        <dd><item xmlns="">Noted that there can be characters that the application does not support.</item><br />
+        </dd>
+        <dt>2011/03/11</dt>
+        <dd><item xmlns="">Noted that the function will still return success even if an empty display name is returned.<br /> Added specific examples of return values.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

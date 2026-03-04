@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>call - Call subroutine</title>
+  </head>
+  <body>
+    <h1>call - Call subroutine</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+call    label
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>label</th>
+          <td>
+            Label name.<br />
+          </td>
+      </table>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Control jumps to the address of the specified label name.<br /> Once code has been executed up to the <CODE>ret</CODE> instruction following the label address, execution will return to the address immediately after this instruction. You cannot call a label unless a <CODE>ret</CODE> instruction has been set for it.<br />
+      </p>
+      <p class="notice">
+        You can nest <CODE>call</CODE> instructions (<CODE>call</CODE>, <CODE>callc</CODE>, and <CODE>callb</CODE>) up to four times. Behavior is undefined if these are nested five or more times.<br /> Behavior is also undefined when a nested <CODE>call</CODE> instruction is invoked immediately before a <CODE>ret</CODE> instruction.<br />
+      <p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+retaddr = pc + 1
+pc = get_label_address ( label )
+while (1)
+{
+    execute_current_instruction ( )
+    if ( current_instruction () == ret )
+    {
+        pc = retaddr
+        break
+    }
+}
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+call    subfunction0
+
+subfunction0:
+..
+ret
+</pre>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

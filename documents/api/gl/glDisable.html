@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glDisable</title>
+  </head>
+  <body>
+    <h1>glDisable Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glDisable(
+     GLenum cap
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>cap</th>
+          <td>Name of the feature to disable.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Disables special GL features.</p><P>You can set <span class="argument">cap</span> to the following values.<TABLE><TR><TH>GL_COLOR_LOGIC_OP</TH><TD>Disables logical operations on pixels.</TD></TR><TR><TH>GL_BLEND</TH><TD>Disables the blend feature.</TD></TR><TR><TH>GL_DEPTH_TEST</TH><TD>Disables depth tests.</TD></TR><TR><TH>GL_STENCIL_TEST</TH><TD>Disables stencil tests.</TD></TR><TR><TH>GL_SCISSOR_TEST</TH><TD>Disables scissoring.</TD></TR><TR><TH>GL_CULL_FACE</TH><TD>Disables culling.</TD></TR><TR><TH>GL_POLYGON_OFFSET_FILL</TH><TD>Disables polygon offsets.</TD></TR><TR><TH>GL_EARLY_DEPTH_TEST_DMP</TH><TD>Disables early depth tests.</TD></TR><TR><th>GL_DEPTH_STENCIL_COPY_DMP</th><TD>Disables the depth stencil copy feature.</TD></TR></TABLE><!-- source capにはGL_COLOR_LOGIC_OP、GL_BLEND、GL_DEPTH_TEST、GL_STENCIL_TEST、GL_SCISSOR_TEST、 GL_CULL_FACE、GL_POLYGON_OFFSET_FILL、GL_EARLY_DEPTH_TEST_DMPが指定できます。 --><!-- source GL_COLOR_LOGIC_OPはピクセルの論理演算を無効にします。 GL_BLENDはブレンド機能を無効にします。 GL_DEPTH_TESTはデプステストを無効にします。 GL_STENCIL_TESTはステンシルテストを無効にします。 GL_SCISSOR_TESTはシザリングを無効にします。 GL_CULL_FACEはカリングを無効にします。 GL_POLYGON_OFFSET_FILLはポリゴンオフセットを無効にします。 GL_EARLY_DEPTH_TEST_DMPはアーリーデプステストを無効にします。 --></P><P>You cannot specify <tt>GL_EARLY_DEPTH_TEST_DMP</tt> from POD.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">cap</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR></TABLE><!-- source capに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/12</dt>
+        <dd><item xmlns="">Added a description of GL_DEPTH_STENCIL_COPY_DMP for the depth stencil copy feature.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::phtsel::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/phtsel/Overview.html">phtsel</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the <a href="../../../nn/phtsel/CTR/Overview.html">CTR</a> photo select <a href="../../../nn/applet/Overview.html">applet</a> call-up library. (It can also be written without the <code>CTR</code> portion.)</p><p>Applications that use this library must call the <tt>nn::applet::CTR::Enable</tt> function to enable the applet features.  In addition, graphics command requests must be stopped when the applet is called. End rendering (by calling the <tt>nngxWaitCmdlistDone</tt> function, for example).</p><p><b>Note:</b> The photo selector applet threads use thread priorities 16, 18, 20, 21 and 25. Take this into consideration if your application sets priorities for threads that continue to run while the applet is running.  Also, separately from this, thread priority 15 is created for running applets.</p></div>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/phtsel/CTR/Config/Overview.html">nn::phtsel::CTR::Config</a>
+            </th>
+            <td>Configuration structure for setting <a href="../../../nn/applet/Overview.html">applet</a> startup options.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/phtsel/CTR/Parameter/Overview.html">nn::phtsel::CTR::Parameter</a>
+            </th>
+            <td><a href="../../../nn/phtsel/CTR/Parameter/Overview.html">Parameter</a> structure to pass to the photo selector <a href="../../../nn/applet/Overview.html">applet</a> when it executes.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/phtsel/CTR/DateTimeConvert/Overview.html">nn::phtsel::CTR::DateTimeConvert</a>
+            </th>
+            <td>Structure for the elapsed time in seconds.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/phtsel/CTR/PhtselInput/Overview.html">nn::phtsel::CTR::PhtselInput</a>
+            </th>
+            <td><a href="../../../nn/phtsel/CTR/Parameter/Overview.html">Parameter</a> structure to pass to the <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/phtsel/CTR/PhtselOutput/Overview.html">nn::phtsel::CTR::PhtselOutput</a>
+            </th>
+            <td><a href="../../../nn/phtsel/CTR/Parameter/Overview.html">Parameter</a> structure received from the <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/phtsel/CTR/ReturnCode.html">ReturnCode</a>
+            </th>
+            <td>Enumerated type representing return codes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/phtsel/CTR/VERSION.html">VERSION</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The version number of the current data.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/phtsel/CTR/InitializeParameter.html">InitializeParameter</a>
+            </th>
+            <td>Initializes a parameter structure to its default values.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/phtsel/CTR/PreloadPhtsel.html">PreloadPhtsel</a>
+            </th>
+            <td>Preloads the photo selector <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/phtsel/CTR/CancelPreloadPhtsel.html">CancelPreloadPhtsel</a>
+            </th>
+            <td>Cancels the preload of the photo selector <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/phtsel/CTR/WaitForPreloadPhtsel.html">WaitForPreloadPhtsel</a>
+            </th>
+            <td>Waits for the photo selector <a href="../../../nn/applet/Overview.html">applet</a> to finish preloading.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/phtsel/CTR/IsRegisteredPhtsel.html">IsRegisteredPhtsel</a>
+            </th>
+            <td>Returns whether the photo selector <a href="../../../nn/applet/Overview.html">applet</a> is preloaded.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/phtsel/CTR/GetWorkBufferSize.html">GetWorkBufferSize</a>
+            </th>
+            <td>Returns the size required for the work memory region.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/phtsel/CTR/StartPhtsel.html">StartPhtsel</a>
+            </th>
+            <td>Starts the photo selector <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/phtsel/CTR/StartPhtselNoCapture.html">StartPhtselNoCapture</a>
+            </th>
+            <td>Starts the photo selector <a href="../../../nn/applet/Overview.html">applet</a> without capturing a background image.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/09/02</dt>
+        <dd><item xmlns="">Mentioned the thread for running applets.</item><br />
+        </dd>
+        <dt>2014/07/01</dt>
+        <dd><item xmlns="">Added the fact that applications that call this function must enable the applet features and stop rendering.</item><br />
+        </dd>
+        <dt>2011/08/24</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

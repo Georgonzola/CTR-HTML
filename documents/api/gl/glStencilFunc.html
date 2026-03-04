@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glStencilFunc</title>
+  </head>
+  <body>
+    <h1>glStencilFunc Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glStencilFunc(
+     GLenum func,
+     GLint ref,
+     GLuint mask
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>func</th>
+          <td>Comparison function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>ref</th>
+          <td>Reference value.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>mask</th>
+          <td>Specifies the mask value.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Specifies a comparison function, reference value, and mask value to be used for the stencil test.</p><P>You can set <span class="argument">func</span> to <tt>GL_NEVER</tt>, <tt>GL_ALWAYS</tt>, <tt>GL_LESS</tt>, <tt>GL_LEQUAL</tt>, <tt>GL_EQUAL</tt>, <tt>GL_GREATER</tt>, <tt>GL_GEQUAL</tt>, or <tt>GL_NOTEQUAL</tt>.  Set <span class="argument">ref</span> to the reference value. Set <span class="argument">mask</span> to the mask value.</P><P>Given a stencil buffer value of <tt>stencil</tt>, the stencil test passes or fails according to the following conditions specified by <span class="argument">func</span>.<TABLE><TR><TH>GL_NEVER</TH><TD>The stencil test always fails.</TD></TR><TR><TH>GL_ALWAYS</TH><TD>The stencil test always passes.</TD></TR><TR><TH>GL_LESS</TH><TD>Passes when <tt>(<span class="argument">ref</span> & <span class="argument">mask</span>) < (stencil & <span class="argument">mask</span>)</tt>.</TD></TR><TR><TH>GL_LEQUAL</TH><TD>Passes when <tt>(<span class="argument">ref</span> & <span class="argument">mask</span>) <= (stencil & <span class="argument">mask</span>)</tt>.</TD></TR><TR><TH>GL_EQUAL</TH><TD>Passes when <tt>(<span class="argument">ref</span> & <span class="argument">mask</span>) == (stencil & <span class="argument">mask</span>)</tt>.</TD></TR><TR><TH>GL_GREATER</TH><TD>Passes when <tt>(<span class="argument">ref</span> & <span class="argument">mask</span>) > (stencil & <span class="argument">mask</span>)</tt>.</TD></TR><TR><TH>GL_GEQUAL</TH><TD>Passes when <tt>(<span class="argument">ref</span> & <span class="argument">mask</span>) >= (stencil & <span class="argument">mask</span>)</tt>.</TD></TR><TR><TH>GL_NOTEQUAL</TH><TD>Passes when <tt>(<span class="argument">ref</span> & <span class="argument">mask</span>) != (stencil & <span class="argument">mask</span>)</tt>.</TD></TR></TABLE><!-- source GL_NEVERを指定した場合、ステンシルテストは常にフェイルします。 GL_ALWAYSを指定した場合、ステンシルテストは常にパスします。 GL_LESSを指定した場合、(ref & mask) < (stencil & mask)の場合にパスします。 GL_LEQUALを指定した場合、(ref & mask) <= (stencil & mask)の場合にパスします。 GL_EQUALを指定した場合、(ref & mask)== (stencil & mask)の場合にパスします。 GL_GREATERを指定した場合、(ref & mask) > (stencil & mask)の場合にパスします。 GL_GEQUALを指定した場合、(ref & mask) >= (stencil & mask)の場合にパスします。 GL_NOTEQUALを指定した場合、(ref & mask) != (stencil & mask)の場合にパスします。 --></P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">func</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR></TABLE><!-- source funcに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

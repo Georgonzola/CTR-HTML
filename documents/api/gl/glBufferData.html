@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glBufferData</title>
+  </head>
+  <body>
+    <h1>glBufferData Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glBufferData(
+     GLenum target,
+     GLsizeiptr size,
+     const void * data,
+     GLenum usage
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Target.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Vertex data size.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>data</th>
+          <td>Pointer to vertex data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>usage</th>
+          <td>The usage for the vertex buffer.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Loads vertex data into the current vertex buffer object.</p><P>Set <span class="argument">target</span> equal to <tt>GL_ARRAY_BUFFER</tt> or <tt>GL_ELEMENT_ARRAY_BUFFER</tt>.</P><P>To specify the region that is accessed by the GPU, set <span class="argument">target</span> to a bitwise OR of the aforementioned and the following values.                 <TABLE><TR><th>NN_GX_MEM_FCRAM</th><TD>The GPU accesses main memory.</TD></TR><TR><th>NN_GX_MEM_VRAMA</th><TD>The GPU accesses VRAMA.</TD></TR><TR><th>NN_GX_MEM_VRAMB</th><TD>The GPU accesses VRAMB.  By also specifying the following bitwise OR, you can specify whether to copy data to main memory.</TD></TR><TR><th>GL_COPY_FCRAM_DMP</th><TD>Create data copy in main memory.</TD></TR><TR><th>GL_NO_COPY_FCRAM_DMP</th><TD>Do not create data copy in main memory.</TD></TR></TABLE><!-- source NN_GX_MEM_FCRAM ・・・ FCRAMにGPUがアクセスします。 NN_GX_MEM_VRAMA ・・・ VRAMAにGPUがアクセスします。 NN_GX_MEM_VRAMB ・・・ VRAMBにGPUがアクセスします。 さらに次の値を論理和で指定することで、FCRAMにデータのコピーを生成するか否かを指定することができます。 GL_COPY_FCRAM_DMP ・・・ FCRAMにデータのコピーを生成します。 GL_NO_COPY_FCRAM_DMP ・・・ FCRAMにデータのコピーを生成しません。 --></P><P>These combinations cause data to be transferred as follows.                <TABLE><TR><TH>(<tt>NN_GX_MEM_FCRAM</tt> | <tt>GL_NO_COPY_FCRAM_DMP</tt>)</TH><TD>The GPU directly accesses the region specified by <span class="argument">data</span>.</TD></TR><TR><TH>(<tt>NN_GX_MEM_VRAMA</tt> | <tt>GL_NO_COPY_FCRAM_DMP</tt>)</TH><TD>A region is allocated in VRAMA; <span class="argument">data</span> is transferred to VRAMA via DMA; and then the GPU accesses VRAMA.</TD></TR><TR><TH>(<tt>NN_GX_MEM_VRAMB</tt> | <tt>GL_NO_COPY_FCRAM_DMP</tt>)</TH><TD>A region is allocated in VRAMB; <span class="argument">data</span> is transferred to VRAMB via DMA; and then the GPU accesses VRAMB.</TD></TR><TR><TH>(<tt>NN_GX_MEM_FCRAM</tt> | <tt>GL_COPY_FCRAM_DMP</tt>)</TH><TD>A region is allocated in main memory; <span class="argument">data</span> is copied to main memory by the CPU; and then the GPU accesses main memory.</TD></TR><TR><TH>(<tt>NN_GX_MEM_VRAMA</tt> | <tt>GL_COPY_FCRAM_DMP</tt>)</TH><TD>A region is allocated in main memory and VRAMA; <span class="argument">data</span> is copied to main memory by the CPU; <span class="argument">data</span> is transferred via DMA from main memory to VRAMA, and then the GPU accesses VRAMA.</TD></TR><TR><TH>(<tt>NN_GX_MEM_VRAMB</tt> | <tt>GL_COPY_FCRAM_DMP</tt>)</TH><TD>A region is allocated in main memory and VRAMB; <span class="argument">data</span> is copied to main memory by the CPU; <span class="argument">data</span> is transferred via DMA from main memory to VRAMB, and then the GPU accesses VRAMB.</TD></TR></TABLE><!-- source (NN_GX_MEM_FCRAM | GL_NO_COPY_FCRAM_DMP) ・・・ dataに指定した領域を直接GPUがアクセスする。 (NN_GX_MEM_VRAMA | GL_NO_COPY_FCRAM_DMP) ・・・ VRAMAに領域を確保し、DMAでdataからVRAMAへ転送し、VRAMAをGPUがアクセスする。 (NN_GX_MEM_VRAMB | GL_NO_COPY_FCRAM_DMP) ・・・ VRAMBに領域を確保し、DMAでdataからVRAMBへ転送し、VRAMBをGPUがアクセスする。 (NN_GX_MEM_FCRAM | GL_COPY_FCRAM_DMP) ・・・ FCRAMに領域を確保し、CPUでdataからFCRAMへコピーし、FCRAMをGPUがアクセスする。 (NN_GX_MEM_VRAMA | GL_COPY_FCRAM_DMP) ・・・ VRAMAおよびFCRAMに領域を確保し、CPUでdataからFCRAMへコピーし、DMAでFCRAMからVRAMAへ転送し、VRAMAをGPUがアクセスする。 (NN_GX_MEM_VRAMB | GL_COPY_FCRAM_DMP) ・・・ VRAMBおよびFCRAMに領域を確保し、CPUでdataからFCRAMへコピーし、DMAでFCRAMからVRAMBへ転送し、VRAMBをGPUがアクセスする。 --></P><P>If you are not specifying any GPU access region or copying to main memory, (<tt>NN_GX_MEM_FCRAM</tt> | <tt>GL_COPY_FCRAM_DMP</tt>) are applied.  Set <span class="argument">size</span> equal to the vertex data size.  You can only set <span class="argument">usage</span> to <tt>GL_STATIC_DRAW</tt>.  When <span class="argument">data</span> is set to NULL, this function simply allocates a region as large as the data size.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> argument was set to an invalid value.</TD></TR><TR><th>GL_OUT_OF_MEMORY</th><TD>Failed to allocate the management region or the region for the vertex buffer data.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD><span class="argument">target</span> was set to an invalid option for the GPU access region and main memory copying.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>Object 0 is bound to the current target.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>Either the values <tt>NN_GX_MEM_FCRAM | GL_NO_COPY_FCRAM_DMP</tt> or the values <tt>NN_GX_MEM_VRAMA</tt> (or <tt>VRAMB</tt>) <tt>| GL_COPY_FCRAM_DMP</tt> were specified, and <span class="argument">data</span> is <tt>0</tt>.</TD></TR></TABLE><!-- source コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 targetに不正な値を指定するとエラーGL_INVALID_ENUMを生成します。 管理用領域および頂点バッファデータの領域の確保に失敗した場合エラーGL_OUT_OF_MEMORYを生成します。 targetに不正なGPUアクセス領域およびFCRAMコピー有無のオプションを指定した場合エラーGL_INVALID_OPERATIONを生成します。 オブジェクト0がカレントのターゲットにバインドされている場合エラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/11</dt>
+        <dd><item xmlns="">Corrected an error.</item><br />
+        </dd>
+        <dt>2010/05/07</dt>
+        <dd><item xmlns="">Added an error code that occurs when the data argument is 0.</item><br />
+        </dd>
+        <dt>2010/03/11</dt>
+        <dd><item xmlns="">Revised terminology. Added a description of the default value for the target argument.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

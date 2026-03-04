@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>MountSharedFont</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/pl/Overview.html">pl</a>::<a href="../../../nn/pl/CTR/Overview.html">CTR</a>::MountSharedFont Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> MountSharedFont(
+     const char * archiveName,
+     <a href="../../../nn/pl/CTR/SharedFontType.html">SharedFontType</a> sharedFontType,
+     size_t maxFile,
+     size_t maxDirectory,
+     void * workingMemory,
+     size_t workingMemorySize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>archiveName</th>
+          <td>Specifies the archive name. (Example: "fnt1:")</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>sharedFontType</th>
+          <td>Specifies the type of the shared <a href="../../../nn/font/Overview.html">font</a>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxFile</th>
+          <td>Specifies the number of files that can be opened simultaneously.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxDirectory</th>
+          <td>Specifies the number of directories that can be opened simultaneously.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>workingMemory</th>
+          <td>Specifies the address of the working region.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>workingMemorySize</th>
+          <td>Specifies the size of the working region.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>nn::pl::ResultSharedFontNotFound</th>
+          <td>The specified shared <a href="../../../nn/font/Overview.html">font</a> was not found.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Mounts the archive of the shared <a href="../../../nn/font/Overview.html">font</a>.</p><p>When using a font other than that which can be obtained with the <tt><a href="../../../nn/pl/CTR/GetSharedFontType.html">nn::pl::CTR::GetSharedFontType</a></tt> function, the application itself must mount the archive and open the font file.</p><p>The font files included within the archive are as follows.  We assume an archive name of "font" when the archive is opened.</p><ul><li>SHARED_FONT_TYPE_STD:  "font:/cbf_std.bcfnt.lz"</li><li>SHARED_FONT_TYPE_CN:  "font:/cbf_zh-Hans-CN.bcfnt.lz"</li><li>SHARED_FONT_TYPE_KR:  "font:/cbf_ko-Hang-KR.bcfnt.lz"</li><li>SHARED_FONT_TYPE_TW:  "font:/cbf_zh-Hant-TW.bcfnt.lz"</li></ul><p>The arguments related to mounting are the same as for other mounting interfaces.</p><p>For System Updater 0.17.x and later versions, the built-in China, Korea, and Taiwan system fonts have been changed in the following ways from earlier versions:<ul><li>For the built-in fonts for the China and Korea regions, since the display position was higher than Japanese, North American, and European fonts for characters excluding Nintendo's special characters, the display position for characters excluding Nintendo's special characters was lowered by two pixels.</li><li>For the built-in fonts for the Taiwan region, because the display position was higher than Japanese, North American, and European fonts for all characters, the display position for all characters was lowered by one pixel.</li></ul><b>In the Japanese, North American, and European markets</b>, the built-in China, Korea, and Taiwan system fonts can only be updated by System Updater via Internet, so in these regions there is a mix of systems with and without the font updates and there may be differences in how things display depending on the system.  Note this when using built-in China, Korea, and Taiwan system fonts in the Japanese, North American, and European markets.</p><p>The <tt>bcfnt</tt> file included with the CTR-SDK contains the same content as the built-in system fonts.  You can avoid this problem by using this file.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+        <dt>2012/01/16</dt>
+        <dd><item xmlns="">Added changes and cautions relating to the built-in China, Korea, and Taiwan system fonts in System Updater 0.17x and later versions.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

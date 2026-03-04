@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxTransferRenderImage</title>
+  </head>
+  <body>
+    <h1>nngxTransferRenderImage Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxTransferRenderImage(
+     GLuint buffer,
+     GLenum mode,
+     GLboolean yflip,
+     GLint colorx,
+     GLint colory
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>buffer</th>
+          <td>Specifies the display buffer to transfer the image to.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>mode</th>
+          <td>The anti-aliasing mode.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>yflip</th>
+          <td>Specifies whether to enable or disable flipping in the y-direction.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>colorx</th>
+          <td>X-coordinate at which to start transferring the color buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>colory</th>
+          <td>Y-coordinate at which to start transferring the color buffer.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Transfers the current color buffer image to the display buffer specified for buffer.</p><P>A partial rectangle with the coordinates (<span class="argument">colorx</span>, <span class="argument">colory</span>) at the lower-left corner is transferred from the color buffer to the display buffer.  The distance from <span class="argument">colorx</span> to the right, and from <span class="argument">colory</span> to the top, of the color buffer being transferred must be at least the size of the width and height, respectively, of the display buffer being transferred to.</P><P>You can perform anti-aliasing during the transfer.  Set <span class="argument">mode</span> to one of the following values for the anti-aliasing mode.</P><P><TABLE><TR><th>NN_GX_ANTIALIASE_NOT_USED</th><TD>No anti-aliasing</TD></TR><TR><th>NN_GX_ANTIALIASE_2x1</th><TD>2x1 anti-aliasing</TD></TR><TR><th>NN_GX_ANTIALIASE_2x2</th><TD>2x2 anti-aliasing</TD></TR></TABLE><!-- source NN_GX_ANTIALIASE_NOT_USED ・・・ アンチエイリアスなし NN_GX_ANTIALIASE_2x1 ・・・ 2x1アンチエイリアス NN_GX_ANTIALIASE_2x2 ・・・ 2x2アンチエイリアス --></P><P>With 2x1 anti-aliasing, the color buffer's partial rectangle must be at least twice as wide as the display buffer it is being transferred to.  With 2x2 anti-aliasing, the color buffer's partial rectangle must be at least twice as wide and twice as tall as the display buffer it is being transferred to.</P><P>There are minimum size restrictions on the width and height for both the color buffer for the original image and the display buffer for the transferred image. The minimum width and height for the color buffer for the original image is 128 pixels. The minimum width and height for the display buffer for the transferred image depends on the anti-alias setting. If anti-aliasing is disabled, then the minimum width and height are both 128 pixels. If 2x1 anti-aliasing is enabled, then the minimums are 64 pixels for width and 128 pixels for height. If 2x2 anti-aliasing is enabled, then the minimums are both 64 pixels.</P><P>Set <span class="argument">yflip</span> to <tt>GL_TRUE</tt> to flip data in the y direction during the transfer.  If you set <span class="argument">yflip</span> to <tt>GL_FALSE</tt>, data is not flipped in the y direction.</P><P>Set <span class="argument">colorx</span> and <span class="argument">colory</span> to a value greater than or equal to 0.  You must set <span class="argument">colorx</span> and <span class="argument">colory</span> to a multiple of the block size.  The block size is set by <tt><a href="../gl/glRenderBlockModeDMP.html">glRenderBlockModeDMP</a></tt>. </P><P>This function generates the following errors.<TABLE><TR><th>GL_ERROR_8027_DMP</th><TD><tt>0</tt> is bound to the current command list.</TD></TR><TR><th>GL_ERROR_8028_DMP</th><TD>An overflow occurred in the current command request.</TD></TR><TR><th>GL_ERROR_8029_DMP</th><TD>Either an invalid value was specified for <span class="argument">buffer</span>, or no memory was allocated for the display buffer.</TD></TR><TR><th>GL_ERROR_802A_DMP</th><TD>Either the destination color buffer was not set correctly (the render buffer is not attached), or no memory has been allocated for the render buffer.</TD></TR><TR><th>GL_ERROR_802B_DMP</th><TD>The <span class="argument">mode</span> argument was set to an invalid value.</TD></TR><TR><th>GL_ERROR_802C_DMP</th><TD>Either the width of the transfer region of the color buffer (<tt>ColorBufferWidthInPixels</tt> - <span class="argument">colorx</span>) is smaller than the width of the display buffer, or the height of the transfer region of the color buffer (<tt>ColorBufferHeightInPixels</tt> - <span class="argument">colory</span>) is smaller than the height of the display buffer.</TD></TR><TR><th>GL_ERROR_802D_DMP</th><TD>The <span class="argument">colorx</span> or <span class="argument">colory</span> argument was set to an invalid value.</TD></TR><TR><th>GL_ERROR_802E_DMP</th><TD>The dimensions (in pixels) of the destination display buffer were larger than those of the source color buffer from which the data was supposed to be transferred.</TD></TR><TR><th>GL_ERROR_802F_DMP</th><TD>A split command could not be added because the command buffer is full.</TD></TR><TR><TH>GL_ERROR_8059_DMP</TH><TD>32-block format is used, but the height or width of either the transfer source color buffer or transfer destination display buffer is not a multiple of 32.</TD></TR><TR><TH>GL_ERROR_805A_DMP</TH><TD>The transfer destination display buffer uses 24 bits per pixel and an 8-block format, but the width of either the transfer source color buffer or the transfer destination display buffer is not a multiple of 16.</TD></TR><TR><TH>GL_ERROR_80B5_DMP</TH><TD>The width or height in the color buffer for the original image is less than the minimum value (128 pixels).</TD></TR><TR><TH>GL_ERROR_80B6_DMP</TH><TD>The width or height in the display buffer for the transferred image is less than the minimum value (128 pixels, or 64 pixels if anti-aliasing is enabled).</TD></TR></TABLE></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/09/04</dt>
+        <dd><item xmlns="">Added a description of the restrictions on the buffers for the original image and the transferred image, and also added the errors GL_ERROR_80B5_DMP and GL_ERROR_80B6_DMP.</item><br />
+        </dd>
+        <dt>2011/12/05</dt>
+        <dd><item xmlns="">Added information about GL_ERROR_8059_DMP and GL_ERROR_805A_DMP.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Added extended error code(s).</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>TryInitialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a>::TryInitialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+template &lt;typename T, typename Stack&gt;<a href="../../../nn/Result/Overview.html">nn::Result</a> TryInitialize(
+     void(*)(const T *) f,
+     const T & param,
+     Stack & stack,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+</pre>
+    </div>
+    <h2>Template Arguments</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>T</th>
+          <td>Data type of the arguments of the function to run. (This type must be one that can be copied.)</td>
+        </tr>
+        <tr>
+          <th>Stack</th>
+          <td>The type representing stacks.</td>
+        </tr> </table>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>f</th>
+          <td>Pointer to the function that runs on the created thread.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>param</th>
+          <td>Parameter to pass for the f argument.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>stack</th>
+          <td>Object representing the stack region.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>priority</th>
+          <td>Priority of the thread being created.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>coreNo</th>
+          <td>Preferred processor for the thread being created.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Specifies a buffer for the stack and creates a thread.</p><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/TryInitialize(0).html">TryInitialize&#x3c;T, U, Stack&#x3e;()</a></tt> function, with the exception that the data referenced by <span class="argument">param</span> is copied to the buffer passed as the stack, and the pointer to that copied region is passed as the <span class="argument">f</span> argument.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/TryInitialize(0).html">TryInitialize&#x3c;T, U, Stack&#x3e;()</a></tt> function. </p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/13</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

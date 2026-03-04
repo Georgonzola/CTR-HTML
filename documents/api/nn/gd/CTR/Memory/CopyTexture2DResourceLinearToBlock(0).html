@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CopyTexture2DResourceLinearToBlock</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a>::CopyTexture2DResourceLinearToBlock Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CopyTexture2DResourceLinearToBlock(
+     const Texture2DResource * source,
+     <a href="../../../../nn_types/s32.html">s32</a> srcMipLevelIndex,
+     <a href="../../../../nn_types/u32.html">u32</a> srcOffsetY,
+     <a href="../../../../nn_types/s32.html">s32</a> srcCountRow,
+     const Texture2DResource * dest,
+     <a href="../../../../nn_types/s32.html">s32</a> dstMipLevelIndex,
+     <a href="../../../../nn_types/u32.html">u32</a> dstOffestY
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>source</th>
+          <td>Specifies a pointer to the source <code>Texture2DResource</code> resource.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcMipLevelIndex</th>
+          <td>Specifies the index of the mipmap level of the source. Specify <code>-1</code> to use the last mipmap level index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcOffsetY</th>
+          <td>Specifies the y offset of the source. This value must be less than the height of the source resource.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcCountRow</th>
+          <td>Specifies the height to transfer. The memory layout is multiple of srcCountRow. If <code>-1</code> is specified, the size to transfer is found by subtracting srcOffsetY from the height of the source resource. The sum (srcOffsetY + srcCountRow) must be equal to or less than the height of the transfer destination resource. (Including the srcMipLevelIndex of the source.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dest</th>
+          <td>Specifies a pointer to the Texture2DResource of the destination.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstMipLevelIndex</th>
+          <td>Specifies the index of the mipmap level of the destination. Specify <code>-1</code> to use the last mipmap level index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstOffestY</th>
+          <td>Specifies the y offset of the destination.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for source or dest.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLayout</th>
+          <td>Either the destination memory layout is not <code>LAYOUT_BLOCK_8</code> or <code>LAYOUT_BLOCK_32</code> format, or the transfer source memory layout is not <code>LAYOUT_LINEAR</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureMipLevelIndex</th>
+          <td>The index of the mipmap level of the source or destination is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureOffset</th>
+          <td>dstOffset is not a multiple of the memory layout or is larger than the height of the destination.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormat</th>
+          <td>The pixel size of the source and destination differ.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureResolution</th>
+          <td>The resolution of the source and destination differ. Alternatively, if the pixel format size of the source <code>Texture2DResource</code> is 24-bit, the height of the destination <code>Texture2DResource</code> is not a multiple of 32.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidSubRegionResolution</th>
+          <td>srcOffsetY or srcCountRow is not a multiple of the memory layout. Or, the offset of the source or destination, or the transfer size is larger than the height of each resource.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormat</th>
+          <td>The pixel format of the transfer source or transfer destination is invalid.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Adds a command to the current command list. This command converts the source <code>Texture2DResource</code> resource to the specified <code>Texture2DResource</code> (converting it from a linear image to a block image) and then transfers it.</p><p>The following pixel formats can be specified for the source and destination. <br /><itemizedlist><listitem><para>NATIVE_FORMAT_RGBA_8888 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGB_888 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_4444 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_5551 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGB_565 <br /></para></listitem></itemizedlist>
+The source memory layout must be <code>LAYOUT_LINEAR</code>. The destination memory layout must be either <code>LAYOUT_BLOCK_8</code> or <code>LAYOUT_BLOCK_32</code>. If the pixel size of the transfer destination image is 24 bits, the horizontal width in pixels must be a multiple of 32. The width of the transfer source and destination resource must match. This process calls the <code>nngxAddL2BTransferCommand</code> function. <br />
+ This function adds commands to the command list. For more information, see the Programming Manual.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

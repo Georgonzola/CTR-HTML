@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>ProcessHomeButtonAndWait</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::ProcessHomeButtonAndWait Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void ProcessHomeButtonAndWait();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Processes HOME Menu transition and enters standby until activated.</p><p>This function was designed to be used as follows.  Only call this function if the <tt><a href="../../../nn/applet/CTR/IsExpectedToProcessHomeButton.html">nn::applet::CTR::IsExpectedToProcessHomeButton</a></tt> function returns <tt>true</tt>.  After this function returns, make sure that you determine whether to exit the application by using the <tt><a href="../../../nn/applet/CTR/IsExpectedToCloseApplication.html">nn::applet::CTR::IsExpectedToCloseApplication</a></tt> function.</p><pre>
+    if ( nn::applet::CTR::IsExpectedToProcessHomeButton() )
+    {
+        // Perform processing as needed here before transitioning to the HOME Menu. 
+
+        nn::applet::CTR::ProcessHomeButtonAndWait();
+        if ( nn::applet::CTR::IsExpectedToCloseApplication )
+        {
+            // Leave the main loop, and perform finalization.
+        }
+
+        // Perform processing as needed here after returning from the HOME Menu. 
+    }
+</pre><p>This function performs the following processing internally.<pre>
+    // Disable Sleep Mode.
+    bool e = IS_SLEEP_ENABLED();  // Pseudocode:  Check if sleep is enabled. 
+    if ( e )
+    {
+        nn::applet::CTR::DisableSleep();
+    }
+    // Process HOME Button.
+    nn::applet::CTR::ProcessHomeButton();
+    nn::applet::CTR::WaitForStarting();
+    // Enable Sleep Mode, if necessary.
+    if ( e )
+    {
+        nn::applet::CTR::EnableSleep();
+    }
+</pre></p><p>There is no need to take the sleep-enabled status into account when calling this function. This is because although it will return to Sleep Mode regardless of the return value of the <tt><a href="../../../nn/applet/CTR/IsExpectedToCloseApplication.html">nn::applet::CTR::IsExpectedToCloseApplication</a></tt> function, the sleep-related callback will not be called if the application termination flag is <tt>true</tt>.</p><p>In addition, you must initialize the graphics library using the <tt>nngxInitialize</tt> function before calling this function.  Then, after the display buffer has been set and buffers have been swapped once, you must turn on the LCD screens.</p><p>If the LCD screens are not turned on, the upper and lower screens will remain black even if you return to the HOME Menu. (Background music and sound effects will play normally, and key input will be handled as usual.)  Although this function can be called even if a display buffer has not been configured, the image shown when the LCDs are turned on may be undefined.</p><p>Before calling this function, make sure that rendering has finished by calling the <tt><a href="../../../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a></tt> function. <br /> For frameworks where multiple command lists will be swapped and commands will be created in parallel with rendering, pay close attention to the timing of <tt><a href="../../../nn_gx/nngxRunCmdlist.html">nngxRunCmdlist</a></tt> function calls. <br /> The GPU may hang if rendering terminates before this function is called. <br /> If rendering has not yet completed at the time that this function is called (while a command request is processing), execution halts with an assertion (only for the Development/Debug builds). <br /> In addition, after returning from an applet such as the HOME Menu, make sure that you reset all necessary registers because GPU register values will have been updated if the return value of <tt><a href="../../../nn/applet/CTR/IsExpectedToCloseApplication.html">nn::applet::CTR::IsExpectedToCloseApplication</a></tt> is <tt>false</tt>.</p><pre>
+   /* When using the GL library */
+   nngxUpdateState(NN_GX_STATE_ALL);
+
+   /* When using the GD library */
+   nn::gd::System::ForceDirty(nn::gd::MODULE_ALL);
+
+   /* When using the GR library */
+   // There is no API function for returning settings because internal settings are not maintained. 
+   // Create all necessary commands for the next rendering pass. 
+
+   //* Others */
+   // Reset all necessary registers for the next rendering pass.
+</pre><p>SNAKE runs in extension mode during this function call.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/09/04</dt>
+        <dd><item xmlns="">Fixed inconsistent terminology.</item><br />
+        </dd>
+        <dt>2014/01/31</dt>
+        <dd><item xmlns="">Added information about operation modes.</item><br />
+        </dd>
+        <dt>2012/02/07</dt>
+        <dd><item xmlns="">Noted that execution halts with an assertion if rendering has not yet completed at the time this function is called.</item><br />
+        </dd>
+        <dt>2012/01/16</dt>
+        <dd><item xmlns="">Added a specific example about limitations when calling this function (the need to wait for rendering to complete).</item><br />
+        </dd>
+        <dt>2011/09/08</dt>
+        <dd><item xmlns="">Added information about rendering before and after calling this function.</item><br />
+        </dd>
+        <dt>2011/08/01</dt>
+        <dd><item xmlns="">Added information about limitations related to display buffer swapping and the LCD screens when calling this function.</item><br />
+        </dd>
+        <dt>2011/03/30</dt>
+        <dd><item xmlns="">Added note about the need for the <tt>nngxInitialize</tt> function.</item><br />
+        </dd>
+        <dt>2011/03/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

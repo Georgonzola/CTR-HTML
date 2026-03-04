@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GyroscopeReader</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hid/CTR/GyroscopeReader/Overview.html">GyroscopeReader</a>::GyroscopeReader Constructor</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GyroscopeReader(
+     <a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">AccelerometerReader</a> * pAccelerometerReader = NULL,
+     <a href="../../../../nn/hid/CTR/Gyroscope/Overview.html">Gyroscope</a> & gyroscope = GetGyroscope()
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pAccelerometerReader</th>
+          <td>Specify a reference to an instance of <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">AccelerometerReader</a></code> to use the referenced <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">AccelerometerReader</a></code> output value as the basis for correction. <code>NULL</code> is passed as the default, in which case correction is based on the internally stored default <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">AccelerometerReader</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>gyroscope</th>
+          <td>A <code><a href="../../../../nn/hid/CTR/Gyroscope/Overview.html">Gyroscope</a></code> instance that is used internally. There is no need to specify this explicitly.</td>
+        </tr> </table>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Constructor.</p><p>Initialize with the <code><a href="../../../../nn/hid/CTR/Initialize.html">nn::hid::CTR::Initialize</a></code> function before creating an instance. <br /></p><p>This function calls the <code><a href="../../../../nn/hid/CTR/GyroscopeReader/Reset.html">Reset</a></code> function. For more information about the initial state after creation, see the <code><a href="../../../../nn/hid/CTR/GyroscopeReader/Reset.html">Reset</a></code> function. <br /><bold>Note:</bold> In some cases immediately after creation of the first instance, it can require as much as 160 ms to attain stability before the application can start sampling. Take note of this.</p><p>The class stores an instance of <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">AccelerometerReader</a></code>. The lifespan of that instance is the same as the lifespan of <code><a href="../../../../nn/hid/CTR/GyroscopeReader/Overview.html">GyroscopeReader</a></code>. In other words, <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">AccelerometerReader</a></code> instances are created or destroyed when <code><a href="../../../../nn/hid/CTR/GyroscopeReader/Overview.html">GyroscopeReader</a></code> instances are created or destroyed.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Explained that this calls the Reset function.</item><br />
+        </dd>
+        <dt>2010/10/20</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

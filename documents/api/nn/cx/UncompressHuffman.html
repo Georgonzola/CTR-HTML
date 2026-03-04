@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>UncompressHuffman</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/cx/Overview.html">cx</a>::UncompressHuffman Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/cx.h&gt;
+void UncompressHuffman(
+     const void * srcp,
+     void * destp
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>srcp</th>
+          <td>Address of the compressed data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>destp</th>
+          <td>Address used to store decompressed data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Decompresses Huffman compressed data.</p><p>Expands Huffman compressed data, and writes in 8-bit units. The compressed data address must be <code>SRC_ALIGNMENT_UNCOMPRESS_HUFFMAN</code>-byte aligned (4-byte aligned). The decompressed data address must be <code>DST_ALIGNMENT_UNCOMPRESS_HUFFMAN</code>-byte aligned (4-byte aligned), and the size of the region must be a multiple of <code>DST_UNITSIZE_UNCOMPRESS_HUFFMAN</code> (4 bytes).</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

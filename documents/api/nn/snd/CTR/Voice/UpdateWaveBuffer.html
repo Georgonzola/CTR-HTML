@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>UpdateWaveBuffer</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/snd/CTR/Voice/Overview.html">Voice</a>::UpdateWaveBuffer Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void UpdateWaveBuffer(
+     <a href="../../../../nn/snd/CTR/WaveBuffer/Overview.html">WaveBuffer</a> * pBuffer
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Pointer to a buffer information structure.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This updates buffer information appended to a voice.</p><p>You must call this function immediately after updating the specified <tt>WaveBuffer</tt> information (<b>Note:</b> The parameters may be updated even if this function is not called). The only variables that can be modified are <tt>sampleLength</tt> and <tt>loopFlag</tt>.  Functionality is not guaranteed if any other parameters are modified.</p><p>This function has no effect if a pointer to a <tt>WaveBuffer</tt> that has not been appended is specified in the parameter.  The actual update takes place when <tt><a href="../../../../nn/snd/CTR/SendParameterToDsp.html">nn::snd::CTR::SendParameterToDsp</a></tt> is called. For this reason, the <tt>WaveBuffer</tt> pointer specified in the parameter still may not be updated even if it has been appended (for example, if the state of the <tt>WaveBuffer</tt> before the update is <tt><span>nn::snd::CTR::WaveBuffer::STATUS_DONE</span></tt>). </p><p>Note the following when modifying <tt>sampleLength</tt>.<ul><li>As described above, the update takes place when <tt><a href="../../../../nn/snd/CTR/SendParameterToDsp.html">nn::snd::CTR::SendParameterToDsp</a></tt> is called. Even if <tt>sampleLength</tt> is smaller than the current value, the latter portion of the buffer (the region after the new value) might be referenced immediately after this function is called.</li><li>If the newly specified <tt>sampleLength</tt> value is smaller than the current playback position, playback stops immediately, or a buffer jump is performed.</li></ul></p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/06</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

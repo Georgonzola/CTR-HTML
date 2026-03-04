@@ -1,0 +1,478 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::cec::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/cec/Overview.html">cec</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the <a href="../../../nn/cec/CTR/Overview.html">CTR</a> StreetPass library. (It can also be written without the <code>CTR</code> portion.)</p><p>CTR StreetPass is an improved and easier-to-use iteration of a similar Nintendo DS feature called Chance Encounter Communication (CEC). <br /> Because the system performs the communication in the background, sending and receiving data can be performed simply by preparing the send data, regardless of the application running or its status. However, because an application's original communication processes cannot be implemented, there is a chance that implementation of send/receive methods that require special conditions may not be possible.</p><p>StreetPass communication is enabled by creating a StreetPass box in the area prepared by the system and registering StreetPass data as the message to send in it. This allows the system to automatically send and receive StreetPass data with communication partners. <br /> There are 12 StreetPass boxes available. In principle, one application can exclusively own one StreetPass box. If all StreetPass boxes are already in use, no new StreetPass boxes can be created until the user deletes unnecessary StreetPass settings on the StreetPass management screen in the system settings. <br /> The StreetPass box contains a send box (outbox) and a receive box (inbox). Each is allocated as a region to register StreetPass data to be sent and as a region to store received StreetPass data, respectively. <br /> When two units that can perform StreetPass approach and discover each other, they first scan the StreetPass box in each other's system regions.  If they discover a StreetPass box created with the same StreetPass ID (as specified by <tt>MakeCecTitleId</tt>), they commence communications for just that portion required for the sending and receiving of StreetPass data. <br /> When StreetPass data is being sent from several StreetPass boxes, the data is sent in order starting from the smallest in size.  Such factors as the communication environment, the distance between the communication partners, and the number of titles shared by the communication partners will vary every time. And the partners may not necessarily remain in communication range long enough to complete the sending and receiving of all StreetPass data. When they are in communication range for only a short time, it is possible that only the smallest data sent first can be successfully transmitted. So to increase the success rate for communication, it is effective to keep the StreetPass data size as small as possible. <br /> In addition, the data sent from a StreetPass box is sent one data set at a time, provided they are not grouped. <br /> A unit that has been configured to only receive data can save StreetPass data, but if two units both have been configured to only receive data, then they will not perform StreetPass with each other. This also applies to units configured to only send StreetPass data. Specifically, if the first registered data has been fixed as receive-only or send-only, StreetPass exchanges will never occur, no matter how much time passes. <br /><br /> During communication via StreetPass, the system checks whether data has been tampered with. <br /> Specifically, an HMAC signature (where the key is specified by the application during box creation) is attached when a message is created and then checked when that message is received. Messages that do not pass the check are not put into the inbox. <br /> However, the system only checks for tampering when data moves from a peer's outbox to a local inbox. If an application knows the <tt>PrivateId</tt> and accesses the StreetPass boxes to tamper with data, the system will not detect this tampering. <br /> For this reason, it is more secure if the application also checks whether data is valid.<br /></p><p>StreetPass does not use communication protocols that are used in relationship to those common to devices such as local communication and Internet. <br /> In addition, you cannot configure StreetPass to start at a specific time, as the <tt>ndm</tt> (Network Daemon Manager) automatically schedules background communication. <br /> Use the <tt>CecControl::EnterExclusiveState</tt> function to change the <tt>ndm</tt> controls if you want to prioritize StreetPass while your application is running. (Only for debugging.) <br /> The system performs StreetPass searches as a priority when the system is in Sleep Mode, but switches over to Internet communication if it discovers an available access point. During Internet communication, the system does not perform StreetPass searches.</p><p>The StreetPass relay point service is a mechanism for sending StreePass data to the relay point server set on the system and passing that data to the next person to communicate with that relay point server. <br /> In StreetPass exchanges between CTRs, the data from CTR-A is received by CTR-B and vice versa, but with relay points the data flows from CTR-A to CTR-B and CTR-C. <br /> If your application assumed a reciprocal exchange of data, the actual flow of data may differ. <br /> For more information, see the related documentation.</p><p><b>Note:</b> The system communicates once with each partner and remembers those partners. StreetPass with the same partner will not occur again until an average of 4 hours or a maximum of 8 hours elapses. <br /><b>Note:</b> StreetPass is not possible between a test unit (used for development) and a retail system. (There are no differences in the format of the message data created on a test unit and a retail system.) <br /><b>Note:</b> StreetPass searches for partners with registered boxes bearing the same StreetPass ID. StreetPass occurs even if the discovered partner and device are set to a different region.<br /></p></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/cec/CTR/CecControl/Overview.html">nn::cec::CTR::CecControl</a>
+            </th>
+            <td>Changes StreetPass (CEC) status and gets information.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/cec/CTR/Message/Overview.html">nn::cec::CTR::Message</a>
+            </th>
+            <td>Class that handles CEC <code><a href="../../../nn/cec/CTR/Message/Overview.html">Message</a></code> objects.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/cec/CTR/MessageBox/Overview.html">nn::cec::CTR::MessageBox</a>
+            </th>
+            <td>This class is used to access CEC <code><a href="../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code> objects.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/cec/CTR/MessageId/Overview.html">nn::cec::CTR::MessageId</a>
+            </th>
+            <td>Class that handles message IDs.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/cec/CTR/CecNotificationParam/Overview.html">nn::cec::CTR::CecNotificationParam</a>
+            </th>
+            <td>Receive information for each box.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/cec/CTR/CecNotificationData/Overview.html">nn::cec::CTR::CecNotificationData</a>
+            </th>
+            <td>Receive information.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/cec/CTR/CecBoxDataType.html">CecBoxDataType</a>
+            </th>
+            <td>Indicates the types of data associated with boxes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/cec/CTR/CecBoxType.html">CecBoxType</a>
+            </th>
+            <td>Types used for inboxes and outboxes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="typedef" id="typedef">
+      <h2>typedef Definitions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">SendMode</th>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/cec/CTR/SendMode.html">SendMode</a>
+            </th>
+            <td>The sending mode for messages. This value is specified in the message. (Such as <code><a href="../../../nn/cec/CTR/Message/NewMessage.html">Message::NewMessage</a></code>.)</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">MessageTypeFlag</th>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/cec/CTR/MessageTypeFlag.html">MessageTypeFlag</a>
+            </th>
+            <td>The flag for switching messages depending on the recipient peer. Specified in a message. (Such as <code><a href="../../../nn/cec/CTR/Message/NewMessage.html">Message::NewMessage</a></code>.)</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">MessageExHeaderType</th>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/cec/CTR/MessageExHeaderType.html">MessageExHeaderType</a>
+            </th>
+            <td>Data types for a <code><a href="../../../nn/cec/CTR/Message/Overview.html">Message</a></code>'s extended header.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/cec/CTR/TitleId.html">TitleId</a>
+            </th>
+            <td>StreetPass ID format. This 32-bit value can be generated with the <code><a href="../../../nn/cec/CTR/MakeCecTitleId.html">MakeCecTitleId</a></code> function.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="4">SendMode</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/SENDMODE_RECV.html">SENDMODE_RECV</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/cec/CTR/SendMode.html">SendMode</a></td>
+            <td>Receive only.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/SENDMODE_SEND.html">SENDMODE_SEND</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/cec/CTR/SendMode.html">SendMode</a></td>
+            <td>Send only.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/SENDMODE_SENDRECV.html">SENDMODE_SENDRECV</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/cec/CTR/SendMode.html">SendMode</a></td>
+            <td>Send and receive.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/SENDMODE_EXCHANGE.html">SENDMODE_EXCHANGE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/cec/CTR/SendMode.html">SendMode</a></td>
+            <td>Exchange.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">MessageTypeFlag</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/MESSAGE_TYPEFLAG_NON_FRIEND.html">MESSAGE_TYPEFLAG_NON_FRIEND</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/cec/CTR/MessageTypeFlag.html">MessageTypeFlag</a></td>
+            <td><emphasis>Non-friends</emphasis> can receive the message.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/MESSAGE_TYPEFLAG_FRIEND.html">MESSAGE_TYPEFLAG_FRIEND</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/cec/CTR/MessageTypeFlag.html">MessageTypeFlag</a></td>
+            <td><emphasis>Friends</emphasis> can receive the message.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/MESSAGE_TYPEFLAG_ANYONE.html">MESSAGE_TYPEFLAG_ANYONE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/cec/CTR/MessageTypeFlag.html">MessageTypeFlag</a></td>
+            <td>Receivable without checking whether the sender is a friend or not a friend.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">MessageExHeaderType</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/MESSAGE_EXHEADER_TYPE_ICON.html">MESSAGE_EXHEADER_TYPE_ICON</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/cec/CTR/MessageExHeaderType.html">MessageExHeaderType</a></td>
+            <td>Description of each <code><a href="../../../nn/cec/CTR/Message/Overview.html">Message</a></code> icon. <br />
+Use this to specify the <code><a href="../../../nn/cec/CTR/MessageExHeaderType.html">MessageExHeaderType</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/MESSAGE_EXHEADER_TYPE_INFO.html">MESSAGE_EXHEADER_TYPE_INFO</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn/cec/CTR/MessageExHeaderType.html">MessageExHeaderType</a></td>
+            <td>Description of each <code><a href="../../../nn/cec/CTR/Message/Overview.html">Message</a></code> data item. <br />
+Use this to specify the <code><a href="../../../nn/cec/CTR/MessageExHeaderType.html">MessageExHeaderType</a></code>.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Send Count and Propagation Count</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/MESSAGE_SENDCOUNT_ONCE.html">MESSAGE_SENDCOUNT_ONCE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Specifies the number of times to send. The message is sent only once.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/MESSAGE_SENDCOUNT_UNLIMITED.html">MESSAGE_SENDCOUNT_UNLIMITED</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Specifies the number of times to send. It does not set a limit on the send count.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/MESSAGE_PROPAGATIONCOUNT_ONCE.html">MESSAGE_PROPAGATIONCOUNT_ONCE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Specifies the number of times to propagate. It does not initiate propagation.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Other</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/CEC_SIZEOF_MESSAGEID.html">CEC_SIZEOF_MESSAGEID</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td><code><a href="../../../nn/cec/CTR/MessageId/Overview.html">MessageId</a></code> size.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/MESSAGE_BODY_SIZE_MAX.html">MESSAGE_BODY_SIZE_MAX</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Maximum size of the body of the message.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/CEC_INBOX_SIZE_DEFAULT.html">CEC_INBOX_SIZE_DEFAULT</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Initial value for the size of the inbox.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/CEC_OUTBOX_SIZE_DEFAULT.html">CEC_OUTBOX_SIZE_DEFAULT</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Initial value for the size of the outbox.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/CEC_INBOX_MESSNUM_DEFAULT.html">CEC_INBOX_MESSNUM_DEFAULT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Initial value of the maximum number of inbox messages.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/cec/CTR/CEC_OUTBOX_MESSNUM_DEFAULT.html">CEC_OUTBOX_MESSNUM_DEFAULT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Initial value of the maximum number of outbox messages.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Initialize/Finalize</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/cec/CTR/Initialize.html">Initialize</a>
+            </th>
+            <td>Connects to the CEC Daemon. This function must be called first to access all of the CEC functions.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/cec/CTR/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes access to the CEC Daemon.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Notification of Communication</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/cec/CTR/GetCecEvent.html">GetCecEvent</a>
+            </th>
+            <td>Specifies the <code>Event</code> received as notification when StreetPass has occurred.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/cec/CTR/GetCecInfoBuffer.html">GetCecInfoBuffer</a>
+            </th>
+            <td>Gets information about a <code><a href="../../../nn/cec/CTR/Message/Overview.html">Message</a></code> received in the immediately previous StreetPass communication.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/cec/CTR/MakeCecTitleId.html">MakeCecTitleId</a>
+            </th>
+            <td>Generates the 32-bit StreetPass ID (<code>CecTitleId</code>) to use for StreetPass communication from the 20-bit <code>CecUniqueId</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/08/19</dt>
+        <dd><item xmlns="">Added information about StreetPass relay points.</item><br />
+        </dd>
+        <dt>2013/04/25</dt>
+        <dd><item xmlns="">Added information about differences between test units and retail systems.</item><br />
+        </dd>
+        <dt>2011/01/24</dt>
+        <dd><item xmlns="">Added information about the conditions for discovering a communication partner.  Removed descriptions of the MessageBoxInfoReader class, since that class is not supported.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

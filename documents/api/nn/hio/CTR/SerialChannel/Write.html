@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Write</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hio/Overview.html">hio</a>::<a href="../../../../nn/hio/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hio/CTR/SerialChannel/Overview.html">SerialChannel</a>::Write Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/hio.h&gt;
+<a href="../../../../nn/Result/Overview.html">Result</a> Write(
+     size_t * pWrittenSize,
+     const void * buf,
+     size_t size,
+     <a href="../../../../nn_types/bit32.html">bit32</a> attr = ATTRIBUTE_NONE
+);
+
+<a href="../../../../nn_types/s32.html">s32</a> Write(
+     const void * buf,
+     size_t size,
+     <a href="../../../../nn_types/bit32.html">bit32</a> attr = ATTRIBUTE_NONE
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./Write(0).html">Write ( size_t *, const void *, size_t, bit32 ) </a>
+          </td>
+          <td>Sends data to the host and returns the result of the operation.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./Write(1).html">Write ( const void *, size_t, bit32 ) </a>
+          </td>
+          <td>Sends data to the host and returns the transmission size.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of Write ( size_t *, const void *, size_t, bit32 ) </h2>
+    <div class="section"><p><emphasis>size</emphasis> bytes of data from the buffer specified by <emphasis>buf</emphasis> are sent to the host. <br />
+ The <emphasis>attr</emphasis> parameter specifies what to do when the send buffer is full. <br />
+ The process returns a <code><a href="../../../../nn/Result/Overview.html">nn::Result</a></code>-type result.</p><!-- write here --></div>
+    <h2>Description of Write ( const void *, size_t, bit32 ) </h2>
+    <div class="section"><p><emphasis>size</emphasis> bytes of data from the buffer specified by <emphasis>buf</emphasis> are sent to the host. <br />
+ The <emphasis>attr</emphasis> parameter specifies what to do when the send buffer is full. <br />
+ Returns the number of bytes that were sent.</p><!-- write here --></div>
+  </body>
+</html>

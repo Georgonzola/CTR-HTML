@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/uds/Overview.html">uds</a>::<a href="../../../nn/uds/CTR/Overview.html">CTR</a>::Initialize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Initialize(
+     <a href="../../../nn/os/Event/Overview.html">nn::os::Event</a> * pStatusUpdateEvent,
+     void * receiveBuffer,
+     const size_t bufferSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pStatusUpdateEvent</th>
+          <td>Event used to notify about connection state updates. This parameter is initialized as an auto-reset event within the library.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>receiveBuffer</th>
+          <td>Pointer to the start of the receive buffer used by the UDS library. Specify a buffer aligned to <emphasis>BUFFER_ALIGNMENT</emphasis> (4096 bytes). Device memory cannot be used. Access to the memory region specified by the buffer is prohibited until the <code><a href="../../../nn/uds/CTR/Finalize.html">Finalize</a></code> function completes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>The size of the receive buffer. Specify a value that is a multiple of <emphasis>BUFFER_UNITSIZE</emphasis> (4096 bytes).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that initialization succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidState</th>
+          <td>Indicates that the function cannot be executed in this state. Returned when executed while sleeping.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyOccupiedWirelessDevice</th>
+          <td>Indicates that communication is already taking place. New UDS communication cannot begin.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfResource</th>
+          <td>System resources are insufficient.</td>
+        </tr>
+        <tr>
+          <th>ResultWirelessOff</th>
+          <td>Wireless-disabled mode.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the UDS library. Initialization fails if any other communication features are already in use.</p><p>This process could block for a long time, because the UDS library retains control of the communication device until background communications are ended and <code><a href="../../../nn/uds/CTR/Finalize.html">Finalize</a></code> runs. <br />
+ Always call the <code><a href="../../../nn/uds/CTR/Finalize.html">Finalize</a></code> function to release the communication device after you are finished using the UDS library. <br /><br />
+ This function is thread-unsafe.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2011/09/07</dt>
+        <dd><item xmlns="">Standardized the notation for wireless-disabled mode.</item><br />
+        </dd>
+        <dt>2010/10/15</dt>
+        <dd><item xmlns="">Expanded the information about the return values.  Revised the description to make it easier to understand.</item><br />
+        </dd>
+        <dt>2010/09/27</dt>
+        <dd><item xmlns="">Eliminated text from the description of <span class="argument">receiveBuffer</span> related to its purpose, and noted that applications are prohibited from accessing the specified memory region until <tt>Finalize</tt> completes.</item><br />
+        </dd>
+        <dt>2010/09/18</dt>
+        <dd><item xmlns="">Noted that this function may take some time to complete.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

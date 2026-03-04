@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>ReplayPackets</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/System/Overview.html">System</a>::ReplayPackets Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> ReplayPackets(
+     RecordedPacketId * packetId,
+     <a href="../../../../nn_types/u32.html">u32</a> * forceDirtyModuleFlag
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>packetId</th>
+          <td>Specifies the save start ID pointer to be executed.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>forceDirtyModuleFlag</th>
+          <td>Pointer to the flag that sets reconfigurable status for the specified module after a packet is played back. If forceDirtyModuleFlag is <code>NULL</code>, the <code><a href="../../../../nn/gd/Overview.html">gd</a></code> internal status does not change. The module is defined by the enum value of <code><a href="../../../../nn/gd/CTR/System/Module.html">nn::gd::CTR::System::Module</a></code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified in packetId.</td>
+        </tr>
+        <tr>
+          <th>ResultSystemNoPacketRecorded</th>
+          <td>The specified packetId data was <code>0</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultSystemReceiveErrorFromGlGetError</th>
+          <td>The <code>nngxImportCmdlist</code> function generated an error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Re-executes the command list object specified by packetId. forceDirtyModuleFlag can be specified by using OR operations on <code><a href="../../../../nn/gd/CTR/System/Module.html">System::Module</a></code> enum members.</p><p>Re-execution of a command may cause a conflict with the internal <code><a href="../../../../nn/gd/Overview.html">gd</a></code> state. In such cases, you can reconfigure the <code><a href="../../../../nn/gd/Overview.html">gd</a></code> internal state by using the forceDirtyModuleFlag flag. (This flag calls the <code><a href="../../../../nn/gd/CTR/System/ForceDirty.html">System::ForceDirty</a></code> function.) As a safe method, set <code>MODULE_ALL</code> in forceDirtyModuleFlag to put all modules in a reconfigurable state. If you already know which module conflicts, you can set the corresponding flag for that module. If <code>RECORD_COMMAND_LIST_COPY</code> is specified as the RecordingPacketUsage parameter of the <code><a href="../../../../nn/gd/CTR/System/StartRecordingPackets.html">System::StartRecordingPackets</a></code> function, command packets are stored in a user buffer and then, when executed by the <code><a href="../../../../nn/gd/CTR/System/ReplayPackets.html">System::ReplayPackets</a></code> function, they are copied to the internal command buffer managed by the <code><a href="../../../../nn/gd/Overview.html">gd</a></code> library. If you want to avoid this copy operation, specify <code>RECORD_COMMAND_LIST_NO_COPY</code> as the RecordingPacketUsage parameter of the <code><a href="../../../../nn/gd/CTR/System/StartRecordingPackets.html">System::StartRecordingPackets</a></code> function. This allows the internal command buffer managed by the GD library to be reused, but it prevents command packets from being edited directly and from being reused after the command buffer is cleared. If the <code><a href="../../../../nn/gd/CTR/System/StartRecordingPackets.html">System::StartRecordingPackets</a></code> function is executed with <code>RECORD_3D_COMMAND_BUFFER_FOR_JUMP</code> specified in the RecordingPacketUsage parameter, a jump command is added using <code><a href="../../../../nn_gx/nngxAddSubroutineCommand.html">nngxAddSubroutineCommand()</a></code> to jump directly from the saved packet to the 3D command buffer.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::hid::CTR::PadReader</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::PadReader Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class PadReader : private <a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable< PadReader ></a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A class that reads sampling data from the gamepad (the gameplay buttons and the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>).</p><p>The gamepad is sampled every 4 milliseconds.</p><!-- write here --></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/StickClampMode.html">StickClampMode</a>
+            </th>
+            <td>Enumerated type that indicates the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> clamp mode set by the <code>SetStickClampMode</code> function.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/hid/CTR/PadReader/MAX_READ_NUM.html">MAX_READ_NUM</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s8.html">s8</a></td>
+            <td>The maximum number of data samples that can be read.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/PadReader.html">PadReader</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/~PadReader.html">~PadReader</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/Read.html">Read</a>
+            </th>
+            <td>Loads sampling data from the gamepad, starting with the most recent samples. Does not load any data that has been previously loaded.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/ReadLatest.html">ReadLatest</a>
+            </th>
+            <td>Loads the most recent sampling data from the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>. Unlike the <code><a href="../../../../nn/hid/CTR/PadReader/Read.html">nn::hid::CTR::PadReader::Read</a></code> function, this function can load the same sampling data more than once.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/SetStickClamp.html">SetStickClamp</a>
+            </th>
+            <td>Sets the clamp values for the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/GetStickClamp.html">GetStickClamp</a>
+            </th>
+            <td>Gets the clamp values of the current clamp mode for the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/GetStickClampMode.html">GetStickClampMode</a>
+            </th>
+            <td>Gets the clamp mode for the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/SetStickClampMode.html">SetStickClampMode</a>
+            </th>
+            <td>Sets the clamp mode for the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/NormalizeStick.html">NormalizeStick</a>
+            </th>
+            <td>Normalizes and returns the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> values obtained by the <code>Read</code> and <code><a href="../../../../nn/hid/CTR/PadReader/ReadLatest.html">ReadLatest</a></code> functions to floating-point values between <code>-1.0</code> and <code>1.0</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/NormalizeStickWithScale.html">NormalizeStickWithScale</a>
+            </th>
+            <td>Normalizes and returns the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> values obtained by the <code>Read</code> and <code><a href="../../../../nn/hid/CTR/PadReader/ReadLatest.html">ReadLatest</a></code> functions to floating-point values between <code>-1.0</code> and <code>1.0</code>. Includes a sensitivity correction feature.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/SetNormalizeStickScaleSettings.html">SetNormalizeStickScaleSettings</a>
+            </th>
+            <td>Configures the <code>NormalizeStickWithScale</code> function settings.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/PadReader/GetNormalizeStickScaleSettings.html">GetNormalizeStickScaleSettings</a>
+            </th>
+            <td>Gets the <code>NormalizeStickWithScale</code> function's settings.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<b>nn::hid::CTR::PadReader</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/09</dt>
+        <dd><item xmlns="">Revised Japanese terminology for the Circle Pad.</item><br />
+        </dd>
+        <dt>2010/10/15</dt>
+        <dd><item xmlns="">Added NormalizeStickWithScale, SetNormalizeStickScaleSettings, GetNormalizeStickScaleSettings.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

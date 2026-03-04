@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>SecureUnfilterDiff</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/cx/Overview.html">cx</a>::SecureUnfilterDiff Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/cx.h&gt;
+<a href="../../nn_types/s32.html">s32</a> SecureUnfilterDiff(
+     register const void * srcp,
+     <a href="../../nn_types/u32.html">u32</a> srcSize,
+     register void * destp
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>srcp</th>
+          <td>Address of the compressed data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcSize</th>
+          <td>Size of the compressed data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>destp</th>
+          <td>Address used to store decompressed data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">If the conversion succeeds, returns <code>0</code>; otherwise, returns a negative error code. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Restores data converted using a difference filter. The compressed data address must be <code>SRC_ALIGNMENT_UNFILTER_DIFF</code>-byte aligned (4-byte aligned). The decompressed data address must be <code>DST_ALIGNMENT_UNFILTER_DIFF</code>-byte aligned (4-byte aligned).</p><p>Argument values must adhere to the following restrictions.<ul><li>The address for <span class="argument">srcp</span> must be aligned to 2 bytes.</li><li>The address for <tt>destp</tt> must have 2-byte boundary alignment.</li></ul></p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2011/06/27</dt>
+        <dd><item xmlns="">Added text about the restriction on argument values.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

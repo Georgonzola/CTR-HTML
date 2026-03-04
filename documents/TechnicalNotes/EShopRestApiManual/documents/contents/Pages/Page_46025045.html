@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<script type="text/javascript" src="../template/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../template/js/jquery/thickbox3.js"></script>
+<script type="text/javascript" src="../template/js/jquery/swfobject.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/thickbox.css" />
+<script type="text/javascript" src="../template/js/common/manualLib.js"></script>
+<script type="text/javascript" src="../tocData.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/template.css" />
+<title>4. Executing the Independent Server Demo Application</title>
+</head>
+<body data-reassemble="autoindex=no,forceNoLabel=yes,autoindextab=fold">
+<div id="autoindex_content">
+<div class="body_content">
+<noscript>
+<div style="border: 4 double black; margin: 4px; padding: 2px; font-weight: bold; background-color: FFFFCC;">
+<p>Some features in this documentation are unavailable because JavaScript is not enabled in your browser.</p>
+<p>The table of contents is available only if JavaScript is enabled. Enable JavaScript and reload this page.<br /><br /></p>
+</div>
+</noscript>
+
+<!-- 4. 独自サーバーデモアプリ実行手順 -->
+<div class="pagetitle" id="PageId_46025045">4. Executing the Independent Server Demo Application</div>
+<div class="text">
+<!--Remove-->
+<div class="platform_CTR">
+  <p>This section describes the server side instructions for the ServiceItemRestApi demo.</p>
+</div>
+
+<!-- 4.1. サーバーデモの設定方法 -->
+<h1 class="general" id="PageId_46025055">4.1. Configuring the Server Demo</h1>
+<div class="text">
+<p>This section describes how to build the server demo on a PC.</p>
+
+<!-- 4.1.1. 動作環境 -->
+<h2 class="general" id="PageId_46025665">4.1.1. Operating Environment</h2>
+<div class="text">
+<p>Building the server demo requires installation of the Java SE Development Kit and Maven. Operations have been confirmed in the following versions.</p>
+<div class="table">
+  <a name="AutoAnchor_46025665_table002"></a>Table 4-1. Packages Used to Build the Server Demo</div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Package</th>
+      <th>Version</th>
+    </tr>
+    <tr>
+      <td>Java SE Development Kit</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>Maven</td>
+      <td>3.1.1</td>
+    </tr>
+  </tbody>
+</table>
+<div class="notice">
+  <div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+    <p>When using versions newer than Java SE 8u51, there may be instances where valid SSL communications cannot occur due to prohibition of the RC4 cipher suite. As a workaround, it is required that the Java Cryptography Extension be imported so that the Cipher can be safely read.</p>
+    <ol>
+      <li>Download jce8 (Java Cryptography Extension).</li>
+      <li>Extract the downloaded archive file, and copy the included <CODE>US_export_policy.jar</CODE> and <CODE>local_policy.jar</CODE> files to the following location.</li>
+    </ol>
+    <ul>
+      <li>Windows<ul><li>JAVA_HOME\jre\lib\security</li></ul></li>
+      <li>Linux<ul><li>$JAVA_HOME/jre/lib/security</li></ul></li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- 4.1.2. サーバーデモのビルド -->
+<h2 class="general" id="PageId_46028544">4.1.2. Building the Server Demo</h2>
+<div class="text">
+<p>The Java SE Development Kit and Maven must be configured to build the server demo. Configure these programs as follows.</p>
+<ul>
+  <li>Set the <CODE>JAVA_HOME</CODE> environment variable to the path where the Java SE Development Kit is installed.</li>
+  <li>Add <CODE>%JAVA_HOME%/bin</CODE> to the <CODE>PATH</CODE> environment variable.</li>
+  <li>Add the path where Maven is installed to the <CODE>PATH</CODE> environment variable.</li>
+</ul>
+<div class="notice">
+  <div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+    <p>If proxy settings are required to connect to the Internet, configure the proxy server in the <CODE>conf/settings.xml</CODE> file located in the Maven installation folder.</p>
+  </div>
+</div>
+<p>Use the following procedure to build the server demo.</p>
+<ol>
+  <li>Go to the directory where the server demo <CODE>pom.xml</CODE> file is located.</li>
+  <li>Run the command described in <span><a href="javascript: Guideline.viewPage('../Pages/Page_46025045.html#AutoAnchor_46028544_code001','','4',1,1,1);">Code 4-1</a></span>.</li>
+  <li>If the log matches the information described in <a href="javascript: Guideline.viewPage('../Pages/Page_46025045.html#AutoAnchor_46028544_code002','','4',1,1,1);">Code 4-2</a>, the build was successful.<ul><li>The <CODE>demo/eshop-demo-server/target/eshop-demo-server.jar</CODE> file is created when the build succeeds.</li></ul></li>
+</ol>
+<div class="code">
+  <a name="AutoAnchor_46028544_code001"></a>Code 4-1. Server Demo Build Command</div>
+<div class="code_block">
+  <pre class="code">mvn clean package -DskipTests=true
+</pre>
+</div>
+<div class="code">
+  <a name="AutoAnchor_46028544_code002"></a>Code 4-2. Log Output When Build Succeeds</div>
+<div class="code_block">
+  <pre class="code">[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+</pre>
+</div>
+</div>
+
+<!-- 4.1.3. サーバー・クライアント証明書の設定 -->
+<h2 class="general" id="PageId_46029118">4.1.3. Configuring the Server/Client Certificate</h2>
+<div class="text">
+<p>Independent servers that use the eShop REST API must be configured with the client certificate used when operating as a client of the eShop server, and the server certificate used when operating as a server for the game application.</p>
+<h6 id="Anchor_46029118_クライアント証明書の設定">
+  <span class="diff_in"> Setting the Client Certificate</span>
+</h6>
+<p>
+  <span class="diff_in">See <a href="javascript: Guideline.viewPage('../Pages/Page_24118782.html#PageId_24126851','','2',1,1,1);">2.1.3.1. Authentication Between the Independent Server and eShop REST API</a> for details on setting the client certificate.<br /></span>
+</p>
+<div class="notice">
+  <div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+    <p>You can use <CODE>eshop-cert-sample.keystore</CODE> and <CODE>eshop-cert-sample.truststore</CODE> as a sample client certificate only for title <CODE>0xF946D</CODE> on the Wii U and <CODE>0xFF3F9</CODE> on the 3DS.</p>
+  </div>
+</div>
+<h6 id="Anchor_46029118_サーバー証明書の設定">
+  <span class="diff_in"> Setting the Server Certificate </span>
+</h6>
+<p>See <a href="javascript: Guideline.viewPage('../Pages/Page_43595312.html#PageId_47090002','','3',1,1,1);">3.1.5.1. Authentication Between the Game Application and the Independent Server</a> for details on setting the server certificate.</p>
+</div>
+
+<!-- 4.1.4. サーバーデモの実行 -->
+<h2 class="general" id="PageId_46028921">4.1.4. Running the Server Demo</h2>
+<div class="text">
+<p>If the server demo is run in a Windows environment, run <CODE>run-{environment}.bat</CODE> that is included in the server demo ({environment} is either dev, test, or prod).</p>
+<p>In Linux, run commands in the patch file as reference.</p>
+<p>
+  <br /> <span class="nolink">&nbsp;</span>
+</p>
+<ul>
+  <li>Test whether the demo is running by accessing the following address (or similar) in a web browser.<span class="nolink">&nbsp;</span><br />Example: <span class="nolink"><span class="nolink">http://localhost:8888/v1_0/</span><br /></span></li>
+  <li>
+    <span class="nolink"><span class="nolink">If a server certificate is set up, confirm that it also works at the following address. <br />Example: https</span> <span class="nolink"><span class="nolink"><span class="nolink">://localhost:8443/<span class="nolink"><span class="nolink">v1_0/</span></span></span></span></span></span>
+  </li>
+  <li>
+    <span class="nolink">Set the domain and port based on your own environment.</span>
+  </li>
+</ul>
+<p>
+  <span class="nolink"><span class="nolink">The following screens are displayed while accessing the server.</span></span>
+</p>
+<div class="figure">
+  <a name="AutoAnchor_46028921_figure001"></a>Figure 4-1. Server Demo Screen</div>
+<p></p>
+<p>
+  <img src="../Attachments/Attach_46028921/46237524.png" width="500" />
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

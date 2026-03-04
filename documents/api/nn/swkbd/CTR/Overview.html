@@ -1,0 +1,437 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::swkbd::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/swkbd/Overview.html">swkbd</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the <a href="../../../nn/applet/Overview.html">applet</a> call-up library for the <a href="../../../nn/swkbd/CTR/Overview.html">CTR</a> software keyboard. (It can also be written without the <code>CTR</code> portion.)</p><p>Applications that use this library must call the <tt>nn::applet::CTR::Enable</tt> function to enable the applet features.  In addition, graphics command requests must be stopped when the applet is called. End rendering (by calling the <tt>nngxWaitCmdlistDone</tt> function, for example).</p><p>The <tt>wchar_t</tt>-type characters (or strings) handled by the software keyboard applet are all in UTF-16LE encoding, using LF newline codes. <br /> However, only characters in the BMP (<tt>U+0000</tt> through <tt>U+FFFF</tt>) are available. Characters outside the BMP are unsupported.</p><p><b>Note:</b> Thread priorities 17 through 20 are used by software keyboard applet threads. Take this into consideration if your application sets priorities for threads that continue to run while the keyboard applet is running.  Also, separately from this, thread priority 15 is created for running applets. </p><p>If the version of the software keyboard applet library used by the application does not match the SDK version supported by the System Updater in use, the software keyboard applet will sometimes fail to start.  If the software keyboard applet does not start, apply the most recent System Updater.</p></div>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/swkbd/CTR/UserWord/Overview.html">nn::swkbd::CTR::UserWord</a>
+            </th>
+            <td>Structure for a word registered in the user dictionary.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a>
+            </th>
+            <td>Configuration structure.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/swkbd/CTR/Parameter/Overview.html">nn::swkbd::CTR::Parameter</a>
+            </th>
+            <td><a href="../../../nn/swkbd/CTR/Parameter/Overview.html">Parameter</a> structure to pass to the software keyboard <a href="../../../nn/applet/Overview.html">applet</a> when it executes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/KeyboardType.html">KeyboardType</a>
+            </th>
+            <td>Enumerated type indicating the type of keyboard.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/BottomButtonType.html">BottomButtonType</a>
+            </th>
+            <td>Enumerated type for the types of buttons on the bottom row.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/BottomButton.html">BottomButton</a>
+            </th>
+            <td>Enumerated type for the indices of the buttons on the bottom row.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/TenkeyExtKey.html">TenkeyExtKey</a>
+            </th>
+            <td>Enumerated type indicating the index of the numeric keypad extended keys.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/FinishableCondition.html">FinishableCondition</a>
+            </th>
+            <td>Enumerated type for conditions under which input can be finalized.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/MaskMode.html">MaskMode</a>
+            </th>
+            <td>Enumerated type that indicates the masking mode for input characters.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/ParentalControlsMode.html">ParentalControlsMode</a>
+            </th>
+            <td>Enumerated type that represents the Parental Controls PIN code verification modes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/DisplayLanguage.html">DisplayLanguage</a>
+            </th>
+            <td>Enumerated type indicating the display language.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/UpperScreenFlag.html">UpperScreenFlag</a>
+            </th>
+            <td>Flag indicating the display method for the upper screen.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/TextCheckFlag.html">TextCheckFlag</a>
+            </th>
+            <td>Flags indicating the types of text checks.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/ExtOutputDataFlag.html">ExtOutputDataFlag</a>
+            </th>
+            <td>Flags indicating the types of extended output data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/AppTextCheckResult.html">AppTextCheckResult</a>
+            </th>
+            <td>Enumerated type that indicates the result of text checking by the application.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/ReturnCode.html">ReturnCode</a>
+            </th>
+            <td>Enumerated type representing return codes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="typedef" id="typedef">
+      <h2>typedef Definitions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/swkbd/CTR/AppTextCheckCallback.html">AppTextCheckCallback</a>
+            </th>
+            <td>Function type representing the callback for text checking performed by the application.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/MEMORY_ALIGNMENT.html">MEMORY_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the starting address of the shared memory region specified in <code><a href="../../../nn/swkbd/CTR/StartKeyboardApplet.html">StartKeyboardApplet</a></code> must be aligned to. It is defined as 4096 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/MEMORY_UNITSIZE.html">MEMORY_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the size of the shared memory region specified in <code><a href="../../../nn/swkbd/CTR/StartKeyboardApplet.html">StartKeyboardApplet</a></code> must be a multiple of. It is defined as 4096 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/VERSION_NUMBER.html">VERSION_NUMBER</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>Version number.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/STATUS_DATA_SIZE.html">STATUS_DATA_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The size of the operating status data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/LEARNING_DATA_SIZE.html">LEARNING_DATA_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The size of the predictive text learning data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/TEXT_LENGTH_MAX_MIN.html">TEXT_LENGTH_MAX_MIN</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The minimum value for the maximum number of characters that can be input.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/TEXT_LENGTH_MAX_MAX.html">TEXT_LENGTH_MAX_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum value for the maximum number of characters that can be input.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/FIXED_WIDTH_TEXT_LENGTH_MAX_MAX.html">FIXED_WIDTH_TEXT_LENGTH_MAX_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum value for the maximum number of characters that can be input in fixed-width display mode.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/TEXT_CHECK_TEXT_LENGTH_MAX_MAX.html">TEXT_CHECK_TEXT_LENGTH_MAX_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum value for the maximum number of characters that can be input when text is being checked.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/BANNED_WORD_CHECK_TEXT_LENGTH_MAX_MAX.html">BANNED_WORD_CHECK_TEXT_LENGTH_MAX_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum value for the maximum number of characters that can be entered when input of profanity is prohibited.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/BOTTOM_BUTTON_TEXT_LENGTH_MAX.html">BOTTOM_BUTTON_TEXT_LENGTH_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum number of characters for the text in the bottom row of buttons.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/GUIDE_TEXT_LENGTH_MAX.html">GUIDE_TEXT_LENGTH_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum number of characters in guide text.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/APP_TEXT_CHECK_DIALOG_TEXT_LENGTH_MAX.html">APP_TEXT_CHECK_DIALOG_TEXT_LENGTH_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum number of characters in the text of the application's text checking dialog box.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/NUM_USER_WORDS_MAX.html">NUM_USER_WORDS_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum number of words that can be registered in the user dictionary for each single language.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/USER_WORD_LENGTH_MAX.html">USER_WORD_LENGTH_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum number of characters for a word that can be registered to the user dictionary.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/swkbd/CTR/USER_READING_LENGTH_MAX.html">USER_READING_LENGTH_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum number of characters in the reading of a word registered to the user dictionary.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/InitializeConfig.html">InitializeConfig</a>
+            </th>
+            <td>Initializes the <code><a href="../../../nn/swkbd/CTR/Config/Overview.html">Config</a></code> structure to default values.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/GetSharedMemorySize.html">GetSharedMemorySize</a>
+            </th>
+            <td>Calculates the size of the necessary shared memory region based on the settings in the <code><a href="../../../nn/swkbd/CTR/Config/Overview.html">Config</a></code> structure.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/PreloadKeyboardApplet.html">PreloadKeyboardApplet</a>
+            </th>
+            <td>Preloads the software keyboard <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/CancelPreloadKeyboardApplet.html">CancelPreloadKeyboardApplet</a>
+            </th>
+            <td>Cancels the preloading of the software keyboard <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/WaitForPreloadKeyboardApplet.html">WaitForPreloadKeyboardApplet</a>
+            </th>
+            <td>Waits for the completion of preloading of the software keyboard <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/IsRegisteredKeyboardApplet.html">IsRegisteredKeyboardApplet</a>
+            </th>
+            <td>Checks whether preload of the software keyboard <a href="../../../nn/applet/Overview.html">applet</a> is complete.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/swkbd/CTR/StartKeyboardApplet.html">StartKeyboardApplet</a>
+            </th>
+            <td>Starts the software keyboard <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/09/02</dt>
+        <dd><item xmlns="">Mentioned the thread for running applets.</item><br />
+        </dd>
+        <dt>2014/07/15</dt>
+        <dd><item xmlns="">Revised "Temporarily disable" to read "Check for Parental Controls PIN code match."</item><br />
+        </dd>
+        <dt>2014/07/01</dt>
+        <dd><item xmlns="">Added the fact that applications that call this function must enable the applet features and stop rendering.</item><br />
+        </dd>
+        <dt>2011/10/07</dt>
+        <dd><item xmlns="">Moved a description of the types of characters used by the software keyboard to the Specifications for System Applications and Applets.</item><br />
+        </dd>
+        <dt>2011/03/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

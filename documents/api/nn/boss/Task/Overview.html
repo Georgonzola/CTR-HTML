@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::boss::Task</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::Task Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Task</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Represents a task. Use this to do such things as register or unregister a task, or for task operations.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/Task.html">Task</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/boss/Task/~Task.html">~Task</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the registered task with the specified task ID. This initialization enables the reuse of objects.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/UpdateInterval.html">UpdateInterval</a>
+            </th>
+            <td>Updates the execution interval for a task after registration. You can change this interval even after a task has been instructed to start executing.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/UpdateIntervalWithSec.html">UpdateIntervalWithSec</a>
+            </th>
+            <td>[For debugging only. In production, execution intervals are only approved if they are measured in hours. Use the <code><a href="../../../nn/boss/Task/UpdateInterval.html">UpdateInterval</a></code> function when you are not debugging. ] Updates the execution interval for a task after registration. The unit is seconds. You can change this interval even after a task has been instructed to start executing.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/UpdateCount.html">UpdateCount</a>
+            </th>
+            <td>Updates the execution count for a task after task registration. You can change this interval even after a task has been instructed to start executing.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetInterval.html">GetInterval</a>
+            </th>
+            <td>Gets the execution interval. The unit is hours. You can change this interval even after a task has been instructed to start executing.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetIntervalSec.html">GetIntervalSec</a>
+            </th>
+            <td>Gets the execution interval. The unit is seconds.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetCount.html">GetCount</a>
+            </th>
+            <td>Gets the execution count for a task.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetServiceStatus.html">GetServiceStatus</a>
+            </th>
+            <td>Gets the service status of a task.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/Start.html">Start</a>
+            </th>
+            <td>Gives an instruction to start the task.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/StartImmediate.html">StartImmediate</a>
+            </th>
+            <td>Gives an instruction to start the task immediately. This function must only be called after infrastructure connections are enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/StartBgImmediate.html">StartBgImmediate</a>
+            </th>
+            <td>Gives an instruction to start the task immediately in the background.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/Cancel.html">Cancel</a>
+            </th>
+            <td>Cancels a running task.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/WaitFinish.html">WaitFinish</a>
+            </th>
+            <td>Waits for a task to finish within the specified time. This is the same as <code><a href="../../../nn/boss/Task/WaitFinish.html">WaitFinish</a></code> except that it also has a timeout feature.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetState.html">GetState</a>
+            </th>
+            <td>Gets the state of a task.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetHttpStatusCode.html">GetHttpStatusCode</a>
+            </th>
+            <td>Gets the communication error code.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetCommErrorCode.html">GetCommErrorCode</a>
+            </th>
+            <td>The old (deprecated) name for <code>nn::boss::GetHttpStatusCode</code>. Avoid using this: it only exists for compatibility.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetResult.html">GetResult</a>
+            </th>
+            <td>Gets the task result code.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetStateDetail.html">GetStateDetail</a>
+            </th>
+            <td>Gets the task status.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetStatus.html">GetStatus</a>
+            </th>
+            <td>The old (deprecated) name for <code>nn::boss::GetStateDetail</code>. Avoid using this function. It remains only for compatibility.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetError.html">GetError</a>
+            </th>
+            <td>Gets the task error state.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetInfo.html">GetInfo</a>
+            </th>
+            <td>Gets information about a registered task.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetActivePriority.html">GetActivePriority</a>
+            </th>
+            <td>Gets the priority for current task execution.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/SetQuery.html">SetQuery</a>
+            </th>
+            <td>Sets task query information.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetQuery.html">GetQuery</a>
+            </th>
+            <td>Gets task query information.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/Task/GetTaskId.html">GetTaskId</a>
+            </th>
+            <td>Gets the task ID.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Restore</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/nfp/Overview.html">nfp</a>::<a href="../../../nn/nfp/CTR/Overview.html">CTR</a>::Restore Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Restore();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+      <br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>The tag was successfully restored.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidOperation</th>
+          <td>The library is not in the correct state.</td>
+        </tr>
+        <tr>
+          <th>ResultSleep</th>
+          <td>The system is in a sleep state.</td>
+        </tr>
+        <tr>
+          <th>ResultWifiOff</th>
+          <td>The Wi-Fi switch is set to off.</td>
+        </tr>
+        <tr>
+          <th>ResultNotSupported</th>
+          <td>The target tag is not an NFP tag. Check the tag being used.</td>
+        </tr>
+        <tr>
+          <th>ResultNotBroken</th>
+          <td>Tag data does not need to be restored because it is not corrupted.</td>
+        </tr>
+        <tr>
+          <th>ResultTagNotFound</th>
+          <td>Target tag not found. The tag may have been replaced with another tag during the write process.</td>
+        </tr>
+        <tr>
+          <th>ResultOperationFailed</th>
+          <td>An error occurred while writing to the tag. The tag data may not have been restored correctly.</td>
+        </tr>
+        <tr>
+          <th>ResultNeedRetry</th>
+          <td>The writing process failed. Retrying may succeed.</td>
+        </tr>
+        <tr>
+          <th>ResultConnectCanceled</th>
+          <td>Lost the connection with the NFC reader and writer due to an internal error.</td>
+        </tr>
+        <tr>
+          <th>ResultBackupError</th>
+          <td>Failed to access the backup data. This NFP tag cannot be restored.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Unexpected error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Restores a corrupted tag using the backup data.</p><p>Call this function when the <code><a href="../../../nn/nfp/CTR/Mount.html">Mount()</a></code> function returns <code><a href="../../../nn/nfp/ResultNeedRestore/Overview.html">ResultNeedRestore</a></code>. The <code><a href="../../../nn/nfp/CTR/Flush.html">Flush()</a></code> function is automatically called, so calling this API function can block for one or two seconds.</p><p>Backup data is created when tags are mounted and just before data is written to them. As a result, when a restore is needed after a write to a tag fails, the data written to the tag after the restore is not the data prior to the failed write operation. It is the data as it would have been written properly if the write operation was successful.</p><p>When this function call succeeds, the tag is automatically mounted, as it would be after <code><a href="../../../nn/nfp/CTR/Mount.html">Mount()</a></code> had been run.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/25</dt>
+        <dd><item xmlns="">Added a description of the API function because its implementation is complete.</item><br />
+        </dd>
+        <dt>2014/07/28</dt>
+        <dd><item xmlns="">Initial version. (Not implemented.)</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

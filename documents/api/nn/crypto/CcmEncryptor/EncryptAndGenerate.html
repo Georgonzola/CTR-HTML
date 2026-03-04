@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>EncryptAndGenerate</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/crypto/Overview.html">crypto</a>::<a href="../../../nn/crypto/CcmEncryptor/Overview.html">CcmEncryptor</a>::EncryptAndGenerate Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static void EncryptAndGenerate(
+     void * pMac,
+     void * pDst,
+     size_t dstSize,
+     const void * pAdata,
+     size_t adataSize,
+     const void * pPdata,
+     size_t pdataSize,
+     const void * pIv,
+     size_t ivSize,
+     size_t macSize,
+     const <a href="../../../nn/crypto/BlockCipher/Overview.html">BlockCipher</a> & c
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pMac</th>
+          <td>Pointer to the buffer storing the MAC.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Pointer to the buffer storing the encryption results.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstSize</th>
+          <td>Size of the buffer pointed to by pDst.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pAdata</th>
+          <td>Pointer to the buffer storing the Adata.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>adataSize</th>
+          <td>Adata size in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pPdata</th>
+          <td>Pointer to the buffer storing the Pdata.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pdataSize</th>
+          <td>Pdata size in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pIv</th>
+          <td>Pointer to the buffer storing the IV.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>ivSize</th>
+          <td>IV size in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>macSize</th>
+          <td>MAC size in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>c</th>
+          <td>Instance of the block encryption implementation used in encryption.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Handles batch encryption and MAC generation in CTR mode.</p><p>When all data is loaded into memory, you can call this function to encrypt and generate MACs for all of the data at once.</p><p>For c, specify an instance of a class derived from the <code><a href="../../../nn/crypto/BlockCipher/Overview.html">BlockCipher</a></code> class that implements the block cipher used in encryption. You must have previously used the <code><a href="../../../nn/crypto/BlockCipher/SetKey.html">BlockCipher::SetKey</a></code> function to set the key used in encryption.</p><p>Specify a pointer to an IV object in pIv, and its size in ivSize. The IV is called a "nonce" in CCM mode. The value in ivSize must be at least <code>7</code> and no more than <code>13</code>. You cannot specify <code>13</code> if pdataSize exceeds <code>0x01000000</code> bytes. Nintendo strongly recommends specifying <code>12</code> or <code>13</code>.</p><p>The value in macSize must be an even number of at least <code>4</code> and no more than <code>16</code>. Nintendo strongly recommends specifying <code>16</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

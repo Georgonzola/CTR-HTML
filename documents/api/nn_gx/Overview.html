@@ -1,0 +1,690 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>gx</title>
+  </head>
+  <body>
+    <h1>gx</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The graphics library (DMPGL 2.0) system API.</p><P>With a few exceptions, only a C API has been provided for the <tt>gx</tt> functions.</P></div>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Initialize/Finalize</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxInitialize.html">nngxInitialize</a>
+            </th>
+            <td>Initializes the graphics library (DMPGL).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxFinalize.html">nngxFinalize</a>
+            </th>
+            <td>Finalizes the graphics library (<code>DMPGL</code>).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetAllocator.html">nngxGetAllocator</a>
+            </th>
+            <td>Gets a pointer to the allocator function specified with the <code>nngxInitialize</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetIsInitialized.html">nngxGetIsInitialized</a>
+            </th>
+            <td>Checks whether the graphics library has been initialized using the <code>nngxInitialize</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetInitializationCommand.html">nngxGetInitializationCommand</a>
+            </th>
+            <td>Gets initialization register setting commands that are executed by the <code>nngxInitialize</code> function.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Command List Execution Controls</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGenCmdlists.html">nngxGenCmdlists</a>
+            </th>
+            <td>Generates a command list object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxDeleteCmdlists.html">nngxDeleteCmdlists</a>
+            </th>
+            <td>Deletes command list objects.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxBindCmdlist.html">nngxBindCmdlist</a>
+            </th>
+            <td>Binds a command list object to the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxCmdlistStorage.html">nngxCmdlistStorage</a>
+            </th>
+            <td>Allocates a data region for the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxRunCmdlist.html">nngxRunCmdlist</a>
+            </th>
+            <td>Runs the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxRunCmdlistByID.html">nngxRunCmdlistByID</a>
+            </th>
+            <td>Runs the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxStopCmdlist.html">nngxStopCmdlist</a>
+            </th>
+            <td>Stops execution of the command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxReserveStopCmdlist.html">nngxReserveStopCmdlist</a>
+            </th>
+            <td>Reserve-stops execution of the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSplitDrawCmdlist.html">nngxSplitDrawCmdlist</a>
+            </th>
+            <td>Splits the 3D command buffer from the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxClearCmdlist.html">nngxClearCmdlist</a>
+            </th>
+            <td>Clears accumulated commands in the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxClearFillCmdlist.html">nngxClearFillCmdlist</a>
+            </th>
+            <td>Clears accumulated commands in the current command list to the specified value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSetCmdlistCallback.html">nngxSetCmdlistCallback</a>
+            </th>
+            <td>Sets the callback function to call upon completion of the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxEnableCmdlistCallback.html">nngxEnableCmdlistCallback</a>
+            </th>
+            <td>Enables a callback upon completion of the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxDisableCmdlistCallback.html">nngxDisableCmdlistCallback</a>
+            </th>
+            <td>Disables a callback upon completion of the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSetCmdlistParameteri.html">nngxSetCmdlistParameteri</a>
+            </th>
+            <td>Sets a parameter for the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetCmdlistParameteri.html">nngxGetCmdlistParameteri</a>
+            </th>
+            <td>Gets the value set to a current command list parameter (param).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a>
+            </th>
+            <td>Waits for completion of the currently running command list object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSetTimeout.html">nngxSetTimeout</a>
+            </th>
+            <td>Sets the specified value as the timeout for the <code>nngxWaitCmdlistDone</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSetGasAutoAccumulationUpdate.html">nngxSetGasAutoAccumulationUpdate</a>
+            </th>
+            <td>Updates the additive blending result due to rendering gas density data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetIsRunning.html">nngxGetIsRunning</a>
+            </th>
+            <td>Checks whether a command list is currently running.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">VSync Controls</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxCheckVSync.html">nngxCheckVSync</a>
+            </th>
+            <td>Gets a VSync counter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxWaitVSync.html">nngxWaitVSync</a>
+            </th>
+            <td>Synchronizes with a <code>VSync</code> counter and then returns.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSetVSyncCallback.html">nngxSetVSyncCallback</a>
+            </th>
+            <td>Registers a <code>VSync</code> callback.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Display Buffer Controls</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGenDisplaybuffers.html">nngxGenDisplaybuffers</a>
+            </th>
+            <td>Generates display buffer objects.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxDeleteDisplaybuffers.html">nngxDeleteDisplaybuffers</a>
+            </th>
+            <td>Deletes display buffer objects.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxActiveDisplay.html">nngxActiveDisplay</a>
+            </th>
+            <td>Activates a display target.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxBindDisplaybuffer.html">nngxBindDisplaybuffer</a>
+            </th>
+            <td>Binds a display buffer to an active display target.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxDisplaybufferStorage.html">nngxDisplaybufferStorage</a>
+            </th>
+            <td>Allocates a region for the display buffer bound to an active display target.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxDisplayEnv.html">nngxDisplayEnv</a>
+            </th>
+            <td>Specifies the display position for an active display target.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxTransferRenderImage.html">nngxTransferRenderImage</a>
+            </th>
+            <td>Transfers the current color buffer image to the display buffer specified for buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSwapBuffers.html">nngxSwapBuffers</a>
+            </th>
+            <td>Presets the display buffer bound to the display specified for the display parameter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSwapBuffersByAddress.html">nngxSwapBuffersByAddress</a>
+            </th>
+            <td>Presets the specified buffer to the display specified for the display parameter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetDisplaybufferParameteri.html">nngxGetDisplaybufferParameteri</a>
+            </th>
+            <td>Gets the value of a parameter set for the display buffer that is bound to an active display target.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Command Cache Operations</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxStartCmdlistSave.html">nngxStartCmdlistSave</a>
+            </th>
+            <td>Starts saving the command list object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxStopCmdlistSave.html">nngxStopCmdlistSave</a>
+            </th>
+            <td>Stops saving the command list object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxUseSavedCmdlist.html">nngxUseSavedCmdlist</a>
+            </th>
+            <td>Adds the saved command to the current command request.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxUseSavedCmdlistNoCacheFlush.html">nngxUseSavedCmdlistNoCacheFlush</a>
+            </th>
+            <td>Adds the saved command to the current command request. (No cache flush.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxExportCmdlist.html">nngxExportCmdlist</a>
+            </th>
+            <td>Exports the specified command list to memory as binary data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxImportCmdlist.html">nngxImportCmdlist</a>
+            </th>
+            <td>Imports an exported command list (binary data) to the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxCopyCmdlist.html">nngxCopyCmdlist</a>
+            </th>
+            <td>Copies a command list object to another command list object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxValidateState.html">nngxValidateState</a>
+            </th>
+            <td>Checks the state and generates a command.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxUpdateState.html">nngxUpdateState</a>
+            </th>
+            <td>Updates the specified state.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetExportedCmdlistInfo.html">nngxGetExportedCmdlistInfo</a>
+            </th>
+            <td>Gets the information for an exported command list (binary data).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSetCommandGenerationMode.html">nngxSetCommandGenerationMode</a>
+            </th>
+            <td>Sets the command output mode.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetCommandGenerationMode.html">nngxGetCommandGenerationMode</a>
+            </th>
+            <td>Gets the command output mode.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxAdd3DCommand.html">nngxAdd3DCommand</a>
+            </th>
+            <td>Adds the data (3D commands) in the specified region to the current 3D command buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxAdd3DCommandNoCacheFlush.html">nngxAdd3DCommandNoCacheFlush</a>
+            </th>
+            <td>Adds the data (3D commands) in the specified region to the current 3D command buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxAddCmdlist.html">nngxAddCmdlist</a>
+            </th>
+            <td>Copies and adds the content of the specified command list object to the current command list object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetUpdatedState.html">nngxGetUpdatedState</a>
+            </th>
+            <td>Gets the updated state of the <code>DMPGL</code> library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxInvalidateState.html">nngxInvalidateState</a>
+            </th>
+            <td>Disables updates of the specified <code>DMPGL</code> state.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Low-level Command Request Issuance</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxAddVramDmaCommand.html">nngxAddVramDmaCommand</a>
+            </th>
+            <td>Issues a DMA transfer command to the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxAddVramDmaCommandNoCacheFlush.html">nngxAddVramDmaCommandNoCacheFlush</a>
+            </th>
+            <td>Issues a DMA transfer command to the current command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxTransferLinearImage.html">nngxTransferLinearImage</a>
+            </th>
+            <td>Adds a command to transfer the specified render buffer or texture to an image.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxFilterBlockImage.html">nngxFilterBlockImage</a>
+            </th>
+            <td>Issues an antialiasing filter transfer command for a block image.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxAddL2BTransferCommand.html">nngxAddL2BTransferCommand</a>
+            </th>
+            <td>Adds a command to convert and transfer a linear image to a block image.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxAddB2LTransferCommand.html">nngxAddB2LTransferCommand</a>
+            </th>
+            <td>Adds a command to convert and transfer a block image to a linear image.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxAddBlockImageCopyCommand.html">nngxAddBlockImageCopyCommand</a>
+            </th>
+            <td>Adds a block image transfer command.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxAddMemoryFillCommand.html">nngxAddMemoryFillCommand</a>
+            </th>
+            <td>Adds a memory-fill command.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxFlush3DCommand.html">nngxFlush3DCommand</a>
+            </th>
+            <td>Issues a 3D run command and flushes the accumulated 3D command buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxFlush3DCommandNoCacheFlush.html">nngxFlush3DCommandNoCacheFlush</a>
+            </th>
+            <td>Issues a 3D run command and flushes the accumulated 3D command buffer (without flushing the CPU cache).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxFlush3DCommandPartially.html">nngxFlush3DCommandPartially</a>
+            </th>
+            <td>Issues a 3D run command and flushes the accumulated 3D command buffer. However, only the specified amount of 3D commands are executed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxAddJumpCommand.html">nngxAddJumpCommand</a>
+            </th>
+            <td>Adds a jump command to the run address in the specified command buffer to the current command buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxAddSubroutineCommand.html">nngxAddSubroutineCommand</a>
+            </th>
+            <td>Adds a jump command to the run address in the specified command buffer, in addition to adding a command for setting address information in the current command buffer for returning to the original command buffer.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Helper for Direct Creation of 3D Command Buffers</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetPhysicalAddr.html">nngxGetPhysicalAddr</a>
+            </th>
+            <td>Converts a virtual address into a physical address.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxUpdateBuffer.html">nngxUpdateBuffer</a>
+            </th>
+            <td>Applies to the graphics processor the updates that have been made to the contents of the vertex buffer and texture buffer in main memory.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxUpdateBufferLight.html">nngxUpdateBufferLight</a>
+            </th>
+            <td>Applies to the graphics processor the updates that have been made to the contents of the vertex buffer and texture buffer in main memory.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxMoveCommandbufferPointer.html">nngxMoveCommandbufferPointer</a>
+            </th>
+            <td>Moves the 3D command buffer's current output target pointer.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Profiling</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxStartProfiling.html">nngxStartProfiling</a>
+            </th>
+            <td>Starts sampling profile information.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxStopProfiling.html">nngxStopProfiling</a>
+            </th>
+            <td>Stops sampling profile information.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetProfilingResult.html">nngxGetProfilingResult</a>
+            </th>
+            <td>Gets the profiling results.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSetProfilingParameter.html">nngxSetProfilingParameter</a>
+            </th>
+            <td>Sets a profiling feature parameter.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Upper Screen Display Mode Settings</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSetDisplayMode.html">nngxSetDisplayMode</a>
+            </th>
+            <td>Sets the display mode for the upper screen.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxStartLcdDisplay.html">nngxStartLcdDisplay</a>
+            </th>
+            <td>Starts displaying an image on an LCD screen.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSetMemAccessPrioMode.html">nngxSetMemAccessPrioMode</a>
+            </th>
+            <td>Sets the priority of access to main memory (FCRAM).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxIsStereoVisionAllowed.html">nngxIsStereoVisionAllowed</a>
+            </th>
+            <td>Gets whether stereoscopic display is allowed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxSetInternalDriverPrioMode.html">nngxSetInternalDriverPrioMode</a>
+            </th>
+            <td>Sets the priority of internal operations for the graphics driver.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetVramStartAddr.html">nngxGetVramStartAddr</a>
+            </th>
+            <td>Gets the starting address of the specified VRAM region.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetVramEndAddr.html">nngxGetVramEndAddr</a>
+            </th>
+            <td>Gets the ending address of the specified VRAM region.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx/nngxGetVramSize.html">nngxGetVramSize</a>
+            </th>
+            <td>Gets the size of the specified VRAM region.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

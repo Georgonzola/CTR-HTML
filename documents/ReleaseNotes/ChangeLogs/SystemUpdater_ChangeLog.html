@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>System Updater Change Log</title>
+
+<link rel="stylesheet" href="../../css/nwdoc.css" type="text/css" />
+<link rel="stylesheet" href="../../css/release_note.css" type="text/css" />
+
+</head>
+<body class="nwdoc nwhiderightbar" nwai_levelbegin="2" nwai_levelend="2">
+  
+    <!-- ====================================================================== -->
+<h1>System Updater Change Log</h1>
+
+<h2>Contents</h2>
+
+<h3>CTR-SDK 11.4.0 (2015/09/07 - for System Updater 0.24.66)</h3><p><a href="#version_11_4_0_0">Update Details</a></p>
+<h4>Additions and Changes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_37-U05">37-U05:(EC) Added to the reference that Error 009-1400 occurs if Information by Language is not set when using the ec::RequestRedeemUniqueContentSetAuto function [SDK]</a></li>
+<li><a href="#note_37-U08"><span class="important_style">37-U08:(EC)★ Added eShop REST API feature that provides functions for listing and purchasing service items through the independent server [SDK|SystemUpdater|SampleDemos]</span></a></li>
+<li><a href="#note_37-U12">37-U12:(NFP) High frequency calling restrictions on the nn::nfp::StartDetection function [SystemUpdater]</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_37-U01">37-U01:(APPLET) Fixed bug where screen is disrupted when transitioning to the HOME Menu and when returning to application [SystemUpdater]</a></li>
+<li><a href="#note_37-U02">37-U02:(BOSS) Fixed bug where an error is not returned if NsData size is an invalid negative value [SystemUpdater]</a></li>
+<li><a href="#note_37-U03">37-U03:(CAMERA) Fixed bug where a FATAL error infrequently occurs if the POWER button is pressed while the camera is in use [SystemUpdater]</a></li>
+<li><a href="#note_37-U04">37-U04:(DLP) Fixed bug where an error occurs if scanning is stopped with the fake client and it immediately tries to join a session [SystemUpdater]</a></li>
+<li><a href="#note_37-U06">37-U06:(EC) Fixed value returned by the EcApplet::RequestInitializeSession function [SystemUpdater]</a></li>
+<li><a href="#note_37-U07">37-U07:(EC) Fixed bug where an error was not returned if wireless switch was set to ON/OFF at a specific time during RequestInitializeSession [SystemUpdater]</a></li>
+<li><a href="#note_37-U09">37-U09:(EC) Fixed upper character limit to Details Information and Legal/Disclaimer Information displayed when purchasing a service item [SDK|SystemUpdater|SampleDemos]</a></li>
+<li><a href="#note_37-U10">37-U10:(IR) Fixed bug where Circle Pad Pro was inoperable after the HOME Menu crashes twice [SystemUpdater]</a></li>
+<li><a href="#note_37-U11">37-U11:(NFP) Fixed a bug where the system stopped responding when aging RemoveTag in CTR [SystemUpdater]</a></li>
+<li><a href="#note_37-U13">37-U13:(NFP) Fixed bug where GetConnectResult returns ResultConnectCanceled after disconnection due to ResultIrFunctionError [SystemUpdater]</a></li>
+<li><a href="#note_37-U14">37-U14:(NFP) Fixed bug where the UID for the Type1 tag could not be correctly obtained with SNAKE [SystemUpdater]</a></li>
+</ul>
+
+
+<h3>Previous Revision Histories</h3>
+<p>For the previous change log, see <a href="SystemUpdater_ChangeLog_old.html">here</a>.</p>
+
+<p>For change logs prior to CTR-SDK 7.2.1, see <a href="ChangeLog_CTR.html">here</a>.</p>
+
+<h2 id="version_11_4_0_0">Changes in CTR-SDK 11.4.0 (2015/09/07 - for System Updater 0.24.66)</h2>
+<h3 id="category_37_0">Additions and Changes</h3>
+<h3 id="note_37-U05" class="release_note"><span class="addition_style">Additions and Changes</span>37-U05:(EC) Added to the reference that Error 009-1400 occurs if Information by Language is not set when using the ec::RequestRedeemUniqueContentSetAuto function [SDK]</h3>
+<p class="release_note">Added to the reference that when using the ec::RequestRedeemUniqueContentSetAuto function, Information by Language for all the languages supported by data title must be set in the content sets linked to the voucher type.<br />Also, Error 009-1400 occurs if this function is used in a language that has not been set.
+</p>
+<h3 id="note_37-U08" class="release_note"><span class="addition_style">Additions and Changes</span><span class="important_style">37-U08:(EC)★ Added eShop REST API feature that provides functions for listing and purchasing service items through the independent server [SDK|SystemUpdater|SampleDemos]</span></h3>
+<p class="release_note">Added eShop REST API feature that provides functions for listing and purchasing service items through the independent server.<br />In addition, the following was also added.
+</p>
+<ul class="release_note"><li> Manual containing required information for developing the independent server using the eShop REST API ($CTR_SDK/documents/TechnicalNotes/EShopRestApiManual)
+</li>
+<li> eShop REST API ec/ServiceItemRestApi Demo
+</li>
+</ul>
+<h3 id="note_37-U12" class="release_note"><span class="addition_style">Additions and Changes</span>37-U12:(NFP) High frequency calling restrictions on the nn::nfp::StartDetection function [SystemUpdater]</h3>
+<p class="release_note">Set a limit in the system restricting high frequency calling of the nn::nfp::StartDetection function to prevent the NFC module from generating excessive heat.
+</p>
+<h3 id="category_37_0">Bug Fixes</h3>
+<h3 id="note_37-U01" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-U01:(APPLET) Fixed bug where screen is disrupted when transitioning to the HOME Menu and when returning to application [SystemUpdater]</h3>
+<p class="release_note">Fixed bug where screen is disrupted when transitioning to the HOME Menu and when returning to application from the HOME Menu.
+</p>
+<h3 id="note_37-U02" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-U02:(BOSS) Fixed bug where an error is not returned if NsData size is an invalid negative value [SystemUpdater]</h3>
+<p class="release_note">Fixed bug where the system would hang when NsData size was negative due to reasons such as NAND being corrupted when reading NsData, but an error was not returned causing the system to access an incorrect address.
+</p>
+<h3 id="note_37-U03" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-U03:(CAMERA) Fixed bug where a FATAL error infrequently occurs if the POWER button is pressed while the camera is in use [SystemUpdater]</h3>
+<p class="release_note">Fixed bug where a FATAL error infrequently occurs if the POWER button is pressed while the camera is being used in SNAKE.
+</p>
+<h3 id="note_37-U04" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-U04:(DLP) Fixed bug where an error occurs if scanning is stopped with the fake client and it immediately tries to join a session [SystemUpdater]</h3>
+<p class="release_note">Fixed bug where an error occurs if scanning is stopped with the fake client and it immediately tries to join a session.
+</p>
+<h3 id="note_37-U06" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-U06:(EC) Fixed value returned by the EcApplet::RequestInitializeSession function [SystemUpdater]</h3>
+<p class="release_note">Fixed so that the EcApplet::RequestInitializeSession function returns ResultAppletShopServiceTerminated and ResultAppletStandbyMode.<br />There are no changes to error handling methods in the application.
+</p>
+<h3 id="note_37-U07" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-U07:(EC) Fixed bug where an error was returned if wireless switch was set to ON/OFF at a specific time during RequestInitializeSession [SystemUpdater]</h3>
+<p class="release_note">There was a bug where an error was not returned if wireless switch was set to ON/OFF at a specific time during RequestInitializeSession, and the applet stopped even though the bar indicated that it was not complete in the EC applet. In this case, nn::ec::Session::GetNumPreparedTitles is successful, and 0 is returned regardless whether the item is available.<br /> This bug was fixed.
+</p>
+<h3 id="note_37-U09" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-D04:(EC) Fixed upper character limit to Details Information and Legal/Disclaimer Information displayed when purchasing a service item [SDK|SystemUpdater|SampleDemos]</h3>
+<p class="release_note">Fixed upper limit to character count of Details Information and Legal/Disclaimer Information displayed when purchasing a service item.<br />For Details Information, 64 characters was increased to 128 characters, and there is no longer a limit for line breaks.<br />For Legal/Disclaimer Information, 512 characters was increased to 1024 characters, and there is no longer a limit for line breaks.<br />The EC library and ServiceItem sample was fixed along with this.
+</p>
+<h3 id="note_37-U10" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-U10:(IR) Fixed bug where Circle Pad Pro was inoperable after the HOME Menu crashes twice [SystemUpdater]</h3>
+<p class="release_note">Fixed bug where Circle Pad Pro was inoperable because sampling did not stop when the application/applet crashed while using the Circle Pad Pro in SNAKE.
+</p>
+<h3 id="note_37-U11" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-U11:(NFP) Fixed a bug where the system stopped responding when aging RemoveTag in CTR [SystemUpdater]</h3>
+<p class="release_note">Fixed the following bugs that infrequently occurred after calling the nfp::Disconnect function for CTR.
+</p>
+<ul class="release_note"><li> Does not return from the call to the nfp::Finalize function
+</li>
+<li> System does not recover from sleep
+</li>
+<li> System stops when WiFi is OFF
+</li>
+</ul>
+<h3 id="note_37-U13" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-U13:(NFP) Fixed bug where GetConnectResult returns ResultConnectCanceled after disconnection due to ResultIrFunctionError [SystemUpdater]</h3>
+<p class="release_note">Changed so that ResultIrFunctionError is returned immediately when the Infrared Communication Module detects a failure, regardless of whether it connects/reconnects.
+</p>
+<h3 id="note_37-U14" class="release_note"><span class="bugfix_style">Bug Fixes</span>37-U14:(NFP) Fixed bug where the UID for the Type1 tag could not be correctly obtained with SNAKE [SystemUpdater]</h3>
+<p class="release_note">Because a fixed value was constantly in the lower 3 bytes of the Type1 tag UID obtained by the nn::nfp::CTR::GetTagInfo function in SNAKE, it was changed to the correct value.
+</p>
+
+
+    <!-- ====================================================================== -->
+    <div id="nwfooter">
+      <div class="confidential_logo">
+Confidential
+      </div>
+      <div class="confidential_en">
+This document contains confidential and proprietary information of Nintendo and is also protected under the copyright laws of the United States and foreign countries. No part of this document may be released, distributed, transmitted or reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without permission in writing from Nintendo.
+      </div>
+      <div class="confidential_ja">
+The content of this document is confidential information, and must be handled using the strictest security measures. 
+      </div>
+      <div class="copyright">
+&copy; 2011-2015 Nintendo/HAL Laboratory, Inc. All rights reserved. <br />All company and product names in this document are the trademarks or registered trademarks of their respective companies.
+      </div>
+    </div>
+    
+  <hr><p>CONFIDENTIAL</p></body>
+</html>

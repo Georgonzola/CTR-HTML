@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Disconnect</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/nfp/Overview.html">nfp</a>::<a href="../../../nn/nfp/CTR/Overview.html">CTR</a>::Disconnect Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Disconnect();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+      <br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Connection successful.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidOperation</th>
+          <td>The library is not in the correct state.</td>
+        </tr>
+        <tr>
+          <th>ResultSleep</th>
+          <td>The system is in a sleep state.</td>
+        </tr>
+        <tr>
+          <th>ResultWifiOff</th>
+          <td>The Wi-Fi switch is set to off.</td>
+        </tr>
+        <tr>
+          <th>ResultIrFunctionError</th>
+          <td>The IrDA module may be malfunctioning. This result can only occur on the <a href="../../../nn/nfp/CTR/Overview.html">CTR</a>. Equivalent to <computeroutput><a href="../../../nn/ir/CTR/ResultFatalError/Overview.html">ir::CTR::ResultFatalError</a></computeroutput>. <br />
+ Removing the IrDA module from the debugger forcibly triggers it.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Unexpected error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Breaks the connection to the NFC reader and writer.</p><p>When called on SNAKE, halts the detection of tags just as if <code><a href="../../../nn/nfp/CTR/StopDetection.html">StopDetection()</a></code> were called, if in the middle of detecting tags. If it is not detecting tags, it does nothing and returns success. It can return a failure, however, when the NFP library has not been initialized, when in Sleep Mode, or when wireless is turned off.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/02/18</dt>
+        <dd><item xmlns="">Added a method to forcibly issue ResultIrFunctionError</item><br />
+        </dd>
+        <dt>2014/11/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

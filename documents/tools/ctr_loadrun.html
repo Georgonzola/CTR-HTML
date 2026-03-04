@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>ctr_loadrun</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size		: 150%;
+  font-family		: Arial;
+  border-bottom-width	: 5px;
+  border-bottom-style	: solid;
+  border-bottom-color	: #CD202C;
+  padding-bottom		: 1px;
+  margin-bottom		: 20px;
+  letter-spacing		: normal;
+  font-weight		: bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+CODE {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+}
+table {
+  margin-top        : 2pt;
+  margin-bottom     : 2pt;
+  margin-left       : 0pt;
+  margin-right      : 0pt;
+  padding-left      : 0pt;
+  padding-right     : 0pt;
+  position          : relative;
+  left              : 12px;
+  font-family       : Arial;
+  font-size         : 10pt;
+  border-style      : none none none none;
+}
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+p.code {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+  background            : #e8f4f4;
+}
+
+-->
+</style>
+</head>
+  <body>
+<h1>ctr_loadrun</h1>
+<h2>Description</h2>
+      <p>
+<CODE>ctr_loadrun</CODE> is a tool for running specified programs via debuggers like PARTNER-CTR Debugger and IS-CTR-DEBUGGER. It can be used to run programs from the command line without requiring any debugger operations.
+
+      </p>
+<h3>Limitations</h3>
+The following limitations apply when using <CODE>ctr_loadrun</CODE>.
+        <ul>
+<li> If multiple instances of <CODE>ctr_loadrun</CODE> are started for a single debugger, they cannot be used at the same time.</li>
+<li> <CODE>ctr_loadrun</CODE> cannot be used at the same time as Visual Studio Integration for CTR (VSI-CTR) for a single debugger.</li>
+        </ul>
+<h3>Program Arguments Passed to CTR Applications</h3>
+    <p>
+<CODE>ctr_loadrun</CODE> can pass program arguments to CTR applications. This provides a way to change the behavior of the CTR application without adding any changes to the application.
+    </p>
+    <p>
+The arguments that can be passed using the <CODE>-a</CODE> and <CODE>-args</CODE> options can be obtained from interfaces such as <CODE>nn::dbg::CTR::GetArgc</CODE> and <CODE>nn::dbg::CTR::GetArgv</CODE>. File data to be passed with the <CODE>-ba</CODE> option can be obtained from <CODE>nn::dbg::CTR::GetArgBinary</CODE>.
+    </p>
+    <p>
+The buffer for passing program parameters to CTR applications is limited. Internally, it is limited to 4 KB, so the data that can be passed from <CODE>ctr_loadrun</CODE> must be smaller than that.
+    </p>
+    <p>
+Note, however, that if a symbol is not specified for the &quot;position to stop at after loading&quot; with  PARTNER-CTR Debugger, you cannot get parameters. (For information about the &quot;position to stop at after loading,&quot;see the PARTNER-CTR Debugger Manual.)
+    </p>
+    
+<h2>How to Use</h2>
+<h3>Format</h3>
+    <pre> $ ctr_loadrun32.exe &lt;CciFile&gt; [-h] [-l] [-t &lt;TIMEOUT-SECONDS&gt;] [-e &lt;EXIT-PATTERN&gt;] [-c &lt;COMMAND&gt;] [-m &lt;MACROFILE&gt;] [-d &lt;SERIALNUMBER&gt;] [-nw] [-ns] [-L &lt;FILE&gt;] [--systray] [--exit-debugger] [-ee] [-r] [-a &lt;ARGUMENT&gt;] [-ba &lt;FILE&gt;] [-args &lt;ARGUMENTS ...&gt;] </pre>
+    <pre> $ ctr_loadrun32.exe [-h] [-l] [-t &lt;TIMEOUT-SECONDS&gt;] [-e &lt;EXIT-PATTERN&gt;] [-c &lt;COMMAND&gt;] [-m &lt;MACROFILE&gt;] [-d &lt;SERIALNUMBER&gt;] [-nw] [-ns] [-L &lt;FILE&gt;] [--systray] [--exit-debugger] [-ee] [-r]</pre>
+<h3>Options</h3>
+    <div class="section">
+      <p>
+        <table class="table"><tbody>
+<tr><th>Options</th> <th>Parameters</th><th>Description</th></tr>
+          <tr>
+<td><CODE>-h (--help)</CODE></td>
+             <td></td>
+<td>Displays Help.</td>
+          </tr>
+          <tr>
+<td><CODE>-l (--devicelist)</CODE></td>
+            <td></td>
+<td>Displays the connected devices.</td>
+          </tr>
+          <tr>
+<td><CODE>-t (--timeout)</CODE></td>
+<td><CODE>TIMEOUT-SECONDS</CODE></td>
+<td>Sets the timeout from startup to exit.</td>
+          </tr>
+          <tr>
+<td><CODE>-e (--exit-pattern)</CODE></td>
+<td><CODE>EXIT-PATTERN</CODE></td>
+<td>Exits upon output of a string that matches the regular expression specified by <CODE>EXIT-PATTERN</CODE>.<br />The regular expression syntax conforms with the .NET Framework's <CODE>System.Text.RegularExpressions</CODE> namespace.
+            </td>
+          </tr>
+          <tr>
+<td><CODE>-c (--command)</CODE></td>
+<td><CODE>COMMAND</CODE></td>
+<td>Specifies the command to run before loading the image file.</td>
+          </tr>
+          <tr>
+<td><CODE>-m (--macro)</CODE></td>
+<td><CODE>MACROFILE</CODE></td>
+<td>Specifies the macro file to run before loading the image file.</td>
+          </tr>
+          <tr>
+<td><CODE>-d (--device)</CODE></td>
+<td><CODE>SERIALNUMBER</CODE></td>
+<td>Specifies which device to use by its serial number.</td>
+          </tr>
+          <tr>
+<td><CODE>-nw (--no-wait)</CODE></td>
+            <td></td>
+<td>Exits <CODE>loadrun</CODE> when it is confirmed that all commands have been sent.</td>
+          </tr>
+          <tr>
+<td><CODE>-ns (--no-start)</CODE></td>
+            <td></td>
+<td>Specifies to not send the <CODE>G</CODE> command to run the program after the program has been loaded.</td>
+          </tr>
+          <tr>
+<td><CODE>-L (--log)</CODE></td>
+<td>FILE</td>
+<td>Specifies the file for saving the log output to the debug window.</td>
+          </tr>
+          <tr>
+<td><CODE>-a (--argument)</CODE></td>
+<td>ARGUMENT-STRING</td>
+<td>Sets one argument to be passed to the CTR application. Can be specified multiple times.</td>
+          </tr>
+          <tr>
+<td><CODE>-ba (--binary-argument)</CODE></td>
+<td>ARGUMENT-FILE</td>
+<td>Sets a file to be passed as data to the CTR application.</td>
+          </tr>
+          <tr>
+<td><CODE>-args (--arguments)</CODE></td>
+<td>ARGUMENTS ...</td>
+<td>Of the program arguments passed to <CODE>loadrum</CODE>, this option sets all subsequent parameters as those to be passed to the CTR application.</td>
+          </tr>
+          <tr>
+<td><CODE>--systray</CODE></td>
+            <td></td>
+<td>Hides the debugger in the system tray when the debugger starts.</td>
+          </tr>
+          <tr>
+<td><CODE>--exit-debugger</CODE></td>
+            <td></td>
+<td>Specifies exiting the debugger software together with exiting <CODE>ctr_loadrun</CODE> when there is a matching exit string pattern or a timeout. </td>
+          </tr>
+          <tr>
+<td><CODE>-ee (--exit-exception)</CODE></td>
+            <td></td>
+<td>Exits when a CPU exception is thrown.</td>
+          </tr>
+          <tr>
+<td><CODE>-r (--return-value)</CODE></td>
+            <td></td>
+<td>If a string that matches the pattern <CODE>EXIT_RETURN_VALUE</CODE> <i>number</i> is exported, where <i>number</i> is a decimal integer greater than 0, <CODE>loadrun</CODE> takes <i>number</i> as the return value and exits.</td>
+          </tr>
+        </tbody></table>
+      </p>
+    </div>
+<h2>Location</h2>
+    <pre> $CTRSDK_ROOT/tools/CommandLineTools/ctr_loadrun32.exe </pre>
+<h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015-02-03</dt>
+<dd> Added notes about the program arguments passed to CTR applications.
+        </dd>
+        <dt>2014-12-25</dt>
+<dd> Added the <CODE>-ee</CODE> and <CODE>-r</CODE> options.
+        </dd>
+        <dt>2014-11-11</dt>
+<dd>Revised the description of <B>Format</B>.
+        </dd>
+        <dt>2011-12-29</dt>
+<dd> The feature for hiding the debugger in the system tray when it starts has been changed to the <CODE>--systray</CODE> option, and the normal behavior has been changed for the debugger to start in a displayed window.<br />The feature for exiting the debugger when <CODE>ctr_loadrun32</CODE> terminates has been changed to the <CODE>--exit-debugger</CODE> option, and the normal behavior has been changed for the debugger to not recover.<br />
+        </dd>
+        <dt>2011-12-19</dt>
+<dd> Added functionality to pass program arguments to CTR applications.<br />
+        </dd>
+        <dt>2011-01-28</dt>
+<dd> Added that multiple executables cannot be used with a single debugger. <br />
+        </dd>
+        <dt>2010-11-23</dt>
+<dd>Changed the location of the document.<br />
+        </dd>
+        <dt>2010-10-25</dt>
+<dd>Initial version.<br />
+        </dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

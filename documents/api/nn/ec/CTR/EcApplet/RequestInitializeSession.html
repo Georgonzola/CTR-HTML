@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>RequestInitializeSession</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/EcApplet/Overview.html">EcApplet</a>::RequestInitializeSession Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a> RequestInitializeSession(
+     <a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a> * pOut,
+     const <a href="../../../../nn/ec/CTR/TitleInfo/Overview.html">TitleInfo</a> & appId,
+     const char * tin,
+     const <a href="../../../../nn/ec/CTR/TitleInfo/Overview.html">TitleInfo</a> titleList[],
+     size_t numTitles
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pOut</th>
+          <td>Buffer for getting the session to initialize.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>appId</th>
+          <td>Specifies the application ID.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>tin</th>
+          <td>Specifies the TIN.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>titleList[]</th>
+          <td>Array of title information items.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numTitles</th>
+          <td>Number of title information items in the array.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. For more information about handling <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> objects, see the <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> reference. The results returned by the <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code> function are shown below.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultTooManyTitles</th>
+          <td>Too many titles were specified.</td>
+        </tr>
+        <tr>
+          <th>ResultFsMediaWriteProtectedError</th>
+          <td>The SD card is write-protected.</td>
+        </tr>
+        <tr>
+          <th>ResultDataTitleInUse</th>
+          <td>One of the pieces of content of the specified title is being mounted.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletCloseApplicationRequested</th>
+          <td>Application shutdown was requested. Close the application immediately.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletCancelled</th>
+          <td>The process was canceled by user operation. <br />
+ This error also occurs when the downloadable content update is canceled, or when the Nintendo Network ID login is canceled.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletPowerButton</th>
+          <td>The process was canceled by the user pressing the POWER Button.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletImportFailed</th>
+          <td>Download and import failed.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletWifiOffError</th>
+          <td>Wi-Fi is off.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailedConnectError</th>
+          <td>Connection failed for another reason.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletNeedsSystemUpdate</th>
+          <td>Specifies that a system update is required.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletShopServiceUnavailable</th>
+          <td>The Nintendo eShop Service is unavailable.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletSdBroken</th>
+          <td>The SD card is broken.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletSdEjected</th>
+          <td>The SD card was removed.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletSdNotInserted</th>
+          <td>The SD card is not inserted.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletSdWriteProtected</th>
+          <td>The SD card is write-protected.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletCountryChanged</th>
+          <td>The country setting changed.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletNotAgreeEulaError</th>
+          <td>The user did not agree to the version of the EULA that is required to run the <a href="../../../../nn/applet/Overview.html">applet</a>.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailedError</th>
+          <td>Another error occurred. (General error.)</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailed</th>
+          <td>The same general error as <code><a href="../../../../nn/ec/CTR/ResultAppletFailedError/Overview.html">ResultAppletFailedError</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletRequiresReConnect</th>
+          <td>The server connection has been ended, because there has been no user input for a long time.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailedLoginError</th>
+          <td>Failed to log in to the Nintendo Network account.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletStandbyMode</th>
+          <td>The Nintendo eShop server is down for maintenance. EC services are unavailable for a short time.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletShopServiceTerminated</th>
+          <td>The Nintendo eShop service terminated.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> initialize a session.</p><p>Initializes the session by specifying the predetermined application ID, TIN, and title information of the data title and service titles handled by the application.</p><p>This function requires an Internet connection because it communicates with the Nintendo eShop server.</p><p>The EC <a href="../../../../nn/applet/Overview.html">applet</a> downloads the metadata content of the title entered, and initializes the specified data title.</p><p>The EC <a href="../../../../nn/applet/Overview.html">applet</a> does nothing if the specified data title does not exist on the Nintendo eShop server. Use the functions of the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> class to confirm the information of the initialized data title.</p><p>You cannot request initialization of a data title while the content of a data title is mounted. The <code><a href="../../../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a></code> class mounts metadata content. When there is a valid instance of the <code><a href="../../../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a></code> class, your request to initialize generates <code><a href="../../../../nn/ec/CTR/ResultDataTitleInUse/Overview.html">ResultDataTitleInUse</a></code> and fails.</p><p>The EC <a href="../../../../nn/applet/Overview.html">applet</a> does not perform any actions on the specified service title. It saves the specified service title information in the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object.</p><p>Initializing a new session invalidates any old ones. The instance that was using the old session must be reinitialized.</p><p>If this function discovers any inconsistencies between the license information on the Nintendo eShop server and the local license information while it is running, it synchronizes the local information with the information on the Nintendo eShop server. When doing so, it may delete local licenses or data titles. If a data title or its license is deleted while there is a valid instance of that <code><a href="../../../../nn/ec/CTR/DataTitle/Overview.html">DataTitle</a></code> or <code><a href="../../../../nn/ec/CTR/ServiceTitle/Overview.html">ServiceTitle</a></code> class, that instance no longer works correctly. Destroy any instances of the <code><a href="../../../../nn/ec/CTR/DataTitle/Overview.html">DataTitle</a></code> or <code><a href="../../../../nn/ec/CTR/ServiceTitle/Overview.html">ServiceTitle</a></code> class that you initialized before calling this function, and create new instances after the function executes.</p><p>You can specify up to 64 titles in this function.</p><p>Sometimes there are requests to close the application during a call to the EC <a href="../../../../nn/applet/Overview.html">applet</a>. Close the application immediately after receiving <code><a href="../../../../nn/ec/CTR/ResultAppletCloseApplicationRequested/Overview.html">ResultAppletCloseApplicationRequested</a></code>.</p><p>When you call this function, the EC <a href="../../../../nn/applet/Overview.html">applet</a> checks whether a writable SD card is inserted in the system. <br />
+ When you have called this function before downloading or deleting add-on content, you do not need to check whether a writable SD card is inserted as long as you monitor for the removal of the SD card,</p></div>
+  </body>
+</html>

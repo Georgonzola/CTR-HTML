@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>DrawImmediate</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/System/Overview.html">System</a>::DrawImmediate Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static void DrawImmediate(
+     <a href="../../../../nn_types/u32.html">u32</a> vertexCount,
+     <a href="../../../../nn_types/u32.html">u32</a> startVertexLocation,
+     void ** vertexBuffers,
+     <a href="../../../../nn_types/u32.html">u32</a> * offsets
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>vertexCount</th>
+          <td>Specifies the number of vertices to render.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>startVertexLocation</th>
+          <td>Specifies the start index of the vertex buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>vertexBuffers</th>
+          <td>Specifies the position array of vertex data to be used. The array defined by <code>InputLayout</code> attached with <code><a href="../../../../nn/gd/CTR/VertexInputStage/Overview.html">VertexInputStage</a></code> and the number of the arrays being used must match.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>offsets</th>
+          <td>Specifies an array of offsets to the position. Each offset (given as a number of bytes) specifies the read position inside each instance of vertex buffer data. If <code>NULL</code> is specified for this variable, <code>0</code> is used as the offset for each instance of vertex buffer data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets a render mode that does not use the vertex buffer resource in <code><a href="../../../../nn/gd/CTR/VertexInputStage/Overview.html">VertexInputStage</a></code>.</p><p>Vertex buffer attribute data is copied to the command buffer by passing it using function parameters. This function is very easy to use because there is no need to create a vertex buffer resource and set it in <code><a href="../../../../nn/gd/CTR/VertexInputStage/Overview.html">VertexInputStage</a></code>. Unlike the vertex buffer resource, buffer data can be released and used again soon after rendering. However, rendering is slower.</p><p>Because a vertex buffer cannot be used with reserved geometry shader silhouettes, subdivisions, and looped subdivisions; an <code>ASSERT</code> occurs if <code>DrawImmediate</code> executes in <a href="../../../../nn/gd/CTR/System/Debug/Overview.html">Debug</a> mode with <bold>Immediate Vertex Buffer</bold> set.</p><p>This technique requires a larger command buffer size than normal rendering <br />because it also generates a command that resets all vertex settings and configuration registers related to rendering to the initial states.</p><p>Although this function does not itself return errors, if an error occurs in the rendering process, the callback set by the <tt><a href="../../../../nn/gd/CTR/System/SetCallbackFunctionError.html">nn::gd::CTR::System::SetCallbackFunctionError</a></tt> function is called. <br /> The following errors are generated.<table><tr><th>Value</th></tr><tr><td><a href="../../../../nn/gd/CTR/ResultSystemGeometryShaderIncompatibleWithImmediateDraw/Overview.html">nn::gd::CTR::ResultSystemGeometryShaderIncompatibleWithImmediateDraw</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultInvalidMemoryLayout/Overview.html">nn::gd::CTR::ResultInvalidMemoryLayout</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultDifferentRenderTargetAndDepthStencilTargetResolution/Overview.html">nn::gd::CTR::ResultDifferentRenderTargetAndDepthStencilTargetResolution</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultNoTextureBound/Overview.html">nn::gd::CTR::ResultNoTextureBound</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultNoTextureCoordinates/Overview.html">nn::gd::CTR::ResultNoTextureCoordinates</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultInvalidTextureUnitId/Overview.html">nn::gd::CTR::ResultInvalidTextureUnitId</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultInvalidTextureFormat/Overview.html">nn::gd::CTR::ResultInvalidTextureFormat</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultAlreadyReleased/Overview.html">nn::gd::CTR::ResultAlreadyReleased</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultNullParameter/Overview.html">nn::gd::CTR::ResultNullParameter</a></td></tr></table></p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/09/30</dt>
+        <dd><item xmlns="">Noted that the command buffer that is created is relatively large.</item><br />
+        </dd>
+        <dt>2012/08/08</dt>
+        <dd><item xmlns="">Added a <tt>Result</tt> value that might be passed to the callback when an error occurs.</item><br />
+        </dd>
+        <dt>2011/07/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

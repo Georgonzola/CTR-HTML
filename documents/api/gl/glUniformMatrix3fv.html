@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glUniformMatrix3fv</title>
+  </head>
+  <body>
+    <h1>glUniformMatrix3fv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glUniformMatrix3fv(
+     GLint location,
+     GLsizei count,
+     GLboolean transpose,
+     const GLfloat * value
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>location</th>
+          <td>Uniform location.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>count</th>
+          <td>Number of <code>GL_FLOAT_VEC3</code>-type uniform elements to set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>transpose</th>
+          <td>Specifies whether to transpose the values before loading them.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>value</th>
+          <td>Array that stores the values to set.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets an array type of <code>GL_FLOAT_VEC3</code> uniform values for a vertex shader or geometry shader.</p><P>This function changes the values of a (<span class="argument">count</span> × 3) number of arrays.  Set <span class="argument">transpose</span> to <tt>GL_TRUE</tt> when taking the transpose.  For <span class="argument">value</span>, specify an array of values to set in the uniform.  Specify <span class="argument">value</span> using an array of (<span class="argument">count</span> × 9) <tt>GLfloat</tt> values.</P><P>Calls to this function are ignored when <span class="argument">location</span> is -1.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">count</span> argument is negative.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">location</span> argument is not a location in the current program.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>There is no current program object.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called on a location with a different data type or component count.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The uniform array count is less than three times the sum of <span class="argument">count</span> and the offset added to the location obtained from <tt>glGetUniformLocation</tt>.</TD></TR></TABLE><!-- source countが負の値の場合エラーGL_INVALID_VALUEを生成します。 locationがカレントのプログラムのロケーションではない場合エラーGL_INVALID_OPERATIONを生成します。 カレントにプログラムがない場合エラーGL_INVALID_OPERATIONを生成します。 データのコンポーネント数、およびTypeの異なるロケーションに対して呼び出した場合エラーGL_INVALID_OPERATIONを生成します。 glGetUniformLocationで取得されるロケーションの値に加算したオフセットとcountの和ｘ3が ユニフォームの配列数を超える場合エラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

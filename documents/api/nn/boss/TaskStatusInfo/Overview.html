@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::boss::TaskStatusInfo</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::TaskStatusInfo Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct TaskStatusInfo
+{
+   <a href="../../../nn_types/s64.html">s64</a> taskStartTime;
+   <a href="../../../nn_types/s64.html">s64</a> stepStartTime;
+   <a href="../../../nn/boss/TaskStateCode.html">TaskStateCode</a> state;
+   <a href="../../../nn/boss/TaskStateCode.html">TaskStateCode</a> taskState;
+   <a href="../../../nn/boss/TaskStateCode.html">TaskStateCode</a> stateResume;
+   <a href="../../../nn/boss/TaskServiceStatus.html">TaskServiceStatus</a> serviceStatus;
+   bool serviceTerminated;
+   <a href="../../../nn/boss/TaskResultCode.html">TaskResultCode</a> resultCode;
+   <a href="../../../nn_types/u32.html">u32</a> commErrorCode;
+   <a href="../../../nn_types/u32.html">u32</a> execCount;
+   <a href="../../../nn_types/u32.html">u32</a> pendingTime;
+   <a href="../../../nn_types/u32.html">u32</a> remainTime;
+   <a href="../../../nn_types/u32.html">u32</a> progress;
+   <a href="../../../nn_types/u32.html">u32</a> dataSize;
+   <a href="../../../nn_types/u16.html">u16</a> activeRate;
+   <a href="../../../nn_types/u16.html">u16</a> requestRate;
+   <a href="../../../nn_types/u8.html">u8</a> activeStep;
+   <a href="../../../nn_types/u8.html">u8</a> priority;
+   char lastModified[MAX_LASTMODIFIED_LENGTH];
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Definition of an internal structure that maintains attribute information for the <code><a href="../../../nn/boss/TaskStatus/Overview.html">TaskStatus</a></code> class.</p>
+    </div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">taskStartTime</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/s64.html">s64</a></td>
+            <td>Scheduled task start time, based on a calendar beginning 1 January 2000. Units are seconds.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">stepStartTime</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/s64.html">s64</a></td>
+            <td>Scheduled task start time, based on a calendar beginning 1 January 2000. Units are seconds. (This is provided for future extensibility and cannot be used.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">state</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/TaskStateCode.html">TaskStateCode</a></td>
+            <td><a href="../../../nn/boss/Task/Overview.html">Task</a> state information.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">taskState</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/TaskStateCode.html">TaskStateCode</a></td>
+            <td>Internal task state information.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">stateResume</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/TaskStateCode.html">TaskStateCode</a></td>
+            <td>Internal task state information used upon task resumption.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">serviceStatus</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/TaskServiceStatus.html">TaskServiceStatus</a></td>
+            <td>Status of the service pointed to by the URL specified in the task attributes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">serviceTerminated</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Availability flag of the service pointed to by the URL specified in the task attributes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">resultCode</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/TaskResultCode.html">TaskResultCode</a></td>
+            <td><a href="../../../nn/boss/Task/Overview.html">Task</a> result code.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">commErrorCode</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Communications error code during task execution.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">execCount</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td><a href="../../../nn/boss/Task/Overview.html">Task</a> execution count.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">pendingTime</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Time elapsed since scheduled task start.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">remainTime</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Time remaining until task execution. (This is provided for future extensibility and cannot be used.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">progress</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The number of bytes processed.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">dataSize</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The total number of bytes to be processed.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">activeRate</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u16.html">u16</a></td>
+            <td>Average execution rate. (This is provided for future extensibility and cannot be used.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">requestRate</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u16.html">u16</a></td>
+            <td>Average communication request rate. (This is provided for future extensibility and cannot be used.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">activeStep</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Currently running task step ID.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">priority</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Priority of the currently running task.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">lastModified</span>
+            </th>
+            <td width="100">char</td>
+            <td>Last update time, as returned in the HTTP response header.</td>
+          </tr> </table>
+      </div>
+    </a>
+  </body>
+</html>

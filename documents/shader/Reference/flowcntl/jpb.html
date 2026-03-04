@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>jpb - Boolean jump</title>
+  </head>
+  <body>
+    <h1>jpb - Boolean jump</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+jpb     src, value, label
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th><CODE>src</CODE></th>
+          <td>
+            A Boolean register.<br />
+          </td>
+        </tr>
+        <tr>
+          <th>value</th>
+          <td>
+            <CODE>true</CODE> or <CODE>false</CODE>.<br />
+          </td>
+        </tr>
+        <tr>
+          <th>label</th>
+          <td>
+            Label name.<br />
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Causes control to jump to the address of the specified label name when the contents of the Boolean register specified by <SPAN class="argument">src</SPAN> match the value specified by <SPAN class="argument">value</SPAN>.<br /> Unlike the <CODE>call</CODE> instruction, control does not return at a <CODE>ret</CODE> instruction. Also, you can specify labels for which <CODE>ret</CODE> instructions have not been set.<br />
+      </p>
+      <p class="notice">
+        An error will result if you jump to an external location from within an <CODE>if</CODE> or <CODE>loop</CODE> block, or jump from an external location into an <CODE>if</CODE> or <CODE>loop</CODE> block.<br /> An error also will result if you call this instruction immediately prior to an <CODE>else</CODE>, <CODE>endif</CODE>, <CODE>endloop</CODE>, or <CODE>ret</CODE> instruction.<br /> Behavior is undefined if you jump to an external location from between the <CODE>main</CODE> and <CODE>endmain</CODE> labels, or from within subroutines.<br /> In the same way, jumping to a <CODE>ret</CODE> instruction within a subroutine also results in undefined behavior.<br /> Jumping to an <CODE>else</CODE>, <CODE>endif</CODE>, or <CODE>endloop</CODE> instruction has the same effect as jumping to the instruction immediately following that instruction.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+if ( src == value )
+    jump to label
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+jpb     b0, true,  subfunction0
+jpb     b1, false, subfunction0
+
+subfunction0:
+..
+</pre>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

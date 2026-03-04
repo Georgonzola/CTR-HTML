@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>SetDeviceMemorySize</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/os/Overview.html">os</a>::SetDeviceMemorySize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+<a href="../../nn/Result/Overview.html">Result</a> SetDeviceMemorySize(
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the new device memory size. The size parameter must be a multiple of <code>DEVICE_MEMORY_UNITSIZE</code> (4096). It is possible to reset a different size of device memory, but when doing so both the size before changing and the size after changing must be multiples of <code>1048576</code> (1 MB).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Changes the size of the device memory.</p><p>Changes the size of the device memory. Device memory is not yet allocated immediately after the application has started, so here you specify the necessary size of memory and newly allocate the region.</p><p>When reconfiguring the memory, if the size of the region will be smaller after the change, the unneeded portion is deallocated from the end of the region and the remainder of the contents (from the start of the memory region for the full reconfigured size) is retained.  If the memory size is enlarged by the reconfiguration, a new region is added to the end of the existing allocated region.  (In this case, the memory sizes before and after the change must both be a multiple of 1 MB.)</p><p>If <tt>0</tt> is specified for the size,  the entire memory region is freed. If the region is freed and then reallocated, the contents of the region are not guaranteed.</p><p>If you specify a size of memory that does not adhere to the designated multiple, <tt>nn::os::ResultMisalignedSize</tt> will return.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to size.</item><br />
+        </dd>
+        <dt>2011/06/22</dt>
+        <dd><item xmlns="">Added Description.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

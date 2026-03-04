@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxGetIsRunning</title>
+  </head>
+  <body>
+    <h1>nngxGetIsRunning Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL GLboolean NNGX_APIENTRY nngxGetIsRunning(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>GL_TRUE</code> if the command list is currently running; otherwise, returns <code>GL_FALSE</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Checks whether a command list is currently running.</p><P>If you call <tt><a href="../nn_gx/nngxGetCmdlistParameteri.html">nngxGetCmdlistParameteri</a></tt> with <tt>NN_GX_CMDLIST_IS_RUNNING</tt> specified for <span class="argument">pname</span>, you can check whether the currently bound command list object is running. In contrast, you can use this function to check whether any command list is currently running, regardless of whether it is the currently bound command list object.</P><P>If the bound command list is in the "waiting to run" state, the function returns <tt>GL_FALSE</tt>.</P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxRunCmdlist.html">nngxRunCmdlist</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/02/03</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

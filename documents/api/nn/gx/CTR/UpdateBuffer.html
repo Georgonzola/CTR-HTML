@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>UpdateBuffer</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/gx/Overview.html">gx</a>::<a href="../../../nn/gx/CTR/Overview.html">CTR</a>::UpdateBuffer Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void UpdateBuffer(
+     const void * pBuffer,
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Pointer to the start of the buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>The buffer size.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Applies to the graphics processor the updates that have been made to the contents of the vertex buffer and texture buffer in main memory.</p><p>When the GPU directly references texture, vertex, and other buffer data that has been expanded, copied, or overwritten into device memory by the CPU, use this function to reflect those CPU-side changes in the GPU. In addition to these operations, this function invalidates the CPU cache.</p><p>Specifically, internal processing consists of flushing the cache, but Nintendo does not support using this function as a generic means of flushing the cache.</p><p>Only use this function to reflect CPU changes to the vertex and texture buffers in the GPU.</p><p>Caching operations now take longer in proportion to the size of the cache when this function is called from the extended applications that run on SNAKE. Generally use the new <tt><a href="../../../nn/gx/CTR/UpdateBufferLight.html">nn::gx::CTR::UpdateBufferLight</a></tt> function, which skips cache invalidation for faster execution. Use this function only when the CPU cache must be invalidated, such as when the CPU accesses the GPU rendering results.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/06/04</dt>
+        <dd><item xmlns="">Revised the descriptions related to SNAKE.</item><br />
+        </dd>
+        <dt>2014/05/23</dt>
+        <dd><item xmlns="">Added a description related to SNAKE.</item><br />
+        </dd>
+        <dt>2011/11/29</dt>
+        <dd><item xmlns="">Added a note about the overhead of making calls.</item><br />
+        </dd>
+        <dt>2011/03/23</dt>
+        <dd><item xmlns="">Revised a part of the description.</item><br />
+        </dd>
+        <dt>2011/01/17</dt>
+        <dd><item xmlns="">Added a description of use.</item><br />
+        </dd>
+        <dt>2010/10/25</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

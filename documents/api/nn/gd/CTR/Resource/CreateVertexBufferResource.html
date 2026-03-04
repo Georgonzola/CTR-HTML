@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CreateVertexBufferResource</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Resource/Overview.html">Resource</a>::CreateVertexBufferResource Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CreateVertexBufferResource(
+     const <a href="../../../../nn/gd/CTR/VertexBufferResourceDescription/Overview.html">VertexBufferResourceDescription</a> * description,
+     const void * initialData,
+     VertexBufferResource ** buffer,
+     <span>gdBool</span> copyInitialData = GD_TRUE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>description</th>
+          <td>Specifies the descriptor for creating a resource buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>initialData</th>
+          <td>Specifies the initialization data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>buffer</th>
+          <td>Specifies the address for storing the pointer to the created vertex buffer resource.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>copyInitialData</th>
+          <td>This parameter is used when initialization data is specified. The default is <code>true</code>. When this parameter is <code>true</code>, a memory area is allocated in the function (either FCRAM or VRAM specified by the descriptor), and then the initialization data is copied to the allocated memory. When this parameter is <code>false</code>, the <code>vertexBufferResource</code> memory address becomes the one allocated by the user (the address of initialData). In this case, the user must allocate a sufficient memory area with the correct memory alignment. If resources use some mipmaps, sufficient memory area must be allocated to all the mipmaps. Also, the user is responsible for releasing the data memory area after releasing the resource.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for description or buffer.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidParameter</th>
+          <td><code>0</code> was specified for the vertex size.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLocation</th>
+          <td>The memory type is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td><a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a> cannot be allocated for the resource object.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemoryExt</th>
+          <td><a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a> cannot be allocated for the vertex buffer.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a vertex buffer resource.</p><p>This function is used to create both vertex buffers and index buffers. <br />
+ This function adds commands to the command list. For more information, see the Programming Manual.</p><!-- write here --></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../../nn/gd/CTR/VertexBufferResourceDescription/Overview.html">VertexBufferResourceDescription</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

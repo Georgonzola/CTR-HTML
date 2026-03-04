@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>SetSdmcEjectionFatal</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::SetSdmcEjectionFatal Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetSdmcEjectionFatal();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures the system to produce the fatal error screen when an SD card is not inserted.</p><p>Configures the system to produce the fatal error screen when an SD card is not inserted. Once you have called this function, you cannot clear this setting in the application.</p><p>If an SD card is not inserted when this function is called, the fatal error screen is displayed immediately. Calling this function at a point where you expect an SD card to be inserted can prevent any associated processes from being executed if an SD card is not actually inserted at that time.</p><p>Conversely, do not call this function when using processes that assume that no SD card is inserted when they are executed.</p><p>To make a successful call to this function, you must not have any SD card ejection handlers registered. In other words, you must either not call the <code><a href="../../nn/fs/RegisterSdmcEjectedEvent.html">RegisterSdmcEjectedEvent</a></code> function at all, or make sure to call the <code><a href="../../nn/fs/UnregisterSdmcEjectedEvent.html">UnregisterSdmcEjectedEvent</a></code> function after calling the <code><a href="../../nn/fs/RegisterSdmcEjectedEvent.html">RegisterSdmcEjectedEvent</a></code> function.</p><p>Finally, once you call this function, you can no longer call the <code><a href="../../nn/fs/RegisterSdmcEjectedEvent.html">RegisterSdmcEjectedEvent</a></code> or <code><a href="../../nn/fs/UnregisterSdmcEjectedEvent.html">UnregisterSdmcEjectedEvent</a></code> functions.</p></div>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SynchronizeVsyncTiming</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::SynchronizeVsyncTiming Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> SynchronizeVsyncTiming(
+     <a href="../../../nn/camera/CTR/CameraSelect.html">CameraSelect</a> select1,
+     <a href="../../../nn/camera/CTR/CameraSelect.html">CameraSelect</a> select2
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>select1</th>
+          <td>Specifies the <a href="../../../nn/camera/Overview.html">camera</a> to synchronize.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>select2</th>
+          <td>Specifies the <a href="../../../nn/camera/Overview.html">camera</a> to synchronize.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultIsSleeping</th>
+          <td>This function is unusable because the system cover is closed.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>There may be something physically wrong with the <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Synchronizes the <a href="../../../nn/camera/Overview.html">camera</a> V-Sync signal timing. However, this function can never perfectly synchronize timing so that there is absolutely no discrepancy.</p><P>Even if the same framerate and image size are set for the CTR stereo cameras, the left and right cameras send images at slightly different times.  This function attempts to synchronize the V-Sync timing between the left and right cameras.</P><P>Although this function attempts to synchronize the camera V-Sync timing when it is called, the camera V-Sync timing does not continue to stay synchronized indefinitely.  When the V-Sync timing diverges, you must call this function again to reduce the discrepancy.  Even after this function is run, there still exists a discrepancy on the order of several hundred microseconds.</P><P>The camera V-Sync timing diverges at the following times.</P><P>・When the left and right cameras have different image sizes or framerates, their camera V-Sync periods differ and therefore the camera V-Sync timings always diverge even after this function is called.</P><P>・When a variable framerate is set, the camera V-Sync period changes depending on the characteristics of the left and right images and therefore the camera V-Sync timings always diverge even after this function is called.</P><P>・Even when both the left and right cameras have the same image size and the same fixed framerate, if you call any of the following functions it causes the camera V-Sync timings to diverge.  You can call this function again to reduce these discrepancies.</P><ul><li><a href="../../../nn/camera/CTR/Activate.html">nn::camera::CTR::Activate</a></li><li><a href="../../../nn/camera/CTR/SwitchContext.html">nn::camera::CTR::SwitchContext</a></li><li><a href="../../../nn/camera/CTR/SetExposure.html">nn::camera::CTR::SetExposure</a></li><li><a href="../../../nn/camera/CTR/SetSharpness.html">nn::camera::CTR::SetSharpness</a></li><li><a href="../../../nn/camera/CTR/SetAutoExposure.html">nn::camera::CTR::SetAutoExposure</a></li><li><a href="../../../nn/camera/CTR/SetAutoWhiteBalance.html">nn::camera::CTR::SetAutoWhiteBalance</a></li><li><a href="../../../nn/camera/CTR/SetFrameRate.html">nn::camera::CTR::SetFrameRate</a></li><li><a href="../../../nn/camera/CTR/SetPhotoMode.html">nn::camera::CTR::SetPhotoMode</a></li><li><a href="../../../nn/camera/CTR/FlipImage.html">nn::camera::CTR::FlipImage</a></li><li><a href="../../../nn/camera/CTR/SetDetailSize.html">nn::camera::CTR::SetDetailSize</a></li><li><a href="../../../nn/camera/CTR/SetSize.html">nn::camera::CTR::SetSize</a></li><li><a href="../../../nn/camera/CTR/SetEffect.html">nn::camera::CTR::SetEffect</a></li><li><a href="../../../nn/camera/CTR/SetAutoExposureWindow.html">nn::camera::CTR::SetAutoExposureWindow</a></li><li><a href="../../../nn/camera/CTR/SetAutoWhiteBalanceWindow.html">nn::camera::CTR::SetAutoWhiteBalanceWindow</a></li></ul><P>Specify one camera each for the <span class="argument">select1</span> and <span class="argument">select2</span> arguments. Specifically, specify <tt>SELECT_OUT1</tt>, <tt>SELECT_OUT2</tt>, or <tt>SELECT_IN1</tt>.  You cannot specify the same camera for both <span class="argument">select1</span> and <span class="argument">select2</span>.  This function only performs its intended processing if the cameras specified in <span class="argument">select1</span> and <span class="argument">select2</span> are both active.</P><p><b>Note:</b> This function may block for an extended period if a camera is restarting.</p><p>Even if you call this function, there will be rare cases where you cannot adjust the V-Sync discrepancy to anything better than several hundred microseconds.  To mitigate this problem, you will need to implement a workaround such as comparing the timing of events to get V-Sync signals and the timing of the completion of image transmission, and executing retries if the difference in time is large.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/12/30</dt>
+        <dd><item xmlns="">Added an explanation of the fact that sometimes V-Sync timing cannot be properly adjusted.</item><br />
+        </dd>
+        <dt>2010/09/24</dt>
+        <dd><item xmlns="">Updated list of functions that cause discrepancies.</item><br />
+        </dd>
+        <dt>2010/08/06</dt>
+        <dd><item xmlns="">Revised argument names.</item><br />
+        </dd>
+        <dt>2010/07/17</dt>
+        <dd><item xmlns="">Explained operation during restart.</item><br />
+        </dd>
+        <dt>2010/07/11</dt>
+        <dd><item xmlns="">Added description that each argument can only specify one camera. Added an explanation of what happens when specified cameras are not active.</item><br />
+        </dd>
+        <dt>2010/06/15</dt>
+        <dd><item xmlns="">Explained the conditions under which camera V-Syncs deviate from each other.</item><br />
+        </dd>
+        <dt>2010/04/13</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

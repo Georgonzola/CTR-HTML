@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>SNAKE</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size		: 150%;
+  font-family		: Arial;
+  border-bottom-width	: 5px;
+  border-bottom-style	: solid;
+  border-bottom-color	: #CD202C;
+  padding-bottom		: 1px;
+  margin-bottom		: 20px;
+  letter-spacing		: normal;
+  font-weight		: bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+
+table {
+  margin-top        : 2pt;
+  margin-bottom     : 2pt;
+  margin-left       : 0pt;
+  margin-right      : 0pt;
+  padding-left      : 0pt;
+  padding-right     : 0pt;
+  position          : relative;
+  left              : 12px;
+  font-family       : Arial;
+  font-size         : 10pt;
+  border-style      : none none none none;
+}
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+td.item
+{
+  text-align        : center;
+  font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+p.code {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+  background            : #e8f4f4;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<a name="top"></a> 
+<h1>SNAKE
+</h1>
+
+<h2>1. <a name="ss01">Overview</a></h2>
+<p>The following table provides an overview of SNAKE compared to CTR.</p>
+    <table border="1">
+      <thead>
+        <tr>
+<th width="20%">Item</th>
+<th width="80%">Changes From CTR in SNAKE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+<td class="item">Clock</td>
+<td>Three times faster.</td>
+        </tr>
+        <tr>
+<td class="item">L2 Cache</td>
+<td>2 MB (new).</td>
+        </tr>
+        <tr>
+<td class="item">VRAM</td>
+<td>6 MB (unchanged).</td>
+        </tr>
+        <tr>
+<td class="item">Main Memory</td>
+<td>124 MB (an increase from CTR).</td>
+        </tr>
+        <tr>
+<td class="item">Circle Pad Pro</td>
+<td>Built into the system (ExtraPad-compatible).</td>
+        </tr>
+        <tr>
+<td class="item">Camera</td>
+<td>More sensitive than CTR (the resolution is the same as the CTR).</td>
+        </tr>
+        <tr>
+<td class="item">NFC</td>
+<td>Built into SNAKE.</td>
+        </tr>
+      </tbody>
+    </table>
+
+<p>SNAKE has two operating modes. They are as follows.</p>
+    <table width="480px" border="1">
+      <thead>
+        <tr>
+<th width="33%">Name</th>
+<th width="33%">CPU Clock</th>
+<th width="33%">L2 Cache</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+<td class="item">Standard mode</td>
+<td>Same as CTR</td>
+<td>Disabled</td>
+        </tr>
+        <tr>
+<td class="item">Extended mode</td>
+<td>Three times that of CTR</td>
+<td>Enabled</td>
+        </tr>
+      </tbody>
+    </table>
+
+<p>The following table summarizes the features available for each <CODE>desc</CODE> that can be used when creating applications for SNAKE.</p>
+    <table width="800px" border="1">
+      <thead>
+        <tr>
+<th width="20%">Name</th>
+<th width="20%">NFC</th>
+<th width="20%">Memory Available</th>
+<th width="20%">Operating Modes</th>
+<th width="20%">desc Filename</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+<td class="item">Standard application</td>
+<td>Available</td>
+<td>64 MB</td>
+<td>Standard mode</td>
+<td><CODE>Application.desc</CODE></td>
+        </tr>
+        <tr>
+<td class="item">Extended application</td>
+<td>Available</td>
+<td>124 MB</td>
+<td>Extended mode</td>
+<td><CODE>ExtApplication.desc</CODE></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+The operating modes shown in this table are for after the <a href="../api/nn/applet/CTR/Enable.html"><code>nn::applet::CTR::Enable</code></a> function is called. All applications run in extended mode after they are started.
+    </p>
+    <p>
+The system operates in extended mode while system applets, such as the HOME Menu, POWER Menu, development menu, and Internet Browser, are running.
+    </p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+<h2>2. <a name="ss02">GPU Hangs When Multiple Textures Are Used</a></h2>
+<p>On CTR systems, there is a problem with the GPU hanging when multiple textures are used. This problem has been fixed on SNAKE. When an application runs on SNAKE, the use of multiple textures does not cause the GPU to hang.</p>
+<p>Note, however, that this does not apply when the application runs on a CTR system. For more information about this problem, see <I>3DS Programming Manual: Basic Graphics</I>.</p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+<h2>3. <a name="ss03">SNAKE-Specific Titles</a></h2>
+<p>SNAKE-specific titles only start from the HOME Menu and will not run with CTR. These titles cannot be imported to CTR. For information about how to create SNAKE-specific titles, see <a href="../tools/ctr_makebanner.html"><CODE>ctr_makebanner</CODE></a>.</p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+<h2>4. <a name="ss04">NFP Compatible Titles</a></h2>
+<p>When running a title supporting the NFP library on SNAKE, make sure that you run in a mode that uses the system internal NFC. This is the same for forced CTR compatible mode due to debugging. Use CTR when using the NFC reader/writer.</p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+<h2>5. <a name="ss05">Revision History</a></h2>
+    <dl>
+        <dt>2015-09-04</dt>
+<dd>Fixed inconsistent language.
+        </dd>
+        <dt>2015-02-02</dt>
+<dd>Added information about NFP-compatible dedicated titles.
+        </dd>
+        <dt>2014-11-10</dt>
+<dd>Added a section about SNAKE-specific titles.
+        </dd>
+        <dt>2014-08-25</dt>
+<dd>Noted that a bug related to the use of multiple textures was fixed on SNAKE.
+        </dd>
+        <dt>2014-01-31</dt>
+<dd>Added information about operating modes.
+        </dd>
+        <dt>2013-07-23</dt>
+<dd>Initial version.
+        </dd>
+    </dl>
+    <p>
+    <br />
+    </p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

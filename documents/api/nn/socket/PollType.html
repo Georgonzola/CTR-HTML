@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>PollType</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/socket/Overview.html">socket</a>::PollType Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum PollType;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>POLLRDNORM</th>
+          <td>Indicates that normal data can be read. Includes the state in which a connection request is received by a <a href="../../nn/socket/Overview.html">socket</a> that started accepting requests as a result of a call to the <code>SOCListen</code> function.</td>
+        </tr>
+        <tr>
+          <th>POLLRDBAND</th>
+          <td>Indicates that priority band data can be read. TCP urgent mode data can be read in this state.</td>
+        </tr>
+        <tr>
+          <th>POLLPRI</th>
+          <td>Indicates that urgent data can be read. Protocols that can assume this state are unsupported.</td>
+        </tr>
+        <tr>
+          <th>POLLWRNORM</th>
+          <td>Indicates that normal data can be written.</td>
+        </tr>
+        <tr>
+          <th>POLLWRBAND</th>
+          <td>Indicates that priority band data can be written. TCP urgent mode data can be written in this state.</td>
+        </tr>
+        <tr>
+          <th>POLLERR</th>
+          <td>Indicates a state where an error was detected. (Only for <emphasis>revents</emphasis>.)</td>
+        </tr>
+        <tr>
+          <th>POLLHUP</th>
+          <td>Hang-up status. (Only for <emphasis>revents</emphasis>.)</td>
+        </tr>
+        <tr>
+          <th>POLLNVAL</th>
+          <td>Indicates a state where invalid processing has been executed. (Only for <emphasis>revents</emphasis>.)</td>
+        </tr>
+        <tr>
+          <th>POLLIN</th>
+          <td>Indicates that data can be read. Identical to a bitwise OR of <code>POLLRDNORM</code> and <code>POLLRDBAND</code>.</td>
+        </tr>
+        <tr>
+          <th>POLLOUT</th>
+          <td>Indicates that data can be written. Identical to <code>POLLWRNORM</code>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Flags for the <code>Poll</code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

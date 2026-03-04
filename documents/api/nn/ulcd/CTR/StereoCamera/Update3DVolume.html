@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Update3DVolume</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ulcd/Overview.html">ulcd</a>::<a href="../../../../nn/ulcd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ulcd/CTR/StereoCamera/Overview.html">StereoCamera</a>::Update3DVolume Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/ulcd.h&gt;
+void Update3DVolume(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Updates the internally cached 3D volume value.</p><P>Updates the 3D depth slider value held in the <tt>StereoCamera</tt> class.</P><P>By default, it gets the 3D depth slider value to use in the matrix calculations that are performed with <a href="../../../../nn/ulcd/CTR/StereoCamera/Overview.html">nn::ulcd::CTR::StereoCamera</a>.  If your implementation uses the <tt>StereoCamera</tt> class numerous times per frame to calculate matrices, there is a chance the 3D depth slider value could change during that time, which would affect the rendering results.</P><P>In cases like this, call this function at the beginning of each frame, and do not update the 3D depth slider values when specifying them as parameters for functions that calculate matrices (such as the <a href="../../../../nn/ulcd/CTR/StereoCamera/CalculateMatrices.html">nn::ulcd::CTR::StereoCamera::CalculateMatrices</a> function).</P><PRE>
+    // Pseudocode 
+    nn::ulcd::StereoCamera s_StereoCamera;
+
+    while (1) {    // Rendering loop
+        // Update 3D depth slider value
+        s_StereoCamera.Update3DVolume();
+
+        // Render model
+        s_StereoCamera.CalculateMatrices(..., false);
+        // Render another model
+        s_StereoCamera.CalculateMatrices(..., false);
+        // ...
+
+        // End of one frame 
+    }
+</PRE></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/23</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

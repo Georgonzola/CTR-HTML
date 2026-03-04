@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>MessageTypeFlag</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/cec/Overview.html">cec</a>::<a href="../../../nn/cec/CTR/Overview.html">CTR</a>::MessageTypeFlag Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+typedef <a href="../../../nn_types/u8.html">u8</a> nn::cec::CTR::MessageTypeFlag;</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The flag for switching messages depending on the recipient peer. Specified in a message. (Such as <code><a href="../../../nn/cec/CTR/Message/NewMessage.html">Message::NewMessage</a></code>.)</p><p><itemizedlist><listitem><para><code>MESSAGE_TYPEFLAG_ANYONE = (MESSAGE_TYPEFLAG_NON_FRIEND | MESSAGE_TYPEFLAG_FRIEND)</code><br />
+ Set this flag when sending messages without distinguishing whether the recipient is a friend. <br />
+ This setting is usually used. <br /><br /></para></listitem><listitem><para>MESSAGE_TYPEFLAG_NON_FRIEND <br />
+ Sends messages with recipients <u>limited</u> to non-friends. <br /><br /></para></listitem><listitem><para><code>MESSAGE_TYPEFLAG_FRIEND</code><br />
+ Sends messages if the recipient is a friend. <br /><br />
+ It can be combined with the <code>GroupId</code> to send different messages depending on whether the recipient is a friend. <br />
+ Example) <br />
+ Place two messages in the outbox:<br />
+(1) [Group:1/<code>MESSAGE_TYPEFLAG_NON_FRIEND</code>/Body:<code>MESSAGE1</code>], and<br />
+(2)[Group:1/<code>MESSAGE_TYPEFLAG_FRIEND</code>/Body:<code>MESSAGE2</code>] <br />
+ The result is that (1) is sent when a non-friend is found, and (2) is sent when a friend is found. </para></listitem></itemizedlist></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Mount</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/nfp/Overview.html">nfp</a>::<a href="../../../nn/nfp/CTR/Overview.html">CTR</a>::Mount Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Mount();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+      <br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Mount succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidOperation</th>
+          <td>The library is not in the correct state.</td>
+        </tr>
+        <tr>
+          <th>ResultSleep</th>
+          <td>The system is in a sleep state.</td>
+        </tr>
+        <tr>
+          <th>ResultWifiOff</th>
+          <td>The Wi-Fi switch is set to off.</td>
+        </tr>
+        <tr>
+          <th>ResultNotSupported</th>
+          <td>Not an NFP tag. Check the tag being used.</td>
+        </tr>
+        <tr>
+          <th>ResultNeedRestore</th>
+          <td>The tag data is corrupted. The tag must be restored.</td>
+        </tr>
+        <tr>
+          <th>ResultNeedFormat</th>
+          <td>The tag data is corrupted. The tag must be initialized because there is no backup data.</td>
+        </tr>
+        <tr>
+          <th>ResultTagNotFound</th>
+          <td>The target tag was not found. The tag might have been removed.</td>
+        </tr>
+        <tr>
+          <th>ResultNeedRetry</th>
+          <td>Failed to read the tag. Retrying may succeed.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidFormatVersion</th>
+          <td>Unsupported tag version. Notify the user that the tag is not supported.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Unexpected error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Mounts a tag. Can access all of the data on the tag.</p><p>Run after the tag is detected. This API function can block for a maximum of 500 milliseconds when called. Use the <code><a href="../../../nn/nfp/CTR/MountRom.html">MountRom</a></code> function when you only want information from the ROM region, such as the <emphasis>characterId</emphasis>.</p><p>On the <a href="../../../nn/nfp/CTR/Overview.html">CTR</a>, if this function is called the moment you disconnect from the NFC reader/writer, or the moment a tag is lost, the function might return <code><a href="../../../nn/nfp/ResultInvalidOperation/Overview.html">ResultInvalidOperation</a></code>. <br />
+ When that happens, call the <code><a href="../../../nn/nfp/CTR/Connect.html">Connect</a></code> function again after explicitly disconnecting by calling the <code><a href="../../../nn/nfp/CTR/Disconnect.html">Disconnect</a></code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/25</dt>
+        <dd><item xmlns="">Noted in the description that this is a blocking API call.</item><br />
+        </dd>
+        <dt>2014/07/28</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

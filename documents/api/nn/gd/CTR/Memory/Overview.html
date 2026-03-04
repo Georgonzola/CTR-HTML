@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::gd::CTR::Memory</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::Memory Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Memory</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p><a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a> operations generally involve copying memory (layout conversion block image &lt;-&gt; linear image, filtering) and filling memory.</p><p><anchor id="classnn_1_1gd_1_1_c_t_r_1_1_memory_1memoryOperation" /> The memory functions internally call the <code>nngx</code> function. The result of these functions can be obtained after command execution completes because a request command is added to the command list.</p><!-- write here --></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../../nn/gd/CTR/Memory/Rect/Overview.html">nn::gd::CTR::Memory::Rect</a>
+            </th>
+            <td>2D memory region.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Memory/MemoryLocation.html">MemoryLocation</a>
+            </th>
+            <td>Enumerates memory types.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Memory/MemoryLayout.html">MemoryLayout</a>
+            </th>
+            <td>Defines the memory layout.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Memory/DownScalingMode.html">DownScalingMode</a>
+            </th>
+            <td>An anti-aliasing filter mode <code>enum</code> value.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Memory/ClearTexture2DResource.html">ClearTexture2DResource</a>
+            </th>
+            <td>Clears <code>Texture2DResource</code> resources using the color specified in the Components parameter.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Memory/ClearTargets.html">ClearTargets</a>
+            </th>
+            <td>Adds a command for clearing the specified target memory.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Memory/CopyTextureSubResource.html">CopyTextureSubResource</a>
+            </th>
+            <td>Adds a command to the current command list for transferring a source Texture2DResource texture to the destination Texture2DResource texture.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Memory/CopyVertexBufferSubResource.html">CopyVertexBufferSubResource</a>
+            </th>
+            <td>Copies data from the source vertex buffer to the destination vertex buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Memory/CopyTexture2DResourceBlockToLinear.html">CopyTexture2DResourceBlockToLinear</a>
+            </th>
+            <td>Adds a command for converting the source <code>Texture2DResource</code> resource from a block image to a linear image and copying it to the destination <code>Texture2DResource</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Memory/CopyTexture2DResourceLinearToBlock.html">CopyTexture2DResourceLinearToBlock</a>
+            </th>
+            <td>Adds a command to the current command list. This command converts the source <code>Texture2DResource</code> resource to the specified <code>Texture2DResource</code> (converting it from a linear image to a block image) and then transfers it.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Memory/GenerateMipMaps.html">GenerateMipMaps</a>
+            </th>
+            <td>Creates a Texture2DResource resource mipmap.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::rdt::Receiver</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/rdt/Overview.html">rdt</a>::Receiver Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Receiver</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class representing a device receiving data. The following description shows how to use the <code><a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a></code> class. Detailed instructions on calling <code><a href="../../../nn/rdt/Receiver/Process.html">Process</a></code> have been left out of the following description. In actual practice, <code><a href="../../../nn/rdt/Receiver/Process.html">Process</a></code> must be called periodically at a frequency of about once per game frame or less.</p><p>1. Create an instance of the <code><a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a></code> class.</p><p>2. Call <code><a href="../../../nn/rdt/Receiver/Initialize.html">Initialize</a></code> to initialize the instance. (The receive buffer memory and the work memory for use by the <code><a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a></code> instance are allocated at this time.)</p><p>3. Call <code><a href="../../../nn/rdt/Receiver/Wait.html">Wait</a></code> and wait for connection from a <code><a href="../../../nn/rdt/Sender/Overview.html">Sender</a></code> instance.</p><p>4. When the state changes to <code>RECEIVER_STATE_OPENED</code>, periodically call <code><a href="../../../nn/rdt/Receiver/Receive.html">Receive</a></code> to write received data (to the memory buffer provided by the application).</p><p>5. When the state changes to <code>RECEIVER_STATE_FINISHED</code> and you have confirmed that the size of data that can be read using <code><a href="../../../nn/rdt/Receiver/Receive.html">Receive</a></code> has reached <code>0</code>, call <code><a href="../../../nn/rdt/Receiver/Close.html">Close</a></code>.</p><p>6. When the state changes to <code>RECEIVER_STATE_CLOSED</code>, call <code><a href="../../../nn/rdt/Receiver/Finalize.html">Finalize</a></code> to clean up the <code><a href="../../../nn/rdt/Sender/Overview.html">Sender</a></code> class.</p><!-- write here --></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/rdt/Receiver/RECEIVER_WORKBUF_SIZE.html">RECEIVER_WORKBUF_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Size of the working memory required by the <code><a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a></code> instance.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/rdt/Receiver/RECEIVER_WORKBUF_ALIGNMENT.html">RECEIVER_WORKBUF_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>The address of the working memory required by the <code><a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a></code> instance must be aligned to the specified number of bytes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/Receiver.html">Receiver</a>
+            </th>
+            <td>Instantiates an object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/~Receiver.html">~Receiver</a>
+            </th>
+            <td>Destroys the object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the instance. If initialization succeeds, this function implicitly consumes two <code>nn::uds::EndpointDescriptor</code> objects. If initialization fails, the function returns without consuming any <code>nn::uds::EndpointDescriptor</code> objects. Memory passed to the instance by this call must be allocated before calling <code><a href="../../../nn/rdt/Receiver/Finalize.html">Finalize</a></code>. The <code>nn::uds::Attach</code> function is called implicitly with <code>nn::uds::ATTACH_BUFFER_SIZE_DEFAULT</code> specified as the receive buffer size. If the application does not supply a large enough buffer to <code>nn::uds::Initialize</code>, initialization fails, returning <code>nn::uds::ResultOutOfResource</code>, because the <code>nn::uds::Attach</code> function uses the buffer passed to <code>nn::uds::Initialize</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/Finalize.html">Finalize</a>
+            </th>
+            <td>Frees resources that were used by a <code><a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a></code> instance, including the receive buffer and the endpoint descriptors.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/Wait.html">Wait</a>
+            </th>
+            <td>Issues a request to wait for a connection.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/Close.html">Close</a>
+            </th>
+            <td>Issues a request to revert an instance to the <code>CLOSED</code> state.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/Receive.html">Receive</a>
+            </th>
+            <td>Reads the data that has accumulated in the receive buffer. Reads the byte string that was sent from the <code><a href="../../../nn/rdt/Sender/Overview.html">Sender</a></code> instance and has accumulated in the receive buffer. This byte string is guaranteed to be obtainable in a form that maintains the byte sequence sent by <code><a href="../../../nn/rdt/Sender/Send.html">nn::rdt::Sender::Send</a></code>. We recommend calling this function every game frame to improve throughput.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/Process.html">Process</a>
+            </th>
+            <td>Proceeds with communication. The actual communication occurs within this function. This function must be called at least once each game frame (less than 50 msec) until the application calls the <code><a href="../../../nn/rdt/Receiver/Finalize.html">Finalize</a></code> function. When sending and receiving real data, you can sometimes improve the transmission performance by calling this function several times in a row. One call to this function transfers only up to around 1400 bytes, but more data can be received by calling this function multiple times. For more information about specific settings, see the <code>ServerClient</code> sample demo. Do not call other member functions (such as <code><a href="../../../nn/rdt/Receiver/Receive.html">Receive</a></code>) while this function is running. This results in undefined operations. State transitions of <code><a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a></code> instances are also handled within this function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/Cancel.html">Cancel</a>
+            </th>
+            <td>Cancels the operation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/GetStatus.html">GetStatus</a>
+            </th>
+            <td>Gets the state of a <code><a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a></code> instance.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/SetPacketLossRatio.html">SetPacketLossRatio</a>
+            </th>
+            <td>Sets up a simulated packet loss ratio (for debugging). This function may be removed in a future release without notice. If a value other than zero is set for the packet loss ratio, the <code><a href="../../../nn/rdt/Overview.html">rdt</a></code> library calls <code>std::rand</code> to determine whether to simulate packet loss. Set an appropriate random seed by calling <code>std::srand</code> before using this function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/rdt/Receiver/PrintDebugInfo.html">PrintDebugInfo</a>
+            </th>
+            <td>Prints detailed information about the internal state of a <code><a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a></code> instance (for debugging). This function may be removed in a future release without notice.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

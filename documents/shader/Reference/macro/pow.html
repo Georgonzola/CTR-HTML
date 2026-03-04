@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>pow - Power</title>
+  </head>
+  <body>
+    <h1>pow - Power</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+pow     dest, src0{ .x | .y | .z | .w}, src1{ .x | .y | .z | .w}
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Registers</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>dest</th>
+          <td>
+            A temporary register.<br />
+          </td>
+        </tr>
+        <tr>
+          <th>src0</th>
+          <td>
+            A temporary register, input register, or floating-point constant register.r.<br />Must specify any one of  { .x | .y | .z | .w } as the component.<br />
+          </td>
+        </tr>
+        <tr>
+          <th>src1</th>
+          <td>
+            A temporary register, input register, or floating-point constant register.r.<br />Must specify any one of  { .x | .y | .z | .w } as the component.<br />
+          </td>
+        </tr>
+      </table>
+      <p class="notice">
+        Cannot specify the same register for <SPAN class="argument">src1</SPAN> and <SPAN class="argument">dest</SPAN>.<br />
+      </p>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Finds the <SPAN class="argument">src1</SPAN> power of <SPAN class="argument">src0</SPAN> and stores the result in <SPAN class="argument">dest</SPAN>.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+tmp = src0{ .x | .y | .z | .w} ^ src1{ .x | .y | .z | .w}
+dest.x = tmp
+dest.y = tmp
+dest.z = tmp
+dest.w = tmp
+</pre>
+    </div>
+
+    <h2>Macro Expansion</h2>
+    <div class="section">
+<pre class="definition">
+log     dest.z, src0{ .x | .y | .z | .w}
+mul     dest.z, dest.z, src1{ .x | .y | .z | .w}
+exp     dest,   dest.z
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+pow     r0, r1.y, r2.x
+</pre>
+    </div>
+
+    <h2>Timetable </h2>
+    <div class="section">
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th>
+        </tr>
+        <tr>
+          <th>log</th>
+          <td class="read">read</td>
+          <td class="LOG" colspan="2">LOG</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>mul</th>
+          <td class="empty"></td>
+          <td class="stall" colspan="3">STALL</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+        </tr>
+        <tr>
+          <th>exp</th>
+          <td class="empty" colspan="5"></td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="read">read</td>
+          <td class="EXP" colspan="2">EXP</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>CancelConnectAsync</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/ac/Overview.html">ac</a>::<a href="../../../nn/ac/CTR/Overview.html">CTR</a>::CancelConnectAsync Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> CancelConnectAsync();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the call completed successfully.</td>
+        </tr>
+        <tr>
+          <th>ResultNotConnecting</th>
+          <td>A connection is not being processed.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyConnecting</th>
+          <td>A connection has already been processed and established.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure for other reasons.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Cancels processing if an automatic connection process is underway.</p><p>When a process is canceled, this is indicated in the <code><a href="../../../nn/Result/Overview.html">Result</a></code> return value. <br />
+ The <code><a href="../../../nn/ac/CTR/GetLastErrorCode.html">GetLastErrorCode</a></code> function can get error codes that are equivalent to the error codes for failures that occur when processes are canceled. <br />
+ Use the <code><a href="../../../nn/Result/Overview.html">Result</a></code> value to determine whether the process was successfully canceled. <br /><br />
+ When canceling succeeds, or when the connection completes before the cancel request is accepted, the <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> passed by <code><a href="../../../nn/ac/CTR/ConnectAsync.html">ConnectAsync</a></code> is signaled, and you can verify the cancellation with <code><a href="../../../nn/ac/CTR/GetConnectResult.html">GetConnectResult</a></code>. <br />
+ If another thread calls this function while the <code><a href="../../../nn/ac/CTR/Connect.html">Connect</a></code> function is running, you can determine whether the process was canceled based on the <code><a href="../../../nn/ac/CTR/Connect.html">Connect</a></code> return value. <br /><br />
+ This function works differently in SDK 1.x than in SDK 2.x and later. <br />
+ For SDK 1.x, if this function is called when processing a connection request to AC via background communications, <code><a href="../../../nn/ac/ResultNotConnecting/Overview.html">ResultNotConnecting</a></code> is returned. <br />
+ For SDK 2.x and later, the device cancels its connection request and the value <code><a href="../../../nn/Result/IsSuccess.html">Result::IsSuccess</a></code> is returned. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

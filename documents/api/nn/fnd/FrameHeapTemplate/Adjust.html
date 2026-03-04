@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Adjust</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fnd/Overview.html">fnd</a>::<a href="../../../nn/fnd/FrameHeapTemplate/Overview.html">FrameHeapTemplate</a>::Adjust Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/fnd/MemoryRange/Overview.html">MemoryRange</a> Adjust(
+     int mode = NN_FND_FRAMEHEAP_ADJUST_TAIL
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>mode</th>
+          <td>Specifies the direction in which to reduce memory blocks.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a range of empty memory blocks resulting from adjusting the heap. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Resizes the frame heap to the minimum size required to encompass the memory blocks that have been allocated.</p><p>Specifying <code>NN_FND_FRAMEHEAP_ADJUST_TAIL</code> (or any positive value) for the mode argument changes the endpoint of the frame heap region by discarding the empty region at the end of the frame heap. If the memory block at the end of the heap has been allocated, this function fails.</p><p>Specifying <code>NN_FND_FRAMEHEAP_ADJUST_HEAD</code> (or any negative value) for the mode argument changes the trailing endpoint of the frame heap region by discarding the empty region at the start of the frame heap. If the memory block at the start of the heap has been allocated, this function fails.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,425 @@
+﻿<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>Hardware Specifications</title>
+<link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+<link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+</head>
+<body>
+  <a name="top"></a>
+
+  <h1>Hardware Specifications</h1>
+  <div class="section">
+    <p>
+      This section describes the vertex shader processor and the related hardware specifications.<br />
+    </p>
+  </div>
+
+  <h2><a name="vertex_processor">Vertex Shader Processor</a></h2>
+  <div class="section">
+    <p>
+      Following is a description of the hardware specifications for the vertex shader processor.<br />
+    </p>
+
+  <h3><a name="specialty">Features</a></h3>
+  <div class="section">
+  <p>
+    Below are the main features of the vertex shader processor.<br /> <br />
+    <ul>
+      <li>Four vertex shader units built into the GPU (of which one is shared with the geometry shader processor).</li>
+      <li>Operations are conducted using 24-bit, floating-point numbers: 1 sign bit, 7 exponent bits and 16 mantissa bits.</li>
+      <li>32-bit fixed length instructions.</li>
+      <li>Support for flow control instructions as well as instructions for indexing.</li>
+      <li>Support for masking of output components and rearranging (swizzling) of input components.</li>
+      <li>Cannot read or write any data other than register data.</li>
+    </ul>
+    <br />
+  </p>
+  </div>
+
+  <h3><a name="stage">Stage Structure</a></h3>
+  <div class="section">
+  <p>
+    The vertex shader processor has the following stages.<br /> <br />
+    <table class="members">
+      <thead>
+      <tr>
+<th>Stage name</th>
+<td>Symbol in timetable</td>
+<td>Description</td>
+      </tr>
+      </thead>
+      <tr>
+        <th>Prefetch</th>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="prefetch">p.fetch</td></tr>
+          </table>
+        </td>
+        <td>
+          Prefetches instruction from program RAM into cache.<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Fetch</th>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="fetch">fetch</td></tr>
+          </table>
+        </td>
+        <td>
+Fetches instruction from instruction cache.<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Decode</th>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="decode">decode</td></tr>
+          </table>
+        </td>
+        <td>
+          Decodes fetched instruction.<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Read</th>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="read">read</td></tr>
+          </table>
+        </td>
+        <td>
+          Reads data from register.<br /> This stage may not exist for some instructions.<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Execute</th>
+        <td style="text-align: center;">
+          <table class="timetable">
+            <tr>
+              <td class="flow" style="width: 60px;">ifb</td>
+              <td class="dummy"></td>
+              <td class="MOV" style="width: 60px;">mov</td>
+            </tr>
+            <tr><td class="dummy" style="height: 6px;" colspan="3"></td></tr>
+            <tr>
+              <td class="MUL" style="width: 60px;">MUL</td>
+              <td class="dummy"></td>
+              <td class="MAX" style="width: 60px;">MAX</td>
+            </tr>
+            <tr><td class="dummy" style="height: 6px;" colspan="3"></td></tr>
+          </table>
+          etc.
+        </td>
+        <td>
+          Executes the instruction.<br /> Conducts such tasks as flow control, copying of registers, and computations in the arithmetic units.<br /> Some instructions use multiple arithmetic units for computations, so sometimes this stage can take 2 or more clock cycles.<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Post-processing</th>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="post">post</td></tr>
+          </table>
+        </td>
+        <td>
+          Performs post-processing on the instruction.<br /> This stage may not exist for some instructions.<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Write-back</th>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="write">write</td></tr>
+          </table>
+        </td>
+        <td>
+          Writes the result of instruction execution to a register.<br />
+        </td>
+      </tr>
+    </table>
+    <br />
+    <p class="notice">
+      The instruction timetables in the Assembler Reference show the stages from read through write-back.<br /> Execution latency is less than the clock ticks shown in the timetable. Processing does not stall even when write-back of instruction takes place at the same clock time as the read stage of the next instruction.<br />
+    </p>
+    <br />
+  </p>
+  </div>
+
+  <h3><a name="arithmetic_unit">Arithmetic Unit Structure</a></h3>
+  <div class="section">
+  <p>
+    The vertex shader processor incorporates the following arithmetic units.<br /> <br />
+    <table class="members">
+      <thead>
+      <tr>
+        <th>Unit name</th>
+        <td>Number installed</td>
+        <td>Clock cycles required for operation</td>
+        <td>Symbol in timetable</td>
+        <td>Description</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th>MUL</th>
+        <td style="text-align: center;">4</td>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="MUL">MUL</td></tr>
+          </table>
+        </td>
+        <td>Calculates the product of two values.</td>
+      </tr>
+      <tr>
+        <th>ADD</th>
+        <td style="text-align: center;">4</td>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="ADD">ADD</td></tr>
+          </table>
+        </td>
+        <td>Calculates the sum of two values.</td>
+      </tr>
+      <tr>
+        <th>RCP / RSQ</th>
+        <td style="text-align: center;">2</td>
+        <td style="text-align: center;">2</td>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 120px;">
+            <tr><td class="RCP">RCP / RSQ</td></tr>
+          </table>
+        </td>
+        <td>Calculates the reciprocal, reciprocal square root.</td>
+      </tr>
+      <tr>
+        <th>FLOOR</th>
+        <td style="text-align: center;">4</td>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="FLOOR">FLOOR</td></tr>
+          </table>
+        </td>
+        <td>Calculates the greatest integer less than or equal to the specified value.</td>
+      </tr>
+      <tr>
+        <th>LOG</th>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">2</td>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 120px;">
+            <tr><td class="LOG">LOG</td></tr>
+          </table>
+        </td>
+        <td>Calculates a binary logarithm.</td>
+      </tr>
+      <tr>
+        <th>EXP</th>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">2</td>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 120px;">
+            <tr><td class="EXP">EXP</td></tr>
+          </table>
+        </td>
+        <td>Calculates a power of two.</td>
+      </tr>
+      <tr>
+        <th>MAX</th>
+        <td style="text-align: center;">4</td>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="MAX">MAX</td></tr>
+          </table>
+        </td>
+        <td>Selects the larger of two given values.</td>
+      </tr>
+      <tr>
+        <th>MIN</th>
+        <td style="text-align: center;">4</td>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="MIN">MIN</td></tr>
+          </table>
+        </td>
+        <td>Selects the smaller of two given values.</td>
+      </tr>
+      <tr>
+        <th>SGE</th>
+        <td style="text-align: center;">4</td>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="SGE">SGE</td></tr>
+          </table>
+        </td>
+        <td>Compares two values to determine whether the one is greater than or equal to the other.</td>
+      </tr>
+      <tr>
+        <th>SLT</th>
+        <td style="text-align: center;">4</td>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 60px;">
+            <tr><td class="SLT">SLT</td></tr>
+          </table>
+        </td>
+        <td>Compares two values to determine whether the one is less than the other.</td>
+      </tr>
+      <tr>
+        <th>CMP</th>
+        <td style="text-align: center;">2</td>
+        <td style="text-align: center;">2</td>
+        <td style="text-align: center;">
+          <table class="timetable" style="width: 120px;">
+            <tr><td class="CMP">CMP</td></tr>
+          </table>
+        </td>
+        <td>Compares two values.</td>
+      </tr>
+      </tbody>
+    </table>
+    <br /> <br />
+  </p>
+  </div>
+
+  <h3><a name="register_set">Register Set</a></h3>
+  <div class="section">
+  <p>
+    The vertex shader processor incorporates the following register set.<br /> <br />
+    <table class="members">
+      <thead>
+      <tr>
+        <th>Register type</th>
+        <td>Number of components</td>
+        <td>Number</td>
+        <td>R/W</td>
+        <td>Bit width</td>
+        <td>Description</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th>Input registers</th>
+        <td style="text-align: center;">4</td>
+        <td style="text-align: center;">16</td>
+        <td style="text-align: center;">R</td>
+        <td style="text-align: center;">24</td>
+        <td>
+          Floating-point registers storing vertex attribute data.<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Temporary registers</th>
+        <td style="text-align: center;">4</td>
+        <td style="text-align: center;">16</td>
+        <td style="text-align: center;">RW</td>
+        <td style="text-align: center;">24</td>
+        <td>
+          Reusable floating-point registers for temporarily holding the results of calculations.<br /> The content is maintained until overwritten. <br />
+        </td>
+      </tr>
+      <tr>
+        <th>Floating-point constant registers</th>
+        <td style="text-align: center;">4</td>
+        <td style="text-align: center;">96</td>
+<td style="text-align: center;"><CODE>R</CODE></td>
+        <td style="text-align: center;">24</td>
+        <td>
+          Floating-point registers storing constants for operations.<br /> Supports specification of register index offset by address register and loop counter register. <br />
+        </td>
+      </tr>
+      <tr>
+        <th>Address registers</th>
+        <td style="text-align: center;">2</td>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">RW</td>
+        <td style="text-align: center;">8</td>
+        <td>
+          Integer-type register for specifying the register index offset for the floating-point constant registers.<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Boolean register</th>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">16</td>
+<td style="text-align: center;"><CODE>R</CODE></td>
+        <td style="text-align: center;">1</td>
+        <td>
+          Boolean registers used for conditional branching and jumping.<br /> One of these registers (b15) is reserved for use by the geometry shader.<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Integer registers</th>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">4</td>
+<td style="text-align: center;"><CODE>R</CODE></td>
+        <td style="text-align: center;">24</td>
+        <td>
+          Integer registers used for controlling loop instructions.<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Loop-counter register</th>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">1</td>
+<td style="text-align: center;"><CODE>R</CODE></td>
+        <td style="text-align: center;">8</td>
+        <td>
+          Integer-type register that stores the counter value for loop instructions.<br /> Can be used for specifying the register index offset for the floating-point constant registers.<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Output registers</th>
+        <td style="text-align: center;">4</td>
+        <td style="text-align: center;">16</td>
+        <td style="text-align: center;">W</td>
+        <td style="text-align: center;">24</td>
+        <td>
+          Floating-point registers for storing the vertex attribute data at the completion of processing by the vertex shader processor.<br /> The contents in these registers are output to later stages in the graphics pipeline (or to the geometry shader processor).<br />
+        </td>
+      </tr>
+      <tr>
+        <th>Status registers</th>
+        <td style="text-align: center;">1</td>
+        <td style="text-align: center;">2</td>
+        <td style="text-align: center;">RW</td>
+        <td style="text-align: center;">1</td>
+        <td>
+          Floating-point registers storing vertex attribute data.<br />
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <br /> <br />
+  </p>
+  </div>
+  </div>
+
+
+  <h2><a name="post_vertexcache">Post-Vertex Cache</a></h2>
+  <div class="section">
+  <p>
+The post-vertex cache functions to cache the result of the processing of vertex data by the vertex shader processor.<br /><br />If the vertex buffer and vertex index are being used for the input of vertex data, the processing result of the vertex shader processor is stored in cache, and this processed data in cache is output when the same vertex index is input. Cache hits boost performance because processing by the vertex shader processor is skipped.<br /><br /> Cache for 32 entries is available. When cache is not hit, data is ejected from the cache starting from the earliest of the last-referenced data.<br />The probability of cache hits is higher when there are 32 or fewer sets of vertex data to be repeatedly referenced, and depending on how the vertex index has been created, rendering using <CODE>TRIANGLES</CODE> is more efficient in some cases than using <CODE>TRIANGLE_STRIP</CODE>.<br /> <br /> <br />
+  </p>
+  </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

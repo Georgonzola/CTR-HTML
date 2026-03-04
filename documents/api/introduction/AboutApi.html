@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>CTR-SDK API</title>
+    <link rel="stylesheet" href="../css/page.css" type="text/css" />
+    <style>
+    h4
+    {
+        margin-left: 0.8em;
+        padding-left: 0.3em;
+        border-bottom: solid 1px #4499FF;
+        width: 20em;
+    }
+    </style>
+</head><body>
+
+    <h1>CTR-SDK API</h1>
+
+    <h2>Overview</h2>
+    <p>
+        This section describes general assumptions regarding the CTR-SDK API.
+    </p>
+
+
+<!--     <h2>スレッドセーフティ</h2>     <p>         特に記載のない限り CTR-SDK の API はスレッドセーフではありません。         複数のスレッドから API を呼び出す場合は排他制御等の適切な対応を行ってください。     </p>      <h3>スレッドセーフな範囲</h3>     <p>         API のスレッドセーフティにはいくつかの種類の範囲があります。     </p>      <h4>Function単位で排他が必要</h4>     <p>         対象となるFunctionの呼び出しのみを複数のスレッドから         同時に行われないようにすればよいタイプです。         対象のFunctionを一つのスレッドのみで呼び出すようにすることでも対応できます。     </p>     <p>         <ref def="nn::os::SetDeviceMemorySize"/> などが該当します。     </p>      <h4>Namespace単位で排他が必要</h4>     <p>         Function単位の排他制御では不十分で         同じNamespaceに存在する全ての API 間でも排他制御が必要なタイプです。     </p>     <p>         <ref def="nn::cec::CTR"/> などが該当します。     </p>      <h4>カテゴリ単位で排他が必要</h4>     <p>         Function単位の排他制御では不十分で         特定の API 間でも排他制御が必要なタイプです。     </p>     <p>         <ref def="nn::cec::CTR::CecControl"/> などが該当します。     </p>      <h4>Class単位で排他が必要</h4>     <p>         あるClassのメンバ間での排他制御が必要なタイプです。     </p>     <p>         <ref def="nn::fs::FileStream"/> などが該当します。     </p>      <h4>インスタンス単位で排他が必要</h4>     <p>         あるClassに対して、インスタンスの使用全般について排他制御が必要なものの、         異なるインスタンスとの同時使用は排他制御が不要なタイプです。         一つのインスタンスに対して複数のスレッドから同時に使用してはいけませんが、         異なるインスタンスを異なるスレッドが同時に使用することは可能です。         <br/>         以下では「インスタンス間でスレッドセーフ」と表現します。     </p>     <p>         <ref def="nn::fs::FileStream"/> などが該当します。     </p>      <h3>スレッドセーフな API</h3>     <p>         以下の API はスレッドセーフです。     </p>     <ul>     <li><ref def="nn::enc"/> Namespaceの API。</li>     <li><ref def="nn::nstd"/> Namespaceの API</li>     <li><ref def="nn::tpl"/> Namespaceの API。</li>     <li><ref def="nn::crypto"/> NamespaceのClassはインスタンス間でスレッドセーフです。         またグローバルFunctionはスレッドセーフです。</li>     <li><ref def="nn::dbg"/> NamespaceのClassはインスタンス間でスレッドセーフです。         またグローバルFunctionはスレッドセーフです。</li>     <li><ref def="nn::math"/> NamespaceのClassはインスタンス間でスレッドセーフです。         またグローバルFunctionはスレッドセーフです。</li>     <li><ref def="nn::fnd"/> NamespaceのClassはインスタンス間でスレッドセーフです。</li>     <li><ref def="nn::jpeg"/> NamespaceのClassはインスタンス間でスレッドセーフです。</li>     <li><ref def="nn::os"/> NamespaceのClassはインスタンス間でスレッドセーフです。</li>     <li><ref def="nn::util"/> NamespaceのClassはインスタンス間でスレッドセーフです。</li>     <li><ref def="nn::Result"/> はインスタンス間でスレッドセーフです。</li>     </ul>       <h2>API 内部でのスレッド切り替え</h2>     <p>         特に記載のない限り CTR-SDK の API は内部でスレッド切り替えを発生させる可能性があります。     </p>      <h3>スレッド切り替えを行わない API</h3>     <p>         以下の API はスレッド切り替えを行うことがありません。         ただし、API 呼び出し中にタイマ等の他の要因により         スレッドが切り替わることはあります。     </p>     <ul>     <li><ref def="nn::crypto"/> Namespaceの API</li>     <li><ref def="nn::cx"/> Namespaceの API</li>     <li><ref def="nn::enc"/> Namespaceの API</li>     <li><ref def="nn::fnd"/> Namespaceの API</li>     <li><ref def="nn::gr"/> Namespaceの API</li>     <li><ref def="nn::jpeg"/> Namespaceの API</li>     <li><ref def="nn::math"/> Namespaceの API</li>     <li><ref def="nn::nstd"/> Namespaceの API</li>     <li><ref def="nn::tpl"/> Namespaceの API</li>     <li><ref def="nn::util"/> Namespaceの API</li>     <li><ref def="nn::Result"/></li> Class     </ul> -->
+
+
+    <h2>Use of Private APIs Is Prohibited</h2>
+    <p>
+        Do not use private APIs. <br /> Private APIs may be added, deleted, or changed without any prior or later notice.
+    </p>
+
+
+    <h2>Header include</h2>
+    <p>
+        Unless otherwise specified, put <CODE>include</CODE> headers directly under <CODE>nn</CODE> directories (for example, <CODE>nn/os.h</CODE>). The structure of headers lower in the hierarchy may change.
+    </p>
+
+
+    <h2>Revision History</h2>
+    <div class="section">
+        <dl class="history">
+            <dt>2012/04/23</dt>
+            <dd>Initial version.</dd>
+        </dl>
+    </div>
+
+
+<hr /><p>CONFIDENTIAL</p></body></html>

@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CopyTextureSubResource</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a>::CopyTextureSubResource Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CopyTextureSubResource(
+     const Texture2DResource * source,
+     <a href="../../../../nn_types/s32.html">s32</a> srcMipLevelIndex,
+     const <a href="../../../../nn/gd/CTR/Memory/Rect/Overview.html">Rect</a> & rect,
+     const Texture2DResource * dest,
+     <a href="../../../../nn_types/s32.html">s32</a> dstMipLevelIndex,
+     <a href="../../../../nn_types/s32.html">s32</a> destPosX,
+     <a href="../../../../nn_types/s32.html">s32</a> destPosY
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>source</th>
+          <td>Specifies a pointer to the source <code>Texture2DResource</code> resource.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcMipLevelIndex</th>
+          <td>Specifies the index of the mipmap level of the source. Specify <code>-1</code> to use the last mipmap level index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>rect</th>
+          <td>Specifies the clipping area of the source. If <code>-1</code> is specified for <code>rect.width</code> or <code>rect.height</code>, width or height of the source resource is used.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dest</th>
+          <td>Specifies a pointer to the Texture2DResource of the destination.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstMipLevelIndex</th>
+          <td>Specifies the index of the mipmap level of the destination. Specify <code>-1</code> to use the last mipmap level index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>destPosX</th>
+          <td>Specifies the x-position of the destination memory.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>destPosY</th>
+          <td>Specifies the y-position of the destination memory.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for source or dest.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidSubRegionResolution</th>
+          <td>The PosX, PosY, width, or height of <code><a href="../../../../nn/gd/CTR/Memory/Rect/Overview.html">Rect</a></code> is not a multiple of 16. Or, the width or height of <code><a href="../../../../nn/gd/CTR/Memory/Rect/Overview.html">Rect</a></code> is less than zero. Or, destPosX or destPosY is not a multiple of 16.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureMipLevelIndex</th>
+          <td>The index of the source or destination mipmap is larger than the mipmap level of the respective resource.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormat</th>
+          <td>The pixel format bit size must be the same for the source and dest resources.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Adds a command to the current command list for transferring a source Texture2DResource texture to the destination Texture2DResource texture.</p><p>Data is automatically clipped if the clipped area is separated from the source or destination area. A function with the same functionality as <code>nngxAddBlockImageCopyCommand</code> is called internally. <br />
+ This function adds commands to the command list. For more information, see the Programming Manual.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

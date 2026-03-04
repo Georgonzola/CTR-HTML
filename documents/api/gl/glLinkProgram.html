@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glLinkProgram</title>
+  </head>
+  <body>
+    <h1>glLinkProgram Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glLinkProgram(
+     GLuint program
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>program</th>
+          <td>The program object to link.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Links a program object.</p><P>Set <tt>program</tt> to a program object, and this function will link the shader objects attached to <tt>program</tt>.  When a program has been successfully linked, <tt>glUseProgram</tt> can embed it as the current program in the rendering pipeline.  The program has been successfully linked if you get <tt>GL_TRUE</tt> from <tt>glGetProgramiv</tt> with <tt>pname</tt> set to <tt>GL_LINK_STATUS</tt>.  Linking has failed if you get a value of <tt>GL_FALSE</tt>.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">program</span> argument was set to an invalid value.</TD></TR><TR><th>GL_OUT_OF_MEMORY</th><TD>Failed to allocate the management region.</TD></TR></TABLE><!-- source programに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 管理用領域の確保に失敗した場合エラーGL_OUT_OF_MEMORYを生成します。 --></P><P>Linking fails when <tt>program</tt> is waiting to be deleted; when the vertex and fragment shaders are not attached; when the attached vertex and geometry shaders were not loaded at the same time by <tt>glShaderBinary</tt>; and when there are more than 2048 total uniform variables for the attached vertex and geometry shaders.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

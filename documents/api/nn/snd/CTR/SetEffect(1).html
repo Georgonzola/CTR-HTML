@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetEffect</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/snd/Overview.html">snd</a>::<a href="../../../nn/snd/CTR/Overview.html">CTR</a>::SetEffect Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool SetEffect(
+     <a href="../../../nn/snd/CTR/AuxBusId.html">AuxBusId</a> busId,
+     <a href="../../../nn/snd/CTR/FxReverb/Overview.html">FxReverb</a> * fx
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>busId</th>
+          <td>Bus ID.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>fx</th>
+          <td>The reverb effect to be configured.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> when the configuration was successful. When varfx/var is ttNULL/tt, the configuration fails and ttfalse/tt is returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures the effect. Configures the reverb effect. To process data that is to be output by AUX, you can use this function to apply delay and reverb effects in addition to configuring advance processing with the <code><a href="../../../nn/snd/CTR/RegisterAuxCallback.html">RegisterAuxCallback</a></code> function. Note that you can only configure one delay (<code><ulink url="../../../nn/snd/CTR/FxDelay/Overview.html">FxDelay</ulink></code>) and one reverb (<code><ulink url="../../../nn/snd/CTR/FxReverb/Overview.html">FxReverb</ulink></code>) for each bus. When you configure more than one, only the settings for the last one are valid. The older configured effects are cleared. If you have called <code><a href="../../../nn/snd/CTR/ClearEffect.html">ClearEffect</a></code> to clear older configurations as noted previously, you can deallocate the memory used for those effects using the <code><a href="../../../nn/snd/CTR/FxDelay/ReleaseWorkBuffer.html">FxDelay::ReleaseWorkBuffer</a></code> and <code><a href="../../../nn/snd/CTR/FxReverb/ReleaseWorkBuffer.html">FxReverb::ReleaseWorkBuffer</a></code> functions. Before calling this function, you must call the <code><a href="../../../nn/snd/CTR/FxReverb/SetParam.html">FxReverb::SetParam</a></code>, <code><a href="../../../nn/snd/CTR/FxReverb/GetRequiredMemSize.html">FxReverb::GetRequiredMemSize</a></code>, and <code><a href="../../../nn/snd/CTR/FxReverb/AssignWorkBuffer.html">FxReverb::AssignWorkBuffer</a></code> functions from the <code><a href="../../../nn/snd/CTR/FxReverb/Overview.html">FxReverb</a></code> class to finish preparing for the reverb effect.</p>
+    </div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../nn/snd/CTR/ClearEffect.html">ClearEffect</a><br /><a href="../../../nn/snd/CTR/RegisterAuxCallback.html">RegisterAuxCallback</a><br /><a href="../../../nn/snd/CTR/FxReverb/Overview.html">FxReverb</a> Class<br /><a href="../../../nn/snd/CTR/FxDelay/Overview.html">FxDelay</a> Class<br /> </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,226 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Update Indicator</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8" />
+<META http-equiv=Content-Style-Type content="text/css">
+<STYLE type="text/css">BODY {
+	FONT-WEIGHT: normal; MARGIN: 8px; COLOR: #000000
+}
+DIV {
+	WIDTH: 98%; WHITE-SPACE: nowrap
+}
+DIV.title {
+	BORDER-RIGHT: #CD202C 8px double; PADDING-RIGHT: 4px; BORDER-TOP: #CD202C 8px double; PADDING-LEFT: 4px; FONT-WEIGHT: bold; FONT-SIZE: 150%; PADDING-BOTTOM: 4px; MARGIN: 4px; BORDER-LEFT: #CD202C 8px double; COLOR: #202020; PADDING-TOP: 4px; BORDER-BOTTOM: #CD202C 8px double; TEXT-ALIGN: left
+}
+H1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 150%; MARGIN-BOTTOM: 20px; PADDING-BOTTOM: 1px; BORDER-BOTTOM: #CD202C 5px solid; FONT-FAMILY: Arial; LETTER-SPACING: normal
+}
+H2 {
+	BORDER-RIGHT: #CD202C 0px; BORDER-TOP: #CD202C 0px; PADDING-LEFT: 4px; FONT-WEIGHT: bold; FONT-SIZE: 150%; MARGIN-LEFT: 2px; BORDER-LEFT: #CD202C 8px double; BORDER-BOTTOM: #CD202C 2px solid
+}
+CODE {
+	FONT-SIZE: 10pt; LEFT: 12px; FONT-FAMILY: "Courier New", monospace
+}
+TABLE {
+	PADDING-RIGHT: 0pt; PADDING-LEFT: 0pt; FONT-SIZE: 10pt; LEFT: 12px; MARGIN: 2pt 0pt; BORDER-TOP-STYLE: none; FONT-FAMILY: Arial; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; POSITION: relative; BORDER-BOTTOM-STYLE: none
+}
+TD {
+	BORDER-RIGHT: 2pt; PADDING-RIGHT: 2pt; BORDER-TOP: 2pt; PADDING-LEFT: 2pt; PADDING-BOTTOM: 2pt; BORDER-LEFT: 2pt; PADDING-TOP: 2pt; BORDER-BOTTOM: 2pt; FONT-STYLE: normal; TEXT-ALIGN: left
+}
+TH {
+	BORDER-RIGHT: 2pt; PADDING-RIGHT: 2pt; BORDER-TOP: 2pt; PADDING-LEFT: 2pt; PADDING-BOTTOM: 2pt; BORDER-LEFT: 2pt; PADDING-TOP: 2pt; BORDER-BOTTOM: 2pt; FONT-STYLE: normal; TEXT-ALIGN: left
+}
+TD {
+	FONT-WEIGHT: normal; BACKGROUND: #e8f4f4
+}
+TH {
+	FONT-WEIGHT: bold; BACKGROUND: #c0d8d8
+}
+P {
+	MARGIN-LEFT: 4px
+}
+P.code {
+	FONT-SIZE: 10pt; BACKGROUND: #e8f4f4; LEFT: 12px; FONT-FAMILY: "Courier New", monospace
+}
+</STYLE>
+
+<META content="MSHTML 6.00.2900.6036" name=GENERATOR></HEAD>
+<BODY><A name=top></A>
+
+<H1>Update Indicator</H1>
+
+<h2>Contents</h2>
+<ul style='list-style-type: none'>
+<li>1. <a href="#ss0100">Introduction</a></li>
+<li>2. <a href="#ss0200">Display Specifications Rules for Update Indicators</a></li>
+<li>3. <a href="#ss0300">Update Indicator Image Data </a></li>
+<li>4. <a href="#ss0400">Revision History</a></li>
+</ul>
+
+
+<h2>1. <a name="ss0100">Introduction</a></h2>
+
+<p>
+<img src="img/indicator_home.jpg"> <br /><br />The update indicator is an icon used on the HOME Menu to notify users that new data has arrived for an application, and that there are friends to join in with.</p>
+
+<p>If an update indicator also displays in the application when it is displayed on the HOME Menu, then users can be smoothly guided to the place where the newly arrived data is shown. However, if every application uses its own rules for displaying update indicators, this can confuse users rather than aid them. <br /> For this reason, you should obey the following rules when using update indicators in your applications.</p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>2. <a name="ss0200">Display Specifications Rules for Update Indicators</a></h2>
+<p>Here, we explain the rules you should follow when discussing specifications and methods for implementing update indicators.</p>
+
+<H3>Basic Rules</H3> 
+<p></p>
+<ul>
+<li>If an update indicator is being displayed on the icon for the application in the HOME Menu, the same update indicator should be shown in the application itself.</li>
+<ul>
+<li>Sometimes an update indicator displays on the HOME Menu even while an application is suspended, so when an application resumes from its suspension you need to update the display state of the update indicator in the application (that is, display the update indicator if the conditions for showing it are satisfied).</li>
+<li>If it proves troublesome to automatically update the display state of the update indicator when the application resumes from suspension, then implement some mechanism by which the user can perform the process from some screen that the user readily associates with the place where the update indicator displays. <br /> (Example) Create a list of data received via StreetPass, displaying the update indicator next to each item, in effect presenting a screen where the user can check for received StreetPass data. Put a &quot;Receive New Data&quot; button on this screen. When the user taps this button, any newly received data gets added to the list and displays the update indicator.</li>
+</ul>
+<li>It is fine to display the update indicator inside the application but not on the icon for that application in the HOME Menu. <br /> (Example) Remove the update indicator from the HOME Menu but keep it displaying inside the application because the user has not yet actually checked the data that has arrived.
+</li>
+</ul>
+<p>In the following sections we introduce rules for how the various update indicators should behave in the HOME Menu. When discussing the specifications and methods for implementing these update indicators, remember to also adhere to the basic rules laid out above.</p>
+<br />
+
+<H3>Rules for Update Indicator Display for StreetPass</H3> 
+<p>Follow these rules when displaying the StreetPass update indicator on application icons in the HOME Menu:</p>
+<ul>
+<li>When data arrives in the StreetPass box, display an update indicator on the icon for the application for which the data has been received.</li>
+<li>Delete the update indicator once the application has called the <CODE>nn::cec::CTR::MessageBox::CloseMessageBox</CODE> function after calling the <CODE>nn::cec::CTR::MessageBox::OpenMessageBox</CODE> function.</li>
+<li>There is no way for the application to determine whether the update indicator is displaying in the HOME Menu.</li>
+</ul>
+<br />
+
+<H3>Rules for Update Indicator Display for SpotPass</H3> 
+<p>Follow these rules when displaying the SpotPass update indicator on application icons in the HOME Menu:</p>
+<ul>
+<li>When new SpotPass data has arrived for an application, display an update indicator on the icon for that application.</li>
+<li>Determine the arrival of new data with the <CODE>nn::boss::GetNewArrivalFlag</CODE> function, and therefore do not display the update indicator when what has been downloaded in NS data for which the new arrival flag is not set in the server settings.</li> 
+<li>Delete the update indicator when the application calls any of the <CODE>nn::boss::Get*NsDataIdList</CODE> functions, since the new arrival flag is cleared.</li>
+<li>For more information, see <CODE>boss</CODE> <I>API Reference Manual</I> and the associated programming manual.</li>
+</ul>
+<br />
+
+<H3>Rules for Update Indicator Display for Friends</H3> 
+<p>Follow these rules when displaying the update indicator for friends on the Friend List icon in the HOME Menu.</p>
+<ul>
+<li>If there is a friend to join in with, display the update indicator on the Friend List icon.</li>
+<li>If there are no friends to join in with, the update indicator should disappear.</li>
+<li>Here, the meaning of whether there are &quot;friends to join in with&quot; is the same as whether the &quot;Join game being played&quot; button has been pressed on the Friend List. This determination is not limited to the join-in target application, so there is no way for the application to get whether the update indicator is displaying in the HOME Menu.</li>
+</ul>
+<p>As mentioned above, the update indicator for friends in the HOME Menu is not specific to any one application. However, if you will be using update indicators in your application, use them to indicate to users when they can join in with friends (that is, when the <CODE>nn::friends::FriendPresense::IsJoinable</CODE> function returns <CODE>true</CODE>).</p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>3. <a name="ss0300">Update Indicator Image Data </a></h2>
+<p>Here, we describe the update indicator image data and the rules for using that image data.</p>
+
+<H3>When Using NW4C Layout</H3> 
+<P>
+Select which layout to use based on your version of NW4C, as shown in the following table.
+</P>
+
+    <div class="table">
+    <table border="1">
+    <thead>
+        <tr>
+<th align="center">NW4C Version</th>
+<th align="center">Layout Data to Use</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td align="center">Prior to 3.0</td>
+<td align="left">Data in the folder <CODE>$CTR_SDK/resources/icon/UpdateIndicator/layout1</CODE>.</br>The extensions for the layout data are  <CODE>.clan</CODE> and <CODE>.clyt</CODE>.</td>
+        </tr>
+        <tr>
+<td align="center">3.0 or later</td>
+<td align="left">Data in the folder <CODE>$CTR_SDK/resources/icon/UpdateIndicator/layout2</CODE>.</br>The extensions for the layout data are  <CODE>.flan</CODE> and <CODE>.flyt</CODE>.</td>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+
+<H3>When Not Using NW4C Layout</H3> 
+<p>The data have been prepared in the form of a PSD file. Export the data to the appropriate format for your application development environment and implement according to the display rules. <br /> The image data file is located in the following directory in the CTR-SDK. <br /> <CODE>$CTR_SDK/resources/icon/UpdateIndicator</CODE> </p>
+<p>The layer configuration of the PSD file is as follows. <br />  <br /> <img src="img/indicator_layer.jpg">
+</p>
+<br />
+<H3>Update Indicator Display Rules</H3> 
+<ul>
+<li>
+<H3>Basic animation:</H3> 
+<div class="table">
+<table border="1">
+<thead>
+    <tr>
+<th>Content</th>
+<th>Details</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+    <td>
+Graphics<br /> 
+    </td>
+<td>Layer <CODE>Light</CODE> on top of <CODE>Lamp</CODE>.</td>
+    </tr>
+    <tr>
+    <td>
+Animation<br /> 
+    </td>
+<td>Loop of 60 frames<br />
+Animate just the opacity of <CODE>Light</CODE>.<br />
+<pre>
+--------------------------------
+Frame count   Opacity
+0		0
+30		255
+60		0
+--------------------------------
+</pre>
+    </tr>
+</tbody>
+</table>
+</div>
+<p>
+<B>(Reference)</B><br /> <br />The animation curve below is provided for reference purposes for creating a blinking animation the same as the HOME Menu. <br /> <br /> Refer to this when implementing your animation. (It does not need to be strictly the same.)<br /> <br />The slope should be set to zero as shown in the animation curve. <br />  <img src="img/indicator_curve.jpg">
+</p>
+<br />
+</ul>
+<ul>
+    </li>
+    <li>
+<H3>When Both StreetPass and SpotPass Data Have Arrived</H3> 
+<p>To indicate the arrival of data for both StreetPass and SpotPass, follow the rules described above and alternate the color between green and blue within the span of 120 frames. <br /> <br /> Use cross-fading so that the color of <CODE>Lamp</CODE> changes smoothly between green and blue.<br /> <br /> As a reference, view the following video clip.<br /> <a href="img/StreetPass_SpotPass.avi"><CODE>$CTR_SDK/documents/resources/UpdateIndicator/img/StreetPass_SpotPass.avi</CODE> </a></p>
+    </li>
+<br />
+    <li>
+<H3>Display Size</H3> 
+<p>You are free to adjust the size of the update indicator, providing you display it within a reasonable range that is not too large or too small.</p>
+    </li>
+<br />
+    <li>
+<H3>Modifications</H3> 
+<p>Icons <b>cannot</b> be modified. Do not switch to the use of original colors or make changes to the pattern.</p>
+    </li>
+</ul>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>4. <a name="ss0400">Revision History</a></h2>
+    <dl>
+        <dt>2013/10/29</dt>
+<dd>Added text about which layout data to use for NW4C 3.0 and later versions.</dd>
+        <dt>2012/05/21</dt>
+<dd>Initial version.</dd>
+    </dl>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<hr /><p>CONFIDENTIAL</p></BODY></HTML>

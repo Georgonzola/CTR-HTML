@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Send</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ir/Overview.html">ir</a>::<a href="../../../../nn/ir/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ir/CTR/Communicator/Overview.html">Communicator</a>::Send Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">Result</a> Send(
+     void * pBuffer,
+     size_t dataSize,
+     size_t bufferSize,
+     bool restore = false
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Specifies the send buffer. Place the send data in this buffer starting from the head of the buffer, in intervals of <emphasis>dataSize</emphasis>. Must be aligned to <emphasis>SEND_BUFFER_ALIGNMENT</emphasis> (4 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dataSize</th>
+          <td>Specifies the size of the send data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>Specifies the buffer size. <bold>Note:</bold> This must be larger than the size of the send data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>restore</th>
+          <td>Specifies whether to restore the send buffer to its unencrypted state.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotConnected</th>
+          <td>Not in the connected state.</td>
+        </tr>
+        <tr>
+          <th>ResultCannotConfirm</th>
+          <td>ID has not been confirmed.</td>
+        </tr>
+        <tr>
+          <th>ResultPacketFull</th>
+          <td>Insufficient management region for the packet.</td>
+        </tr>
+        <tr>
+          <th>ResultBufferInsufficient</th>
+          <td>The region for storing packets is not large enough, or the send buffer is not large enough.</td>
+        </tr>
+        <tr>
+          <th>ResultMachineSleep</th>
+          <td>Sleeping because the system is in Sleep Mode.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>The IR module may be malfunctioning.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sends the specified data.</p><p>Because security information is added to the send buffer, the buffer must be 48 to 53 bytes larger than the size of data being sent. <br />
+ The size of buffer required depends on the size of data you want to send. Calculate the value using the <code>CalculateBufferSizeToCommunicate</code> function. (Note that you do <bold>not</bold> use the <code>GetPacketSize</code> function.)<br />
+ In addition, the send buffer also must be aligned to <emphasis>SEND_BUFFER_ALIGNMENT</emphasis> (4 bytes).</p><p>Because the data is sent after various processes including encryption are performed on the buffer, the buffer state is different from its original state when the function returns. <br />
+ If you specify <code>true</code> for the <emphasis>restore</emphasis> parameter, the function restores an area of <emphasis>dataSize</emphasis> length from the head of the buffer to its original state before returning. However, restoring causes the process to take slightly longer. <br /></p><p>This function returns control before the sending process is completed. Packets are sent at times when the receive process is not taking place. <br />
+ This function can send data in sizes ranging from 0 to 16316 bytes. <br />
+ The region specified by <code>Initialize</code> for saving outgoing packets must have at least <code>GetPacketSize(size)</code> of free space, and the region for managing outgoing packets must have at least <code>GetManagementSize(1)</code> of free space. <br /></p><p>For this function to succeed, you must first confirm the ID using the <code>RequireToConfirmId</code> function or the <code>WaitToConfirmId</code> function. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment.</item><br />
+        </dd>
+        <dt>2011/10/05</dt>
+        <dd><item xmlns="">Revised descriptions related to the restore argument.</item><br />
+        </dd>
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

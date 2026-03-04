@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>MaskProfanityWordsInText</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ngc/Overview.html">ngc</a>::<a href="../../../../nn/ngc/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ngc/CTR/ProfanityFilter/Overview.html">ProfanityFilter</a>::MaskProfanityWordsInText Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+virtual <a href="../../../../nn/Result/Overview.html">nn::Result</a> MaskProfanityWordsInText(
+     int * pProfanityWordCount,
+     wchar_t * pText
+);
+
+virtual <a href="../../../../nn/Result/Overview.html">nn::Result</a> MaskProfanityWordsInText(
+     int * pProfanityWordCount,
+     <a href="../../../../nn/ngc/CTR/ProfanityFilterPatternList.html">ProfanityFilterPatternList</a> nPatternCode,
+     wchar_t * pText
+);
+
+virtual <a href="../../../../nn/Result/Overview.html">nn::Result</a> MaskProfanityWordsInText(
+     int * pProfanityWordCount,
+     bool bCommunicateWithOtherRegions,
+     wchar_t * pText
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./MaskProfanityWordsInText(0).html">MaskProfanityWordsInText ( int *, wchar_t * ) </a>
+          </td>
+          <td>Checks the specified text against all pattern lists to determine whether strings contain profanity and should not be displayed.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./MaskProfanityWordsInText(1).html">MaskProfanityWordsInText ( int *, ProfanityFilterPatternList, wchar_t * ) </a>
+          </td>
+          <td>Checks the specified text against the specified pattern list to determine whether strings contain profanity and should not be displayed.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./MaskProfanityWordsInText(2).html">MaskProfanityWordsInText ( int *, bool, wchar_t * ) </a>
+          </td>
+          <td>Gets the hardware's region and language settings, and checks the specified text against the pattern list specified in the UGC guidelines of the 3DS Guidelines to determine whether the text contains profanity and should not be displayed.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of MaskProfanityWordsInText ( int *, wchar_t * ) </h2>
+    <div class="section"><p>This function processes text strings equal to or longer than a particular length. The maximum number of characters (including the null terminator) for the text is <code><a href="../../../../nn/ngc/MAX_TEXT_LENGTH.html">nn::ngc::MAX_TEXT_LENGTH</a></code>. It cannot process short single words, such as screen names. To check words, use the <code><a href="../../../../nn/ngc/CTR/ProfanityFilter/CheckProfanityWords.html">ProfanityFilter::CheckProfanityWords</a></code> function instead.</p><p>When this function is called, it checks the specified strings to determine whether they contain profanity and masks those parts with asterisks (*).</p><p>This operation may take a long time. (It blocks.) Processing time can vary, depending on such factors as the version of the system and the length of the strings. We recommend running this function in a separate thread. Running it in the main thread can reduce the frame rate.</p><p>To determine which pattern lists you need to check against, see the UGC guidelines in the latest 3DS Guidelines.</p></div>
+    <h2>Description of MaskProfanityWordsInText ( int *, ProfanityFilterPatternList, wchar_t * ) </h2>
+    <div class="section"><p>This function processes text strings equal to or longer than a particular length. The maximum number of characters (including the null terminator) for the text is <code><a href="../../../../nn/ngc/MAX_TEXT_LENGTH.html">nn::ngc::MAX_TEXT_LENGTH</a></code>. It cannot process short single words, such as screen names. To check words, use the <code><a href="../../../../nn/ngc/CTR/ProfanityFilter/CheckProfanityWords.html">ProfanityFilter::CheckProfanityWords</a></code> function instead.</p><p>When this function is called, it checks the specified strings to determine whether they contain profanity and masks those parts with asterisks (*).</p><p>This operation may take a long time. (It blocks.) Processing time can vary, depending on such factors as the version of the system and the length of the strings. We recommend running this function in a separate thread. Running it in the main thread can reduce the frame rate.</p><p>To determine which pattern lists you need to check against, see the UGC guidelines in the latest 3DS Guidelines.</p></div>
+    <h2>Description of MaskProfanityWordsInText ( int *, bool, wchar_t * ) </h2>
+    <div class="section"><p>This function processes text strings equal to or longer than a particular length. The maximum number of characters (including the null terminator) for the text is <code><a href="../../../../nn/ngc/MAX_TEXT_LENGTH.html">nn::ngc::MAX_TEXT_LENGTH</a></code>. It cannot process short single words, such as screen names. To check words, use the <code><a href="../../../../nn/ngc/CTR/ProfanityFilter/CheckProfanityWords.html">ProfanityFilter::CheckProfanityWords</a></code> function instead.</p><p>When this function is called, it checks the specified strings to determine whether they contain profanity and masks those parts with asterisks (*).</p><p>This operation may take a long time. (It blocks.) Processing time can vary, depending on such factors as the version of the system and the length of the strings. We recommend running this function in a separate thread. Running it in the main thread can reduce the frame rate.</p></div>
+  </body>
+</html>

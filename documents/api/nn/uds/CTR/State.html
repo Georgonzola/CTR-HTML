@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>State</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/uds/Overview.html">uds</a>::<a href="../../../nn/uds/CTR/Overview.html">CTR</a>::State Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum State;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>STATE_NONE</th>
+          <td>Not initialized.</td>
+        </tr>
+        <tr>
+          <th>STATE_PROCESSING_INITIALIZE</th>
+          <td>Internal state indicating that initialization is underway. Applications never see this value.</td>
+        </tr>
+        <tr>
+          <th>STATE_PROCESSING_FINALIZE</th>
+          <td>Internal state indicating finalization is currently underway. Applications never see this value.</td>
+        </tr>
+        <tr>
+          <th>STATE_DISCONNECTED</th>
+          <td>Not communicating (not connected).</td>
+        </tr>
+        <tr>
+          <th>STATE_CREATING_NETWORK</th>
+          <td>Intermediate state between not connected, and building a new network and running as the host. Automatically transitions to <code>STATE_MASTER</code>.</td>
+        </tr>
+        <tr>
+          <th>STATE_DESTROYING_NETWORK</th>
+          <td>Intermediate state between no longer running as the host and not connected. Automatically transition to <code>STATE_DISCONNECTED</code>.</td>
+        </tr>
+        <tr>
+          <th>STATE_MASTER</th>
+          <td>Running as host.</td>
+        </tr>
+        <tr>
+          <th>STATE_CONNECTING_NETWORK</th>
+          <td>Intermediate state between not connected, and building a new network and running as a client or spectator. Transitions to <code>STATE_DISCONNECTED</code> if the connection fails or <code>STATE_CLIENT</code>/<code>STATE_SPECTATOR</code> if the connection succeeds</td>
+        </tr>
+        <tr>
+          <th>STATE_DISCONNECTING_NETWORK</th>
+          <td>Intermediate state between disconnecting from the network and not connected. Automatically transitions to <code>STATE_DISCONNECTED</code>.</td>
+        </tr>
+        <tr>
+          <th>STATE_CLIENT</th>
+          <td>Running as a client. If the connection degrades to the point where the network connection can no longer be maintained, automatically transitions to <code>STATE_DISCONNECTING_NETWORK</code>.</td>
+        </tr>
+        <tr>
+          <th>STATE_SPECTATOR</th>
+          <td>Running as a spectator. If the connection degrades to the point where the network connection can no longer be maintained, automatically transitions to <code>STATE_DISCONNECTING_NETWORK</code>.</td>
+        </tr>
+        <tr>
+          <th>STATE_ERROR</th>
+          <td>Specifies that the UDS library must be initialized. The library transitions to this state if wireless communications are turned off or the system enters sleep mode while using UDS.</td>
+        </tr>
+        <tr>
+          <th>STATE_MAX</th>
+          <td>
+        </td>
+        </tr>
+        <tr>
+          <th>STATE_MAX_BIT</th>
+          <td>
+        </td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enumerates UDS states.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::cfg::CTR::UserName</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cfg/Overview.html">cfg</a>::<a href="../../../../nn/cfg/CTR/Overview.html">CTR</a>::UserName Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct UserName
+{
+   wchar_t userName[CFG_USER_NAME_LENGTH];
+   bool isNgUserName;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Stores the user name.</p><p>User names obtained from the <code><a href="../../../../nn/cfg/CTR/GetUserName.html">nn::cfg::CTR::GetUserName</a></code> function are guaranteed to be <code>NULL</code> terminated.</p><p>The <code>isNgUserName</code> member variable stores the result of checking the user name from System Settings. The name is checked in Japanese for the Japanese region, in U.S. English and the system language for the North American region, and in U.K. English and the system language for the European region.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">userName</span>
+            </th>
+            <td width="100">wchar_t</td>
+            <td>The user name.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isNgUserName</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether the user name contains profanity. <code>true</code> when the string contains profanity.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/11</dt>
+        <dd><item xmlns="">Added a description of how the user name is checked for profanity.</item><br />
+        </dd>
+        <dt>2010/05/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

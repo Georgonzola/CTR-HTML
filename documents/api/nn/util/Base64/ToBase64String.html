@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>ToBase64String</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/util/Overview.html">util</a>::<a href="../../../nn/util/Base64/Overview.html">Base64</a>::ToBase64String Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../nn/Result/Overview.html">nn::Result</a> ToBase64String(
+     const void * pSrc,
+     size_t sizeSrc,
+     char * pDst,
+     size_t sizeDst
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pSrc</th>
+          <td>Pointer to input data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>sizeSrc</th>
+          <td>The size of input data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Pointer to the output buffer for a base-64 format string.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>sizeDst</th>
+          <td>Size of the buffer indicated by pDst.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns whether the resource was successfully converted. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Converts the entered binary data into a base 64 format string.</p><p>This function outputs a string created in the following way:<UL><LI>Each line is 76 characters in length, with a linefeed inserted after every 76 characters output.</LI><LI>The linefeed code used is CRLF (0x0D, 0x0A).</LI><LI>The null character (0x00) terminates the data.</LI></UL></p><p>One of the following errors is returned if conversion fails:<UL><LI><tt><a href="../../../nn/util/ResultInvalidPtr/Overview.html">nn::util::ResultInvalidPtr</a></tt> - The pointer given as a parameter is invalid.</LI><LI><tt><a href="../../../nn/util/ResultBufferFull/Overview.html">nn::util::ResultBufferFull</a></tt> - The output destination buffer is not large enough.</LI></UL>The conversion process proceeds until failure occurs.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/19</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

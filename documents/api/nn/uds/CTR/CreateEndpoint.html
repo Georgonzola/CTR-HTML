@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>CreateEndpoint</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/uds/Overview.html">uds</a>::<a href="../../../nn/uds/CTR/Overview.html">CTR</a>::CreateEndpoint Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> CreateEndpoint(
+     <a href="../../../nn/uds/CTR/EndpointDescriptor/Overview.html">EndpointDescriptor</a> * pEndpointDesc
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pEndpointDesc</th>
+          <td>Descriptor indicating the endpoint to create.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>Indicates that the library is not initialized. Call the <code><a href="../../../nn/uds/CTR/Initialize.html">Initialize</a></code> function.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfResource</th>
+          <td>More than the stipulated number of endpoints were already generated. Destroy an existing endpoint.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure for other reasons.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a network endpoint and returns the corresponding descriptor.</p><p><bold>[Provisional spec]</bold> Currently, up to 16 endpoints can be created. <br /><br />
+ This function is thread-safe.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/08</dt>
+        <dd><item xmlns="">Added a link to Initialize in Return Values.</item><br />
+        </dd>
+        <dt>2010/10/15</dt>
+        <dd><item xmlns="">Expanded the information about the return values.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

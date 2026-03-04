@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ulcd::CTR::DynamicStereoCamera::OccupancyVolume</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/ulcd/Overview.html">ulcd</a>::<a href="../../../../../nn/ulcd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/Overview.html">DynamicStereoCamera</a>::OccupancyVolume Structure</h1>
+    <div class="section">
+      <b>Header File: </b>nn/ulcd.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct OccupancyVolume
+{
+   <a href="../../../../../nn/math/VEC3/Overview.html">math::VEC3</a> CameraCenter;
+   <a href="../../../../../nn/math/VEC3/Overview.html">math::VEC3</a> ForwardDirection;
+   <a href="../../../../../nn/math/VEC3/Overview.html">math::VEC3</a> OrthoUpDirection;
+   <a href="../../../../../nn/math/VEC3/Overview.html">math::VEC3</a> RightDirection;
+   <a href="../../../../../nn_types/f32.html">f32</a> NearPlaneDepth;
+   <a href="../../../../../nn_types/f32.html">f32</a> NearLeft;
+   <a href="../../../../../nn_types/f32.html">f32</a> NearRight;
+   <a href="../../../../../nn_types/f32.html">f32</a> NearBottom;
+   <a href="../../../../../nn_types/f32.html">f32</a> NearTop;
+   <a href="../../../../../nn_types/f32.html">f32</a> CameraLeft;
+   <a href="../../../../../nn_types/f32.html">f32</a> CameraRight;
+   <a href="../../../../../nn_types/f32.html">f32</a> CameraBottom;
+   <a href="../../../../../nn_types/f32.html">f32</a> CameraTop;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The <code><a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/OccupancyVolume/Overview.html">OccupancyVolume</a></code> structure represents the space that the <a href="../../../../../nn/camera/Overview.html">camera</a> occupies. This structure can be obtained from the output of the <code><a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/GetOccupancyVolume.html">nn::ulcd::CTR::DynamicStereoCamera::GetOccupancyVolume</a></code> function. It provides information about the range of possible movement by the <a href="../../../../../nn/camera/Overview.html">camera</a> when using the <code>DynamicPerspective</code> feature. It can be used for things such as <a href="../../../../../nn/camera/Overview.html">camera</a> and object hit detection.</p>
+    </div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">CameraCenter</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/math/VEC3/Overview.html">math::VEC3</a></td>
+            <td>The center coordinates of the <a href="../../../../../nn/camera/Overview.html">camera</a>. These coordinates are on the <a href="../../../../../nn/camera/Overview.html">camera</a> plane.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">ForwardDirection</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/math/VEC3/Overview.html">math::VEC3</a></td>
+            <td>The front-facing vector from the <a href="../../../../../nn/camera/Overview.html">camera</a> to the near clipping plane.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">OrthoUpDirection</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/math/VEC3/Overview.html">math::VEC3</a></td>
+            <td>The <a href="../../../../../nn/camera/Overview.html">camera</a> up vector. Orthogonal to the forward-facing vector.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">RightDirection</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/math/VEC3/Overview.html">math::VEC3</a></td>
+            <td>The <a href="../../../../../nn/camera/Overview.html">camera</a> right vector. Calculated as the cross product of the front-facing vector and the up vector.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">NearPlaneDepth</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Distance from the <a href="../../../../../nn/camera/Overview.html">camera</a> to the near clipping plane.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">NearLeft</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>The left edge of the <a href="../../../../../nn/camera/Overview.html">camera</a> occupancy space on the near clipping plane.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">NearRight</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>The right edge of the <a href="../../../../../nn/camera/Overview.html">camera</a> occupancy space on the near clipping plane.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">NearBottom</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>The bottom edge of the <a href="../../../../../nn/camera/Overview.html">camera</a> occupancy space on the near clipping plane.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">NearTop</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>The top edge of the <a href="../../../../../nn/camera/Overview.html">camera</a> occupancy space on the near clipping plane.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">CameraLeft</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>The left edge of the <a href="../../../../../nn/camera/Overview.html">camera</a> occupancy space on the <a href="../../../../../nn/camera/Overview.html">camera</a> plane.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">CameraRight</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>The right edge of the <a href="../../../../../nn/camera/Overview.html">camera</a> occupancy space on the <a href="../../../../../nn/camera/Overview.html">camera</a> plane.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">CameraBottom</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>The bottom edge of the <a href="../../../../../nn/camera/Overview.html">camera</a> occupancy space on the <a href="../../../../../nn/camera/Overview.html">camera</a> plane.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">CameraTop</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>The top edge of the <a href="../../../../../nn/camera/Overview.html">camera</a> occupancy space on the <a href="../../../../../nn/camera/Overview.html">camera</a> plane.</td>
+          </tr> </table>
+      </div>
+    </a>
+  </body>
+</html>

@@ -1,0 +1,478 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::y2r::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/y2r/Overview.html">y2r</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the <a href="../../../nn/y2r/CTR/Overview.html">CTR</a> library for YUV-to-RGB conversion (It can also be written without the <code>CTR</code> portion.)</p><p><b>Note about support for Sleep Mode:</b><br /> If the system transitions to sleep during a Y2R conversion, it forcibly suspends the conversion.  Also, the conversion is not restarted after the system recovers from sleep.  To support Sleep Mode, implement your application to transition to sleep only after Y2R conversion is complete and not while conversion is in progress. (That is, not while the <tt><a href="../../../nn/y2r/CTR/IsBusyConversion.html">nn::y2r::CTR::IsBusyConversion</a></tt> function returns <tt>true</tt> or while control is waiting for the event obtained by the <tt><a href="../../../nn/y2r/CTR/GetTransferEndEvent.html">nn::y2r::CTR::GetTransferEndEvent</a></tt> function.)  Note that if the application transitions to sleep while waiting for an event obtained by the <tt><a href="../../../nn/y2r/CTR/GetTransferEndEvent.html">nn::y2r::CTR::GetTransferEndEvent</a></tt> function, then the event will not be signaled after the system recovers from sleep. Be extremely careful to avoid this. </p><p><b>Note about a transfer bug:</b><br /> There is a bug with the Y2R hardware that causes hangs during data transfers. A workaround is therefore required.<p><b>Symptoms</b></p><p>The system freezes during Y2R conversion, so the transfer completion event obtained by the <tt><span>nn::y2r::CTR::GetTransferEvent</span></tt> function is not signaled and the <tt><a href="../../../nn/y2r/CTR/IsBusyConversion.html">nn::y2r::CTR::IsBusyConversion</a></tt> function does not return <tt>true</tt>. </p><p><b>Conditions for occurrence:</b></p><p><ul><li>Cameras and Y2R hardware are used at the same time</li><li>AND, a buffer error occurs during the transfer of camera data and during error recovery the <tt><a href="../../../nn/y2r/CTR/SetReceiving.html">nn::y2r::CTR::SetReceiving</a></tt> function processing coincides with a certain portion of the Y2R data transfer operation.</li></ul>These conditions occur only in rare situations, so the occurrence of a camera buffer error will not always cause this bug to occur. <br /> The bug does not occur if the camera and Y2R hardware are not used at the same time.</p><p><b>Workaround</b></p><p>Enter timeouts when waiting for the transfer completion event being obtained by the <tt><a href="../../../nn/y2r/CTR/GetTransferEndEvent.html">nn::y2r::CTR::GetTransferEndEvent</a></tt> function and when waiting for the <tt><a href="../../../nn/y2r/CTR/IsBusyConversion.html">nn::y2r::CTR::IsBusyConversion</a></tt> function to return <tt>true</tt>.  The timeout should be set to a value longer than the time required for Y2R conversion.  The time required for conversion depends on the size of the input image and the output format. A VGA image being output as 16-bit RGB will take about 13 milliseconds, and a VGA image being output as 24-bit RGB will take about 16 milliseconds. <br /> Also note that you can call the <tt><a href="../../../nn/y2r/CTR/StopConversion.html">nn::y2r::CTR::StopConversion</a></tt> function to forcibly stop the conversion when this bug occurs, after which you can resume use of Y2R. </p><p>The chances of this bug occurring are proportional to the frequency of camera buffer errors. We recommend that you use cameras under conditions where it is unlikely for a buffer error to occur.  If buffer errors are occurring with high frequency, reduce the frame rate of the cameras. <br /> Also, set the thread in which the <tt><a href="../../../nn/y2r/CTR/SetReceiving.html">nn::y2r::CTR::SetReceiving</a></tt> function is called to a relatively high priority. </p></p></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/y2r/CTR/ResultIsSleeping/Overview.html">nn::y2r::CTR::ResultIsSleeping</a>
+            </th>
+            <td>Indicates that the Y2R library cannot be used because the system is sleeping.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/y2r/CTR/DitheringWeightParams/Overview.html">nn::y2r::CTR::DitheringWeightParams</a>
+            </th>
+            <td>Structure representing a dithering pattern.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/y2r/CTR/PackageParameter/Overview.html">nn::y2r::CTR::PackageParameter</a>
+            </th>
+            <td>Structure used for batch parameter configuration.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/InputFormat.html">InputFormat</a>
+            </th>
+            <td>Enumerated type that indicates the input mode.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/OutputFormat.html">OutputFormat</a>
+            </th>
+            <td>Enumerated type that indicates the output pixel format.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/Rotation.html">Rotation</a>
+            </th>
+            <td>Enumerated type that indicates the output buffer rotation.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/BlockAlignment.html">BlockAlignment</a>
+            </th>
+            <td>Enumerated type that indicates an array of output buffers.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/StandardCoefficient.html">StandardCoefficient</a>
+            </th>
+            <td>Enumerated type that indicates the standard conversion coefficient.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/y2r/CTR/BUFFER_ALIGNMENT.html">BUFFER_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the output buffer specified in <code><a href="../../../nn/y2r/CTR/SetReceiving.html">SetReceiving</a></code> must be aligned to. It is defined as 4 bytes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the Y2R library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the Y2R library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetInputFormat.html">SetInputFormat</a>
+            </th>
+            <td>Sets the input format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetInputFormat.html">GetInputFormat</a>
+            </th>
+            <td>Gets the input format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetOutputFormat.html">SetOutputFormat</a>
+            </th>
+            <td>Sets the output format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetOutputFormat.html">GetOutputFormat</a>
+            </th>
+            <td>Gets the output format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetRotation.html">SetRotation</a>
+            </th>
+            <td>Sets the rotation angle of the output buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetRotation.html">GetRotation</a>
+            </th>
+            <td>Gets the rotation angle of the output buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetBlockAlignment.html">SetBlockAlignment</a>
+            </th>
+            <td>Sets the alignment of the data in the output buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetBlockAlignment.html">GetBlockAlignment</a>
+            </th>
+            <td>Gets the alignment of the data in the output buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetSpacialDithering.html">SetSpacialDithering</a>
+            </th>
+            <td>Enables or disables spacial dithering of the output image.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetSpacialDithering.html">GetSpacialDithering</a>
+            </th>
+            <td>Checks whether spacial dithering of the output image is enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetTemporalDithering.html">SetTemporalDithering</a>
+            </th>
+            <td>Enables or disables temporal dithering of the output image. The initial value is <code>false</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetTemporalDithering.html">GetTemporalDithering</a>
+            </th>
+            <td>Checks whether temporal dithering of the output image is enabled. The initial value is <code>false</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetTransferEndInterrupt.html">SetTransferEndInterrupt</a>
+            </th>
+            <td>Enables or disables data transfer completion interrupts. The initial value is <code>true</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetTransferEndInterrupt.html">GetTransferEndInterrupt</a>
+            </th>
+            <td>Checks whether data transfer completion interrupts are enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetTransferEndEvent.html">GetTransferEndEvent</a>
+            </th>
+            <td>Gets the event that is used to detect the occurrence of a data transfer completion interrupt.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetSendingY.html">SetSendingY</a>
+            </th>
+            <td>Configures writing of Y data. The actual transfer operation takes place after the <code><a href="../../../nn/y2r/CTR/StartConversion.html">StartConversion</a></code> function is called. The system panics if <emphasis>pSrc</emphasis> is set to anything other than device memory.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetSendingU.html">SetSendingU</a>
+            </th>
+            <td>Configures writing of U data. The actual transfer operation takes place after the <code><a href="../../../nn/y2r/CTR/StartConversion.html">StartConversion</a></code> function is called. The system panics if <emphasis>pSrc</emphasis> is set to anything other than device memory.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetSendingV.html">SetSendingV</a>
+            </th>
+            <td>Configures writing of V data. The actual transfer operation takes place after the <code><a href="../../../nn/y2r/CTR/StartConversion.html">StartConversion</a></code> function is called. The system panics if <emphasis>pSrc</emphasis> is set to anything other than device memory.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetSendingYuv.html">SetSendingYuv</a>
+            </th>
+            <td>Configures writing of YUV data. The actual transfer operation takes place after the <code><a href="../../../nn/y2r/CTR/StartConversion.html">StartConversion</a></code> function is called. The system panics if <emphasis>pSrc</emphasis> is set to anything other than device memory.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/IsFinishedSendingYuv.html">IsFinishedSendingYuv</a>
+            </th>
+            <td>Determines whether writing of YUV data has finished.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/IsFinishedSendingY.html">IsFinishedSendingY</a>
+            </th>
+            <td>Determines whether writing of Y data has finished.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/IsFinishedSendingU.html">IsFinishedSendingU</a>
+            </th>
+            <td>Determines whether writing of U data has finished.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/IsFinishedSendingV.html">IsFinishedSendingV</a>
+            </th>
+            <td>Determines whether writing of V data has finished.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetReceiving.html">SetReceiving</a>
+            </th>
+            <td>Configures loading of RGB data. The actual transfer operation takes place after the <code><a href="../../../nn/y2r/CTR/StartConversion.html">StartConversion</a></code> function is called. The system panics if <emphasis>pDst</emphasis> is set to anything other than device memory.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/IsFinishedReceiving.html">IsFinishedReceiving</a>
+            </th>
+            <td>Checks whether loading has finished.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetInputLineWidth.html">SetInputLineWidth</a>
+            </th>
+            <td>Sets the width of a single line of input data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetInputLineWidth.html">GetInputLineWidth</a>
+            </th>
+            <td>Gets the width of a single line of input data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetInputLines.html">SetInputLines</a>
+            </th>
+            <td>Sets the number of vertical lines of input data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetInputLines.html">GetInputLines</a>
+            </th>
+            <td>Gets the number of vertical lines of input data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetOutputFormatBytes.html">GetOutputFormatBytes</a>
+            </th>
+            <td>Calculates the number of bytes per pixel in the specified output format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetOutputBlockSize.html">GetOutputBlockSize</a>
+            </th>
+            <td>Calculates the size of the output block.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetOutputImageSize.html">GetOutputImageSize</a>
+            </th>
+            <td>Calculates the size of the output image.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetStandardCoefficient.html">SetStandardCoefficient</a>
+            </th>
+            <td>Sets the standard conversion coefficients.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetAlpha.html">SetAlpha</a>
+            </th>
+            <td>Sets the alpha value for a 32-bit RGB or RGB555 output format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetAlpha.html">GetAlpha</a>
+            </th>
+            <td>Gets the alpha value for a 32-bit RGB or RGB555 output format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetDitheringWeightParams.html">SetDitheringWeightParams</a>
+            </th>
+            <td>Sets the dithering pattern.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetDitheringWeightParams.html">GetDitheringWeightParams</a>
+            </th>
+            <td>Gets the dithering pattern.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/StartConversion.html">StartConversion</a>
+            </th>
+            <td>Starts conversion.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/StopConversion.html">StopConversion</a>
+            </th>
+            <td>Forcibly stops conversion.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/IsBusyConversion.html">IsBusyConversion</a>
+            </th>
+            <td>Checks whether conversion is underway.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/SetPackageParameter.html">SetPackageParameter</a>
+            </th>
+            <td>Configures the Y2R settings all at once.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/y2r/CTR/GetPackageParameter.html">GetPackageParameter</a>
+            </th>
+            <td>Gets the Y2R settings all at once.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/06/24</dt>
+        <dd><item xmlns="">Added functions that have problems when the transfer bug occurs.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Added descriptions to the symptoms and workaround for the transfer bug.</item><br />
+        </dd>
+        <dt>2010/10/30</dt>
+        <dd><item xmlns="">Added an explanation of sleep transition and recovery operations and methods for supporting them.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

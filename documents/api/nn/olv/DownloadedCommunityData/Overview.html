@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::olv::DownloadedCommunityData</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/olv/Overview.html">olv</a>::DownloadedCommunityData Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class DownloadedCommunityData</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A class that stores the downloaded community data.</p><!-- write here --></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/Flags.html">Flags</a>
+            </th>
+            <td>Flags that can be specified in the <code>TestFlags</code> function.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/DownloadedCommunityData.html">DownloadedCommunityData</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/Reset.html">Reset</a>
+            </th>
+            <td>Reverts parameters to their initial state.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/TestFlags.html">TestFlags</a>
+            </th>
+            <td>Tests flags.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/GetCommunityId.html">GetCommunityId</a>
+            </th>
+            <td>Gets the community ID.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/GetCommunityCode.html">GetCommunityCode</a>
+            </th>
+            <td>Gets the community code. Note that if you call this function in one of the following invalid states, it will stop on an assertion in the debug/development versions, and return without doing anything in the release version. <br /><itemizedlist><listitem><para>If <code>NULL</code> is specified for the communityCode argument. <br /></para></listitem><listitem><para>If a value less than that of <code>nn::olv::COMMUNITY_CODE_BUFF_LENGTH</code> is specified for the communityCodeMaxLength argument. <br /></para></listitem></itemizedlist></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/GetOwnerPid.html">GetOwnerPid</a>
+            </th>
+            <td>Gets the principal ID for the Nintendo Network ID of the user who created the community.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/GetTitleText.html">GetTitleText</a>
+            </th>
+            <td>Gets the community name. This function can only be used when the return value from the <code><a href="../../../nn/olv/DownloadedCommunityData/TestFlags.html">TestFlags</a></code> function is <code>true</code> when <code><span>FLAG_WITH_TITLE_TEXT</span></code> is specified. <br /><br />
+ Note that if you call this function in one of the following invalid states, it will stop on an assertion in the debug/development versions, and return without doing anything in the release version. <br /><itemizedlist><listitem><para>If calling the <code><a href="../../../nn/olv/DownloadedCommunityData/TestFlags.html">TestFlags</a></code> function with <code><span>FLAG_WITH_TITLE_TEXT</span></code> specified yields a return value of <code>false</code>. <br /></para></listitem><listitem><para>If <code>NULL</code> is specified for the titleText argument. <br /></para></listitem><listitem><para>If a value less than that of <code>nn::olv::TITLE_TEXT_BUFF_LENGTH</code> is specified for the titleTextMaxLength argument. <br /><bold>Note:</bold><br />
+ The community ID might contain characters that are not supported by the application. <br />
+ Make sure that the presence of unsupported characters does not corrupt the screen display or hinder the progress of your application. </para></listitem></itemizedlist></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/GetDescriptionText.html">GetDescriptionText</a>
+            </th>
+            <td>Gets the community description. This function can only be used when the return value from the <code><a href="../../../nn/olv/DownloadedCommunityData/TestFlags.html">TestFlags</a></code> function is <code>true</code> when <code><span>FLAG_WITH_DESCRIPTION_TEXT</span></code> is specified. <br /><br />
+ Note that if you call this function in one of the following invalid states, it stops on an assertion in the debug and development versions, and returns without doing anything in the release version. <br /><itemizedlist><listitem><para>If calling the <code><a href="../../../nn/olv/DownloadedCommunityData/TestFlags.html">TestFlags</a></code> function with <code><span>FLAG_WITH_DESCRIPTION_TEXT</span></code> specified yields a return value of <code>false</code>. <br /></para></listitem><listitem><para>If <code>NULL</code> is specified for the descriptionText argument. <br /></para></listitem><listitem><para>If a value less than that of <code>nn::olv::DESCRIPTION_TEXT_BUFF_LENGTH</code> is specified for the descriptionTextMaxLength argument. <br /><bold>Note:</bold><br />
+ The description of the community might contain characters that are not supported by the application. <br />
+ Make sure that the presence of unsupported characters does not corrupt the screen display or hinder the progress of your application. </para></listitem></itemizedlist></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/GetAppData.html">GetAppData</a>
+            </th>
+            <td>Gets application data. This function can only be used when the return value from the <code><a href="../../../nn/olv/DownloadedCommunityData/TestFlags.html">TestFlags</a></code> function is <code>true</code> when <code><span>FLAG_WITH_APP_DATA</span></code> is specified. <br /><br />
+ Note that if you call this function in one of the following invalid states, it stops on an assertion in the debug and development versions, and returns without doing anything in the release version. <br /><itemizedlist><listitem><para>Calling the <code><a href="../../../nn/olv/DownloadedCommunityData/TestFlags.html">TestFlags</a></code> function with <code><span>FLAG_WITH_APP_DATA</span></code> specified yields a return value of <code>false</code>. <br /></para></listitem><listitem><para>If <code>NULL</code> is specified for the appData argument. <br /></para></listitem><listitem><para>If a value less than that returned by the <code><a href="../../../nn/olv/DownloadedCommunityData/GetAppData.html">GetAppData</a></code> function is specified for the appDataMaxSize argument. <br /></para></listitem></itemizedlist></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/GetAppDataSize.html">GetAppDataSize</a>
+            </th>
+            <td>Gets the size of the application data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/GetIconData.html">GetIconData</a>
+            </th>
+            <td>Gets icon data. This function can only be used when the return value from the <code><a href="../../../nn/olv/DownloadedCommunityData/TestFlags.html">TestFlags</a></code> function is <code>true</code> when <code><span>FLAG_WITH_ICON_DATA</span></code> is specified.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/GetOwnerMiiData.html">GetOwnerMiiData</a>
+            </th>
+            <td>Gets the Mii data of the user who created the community. This function can only be used when the return value from the <code><a href="../../../nn/olv/DownloadedCommunityData/TestFlags.html">TestFlags</a></code> function is <code>true</code> when <code><span>FLAG_WITH_MII_DATA</span></code> is specified. <br /><br />
+ Note that if you call this function in one of the following invalid states, it stops on an assertion in the debug and development versions, and returns without doing anything in the release version. <br /><itemizedlist><listitem><para>If calling the <code><a href="../../../nn/olv/DownloadedCommunityData/TestFlags.html">TestFlags</a></code> function with <code><span>FLAG_WITH_APP_DATA</span></code> specified yields a return value of <code>false</code>. <br /></para></listitem><listitem><para>If <code>NULL</code> is specified for the storeData argument. <br /></para></listitem></itemizedlist></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadedCommunityData/GetOwnerMiiNickname.html">GetOwnerMiiNickname</a>
+            </th>
+            <td>Gets the nickname of the Mii of the user who created the community. Note that if you call this function in one of the following invalid states, it will stop on an assertion in the debug/development versions, and return without doing anything in the release version. <br /><itemizedlist><listitem><para>If <code>NULL</code> is specified for the miiNickname argument. <br /></para></listitem><listitem><para>If a value less than that of <code>nn::olv::MII_NICKNAME_BUFF_LENGTH</code> is specified for the miiNicknameMaxLength argument. <br /><bold>Note:</bold><br />
+ The Mii nickname might contain characters that are not supported by the application. <br />
+ Handle this so that it does not corrupt the screen display or hinder the progress of your application. <br />
+ For more information, see the section about the display of nicknames and creator names in the 3DS Guidelines. </para></listitem></itemizedlist></td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/08</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

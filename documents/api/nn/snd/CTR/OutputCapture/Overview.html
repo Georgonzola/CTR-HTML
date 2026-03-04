@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::snd::CTR::OutputCapture</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../nn/snd/CTR/Overview.html">CTR</a>::OutputCapture Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class OutputCapture</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The class for getting the DSP's final output.</p><p>Use this class to get the DSP's final output from a thread other than a sound thread. To get it from a sound thread, use the <tt><a href="../../../../nn/snd/CTR/GetMixedBusData.html">nn::snd::CTR::GetMixedBusData</a></tt> function.</p><p>By registering <tt>OutputCapture</tt> with the <tt><a href="../../../../nn/snd/CTR/SetOutputCapture.html">nn::snd::CTR::SetOutputCapture</a></tt> function, you can automatically get the DSP's final output waveform within the <tt><a href="../../../../nn/snd/CTR/WaitForDspSync.html">nn::snd::CTR::WaitForDspSync</a></tt> function to the buffer specified by the <tt><a href="../../../../nn/snd/CTR/OutputCapture/Initialize.html">nn::snd::CTR::OutputCapture::Initialize</a></tt> function. The obtained data can be obtained asynchronously for a sound thread with the <tt><a href="../../../../nn/snd/CTR/OutputCapture/Read.html">nn::snd::CTR::OutputCapture::Read</a></tt> function. It is possible to control whether to get the data using the <tt><a href="../../../../nn/snd/CTR/OutputCapture/Enable.html">nn::snd::CTR::OutputCapture::Enable</a></tt> and <tt><a href="../../../../nn/snd/CTR/OutputCapture/Disable.html">nn::snd::CTR::OutputCapture::Disable</a></tt> functions. </p><p>Because the buffer assigned to <tt>OutputCapture</tt> by the <tt><a href="../../../../nn/snd/CTR/OutputCapture/Initialize.html">nn::snd::CTR::OutputCapture::Initialize</a></tt> function is handled as a ring buffer, when data is not obtained by the <tt><a href="../../../../nn/snd/CTR/OutputCapture/Read.html">nn::snd::CTR::OutputCapture::Read</a></tt> function, note that old data may be overwritten. To make sure this does not happen, it is necessary to allocate a buffer of sufficient length.</p></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Initialization and Shutdown</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/OutputCapture/Initialize.html">Initialize</a>
+            </th>
+            <td>Initialization.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/OutputCapture/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the object.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/OutputCapture/GetRequiredMemorySize.html">GetRequiredMemorySize</a>
+            </th>
+            <td>Calculates the necessary buffer size from the specified number of sound frames.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Data Acquisition</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/OutputCapture/Enable.html">Enable</a>
+            </th>
+            <td>Enables or disables getting data from the DSP.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/OutputCapture/Disable.html">Disable</a>
+            </th>
+            <td>Disables the getting of data from the DSP.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/OutputCapture/IsEnabled.html">IsEnabled</a>
+            </th>
+            <td>Gets whether getting data from the DSP is enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/OutputCapture/Read.html">Read</a>
+            </th>
+            <td>Copies the data obtained from the DSP to the specified buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/OutputCapture/Reset.html">Reset</a>
+            </th>
+            <td>Destroys all the obtained data.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/20</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

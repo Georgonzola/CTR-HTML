@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxAddVramDmaCommand</title>
+  </head>
+  <body>
+    <h1>nngxAddVramDmaCommand Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxAddVramDmaCommand(
+     const GLvoid * srcaddr,
+     GLvoid * dstaddr,
+     GLsizei size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>srcaddr</th>
+          <td>Transfer source address (in main memory).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstaddr</th>
+          <td>Transfer destination address (in VRAM).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Size of the transfer data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Issues a DMA transfer command to the current command list.</p><P>DMA transfer command requests accumulate in the current command list. They are used when transferring data from main memory to VRAM without using the GL functions. This operation transfers <span class="argument">size</span> bytes of data from the address specified in <span class="argument">srcaddr</span> to the address specified in <span class="argument">dstaddr</span>.</P><P>There are no restrictions on the alignment of values that can be set in <span class="argument">srcaddr</span>, <span class="argument">dstaddr</span>, or <span class="argument">size</span>. However, both <span class="argument">srcaddr</span> and <span class="argument">dstaddr</span> can be transferred most efficiently by using pointers that have 8-byte alignment.</P><P>When using this function to perform a DMA transfer, cache coherecy is handled internally prior to the transfer and does not require support from the calling side. When a cache flush is unnecessary, it can be omitted by using the <tt>nngxAddVramDmaCommandNoCacheFlush</tt> function.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_8062_DMP</TH><TD>A valid command list is not currently bound.</TD></TR><TR><TH>GL_ERROR_8064_DMP</TH><TD>The <span class="argument">size</span> argument is negative.</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxAddVramDmaCommandNoCacheFlush.html">nngxAddVramDmaCommandNoCacheFlush</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/02</dt>
+        <dd><item xmlns="">Added information about alignment and transfer efficiency.</item><br />
+        </dd>
+        <dt>2011/03/18</dt>
+        <dd><item xmlns="">Added an explanation about the <tt>nngxAddVramDmaCommandNoCacheFlush</tt> function.</item><br />
+        </dd>
+        <dt>2011/02/18</dt>
+        <dd><item xmlns="">Deleted indications specific to the 8-byte alignment restrictions for srcaddr and dstaddr.</item><br />
+        </dd>
+        <dt>2011/01/17</dt>
+        <dd><item xmlns="">Added description relating to cache consistency.</item><br />
+        </dd>
+        <dt>2010/06/09</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

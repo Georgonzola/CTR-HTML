@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>UpdateGameMode</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::UpdateGameMode Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> UpdateGameMode(
+     const <a href="../../../nnfriendsGameMode/Overview.html">GameMode</a> & gameMode,
+     const <a href="../../../nn_types/char16.html">char16</a> description[MODE_DESCRIPTION_SIZE]
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>gameMode</th>
+          <td>Specifies a game mode structure.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>description[MODE_DESCRIPTION_SIZE]</th>
+          <td>Specifies a game mode description string.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Updates the game mode.</p><p>Game mode information configured in this function is sent to <a href="../../../nn/friends/Overview.html">friends</a> when you are online, and is reflected in their friend lists. <br /><br />
+ Specify your own local system's online group participation status in the game mode. Parameters set here are shared among applications for which the same join-in game ID is specified. The friend list determines which games can be joined according to fixed logic based on the game mode parameter set here. Note that a friend list may erroneously display that join-in is possible if an inappropriate parameter is specified. For more information about how to use this feature, see the 3DS Programming Manual: Wireless and NEX Programming Manual: Server Services. <br /><br />
+ The value specified in icon data is used for the value of the join-in game ID and the value specified here is ignored. For information about specifying a join-in game ID in icon data, see the <code>ctr_makebanner</code> manual. <br /><br />
+ For the string configured in this function to be applied to the friend list and for the join-in game ID specified in the icon data to take effect, the application must be started from the HOME Menu or the development menu. Note that the string is not configured correctly if the application is started from the debugger software using PARTNER-CTR Debugger or IS-SNAKE-BOX. When an SD card is inserted in the system, the HOME Menu caches icon data on the SD card and therefore updates to that data sometimes do not take effect. In this case, delete the cached icon data as described in the <ulink url="../../../../DevHomeMenu/HomeMenu.html">HOME Menu Manual</ulink>. <br /><br />
+ The size of the game mode description string that is passed as an argument can be as large as <code>nn::friends::CTR::MODE_DESCRIPTION_SIZE</code> characters, including newline and terminating characters, but the friend list is limited to the display of two lines of up to 16 double-byte characters. Anything exceeding that limit is not shown. <br /><br />
+ The strings that are displayed on the <a href="../../../nn/friends/Overview.html">friends</a> lists of other players have the following relationship with the system region. <br /><itemizedlist><listitem><para>Japan, the Americas, and Europe: The characters included in the Japanese, US, and Europe character sets for built-in fonts. </para></listitem><listitem><para>China: Simplified Chinese characters included in the system fonts. </para></listitem><listitem><para>Korea: Hangul characters included in the system fonts. </para></listitem><listitem><para>Taiwan: Traditional Chinese characters included in the system fonts. Characters that are not included here are replaced with the Nintendo extended character "?" (<code>L'\xE011'</code>) for display. For information about the character sets included in each <a href="../../../nn/font/Overview.html">font</a>, see the 3DS Overview. <br /><br />
+ For newlines, use <code>L'<br />
+'</code>. <br /><br />
+ Do not call this function more frequently than the guidelines established in 3DS Guidelines, in the Information Update Frequency section.</para></listitem></itemizedlist></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/09/22</dt>
+        <dd><item xmlns="">Added a description of IS-SNAKE-BOX.</item><br />
+        </dd>
+        <dt>2014/02/06</dt>
+        <dd><item xmlns="">Clearly stated that the settings are not applied when started from the debugger.</item><br />
+        </dd>
+        <dt>2011/11/07</dt>
+        <dd><item xmlns="">Added precautions related to how the join-in game ID takes effect.<br />Noted that you need to follow the guidelines when determining how often to call this function.</item><br />
+        </dd>
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

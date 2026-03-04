@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/crypto/Overview.html">crypto</a>::<a href="../../../nn/crypto/Decryptor/Overview.html">Decryptor</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+virtual void Initialize(
+     const <a href="../../../nn/crypto/BlockCipher/Overview.html">BlockCipher</a> & c,
+     const void * pIv,
+     size_t ivSize
+) = 0;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>c</th>
+          <td>Instance of the block cipher implementation used in decryption.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pIv</th>
+          <td>Pointer to the buffer storing the IV.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>ivSize</th>
+          <td>IV size in bytes.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes decryption.</p><p>For c, specify the same key used in encryption for the block cipher of the same algorithm used in encryption.</p><p>Specify a pointer to an IV object in pIv, and its size in ivSize. You must specify the same IV value as the one used for encryption.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

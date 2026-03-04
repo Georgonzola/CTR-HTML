@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Allocate</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fnd/Overview.html">fnd</a>::<a href="../../../nn/fnd/ExpHeapTemplate/Overview.html">ExpHeapTemplate</a>::Allocate Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void * Allocate(
+     size_t byteSize,
+     <a href="../../../nn_types/s32.html">s32</a> alignment = DEFAULT_ALIGNMENT,
+     <a href="../../../nn_types/bit8.html">bit8</a> groupId = 0,
+     <a href="../../../nn/fnd/ExpHeapBase/AllocationMode.html">AllocationMode</a> mode = ALLOCATION_MODE_FIRST_FIT,
+     bool reuse = false
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>byteSize</th>
+          <td>Specifies the size (in bytes) of the memory block to allocate.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>alignment</th>
+          <td>Specifies the alignment. You can specify a power of two between -128 and 128 with an absolute value of 4 or greater.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>groupId</th>
+          <td>Specifies the group ID.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>mode</th>
+          <td>Specifies the mode to use for memory block allocation.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>reuse</th>
+          <td>Specifies whether to reuse the gaps in memory that occur during alignment.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the starting address of the allocated memory block. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Allocates memory from the extended heap.</p><p>The following values can be specified in alignment: -128, -64, -32, -16, -8, -4, 4, 8, 16, 32, 64, and 128.</p><p>This function starts searching at the beginning of the heap (if <emphasis>alignment</emphasis> is positive) or at the end of the heap (if <emphasis>alignment</emphasis> is negative), and then allocates the free region that it finds.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/27</dt>
+        <dd><item xmlns="">Because a problem with memory leak was discovered when values greater than 128 was specified with alignment, the value range was restored to -128 to 128.</item><br />
+        </dd>
+        <dt>2010/09/17</dt>
+        <dd><item xmlns="">Changed valid values for alignment to -4096 through 4096.  Added information on the meanings of positive and negative alignment values.</item><br />
+        </dd>
+        <dt>2010/05/21</dt>
+        <dd><item xmlns="">Changed valid values for alignment to -128 through 128.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

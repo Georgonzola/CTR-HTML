@@ -1,0 +1,460 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::swkbd::CTR::Config</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/swkbd/Overview.html">swkbd</a>::<a href="../../../../nn/swkbd/CTR/Overview.html">CTR</a>::Config Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct Config
+{
+   <a href="../../../../nn/swkbd/CTR/KeyboardType.html">KeyboardType</a> keyboardType;
+   <a href="../../../../nn/swkbd/CTR/BottomButtonType.html">BottomButtonType</a> bottomButtonType;
+   <a href="../../../../nn/swkbd/CTR/FinishableCondition.html">FinishableCondition</a> finishableCondition;
+   <a href="../../../../nn/swkbd/CTR/MaskMode.html">MaskMode</a> maskMode;
+   <a href="../../../../nn/swkbd/CTR/ParentalControlsMode.html">ParentalControlsMode</a> parentalControlsMode;
+   <a href="../../../../nn_types/bit32.html">bit32</a> upperScreenFlag;
+   <a href="../../../../nn_types/bit32.html">bit32</a> textCheckFlag;
+   <a href="../../../../nn_types/bit32.html">bit32</a> extOutputDataFlag;
+   <a href="../../../../nn_types/u16.html">u16</a> textLengthMax;
+   <a href="../../../../nn_types/u16.html">u16</a> numUserWords;
+   <a href="../../../../nn_types/u16.html">u16</a> numNumbersMax;
+   wchar_t bottomButtonText[BOTTOM_BUTTON_MAX][BOTTOM_BUTTON_TEXT_LENGTH_MAX+1];
+   wchar_t tenkeyExtKeyChar[TENKEY_EXT_KEY_MAX];
+   wchar_t guideText[GUIDE_TEXT_LENGTH_MAX+1];
+   bool prediction;
+   bool lineFeed;
+   bool fixedWidthMode;
+   bool homeButton;
+   bool softwareReset;
+   bool powerButton;
+   bool communicateWithOtherRegions;
+   bool bootWithQwerty;
+   bool bottomButtonToFinish[BOTTOM_BUTTON_MAX];
+   <a href="../../../../nn/swkbd/CTR/DisplayLanguage.html">DisplayLanguage</a> displayLanguage;
+   <a href="../../../../nn_types/sptr.html">sptr</a> initialInputText;
+   <a href="../../../../nn_types/sptr.html">sptr</a> userWordArray;
+   <a href="../../../../nn_types/sptr.html">sptr</a> initialStatusData;
+   <a href="../../../../nn_types/sptr.html">sptr</a> initialLearningData;
+   size_t sharedMemorySize;
+   <a href="../../../../nn_types/u16.html">u16</a> versionNumber;
+   <a href="../../../../nn/swkbd/CTR/ReturnCode.html">ReturnCode</a> returnCode;
+   <a href="../../../../nn_types/sptr.html">sptr</a> statusData;
+   <a href="../../../../nn_types/sptr.html">sptr</a> learningData;
+   <a href="../../../../nn_types/sptr.html">sptr</a> inputText;
+   <a href="../../../../nn_types/u16.html">u16</a> inputTextLength;
+   <a href="../../../../nn/swkbd/CTR/AppTextCheckResult.html">AppTextCheckResult</a> appTextCheckResult;
+   wchar_t appTextCheckDialogText[APP_TEXT_CHECK_DIALOG_TEXT_LENGTH_MAX+1];
+   bool skipAtMarkCheck;
+   <a href="../../../../nn_types/u8.html">u8</a> reserved[171];
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configuration structure.</p><p>This structure is exchanged between the application and the software keyboard applet and stores various data.<br /><h2>Input Parameters Passed to the Applet</h2>In addition to parameters that specify the operations of the software keyboard, this structure also stores information about the text entered by the user.</p><p>You must always call the <tt><a href="../../../../nn/swkbd/CTR/InitializeConfig.html">nn::swkbd::CTR::InitializeConfig</a></tt> function to initialize this structure before setting its member variables. <br /> However, the only member variables whose values you can set directly are the ones classified on this page as <i>Input (Direct Setting Possible)</i>. <br /> Changing the values of the other member variables might cause a malfunction.</p><h2>Details of Input Members</h2><h3>keyboardType</h3><p>Use the <tt><a href="../../../../nn/swkbd/CTR/KeyboardType.html">nn::swkbd::CTR::KeyboardType</a></tt> enumerated type to specify the type of keyboard you want to use. <br /> If you specify any value other than <tt>KEYBOARD_TYPE_FULL</tt>, predictive text is not available. <br /> If you specify <tt>KEYBOARD_TYPE_TENKEY</tt>, newlines are also disabled.</p><h3>bottomButtonType</h3><p>Use the <tt><a href="../../../../nn/swkbd/CTR/BottomButtonType.html">nn::swkbd::CTR::BottomButtonType</a></tt> enumerated type to specify the type of the bottom-row buttons (the buttons laid out along the lowest edge of the screen).</p><h3>finishableCondition</h3><p>Use the <tt><a href="../../../../nn/swkbd/CTR/FinishableCondition.html">nn::swkbd::CTR::FinishableCondition</a></tt> enumerated type to specify the conditions that must be met for users to finalize their text input. <br /> Users cannot finalize any text input unless they meet these conditions.</p><h3>maskMode</h3><p>Use the <tt><a href="../../../../nn/swkbd/CTR/MaskMode.html">nn::swkbd::CTR::MaskMode</a></tt> enumerated type to specify the method to use when masking user-entered content. <br /> When you specify any value other than <tt>MASK_MODE_DISABLE</tt>, user-entered characters are replaced with asterisks (*) using the specified method. <br /> Newlines, however, are not replaced.</p><h3>parentalControlsMode</h3><p>Use the <tt><a href="../../../../nn/swkbd/CTR/ParentalControlsMode.html">nn::swkbd::CTR::ParentalControlsMode</a></tt> enumerated type to specify whether to start the software keyboard in a special format that allows the user to verify the Parental Controls PIN code. <br /> When you specify any value other than <tt>PARENTAL_CONTROLS_MODE_DISABLE</tt>, the settings of all the other member variables except <tt>upperScreenFlag</tt>, <tt>homeButton</tt>, and <tt>softwareReset</tt> are ignored.</p><h3>upperScreenFlag</h3><p>Use a bitwise OR of the <tt><a href="../../../../nn/swkbd/CTR/UpperScreenFlag.html">nn::swkbd::CTR::UpperScreenFlag</a></tt> enumerated type flags to specify how to display the upper screen.</p><h3>textCheckFlag</h3><p>Use a bitwise OR of the <tt><a href="../../../../nn/swkbd/CTR/TextCheckFlag.html">nn::swkbd::CTR::TextCheckFlag</a></tt> enumerated type flags to specify the types of text checks you want to perform while the software keyboard is running. <br /> When you specify any value other than <tt>TEXT_CHECK_DISABLE</tt>, the value set in the <tt>textLengthMax</tt> member variable is clamped so as not to exceed <tt><a href="../../../../nn/swkbd/CTR/TEXT_CHECK_TEXT_LENGTH_MAX_MAX.html">nn::swkbd::CTR::TEXT_CHECK_TEXT_LENGTH_MAX_MAX</a></tt>.  <br /> If you specify <tt>TEXT_CHECK_BANNED_WORDS</tt>, the value set in the <tt>textLengthMax</tt> member variable is clamped so as not to exceed <tt><a href="../../../../nn/swkbd/CTR/BANNED_WORD_CHECK_TEXT_LENGTH_MAX_MAX.html">nn::swkbd::CTR::BANNED_WORD_CHECK_TEXT_LENGTH_MAX_MAX</a></tt> and newlines are disabled. </p><h3>extOutputDataFlag</h3><p>Use a bitwise OR of the <tt><a href="../../../../nn/swkbd/CTR/ExtOutputDataFlag.html">nn::swkbd::CTR::ExtOutputDataFlag</a></tt> enumerated type flags to specify the types of any data you want to output in addition to the user-entered text and the return code.</p><h3>numUserWords</h3><p>Specify the number of elements in the <tt><a href="../../../../nn/swkbd/CTR/UserWord/Overview.html">nn::swkbd::CTR::UserWord</a></tt> structure array to pass as an argument to the <tt><a href="../../../../nn/swkbd/CTR/StartKeyboardApplet.html">nn::swkbd::CTR::StartKeyboardApplet</a></tt> function.  <br /> If you are using user dictionaries, always set an appropriate value here.</p><h3>numNumbersMax</h3><p>Specify the maximum number of numbers that users can input when <tt>TEXT_CHECK_NUMBER</tt> is set in the <tt>textCheckFlag</tt> member variable and you want to restrict numerical input. <br /> Specify <tt>0</tt> to completely prohibit the input of numbers. <br /> When <tt>TEXT_CHECK_NUMBER</tt> is not set in the <tt>textCheckFlag</tt> member variable, this member variable's setting is ignored.</p><h3>bottomButtonText</h3><p>Specify a null-terminated string for the text to display on the bottom-row buttons. <br /> Use the <tt><a href="../../../../nn/swkbd/CTR/BottomButton.html">nn::swkbd::CTR::BottomButton</a></tt> enumerated type to specify the primary index of the array.  <br /> If you specify an empty string, the default text for the system's region and language settings is used.</p><h3>tenkeyExtKeyChar</h3><p>Specify the characters to assign to the keys placed to the immediate left and right of the <tt>0</tt> key on the numeric keypad. <br /> Use the <tt><a href="../../../../nn/swkbd/CTR/TenkeyExtKey.html">nn::swkbd::CTR::TenkeyExtKey</a></tt> enumerated type to specify the index of the array.  <br /> Basically, the characters you specify are displayed unchanged on the keys, but there is an exception: if you specify a single-byte space (<tt>0x0020</tt>) a special extended character is displayed on the key. <br /> You cannot specify any of the control characters from <tt>0x0001</tt> to <tt>0x001F</tt>. <br /> If you specify a null character, that key is not displayed.</p><h3>guideText</h3><p>Specify a null-terminated string to serve as <i>guide text</i> (the text displayed in an input field before the user enters any characters in that field). <br /> Note that guide text is not displayed when <tt>true</tt> is specified for the <tt>fixedWidthMode</tt> member variable, causing the keyboard to start in fixed-width display mode.</p><h3>fixedWidthMode</h3><p>Specify whether to start the software keyboard in fixed-width display mode. <br /> If you specify <tt>true</tt>, the keyboard starts in fixed-width display mode. Entered text is displayed as fixed-width and the number of characters that can be input is visible. <br /> In addition, the value set in the <tt>textLengthMax</tt> member variable is clamped so as not to exceed <tt><a href="../../../../nn/swkbd/CTR/FIXED_WIDTH_TEXT_LENGTH_MAX_MAX.html">nn::swkbd::CTR::FIXED_WIDTH_TEXT_LENGTH_MAX_MAX</a></tt> and newlines are disabled. </p><h3>homeButton</h3><p>Specify whether to end the software keyboard when HOME is pressed. <br /> When you specify <tt>true</tt>, the software keyboard ends and outputs any existing user-entered text when HOME is pressed. Note: When the keyboard ends this way, the output text does not undergo any of the text checks specified by the <tt>textCheckFlag</tt> member variable. Be careful about using such unchecked text.</p><h3>softwareReset</h3><p>Specify whether to enable software resets. <br /> When you specify <tt>true</tt>, the software keyboard ends when the button combination for a software reset is pressed.<h3>powerButton</h3><p>Specify whether to end the software keyboard when the POWER button is pressed. <br /> In general, do not change this from the default value of <tt>true</tt>.</p><h3>communicateWithOtherRegions</h3>Specify whether the application exchanges data with other regions. <br /> When <tt>TEXT_CHECK_BANNED_WORDS</tt> is set in the <tt>textCheckFlag</tt> member variable, the text patterns that are checked for are changed as a result of this member variable's setting. <br /> When <tt>TEXT_CHECK_BANNED_WORDS</tt> is not set in the <tt>textCheckFlag</tt> member variable, this member variable's setting is ignored. <br /><b>This variable is not currently accessed.</b><br /></p><h3>bootWithQwerty</h3><p>Specify whether to forcibly set the key layout to the QWERTY layout at startup. <br /> When you specify <tt>false</tt>, the key layout selected at startup differs depending on the language setting. <br /> Specifically, the layout is kana for Japanese, Cyrillic for Russian, and QWERTY for all other languages. <br /> This member variable's setting is ignored, however, when you specify any value other than <tt>KEYBOARD_TYPE_FULL</tt> for the <tt>KeyboardType</tt> member variable, or when the initial operating status data is passed as an argument to the <tt><a href="../../../../nn/swkbd/CTR/StartKeyboardApplet.html">nn::swkbd::CTR::StartKeyboardApplet</a></tt> function. </p><h3>bottomButtonToFinish</h3><p>Specify which of the bottom-row buttons is the <b>OK</b> button (the button the user presses to finalize input). <br /> Use the <tt><a href="../../../../nn/swkbd/CTR/BottomButton.html">nn::swkbd::CTR::BottomButton</a></tt> enumerated type to specify the index in the array, and specify <tt>true</tt> to make that button the <b>OK</b> button.  <br /> The bottom-row button specified as the <b>OK</b> button is not available for tapping until the conditions for finalizing input (specified in the <tt>finishableCondition</tt> member variable) are met.</p><h3>displayLanguage</h3><p>Use the <tt><a href="../../../../nn/swkbd/CTR/DisplayLanguage.html">nn::swkbd::CTR::DisplayLanguage</a></tt> enumerated type to specify which language to use when displaying various text on the software keyboard. <br /> The keyboard layout and the scope of available characters change based on the language set here. <br /> If the default value (<tt>DISPLAY_LANGUAGE_DEFAULT</tt>) is specified, the language specified in the System Settings is used. <br /> If a language that cannot be specified in System Settings is specified here, Japanese is assumed for systems whose system region is Japan, and English is assumed for systems whose system region is the Americas or Europe.</p><h2>Output Parameters Received From the Applet</h2><p>The data output when the software keyboard ends can be obtained by checking the values of the member variables classified as <i>Output</i> in the <b>Member Variables</b> section of this page. <br /> Any comparatively large data items are stored in the shared memory that was passed as an argument to the <tt><a href="../../../../nn/swkbd/CTR/StartKeyboardApplet.html">nn::swkbd::CTR::StartKeyboardApplet</a></tt> function.  <br /> The starting addresses of the data items are stored in the output member variables of this structure as offsets from the start of shared memory. Get the data by referencing those values.</p><h2>Details of Output Members</h2><h3>returnCode</h3><p>Stores the return code that indicates the reason why the software keyboard ended. <br /> Among these codes are codes indicating that the POWER Button or the HOME Button was pressed, but those codes alone do not allow you to determine whether to call the <tt><a href="../../../../nn/applet/CTR/ProcessPowerButton.html">nn::applet::CTR::ProcessPowerButton</a></tt> or <tt><a href="../../../../nn/applet/CTR/ProcessHomeButton.html">nn::applet::CTR::ProcessHomeButton</a></tt> function.  <br /> To determine whether it is necessary to call those functions, you must call the <tt><a href="../../../../nn/applet/CTR/IsExpectedToProcessPowerButton.html">nn::applet::CTR::IsExpectedToProcessPowerButton</a></tt> and <tt><a href="../../../../nn/applet/CTR/IsExpectedToProcessHomeButton.html">nn::applet::CTR::IsExpectedToProcessHomeButton</a></tt> functions. </p><h3>statusData</h3><p>Stores the starting address of the operating status data describing the software keyboard's status when it ended. (This address is stored as an offset from the start of the shared memory region.) <br /> A value of <tt>-1</tt> is stored when <tt>EXT_OUTPUT_DATA_STATUS</tt> was not set in the <tt>extOutputDataFlag</tt> member variable of this structure when the software keyboard was started. <br /> The size of the data is defined by <tt><a href="../../../../nn/swkbd/CTR/STATUS_DATA_SIZE.html">nn::swkbd::CTR::STATUS_DATA_SIZE</a></tt>.  <br /> If you pass this data as an argument to the <tt><a href="../../../../nn/swkbd/CTR/StartKeyboardApplet.html">nn::swkbd::CTR::StartKeyboardApplet</a></tt> function the next time the software keyboard is started, you can carry over the keyboard's operating status from the previous time it was used. </p><h3>learningData</h3><p>Stores the starting address of the predictive text learning data from when the software keyboard ended. (This address is stored as an offset from the start of the shared memory region.) <br /> A value of <tt>-1</tt> is stored when <tt>EXT_OUTPUT_DATA_LEARNING</tt> was not set in the <tt>extOutputDataFlag</tt> member variable of this structure when the software keyboard was started. <br /> The size of the data is defined by <tt><a href="../../../../nn/swkbd/CTR/LEARNING_DATA_SIZE.html">nn::swkbd::CTR::LEARNING_DATA_SIZE</a></tt>.  <br /> If you pass this data as an argument to the <tt><a href="../../../../nn/swkbd/CTR/StartKeyboardApplet.html">nn::swkbd::CTR::StartKeyboardApplet</a></tt> function the next time the software keyboard is started, you can carry over the keyboard's learning status from the previous time it was used. </p><h3>inputText</h3><p>Stores the starting address of the user-entered string. (This address is stored as an offset from the start of the shared memory region.) <br /> Strings are of the <tt>wchar_t</tt> type and are null-terminated. <br /> A value of <tt>-1</tt> is stored if the software keyboard was closed without input being finalized.</p><h3>inputTextLength</h3><p>Stores the length of the user-entered string. <br /> The null terminator is not included in this length.</p></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="4">Input (Direct Setting Possible)</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">keyboardType</span>
+            </th>
+            <td width="100"><a href="../../../../nn/swkbd/CTR/KeyboardType.html">KeyboardType</a></td>
+            <td>The keyboard type.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">bottomButtonType</span>
+            </th>
+            <td width="100"><a href="../../../../nn/swkbd/CTR/BottomButtonType.html">BottomButtonType</a></td>
+            <td>The type of the bottom-row buttons.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">finishableCondition</span>
+            </th>
+            <td width="100"><a href="../../../../nn/swkbd/CTR/FinishableCondition.html">FinishableCondition</a></td>
+            <td>Conditions under which input can be finalized.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">maskMode</span>
+            </th>
+            <td width="100"><a href="../../../../nn/swkbd/CTR/MaskMode.html">MaskMode</a></td>
+            <td>The masking mode for input characters.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">parentalControlsMode</span>
+            </th>
+            <td width="100"><a href="../../../../nn/swkbd/CTR/ParentalControlsMode.html">ParentalControlsMode</a></td>
+            <td>The Parental Controls PIN code verification mode.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">upperScreenFlag</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Flags indicating the display method for the upper screen (a bitwise OR of <code><a href="../../../../nn/swkbd/CTR/UpperScreenFlag.html">nn::swkbd::CTR::UpperScreenFlag</a></code> values).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">textCheckFlag</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Flags indicating the types of text checks (a bitwise OR of <code><a href="../../../../nn/swkbd/CTR/TextCheckFlag.html">nn::swkbd::CTR::TextCheckFlag</a></code> values).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">extOutputDataFlag</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Flags indicating the types of extended output data (a bitwise OR of <code><a href="../../../../nn/swkbd/CTR/ExtOutputDataFlag.html">nn::swkbd::CTR::ExtOutputDataFlag</a></code> values).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">textLengthMax</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum number of characters that can be input.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">numUserWords</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>The number of words to register in the user dictionary.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">numNumbersMax</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum number of numbers that can be input.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">bottomButtonText</span>
+            </th>
+            <td width="100">wchar_t</td>
+            <td>The text for the bottom-row buttons.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">tenkeyExtKeyChar</span>
+            </th>
+            <td width="100">wchar_t</td>
+            <td>The text for the extended keys in the numeric keypad layout.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">guideText</span>
+            </th>
+            <td width="100">wchar_t</td>
+            <td>The guide text.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">prediction</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether to use predictive text.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">lineFeed</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether to enable newlines.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">fixedWidthMode</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Fixed-width display mode.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">homeButton</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether to end the software keyboard <a href="../../../../nn/applet/Overview.html">applet</a> when HOME is pressed.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">softwareReset</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether to use software resets.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">powerButton</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether to close the software keyboard <a href="../../../../nn/applet/Overview.html">applet</a> when the POWER Button is pressed.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">communicateWithOtherRegions</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the application exchanges data with other regions (this is not currently accessed).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">bootWithQwerty</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether to make the key layout the QWERTY layout at startup.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">bottomButtonToFinish</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Specifies an <bold>OK</bold> button in the bottom row of buttons.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">displayLanguage</span>
+            </th>
+            <td width="100"><a href="../../../../nn/swkbd/CTR/DisplayLanguage.html">DisplayLanguage</a></td>
+            <td>The display language.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Input (Direct Setting Impossible)</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">initialInputText</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/sptr.html">sptr</a></td>
+            <td>Offset to the initial input text.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">userWordArray</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/sptr.html">sptr</a></td>
+            <td>Offset to the array of words registered in the user dictionary.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">initialStatusData</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/sptr.html">sptr</a></td>
+            <td>Offset to the initial operating status data at startup.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">initialLearningData</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/sptr.html">sptr</a></td>
+            <td>Offset to the initial predictive text learning data at startup.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">sharedMemorySize</span>
+            </th>
+            <td width="100">size_t</td>
+            <td>The size of the shared memory region.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">versionNumber</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>Version number.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Output</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">returnCode</span>
+            </th>
+            <td width="100"><a href="../../../../nn/swkbd/CTR/ReturnCode.html">ReturnCode</a></td>
+            <td>Return code.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">statusData</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/sptr.html">sptr</a></td>
+            <td>Offset to the final operating status data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">learningData</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/sptr.html">sptr</a></td>
+            <td>Offset to the final predictive text learning data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">inputText</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/sptr.html">sptr</a></td>
+            <td>Offset to the entered text.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">inputTextLength</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>Length of the entered text.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Related to Text Checking by the Application</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">appTextCheckResult</span>
+            </th>
+            <td width="100"><a href="../../../../nn/swkbd/CTR/AppTextCheckResult.html">AppTextCheckResult</a></td>
+            <td><a href="../../../../nn/Result/Overview.html">Result</a> of the application's text checks.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">appTextCheckDialogText</span>
+            </th>
+            <td width="100">wchar_t</td>
+            <td>Dialog box text of the application's text checks.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Others</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">skipAtMarkCheck</span>
+            </th>
+            <td width="100">bool</td>
+            <td>(Member variable for use by certain special applications. It cannot be used from general applications.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">reserved</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>A reserved region for future extensions.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/28</dt>
+        <dd><item xmlns="">Revised "Temporarily disable" to read "Check for Parental Controls PIN code match."</item><br />
+        </dd>
+        <dt>2011/10/13</dt>
+        <dd><item xmlns="">Noted that the <tt>communicateWithOtherRegions</tt> variable is not currently accessed.</item><br />
+        </dd>
+        <dt>2011/09/01</dt>
+        <dd><item xmlns="">Revised the appearance of the Description.</item><br />
+        </dd>
+        <dt>2011/08/05</dt>
+        <dd><item xmlns="">Added the member variables displayLanguage and skipAtMarkCheck.</item><br />
+        </dd>
+        <dt>2011/03/18</dt>
+        <dd><item xmlns="">Added a note to the description of the bottomButtonText member variable that the default text will be used based on the system's region and language settings.</item><br />
+        </dd>
+        <dt>2011/03/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

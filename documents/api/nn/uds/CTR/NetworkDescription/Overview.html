@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::uds::CTR::NetworkDescription</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/uds/Overview.html">uds</a>::<a href="../../../../nn/uds/CTR/Overview.html">CTR</a>::NetworkDescription Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class NetworkDescription</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class indicating network information that can be obtained using <code><a href="../../../../nn/uds/CTR/NetworkDescriptionReader/Overview.html">nn::uds::CTR::NetworkDescriptionReader</a></code>.</p><!-- write here --></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/CompareResult.html">CompareResult</a>
+            </th>
+            <td><a href="../../../../nn/Result/Overview.html">Result</a> of <code><a href="../../../../nn/uds/CTR/NetworkDescription/CompareWith.html">NetworkDescription::CompareWith</a></code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/GetBssid.html">GetBssid</a>
+            </th>
+            <td>Gets the BSSID (the host's MAC address).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/GetGameId.html">GetGameId</a>
+            </th>
+            <td>Gets the local communication ID. This function is identical to <code><a href="../../../../nn/uds/CTR/NetworkDescription/GetLocalCommunicationId.html">GetLocalCommunicationId</a></code> and is preserved to maintain compatibility.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/GetLocalCommunicationId.html">GetLocalCommunicationId</a>
+            </th>
+            <td>Gets the local communication ID. Identical to the value specified with the <code><a href="../../../../nn/uds/CTR/Scan.html">Scan</a></code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/GetSubId.html">GetSubId</a>
+            </th>
+            <td>Gets the <code>SubId</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/GetTemporaryId.html">GetTemporaryId</a>
+            </th>
+            <td>Gets the temporary ID. This ID can be used to identify the network, but instead we recommend that you use the BSSID or the host's <code><a href="../../../../nn/uds/CTR/NodeInformation/Overview.html">NodeInformation</a></code>. When a device builds a network and operates as the host, usually a random number is generated and used as the <code>TemporaryID</code> for that network so that the network can be distinguished from a network built by the same device and on which local communications have taken place, but on which communications have been broken and resumed. <br /><br />
+ However, if a <code>TemporaryID</code> is generated every single time a network is built, consider what happens when you implement an algorithm such as the following to build networks without the end user knowing whether they are host or client.<br /><br />
+1: Become a host (build a network).<br />
+ 2: If you cannot perform client connection after a specified period of time, destroy the network.<br />
+ 3: Search for nearby networks. If a network for the same application exists, connect to that network as a client. If you cannot find a peer to connect with, repeat these steps. <br /><br />
+ With this kind of algorithm, devices try to connect based on their search results, but because a <code>TemporaryID</code> is generated every single time a network is built, peers frequently cannot connect because the host has rebuilt its network. The upshot is that the implementer is not able to realize the expected operations. <br /><br />
+ UDS communication provides for the following exception.<br /><br />
+ Do not update the <code>TemporaryID</code> when rebuilding the network if no clients are connected and communication between devices has not been established.<br />
+(However, if it takes more than 60 seconds to rebuild the network, assume the network being built has no relation to the previous network and go ahead and update the <code>TemporaryID</code>.)<br /><br /><br />
+ Contact Nintendo if there is a problem implementing this specification in your application. <br /></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/GetChannel.html">GetChannel</a>
+            </th>
+            <td>Gets the channel being used for the communication. There is normally no need to reference this.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/GetNowEntry.html">GetNowEntry</a>
+            </th>
+            <td>Gets the number of currently connected devices.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/GetMaxEntry.html">GetMaxEntry</a>
+            </th>
+            <td>Gets the maximum number of devices that can connect.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/GetApplicationData.html">GetApplicationData</a>
+            </th>
+            <td>Gets the data set using the <code>SetApplicationDataToBeacon</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/CanConnectAsSpectator.html">CanConnectAsSpectator</a>
+            </th>
+            <td>Checks whether spectator connections are allowed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/CanConnectAsClient.html">CanConnectAsClient</a>
+            </th>
+            <td>Checks whether client connections are allowed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/CanReconnectAsClient.html">CanReconnectAsClient</a>
+            </th>
+            <td>Checks whether client reconnections are allowed. The determination of whether it is a reconnection is made when the host actually connects. There is no guarantee that reconnection is possible even if this value is <code>true</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/CompareWith.html">CompareWith</a>
+            </th>
+            <td>Compares to the specified <code><a href="../../../../nn/uds/CTR/NetworkDescription/Overview.html">NetworkDescription</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/operator==.html">operator==</a>
+            </th>
+            <td>Compares two <code><a href="../../../../nn/uds/CTR/NetworkDescription/Overview.html">NetworkDescription</a></code> class objects and returns <code>true</code> if their values are identical. Even if the network is the same, <code>false</code> is returned if data has been set by <code>SetApplicationData</code> or if the number of connected devices is different.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/uds/CTR/NetworkDescription/operator!=.html">operator!=</a>
+            </th>
+            <td>Compares two <code><a href="../../../../nn/uds/CTR/NetworkDescription/Overview.html">NetworkDescription</a></code> class objects and returns <code>true</code> if their values are different. Even if the network is the same, <code>true</code> is returned if data has been set by <code>SetApplicationData</code> or if the number of connected devices is different.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/08</dt>
+        <dd><item xmlns="">Added the CompareWith function.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

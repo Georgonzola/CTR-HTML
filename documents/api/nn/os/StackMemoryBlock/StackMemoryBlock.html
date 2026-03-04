@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StackMemoryBlock</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/StackMemoryBlock/Overview.html">StackMemoryBlock</a>::StackMemoryBlock Constructor</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+StackMemoryBlock();
+
+explicit StackMemoryBlock(
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./StackMemoryBlock(0).html">StackMemoryBlock (  ) </a>
+          </td>
+          <td>Constructor.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./StackMemoryBlock(1).html">StackMemoryBlock ( size_t ) </a>
+          </td>
+          <td>Constructs an object and allocates memory.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of StackMemoryBlock (  ) </h2>
+    <div class="section"><p>Does not initialize the object when no arguments are specified. You must call <code><a href="../../../nn/os/StackMemoryBlock/Initialize.html">Initialize</a></code> separately.</p><p>If <span class="argument">size</span> is not a multiple of 4096, the value is rounded up automatically, but if possible try to specify a size that is a multiple of 4096.</p></div>
+    <h2>Description of StackMemoryBlock ( size_t ) </h2>
+    <div class="section"><p>Calls <code>Initialize</code> internally to allocate memory.</p><p>If <span class="argument">size</span> is not a multiple of 4096, the value is rounded up automatically, but if possible try to specify a size that is a multiple of 4096.</p></div>
+  </body>
+</html>

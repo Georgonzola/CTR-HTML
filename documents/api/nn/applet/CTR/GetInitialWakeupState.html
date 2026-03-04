@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetInitialWakeupState</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::GetInitialWakeupState Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/applet/CTR/WakeupState.html">AppletWakeupState</a> GetInitialWakeupState(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the wakeup information from when an application is started. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets wakeup information when an application is started.</p><!-- write here --><P>An application is put into the waiting state within the <tt><a href="../../../nn/applet/CTR/Enable.html">nn::applet::CTR::Enable</a></tt> function until a wakeup notification arrives.  To determine how it was woken up, you can get a value from the <tt>AppletWakeupState</tt> enumerated type using this function.</P><P>This function can obtain the following values.</P><TABLE><THEAD><TR bgcolor="#ccccdd"><TH>Return Values</TH><TH>State</TH><TH>Expected Behavior</TH></TR></THEAD><TR><TD><tt>applet::WAKEUP_TO_START</tt></TD><TD>Woken up by a normal wakeup request.</TD><TD>Continues operating.</TD></TR><TR><TD><tt>applet::WAKEUP_BY_CANCEL</tt></TD><TD>Woken up by a cancel notification.</TD><TD>Closes.</TD></TR><TR><TD><tt>applet::WAKEUP_BY_POWER_BUTTON_CLICK</tt></TD><TD>Woken up by a POWER Button press.</TD><TD>Closes.</TD></TR></TABLE><P>Although the application must be closed for some of these values, use the <tt><a href="../../../nn/applet/CTR/IsExpectedToCloseApplication.html">nn::applet::CTR::IsExpectedToCloseApplication</a></tt> function in your application to make this decision instead of referencing these values directly.  If the result is <tt>true</tt>, promptly close the application.</P><P>Example:</P><PRE>
+  nnMain()
+  {
+       ...
+    applet::Enable();
+    if ( <FONT color="red">applet::IsExpectedToCloseApplication()</FONT> )
+       {
+          _finalize_application();
+          applet::CloseApplication();
+          // Execution does not reach this point.
+     }
+     ...
+  }
+</PRE></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/11/07</dt>
+        <dd><item xmlns="">Removed the <tt>PrepareToCloseApplication</tt> function from the sample code.</item><br />
+        </dd>
+        <dt>2010/12/14</dt>
+        <dd><item xmlns="">Explained how to determine whether to close an application after the <tt>Enable</tt> function is called.</item><br />
+        </dd>
+        <dt>2010/12/11</dt>
+        <dd><item xmlns="">Revised text to recommend use of the <tt>IsExpectedToCloseApplication</tt> function.</item><br />
+        </dd>
+        <dt>2010/12/01</dt>
+        <dd><item xmlns="">Added an example.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

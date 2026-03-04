@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetState</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/Task/Overview.html">Task</a>::GetState Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/boss/TaskStateCode.html">TaskStateCode</a> GetState(
+     bool acknowledge = false,
+     <a href="../../../nn_types/u32.html">u32</a> * pCount = NULL,
+     <a href="../../../nn_types/u8.html">u8</a> * pStepId = NULL
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>acknowledge</th>
+          <td>After a task finishes running, this stores the "task is complete" state so that the task's execution results can be checked. Calling the function with this flag set to <code>true</code> clears the "complete" state. For example, with a task whose execution count is not zero, the subsequent return value becomes <code><span>TASK_WAITING_TIMER</span></code> because the task is rescheduled immediately after the prior task execution completion. (Optional.)</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pCount</th>
+          <td>Returns the execution count. (Optional.)</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pStepId</th>
+          <td>Returns the task step ID. (Optional.)</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a code indicating the task state. <br /> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the state of a task.</p><p>In most cases, task states transition from state 1 through state 5 below. <br />
+ (1) <code>TASK_REGISTERED</code> (The task is registered.)<br />
+ (2) <code>TASK_WAITING_TIMER</code> (Waiting for the time after the <code>Start</code> function is called.<br />
+ (3) <code>TASK_WAITING</code> (Waiting for execution.)<br />
+ (4) <code>TASK_RUNNING</code> or <code>TASK_RETRY</code> (The task is running.)<br />
+ (5) <code>TASK_DONE</code> or <code>TASK_ERROR</code> (The task is complete.)<br />
+ There are also two special states, <code>TASK_PAUSED</code> (paused) and <code>TASK_STOPPED</code> (stopped by a call to <code>Cancel</code>). <br /><br /><bold>Note:</bold> Because state transitions sometimes occur in a short period of time, the function may not always be able to get all states. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

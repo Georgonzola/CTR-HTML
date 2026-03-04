@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+        span.static_style
+        { 
+            font-size			: 8pt;
+            color				: white;
+            font-weight			: bold;
+            background			: #44f;
+            border-left			: solid 1px #aaf;
+            border-top			: solid 1px #aaf;
+            border-right		: solid 1px #00c;
+            border-bottom		: solid 1px #00c;
+            padding-left		: 2px;
+            padding-right		: 2px;
+        }
+
+        span.virtual_style
+        { 
+            font-size			 : 8pt;
+            color				 : white;
+            font-weight			: bold;
+            background			: #0a0;
+            border-left			: solid 1px #0f0;
+            border-top			: solid 1px #0f0;
+            border-right		: solid 1px #060;
+            border-bottom		: solid 1px #060;
+            padding-left		: 2px;
+            padding-right		: 2px; 
+        }
+
+        span.protected_style
+        { 
+            font-size			 : 8pt;
+            color				 : white;
+            font-weight			: bold;
+            background			: #444;
+            border-left			: solid 1px #ccc;
+            border-top			: solid 1px #ccc;
+            border-right		: solid 1px #222;
+            border-bottom		: solid 1px #222;
+            padding-left		: 2px;
+            padding-right		: 2px;
+        }
+        table.table, table.table td, table.table th
+        {
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        table.table
+        {
+            width: auto;
+            margin: 1em;
+            position	: static;
+            font-family	: Arial;
+        }
+
+        table.table td, table.table th
+        {
+            padding: 0.2em;
+        }
+
+        table.table td.number, table.table th.number
+        {
+            text-align: right;
+        }
+
+        table.table tbody tr th
+        {
+            text-align: left;
+            font-weight: normal;
+            width: auto;
+        }
+
+        table.table thead tr th,
+        table.table tbody tr th.category
+        {
+            padding: 0 0.2em;
+        }
+
+        table.table caption
+        {
+            font-weight: bold;
+            padding: 0.4em;
+        }
+        table.table th
+        {
+            font-weight			: bold;
+            background			: #acf;
+        }
+        --></style>
+    <title>NoftWriter</title>
+</head>
+<body>
+
+<h1>NoftWriter</h1>
+
+<h2>Overview</h2>
+
+<div class="section">
+    <p>
+    NoftWriter is a tool for creating a Nintendo Original Format Tag (NOFT) from an NTF file to write to a tag.
+  <p>
+</div>
+
+<h2>Required Environment</h2>
+
+<div class="section">
+    <h4>HW</h4>
+         <li>
+             SNAKE development hardware or a SNAKE development tool
+         </li>
+         <li>
+             A Nintendo-specified, unlocked tag
+         </li>
+         <li>
+             SD card
+         </li>
+    <h4>SW</h4>
+          <li>
+             NoftWriter Tool
+         </li>
+         <li>
+             NTF file
+         </li>
+<br/> The following file is optional.
+         <li>
+amiibo_DataList.csv File
+         </li>
+<p>
+The NTF and amiibo_DataList.csv files use items included in the amiibo data list package.<br/>Even without the amiibo_DataList.csv file, NoftWriter is not affected.
+<p>
+</div>
+
+<h2>Procedure</h2>
+
+<div class="section">
+    <h3>Preparation</h3>
+
+    <p> 
+Write the NTF file included in the amiibo data list package to a location of your choice on an SD card.<br/>Non-ASCII characters cannot be used in the name of the file or the folder.
+    </p>
+    <h3>Startup</h3>
+    <p>Start NoftWriter with the SD card that has the NTF file on it inserted into SNAKE. A screen like the one in the following figure appears on SNAKE's upper screen when the application starts.
+    <p>
+    <img src="Fig/NoftWriter_01.png" alt="">
+    </p>
+
+    <p> The folder in the current directory and the NTF file appear above. <br /> The absolute path to the current directory is shown below.</p>
+
+    <p> 
+If the <CODE>amiibo_DataList_yyyymmdd.csv</CODE> file included in the amiibo data list package is renamed to <CODE>amiibo_DataList.csv</CODE> and saved directly in the SD card, US_English names of the characters defined in the NTF file are also displayed.
+    </p>
+    <p>
+    <img src="Fig/NoftWriter_05.png" alt="">
+    </p>
+
+    <p> 
+When using the NTF files for development created with NTFMaker, <br/>character names and file descriptions can be added to <CODE>amiibo_DataList.csv</CODE>.
+    </p>
+    <pre>
+NVL-AAAA_00_00.ntf,Mario
+	:
+NVL-AACC_00_00.ntf,PAC-MAN
+NVL-AACB_00_00.ntf,Mega Man
+<font color="red">NVL-DUM1_00_00.ntf,NTF File for Debug</font>
+</pre>
+    <p> 
+The NTF filename is posted on the first row, and the display string is posted on the second row.<br/>Ensure that the NTF filename (including extension) and display string is 24 characters or shorter.<br/>Also, non-ASCII characters cannot be used.
+    </p>
+    <p>
+    <img src="Fig/NoftWriter_06.png" alt="">
+    </p>
+
+
+    <h3>Write</h3>
+
+    <p>
+        Select the NTF file you want to write. Move the focus with the up/down buttons on the +Control Pad, and press the A Button to make selections. Pressing the A Button while a folder has focus navigates to that folder. Pressing the B Button moves up one folder. A screen like the one shown in the figure below appears on the SNAKE's lower screen when an NTF file is selected.
+    <p>
+    <img src="Fig/NoftWriter_02.png" alt="">
+    </p>
+
+    <p>
+NOFT that are created with WRITE(except lock bits) can use this tool to write other NTF files afterward.<br/>However, the created NOFT cannot be used when the Config tool is run in the development hardware or development tool, and debug mode is enabled.
+    </p>
+
+    <p>
+NOFT that are created with WRITE cannot be used to write other NTF files afterward. These NOFT can be used even when debug mode is enabled.
+    </p>
+
+    <p>
+Also, NOFT that are created with WRITE(except lock bits) can overwrite other NTF files with WRITE, but after that, writing with WRITE(except lock bits) will fail.
+    </p>
+    <table class="table">
+      <tbody>
+        <tr>
+<th>Write Object Tag</th>
+<th>Write Method</th>
+<th>Writability</th>
+<th>Usable Debug Modes</th>
+        </tr>
+        <tr>
+<td>Tags that have not been written</td>
+<td>WRITE(except lock bits)</td>
+<td>Write Possible</td>
+<td>enable Only</td>
+        </tr>
+        <tr>
+<td>Tags that have not been written</td>
+<td>WRITE</td>
+<td>Write possible, but cannot write afterward</td>
+<td>enable/disable</td>
+        </tr>
+        <tr>
+<td>Tag written with WRITE(except lock bits)</td>
+<td>WRITE(except lock bits)</td>
+<td>Write Possible</td>
+<td>enable Only</td>
+        </tr>
+        <tr>
+<td>Tag written with WRITE(except lock bits)</td>
+<td>WRITE</td>
+<td>Write possible, but cannot write afterward</td>
+<td>enable/disable</td>
+        </tr>
+        <tr>
+<td>Tag written with WRITE</td>
+<td>WRITE(except lock bits)</td>
+<td>Write-protected</td>
+<td>enable/disable</td>
+        </tr>
+        <tr>
+<td>Tag written with WRITE</td>
+<td>WRITE</td>
+<td>Write-protected</td>
+<td>enable/disable</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Displaying Results</h3>
+
+    <p>When writing to the tag concludes normally, &quot;[SUCCESS]&quot; is shown in green letters on SNAKE's upper screen, as shown in the figure below.</p>
+    <p>
+    <img src="Fig/NoftWriter_03.png" alt="">
+    </p>
+
+    <p>When writing to the tag fails, &quot;[FAILED]&quot; and the reason writing failed are shown in red letters on SNAKE's upper screen, as shown in the figure below.</p>
+    <p>
+    <img src="Fig/NoftWriter_04.png" alt="">
+    </p>
+
+    <h3><font color="red">Note</font></h3>
+    <p>
+If incorrect data is written to the tag, it could be rendered unusable.
+    </p>
+</div>
+
+
+<h2>Revision History</h2>
+<div class="section">
+    <dl class="history">
+        <dt>2015/06/03</dt>
+<dd>Added information about the amiibo_DataList.csv file.</dd>
+<dd>Added the Write(except lock bits) option.<br /></dd>
+<dd>Updated bottom screen image when selecting NTF file.</dd>
+        <dt>2014/10/20</dt>
+        <dd>Updated images.</dd>
+        <dt>2014/10/03</dt>
+<dd>Initial version.</dd>
+    </dl>
+</div>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

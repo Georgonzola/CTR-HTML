@@ -1,0 +1,512 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::jpeg::CTR::GpsData</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::GpsData Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct GpsData
+{
+   bool isVersionIdValid;
+   bool isLatitudeValid;
+   bool isLongitudeValid;
+   bool isAltitudeRefValid;
+   bool isAltitudeValid;
+   bool isTimeStampValid;
+   bool isDopValid;
+   bool isSpeedValid;
+   bool isTrackValid;
+   bool isImgDirectionValid;
+   bool isDestLatitudeValid;
+   bool isDestLongitudeValid;
+   bool isDestBearingValid;
+   bool isDestDistanceValid;
+   bool isDifferentialValid;
+   <a href="../../../../nn_types/u8.html">u8</a> altitudeRef;
+   <a href="../../../../nn_types/u8.html">u8</a> versionId[GPS_VERSION_ID_SIZE];
+   char latitudeRef[GPS_REF_SIZE];
+   char longitudeRef[GPS_REF_SIZE];
+   char status[GPS_REF_SIZE];
+   char measureMode[GPS_REF_SIZE];
+   char speedRef[GPS_REF_SIZE];
+   char trackRef[GPS_REF_SIZE];
+   char imgDirectionRef[GPS_REF_SIZE];
+   char destLatitudeRef[GPS_REF_SIZE];
+   char destLongitudeRef[GPS_REF_SIZE];
+   char destBearingRef[GPS_REF_SIZE];
+   char destDistanceRef[GPS_REF_SIZE];
+   <a href="../../../../nn_types/u16.html">u16</a> differential;
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> latitude[NUM_GPS_LATITUDE_RATIONALS];
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> longitude[NUM_GPS_LONGITUDE_RATIONALS];
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> altitude;
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> timeStamp[NUM_GPS_TIME_STAMP_RATIONALS];
+   const char * pSatellites;
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> dop;
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> speed;
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> track;
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> imgDirection;
+   const char * pMapDatum;
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> destLatitude[NUM_GPS_LATITUDE_RATIONALS];
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> destLongitude[NUM_GPS_LONGITUDE_RATIONALS];
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> destBearing;
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> destDistance;
+   const <a href="../../../../nn_types/u8.html">u8</a> * pProcessingMethod;
+   size_t processingMethodSize;
+   const <a href="../../../../nn_types/u8.html">u8</a> * pAreaInformation;
+   size_t areaInformationSize;
+   const char * pDateStamp;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This structure maintains GPS IFD in a format easily processed by the library.</p><p>To get information after decoding (after EXIF information has been extracted), use <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastGpsData.html">JpegMpDecoder::GetLastGpsData</a></code>. <br />
+ To register information before encoding, first initialize the structure using <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/InitializeGpsData.html">JpegMpEncoder::InitializeGpsData</a></code> and then register data using <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsLatitude.html">JpegMpEncoder::SetGpsLatitude</a></code>, for example. Finally, confirm the contents of the structure using <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsData.html">JpegMpEncoder::SetGpsData</a></code>.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isVersionIdValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether the <code>versionID</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isLatitudeValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>latitude</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isLongitudeValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>longitude</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isAltitudeRefValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>altitudeRef</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isAltitudeValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>altitude</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isTimeStampValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>timeStamp</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isDopValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>DOP</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isSpeedValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code> speed </code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isTrackValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>track</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isImgDirectionValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>imgDirection</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isDestLatitudeValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>destLatitude</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isDestLongitudeValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>destLongitude</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isDestBearingValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>destBearing</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isDestDistanceValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>destDistance</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isDifferentialValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates whether <code>differential</code> is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">altitudeRef</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>Represents the <code>altitude</code> reference.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">versionId</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>Represents the GPS tag version.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">latitudeRef</span>
+            </th>
+            <td width="100">char</td>
+            <td>Represents north (N) or south (S). Valid if element 0 is not 0. Element [1] is always 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">longitudeRef</span>
+            </th>
+            <td width="100">char</td>
+            <td>Represents east (E) or west (W) Valid if element 0 is not 0. Element [1] is always 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">status</span>
+            </th>
+            <td width="100">char</td>
+            <td>Represents the GPS receiver status. Valid if element 0 is not 0. Element [1] is always 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">measureMode</span>
+            </th>
+            <td width="100">char</td>
+            <td>Represents the GPS measurement method. Valid if element 0 is not 0. Element [1] is always 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">speedRef</span>
+            </th>
+            <td width="100">char</td>
+            <td>Represents the velocity unit. Valid if element 0 is not 0. Element [1] is always 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">trackRef</span>
+            </th>
+            <td width="100">char</td>
+            <td>Represents the tracking direction. Valid if element 0 is not 0. Element [1] is always 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">imgDirectionRef</span>
+            </th>
+            <td width="100">char</td>
+            <td>Represents the orientation of the captured image. Valid if element 0 is not 0. Element [1] is always 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">destLatitudeRef</span>
+            </th>
+            <td width="100">char</td>
+            <td>Represents the north (N) or south (S) latitude of the destination. Valid if element 0 is not 0. Element [1] is always 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">destLongitudeRef</span>
+            </th>
+            <td width="100">char</td>
+            <td>Represents the east (E) or west (W) longitude of the destination. Valid if element 0 is not 0. Element [1] is always 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">destBearingRef</span>
+            </th>
+            <td width="100">char</td>
+            <td>Represents the bearing to the destination. Valid if element 0 is not 0. Element [1] is always 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">destDistanceRef</span>
+            </th>
+            <td width="100">char</td>
+            <td>Represents the distance to the destination. Valid if element 0 is not 0. Element [1] is always 0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">differential</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>Represents the GPS differential.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">latitude</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the latitude (numeric value).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">longitude</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the longitude (numeric value).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">altitude</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the altitude (numeric value).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">timeStamp</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the GPS time (atomic clock time).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">pSatellites</span>
+            </th>
+            <td width="100">const char *</td>
+            <td>Represents the satellite signal used for positioning. Valid unless <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">dop</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the reliability (dilution of precision) of the position.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">speed</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the speed (numeric value).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">track</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the tracking direction (numeric value).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">imgDirection</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the orientation of the captured image.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">pMapDatum</span>
+            </th>
+            <td width="100">const char *</td>
+            <td>Represents map data used for positioning. Valid unless <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">destLatitude</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the latitude of the destination (numeric value).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">destLongitude</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the longitude of the destination (numeric value).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">destBearing</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the destination bearing (numeric value).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">destDistance</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Represents the distance to the destination (numeric value).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">pProcessingMethod</span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u8.html">u8</a> *</td>
+            <td>Represents the name of the positioning method. Valid unless <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">processingMethodSize</span>
+            </th>
+            <td width="100">size_t</td>
+            <td>Represents the data size in bytes of <code>pProcessingMethod</code>. Valid unless <code>0</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">pAreaInformation</span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u8.html">u8</a> *</td>
+            <td>Represents the name of the identified area. Valid unless <code>NULL</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">areaInformationSize</span>
+            </th>
+            <td width="100">size_t</td>
+            <td>Represents the size in bytes of <code>pAreaInformation</code>. Valid unless <code>0</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">pDateStamp</span>
+            </th>
+            <td width="100">const char *</td>
+            <td>Represents the GPS date stamp. Valid unless <code>NULL</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

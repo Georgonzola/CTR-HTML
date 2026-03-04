@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>MountAddOnContent</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::MountAddOnContent Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> MountAddOnContent(
+     const char * archiveName,
+     <a href="../../nn_types/bit32.html">bit32</a> uniqueId,
+     <a href="../../nn_types/bit8.html">bit8</a> variation,
+     <a href="../../nn_types/u32.html">u32</a> contentIndex,
+     size_t maxFile,
+     size_t maxDirectory,
+     void * workingMemory,
+     size_t workingMemorySize,
+     bool useCache
+);
+
+<a href="../../nn/Result/Overview.html">Result</a> MountAddOnContent(
+     const char * archiveName,
+     <a href="../../nn_types/bit32.html">bit32</a> uniqueId,
+     <a href="../../nn_types/u32.html">u32</a> contentIndex,
+     size_t maxFile,
+     size_t maxDirectory,
+     void * workingMemory,
+     size_t workingMemorySize,
+     bool useCache
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./MountAddOnContent(0).html">MountAddOnContent ( const char *, bit32, bit8, u32, size_t, size_t, void *, size_t, bool ) </a>
+          </td>
+          <td>Mounts an add-on content archive.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./MountAddOnContent(1).html">MountAddOnContent ( const char *, bit32, u32, size_t, size_t, void *, size_t, bool ) </a>
+          </td>
+          <td>Mounts an add-on content archive.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of MountAddOnContent ( const char *, bit32, bit8, u32, size_t, size_t, void *, size_t, bool ) </h2>
+    <div class="section"><p>Mounts the add-on content of the specified archive name. <br />
+ The numbers of files and directories you can simultaneously open from the add-on content archive are specified by maxFile and maxDirectory, respectively. <br /></p><p>The region passed to workingMemory must be at least the size calculated by the <code><a href="../../nn/fs/GetAddOnContentRequiredMemorySize.html">GetAddOnContentRequiredMemorySize</a></code> function. <br />
+ You can cache archive metadata to memory by setting the useCache parameter to <code>true</code>. This reduces the time taken to open files and scan directories. However, it also increases the amount of memory required.</p><p>Mounting an add-on content archive consumes a resource that is shared by the system as a whole. <br />
+ Currently, you must have no more than two instances of add-on content mounted at one time.</p></div>
+    <h2>Description of MountAddOnContent ( const char *, bit32, u32, size_t, size_t, void *, size_t, bool ) </h2>
+    <div class="section"><p>Mounts the add-on content of the specified archive name. <br />
+ Implicitly uses <code>0</code> as the Variation value for the add-on data. <br />
+ The numbers of files and directories you can simultaneously open from the add-on content archive are specified by maxFile and maxDirectory, respectively. <br /></p><p>The region passed to workingMemory must be at least the size calculated by the <code><a href="../../nn/fs/GetAddOnContentRequiredMemorySize.html">GetAddOnContentRequiredMemorySize</a></code> function. <br />
+ You can cache archive metadata to memory by setting the useCache parameter to <code>true</code>. This reduces the time taken to open files and scan directories. However, it also increases the amount of memory required.</p><p>Mounting an add-on content archive consumes a resource that is shared by the system as a whole. <br />
+ Currently, you must have no more than two instances of add-on content mounted at one time.</p></div>
+  </body>
+</html>

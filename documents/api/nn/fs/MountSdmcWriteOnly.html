@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>MountSdmcWriteOnly</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::MountSdmcWriteOnly Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> MountSdmcWriteOnly(
+     const char * archiveName = "sdmcwo:"
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>archiveName</th>
+          <td>Specifies the name of the archive. (If this argument is omitted, <code>sdmcwo:</code> is specified.)</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultMediaNotFound</th>
+          <td>An SD card could not be found or recognized.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyExists</th>
+          <td>The specified archive name is already mounted. <br />
+ You must not allow this error to occur in retail products.</td>
+        </tr>
+        <tr>
+          <th>ResultArchiveInvalidated</th>
+          <td>The SD card may have been removed during the mount operation.</td>
+        </tr>
+        <tr>
+          <th>ResultMediaAccessError</th>
+          <td>An error occurred while accessing the SD card because of some cause such as a loose connection.</td>
+        </tr>
+        <tr>
+          <th>ResultBadFormat</th>
+          <td>The SD card has an invalid format. The SD card must be formatted.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>An application-side bug, or an unexpected error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Mounts the archive that directly accesses the SD Memory Card. This archive is write-only. File read operations are not permitted. <a href="../../nn/fs/Directory/Overview.html">Directory</a> read operations are also not permitted. Mounts the archive that directly accesses the inserted SD Memory Card. The function fails if an SD Memory Card is not inserted or the SD Memory Card is not formatted. To mount a previously mounted SD Memory Card that has been pulled out and then re-inserted, you must first unmount the card using the <code><a href="../../nn/fs/Unmount.html">nn::fs::Unmount</a></code> function, then execute the <code><a href="../../nn/fs/MountSdmcWriteOnly.html">nn::fs::MountSdmcWriteOnly</a></code> function again.</p><p>To use this function, you must add the <tt>"- DirectSdmcWrite"</tt> attribute to the file system access permissions in your RSF file.  For more information, see the <tt><a href="../../../tools/ctr_makerom.html#rsf">ctr_makerom</a></tt> reference.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/29</dt>
+        <dd><item xmlns="">Added a note about the content of an RSF file.</item><br />
+        </dd>
+        <dt>2011/02/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

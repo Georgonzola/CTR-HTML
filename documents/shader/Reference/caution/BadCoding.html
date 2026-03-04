@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>Shader Implementations That Result in Illegal Operations</title>
+  </head>
+  <body>
+    <h1><a name="top">Shader Implementations That Result in Illegal Operations</a></h1>
+    <div class="section">
+      <p>
+        Illegal hardware operations can occur when assembler instructions in a shader are executed in certain orders.<br /> If illegal operations result, the GPU hangs.<br /> The shader assembler or shader linker outputs a warning if the shader implementation includes the possibility of resulting in illegal operations.<br /> <br /> The following sections describe conditions that give rise to illegal operations.<br />
+      </p>
+    </div>
+
+    <h2><a name="by_mova">Illegal Operations Caused by the mova Instruction</a></h2>
+    <div class="section">
+      <p>
+        This section describes illegal operations related to the <CODE>mova</CODE> instruction.<br /> <br /> There are several conditions that may cause illegal operations. Although all conditions are required for problems to occur, none of them alone are necessarily enough to cause problems. In other words, illegal operations may or may not result even when conditions are met.<br /> Whether illegal operations occur depends on the implementation of that part of the shader. In other words, it depends on the type of instructions executed and the combination of registers being used when an instruction that may cause a problem is reached. It does not depend on the exact time that the instruction executes, the contents of registers (except for those related to branches), or other factors.<br /> If an implementation does give rise to illegal operations, problems always occur. If an implementation does not cause illegal operations, they never occur.<br /> <br /> Even if the conditions that cause possible illegal operations as described in this section are met, you may continue using the shader in question if there are no problems with operations on the actual hardware.<br />
+      </p>
+
+      <h3><a name="last_instruction">Executing mova Immediately Before the Last Instruction</a></h3>
+      <div class="section">
+        <p>
+          Hardware may hang if a <CODE>mova</CODE> instruction that does not have a dependency on the last instruction is executed immediately before the instruction executed last by the shader.<br /> In a vertex shader, the instruction that executes last is the one that writes to an output register last. In a geometry shader, the <CODE>end</CODE> instruction executes last. <br /> Example of an illegal operation with a vertex shader:<br />
+<pre class="definition">
+// Vertex Shader 1.
+mova    a0.x, r0    // The last instruction appears immediately after mova.
+mov     o0,   r2    // Hardware may hang because the last instruction does not use a0.x.
+end
+</pre>
+          Example of a legal operation in a vertex shader:<br />
+<pre class="definition">
+// Vertex Shader 2.
+mova    a0.x, r0        // The last instruction appears immediately after mova.
+mov     o0,   c[a0.x]   // There is no problem because the last instruction uses a0.x.
+end
+</pre>
+          Example of illegal operation in a geometry shader:<br />
+<pre class="definition">
+// Geometry shader.
+mova    a0.x, r0    // Execute a mova instruction.
+end                 // Hardware may hang when an end instruction occurs immediately after mova.
+</pre>
+        The shader assembler outputs a warning (400a0003) if <CODE>mova</CODE> occurs immediately before an <CODE>end</CODE> instruction. The shader assembler also outputs a warning (400a0004) when a <CODE>mova</CODE> instruction is followed by an instruction that writes to an output register, followed by an <CODE>end</CODE> instruction if the second instruction does not use the address written by the <CODE>mova</CODE> instruction.<br /> You can avoid this condition by changing the order of instructions or by inserting a <CODE>nop</CODE> instruction immediately before the last instruction.<br />
+      </p>
+      </div>
+
+      <h3><a name="specific_instruction">Executing mova Both Before and After Certain Instructions</a></h3>
+      <div class="section">
+        <p>
+          Hardware may hang depending on how <CODE>mova</CODE> is used with <CODE>else</CODE> and <CODE>endif</CODE>, <CODE>call</CODE> and <CODE>ret</CODE>, and <CODE>loop</CODE> and <CODE>endloop</CODE> instruction pairs.<br /> <br /> Each case is described below.<br /> <br /> Hardware may hang if a <CODE>mova</CODE> instruction appears both immediately before the <CODE>else</CODE> instruction and immediately after the <CODE>endif</CODE> instruction of an <CODE>else</CODE>-<CODE>endif</CODE> pair that matches the same <CODE>ifb</CODE> or <CODE>ifc</CODE> instruction.<br /> The shader assembler outputs a warning (40070003) if this type of implementation is detected.<br /> This condition can be avoided by changing the order of instructions or inserting a <CODE>nop</CODE> instruction.<br /> <br /> Example when using <CODE>else</CODE>-<CODE>endif</CODE>:<br />
+<pre class="definition">
+ifb     b0
+  ...
+  mova    a0.x, r0  // Execute mova before else. After execution, jump to the line immediately after the endif.
+else
+  ...
+endif
+mova    a0.x, r1    // Hardware may hang if jumped to from immediately before the &quot;else.&quot;
+</pre>
+          <br /> Hardware may hang if a <CODE>mova</CODE> instruction occurs both immediately before the final <CODE>ret</CODE> instruction of a subroutine called by the <CODE>call</CODE>, <CODE>callb</CODE>, or <CODE>callc</CODE> instructions, and immediately after the instruction making the call and accepting the return.<br /> The shader assembler outputs a warning (4009000c) if this type of implementation is detected.<br /><br /> This condition can be avoided by changing the order of instructions or inserting a <CODE>nop</CODE> instruction.<br /> <br /> Example using <CODE>call</CODE>-<CODE>ret</CODE>:<br />
+<pre class="definition">
+main:   // main function.
+...
+call    l_function  // Jump to l_function.
+mova    a0.x, r0    // mova appears again immediately after returning from l_function.
+...
+end                 // The main function ends.
+
+l_function: // Subroutine.
+...
+mova    a0.x, r1    // &quot;mova&quot; occurs immediately before &quot;ret.&quot;
+ret
+</pre>
+          <br /> Hardware may hang if a <CODE>mova</CODE> instruction is used both immediately after a <CODE>loop</CODE> instruction and immediately before an <CODE>endloop</CODE> instruction.<br /> The shader assembler outputs a warning (40070004) if this type of implementation is detected.<br /> This condition can be avoided by changing the order of instructions or inserting a <CODE>nop</CODE> instruction.<br /> <br /> Example when using <CODE>loop</CODE>-<CODE>endloop</CODE>:<br />
+<pre class="definition">
+loop    i0
+  mova    a0.y, r0  // Execute &quot;mova&quot; immediately after &quot;loop&quot;.
+  ...
+  mova    a0.x, r1  // Execute &quot;mova&quot; immediately before &quot;endloop&quot;.
+endloop
+</pre>
+      </p>
+      </div>
+
+
+
+
+
+      <h3><a name="stall_branch">Executing a Branch Instruction Immediately After a Stall Caused by a mova Instruction</a></h3>
+      <div class="section">
+        <p>
+          Hardware may hang when execution of a <CODE>mova</CODE> instruction stalls because of a dependency on a previous instruction if a branch instruction is executed immediately after it.<br /> This applies to any of the following branch instructions: <CODE>jpb</CODE>, <CODE>jpc</CODE>, <CODE>call</CODE>, <CODE>callb</CODE>, <CODE>callc</CODE>, <CODE>ifb</CODE>, <CODE>ifc</CODE>, and <CODE>breakc</CODE>.<br /> <br /> Example:<br />
+<pre class="definition">
+dp4     r0, r1, r2  // A write is made to r0.
+mova    a0.x, r0.x  // A stall occurs because r0 depends on dp4.
+call    l_function  // A branch instruction is executed immediately after the mova instruction that causes the stall.
+</pre>
+          The shader assembler outputs a warning (400a0005) if a <CODE>mova</CODE> instruction where src is a temporary register followed by a branch instruction. No check is made whether the <CODE>mova</CODE> instruction stalls.<br /> This condition can be avoided by changing the order of instructions or by inserting a <CODE>nop</CODE> instruction.<br /> <br />
+      </p>
+      </div>
+
+      <h3><a name="stall_dependency">Illegal Operations Caused by the Register Dependencies of Instructions Before and After the mova Instruction</a></h3>
+      <div class="section">
+        <p>
+          For any particular <CODE>mova</CODE> instruction, the GPU stops responding if all of the following conditions are satisfied.<br /> <br />
+          <ul>
+            <li>Condition 1: The register read by the instruction immediately after the <CODE>mova</CODE> instruction is written by an instruction prior to the <CODE>mova</CODE>, and the instruction immediately after the <CODE>mova</CODE> causes a 1-clock cycle stall.  In this case, the unconditional 3-clock cycle stall of the <CODE>mova</CODE> instruction is ignored.</li>
+            <li>Condition 2: The <CODE>mova</CODE> instruction and both of the following two instructions all read an input register or temporary register.  In this case, the indices and components of the registers are ignored.</li>
+            <li>Condition 3: There is no dependency between the <CODE>mova</CODE> instruction and the previous instruction, and no stall occurs because of the <CODE>mova</CODE> register dependencies.</li>
+          </ul>
+          <br /> The following example demonstrates a case where the GPU stops responding.<br /> Example:<br />
+<pre class="definition">
+mul        r0, c0, r1   // Stall the instruction immediately after the mova (condition 1).
+mova       a0.x, v0.x   // No stall because of the dependency with the previous instruction occurs (condition 3).
+add        r0, r0, c1   // Because of the dependency between the mova and the previous instruction,
+                        // a 1-clock cycle stall occurs (condition 1).
+mov        r5, v1       // The same input register that is read by the mova is read by the other instruction (condition 2).
+</pre>
+          To indicate that the CPU has stopped responding, the shader assembler sends a warning (400a0006) if the following conditions are met.<br /> <br />
+          <ul>
+            <li>Warning condition 1: The instruction immediately after the <CODE>mova</CODE> instruction reads a temporary register. </li>
+            <li>Warning condition 2: The <CODE>mova</CODE> instruction and the following two instructions all read an input register, or both read a temporary register.</li>
+          </ul>
+          <br /> No check for instruction stalls is performed. If the warning is sent, avoid these three conditions by changing the order of instructions or by inserting a <CODE>nop</CODE> instruction.
+      </p>
+      </div>
+    </div>
+
+    <h2><a name="specific_order">Illegal Operations Caused by Executing Instructions in a Particular Order</a></h2>
+    <div class="section">
+      <p>
+        Illegal operations occur if four consecutive instructions meet all of the following conditions.<br /> These are necessary and sufficient conditions. The GPU always hangs if they are all met.<br /> <br /> These conditions are described below.<br /> <br />
+        <ul>
+          <li>Condition 1: The first and third instructions have an associated latency of 2 clock cycles (<CODE>flr</CODE>, <CODE>litp</CODE>, <CODE>max</CODE>, <CODE>min</CODE>, <CODE>mov</CODE>, <CODE>sge</CODE>, <CODE>slt</CODE>, or <CODE>abs</CODE>).</li>
+          <li>Condition 2: The second instruction has an associated latency of 2 or fewer clock cycles (<CODE>flr</CODE>, <CODE>litp</CODE>, <CODE>max</CODE>, <CODE>min</CODE>, <CODE>mov</CODE>, <CODE>sge</CODE>, <CODE>slt</CODE>, <CODE>abs</CODE>, or <CODE>nop</CODE>).</li>
+          <li>Condition 3: The fourth instruction is a branch instruction (<CODE>jpb</CODE>, <CODE>jpc</CODE>, <CODE>call</CODE>, <CODE>callb</CODE>, <CODE>callc</CODE>, <CODE>ifb</CODE>, <CODE>ifc</CODE>, or <CODE>breakc</CODE>).</li>
+          <li>Condition 4: A stall occurs during execution of the first instruction. The stall must last at least two clock cycles if the second instruction is a <CODE>nop</CODE>, but at least three clock cycles if it is other than a <CODE>nop</CODE>.</li>
+          <li>Condition 5: The <SPAN class="argument">dest</SPAN> register of the first instruction is not the same as any of the <SPAN class="argument">src</SPAN> registers of the second instruction.</li>
+          <li>Condition 6: The <SPAN class="argument">dest</SPAN> register of the second instruction is not the same as any of the <SPAN class="argument">src</SPAN> registers of the third instruction.</li>
+          <li>Condition 7: The <SPAN class="argument">dest</SPAN> register of the first instruction is the same as one of the <SPAN class="argument">src</SPAN> registers of the third instruction.</li>
+          <li>Condition 8: The <SPAN class="argument">dest</SPAN> register of the third instruction is the same as one of the <SPAN class="argument">src</SPAN> registers of the third instruction.</li>
+        </ul>
+        <br />The term &quot;same register&quot; in Conditions 5, 6, 7, and 8 does not mean the registers have the same component specification, but the same index and type. (Assume that r0 and r0, and r1.x and r1.y are the same registers.)<br /> <br />The following example is a case where all of these conditions are met.<br /> <br />Example:<br />
+<pre class="definition">
+rcp     r1, r2.x    // An instruction is executed that causes a stall on the first of the next four instructions.
+min     r0, r1, r2  // The first instruction: From this point on, four consecutive instructions meet the specified conditions.
+max     r3, r4, r5  // The second instruction.
+slt     r5, r0, r5  // The third instruction.
+call    l_function  // The fourth instruction.
+</pre>
+        The first instruction, <CODE>min</CODE>, and the third instruction, <CODE>slt</CODE>, both have a latency of 2 clock cycles, meeting Condition 1.<br /> The second instruction, <CODE>max</CODE>, has a latency of 2 clock cycles, meeting Condition 2.<br /> The fourth instruction is <CODE>call</CODE>. This meets Condition 3.<br /> The <CODE>min</CODE> instruction results in a 3-clock cycle stall because it has to wait for <CODE>rcp</CODE> to write r1. This meets Condition 4.<br /> The <SPAN class="argument">dest</SPAN> register of <CODE>min</CODE> and the <SPAN class="argument">src</SPAN> register of <CODE>max</CODE> differ. This meets Condition 5. The <SPAN class="argument">dest</SPAN> register of <CODE>max</CODE> and the <SPAN class="argument">src</SPAN> register of <CODE>slt</CODE> differ. This meets Condition 6.<br /> The <SPAN class="argument">dest</SPAN> register of <CODE>min</CODE> and the <SPAN class="argument">src0</SPAN> register of <CODE>slt</CODE> are the same. This meets Condition 7. The <CODE>dest</CODE> register of <CODE>slt</CODE> is the same as the <SPAN class="argument">src1</SPAN> register of <CODE>slt</CODE>. This meets Condition 8.<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
+          </tr>
+          <tr>
+            <th>rcp</th>
+            <td class="read">read</td>
+            <td class="RCP" colspan="2">RCP / RSQ</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>min</th>
+            <td class="empty" colspan="1"></td>
+            <td class="stall" colspan="3">STALL</td>
+            <td class="read">read</td>
+            <td class="MIN">MIN</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>max</th>
+            <td class="empty" colspan="5"></td>
+            <td class="read">read</td>
+            <td class="MAX">MAX</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>slt</th>
+            <td class="empty" colspan="6"></td>
+            <td class="read">read</td>
+            <td class="SLT">SLT</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+          <tr>
+            <th>call</th>
+            <td class="empty" colspan="7"></td>
+            <td class="flow">call</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+<br /> <br /> The shader assembler outputs warning (400a0001) or (400a0002) if all conditions except Condition 4 are met.<br /> The shader assembler cannot detect whether execution will stall long enough to meet Condition 4.<br /> <br /> Although the performance check feature of the shader linker can be used to get an approximate estimate of the number of clock cycles execution will stall, perfect detection is not possible.<br /> Conditions for stalling depend on the instructions executed up to that point, how registers are being used, and so on.<br /> <br /> Shaders that do not result in illegal operations never result in illegal operations, whereas shaders that do result in illegal operations always result in illegal operations. If you cannot see any illegal operations even though the shader assembler outputs a warning, you can assume that Condition 4 has not been met and continue using the shader without problems.<br />If you find there are illegal operations, this condition can be avoided by changing the order of instructions or by inserting a <CODE>nop</CODE> instruction.<br />
+      </p>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2012/06/20</dt>
+      <dd>Added &quot;Illegal Operations Caused by the Register Dependencies of Instructions Before and After the <CODE>mova</CODE> Instruction.&quot;<br />
+      </dd>
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br /> 
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

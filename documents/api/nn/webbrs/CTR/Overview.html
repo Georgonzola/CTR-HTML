@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::webbrs::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/webbrs/Overview.html">webbrs</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace for the <a href="../../../nn/webbrs/CTR/Overview.html">CTR</a> Internet Browser API. <br />
+(It can also be written without the <code>CTR</code> portion.)</p><h3>The webbrs Library</h3><p>The <tt>webbrs</tt> library is for specifying URLs and starting the Internet browser applet. <BR /> Use this library when you want to guide users to webpages from applications.  For more information about the features of the Internet browser itself, see the <i>3DS Overview</i>.  <BR /> To display webpages using the Internet browser, you must comply with the guidelines stipulated in <i>3DS Guidelines: Internet Browser</i>.  Also refer to that document when using this library.  <BR /> Applications that use this library must call the <tt>nn::applet::CTR::Enable</tt> function to enable the applet features.  In addition, graphics command requests must be stopped when the applet is called. End rendering (by calling the <tt>nngxWaitCmdlistDone</tt> function, for example).<h3>Transition After Calling the Internet Browser From the Application</h3>The Internet browser applet differs from other applets in that when the user closes the browser that was called from an application, <b><font color="RED">that application is interrupted and the process transitions to the HOME Menu</font></b>. <BR /> In this case, the application processing and the restrictions in effect are the same as those used when the HOME Menu is started by pressing the HOME Button.  For more information, see the section about the HOME Button in the <i>3DS Programming Manual: System</i>. <BR /> If the POWER Button is pressed while the Internet browser is running or the process has transitioned from the browser to the HOME Menu, the <span>nn::applet::IsExpectedToCloseApplication</span> function returns <tt>true</tt>.  When processing has returned to the application, promptly begin handling that and transition to the termination process.</p><h3>What Needs Checking When the Internet Browser Starts</h3>You can start the Internet browser by calling the <a href="../../../nn/webbrs/CTR/StartWebBrowser.html">StartWebBrowser</a> function. At that time, check the following items.<h4>Has a correct URL been passed?</h4><p>The specified URL must start with either http:// or  https://. You can check this by using the <a href="../../../nn/webbrs/CTR/IsURLValid.html">IsURLValid</a> function. <BR /> If this condition is not satisfied, the <a href="../../../nn/webbrs/CTR/StartWebBrowser.html">StartWebBrowser</a> function returns the error <a href="../../../nn/webbrs/CTR/ResultInvalidUrl/Overview.html">ResultInvalidUrl</a>. <BR /><BR /> Note that even if the <a href="../../../nn/webbrs/CTR/IsURLValid.html">IsURLValid</a> function returns <tt>true</tt>, the URL might still be invalid for another reason. <BR /> Confirm that the specified page can display in the Internet browser.</p><h4>Is the Internet browser installed?</h4><p>CTR systems that were part of the initial shipment after sales began did not include the Internet browser. <BR /> The Internet browser is installed when the user performs a system update, but otherwise the Internet browser is not installed in these CTR systems. <BR /><BR />Use the <a href="../../../nn/webbrs/CTR/IsWebBrowserAvailable.html">IsWebBrowserAvailable</a> function to determine whether the Internet browser is installed. <BR /><BR /> If the Internet browser is not installed when the <a href="../../../nn/webbrs/CTR/StartWebBrowser.html">StartWebBrowser</a> function is called, the error <a href="../../../nn/webbrs/CTR/ResultUnavailableWebBrowser/Overview.html">ResultUnavailableWebBrowser</a> is detected internally and is a fatal error. <BR /> Consider the possibility of not being able to return to normal after the call, and implement saving the save data when starting the browser in the same way as for HOME Menu transitions in the application.<BR /></p><h4>Local Communications</h4><p>During local communication the Internet browser cannot start. <BR />If local communication is taking place when the <a href="../../../nn/webbrs/CTR/StartWebBrowser.html">StartWebBrowser</a> function is called, the Internet browser does not start and the function returns the error <a href="../../../nn/webbrs/CTR/ResultLocalCommMode/Overview.html">ResultLocalCommMode</a>.</p><h4>Parental Control Restrictions</h4><p>If Parental Control restrictions have been set for the Internet browser, the user must enter a four-digit PIN after the browser starts. <BR /> If the correct PIN is not entered, the Internet browser quits without displaying a webpage and the process transitions to the HOME Menu. <BR /><BR /> There is no way to notify the application about this state. <BR /> If you want to avoid this situation, have the application check for Parental Control restrictions using the <a href="../../../nn/webbrs/CTR/IsRestrictWebBrowser.html">IsRestrictWebBrowser</a> function and prevent the browser from starting if browser use is restricted.</p><h4>Consent to the EULA</h4><p>If the user has not consented to the EULA, the user is asked to accept the EULA immediately after the Internet browser has started.  If the user has not consented to the EULA at this point, the Internet browser quits without displaying any webpage and the system transitions to the HOME Menu. <BR /><BR /> There is no way to notify the application about this state. <BR /> If you want to avoid this situation, have the application check for EULA consent using the <span>nn::cfg::IsAgreedEula</span> function and prevent the browser from starting if the user has not consented.</p><h3>System modes where the Internet browser cannot be started</h3><p>When the system mode is set to <b>dev1</b>, <b>dev2</b>, or <b>snake dev1</b>, the Internet browser cannot be started. <br /> For more information, see the documentation under CTR Tools > Config.</p></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="2">Result</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/webbrs/CTR/ResultInvalidUrl/Overview.html">nn::webbrs::CTR::ResultInvalidUrl</a>
+            </th>
+            <td>Indicates that the Internet Browser cannot handle the specified URL.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/webbrs/CTR/ResultUnavailableWebBrowser/Overview.html">nn::webbrs::CTR::ResultUnavailableWebBrowser</a>
+            </th>
+            <td>Indicates that the Internet Browser has not been installed and cannot be used.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/webbrs/CTR/ResultLocalCommMode/Overview.html">nn::webbrs::CTR::ResultLocalCommMode</a>
+            </th>
+            <td>Indicates that the Internet Browser cannot start because local communications are taking place.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/webbrs/CTR/Config/Overview.html">nn::webbrs::CTR::Config</a>
+            </th>
+            <td>The <code><a href="../../../nn/webbrs/CTR/Config/Overview.html">Config</a></code> structure storing the data to pass to the Internet browser.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/webbrs/CTR/Parameter/Overview.html">nn::webbrs::CTR::Parameter</a>
+            </th>
+            <td>The <code><a href="../../../nn/webbrs/CTR/Parameter/Overview.html">Parameter</a></code> structure passed when the Internet browser runs.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/webbrs/CTR/URL_LENGTH_MAX.html">URL_LENGTH_MAX</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>: Maximum number of characters in a URL.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/webbrs/CTR/StartWebBrowser.html">StartWebBrowser</a>
+            </th>
+            <td>: Launches the Internet browser.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/webbrs/CTR/IsWebBrowserAvailable.html">IsWebBrowserAvailable</a>
+            </th>
+            <td>Checks whether the Internet browser has been installed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/webbrs/CTR/IsRestrictWebBrowser.html">IsRestrictWebBrowser</a>
+            </th>
+            <td>Checks whether starting the Internet browser is restricted by the Parental Controls.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/webbrs/CTR/IsURLValid.html">IsURLValid</a>
+            </th>
+            <td>Checks whether the URL begins with <code><ulink url="http://">http://</ulink></code> or <code><ulink url="https://">https://</ulink></code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/06/09</dt>
+        <dd><item xmlns="">Added text indicating that the application might not work correctly depending on the system mode setting.</item><br />
+        </dd>
+        <dt>2015/03/12</dt>
+        <dd><item xmlns="">Revised the description about calling the <tt>StartWebBrowser</tt> function when the Internet browser has not been installed.</item><br />
+        </dd>
+        <dt>2014/07/01</dt>
+        <dd><item xmlns="">Added the fact that applications that call this function must enable the applet features and stop rendering.</item><br />
+        </dd>
+        <dt>2012/01/27</dt>
+        <dd><item xmlns="">Deprecated <tt>ResultInternalSystemError</tt>.</item><br />
+        </dd>
+        <dt>2012/01/17</dt>
+        <dd><item xmlns="">Added overall details to the description and revised the organization accordingly.</item><br /><item xmlns="">Deprecated <tt>ResultInternalSystemError</tt>.</item><br />
+        </dd>
+        <dt>2011/10/11</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

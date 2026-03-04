@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetMixParam</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/snd/CTR/Voice/Overview.html">Voice</a>::SetMixParam Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetMixParam(
+     const <a href="../../../../nn/snd/CTR/MixParam/Overview.html">MixParam</a> & mixParam
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>mixParam</th>
+          <td>Reference to a gain structure.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the gain for each voice channel.</p><p>A ratio of <tt>1.0</tt> represents no change from the original value. This function is used together with the volume set by <tt><a href="../../../../nn/snd/CTR/Voice/SetVolume.html">nn::snd::CTR::Voice::SetVolume</a></tt> to calculate the volume.  If the product of the value set by this function and the value set by <a href="../../../../nn/snd/CTR/Voice/SetVolume.html">nn::snd::CTR::Voice::SetVolume</a> exceeds 2.0, it is rounded down to 2.0 by an internal process. </p><p>The default values are as follows.<table><tr><td /><td>Left Front</td><td>Right Front</td><td>Left Back</td><td>Right Back</td></tr><tr><td>mainBus</td><td>1.0</td><td>1.0</td><td>0.0</td><td>0.0</td></tr><tr><td>auxBusA</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr><tr><td>auxBusB</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr></table></p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/07/25</dt>
+        <dd><item xmlns="">Added text about an internal process.</item><br />
+        </dd>
+        <dt>2010/01/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

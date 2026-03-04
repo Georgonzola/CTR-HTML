@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::snd::CTR::FxReverb::Param</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/snd/CTR/FxReverb/Overview.html">FxReverb</a>::Param Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct Param
+{
+   <a href="../../../../../nn_types/u32.html">u32</a> m_EarlyReflectionTime;
+   <a href="../../../../../nn_types/u32.html">u32</a> m_FusedTime;
+   <a href="../../../../../nn_types/u32.html">u32</a> m_PreDelayTime;
+   <a href="../../../../../nn_types/f32.html">f32</a> m_Coloration;
+   <a href="../../../../../nn_types/f32.html">f32</a> m_Damping;
+   <a href="../../../../../nn/snd/CTR/FxReverb/FilterSize/Overview.html">FilterSize</a> * m_pFilterSize;
+   <a href="../../../../../nn_types/f32.html">f32</a> m_EarlyGain;
+   <a href="../../../../../nn_types/f32.html">f32</a> m_FusedGain;
+   bool m_UseHpfDamping;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The data structure for reverb parameters.</p><p>Reverb can be divided into two large groups: "early reflection" and "subsequent reverb sounds."</p><p>"Early reflection" can be adjusted with <code>m_EarlyReflectionTime</code> and <code>m_EarlyGain</code>.</p><p><code>m_EarlyReflectionTime</code> signifies the time until the early reflection returns. Larger values indicate longer times from when the sound reflects until it returns. Units are in milliseconds and must be larger than 5, set in multiples of 5. The initial value is set to 60.</p><p><code>m_EarlyGain</code> signifies the output gain for early reflection. Set a value from <code>0.0.f</code> to <code>1.0.f</code>. When set to <code>0.0f</code>, the early reflection cannot be heard. The initial value is set to <code>0.6f</code>.</p><p>The back-end reverberation can be adjusted with <code>m_FusedTime</code>, <code>m_FusedGain</code>, <code>m_PreDelayTime</code>, <code>m_Coloration</code>, <code>m_Damping</code> and <code>m_pFilterSize</code>.</p><p><code>m_FusedTime</code> signifies the time that the subsequent reverb sound continues to play. Larger values can express spaces where sounds are easily reflected. Units are in milliseconds, and the initial value is set to 4000.</p><p><code>m_FusedGain</code> signifies the output gain for subsequent reverb sound. Set a value from <code>0.0.f</code> to <code>1.0.f</code>. When set to <code>0.0f</code>, the subsequent reverb sound cannot be heard. The initial value is set to <code>0.4f</code>.</p><p><code>m_PreDelayTime</code> is the lag time before the subsequent reverb sound. Larger values cause the subsequent reverb sound to be heard later. Units are in milliseconds and must be larger than 5, set in multiples of 5. The initial value is 100.</p><p><code>m_Coloration</code> signifies the coefficient for the full band pass filter of the subsequent reverb sound. The larger this value, the more detailed the back-end reverberation, and the more complex the reverberation becomes.</p><p>Set a value from <code>0.0.f</code> to <code>1.0.f</code>. When set to <code>0.0f</code>, the full band pass filter is passed through. This value is initially <code>0.5f</code>.</p><p><code>m_Damping</code> indicates how the filter is applied to subsequent reverb sound. You can select either a low-pass filter or high-pass filter (specified by m_UseHpfDamping) as the filter type. Set a value from <code>0.0.f</code> to <code>1.0.f</code>. If using the low-pass filter, the larger the value for <code>m_Damping</code>, the lower the cutoff frequency. (If set to <code>0.0f</code>, the low-pass filter is not applied.)</p><p>If using the high-pass filter, the larger the value for <code>m_Damping</code>, the higher the cutoff frequency. (If set to <code>0.0f</code>, the high-pass filter is not applied and the phase is reversed.)</p><p>The default value for <code>m_Damping</code> is <code>0.4</code>. The default value for <code>m_UseHpfDamping</code> is <code>false</code> (low-pass).</p><p>See the <code><a href="../../../../../nn/snd/CTR/FxReverb/FilterSize/Overview.html">FilterSize</a></code> description for each member variable of <code>m_pFilterSize</code>.</p><p>The necessary memory that you can get with the <code><a href="../../../../../nn/snd/CTR/FxReverb/GetRequiredMemSize.html">GetRequiredMemSize</a></code> function is dependent on <code>m_EarlyReflectionTime</code>, <code>m_PreDelayTime</code>, and <code>m_pFilterSize</code>.</p><p>When you change the following values while an effect is executing, noise may occur. <br /><itemizedlist><listitem><para><code>m_EarlyReflectionTime</code><br /></para></listitem><listitem><para><code>m_PreDelayTime</code></para></listitem></itemizedlist></p><p>In addition, if you continually change the following values even while an effect is executing, noise does not occur. <br /><itemizedlist><listitem><para><code>m_FusedTime</code><br /></para></listitem><listitem><para><code>m_Coloration</code><br /></para></listitem><listitem><para><code>m_Damping</code><br /></para></listitem><listitem><para><code>m_EarlyGain</code><br /><code>m_FusedGain</code></para></listitem></itemizedlist></p><p>Call <code><a href="../../../../../nn/snd/CTR/FxReverb/SetParam.html">SetParam</a></code> to change parameters while an effect is being executed.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_EarlyReflectionTime</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u32.html">u32</a></td>
+            <td>Early reflection time (in milliseconds).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_FusedTime</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u32.html">u32</a></td>
+            <td>Attenuation time (in milliseconds) for subsequent reverb sounds.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_PreDelayTime</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u32.html">u32</a></td>
+            <td>Subsequent reverb sound pre-delay time (in milliseconds).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_Coloration</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Coefficient for the full-band pass filter for subsequent reverb sound.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_Damping</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Damping for the filter applied to subsequent reverb.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_pFilterSize</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/snd/CTR/FxReverb/FilterSize/Overview.html">FilterSize</a> *</td>
+            <td>Filter size. If you specify <code>NULL</code>, the default value of the <code><a href="../../../../../nn/snd/CTR/FxReverb/FilterSize/Overview.html">FilterSize</a></code> structure is set.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_EarlyGain</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Output gain for the initial reflection.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_FusedGain</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Output gain for subsequent reverb sound.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_UseHpfDamping</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Flag indicating whether to apply a high-pass filter to subsequent reverb.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/snd/CTR/FxReverb/Param/Param.html">Param</a>
+            </th>
+            <td>Constructor.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

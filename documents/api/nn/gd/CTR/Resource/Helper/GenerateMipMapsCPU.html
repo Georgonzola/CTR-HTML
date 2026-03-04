@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <title>GenerateMipMapsCPU</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/gd/CTR/Resource/Overview.html">Resource</a>::<a href="../../../../../nn/gd/CTR/Resource/Helper/Overview.html">Helper</a>::GenerateMipMapsCPU Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../../nnResult/Overview.html">nnResult</a> GenerateMipMapsCPU(
+     <a href="../../../../../nn/gd/CTR/Resource/NativeFormat.html">NativeFormat</a> format,
+     <a href="../../../../../nn_types/u32.html">u32</a> width,
+     <a href="../../../../../nn_types/u32.html">u32</a> height,
+     const <a href="../../../../../nn_types/u8.html">u8</a> * dataSrc,
+     <a href="../../../../../nn_types/u8.html">u8</a> * dataDst,
+     <a href="../../../../../nn_types/u32.html">u32</a> countMipLevelToGenerate
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>format</th>
+          <td>Specifies the source data format.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Specifies the source data width. It must be a power of 2 that is 8 or greater.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Specifies the source data height. It must be a power of 2 that is 8 or greater.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dataSrc</th>
+          <td>Specifies the address of the source data for generating the mipmap.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dataDst</th>
+          <td>Specifies a pointer to the address where the generated mipmap data is stored.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>countMipLevelToGenerate</th>
+          <td>Specifies the number of mipmaps to generate.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified in an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureResolution</th>
+          <td>The resolution of the source data must be 8x8 or better and a multiple of 2.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureMipLevelIndex</th>
+          <td>Invalid number of mipmaps to generate.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormat</th>
+          <td>The source data has an invalid pixel format.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This helper function generates mipmaps using the CPU.</p><p>This function is used the same way as the <code><a href="../../../../../nn/gd/CTR/Memory/GenerateMipMaps.html">Memory::GenerateMipMaps</a></code> function. However, while the <code><a href="../../../../../nn/gd/CTR/Memory/GenerateMipMaps.html">Memory::GenerateMipMaps</a></code> function executes a GPU request to generate mipmaps, the <code><a href="../../../../../nn/gd/CTR/Resource/Helper/GenerateMipMapsCPU.html">Resource::Helper::GenerateMipMapsCPU</a></code> function computes the mipmaps using the CPU. The drawbacks are: -<code><a href="../../../../../nn/gd/CTR/Resource/Helper/GenerateMipMapsCPU.html">Resource::Helper::GenerateMipMapsCPU</a></code> is slower than the <code><a href="../../../../../nn/gd/CTR/Memory/GenerateMipMaps.html">Memory::GenerateMipMaps</a></code> function.<itemizedlist><listitem><para>If a subsequent 3D command or data transfer command will change the source data, the current command buffer execution must finish before the <code><a href="../../../../../nn/gd/CTR/Resource/Helper/GenerateMipMapsCPU.html">Resource::Helper::GenerateMipMapsCPU</a></code> function is executed.</para></listitem></itemizedlist></p><p>The advantages are: For the <code><a href="../../../../../nn/gd/CTR/Memory/GenerateMipMaps.html">Memory::GenerateMipMaps</a></code> function, the resolution of the generated mipmap must be 32 or better. For the <code><a href="../../../../../nn/gd/CTR/Resource/Helper/GenerateMipMapsCPU.html">Resource::Helper::GenerateMipMapsCPU</a></code> function, however, the minimum mipmap resolution that can be generated is eight. The memory layout of the data source must be <code>LAYOUT_BLOCK_8</code> and the data source must be native format. The following formats are valid. <br /><itemizedlist><listitem><para>NATIVE_FORMAT_RGBA_8888 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGB_888 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_4444 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_5551 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGB_565 <br /></para></listitem><listitem><para>NATIVE_FORMAT_LUMINANCE_ALPHA_88 <br /></para></listitem><listitem><para>NATIVE_FORMAT_HILO_88 <br /></para></listitem><listitem><para>NATIVE_FORMAT_LUMINANCE_8 <br /></para></listitem><listitem><para>NATIVE_FORMAT_ALPHA_8 <br /></para></listitem><listitem><para>NATIVE_FORMAT_LUMINANCE_ALPHA_44 <br /></para></listitem></itemizedlist></p><p>All mipmaps are created contiguously in memory. You must allocate enough memory to the address area for mipmap generation to store all the mipmaps. The memory area size required to store one mipmap level is as follows: memSize = (srcWidth >> 1) * (srcHeight >> 1) * formatBpp memSize is the memory size (in bytes), and srcWidth x srcHeight is the source resolution (in pixels). formatBpp is the number of pixel bytes used for pixel encoding. For example, if the number of mipmaps to generate is 2, you must allocate at least enough memory for mipmap generation to hold the size calculated below. <code>memSize = ((srcWidth >> 1) * (srcHeight >> 1) * formatBpp) + ((srcWidth >> 2) * (srcHeight >> 2) * formatBpp)</code></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/06/03</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

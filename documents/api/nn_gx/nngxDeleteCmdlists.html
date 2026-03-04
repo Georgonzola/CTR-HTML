@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxDeleteCmdlists</title>
+  </head>
+  <body>
+    <h1>nngxDeleteCmdlists Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxDeleteCmdlists(
+     GLsizei n,
+     const GLuint * cmdlists
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>n</th>
+          <td>Number of command list objects to delete.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>cmdlists</th>
+          <td>Array that stores the command list objects to delete.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Deletes command list objects.</p><P>The <span class="argument">n</span> command-list objects whose names are stored in <span class="argument">cmdlists</span> are deleted.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_8002_DMP</TH><TD>A negative value was specified for <span class="argument">n</span>.</TD></TR><TR><TH>GL_ERROR_8003_DMP</TH><TD>Attempted to delete a running command-list object.</TD></TR></TABLE><!-- source 使用中のコマンドリストオブジェクトを削除しようとした場合エラーGL_INVALID_OPERATIONを生成します。 その際、使用中のコマンドリストオブジェクトには影響はなく、Otherのコマンドリストオブジェクトが削除されます。 nに負の値を指定した場合エラーGL_INVALID_VALUEを生成します。 --></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxGenCmdlists.html">nngxGenCmdlists</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added the See Also section.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Added extended error codes.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

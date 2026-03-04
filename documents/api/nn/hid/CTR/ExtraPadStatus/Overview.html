@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::hid::CTR::ExtraPadStatus</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::ExtraPadStatus Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct ExtraPadStatus
+{
+   <a href="../../../../nn/hid/CTR/AnalogStickStatus/Overview.html">AnalogStickStatus</a> stick;
+   <a href="../../../../nn/hid/CTR/AnalogStickStatus/Overview.html">AnalogStickStatus</a> extraStick;
+   <a href="../../../../nn_types/bit32.html">bit32</a> hold;
+   <a href="../../../../nn_types/bit32.html">bit32</a> trigger;
+   <a href="../../../../nn_types/bit32.html">bit32</a> release;
+   <a href="../../../../nn_types/u8.html">u8</a> batteryLevel;
+   bool isConnected;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Represents status and information about input from the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system and Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">stick</span>
+            </th>
+            <td width="100"><a href="../../../../nn/hid/CTR/AnalogStickStatus/Overview.html">AnalogStickStatus</a></td>
+            <td>Input values from the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> on the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system. See <code><a href="../../../../nn/hid/CTR/AnalogStickStatus/Overview.html">AnalogStickStatus</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">extraStick</span>
+            </th>
+            <td width="100"><a href="../../../../nn/hid/CTR/AnalogStickStatus/Overview.html">AnalogStickStatus</a></td>
+            <td>Input values from the Right Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> on the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro. See <code><a href="../../../../nn/hid/CTR/AnalogStickStatus/Overview.html">AnalogStickStatus</a></code>. On SNAKE, these values are input values from the C Stick.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">hold</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Bit array corresponding to buttons. When a button is pressed, its corresponding bit (<code>BUTTON_*</code>) is set.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">trigger</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Bit array corresponding to buttons. At the moment a button is pressed, its corresponding bit (<code>BUTTON_*</code>) is set and then cleared.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">release</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Bit array corresponding to buttons. At the moment a button is released, its corresponding bit (<code>BUTTON_*</code>) is set and then cleared.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">batteryLevel</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>Indicates the remaining battery life of the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro. Returns <code>1</code> when there is sufficient remaining battery life. Returns <code>0</code> when the battery is almost depleted. Always returns <code>1</code> on SNAKE.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isConnected</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Indicates the connection state of the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro. Returns a value of <code>true</code> while a connection is established; otherwise returns <code>false</code>. Always returns <code>true</code> on SNAKE.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/20</dt>
+        <dd><item xmlns="">Added a description for when SNAKE is used.</item><br />
+        </dd>
+        <dt>2011/10/06</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

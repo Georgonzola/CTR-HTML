@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxTransferLinearImage</title>
+  </head>
+  <body>
+    <h1>nngxTransferLinearImage Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxTransferLinearImage(
+     const GLvoid * srcaddr,
+     GLuint dstid,
+     GLenum target
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>srcaddr</th>
+          <td>Transfer source address.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstid</th>
+          <td>Object ID of the transfer destination object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>The type of the transfer destination object.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Adds a command to transfer the specified render buffer or texture to an image.</p><P>Adds a command to the current command list to transfer the data in the memory region specified in <span class="argument">srcaddr</span> to the render buffer or texture specified in <span class="argument">dstid</span>.</P><P>The meaning of the value in <span class="argument">dstid</span> changes depending on the value specified in <span class="argument">target</span>.<TABLE><TR><TH>target</TH><TD><span class="argument">dstid</span></TD></TR><TR><TH>GL_RENDERBUFFER</TH><TD>If the render buffer object specifies <tt>0</tt>, it indicates the color buffer that is attached to the current framebuffer.</TD></TR><TR><TH>GL_TEXTURE_2D</TH><TD>2D texture object.</TD></TR><TR><th><tt>GL_TEXTURE_CUBE_MAP_POSITIVE_X</tt><BR /><tt>GL_TEXTURE_CUBE_MAP_NEGATIVE_X</tt><BR /><tt>GL_TEXTURE_CUBE_MAP_POSITIVE_Y</tt><BR /><tt>GL_TEXTURE_CUBE_MAP_NEGATIVE_Y</tt><BR /><tt>GL_TEXTURE_CUBE_MAP_POSITIVE_Z</tt><BR /><tt>GL_TEXTURE_CUBE_MAP_NEGATIVE_Z</tt></th><TD>Cube map texture object.</TD></TR></TABLE></P><P>The memory region specified in <span class="argument">srcaddr</span> stores image data of the same format, width, and height as the render buffer or texture specified in <span class="argument">dstid</span>.  The transfer source image data is converted to PICA native format block addressing and transferred to the target memory region.  When the transfer destination object is a render buffer, the block addressing conversion is either to 8-block or 32-block addressing, depending on the block format settings when this function is called.  When the transfer destination object is a texture, the conversion is to 8-block addressing.</P><P>Data conversion by this function affects only addressing, and does not flip the image vertically or change the byte order. The render buffer and texture are based on the PICA native format image specifications. The source image data might need to be flipped vertically or have its byte order converted before calling this function.</P><P>If unsplit commands have already been accumulated in the current 3D command list, the function adds a split command and then adds the transfer command request.</P><P>If the transfer destination format is 24-bit, the source data must be in 32-bit format. The first byte of every four bytes of the source data is split and transferred. (The hardware does not support transferring 24-bit format to 24-bit format.)</P><P><span class="argument">srcaddr</span> must be stored in device memory or in VRAM.  If they are not stored in these regions, the development and debug builds stop on an assertion and the release build terminates without the addition of a transfer command.  <br /> If the data of either <tt>srcaddr</tt> is stored in device memory and will be directly referenced and edited by the CPU, you must use the <tt><a href="../nn_gx/nngxUpdateBufferLight.html">nngxUpdateBufferLight</a></tt> function to perform a cache operation before executing the transfer command. </P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_805B_DMP</TH><TD><tt>0</tt> is bound to the current command list.</TD></TR><TR><TH>GL_ERROR_805C_DMP</TH><TD>The current command list has already accumulated the maximum number of command requests.</TD></TR><TR><TH>GL_ERROR_805D_DMP</TH><TD>The current 3D command buffer is too small.</TD></TR><TR><TH>GL_ERROR_805E_DMP</TH><TD>The render buffer or texture specified in <span class="argument">dstid</span> does not exist, or the address is not allocated.</TD></TR><TR><TH>GL_ERROR_805F_DMP</TH><TD>Either the transfer destination render buffer width or height is less than 128, or the block format when this function was called is not a multiple of 8 for 8-bit block format, or a multiple of 32 for 32-bit block format.</TD></TR><TR><TH>GL_ERROR_8060_DMP</TH><TD>The <span class="argument">target</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_ERROR_8067_DMP</TH><TD>The pixel size of the destination target buffer or texture is not 32-bit, 24-bit, or 16-bit.</TD></TR></TABLE></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/05/23</dt>
+        <dd><item xmlns="">Changed the cache operation function from <tt>nngxUpdateBuffer</tt> to <tt>nngxUpdateBufferLight</tt>.</item><br />
+        </dd>
+        <dt>2011/06/21</dt>
+        <dd><item xmlns="">Added mention of a restriction on <tt>srcaddr</tt> and the use of the <tt>nngxUpdateBuffer</tt> function to flush the cache.</item><br />
+        </dd>
+        <dt>2010/07/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

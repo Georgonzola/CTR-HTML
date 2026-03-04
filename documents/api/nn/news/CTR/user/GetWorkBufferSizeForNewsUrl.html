@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetWorkBufferSizeForNewsUrl</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/news/Overview.html">news</a>::<a href="../../../../nn/news/CTR/Overview.html">CTR</a>::<a href="../../../../nn/news/CTR/user/Overview.html">user</a>::GetWorkBufferSizeForNewsUrl Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+size_t GetWorkBufferSizeForNewsUrl(
+     const wchar_t * message,
+     const <a href="../../../../nn_types/u8.html">u8</a> * url
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>message</th>
+          <td>Specifies the message body. Use UTF-16LE and keep the string length within <code>MESSAGE_LEN</code> (including the null terminator). The buffer size of this and url combined must be 6000 bytes or smaller.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>url</th>
+          <td>Specifies the URL. Use UTF-8 and keep the string length within <code>MESSAGE_URL_URL_SIZE</code> (including the null terminator). The buffer size of this and message combined must be 6000 bytes or smaller.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the work buffer size. If incorrect data have been specified, the function returns <code>0</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Calculates the work buffer size for posting a notification with an embedded URL.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/09/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

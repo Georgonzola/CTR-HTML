@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glViewport</title>
+  </head>
+  <body>
+    <h1>glViewport Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glViewport(
+     GLint x,
+     GLint y,
+     GLsizei width,
+     GLsizei height
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>x</th>
+          <td>Specifies the x-coordinate of the viewport's lower left corner.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>y</th>
+          <td>Specifies the y-coordinate of the viewport's lower left corner.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Specifies the width of the viewport.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Specifies the height of the viewport.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures the viewport.</p><P>Set <span class="argument">x</span> to the x coordinate of the viewport's lower-left corner.  Set <span class="argument">y</span> to the y coordinate of the viewport's lower-left corner.  Unlike in the OpenGL ES 2.0 standard, <span class="argument">x</span> and <span class="argument">y</span> must be no less than 0.  The values of <span class="argument">x</span> and <span class="argument">y</span> affect rendering performance.  Performance degrades when <span class="argument">x</span> and <span class="argument">y</span> are not multiples of 4. Specifically, performance drops to approximately one-half for any multiple of 2 that is not a multiple of 4, and drops to approximately one-third for odd numbers.  We recommend that you adjust for this using the frustum for perspective projection transformations and that you exclude unnecessary areas via scissoring in order to set <span class="argument">x</span> and <span class="argument">y</span> to multiples of 4 and therefore avoid performance degradation.</P><P>To enable the early depth test, you must set the viewport offset (argument x,y) to <tt>0</tt>. The depth test will not be performed correctly if a value other than <tt>0</tt> is set. If you need to perform a process equivalent to using the offset, you can offset the viewport by using a model view transform and then delete the unneeded area using scissoring instead.</P><P>Set <span class="argument">width</span> to the viewport width.</P><P>Set <span class="argument">height</span> to the viewport height.</P><P>Specify a viewport size of 1023 x 1016 or less. If a larger size is specified, polygons may not be rendered properly or the GPU may hang. This restriction is due to a hardware bug and cannot be improved.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">x</span>, <span class="argument">y</span>, <span class="argument">width</span>, or <span class="argument">height</span> argument was set to a negative value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR></TABLE><!-- source x、y、width、heightに負の値を指定した場合エラーGL_INVALID_VALUEを生成します。 コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/07</dt>
+        <dd><item xmlns="">Added information about viewport limitations and size restrictions when an early depth test is enabled.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

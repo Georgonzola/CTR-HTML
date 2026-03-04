@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StartImmediate</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/Task/Overview.html">Task</a>::StartImmediate Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> StartImmediate(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>The instruction to start the task immediately succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTaskId</th>
+          <td>Indicates that the task ID pointer is <code>NULL</code> or a zero-length string.</td>
+        </tr>
+        <tr>
+          <th>ResultTaskNotExist</th>
+          <td>The specified task ID was not found. Confirm whether it is registered yet.</td>
+        </tr>
+        <tr>
+          <th>ResultIpcNotSessionInitialized</th>
+          <td>Indicates that the session is not initialized. The function returns this <code><a href="../../../nn/Result/Overview.html">Result</a></code> if it is called before <code><a href="../../../nn/boss/Task/Initialize.html">Initialize</a></code> is called. Always call the <code><a href="../../../nn/boss/Task/Initialize.html">Initialize</a></code> function before you use the BOSS library.</td>
+        </tr>
+        <tr>
+          <th>ResultNotConnectNetwork</th>
+          <td>Not connected to the network.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gives an instruction to start the task immediately. This function must only be called after infrastructure connections are enabled.</p><p>Because this function allows you to run a task before its scheduled time, it is suitable for on-demand immediate execution of tasks that would normally run in the background. <br />
+ When you specify immediate execution of a task, you can run it at highest priority by interrupting other tasks that are running. <br />
+ This function differs from <code><a href="../../../nn/boss/Task/Start.html">Start</a></code> in that, if a task's execution time has already arrived and communications are interrupted, the task does not enter the "resume" state but instead returns an error for the task execution result. <br />
+ Also note that if you want to execute the target task only once, you must set its execution count to <code>1</code>. <br />
+ Setting it to a value more than <code>1</code> causes it to auto-run in the background like a normal task until its execution count reaches zero. <br />
+ For information about how to enable infrastructure connections, see the <code>nn::ac::Connect</code> function. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/11/20</dt>
+        <dd><item xmlns="">Added a return value for when the network is disconnected.</item><br />
+        </dd>
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

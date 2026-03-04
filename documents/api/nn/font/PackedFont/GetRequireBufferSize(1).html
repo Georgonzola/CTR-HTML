@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetRequireBufferSize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/font/Overview.html">font</a>::<a href="../../../nn/font/PackedFont/Overview.html">PackedFont</a>::GetRequireBufferSize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../nn_types/u32.html">u32</a> GetRequireBufferSize(
+     const void * bfnt,
+     const char * glyphGroups,
+     int numSheetCache
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>bfnt</th>
+          <td>Pointer to the header portion of the binary resource (BFNT file) loaded into memory.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>glyphGroups</th>
+          <td>String specifying the glyph group to load.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numSheetCache</th>
+          <td>Maximum number of expanded sheets to cache.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>rateSheetCache</th>
+          <td>Proportion of the maximum number of cached expanded sheets to the number of sheets.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the buffer size required for constructing a <a href="../../../nn/font/Overview.html">font</a> with the <code>Construct</code> or <code>InitStreamingConstruct</code> function. <br />
+ Returns <code>0</code> if the buffer size could not be calculated for some reason, such as when <emphasis>bfnt</emphasis> is an invalid resource. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Calculates the buffer size required to construct the <a href="../../../nn/font/Overview.html">font</a>.</p>
+    </div>
+  </body>
+</html>

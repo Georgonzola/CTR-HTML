@@ -1,0 +1,1157 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<script type="text/javascript" src="../template/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../template/js/jquery/thickbox3.js"></script>
+<script type="text/javascript" src="../template/js/jquery/swfobject.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/thickbox.css" />
+<script type="text/javascript" src="../template/js/common/manualLib.js"></script>
+<script type="text/javascript" src="../tocData.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/template.css" />
+<title>3. Communication With Clients</title>
+</head>
+<body data-reassemble="autoindex=no,forceNoLabel=yes,autoindextab=fold">
+<div id="autoindex_content">
+<div class="body_content">
+<noscript>
+<div style="border: 4 double black; margin: 4px; padding: 2px; font-weight: bold; background-color: FFFFCC;">
+<p>Some features in this documentation are unavailable because JavaScript is not enabled in your browser.</p>
+<p>The table of contents is available only if JavaScript is enabled. Enable JavaScript and reload this page.<br /><br /></p>
+</div>
+</noscript>
+
+<!-- 3. クライアントとの通信 -->
+<div class="pagetitle" id="PageId_43595312">3. Communication With Clients</div>
+<div class="text">
+<div>
+  <div>
+    <p>This chapter describes the communication that takes place between clients and an independent server, using an independent server demo application as an example. For information on communication between the eShop server and an independent server, see <span><a href="javascript: Guideline.viewPage('../Pages/Page_24118782.html','','2',1,1,1);">2. Communication with Nintendo eShop Server</a></span>.</p>
+  </div>
+</div>
+
+<!-- 3.1. オーバービュー -->
+<h1 class="general" id="PageId_43595316">3.1. Overview</h1>
+<div class="text">
+
+<!-- 3.1.1. 独自サーバーデモアプリの概要 -->
+<h2 class="general" id="PageId_43595322">3.1.1. Overview of the Independent Server Demo Application</h2>
+<div class="text">
+<p>The independent server demo application simulates an independent server being run by a service provider.</p>
+<p>The application combines the item information managed on the independent server with the item information retrieved from the eShop REST API to create a list of purchasable items and return it to the client.</p>
+<p>The client can purchase items selected from the item list and use any licenses that were purchased for available items. The application also provides a database management interface for manipulating the item information and user information managed by the independent server.</p>
+</div>
+
+<!-- 3.1.2. 独自サーバーデモアプリの構成 -->
+<h2 class="general" id="PageId_43595325">3.1.2. Configuring the Independent Server Demo Application</h2>
+<div class="text">
+<p>The independent server demo application is provided as a web application that returns an HTML document using HTTP communication. It provides two features: an interface that simulates communication between a game application and an independent server, and a database management interface for the independent server.</p>
+<p>The configuration of the independent server demo application, including the game application and eShop REST API, is illustrated below.</p>
+<!--Remove-->
+<div class="platform_CTR">
+  <div class="figure">
+    <a name="AutoAnchor_43595325_figure002"></a>Figure 3-1. Configuration of the Independent Server Demo Application</div>
+  <p>
+    <img src="../Attachments/Attach_43595325/53282678.png" width="500" />
+  </p>
+</div>
+<p>For example, if the game application requests an item list, the following type of process takes place.</p>
+<ol>
+  <li>The game application wants a list of items available for purchase from the independent server, so it sends a request including a service token.</li>
+  <li>The independent server gets the title and account information from the service token it received and then, based on that information, requests the item information from the eShop REST API.</li>
+  <li>The item information received from the eShop REST API is merged with the item information managed inside the independent server to create a list of items available for purchase.</li>
+  <li>The created item list is then returned to the game application.</li>
+</ol>
+<p>Note the following issues when actually building an independent server.</p>
+<ul>
+  <li>Have transactions between the game application and the independent server take place via service tokens.</li>
+  <li>For the communication interface between the game application and the independent server, we recommend sending responses via a REST API or similar means in a format that is easy for the game application to parse, such as XML, JSON, or plain text.<br /> (The demo application returns an HTML document under the assumption that it will be tested from the browser.)</li>
+  <li>You do not need to provide a database management interface for the independent server to the game application.</li>
+</ul>
+</div>
+
+<!-- 3.1.3. 独自サーバーデモアプリのリソース -->
+<h2 class="general" id="PageId_43595357">3.1.3. Independent Server Demo Application Resources</h2>
+<div class="text">
+<p>The following shows the hierarchy of the resources provided by the independent server demo application.</p>
+<ul>
+  <li>
+    <span class="external">http://<span class="diff_in">localhost:8888/v1_0/</span><span class="diff_out">&nbsp;</span></span>
+    <ul>
+      <li>Communication interface between game application and independent server (<CODE>/rs</CODE>)<ul><li>Session Information (<CODE>/session</CODE>)<ul><li>Login (<CODE>/!open</CODE>)</li><li>Logout (<CODE>/!close</CODE>)</li><li>Update Cache (<CODE>/!update</CODE>)</li></ul></li><li>Title Information (<CODE>/titles</CODE>)<ul><li>List of Items Available For Purchase (<CODE>/items</CODE>)<ul><li>Pre-purchase Information (<CODE>/prepurchase_info</CODE>)</li><li>Purchase processing and result retrieval (<CODE>/purchase</CODE>)</li><li>Redemption processing and result retrieval (<CODE>/redeem</CODE>)</li></ul></li><li>List of Items Available For Redemption (<CODE>/redeem_items</CODE>)</li><li>List of Recurring Billing Items (<CODE>/auto_billing</CODE>)</li><li>Specified Commercial Transactions Law Message (<CODE>/law_message</CODE>)</li></ul></li><li>Account information (<CODE>/accounts</CODE>)<ul><li>Balance (<CODE>/balance</CODE>)</li><li>Rights for all items (<CODE>/rights</CODE>)<ul><li>Rights for specific item (<CODE>/item</CODE>)<ul><li>Consume rights (<CODE>/consume</CODE>)</li><li>List of Recurring Billing Items Currently Under Contract (<CODE>/auto_billing</CODE>)<ul><li>Cancel Recurring Billing Item (/cancel)</li></ul></li></ul></li></ul></li><li>Transactions (<CODE>/transactions</CODE>)<ul><li>Payment Status (/ext)</li></ul></li></ul></li></ul></li>
+    </ul>
+  </li>
+</ul>
+<div class="notice">
+  <div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+    <p>Configure the hostname and context root as appropriate on the independent server. In this document, it is set to <span>http://localhost:8888/v1_0/</span>.</p>
+  </div>
+</div>
+<p>
+  <br /> <span class="diff_in">Also, the indepent server demo application is supported by the Swagger UI. You can confirm API specifications by starting the independent server demo and accessing the following URL. <br /><br /><span class="nolink"><a href="http://localhost:8888/v1_0/webjars/swagger-ui/2.1.8-M1/index.html?url=http://localhost:8888/v1_0/rs/api-docs">http://localhost:8888/v1_0/webjars/swagger-ui/2.1.8-M1/index.html?url=http://localhost:8888/v1_0/rs/api-docs</a></span></span>
+</p>
+<p>
+  <span class="diff_in"><span class="nolink"><img src="../Attachments/Attach_43595357/94706788.png" width="500" /> <br /></span></span>
+</p>
+</div>
+
+<!-- 3.1.4. 独自サーバーデモアプリのパッケージの構成 -->
+<h2 class="general" id="PageId_43595372">3.1.4. Structure of the Independent Server Demo Application Package</h2>
+<div class="text">
+<p>The following shows the structure of the package provided in the independent server demo application.</p>
+<ul>
+  <li>java<ul><li>jp.co.nintendo.eshop.demo.server<ul><li>component (Interface for communicating with the eShop REST API and its implementation.)</li><li>config (Various application settings.)</li><li>Domain (Entity of database managed by independent server.)</li><li>enums (Enumerated Type)</li><li>exception (Exception class)</li><li>nnas (Class handling service tokens.)</li><li>repository (Database access object.)</li><li>restful (Controller that provides a communication interface between the game application and the independent server.)</li><li>service (Utility classes for independent server and service classes that communicate with the eShop REST API.)</li><li>util (Utility Class)</li><li>web (Controller/service class that provides the title and account information management UI.)</li></ul></li></ul></li>
+  <li>resources (Application properties file.)<ul><li>messages (Message resource group)</li><li>static (Javascript/CSS file group)</li><li>templates (HTML template file group)</li></ul></li>
+  <li>xsd<ul><li>demo (Schema that defines the independent server's response format.)</li><li>eshop (Schema that defines the eShop REST API's response format.)</li></ul></li>
+</ul>
+</div>
+
+<!-- 3.1.5. 認証 -->
+<h2 class="general" id="PageId_43595387">3.1.5. Authentication</h2>
+<div class="text">
+
+<!-- 3.1.5.1. ゲームアプリと独自サーバ間の認証 -->
+<h3 class="general" id="PageId_47090002">3.1.5.1. Authentication Between the Game Application and the Independent Server</h3>
+<div class="text">
+<p>SSL encryption is required for communication between the game application and the independent server. To use encryption, configure the following two items.</p>
+<ul>
+  <li>Embed the server certificate into the independent server.</li>
+  <li>Within the game application, embed a certificate issued by the CA that signed the server certificate.</li>
+</ul>
+<p>The following sample procedure shows how to create a self-signed certificate for development using <CODE>openssl</CODE> and <CODE>keytool</CODE>.</p>
+<div class="code_block">
+  <pre class="code"># 1. Create a secret key (server.key).
+openssl genrsa 2048 &gt; server.key
+
+# 2. Create a certificate signing request (server.csr).
+#  - Enter the requested information after executing the command.
+#  - For Common Name, enter the independent server's FQDN.
+#  - Enter this CSR in the eShop Web Service Use Application part of the independent server application on OMAS.
+openssl req -new -key server.key &gt; server.csr
+
+# 3. Create a server certificate (server.crt).
+#  - The following command sets the expiration to ten years.
+openssl x509 -days 3650 -req -signkey server.key &lt; server.csr &gt; server.crt
+
+# 4. Convert the server certificate created by OpenSSL (<CODE>server.pfx</CODE>) to <CODE>pkcs12</CODE> format.
+#  - After the command is executed, a password is requested.
+#  - You need the password to embed the server certificate into the independent server.
+openssl pkcs12 -export -out server.pfx -inkey server.key -in server.crt
+
+# 5. Using keytool, convert the <CODE>pkcs12</CODE>-format server certificate to the <CODE>jks</CODE> format (<CODE>server.keystore</CODE>).
+keytool -importkeystore -srckeystore server.pfx -destkeystore server.keystore -srcstoretype pkcs12 -deststoretype jks
+</pre>
+</div>
+<p>Properly install the created server certificate on the independent server.</p>
+<p>The following example uses the Tomcat config file used in the server demo application (<CODE>%CATALINA_HOME%\conf\server.xml</CODE>).</p>
+<div class="code_block">
+  <pre class="code">&lt;Connector port=&quot;8443&quot; protocol=&quot;org.apache.coyote.http11.Http11Protocol&quot;
+           maxThreads=&quot;150&quot; SSLEnabled=&quot;true&quot; scheme=&quot;https&quot; secure=&quot;true&quot;
+           keystoreFile=&quot;C:\server.keystore&quot;
+           keystorePass=&quot;your_password&quot;
+           clientAuth=&quot;false&quot; sslProtocol=&quot;TLS&quot; /&gt;
+</pre>
+</div>
+<p>To use SSL communication between the game application and the independent server, bundle the server certificate created in step 3 with the game application.</p>
+<!--Remove-->
+</div>
+</div>
+
+<!-- 3.1.6. サービストークンについて -->
+<h2 class="general" id="PageId_43595988">3.1.6. Service Tokens</h2>
+<div class="text">
+<div>
+  <p>In the independent server demo application, the internal server uses the eShop REST API.</p>
+  <p>To use game applications that access the independent server demo application, depending on the use, obtain one of the following two service tokens from the account server.</p>
+  <ul>
+    <li>Independent Server Service Token<ul><li>The functions provided by the eShop REST API require a principal ID to identify the user. You can get the principal ID by decrypting the service token obtained from the account server on the independent server. To prevent spoofing and other security risks, be sure to get the principal ID from the service token.</li><li>Service tokens do not expire, and there are no limits on the number of times they can be used. If you configure an expiration in accordance with the independent server's policy, check for expiration based on the token date of issue contained in the service token.</li><li>If your independent server consists of more than one server machine, you can also share tokens between servers.</li></ul></li>
+  </ul>
+  <ul>
+    <li>EC Service Token<ul><li>Some of the functions in the eShop REST API require an EC service token. When you call one of these functions, you must get an EC service token from the dedicated function in the account library API and send it to the independent server.</li><li>Do not cache the EC service token in the independent server. Obtain a new one from the account server every time one of these functions is called.</li></ul></li>
+  </ul>
+</div>
+</div>
+
+<!-- 3.1.7. タイトルコード -->
+<h2 class="general" id="PageId_43595441">3.1.7. Title Code</h2>
+<div class="text">
+<p>The eShop REST API uses the title code as the game title identification ID.</p>
+<p>For example, when listing items, specify the title code for the game title to get a list of items related to that title.</p>
+<p>The title identifier included in the authentication header when authenticating titles is the same as this title code.</p>
+<!--Remove-->
+<div class="platform_CTR">
+  <p>Specify the title codes for CTR titles in the following format.</p>
+  <p>
+    <strong>0 + [unique ID] + 00</strong> (8-digit hexadecimal)</p>
+</div>
+</div>
+</div>
+
+<!-- 3.2. API リファレンス -->
+<h1 class="general" id="PageId_43595458">3.2. API Reference</h1>
+<div class="text">
+
+<!-- 3.2.1. サービストークンの取得と復号　 -->
+<h2 class="general" id="PageId_43595445">3.2.1. Retrieving and Decrypting a Service Token</h2>
+<div class="text">
+
+<!-- 3.2.1.1. 独自サーバーのサービストークンの取得 -->
+<h3 class="general" id="PageId_53071809">3.2.1.1. Retrieving an Independent Server Service Token</h3>
+<div class="text">
+<p>Refer to account library reference and sample demo in <span>CTR-SDK</span> for details on how game applications get independent server service tokens from the account server.</p>
+</div>
+
+<!-- 3.2.1.2. サービストークンの復号 -->
+<h3 class="general" id="PageId_43595495">3.2.1.2. Decrypting a Service Token</h3>
+<div class="text">
+<p>The following information, including the principal ID, can be retrieved from the decrypted service token.</p>
+<!--Remove-->
+<div class="platform_CTR">
+  <ul>
+    <li>Platform ID<br />Information used to identify the platform. Fixed to <CODE>0</CODE> for the CTR.</li>
+  </ul>
+</div>
+<ul>
+  <li>Principal ID<br />A constant 32-bit numeric value that is assigned to each Nintendo Network account.</li>
+  <li>Network account ID<br />A string of up to 16 alphanumeric characters.</li>
+  <li>Server environment<br />A string that identifies the environment of the CTR that issued the service token. (Development Hardware: D1, Retail Hardware: L1)</li>
+  <li>Game version<br />Version information for each game, managed on the Nintendo account server. (4-digit hexadecimal)</li>
+  <li>Unique ID<br />An ID issued by Nintendo to identify a game. This is the same as the ID that is assigned to each title. (5-digit hexadecimal)</li>
+  <li>Token created time<br />The UNIX timestamp (milliseconds) of when the token was generated.</li>
+  <li>Authorization code</li>
+</ul>
+<p>
+  <span class="diff_in">Below is an example of decrypting a service token in the independent server.</span>
+</p>
+<p><span class="diff_in">The unique ID (<CODE>0xF946D</CODE>) and client secret (<CODE>be3d61045441c1bd5fcde232df67c5fb</CODE>) can be used as samples.</span></p>
+<div class="code">
+  <a name="AutoAnchor_43595495_code011"></a>Code 3-1. Independent Server Service Token Decryption Example</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  /*--------------------------------------------------------------------------*
+<span class="num">0002</span>   Copyright (C) 2012 Nintendo.  All rights reserved.
+<span class="num">0003</span>   These coded instructions, statements, and computer programs contain
+<span class="num">0004</span>   proprietary information of Nintendo of America Inc. and/or Nintendo
+<span class="num">0005</span>   Company Ltd., and are protected by Federal copyright law.  They may
+<span class="num">0006</span>   not be disclosed to third parties or copied or duplicated in any form,
+<span class="num">0007</span>   in whole or in part, without the prior written consent of Nintendo.
+<span class="num">0008</span>  *---------------------------------------------------------------------------*/
+<span class="num">0009</span>  import java.security.Provider;
+<span class="num">0010</span>  import java.security.Security;
+<span class="num">0011</span>  import java.util.concurrent.TimeUnit;
+<span class="num">0012</span>  import javax.crypto.Cipher;
+<span class="num">0013</span>  import javax.crypto.spec.IvParameterSpec;
+<span class="num">0014</span>  import javax.crypto.spec.SecretKeySpec;
+<span class="num">0015</span>  import org.apache.commons.codec.DecoderException;
+<span class="num">0016</span>  import org.apache.commons.codec.binary.Base64;
+<span class="num">0017</span>  import org.apache.commons.codec.binary.Hex;
+<span class="num">0018</span>  public class DecodeServiceToken {
+<span class="num">0019</span>      /**
+<span class="num">0020</span>       * AES processing provider in Java.
+<span class="num">0021</span>       * AES processing provider in Java.
+<span class="num">0022</span>       */
+<span class="num">0023</span>      private static final Provider AES_PROVIDER = Security.getProvider(&quot;SunJCE&quot;);
+<span class="num">0024</span>      /**
+<span class="num">0025</span>       * AES specification of SunJCE provider. (Block cipher mode =&gt; CBC, padding =&gt; PKC5 padding)
+<span class="num">0026</span>       * AES specification of SunJCE provider.(Block cipher mode =&gt; CBC, padding =&gt; PKC5 padding)
+<span class="num">0027</span>       */
+<span class="num">0028</span>      private static final String AES_CIPHER = &quot;AES/CBC/PKCS5Padding&quot;;
+<span class="num">0029</span>      /**
+<span class="num">0030</span>       * IV of AES encryption process that is used to encrypt the Service token.
+<span class="num">0031</span>       * IV of AES encryption process that is used to encrypt the Service token.
+<span class="num">0032</span>       */
+<span class="num">0033</span>      private static final byte[] SERVICE_TOKEN_IV = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+<span class="num">0034</span>      /**
+<span class="num">0035</span>       * Client Secret that is issued for the NEI from the NNAS.
+<span class="num">0036</span>       * Client Secret that is issued for the NEI from the NNAS.
+<span class="num">0037</span>       */
+<span class="num">0038</span>      private static final String CLIENT_SECRET_STRING = &quot;your_app_client_secret&quot;;
+<span class="num">0039</span>      public static void main(String[] args) {
+<span class="num">0040</span>          final String base64EncryptedServiceToken = args[0];
+<span class="num">0041</span>          try {
+<span class="num">0042</span>              final byte[] clientSecret = Hex.decodeHex(CLIENT_SECRET_STRING.toCharArray());
+<span class="num">0043</span>              if (!base64EncryptedServiceToken.matches(&quot;[a-zA-Z0-9+/=]*&quot;)) {
+<span class="num">0044</span>                  throw new IllegalArgumentException(&quot;Argument is not BASE64 format. [&quot; + base64EncryptedServiceToken + &quot;]&quot;);
+<span class="num">0045</span>              }
+<span class="num">0046</span>              try {
+<span class="num">0047</span>                  final Cipher cipher = Cipher.getInstance(AES_CIPHER, AES_PROVIDER);
+<span class="num">0048</span>                  cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(clientSecret, &quot;AES&quot;), new IvParameterSpec(SERVICE_TOKEN_IV));
+<span class="num">0049</span>                  String decodedTokenString = new String(cipher.doFinal(Base64.decodeBase64(base64EncryptedServiceToken.getBytes())));
+<span class="num">0050</span>                  getServiceToken(decodedTokenString);
+<span class="num">0051</span>              } catch (Exception e) {
+<span class="num">0052</span>                  System.out.println(&quot;Invalid ServiceToken: &quot; + base64EncryptedServiceToken);
+<span class="num">0053</span>                  throw new IllegalArgumentException(e);
+<span class="num">0054</span>              }
+<span class="num">0055</span>          } catch (DecoderException e) {
+<span class="num">0056</span>              System.out.println(&quot;Client Secret is invalid.&quot;);
+<span class="num">0057</span>              throw new RuntimeException(e);
+<span class="num">0058</span>          }
+<span class="num">0059</span>      }
+<span class="num">0060</span>      public static void getServiceToken(String decodedTokenString) {
+<span class="num">0061</span>          if (!decodedTokenString.startsWith(&quot;\\&quot;)) {
+<span class="num">0062</span>              throw new IllegalArgumentException(&quot;Invalid ServiceToken: &quot; + decodedTokenString);
+<span class="num">0063</span>          }
+<span class="num">0064</span>          String[] strs = decodedTokenString.split(&quot;\\\\&quot;);
+<span class="num">0065</span>          if (strs.length % 2 != 1) {
+<span class="num">0066</span>              /*
+<span class="num">0067</span>               * When everything is not a key-value pair.
+<span class="num">0068</span>               * When all is not a group of key/value.
+<span class="num">0069</span>               */
+<span class="num">0070</span>              throw new IllegalArgumentException(&quot;Invalid ServiceToken: &quot; + decodedTokenString);
+<span class="num">0071</span>          }
+<span class="num">0072</span>          /*
+<span class="num">0073</span>           * The loop that reads the value of every key-value.
+<span class="num">0074</span>           * The loop which reads a value every key/value.
+<span class="num">0075</span>           */
+<span class="num">0076</span>          for (int i = 1; i &lt; strs.length; i += 2) {
+<span class="num">0077</span>              char key = strs[i].charAt(0);
+<span class="num">0078</span>              String value = strs[i + 1];
+<span class="num">0079</span>              switch (key) {
+<span class="num">0080</span>              case 'z':
+<span class="num">0081</span>                  System.out.println(&quot;PlatformId:&quot; + value);
+<span class="num">0082</span>                  break;
+<span class="num">0083</span>              case 'u':
+<span class="num">0084</span>                  System.out.println(&quot;Pid:&quot; + value);
+<span class="num">0085</span>                  break;
+<span class="num">0086</span>              case 'a':
+<span class="num">0087</span>                  System.out.println(&quot;AccountId:&quot; + value);
+<span class="num">0088</span>                  break;
+<span class="num">0089</span>              case 's':
+<span class="num">0090</span>                  System.out.println(&quot;ServerEnv:&quot; + value);
+<span class="num">0091</span>                  break;
+<span class="num">0092</span>              case 'v':
+<span class="num">0093</span>                  System.out.println(&quot;GameVersion:&quot; + value);
+<span class="num">0094</span>                  break;
+<span class="num">0095</span>              case 'e':
+<span class="num">0096</span>                  System.out.println(&quot;UniqueId:&quot; + value);
+<span class="num">0097</span>                  break;
+<span class="num">0098</span>              case 't':
+<span class="num">0099</span>                  System.out.println(&quot;TokenCreatedTime:&quot; + TimeUnit.SECONDS.toMillis(Long.parseLong(value)));
+<span class="num">0100</span>                  break;
+<span class="num">0101</span>              case 'c':
+<span class="num">0102</span>                  System.out.println(&quot;AuthCode:&quot; + value);
+<span class="num">0103</span>                  break;
+<span class="num">0104</span>              case 'h':
+<span class="num">0105</span>                  break;
+<span class="num">0106</span>              default:
+<span class="num">0107</span>                  System.out.println(&quot;unknown key: &quot; + value);
+<span class="num">0108</span>              }
+<span class="num">0109</span>          }
+<span class="num">0110</span>      }
+<span class="num">0111</span>  }
+</pre>
+</div>
+</div>
+</div>
+
+<!-- 3.2.2. 独自サーバーデモアプリのレスポンス -->
+<h2 class="general" id="PageId_43595524">3.2.2. Response From the Independent Server Demo Application</h2>
+<div class="text">
+
+<!-- 3.2.2.1. レスポンスのフォーマット -->
+<h3 class="general" id="PageId_43595532">3.2.2.1. Response Format</h3>
+<div class="text">
+<div class="table">
+  <a name="AutoAnchor_43595532_table010"></a>Table 3-1. Format of the Response From the Independent Server Demo Application</div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Accept Header Value in Request</th>
+      <th>Content Type of Response</th>
+    </tr>
+    <tr>
+      <td>application/xml</td>
+      <td>application/xml</td>
+    </tr>
+    <tr>
+      <td>application/json</td>
+      <td>application/json</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 3.2.2.2. レスポンスのルート要素 -->
+<h3 class="general" id="PageId_43595537">3.2.2.2. Root Element of the Response</h3>
+<div class="text">
+<p>The root element is <CODE>&lt;eshop&gt;</CODE> for all responses from applications on the independent server.</p>
+<div class="code">
+  <a name="AutoAnchor_43595537_code030"></a>Code 3-2. Response Root Element Code</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  <span class="nt">&lt;eshop&gt;</span>
+<span class="num">0002</span>    :
+<span class="num">0003</span>  <span class="nt">&lt;/eshop&gt;</span>
+</pre>
+</div>
+</div>
+
+<!-- 3.2.2.3. エラーコード -->
+<h3 class="general" id="PageId_43595540">3.2.2.3. Error Codes</h3>
+<div class="text">
+<p>If execution of the eShop REST API fails for any reason in the independent server demo application, any error information that is returned is passed to the game application unchanged.</p>
+<p>Although the implementation of error handling is generally handled by the independent server, if an error code is listed in the guidelines for independent servers provided by Nintendo, you must display the message specified in the guidelines in the client application because a user operation is required to recover from the error.</p>
+<p>Error codes described in the guidelines can also be referenced from the error code list.</p>
+<p>
+  <a name="Anchor_43595540_WiiU"></a>
+</p>
+<!--Remove-->
+<p>
+  <a name="Anchor_43595540_CTR"></a>
+</p>
+<div class="platform_CTR">
+  <ul>
+    <li>Error code format<strong><br />030-xxxx</strong>(where &quot;xxxx&quot; is a 4-digit decimal number)</li>
+  </ul>
+  <div class="code">
+    <a name="AutoAnchor_43595540_code041"></a>Code 3-3. Example of Error Information</div>
+  <div class="code_block">
+    <pre class="code"><span class="num">0001</span>  <span class="nt">&lt;eshop&gt;</span>
+<span class="num">0002</span>    <span class="nt">&lt;error&gt;</span>
+<span class="num">0003</span>      <span class="nt">&lt;code&gt;</span>030-1111<span class="nt">&lt;/code&gt;</span>
+<span class="num">0004</span>    <span class="nt">&lt;/error&gt;</span>
+<span class="num">0005</span>  <span class="nt">&lt;/eshop&gt;</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- 3.2.3. セッション情報 -->
+<h2 class="general" id="PageId_43595552">3.2.3. Session Information</h2>
+<div class="text">
+
+<!-- 3.2.3.1. 概要 -->
+<h3 class="general" id="PageId_43595555">3.2.3.1. Overview</h3>
+<div class="text">
+<p>Log into the independent server and get the session ID of the session that was created. Before using any API element other than the login API, you must first get the session ID from the login API and then <span class="diff_in">include it in the <CODE>Set-Cookie</CODE> header</span> <span class="diff_in">(for example, &quot;<CODE>JSESSIONID=****</CODE>&quot;)</span>.</p>
+<p>
+  <span class="diff_in">During login, get license information from the eShop REST API server and cache it. The cache can be explicitly updated.</span>
+</p>
+<p>If you logout, the session of the specified session ID is destroyed. Afterward, it will no longer be possible to send any requests or responses using that session ID.</p>
+<div class="notice">
+  <div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+    <p>The independent server demo application is implemented as a stateful web application that uses sessions.</p>
+    <p>If you want to implement the application as a stateless web application, pass an independent service token as a parameter to all API requests.</p>
+  </div>
+</div>
+</div>
+
+<!-- 3.2.3.2. リクエスト -->
+<h3 class="general" id="PageId_43595562">3.2.3.2. Request</h3>
+<div class="text">
+<div class="table">
+  <a name="AutoAnchor_43595562_table020"></a>Table 3-2. Parameters To Specify in Request </div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Parameter</th>
+      <th>Optional</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>service_token</td>
+      <td>No</td>
+      <td>Independent server service token. Use URL encoding.</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td>Yes</td>
+      <td>Language configured in System Settings. Use the language code received from the client. Used to determine the currency display format. If omitted, the system uses the eShop language for the specified Nintendo Network account.</td>
+    </tr>
+  </tbody>
+</table>
+<h4 id="Anchor_43595562_URL">URL</h4>
+<div class="code_block">
+  <pre class="code">POST http://localhost:8888/v1_0/rs/session/!open?service_token=$service_token
+Example: POST http://localhost:8888/v1_0/rs/session/!open?service_token=Xe9bEgaeQbD&amp;lang=ja
+Example: curl -H &quot;Accept:application/xml&quot; -d service_token=Xe9bEgaeQbD -d lang=ja &quot;http://localhost:8888/v1_0/rs/session/!open&quot;
+
+POST http://localhost:8888/v1_0/rs/session/!update
+Example: POST http://localhost:8888/v1_0/rs/session/!update
+Example: curl -b &quot;JSESSIONID=hogehoge&quot; -H &quot;Accept:application/xml&quot; &quot;http://localhost:8888/v1_0/rs/session/!update&quot;
+
+POST http://localhost:8888/v1_0/rs/session/!close
+Example: POST http://localhost:8888/v1_0/rs/session/!close
+Example: curl -b &quot;JSESSIONID=hogehoge&quot; -H &quot;Accept:application/xml&quot; &quot;http://localhost:8888/v1_0/rs/session/!close&quot;
+</pre>
+</div>
+</div>
+
+<!-- 3.2.3.3. レスポンス -->
+<h3 class="general" id="PageId_43595573">3.2.3.3. Response</h3>
+<div class="text">
+<h4 id="Anchor_43595573_ログインAPI">Login API</h4>
+<ul>
+  <li><CODE>session</CODE>: Root node for session information.<ul><li><CODE>id</CODE>: Session ID</li><li><CODE>date</CODE>: Login date and time.</li></ul></li>
+</ul>
+<div class="code">
+  <a name="AutoAnchor_43595573_code050"></a>Code 3-4. Sample Response From the Session Information API</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  <span class="nt">&lt;eshop&gt;</span>
+<span class="num">0002</span>    <span class="nt">&lt;session&gt;</span>
+<span class="num">0003</span>      <span class="nt">&lt;id&gt;</span>660EC4F8653561F09437168C117E3D2C<span class="nt">&lt;/id&gt;</span>
+<span class="num">0004</span>      <span class="nt">&lt;date&gt;</span>2015-09-03T05:02:50Z<span class="nt">&lt;/date&gt;</span>
+<span class="num">0005</span>    <span class="nt">&lt;/session&gt;</span>
+<span class="num">0006</span>  <span class="nt">&lt;/eshop&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<!-- 3.2.4. アイテム一覧表示 -->
+<h2 class="general" id="PageId_43595581">3.2.4. Show Item List</h2>
+<div class="text">
+
+<!-- 3.2.4.1. 概要 -->
+<h3 class="general" id="PageId_43595593">3.2.4.1. Overview</h3>
+<div class="text">
+<p>This matches the item codes on the list of items maintained by the independent server with those on the list of items obtained through the eShop REST API to get a merged list of items.</p>
+<p>If the number of items is large, you can restrict the number of items obtained by specifying an offset value and the maximum number in the list.</p>
+</div>
+
+<!-- 3.2.4.2. リクエスト -->
+<h3 class="general" id="PageId_43595628">3.2.4.2. Request</h3>
+<div class="text">
+<div class="table">
+  <a name="AutoAnchor_43595628_table030"></a>Table 3-3. Parameters To Specify in Request </div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Parameter</th>
+      <th>Optional</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>offset</td>
+      <td>Yes</td>
+      <td>Offset for getting service items from the search results that match the filter.</td>
+    </tr>
+    <tr>
+      <td>limit</td>
+      <td>Yes</td>
+      <td>Number of service items to get as search results.</td>
+    </tr>
+  </tbody>
+</table>
+<h4 id="Anchor_43595628_URL">URL</h4>
+<div class="code_block">
+  <pre class="code">GET http://localhost:8888/v1_0/rs/titles/authorized/items?offset=$offset&amp;limit=$limit
+Example: GET http://localhost:8888/v1_0/rs/titles/authorized/items?offset=0&amp;limit=10
+</pre>
+</div>
+</div>
+
+<!-- 3.2.4.3. レスポンス -->
+<h3 class="general" id="PageId_43595767">3.2.4.3. Response</h3>
+<div class="text">
+<ul>
+  <li><CODE>items</CODE>: Root node for the service items list.<ul><li><CODE>total</CODE>: Total number of service items matching the search.</li><li><CODE>length</CODE>: Number of service items included in this response.</li><li><CODE>offset</CODE>: Offset.</li><li><CODE>item</CODE>: Service items.<ul><li><CODE>reference_id</CODE>: Reference ID (32 character hexadecimal).</li><li><CODE>item_name</CODE>: Item name of the purchased service item (for display in the purchase history).</li><li><CODE>item_description</CODE>: Details on service item.</li><li><CODE>item_code</CODE>: The item code for this item.</li><li>disclaimer : The pre-purchase disclaimer for this item.</li><li><CODE>price</CODE>: The price for this item.</li><li><CODE>regular_price</CODE>: The retail price of this item. (Whether tax is included depends on the country.)<ul><li><CODE>amount</CODE>: The retail price formatted for the currency (for example, $10.00).</li><li><CODE>currency</CODE>: The currency code defined by ISO 4217 (for example, USD).</li><li><CODE>raw_value</CODE>: The unformatted retail price (for example, 10).</li></ul></li></ul></li><li><CODE>tax_excluded</CODE>: If <CODE>true</CODE>, tax is excluded; if <CODE>false</CODE>, tax is included. Used to determine whether the price for the relevant item is shown as excluding or including tax when showing the item list.</li><li><CODE>initial_purchase_only</CODE>: If <CODE>true</CODE>, the user cannot purchase an item if the user already has rights to that item's reference ID. You can tell whether the item for a reference ID can be purchased by getting the rights information when listing items.</li><li><CODE>limit</CODE>: License information for this service item.<ul><li><CODE>type</CODE>: License type for this service item.</li><li><CODE>value</CODE>: Value corresponding to the license for this item (limited period of time, limited number of times). If the license type is unlimited, this value has no meaning.</li></ul></li><li><CODE>attributes</CODE>: List of item attributes.<ul><li><CODE>attribute</CODE>: Item attribute.<ul><li><CODE>name</CODE>: Attribute name.</li><li><CODE>value</CODE>: Attribute value.</li></ul></li></ul></li></ul></li>
+</ul>
+<p>
+  <a name="Anchor_43595767_WiiU"></a>
+</p>
+<!--Remove-->
+<p>
+  <a name="Anchor_43595767_CTR"></a>
+</p>
+<div class="platform_CTR">
+  <div class="code">
+    <a name="AutoAnchor_43595767_code061"></a>Code 3-5. Sample Response From the Show Item List API</div>
+  <div class="code_block">
+    <pre class="code"><span class="num">0001</span>  <span class="nt">&lt;eshop&gt;</span>
+<span class="num">0002</span>    <span class="nt">&lt;items&gt;</span>
+<span class="num">0003</span>      <span class="nt">&lt;length&gt;</span>10<span class="nt">&lt;/length&gt;</span>
+<span class="num">0004</span>      <span class="nt">&lt;offset&gt;</span>0<span class="nt">&lt;/offset&gt;</span>
+<span class="num">0005</span>      <span class="nt">&lt;total&gt;</span>11<span class="nt">&lt;/total&gt;</span>
+<span class="num">0006</span>      <span class="nt">&lt;item&gt;</span>
+<span class="num">0007</span>        <span class="nt">&lt;item_code&gt;</span>CTRV9A2A00000001<span class="nt">&lt;/item_code&gt;</span>
+<span class="num">0008</span>        <span class="nt">&lt;item_name&gt;</span>Sporting event ticket: Soccer<span class="nt">&lt;/item_name&gt;</span>
+<span class="num">0009</span>        <span class="nt">&lt;item_description&gt;</span>This ticket lets you watch soccer.<span class="nt"> &lt;/item_description&gt;</span>
+<span class="num">0010</span>        <span class="nt">&lt;disclaimer&gt;</span>Pre-Purchase Disclaimer.<span class="nt">&lt;/disclaimer&gt;</span>
+<span class="num">0011</span>        <span class="nt">&lt;reference_id&gt;</span>0123456789abcdef0000000000000001<span class="nt">&lt;/reference_id&gt;</span>
+<span class="num">0012</span>        <span class="nt">&lt;price&gt;</span>
+<span class="num">0013</span>          <span class="nt">&lt;regular_price&gt;</span>
+<span class="num">0014</span>            <span class="nt">&lt;amount&gt;</span>0 yen<span class="nt">&lt;/amount&gt;</span>
+<span class="num">0015</span>            <span class="nt">&lt;currency&gt;</span>JPY<span class="nt">&lt;/currency&gt;</span>
+<span class="num">0016</span>            <span class="nt">&lt;raw_value&gt;</span>0<span class="nt">&lt;/raw_value&gt;</span>
+<span class="num">0017</span>          <span class="nt">&lt;/regular_price&gt;</span>
+<span class="num">0018</span>        <span class="nt">&lt;/price&gt;</span>
+<span class="num">0019</span>        <span class="nt">&lt;tax_excluded&gt;</span>false<span class="nt">&lt;/tax_excluded&gt;</span>
+<span class="num">0020</span>        <span class="nt">&lt;initial_purchase_only&gt;</span>false<span class="nt">&lt;/initial_purchase_only&gt;</span>
+<span class="num">0021</span>        <span class="nt">&lt;limit&gt;</span>
+<span class="num">0022</span>          <span class="nt">&lt;type&gt;</span>ADDITIONAL TIME<span class="nt">&lt;/type&gt;</span>
+<span class="num">0023</span>          <span class="nt">&lt;value&gt;</span>86400<span class="nt">&lt;/value&gt;</span>
+<span class="num">0024</span>        <span class="nt">&lt;/limit&gt;</span>
+<span class="num">0025</span>        <span class="nt">&lt;attributes&gt;</span>
+<span class="num">0026</span>          <span class="nt">&lt;attribute&gt;</span>
+<span class="num">0027</span>            <span class="nt">&lt;name&gt;</span>PriceType<span class="nt">&lt;/name&gt;</span>
+<span class="num">0028</span>            <span class="nt">&lt;value&gt;</span>Free<span class="nt">&lt;/value&gt;</span>
+<span class="num">0029</span>          <span class="nt">&lt;/attribute&gt;</span>
+<span class="num">0030</span>          <span class="nt">&lt;attribute&gt;</span>
+<span class="num">0031</span>            <span class="nt">&lt;name&gt;</span>SaleType<span class="nt">&lt;/name&gt;</span>
+<span class="num">0032</span>            <span class="nt">&lt;value&gt;</span>SeasonLimitation<span class="nt">&lt;/value&gt;</span>
+<span class="num">0033</span>          <span class="nt">&lt;/attribute&gt;</span>
+<span class="num">0034</span>        <span class="nt">&lt;/attributes&gt;</span>
+<span class="num">0035</span>      <span class="nt">&lt;/item&gt;</span>
+<span class="num">0036</span>      ...
+<span class="num">0037</span>      <span class="nt">&lt;item&gt;</span>
+<span class="num">0038</span>        <span class="nt">&lt;item_code&gt;</span>CTRV9A2A00000004<span class="nt">&lt;/item_code&gt;</span>
+<span class="num">0039</span>          <span class="nt">&lt;item_name&gt;</span>500 ml sports drink<span class="nt">&lt;/item_name&gt;</span>
+<span class="num">0040</span>          <span class="nt">&lt;item_description&gt;</span>Replenishes your energy.<span class="nt"> &lt;/item_description&gt;</span>
+<span class="num">0041</span>        <span class="nt">&lt;disclaimer&gt;</span>Pre-Purchase Disclaimer.<span class="nt">&lt;/disclaimer&gt;</span>
+<span class="num">0042</span>        <span class="nt">&lt;reference_id&gt;</span>0123456789abcdef0000000000000005<span class="nt">&lt;/reference_id&gt;</span>
+<span class="num">0043</span>        <span class="nt">&lt;price&gt;</span>
+<span class="num">0044</span>          <span class="nt">&lt;regular_price&gt;</span>
+<span class="num">0045</span>              <span class="nt">&lt;amount&gt;</span>0 yen<span class="nt">&lt;/amount&gt;</span>
+<span class="num">0046</span>            <span class="nt">&lt;currency&gt;</span>JPY<span class="nt">&lt;/currency&gt;</span>
+<span class="num">0047</span>            <span class="nt">&lt;raw_value&gt;</span>0<span class="nt">&lt;/raw_value&gt;</span>
+<span class="num">0048</span>          <span class="nt">&lt;/regular_price&gt;</span>
+<span class="num">0049</span>        <span class="nt">&lt;/price&gt;</span>
+<span class="num">0050</span>        <span class="nt">&lt;tax_excluded&gt;</span>false<span class="nt">&lt;/tax_excluded&gt;</span>
+<span class="num">0051</span>        <span class="nt">&lt;initial_purchase_only&gt;</span>false<span class="nt">&lt;/initial_purchase_only&gt;</span>
+<span class="num">0052</span>        <span class="nt">&lt;limit&gt;</span>
+<span class="num">0053</span>          <span class="nt">&lt;type&gt;</span>CONSUMPTION<span class="nt">&lt;/type&gt;</span>
+<span class="num">0054</span>          <span class="nt">&lt;value&gt;</span>3<span class="nt">&lt;/value&gt;</span>
+<span class="num">0055</span>        <span class="nt">&lt;/limit&gt;</span>
+<span class="num">0056</span>        <span class="nt">&lt;attributes&gt;</span>
+<span class="num">0057</span>          <span class="nt">&lt;attribute&gt;</span>
+<span class="num">0058</span>            <span class="nt">&lt;name&gt;</span>PriceType<span class="nt">&lt;/name&gt;</span>
+<span class="num">0059</span>            <span class="nt">&lt;value&gt;</span>Free<span class="nt">&lt;/value&gt;</span>
+<span class="num">0060</span>          <span class="nt">&lt;/attribute&gt;</span>
+<span class="num">0061</span>          <span class="nt">&lt;attribute&gt;</span>
+<span class="num">0062</span>            <span class="nt">&lt;name&gt;</span>SaleType<span class="nt">&lt;/name&gt;</span>
+<span class="num">0063</span>            <span class="nt">&lt;value&gt;</span>SeasonLimitation<span class="nt">&lt;/value&gt;</span>
+<span class="num">0064</span>          <span class="nt">&lt;/attribute&gt;</span>
+<span class="num">0065</span>        <span class="nt">&lt;/attributes&gt;</span>
+<span class="num">0066</span>      <span class="nt">&lt;/item&gt;</span>
+<span class="num">0067</span>  <span class="nt">&lt;/eshop&gt;</span>
+</pre>
+  </div>
+</div>
+<div class="notice">
+  <div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+    <p>When setting a country that is not targeted for sales in the Nintendo eShop, a response with zero items listed is returned.</p>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- 3.2.5. 購入前情報表示 -->
+<h2 class="general" id="PageId_43596170">3.2.5. Show Pre-Purchase Information</h2>
+<div class="text">
+
+<!-- 3.2.5.1. 概要 -->
+<h3 class="general" id="PageId_43596174">3.2.5.1. Overview</h3>
+<div class="text">
+<p>You can get information about the item specified by the item code before purchase. The kind of information available before purchase includes the item's retail price, the current balance, and the balance after purchase.</p>
+<p>The retail price is the item's price as of the receipt of the request. The tax amount appears if the Nintendo Network account's country setting is for a tax-exclusive country.</p>
+<p>The tax amount is calculated based on the region of the specified Nintendo Network account.</p>
+</div>
+
+<!-- 3.2.5.2. リクエスト -->
+<h3 class="general" id="PageId_43596182">3.2.5.2. Request</h3>
+<div class="text">
+<div class="table">
+  <a name="AutoAnchor_43596182_table040"></a>Table 3-4. Parameters To Specify in Request </div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Parameter</th>
+      <th>Optional</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>item_code</td>
+      <td>No</td>
+      <td>Item code.</td>
+    </tr>
+    <tr>
+      <td>reference_id</td>
+      <td>No</td>
+      <td>Reference ID (32 character hexadecimal).</td>
+    </tr>
+  </tbody>
+</table>
+<h4 id="Anchor_43596182_URL">URL</h4>
+<!--Remove-->
+<div class="platform_CTR">
+  <div class="code_block">
+    <pre class="code">GET http://localhost:8888/v1_0/rs/titles/authorized/items/$item_code/prepurchase_info?reference_id=$reference_id
+Example: http://localhost:8888/v1_0/rs/titles/authorized/items/CTRV9A2A00000001/prepurchase_info?reference_id=0123456789abcdef0000000000000001
+</pre>
+  </div>
+</div>
+</div>
+
+<!-- 3.2.5.3. レスポンス -->
+<h3 class="general" id="PageId_43596191">3.2.5.3. Response</h3>
+<div class="text">
+<ul>
+  <li><CODE>prepurchase_info</CODE>: Root node of the pre-purchase information.<ul><li><CODE>purchasing_item</CODE>: The item to purchase.<ul><li><CODE>reference_id</CODE>: Reference ID (32 character hexadecimal).</li><li><CODE>item_name</CODE>: Item name of the purchased service item (for display in the purchase history).</li><li><CODE>item_description</CODE>: Details on service item.</li><li><CODE>item_code</CODE>: The item code for this item.</li><li><CODE>payment_amount</CODE>: The amount to be paid for the item.<ul><li><CODE>price</CODE>: The retail price of the item.<ul><li><CODE>regular_price</CODE>: The suggested retail price of the item.<ul><li><CODE>id</CODE>: Retail price ID. Used as the price to pay when purchasing the item (<SPAN class="argument">price_id</SPAN>).</li><li><CODE>amount</CODE>: The retail price formatted for the currency (for example, $10.00).</li><li><CODE>currency</CODE>: The currency code defined by ISO 4217 (for example, USD).</li><li><CODE>raw_value</CODE>: The unformatted retail price (for example, 10).</li></ul></li></ul></li><li><CODE>tax_amount</CODE>: The tax amount.<ul><li><CODE>amount</CODE>: The tax amount formatted for the currency (for example, $1.50).</li><li><CODE>currency</CODE>: The currency code defined by ISO 4217 (for example, USD).</li><li><CODE>raw_value</CODE>: The unformatted tax amount (for example, 1.5).</li></ul></li><li><CODE>total_amount</CODE>: The total amount.<ul><li><CODE>amount</CODE>: The total amount formatted for the currency (for example, $11.50).</li><li><CODE>currency</CODE>: The currency code defined by ISO 4217 (for example, USD).</li><li><CODE>raw_value</CODE>: The unformatted total amount (for example, 11.5).</li></ul></li></ul></li></ul></li><li><CODE>current_balance</CODE>: The current balance.<ul><li><CODE>amount</CODE>: The current balance formatted for the currency (for example, $20.00).</li><li><CODE>currency</CODE>: The currency code defined by ISO 4217 (for example, USD).</li><li><CODE>raw_value</CODE>: The unformatted current balance (for example, 20).</li></ul></li><li><CODE>post_balance</CODE>: The remaining account balance after purchase.<ul><li><CODE>amount</CODE>: The post-purchase account balance formatted for the currency (for example, $20.00).</li><li><CODE>currency</CODE>: The currency code defined by ISO 4217 (for example, USD).</li><li><CODE>raw_value</CODE>: The unformatted post-purchase balance (for example, 20).</li></ul></li></ul></li>
+</ul>
+<p>
+  <a name="Anchor_43596191_WiiU"></a>
+</p>
+<!--Remove-->
+<p>
+  <a name="Anchor_43596191_CTR"></a>
+</p>
+<div class="platform_CTR">
+  <div class="code">
+    <a name="AutoAnchor_43596191_code071"></a>Code 3-6. Sample Response From the Show Pre-Purchase Information API</div>
+  <div class="code_block">
+    <pre class="code"><span class="num">0001</span>  <span class="nt">&lt;eshop&gt;</span>
+<span class="num">0002</span>    <span class="nt">&lt;prepurchase_info&gt;</span>
+<span class="num">0003</span>      <span class="nt">&lt;purchasing_item&gt;</span>
+<span class="num">0004</span>        <span class="nt">&lt;reference_id&gt;</span>0123456789abcdef0000000000000001<span class="nt">&lt;/reference_id&gt;</span>
+<span class="num">0005</span>        <span class="nt">&lt;item_name&gt;</span>Sporting event ticket: Soccer<span class="nt">&lt;/item_name&gt;</span>
+<span class="num">0006</span>        <span class="nt">&lt;item_description&gt;</span>This ticket lets you watch soccer.<span class="nt"> &lt;/item_description&gt;</span>
+<span class="num">0007</span>        <span class="nt">&lt;item_code&gt;</span>CTRV9A2A00000001<span class="nt">&lt;/item_code&gt;</span>
+<span class="num">0008</span>        <span class="nt">&lt;payment_amount&gt;</span>
+<span class="num">0009</span>          <span class="nt">&lt;price&gt;</span>
+<span class="num">0010</span>            <span class="nt">&lt;regular_price&gt;</span>
+<span class="num">0011</span>              <span class="nt">&lt;id&gt;</span>2105089201<span class="nt">&lt;/id&gt;</span>
+<span class="num">0012</span>              <span class="nt">&lt;amount&gt;</span>0 yen<span class="nt">&lt;/amount&gt;</span>
+<span class="num">0013</span>              <span class="nt">&lt;currency&gt;</span>JPY<span class="nt">&lt;/currency&gt;</span>
+<span class="num">0014</span>              <span class="nt">&lt;raw_value&gt;</span>0<span class="nt">&lt;/raw_value&gt;</span>
+<span class="num">0015</span>            <span class="nt">&lt;/regular_price&gt;</span>
+<span class="num">0016</span>          <span class="nt">&lt;/price&gt;</span>
+<span class="num">0017</span>          <span class="nt">&lt;total_amount&gt;</span>
+<span class="num">0018</span>            <span class="nt">&lt;amount&gt;</span>0 yen<span class="nt">&lt;/amount&gt;</span>
+<span class="num">0019</span>            <span class="nt">&lt;currency&gt;</span>JPY<span class="nt">&lt;/currency&gt;</span>
+<span class="num">0020</span>            <span class="nt">&lt;raw_value&gt;</span>0<span class="nt">&lt;/raw_value&gt;</span>
+<span class="num">0021</span>          <span class="nt">&lt;/total_amount&gt;</span>
+<span class="num">0022</span>        <span class="nt">&lt;/payment_amount&gt;</span>
+<span class="num">0023</span>      <span class="nt">&lt;/purchasing_item&gt;</span>
+<span class="num">0024</span>      <span class="nt">&lt;current_balance&gt;</span>
+<span class="num">0025</span>        <span class="nt">&lt;amount&gt;</span>0 yen<span class="nt">&lt;/amount&gt;</span>
+<span class="num">0026</span>        <span class="nt">&lt;currency&gt;</span>JPY<span class="nt">&lt;/currency&gt;</span>
+<span class="num">0027</span>        <span class="nt">&lt;raw_value&gt;</span>0<span class="nt">&lt;/raw_value&gt;</span>
+<span class="num">0028</span>      <span class="nt">&lt;/current_balance&gt;</span>
+<span class="num">0029</span>      <span class="nt">&lt;post_balance&gt;</span>
+<span class="num">0030</span>        <span class="nt">&lt;amount&gt;</span>0 yen<span class="nt">&lt;/amount&gt;</span>
+<span class="num">0031</span>        <span class="nt">&lt;currency&gt;</span>JPY<span class="nt">&lt;/currency&gt;</span>
+<span class="num">0032</span>        <span class="nt">&lt;raw_value&gt;</span>0<span class="nt">&lt;/raw_value&gt;</span>
+<span class="num">0033</span>      <span class="nt">&lt;/post_balance&gt;</span>
+<span class="num">0034</span>    <span class="nt">&lt;/prepurchase_info&gt;</span>
+<span class="num">0035</span>  <span class="nt">&lt;/eshop&gt;</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- 3.2.6. アイテム購入 -->
+<h2 class="general" id="PageId_43596203">3.2.6. Purchasing Items</h2>
+<div class="text">
+
+<!-- 3.2.6.1. 概要 -->
+<h3 class="general" id="PageId_43596196">3.2.6.1. Overview</h3>
+<div class="text">
+<p>Purchases the specified item. If the purchase is successful, a license for the relevant item is granted to the specified Nintendo Network account.</p>
+</div>
+
+<!-- 3.2.6.2. リクエスト -->
+<h3 class="general" id="PageId_43596216">3.2.6.2. Request</h3>
+<div class="text">
+<div class="table">
+  <a name="AutoAnchor_43596216_table050"></a>Table 3-5. Parameters To Specify in Request  </div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Parameter</th>
+      <th>Optional</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>item_code</td>
+      <td>No</td>
+      <td>Item code.</td>
+    </tr>
+    <tr>
+      <td>price_id</td>
+      <td>No</td>
+      <td>Price information ID.</td>
+    </tr>
+    <tr>
+      <td>reference_id</td>
+      <td>No</td>
+      <td>Reference ID (32 character hexadecimal).</td>
+    </tr>
+    <tr>
+      <td>balance</td>
+      <td>No</td>
+      <td>Balance of the account obtained from the balance retrieval function.</td>
+    </tr>
+    <tr>
+      <td>ec_service_token</td>
+      <td>No</td>
+      <td>EC service token obtained from account server (Base64 format).</td>
+    </tr>
+  </tbody>
+</table>
+<h4 id="Anchor_43596216_URL">URL</h4>
+<!--Remove-->
+<div class="platform_CTR">
+  <div class="code_block">
+    <pre class="code">POST http://localhost:8888/v1_0/rs/titles/authorized/items/ $item_code /purchase
+Example: POST http://localhost:8888/v1_0/rs/titles/authorized/items/CTRV9A2A00000001/purchase
+price_id=2105089201&amp;reference_id=0123456789abcdef0000000000000001&amp;balance=0&amp;ec_service_token=Xe9bEgaeQbD==&amp;ec_service_token=X82whjghSx=
+</pre>
+  </div>
+</div>
+</div>
+
+<!-- 3.2.6.3. レスポンス -->
+<h3 class="general" id="PageId_43596221">3.2.6.3. Response</h3>
+<div class="text">
+<ul>
+  <li><CODE>transaction_result</CODE>: Root node for the transaction information.<ul><li><CODE>transaction_id</CODE>: Transaction ID issued by Nintendo.</li><li><CODE>ext_transaction_id</CODE>: Transaction ID specified by the independent server.</li><li><CODE>item_code</CODE>: The item code for this item.</li><li><CODE>post_balance</CODE>: Balance information after the transaction is executed.<ul><li><CODE>amount</CODE>: The account balance formatted for the currency (for example, $10.00).</li><li><CODE>currency</CODE>: The currency code defined by ISO 4217 (for example, USD).</li><li><CODE>raw_value</CODE>: The unformatted account balance (for example, 10.0).</li></ul></li></ul></li>
+</ul>
+<p>
+  <a name="Anchor_43596221_WiiU"></a>
+</p>
+<!--Remove-->
+<p>
+  <a name="Anchor_43596221_CTR"></a>
+</p>
+<div class="platform_CTR">
+  <div class="code">
+    <a name="AutoAnchor_43596221_code081"></a>Code 3-7. Sample Response From the Item Purchase API</div>
+  <div class="code_block">
+    <pre class="code"><span class="num">0001</span>  <span class="nt">&lt;eshop&gt;</span>
+<span class="num">0002</span>    <span class="nt">&lt;transaction_result&gt;</span>
+<span class="num">0003</span>      <span class="nt">&lt;transaction_id&gt;</span>82128415<span class="nt">&lt;/transaction_id&gt;</span>
+<span class="num">0004</span>      <span class="nt">&lt;ext_transaction_id&gt;</span>1FF3F900rXYwcgXXjchXGiIM2KcODfGsUc<span class="nt">&lt;/ext_transaction_id&gt;</span>
+<span class="num">0005</span>      <span class="nt">&lt;item_code&gt;</span>CTRV9A2A00000001<span class="nt">&lt;/item_code&gt;</span>
+<span class="num">0006</span>      <span class="nt">&lt;post_balance&gt;</span>
+<span class="num">0007</span>        <span class="nt">&lt;amount&gt;</span>0 yen<span class="nt">&lt;/amount&gt;</span>
+<span class="num">0008</span>        <span class="nt">&lt;currency&gt;</span>JPY<span class="nt">&lt;/currency&gt;</span>
+<span class="num">0009</span>        <span class="nt">&lt;raw_value&gt;</span>0<span class="nt">&lt;/raw_value&gt;</span>
+<span class="num">0010</span>      <span class="nt">&lt;/post_balance&gt;</span>
+<span class="num">0011</span>    <span class="nt">&lt;/transaction_result&gt;</span>
+<span class="num">0012</span>  <span class="nt">&lt;/eshop&gt;</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- 3.2.7. 権利情報取得 -->
+<h2 class="general" id="PageId_43596227">3.2.7. Getting License Information</h2>
+<div class="text">
+
+<!-- 3.2.7.1. 概要 -->
+<h3 class="general" id="PageId_43596229">3.2.7.1. Overview</h3>
+<div class="text">
+<p>Gets the license information for the specified service title.</p>
+<p>Gets the license information for all of the Nintendo Network accounts linked to devices that are tied to the specified Nintendo Network account. Even if the specified Nintendo Network account does not have a license, if another Nintendo Network account associated with the same device does have a license, the system returns the license information for that network account.</p>
+</div>
+
+<!-- 3.2.7.2. リクエスト -->
+<h3 class="general" id="PageId_43596231">3.2.7.2. Request</h3>
+<div class="text">
+<div class="table">
+  <a name="AutoAnchor_43596231_table050"></a>Table 3-6. Parameters To Specify in Request  </div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Parameter</th>
+      <th>Optional</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>reference_id</td>
+      <td>Yes</td>
+      <td>Reference ID (32 hexadecimal characters). Lowercase alphanumeric [a-f0-9]{32}. If a reference ID is specified, returns only the license information for the relevant reference ID. If not specified, returns the license information for all of the reference IDs for the title.</td>
+    </tr>
+  </tbody>
+</table>
+<h4 id="Anchor_43596231_URL">URL</h4>
+<div class="code_block">
+  <pre class="code">http://localhost:8888/v1_0/rs/accounts/own/rights/titles/authorized/items/$reference_id
+Example: GET http://localhost:8888/v1_0/rs/accounts/own/rights/titles/authorized/items/0123456789abcdef0000000000000001
+
+http://localhost:8888/v1_0/rs/accounts/own/rights/titles/authorized
+Example: GET http://localhost:8888/v1_0/rs/accounts/own/rights/titles/authorized
+</pre>
+</div>
+</div>
+
+<!-- 3.2.7.3. レスポンス -->
+<h3 class="general" id="PageId_43596238">3.2.7.3. Response</h3>
+<div class="text">
+<h4 id="Anchor_43596238_リファレンスIDを指定した場合">With the Reference ID Specified</h4>
+<ul>
+  <li><CODE>item_rights</CODE>: List of rights.<ul><li><CODE>reference_id</CODE>: Reference ID to identify the item purchased (32-character hexadecimal).</li><li><CODE>content_name</CODE> : Content name of service item purchased.</li><li><CODE>item_right</CODE>: The Nintendo Network account that has the license for the item belonging to the specified title.<ul><li><CODE>pid</CODE>: Principal ID for the Nintendo Network account.</li><li><CODE>right_type</CODE>: License type (permanent, subscription, or consumable).</li><li><CODE>right_value</CODE>: License according to the license type (for permanent licenses, not used; for subscription licenses, the expiration date; for consumable licenses, the number of uses purchased).</li><li><CODE>auto_billing_applied</CODE> : Flag indicating if item is recurringly billed (Returns <CODE>null</CODE> if title does not support recurring billing).</li><li><CODE>additional_time</CODE> : Subscription license information (not used for permanent or consumable licenses).<ul><li><CODE>current_time</CODE> : Current date and time issued by independent server.</li><li><CODE>validity</CODE> : Flag indicating whether the subscription is valid.</li></ul></li><li><CODE>consumption</CODE> : Consumable license information (not used for permanent or subscription licenses).<ul><li><CODE>total_count</CODE> : The number of times the license has been used so far.</li></ul></li></ul></li></ul></li>
+</ul>
+<div class="code">
+  <a name="AutoAnchor_43596238_code090"></a>Code 3-8. Sample Response When a Reference ID Is Specified</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  <span class="nt">&lt;eshop&gt;</span>
+<span class="num">0002</span>    <span class="nt">&lt;item_rights&gt;</span>
+<span class="num">0003</span>      <span class="nt">&lt;reference_id&gt;</span>0123456789abcdef0000000000000001<span class="nt">&lt;/reference_id&gt;</span>
+<span class="num">0004</span>      <span class="nt">&lt;contnt_name&gt;</span>Sport spectator ticket: Soccer<span class="nt">&lt;/contnt_name&gt;</span>
+<span class="num">0005</span>      <span class="nt">&lt;item_right&gt;</span>
+<span class="num">0006</span>        <span class="nt">&lt;pid&gt;</span>1000000000<span class="nt">&lt;/pid&gt;</span>
+<span class="num">0007</span>        <span class="nt">&lt;right_type&gt;</span>ADDITIONAL TIME<span class="nt">&lt;/right_type&gt;</span>
+<span class="num">0008</span>        <span class="nt">&lt;right_value&gt;</span>1382582988<span class="nt">&lt;/right_value&gt;</span>
+<span class="num">0009</span>        <span class="nt">&lt;auto_billing_applied&gt;</span>false<span class="nt">&lt;/auto_billing_applied&gt;</span>
+<span class="num">0010</span>        <span class="nt">&lt;additional_time&gt;</span>
+<span class="num">0011</span>          <span class="nt">&lt;current_time&gt;</span>1382582987<span class="nt">&lt;/current_time&gt;</span>
+<span class="num">0012</span>          <span class="nt">&lt;validity&gt;</span>true<span class="nt">&lt;/validity&gt;</span>
+<span class="num">0013</span>        <span class="nt">&lt;/additional_time&gt;</span>
+<span class="num">0014</span>      <span class="nt">&lt;/item_right&gt;</span>
+<span class="num">0015</span>    <span class="nt">&lt;/item_rights&gt;</span>
+<span class="num">0016</span>  <span class="nt">&lt;/eshop&gt;</span>
+</pre>
+</div>
+<p></p>
+<h4 id="Anchor_43596238_リファレンスIDを指定しなかった場合">With the Reference ID Not Specified</h4>
+<ul>
+  <li><CODE>rights</CODE>: Root node of the license information.<ul><li><CODE>item_rights</CODE>: List of rights.<ul><li><CODE>reference_id</CODE>: Reference ID to identify the item purchased (32-character hexadecimal).</li><li><CODE>content_name</CODE> : Content name of service item purchased.</li><li><CODE>item_right</CODE>: The Nintendo Network account that has the license for the item belonging to the specified title.<ul><li><CODE>pid</CODE>: Principal ID for the Nintendo Network account.</li><li><CODE>right_type</CODE>: License type (permanent, subscription, or consumable).</li><li><CODE>right_value</CODE>: License according to the license type (for permanent licenses, not used; for subscription licenses, the expiration date; for consumable licenses, the number of uses purchased).</li><li><CODE>auto_billing_applied</CODE> : Flag indicating if item is recurringly billed (Returns <CODE>null</CODE> if title does not support recurring billing).</li><li><CODE>additional_time</CODE> : Subscription license information (not used for permanent or consumable licenses).<ul><li><CODE>current_time</CODE> : Current date and time issued by independent server.</li><li><CODE>validity</CODE> : Flag indicating whether the subscription is valid.</li></ul></li><li><CODE>consumption</CODE> : Consumable license information (not used for permanent or subscription licenses).<ul><li><CODE>total_count</CODE> : The number of times the license has been used so far.</li></ul></li></ul></li></ul></li></ul></li>
+</ul>
+<div class="code">
+  <a name="AutoAnchor_43596238_code100"></a>Code 3-9. Sample Response When a Reference ID Is Not Specified</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  <span class="nt">&lt;eshop&gt;</span>
+<span class="num">0002</span>    <span class="nt">&lt;rights&gt;</span>
+<span class="num">0003</span>      <span class="nt">&lt;item_rights&gt;</span>
+<span class="num">0004</span>        <span class="nt">&lt;reference_id&gt;</span>0123456789abcdef0000000000000001<span class="nt">&lt;/reference_id&gt;</span>
+<span class="num">0005</span>      <span class="nt">&lt;content_name&gt;</span>Sport spectator ticket: Soccer<span class="nt">&lt;/content_name&gt;</span>
+<span class="num">0006</span>        <span class="nt">&lt;item_right&gt;</span>
+<span class="num">0007</span>          <span class="nt">&lt;pid&gt;</span>1000000000<span class="nt">&lt;/pid&gt;</span>
+<span class="num">0008</span>          <span class="nt">&lt;right_type&gt;</span>ADDITIONAL TIME<span class="nt">&lt;/right_type&gt;</span>
+<span class="num">0009</span>          <span class="nt">&lt;right_value&gt;</span>1382582988<span class="nt">&lt;/right_value&gt;</span>
+<span class="num">0010</span>          <span class="nt">&lt;auto_billing_applied&gt;</span>false<span class="nt">&lt;/auto_billing_applied&gt;</span>
+<span class="num">0011</span>          <span class="nt">&lt;additional_time&gt;</span>
+<span class="num">0012</span>            <span class="nt">&lt;current_time&gt;</span>1382582987<span class="nt">&lt;/current_time&gt;</span>
+<span class="num">0013</span>            <span class="nt">&lt;validity&gt;</span>true<span class="nt">&lt;/validity&gt;</span>
+<span class="num">0014</span>          <span class="nt">&lt;/additional_time&gt;</span>
+<span class="num">0015</span>        <span class="nt">&lt;/item_right&gt;</span>
+<span class="num">0016</span>      <span class="nt">&lt;/item_rights&gt;</span>
+<span class="num">0017</span>      <span class="nt">&lt;item_rights&gt;</span>
+<span class="num">0018</span>        <span class="nt">&lt;reference_id&gt;</span>0123456789abcdef0000000000000005<span class="nt">&lt;/reference_id&gt;</span>
+<span class="num">0019</span>          <span class="nt">&lt;content_name&gt;</span>500 ml sports drink<span class="nt">&lt;/content_name&gt;</span>
+<span class="num">0020</span>        <span class="nt">&lt;item_right&gt;</span>
+<span class="num">0021</span>          <span class="nt">&lt;pid&gt;</span>1000000000<span class="nt">&lt;/pid&gt;</span>
+<span class="num">0022</span>          <span class="nt">&lt;right_type&gt;</span>CONSUMPTION<span class="nt">&lt;/right_type&gt;</span>
+<span class="num">0023</span>          <span class="nt">&lt;right_value&gt;</span>3<span class="nt">&lt;/right_value&gt;</span>
+<span class="num">0024</span>          <span class="nt">&lt;auto_billing_applied&gt;</span>false<span class="nt">&lt;/auto_billing_applied&gt;</span>
+<span class="num">0025</span>          <span class="nt">&lt;consumption&gt;</span>
+<span class="num">0026</span>            <span class="nt">&lt;total_count&gt;</span>0<span class="nt">&lt;/total_count&gt;</span>
+<span class="num">0027</span>          <span class="nt">&lt;/consumption&gt;</span>
+<span class="num">0028</span>        <span class="nt">&lt;/item_right&gt;</span>
+<span class="num">0029</span>      <span class="nt">&lt;/item_rights&gt;</span>
+<span class="num">0030</span>    <span class="nt">&lt;/rights&gt;</span>
+<span class="num">0031</span>  <span class="nt">&lt;/eshop&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<!-- 3.2.8. 権利消尽 -->
+<h2 class="general" id="PageId_43596260">3.2.8. Consume Rights</h2>
+<div class="text">
+
+<!-- 3.2.8.1. 概要 -->
+<h3 class="general" id="PageId_43596293">3.2.8.1. Overview</h3>
+<div class="text">
+<p>Uses the license for the specified consumable item. When the number of uses exceeds the number of licenses held by the network account, the user can no longer use the item.</p>
+</div>
+
+<!-- 3.2.8.2. リクエスト -->
+<h3 class="general" id="PageId_43596265">3.2.8.2. Request</h3>
+<div class="text">
+<div class="table">
+  <a name="AutoAnchor_43596265_table060"></a>Table 3-7. Parameters To Specify in Request </div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Parameter</th>
+      <th>Optional</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>reference_id</td>
+      <td>No</td>
+      <td>Reference ID (32 hexadecimal characters). Lowercase alphanumeric [a-f0-9]{32}.</td>
+    </tr>
+    <tr>
+      <td>current_toal_count</td>
+      <td>No</td>
+      <td>
+        <span class="diff_in">Times license has been used so far.</span>
+      </td>
+    </tr>
+    <tr>
+      <td>consume_count</td>
+      <td>Yes</td>
+      <td>
+        <span class="diff_in">Number to consume. </span>(The default is 1.)</td>
+    </tr>
+  </tbody>
+</table>
+<h4 id="Anchor_43596265_URL">URL</h4>
+<div class="code_block">
+  <pre class="code">POST http://localhost:8888/v1_0/rs/accounts/own/rights/titles/authorized/items/$reference_id/consume
+Example: POST http://localhost:8888/v1_0/rs/accounts/own/rights/titles/authorized/items/0123456789abcdef0000000000000005/consume
+</pre>
+</div>
+</div>
+
+<!-- 3.2.8.3. レスポンス -->
+<h3 class="general" id="PageId_43596279">3.2.8.3. Response</h3>
+<div class="text">
+<ul>
+  <li><CODE>consumption_result</CODE><ul><li><CODE>reference_id</CODE>: Reference ID to identify the item purchased (32-character hexadecimal).</li><li><CODE>item_right</CODE>: The network account that has the license for the item belonging to the specified title.<ul><li><CODE>pid</CODE>: Principal ID for the network account.</li><li><CODE>right_type</CODE>: License type (permanent, subscription, or consumable).</li><li><CODE>right_value</CODE>: License according to the license type (for permanent licenses, not used; for subscription licenses, the expiration date; for consumable licenses, the number of uses purchased).</li><li><CODE>auto_billing_applied</CODE> : Flag indicating if item is recurringly billed (Returns <CODE>null</CODE> if title does not support recurring billing).</li><li><CODE>consumption</CODE> : Consumable license information (not used for permanent or subscription licenses).<ul><li><CODE>post_count</CODE> : Times license was used.</li><li><CODE>total_count</CODE> : The number of times the license has been used so far.</li></ul></li></ul></li></ul></li>
+</ul>
+<div class="code">
+  <a name="AutoAnchor_43596279_code110"></a>Code 3-10. Sample Response From the Consume License API</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  <span class="nt">&lt;eshop&gt;</span>
+<span class="num">0002</span>    <span class="nt">&lt;consumption_result&gt;</span>
+<span class="num">0003</span>      <span class="nt">&lt;reference_id&gt;</span>0123456789abcdef0000000000000005<span class="nt">&lt;/reference_id&gt;</span>
+<span class="num">0004</span>      <span class="nt">&lt;item_right&gt;</span>
+<span class="num">0005</span>        <span class="nt">&lt;pid&gt;</span>1000000000<span class="nt">&lt;/pid&gt;</span>
+<span class="num">0006</span>        <span class="nt">&lt;right_type&gt;</span>CONSUMPTION<span class="nt">&lt;/right_type&gt;</span>
+<span class="num">0007</span>        <span class="nt">&lt;right_value&gt;</span>3<span class="nt">&lt;/right_value&gt;</span>
+<span class="num">0008</span>        <span class="nt">&lt;consumption&gt;</span>
+<span class="num">0009</span>          <span class="nt">&lt;post_count&gt;</span>1<span class="nt">&lt;/post_count&gt;</span>
+<span class="num">0010</span>          <span class="nt">&lt;total_count&gt;</span>1<span class="nt">&lt;/total_count&gt;</span>
+<span class="num">0011</span>        <span class="nt">&lt;/consumption&gt;</span>
+<span class="num">0012</span>      <span class="nt">&lt;/item_right&gt;</span>
+<span class="num">0013</span>    <span class="nt">&lt;/consumption_result&gt;</span>
+<span class="num">0014</span>  <span class="nt">&lt;/eshop&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<!-- 3.2.9. 購入履歴表示 -->
+<h2 class="general" id="PageId_43596286">3.2.9. Show Purchase History</h2>
+<div class="text">
+
+<!-- 3.2.9.1. 概要 -->
+<h3 class="general" id="PageId_43596263">3.2.9.1. Overview</h3>
+<div class="text">
+<p>Gets the purchase history for the specified Nintendo Network account.</p>
+<p>Gets the purchase history for each title code. Also, unlike with the license information retrieval API, you can only get the purchase history for the specified Nintendo Network account.</p>
+</div>
+
+<!-- 3.2.9.2. リクエスト -->
+<h3 class="general" id="PageId_43596297">3.2.9.2. Request</h3>
+<div class="text">
+<div class="table">
+  <a name="AutoAnchor_43596297_table070"></a>Table 3-8. Parameters To Specify in Request </div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Parameter</th>
+      <th>Optional</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>offset</td>
+      <td>Yes</td>
+      <td>The offset for all purchase history transactions.</td>
+    </tr>
+    <tr>
+      <td>limit</td>
+      <td>Yes</td>
+      <td>The number of purchase history transactions to get.</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <a name="URL"></a>
+</p>
+<h4 id="Anchor_43596297_URL">URL</h4>
+<div class="code_block">
+  <pre class="code">GET http://localhost:8888/v1_0/rs/accounts/own/transactions?offset=$offset&amp;limit=$limit
+Example: http://localhost:8888/v1_0/rs/accounts/own/transactions?offset=0&amp;limit=20
+</pre>
+</div>
+</div>
+
+<!-- 3.2.9.3. レスポンス -->
+<h3 class="general" id="PageId_43596302">3.2.9.3. Response</h3>
+<div class="text">
+<ul>
+  <li><CODE>transactions</CODE>: Root node of the purchase history information.<ul><li><CODE>total</CODE>: Total number of items in the purchase history.</li><li><CODE>length</CODE>: Number of purchase-history items in this response.</li><li><CODE>offset</CODE>: Offset.</li><li><CODE>transaction</CODE>: Purchase-history information.<ul><li><CODE>transaction_id</CODE>: Transaction ID.</li><li><CODE>ext_transaction_id</CODE>: Transaction ID specified by the independent server.</li><li><CODE>date</CODE>: Transaction date and time.</li><li><CODE>type</CODE>: Transaction type (PURCHASE / REDEEM / DELETE).</li><li><CODE>description</CODE>: Transaction details.</li><li><CODE>transaction_amount</CODE>: Total amount paid, including tax.<ul><li><CODE>amount</CODE>: The total amount paid, formatted for the currency (for example, $10.00).</li><li><CODE>currency</CODE>: The currency code defined by ISO 4217 (for example, USD).</li><li><CODE>raw_value</CODE>: The unformatted total amount paid (for example, 10.0).</li></ul></li><li><CODE>item</CODE>: Item information (Returns <CODE>null</CODE> if the purchased item has been removed from the catalog.)<br /><ul><li><CODE>reference_id</CODE>: Reference ID to identify the item purchased (32-character hexadecimal).</li><li><CODE>item_name</CODE>: Item name of the purchased service item (for display in the purchase history).</li><li><CODE>item_code</CODE>: Item code.</li><li><CODE>limit</CODE>: License information for this service item.<ul><li><CODE>type</CODE>: License type for this service item.</li><li><CODE>value</CODE>: Value corresponding to the license for this item (limited period of time, limited number of times). If the license type is unlimited, this value has no meaning.</li></ul></li></ul></li></ul></li></ul></li>
+</ul>
+<p>
+  <a name="Anchor_43596302_WiiU"></a>
+</p>
+<!--Remove-->
+<p>
+  <a name="Anchor_43596302_CTR"></a>
+</p>
+<div class="platform_CTR">
+  <div class="code">
+    <a name="AutoAnchor_43596302_code121"></a>Code 3-11. Response From the Show Purchase History API</div>
+  <div class="code_block">
+    <pre class="code"><span class="num">0001</span>  <span class="nt">&lt;eshop&gt;</span>
+<span class="num">0002</span>    <span class="nt">&lt;transactions&gt;</span>
+<span class="num">0003</span>      <span class="nt">&lt;length&gt;</span>2<span class="nt">&lt;/length&gt;</span>
+<span class="num">0004</span>      <span class="nt">&lt;offset&gt;</span>0<span class="nt">&lt;/offset&gt;</span>
+<span class="num">0005</span>      <span class="nt">&lt;total&gt;</span>2<span class="nt">&lt;/total&gt;</span>
+<span class="num">0006</span>      <span class="nt">&lt;transaction&gt;</span>
+<span class="num">0007</span>        <span class="nt">&lt;transaction_id&gt;</span>82122097<span class="nt">&lt;/transaction_id&gt;</span>
+<span class="num">0008</span>        <span class="nt">&lt;ext_transaction_id&gt;</span>0FF3F900UoFITYQWCapLigXQVYmOrc2yqB<span class="nt">&lt;/ext_transaction_id&gt;</span>
+<span class="num">0009</span>        <span class="nt">&lt;date&gt;</span>2013-10-23T02:53:01Z<span class="nt">&lt;/date&gt;</span>
+<span class="num">0010</span>        <span class="nt">&lt;type&gt;</span>PURCHASE<span class="nt">&lt;/type&gt;</span>
+<span class="num">0011</span>        <span class="nt">&lt;description&gt;&lt;/description&gt;</span>
+<span class="num">0012</span>        <span class="nt">&lt;transaction_amount&gt;</span>
+<span class="num">0013</span>          <span class="nt">&lt;amount&gt;</span>0 yen<span class="nt">&lt;/amount&gt;</span>
+<span class="num">0014</span>          <span class="nt">&lt;currency&gt;</span>JPY<span class="nt">&lt;/currency&gt;</span>
+<span class="num">0015</span>          <span class="nt">&lt;raw_value&gt;</span>0<span class="nt">&lt;/raw_value&gt;</span>
+<span class="num">0016</span>        <span class="nt">&lt;/transaction_amount&gt;</span>
+<span class="num">0017</span>        <span class="nt">&lt;item&gt;</span>
+<span class="num">0018</span>          <span class="nt">&lt;reference_id&gt;</span>0123456789abcdef0000000000000005<span class="nt">&lt;/reference_id&gt;</span>
+<span class="num">0019</span>          <span class="nt">&lt;item_name&gt;</span>500 ml sports drink<span class="nt">&lt;/item_name&gt;</span>
+<span class="num">0020</span>          <span class="nt">&lt;item_code&gt;</span>CTRV9A2A00000004<span class="nt">&lt;/item_code&gt;</span>
+<span class="num">0021</span>          <span class="nt">&lt;limit&gt;</span>
+<span class="num">0022</span>            <span class="nt">&lt;type&gt;</span>CONSUMPTION<span class="nt">&lt;/type&gt;</span>
+<span class="num">0023</span>            <span class="nt">&lt;value&gt;</span>3<span class="nt">&lt;/value&gt;</span>
+<span class="num">0024</span>          <span class="nt">&lt;/limit&gt;</span>
+<span class="num">0025</span>        <span class="nt">&lt;/item&gt;</span>
+<span class="num">0026</span>      <span class="nt">&lt;/transaction&gt;</span>
+<span class="num">0027</span>      <span class="nt">&lt;transaction&gt;</span>
+<span class="num">0028</span>        <span class="nt">&lt;transaction_id&gt;</span>82128415<span class="nt">&lt;/transaction_id&gt;</span>
+<span class="num">0029</span>        <span class="nt">&lt;ext_transaction_id&gt;</span>0FF3F900rXYwcgXXjchXGiIM2KcODfGsUc<span class="nt">&lt;/ext_transaction_id&gt;</span>
+<span class="num">0030</span>        <span class="nt">&lt;date&gt;</span>2013-10-23T02:49:48Z<span class="nt">&lt;/date&gt;</span>
+<span class="num">0031</span>        <span class="nt">&lt;type&gt;</span>PURCHASE<span class="nt">&lt;/type&gt;</span>
+<span class="num">0032</span>        <span class="nt">&lt;description&gt;&lt;/description&gt;</span>
+<span class="num">0033</span>        <span class="nt">&lt;transaction_amount&gt;</span>
+<span class="num">0034</span>            <span class="nt">&lt;amount&gt;</span>0 yen<span class="nt">&lt;/amount&gt;</span>
+<span class="num">0035</span>          <span class="nt">&lt;currency&gt;</span>JPY<span class="nt">&lt;/currency&gt;</span>
+<span class="num">0036</span>          <span class="nt">&lt;raw_value&gt;</span>0<span class="nt">&lt;/raw_value&gt;</span>
+<span class="num">0037</span>        <span class="nt">&lt;/transaction_amount&gt;</span>
+<span class="num">0038</span>        <span class="nt">&lt;item&gt;</span>
+<span class="num">0039</span>          <span class="nt">&lt;reference_id&gt;</span>0123456789abcdef0000000000000001<span class="nt">&lt;/reference_id&gt;</span>
+<span class="num">0040</span>      <span class="nt">&lt;item_name&gt;</span>Sport spectator ticket: Soccer<span class="nt">&lt;/item_name&gt;</span>
+<span class="num">0041</span>          <span class="nt">&lt;item_code&gt;</span>CTRV9A2A00000001<span class="nt">&lt;/item_code&gt;</span>
+<span class="num">0042</span>          <span class="nt">&lt;limit&gt;</span>
+<span class="num">0043</span>            <span class="nt">&lt;type&gt;</span>ADDITIONAL TIME<span class="nt">&lt;/type&gt;</span>
+<span class="num">0044</span>            <span class="nt">&lt;value&gt;</span>1382582988<span class="nt">&lt;/value&gt;</span>
+<span class="num">0045</span>          <span class="nt">&lt;/limit&gt;</span>
+<span class="num">0046</span>        <span class="nt">&lt;/item&gt;</span>
+<span class="num">0047</span>      <span class="nt">&lt;/transaction&gt;</span>
+<span class="num">0048</span>    <span class="nt">&lt;/transactions&gt;</span>
+<span class="num">0049</span>  <span class="nt">&lt;/eshop&gt;</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

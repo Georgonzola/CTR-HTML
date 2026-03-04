@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CheckProfanityWords</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ngc/Overview.html">ngc</a>::<a href="../../../../nn/ngc/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ngc/CTR/ProfanityFilterBase/Overview.html">ProfanityFilterBase</a>::CheckProfanityWords Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+virtual <a href="../../../../nn/Result/Overview.html">nn::Result</a> CheckProfanityWords(
+     <a href="../../../../nn_types/bit32.html">bit32</a> * pCheckResults,
+     <a href="../../../../nn/ngc/CTR/ProfanityFilterPatternList.html">ProfanityFilterPatternList</a> nPatternCode,
+     const wchar_t ** ppWords,
+     size_t nWordCount
+) = 0;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pCheckResults</th>
+          <td>Specifies the buffer that stores the results of the check. This parameter requires an array with <emphasis>nWordCount</emphasis> elements.</td>
+        </tr>
+        <tr>
+          <td />
+          <th>nPatternCode</th>
+          <td>
+            </td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>ppWords</th>
+          <td>Specifies a <code>NULL</code>-terminated string array containing the words to check. Encode it as UTF16-LE (little-endian).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>nWordCount</th>
+          <td>Specifies the number of strings to check. The maximum number is <code><a href="../../../../nn/ngc/MAX_WORD_NUM.html">nn::ngc::MAX_WORD_NUM</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>nPatterns</th>
+          <td>Specifies which pattern list to check against.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Checks a number of specified words against the specified pattern lists to determine whether strings contain profanity and should not be displayed.</p><p>This function checks single words, such as screen names. The maximum number of characters (including the NULL terminator) per word is <code><a href="../../../../nn/ngc/MAX_WORD_LENGTH.html">nn::ngc::MAX_WORD_LENGTH</a></code>. This function cannot be used to process text added by the user. To check text input, use the <code><a href="../../../../nn/ngc/CTR/ProfanityFilterBase/MaskProfanityWordsInText.html">ProfanityFilterBase::MaskProfanityWordsInText</a></code> function instead.</p><p>This operation may take a long time. (It blocks.) Processing time can vary depending on the version of the system. We recommend running this function in a separate thread. Running it in the main thread can reduce the frame rate. You can use this function to check a maximum of <code><a href="../../../../nn/ngc/MAX_WORD_NUM.html">nn::ngc::MAX_WORD_NUM</a></code> strings at one time. Checking multiple strings at the same time requires less time than checking each string separately.</p><p>The results of the check on each string are stored in <emphasis>pCheckResults</emphasis>. Check by taking the bitwise AND of this array and the result of left-shifting the value <code>1</code> by the value specified in <emphasis>nPatterns</emphasis>. The bit field has a value of <code>0</code> if there are no profanity patterns specified in any pattern lists.</p><p>To determine which pattern lists you need to check against, see the UGC guidelines in the latest 3DS Guidelines.</p><p>Because the @ symbol could denote an email address, this function always detects strings containing this symbol as possible disallowed words. On the other hand, strings containing lots of numbers that might be used to display phone numbers are not detected as possible disallowed words by this function. For this check, use the <code><a href="../../../../nn/ngc/CTR/CountNumbers.html">nn::ngc::CTR::CountNumbers</a></code> function.</p></div>
+  </body>
+</html>

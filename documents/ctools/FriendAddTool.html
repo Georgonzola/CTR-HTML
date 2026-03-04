@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        --></style>
+<title>FriendAddTool</title>
+  </head>
+  <body>
+<h1>FriendAddTool</h1>
+<h2>Overview</h2>
+    <div class="section">
+      <p>
+The <CODE>FriendAddTool</CODE> reduces the workload involved in building friendships when developing software that uses the friend feature.
+      </p>
+      <p>
+Specifically:
+        <ul>
+<li>It allows you to register friends by batch reading files that include the friend codes to be registered from an SD card when you want to test use the friend feature among several CTR handheld systems.</li>
+<li>It allows you to simulate situations where the friend list has become full by registering dummy friends when preparing a large number of devices might prove difficult.</li>
+        </ul>
+      </p>
+    </div>
+<h2>Registering Friends From an SD card</h2>
+    <div class="section">
+      <p>
+If you want to register several friend codes, you can register them all at one time by loading a file that includes those friend codes from an SD card.
+      </p>
+<h3>Registration Procedure</h3>
+      <p>
+To register friends from an SD card, first collect the friend codes of devices between which you want to establish friendships.<br />Next, save the collected friend codes to an SD card as a text file (<CODE>friend_code.txt</CODE>).<br />Insert the SD card into a CTR handheld system, start the tool, and batch register friend codes listed in <CODE>friend_code.txt</CODE> by executing <B>Register listed Friends in SD</B>.
+      </p>
+      <p>
+Registering friends from an SD card has the same result as if friend codes were entered by selecting the system feature <B>Register Friend</B> followed by <B>Internet</B> on the Friend List. This procedure handles only one side of friend registration. The other system must also complete registration to establish a friend relationship.
+      </p>
+<h3>Important</h3>
+      <p>
+        <ul>
+          <li>
+Communication with the friend server is required to register friends.<br />Be sure to make connection settings with the access point ahead of time under System Settings.
+          </li>
+          <li>
+Even if friend registration is being restricted by Parental Control, this tool ignores that restriction and registers friends anyway.
+          </li>
+        </ul>
+      </p>
+    </div>
+<H2>friend_code.txt Format</h2>
+    <div class="section">
+      <p>
+Place the text file to load  (<CODE>friend_code.txt</CODE>) in the root directory of the SD card.<br />Start the tool and press the load button. The file is loaded from the SD card and saved as a list inside the tool.
+      </p>
+      <p>
+List the friend codes to be registered one per line using single-byte numeric characters.<br />Friend codes are loaded ignoring any single-byte hyphens or single-byte spaces that may be included.
+      </p>
+<h3>Important</h3>
+      <p>
+        <ul>
+<li>Any lines that contain characters other than single-byte numeric characters, hyphens, or spaces are skipped.</li>
+<li>If the friend code of the system registering friend codes is encountered, that line is ignored and the next line is loaded.</li>
+<li>Up to 100 friend codes can be loaded from an SD card. If the file contains more friend codes than that, friend codes past the 100th are not loaded.</li>
+<li>The maximum size of this text file is 5120 bytes. If this file size is exceeded, no data is loaded at all.</li>
+        </ul>
+      </p>
+<h3>Example of friend_code.txt</h3>
+      <p>
+<pre>
+012345678901
+1234-5678-9012
+2345 6789 0123
+</pre>
+      </p>
+    </div>
+<h2>Registers Dummy Friends</h2>
+    <div class="section">
+      <p>
+If you want to verify conditions when many friends have been registered, but cannot ready enough separate devices to fully populate the friend list, you can simulate a full friend list by registering dummy friends.
+      </p>
+<h3>Registration Procedure</h3>
+      <p>
+Start the tool and execute <B>Register Dummy Friends</B>. Dummy friends are registered until the number of friends reaches 100.
+      </p>
+<h3>Dummy Friends</h3>
+      <p>
+The result of registering a dummy friend is the same as registering a friend by selecting the system feature <B>Register Friend</B> followed by <B>Local</B> on the Friend List. <br />As with a regular friend, you can get the friend key, Mii and Mii name, system profile, and friend relationships for a dummy friend.
+      </p>
+<h3>Cautions About Dummy Friends</h3>
+      <p>
+Although a friend relationship is established, registration has only been made on the system running the tool. The status is the same as if you were removed from the friend list on the other system. There is no change in the status of the friend being online or a Mii being updated.<br />Because the account does not really exist on the server, it cannot be used in server-based processing such as obtaining ranking information using the NEX library.
+      </p>
+    </div>
+<h2>Removing Friends</h2>
+    <div class="section">
+      <p>
+All friends, friends listed in <CODE>friend_code.txt</CODE>, and dummy friends<br />Friends can be removed all at one time by using these range specifications.
+      </p>
+    </div>
+<h2>Screen Description</h2>
+    <div class="section">
+      <p>
+The number of friends, one's own friend code, and a description of operations are displayed on the upper screen. A log of operations and results are displayed on the lower screen.
+      </p>
+    </div>
+<h2>How to Use</h2>
+    <div class="section">
+      <p>
+The method of operations are as follows.
+<h3>Registering Friends</h3>
+        <table class="table"><tbody>
+<tr><th>Button</th> <th>Operation</th></tr>
+<tr><td>A while holding down L</td> <td>Registers dummy friends.</td></tr>
+<tr><td>A while holding down R</td> <td>Registers friends listed on the SD card.</td></tr>
+        </tbody></table>
+<h3>Removing Friends</h3>
+        <table class="table"><tbody>
+<tr><th>Button</th> <th>Operation</th></tr>
+<tr><td>X while holding down L</td> <td>Removes dummy friends.</td></tr>
+<tr><td>X while holding down R</td> <td>Registers friends listed on the SD card.</td></tr>
+<tr><td>X while holding down L and R</td> <td>Removes all friends.</td></tr>
+        </tbody></table>
+<h3>Other Settings</h3>
+        <table class="table"><tbody>
+<tr><th>Button</th> <th>Operation</th></tr>
+<tr><td>Y</td> <td>Reloads data from the SD card.</td></tr>
+        </tbody></table>
+      </p>
+    </div>
+<h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014-12-26</dt>
+<dd>Corrected typos.<br /></dd>
+        <dt>2013-12-05</dt>
+<dd>Corrected typos.<br /></dd>
+        <dt>2012-01-05</dt>
+<dd>Initial version.<br /></dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

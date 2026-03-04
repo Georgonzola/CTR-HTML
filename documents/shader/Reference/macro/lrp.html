@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>lrp - Linear interpolation</title>
+  </head>
+  <body>
+    <h1>lrp - Linear interpolation</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+lrp     dest, src0, src1, src2
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Registers</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>dest</th>
+          <td>A temporary register</td>
+        </tr>
+        <tr>
+          <th>src0</th>
+          <td>A temporary register, input register, or floating-point constant register.</td>
+        </tr>
+        <tr>
+          <th>src1</th>
+          <td>A temporary register, input register, or floating-point constant register.</td>
+        </tr>
+        <tr>
+          <th>src2</th>
+          <td>A temporary register, input register, or floating-point constant register.</td>
+        </tr>
+      </table>
+      <p class="notice">
+        You can specify only one floating-point constant register among the three operands, <SPAN class="argument">src0</SPAN>, <SPAN class="argument">src1</SPAN>, and <SPAN class="argument">src2</SPAN>. However, there is one exception: you can specify two floating-point constant registers at the same time if you specify them for the combination of <SPAN class="argument">src0</SPAN> and <SPAN class="argument">src1</SPAN>.<br /> You cannot specify the same register for <SPAN class="argument">dest</SPAN> and <SPAN class="argument">src0</SPAN>.<br /> You cannot specify the same register for <SPAN class="argument">dest</SPAN> and <SPAN class="argument">src2</SPAN>.<br /> You cannot specify input registers with different indices for <SPAN class="argument">src0</SPAN>, <SPAN class="argument">src1</SPAN>, and <SPAN class="argument">src2</SPAN> at the same time.<br />
+      </p>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Stores in <SPAN class="argument">dest</SPAN> the result of using <SPAN class="argument">src0</SPAN> to linearly interpolate between <SPAN class="argument">src1</SPAN> and <SPAN class="argument">src2</SPAN>.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+dest.x = src0.x * src1.x + (1 - src0.x )*src2.x
+dest.y = src0.y * src1.y + (1 - src0.y )*src2.y
+dest.z = src0.z * src1.z + (1 - src0.z )*src2.z
+dest.w = src0.w * src1.w + (1 - src0.w )*src2.w
+</pre>
+    </div>
+
+    <h2>Macro Expansion</h2>
+    <div class="section">
+<pre class="definition">
+add     dest, src1, -src2
+mad     dest, dest,  src0, src2
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+lrp     r0, v1, c2, r3
+</pre>
+    </div>
+
+    <h2>Timetable</h2>
+    <div class="section">
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th>
+        </tr>
+        <tr>
+          <th>add</th>
+          <td class="read">read</td>
+          <td class="ADD">ADD</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+</tr>
+<tr>
+          <th>mad</th>
+          <td class="empty"></td>
+          <td class="stall" colspan="2">STALL</td>
+          <td class="read">read</td>
+          <td class="MUL">MUL</td>
+          <td class="ADD">ADD</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

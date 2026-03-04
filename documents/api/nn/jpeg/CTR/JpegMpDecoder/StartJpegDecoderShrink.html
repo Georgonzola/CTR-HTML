@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>StartJpegDecoderShrink</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::StartJpegDecoderShrink Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+size_t StartJpegDecoderShrink(
+     void * dst,
+     size_t dstSize,
+     const <a href="../../../../nn_types/u8.html">u8</a> * src,
+     size_t srcSize,
+     <a href="../../../../nn_types/u32.html">u32</a> maxWidth,
+     <a href="../../../../nn_types/u32.html">u32</a> maxHeight,
+     <a href="../../../../nn/jpeg/CTR/PixelFormat.html">PixelFormat</a> dstPixelFormat,
+     bool decodeThumbnail,
+     <a href="../../../../nn_types/u32.html">u32</a> shrinkLevel
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>dst</th>
+          <td>Specifies the buffer that stores the decoded result. <br />
+ The alignment of this buffer must match the output pixel format specified by the dstPixelFormat argument.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstSize</th>
+          <td>Specifies the size of dst in bytes. <br />
+ Specify the return value of <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetDstBufferSize.html">GetDstBufferSize</a></code>. <br />
+ The maxWidth and maxHeight arguments of <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetDstBufferSize.html">GetDstBufferSize</a></code> specify the maximum image dimensions of the decoded result (after shrinking). <br />
+ Use the maxWidth, maxHeight, dstPixelFormat, and shrinkLevel arguments to this function as shown in this example. <br /><code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetDstBufferSize.html">GetDstBufferSize</a> ( maxWidth >> shrinkLevel, maxHeight >> shrinkLevel, dstPixelFormat )</code><br />
+ However, when using the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/SetOutputBufferWidth.html">SetOutputBufferWidth</a></code> function, specify the larger of that specified width and (maxWidth >> shrinkLevel).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>src</th>
+          <td>Specifies the JPEG data to decode.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcSize</th>
+          <td>Specifies the size of src in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxWidth</th>
+          <td>Specifies the maximum width (in pixels) of an image that can be decoded (equal to or less than 65536). <br />
+ This value must be a multiple of the bitwise result of (1 &lt;&lt; shrinkLevel). <br />
+ After decoding successfully completes, use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastWidth.html">GetLastWidth</a></code> function to get the original image width and the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferWidth.html">GetLastOutputBufferWidth</a></code> function to get the decoded result width.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxHeight</th>
+          <td>Specifies the maximum height (in pixels) of an image that can be decoded (equal to or less than 65536). <br />
+ This value must be a multiple of the bitwise result of (1 &lt;&lt; shrinkLevel). <br />
+ After decoding successfully completes, use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastHeight.html">GetLastHeight</a></code> function to get the original image height and the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferHeight.html">GetLastOutputBufferHeight</a></code> function to get the decoded result height.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstPixelFormat</th>
+          <td>Specifies the output pixel format.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>decodeThumbnail</th>
+          <td>Specify <code>true</code> to decode the thumbnail. <br />
+ Specify <code>false</code> to decode the primary image.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>shrinkLevel</th>
+          <td>Specifies the shrink level. You can specify values of <code>1</code> to <code>4</code>. <br />
+ Specify <code>1</code> to shrink both the height and width of the image to 1/2 the dimension of the original image. <br />
+ Specify <code>2</code> to shrink both dimensions to 1/4, specify <code>3</code> for 1/8, and specify <code>4</code> for 1/16.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">On success, returns the size (in bytes) of the buffer storing the decoded result. <br />
+ Returns 0 if unsuccessful. <br />
+ Use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastError.html">GetLastError</a></code> function to get the reason for failure. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Decodes a JPEG image and outputs it after shrinking.</p><p>The height and width of the output image are 1/2, 1/4, 1/8, or 1/16 of the original dimensions depending on the value of the shrinkLevel argument. (Fractional values are rounded up.)</p><p>The alignment specified by the dst argument is the same as for <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoder.html">StartJpegDecoder</a></code>.</p><p>The values of maxWidth and maxHeight specify the largest decodable image size. They must be a multiple of the bitwise result of (1 &lt;&lt; shrinkLevel). <br />
+Specifically, the following conditions must be met.</p><p><UL> <LI>When shrinkLevel is set to <code>1</code>, they must be a multiple of 2. <LI>When shrinkLevel is set to <code>2</code>, they must be a multiple of 4. <LI>When shrinkLevel is set to <code>3</code>, they must be a multiple of 8. <LI>When shrinkLevel is set to <code>4</code>, they must be a multiple of 16. </LI></UL></p>
+The actual image size does not need to be a multiple of the bitwise result of (1 &lt;&lt; shrinkLevel). <br />
+ However, if <code>JPEG_DECODER_OPTION_MATCH_WIDTH_HEIGHT</code> is specified using <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/SetOption.html">SetOption</a></code>, the values of arguments maxWidth and maxHeight must match or decoding fails.</p><p>After this function completes successfully, call the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastWidth.html">GetLastWidth</a></code> and <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastHeight.html">GetLastHeight</a></code> functions to get the original image dimensions (before shrinking). Call the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferWidth.html">GetLastOutputBufferWidth</a></code> and <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferHeight.html">GetLastOutputBufferHeight</a></code> functions to get the dimensions of the decoded result (output to a buffer after shrinking).</p><p>Processing time is not related to whether the original image size is a multiple of 8 or 16 pixels. Larger original and decoded image sizes take longer to process.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added a description of SetOption.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

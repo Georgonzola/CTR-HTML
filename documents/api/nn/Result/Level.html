@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>Level</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/Result/Overview.html">Result</a>::Level Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/Result.h&gt;
+enum Level;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>LEVEL_INFO</th>
+          <td>Success. There is additional information.</td>
+        </tr>
+        <tr>
+          <th>LEVEL_SUCCESS</th>
+          <td>Success. No additional information.</td>
+        </tr>
+        <tr>
+          <th>LEVEL_FATAL</th>
+          <td>Fatal system level error. Software recovery is not possible. Jump to the support center guide sequence.</td>
+        </tr>
+        <tr>
+          <th>LEVEL_RESET</th>
+          <td>Unexpected error. The best course of action is to transition to the reset sequence. Reinitializing the module is not likely to lead to recovery, but it may be possible to recover by resetting.</td>
+        </tr>
+        <tr>
+          <th>LEVEL_REINIT</th>
+          <td>Error that requires the module to be reinitialized.</td>
+        </tr>
+        <tr>
+          <th>LEVEL_USAGE</th>
+          <td>Programming error. Indicates a programming error that always occurs with the argument values that were specified, regardless of the particular internal state of the library.</td>
+        </tr>
+        <tr>
+          <th>LEVEL_PERMANENT</th>
+          <td>Common error. You cannot try again.</td>
+        </tr>
+        <tr>
+          <th>LEVEL_TEMPORARY</th>
+          <td>Temporary failure. You can try again immediately with the same argument. Succeeds if the number of attempts is relatively low.</td>
+        </tr>
+        <tr>
+          <th>LEVEL_STATUS</th>
+          <td>Expected failure.</td>
+        </tr>
+        <tr>
+          <th>LEVEL_END</th>
+          <td>These values are not used.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enumerated type indicating the severity of an error. (Do not use this type for error handling.)</p><p>Avoid using this value directly for error handling.  This value can be used during debugging to understand the content of an error.</p><h3>LEVEL_INFO, LEVEL_SUCCESS</h3><p>The function's processing succeeded.  When there is additional information included, the processing can branch based on each function's reference.</p><p>The definition of a success depends on the function. For example, for a function that confirms the existence of a connection, even when the connection has not yet been made, if the confirmation was a success, <tt>LEVEL_SUCCESS</tt> might be returned.  In such cases, when <tt>result.IsSuccess()</tt> would indicate that connection was successful, you do not end up with the intended process.</p><h3><tt>LEVEL_FATAL</tt></h3><p>In general, this level of error is supplemented internally, and the system is automatically suspended, with a message displayed prompting the user to contact support.</p><p>However, there are errors where the application can continue to play, for example when the camera fails, or even when the device has had a fatal problem.  The error is processed based on the reference of the function in use.</p><h3><tt>LEVEL_RESET</tt></h3><p>Indicates an error for which recovery is possible with a system reset.  The error is processed based on the reference of the function in use.</p><h3><tt>LEVEL_REINIT</tt></h3><p>Indicates an error for which recovery is possible with a module reinitialization.  The error is processed based on the reference of the function in use.</p><h3><tt>LEVEL_USAGE</tt></h3><p>Indicates a bug in the code from which the call was made.  This error can be returned when there is a mistake in the way a function is used or a mistake in an argument. Revise it to the correct way based on the reference.</p><h3><tt>LEVEL_PERMANENT</tt></h3><p>Indicates a bug in the usage from which the call was made.</p><p>Indicates an error that can be resolved without affecting the operations of other applications by revising the calling code.  This error is returned when there is an internal problem that results from mistakes made in the procedures used for a library.</p><h3><tt>LEVEL_TEMPORARY</tt></h3><p>With this error, success is possible on a retry.  The error is processed based on the reference of the function in use.</p><h3><tt>LEVEL_STATUS</tt></h3><p>Indicates an error where processing is necessary based on the value of <tt>Result</tt>.</p><p>The error is processed based on the reference of the function in use.  The system may also detect this automatically and process it as a fatal error.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/04</dt>
+        <dd><item xmlns="">Added that the system may process the <tt>LEVEL_STATUS</tt> result automatically.</item><br />
+        </dd>
+        <dt>2010/10/27</dt>
+        <dd><item xmlns="">Added information about the meanings of the different levels and how they are handled.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

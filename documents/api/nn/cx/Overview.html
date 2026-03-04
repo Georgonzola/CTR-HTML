@@ -1,0 +1,794 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::cx</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::cx Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the data compression and decompression library.</p>CTR-SDK includes the <tt>ctr_compress</tt> tool for Windows that creates the compressed files that the <tt>cx</tt> library handles. For more details, see the <a href="../../../tools/ctr_compress.html" target="_parent">ctr_compress manual</a>.</div>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../nn/cx/UncompContextRL/Overview.html">nn::cx::UncompContextRL</a>
+            </th>
+            <td>The context for decompressing run-length compressed data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/cx/UncompContextLZ/Overview.html">nn::cx::UncompContextLZ</a>
+            </th>
+            <td>The context for decompressing LZ77 compressed data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/cx/UncompContextHuffman/Overview.html">nn::cx::UncompContextHuffman</a>
+            </th>
+            <td>The context for decompressing Huffman compressed data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/cx/UncompContextLH/Overview.html">nn::cx::UncompContextLH</a>
+            </th>
+            <td>The context for decompressing LZ-Huffman compressed data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/cx/UncompContextLRC/Overview.html">nn::cx::UncompContextLRC</a>
+            </th>
+            <td>The context for decompressing LZ-Range Coder compressed data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/cx/UncompContextDeflate/Overview.html">nn::cx::UncompContextDeflate</a>
+            </th>
+            <td>Context for the <code>deflate</code> compression data streaming expansion appended to the <code><a href="../../nn/cx/Overview.html">cx</a></code> common header.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/cx/ErrorCode.html">ErrorCode</a>
+            </th>
+            <td>Enumerates error codes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/cx/CompressionType.html">CompressionType</a>
+            </th>
+            <td>Enumerated type representing compression types.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="typedef" id="typedef">
+      <h2>typedef Definitions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/cx/UncompContextGzip.html">UncompContextGzip</a>
+            </th>
+            <td>Context for <code>deflate</code> compression data streaming decompression for the GZIP format.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/cx/UncompContextZlib.html">UncompContextZlib</a>
+            </th>
+            <td>Context for <code>deflate</code> compression data streaming decompression for the ZLIB format.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="4">Compression</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/SRC_ALIGNMENT_COMPRESS_LZ.html">SRC_ALIGNMENT_COMPRESS_LZ</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the data to compress specified in the <code><a href="../../nn/cx/CompressLZ.html">CompressLZ</a></code> or <code><a href="../../nn/cx/CompressLZEx.html">CompressLZEx</a></code> function must be aligned to. Defined as 2 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/BUFFER_ALIGNMENT_COMPRESS_HUFFMAN.html">BUFFER_ALIGNMENT_COMPRESS_HUFFMAN</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the temporary buffer used for compression specified in the <code><a href="../../nn/cx/CompressHuffman.html">CompressHuffman</a></code> function must be aligned to. Defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/LZ_COMPRESS_WORK_SIZE.html">LZ_COMPRESS_WORK_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>This size is the size of the temporary buffer for compression with <code><a href="../../nn/cx/CompressLZ.html">nn::cx::CompressLZ</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/HUFFMAN_COMPRESS_WORK_SIZE.html">HUFFMAN_COMPRESS_WORK_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>This size is the size of the temporary buffer for compression with <code><a href="../../nn/cx/CompressHuffman.html">nn::cx::CompressHuffman</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/DEFLATE_COMPRESS_WORK_SIZE.html">DEFLATE_COMPRESS_WORK_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the work buffer needed for <code><a href="../../nn/cx/CompressDeflate.html">CompressDeflate</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/GZIP_COMPRESS_WORK_SIZE.html">GZIP_COMPRESS_WORK_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the work buffer needed for <code><a href="../../nn/cx/CompressGzip.html">CompressGzip</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/ZLIB_COMPRESS_WORK_SIZE.html">ZLIB_COMPRESS_WORK_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the work buffer needed for <code><a href="../../nn/cx/CompressZlib.html">CompressZlib</a></code>.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Decompression</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/SRC_ALIGNMENT_UNCOMPRESS_RL.html">SRC_ALIGNMENT_UNCOMPRESS_RL</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the compressed data specified in the <code><a href="../../nn/cx/UncompressRL.html">UncompressRL</a></code> or <code><a href="../../nn/cx/SecureUncompressRL.html">SecureUncompressRL</a></code> function must be aligned to. Defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/SRC_ALIGNMENT_UNCOMPRESS_LZ.html">SRC_ALIGNMENT_UNCOMPRESS_LZ</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the compressed data specified in the <code><a href="../../nn/cx/UncompressLZ.html">UncompressLZ</a></code> or <code><a href="../../nn/cx/SecureUncompressLZ.html">SecureUncompressLZ</a></code> function must be aligned to. Defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/SRC_ALIGNMENT_UNCOMPRESS_HUFFMAN.html">SRC_ALIGNMENT_UNCOMPRESS_HUFFMAN</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the compressed data specified in the <code><a href="../../nn/cx/UncompressHuffman.html">UncompressHuffman</a></code> or <code><a href="../../nn/cx/SecureUncompressHuffman.html">SecureUncompressHuffman</a></code> function must be aligned to. Defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/DST_ALIGNMENT_UNCOMPRESS_HUFFMAN.html">DST_ALIGNMENT_UNCOMPRESS_HUFFMAN</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the decompressed data specified in the <code><a href="../../nn/cx/UncompressHuffman.html">UncompressHuffman</a></code> or <code><a href="../../nn/cx/SecureUncompressHuffman.html">SecureUncompressHuffman</a></code> function must be aligned to. Defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/DST_UNITSIZE_UNCOMPRESS_HUFFMAN.html">DST_UNITSIZE_UNCOMPRESS_HUFFMAN</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the size of the decompressed data specified in the <code><a href="../../nn/cx/UncompressHuffman.html">UncompressHuffman</a></code> or <code><a href="../../nn/cx/SecureUncompressHuffman.html">SecureUncompressHuffman</a></code> function must be a multiple of. Defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/SRC_ALIGNMENT_UNCOMPRESS_LH.html">SRC_ALIGNMENT_UNCOMPRESS_LH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the compressed data specified in the <code><a href="../../nn/cx/UncompressLH.html">UncompressLH</a></code> or <code><a href="../../nn/cx/SecureUncompressLH.html">SecureUncompressLH</a></code> function must be aligned to. Defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/DST_ALIGNMENT_UNCOMPRESS_LH.html">DST_ALIGNMENT_UNCOMPRESS_LH</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the decompressed data specified in the <code><a href="../../nn/cx/UncompressLH.html">UncompressLH</a></code> or <code><a href="../../nn/cx/SecureUncompressLH.html">SecureUncompressLH</a></code> function must be aligned to. Defined as 2 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/SRC_ALIGNMENT_UNCOMPRESS_LRC.html">SRC_ALIGNMENT_UNCOMPRESS_LRC</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the compressed data specified in the <code><a href="../../nn/cx/UncompressLRC.html">UncompressLRC</a></code> or <code><a href="../../nn/cx/SecureUncompressLRC.html">SecureUncompressLRC</a></code> function must be aligned to. Defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/DST_ALIGNMENT_UNCOMPRESS_LRC.html">DST_ALIGNMENT_UNCOMPRESS_LRC</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the decompressed data specified in the <code><a href="../../nn/cx/UncompressLRC.html">UncompressLRC</a></code> or <code><a href="../../nn/cx/SecureUncompressLRC.html">SecureUncompressLRC</a></code> function must be aligned to. Defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/SRC_ALIGNMENT_UNFILTER_DIFF.html">SRC_ALIGNMENT_UNFILTER_DIFF</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the compressed data specified in the <code><a href="../../nn/cx/UnfilterDiff.html">UnfilterDiff</a></code> or <code><a href="../../nn/cx/SecureUnfilterDiff.html">SecureUnfilterDiff</a></code> function must be aligned toe. Defined as 2 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/DST_ALIGNMENT_UNFILTER_DIFF.html">DST_ALIGNMENT_UNFILTER_DIFF</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the decompressed data specified in the <code><a href="../../nn/cx/UnfilterDiff.html">UnfilterDiff</a></code> or <code><a href="../../nn/cx/SecureUnfilterDiff.html">SecureUnfilterDiff</a></code> function must be aligned to. Defined as 2 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/UNCOMPRESS_LH_WORK_SIZE.html">UNCOMPRESS_LH_WORK_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>This size is the size of the temporary buffer for uncompression with <code><a href="../../nn/cx/UncompressLH.html">nn::cx::UncompressLH</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/UNCOMPRESS_LRC_WORK_SIZE.html">UNCOMPRESS_LRC_WORK_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>This size is the size of the temporary buffer for uncompression with <code><a href="../../nn/cx/UncompressLRC.html">nn::cx::UncompressLRC</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/UNCOMPRESS_DEFLATE_WORK_SIZE.html">UNCOMPRESS_DEFLATE_WORK_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the work buffer needed for <code><a href="../../nn/cx/UncompressDeflate.html">UncompressDeflate</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/UNCOMPRESS_GZIP_WORK_SIZE.html">UNCOMPRESS_GZIP_WORK_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the work buffer needed for <code><a href="../../nn/cx/UncompressGzip.html">UncompressGzip</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/cx/UNCOMPRESS_ZLIB_WORK_SIZE.html">UNCOMPRESS_ZLIB_WORK_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the work buffer needed for <code><a href="../../nn/cx/UncompressZlib.html">UncompressZlib</a></code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Compression</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/CompressLZ.html">CompressLZ</a>
+            </th>
+            <td>Carries out LZ77 compression.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/CompressLZEx.html">CompressLZEx</a>
+            </th>
+            <td>Carries out LZ77 compression and expansion.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/CompressRL.html">CompressRL</a>
+            </th>
+            <td>Carries out run-length compression.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/CompressHuffman.html">CompressHuffman</a>
+            </th>
+            <td>Carries out Huffman compression.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/CompressDeflate.html">CompressDeflate</a>
+            </th>
+            <td>Performs deflate compression appended to the <code><a href="../../nn/cx/Overview.html">cx</a></code> common header.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/CompressGzip.html">CompressGzip</a>
+            </th>
+            <td>Performs deflate compression in gzip format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/CompressZlib.html">CompressZlib</a>
+            </th>
+            <td>Performs <code>deflate</code> compression in ZLIB format.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Decompression</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/GetCompressionType.html">GetCompressionType</a>
+            </th>
+            <td>Gets the compression type from the first byte in the compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/GetUncompressedSize.html">GetUncompressedSize</a>
+            </th>
+            <td>Gets the data size after decompression. The following formats are not handled by this function. <br /></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/GetGzipUncompressedSize.html">GetGzipUncompressedSize</a>
+            </th>
+            <td>Gets the size of the <code>deflate</code> compressed data in GZIP format after decompression.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/UncompressAny.html">UncompressAny</a>
+            </th>
+            <td>The compression type is determined from the data header, and the appropriate decompression process is executed. Because they do not have headers, LZ backward compressed files (BLZ) cannot be handled by this API. In addition, LH and LRC files that require a work buffer cannot be handled by this API. This function results in the linkage of the decompression code for all compression types. If you are using only certain compression formats, we recommend using the decompression functions specific to those being used.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/UncompressRL.html">UncompressRL</a>
+            </th>
+            <td>Decompresses run-length compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/UncompressLZ.html">UncompressLZ</a>
+            </th>
+            <td>Decompresses LZ77 compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/UncompressBLZ.html">UncompressBLZ</a>
+            </th>
+            <td>Decompresses LZ backward compressed (BLZ) data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/UncompressHuffman.html">UncompressHuffman</a>
+            </th>
+            <td>Decompresses Huffman compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/UncompressLH.html">UncompressLH</a>
+            </th>
+            <td>Decompresses LZ-Huffman compressed data. The compressed data address must be <code>SRC_ALIGNMENT_UNCOMPRESS_LH</code>-byte aligned (4-byte aligned). The decompressed data address must be <code>DST_ALIGNMENT_UNCOMPRESS_LH</code>-byte aligned (2-byte aligned).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/UncompressLRC.html">UncompressLRC</a>
+            </th>
+            <td>Decompresses LZ-Range Coder compressed data. The compressed data address must be <code>SRC_ALIGNMENT_UNCOMPRESS_LRC</code>-byte aligned (4-byte aligned). The decompressed data address must be <code>DST_ALIGNMENT_UNCOMPRESS_LRC</code>-byte aligned (4-byte aligned).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/UncompressDeflate.html">UncompressDeflate</a>
+            </th>
+            <td>Performs deflate compression data expansion appended to the <code><a href="../../nn/cx/Overview.html">cx</a></code> common header.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/UncompressGzip.html">UncompressGzip</a>
+            </th>
+            <td>Decompresses <code>deflate</code> compressed data in GZIP format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/UncompressZlib.html">UncompressZlib</a>
+            </th>
+            <td>Decompresses <code>deflate</code> compressed data in ZLIB format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/UnfilterDiff.html">UnfilterDiff</a>
+            </th>
+            <td>Restores data converted using a difference filter. The compressed data address must be <code>SRC_ALIGNMENT_UNFILTER_DIFF</code>-byte aligned (4-byte aligned). The decompressed data address must be <code>DST_ALIGNMENT_UNFILTER_DIFF</code>-byte aligned (4-byte aligned).</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Decompression With Error Checking</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/SecureUncompressAny.html">SecureUncompressAny</a>
+            </th>
+            <td>Detects the compression format from the data header and executes the appropriate decompression process while checking for errors. Because they do not have headers, LZ backward compressed files (BLZ files) cannot be handled by this API. In addition, LH and LRC files that require a work buffer cannot be handled by this API. This function results in the linkage of the decompression code for all compression types. If you are using only certain compression formats, we recommend using the decompression functions specific to those being used.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/SecureUncompressRL.html">SecureUncompressRL</a>
+            </th>
+            <td>Decompresses run-length compressed data while checking for errors.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/SecureUncompressLZ.html">SecureUncompressLZ</a>
+            </th>
+            <td>Decompresses LZ77 compressed data while checking for errors.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/SecureUncompressHuffman.html">SecureUncompressHuffman</a>
+            </th>
+            <td>Decompresses Huffman compressed data while checking for errors.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/SecureUncompressLH.html">SecureUncompressLH</a>
+            </th>
+            <td>Decompresses LZ-Huffman compressed data. The compressed data address must be <code>SRC_ALIGNMENT_UNCOMPRESS_LH</code>-byte aligned (4-byte aligned). The decompressed data address must be <code>DST_ALIGNMENT_UNCOMPRESS_LH</code>-byte aligned (2-byte aligned).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/SecureUncompressLRC.html">SecureUncompressLRC</a>
+            </th>
+            <td>Decompresses LZ-Range Coder compressed data. The compressed data address must be <code>SRC_ALIGNMENT_UNCOMPRESS_LRC</code>-byte aligned (4-byte aligned). The decompressed data address must be <code>DST_ALIGNMENT_UNCOMPRESS_LRC</code>-byte aligned (4-byte aligned).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/SecureUnfilterDiff.html">SecureUnfilterDiff</a>
+            </th>
+            <td>Restores data converted using a difference filter. The compressed data address must be <code>SRC_ALIGNMENT_UNFILTER_DIFF</code>-byte aligned (4-byte aligned). The decompressed data address must be <code>DST_ALIGNMENT_UNFILTER_DIFF</code>-byte aligned (4-byte aligned).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/SecureUncompressBLZ.html">SecureUncompressBLZ</a>
+            </th>
+            <td>Runs backward LZ (BLZ) decompression.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Streaming Decompression</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextRL.html">InitUncompContextRL</a>
+            </th>
+            <td>Initializes the streaming decompression context for run-length compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextLZ.html">InitUncompContextLZ</a>
+            </th>
+            <td>Initializes the streaming decompression context for LZ77 compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextHuffman.html">InitUncompContextHuffman</a>
+            </th>
+            <td>Initializes the streaming decompression context for Huffman compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextLH.html">InitUncompContextLH</a>
+            </th>
+            <td>Initializes the streaming decompression context for LZ-Huffman compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextLRC.html">InitUncompContextLRC</a>
+            </th>
+            <td>Initializes the streaming decompression context for LZ-Range Coder compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextDeflate.html">InitUncompContextDeflate</a>
+            </th>
+            <td>Initializes the streaming decompression context for the <code>deflate</code> compression data appended to the <code><a href="../../nn/cx/Overview.html">cx</a></code> common header.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextGzip.html">InitUncompContextGzip</a>
+            </th>
+            <td>Initializes the streaming decompression context for <code>deflate</code> compressed data in the GZIP format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextZlib.html">InitUncompContextZlib</a>
+            </th>
+            <td>Initializes the streaming decompression context for <code>deflate</code> compressed data in the ZLIB format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/ReadUncompRL.html">ReadUncompRL</a>
+            </th>
+            <td>Streaming decompression of run-length compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/ReadUncompLZ.html">ReadUncompLZ</a>
+            </th>
+            <td>Streaming decompression of LZ77 compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/ReadUncompHuffman.html">ReadUncompHuffman</a>
+            </th>
+            <td>Streaming decompression of Huffman compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/ReadUncompLH.html">ReadUncompLH</a>
+            </th>
+            <td>Streaming decompression of LZ-Huffman compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/ReadUncompLRC.html">ReadUncompLRC</a>
+            </th>
+            <td>Streaming decompression of LZ-Range Coder compressed data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/ReadUncompDeflate.html">ReadUncompDeflate</a>
+            </th>
+            <td>Performs streaming decompression of <code>deflate</code> compression data appended to the <code><a href="../../nn/cx/Overview.html">cx</a></code> common header.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/ReadUncompGzip.html">ReadUncompGzip</a>
+            </th>
+            <td>Streaming decompression of <code>deflate</code> compressed data in GZIP format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/ReadUncompZlib.html">ReadUncompZlib</a>
+            </th>
+            <td>Streaming decompression of <code>deflate</code> compressed data in ZLIB format.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/IsFinishedUncomp.html">IsFinishedUncomp</a>
+            </th>
+            <td>Determines whether the streaming decompression of compressed data is finished.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextRLFront.html">InitUncompContextRLFront</a>
+            </th>
+            <td>Initializes the streaming decompression context for run-length compressed data to the specified decompressed size.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextLZFront.html">InitUncompContextLZFront</a>
+            </th>
+            <td>Initializes the streaming decompression context for LZ77 compressed data to the specified decompressed size.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextHuffmanFront.html">InitUncompContextHuffmanFront</a>
+            </th>
+            <td>Initializes the streaming decompression context for Huffman compressed data to the specified size.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextLHFront.html">InitUncompContextLHFront</a>
+            </th>
+            <td>Initializes the streaming decompression context for LZ-Huffman compressed data to the specified decompressed size.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/cx/InitUncompContextLRCFront.html">InitUncompContextLRCFront</a>
+            </th>
+            <td>Initializes the streaming decompression context for LZ-Range Coder compressed data to the specified decompressed size.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/06/13</dt>
+        <dd><item xmlns="">Added information about the <tt>ctr_compress</tt> manual.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

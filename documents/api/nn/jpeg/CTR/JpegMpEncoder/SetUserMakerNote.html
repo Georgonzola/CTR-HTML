@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetUserMakerNote</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a>::SetUserMakerNote Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+void SetUserMakerNote(
+     const <a href="../../../../nn_types/u8.html">u8</a> * pBuffer,
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Specifies the data to embed. <br />
+ Specify <code>NULL</code> to clear the value.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the size in bytes of the data to embed. <br />
+ Specify <code>0</code> to clear this value.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Registers various pieces of data to embed in the Maker Note part of a JPEG file.</p><p>To get embedded data, first decode the image or extract its EXIF information, and then call the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastUserMakerNotePointer.html">JpegMpDecoder::GetLastUserMakerNotePointer</a></code> and <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastUserMakerNoteSize.html">JpegMpDecoder::GetLastUserMakerNoteSize</a></code> functions.</p><p><itemizedlist><listitem><para>The maximum size of data that can be registered in the Maker Note depends on the overall size of the APP1 segment. <br />
+ The Maker Note is included in the EXIF data and therefore only represents a part of the APP1 segment, and this APP1 segment can only handle sizes up to <code>0xFFFF</code>. <br />
+ As a result, the size of data that can be embedded in the Maker Note depends on the size of the thumbnail and other data in the APP1 region. <br />
+ (As a guideline, we recommend that when you use 640x480 images with attached thumbnails, and encode with YUV422 format and 90 quality. Keep the MakerNote to a size leading to a total no greater than 0xE000 bytes.) </para></listitem></itemizedlist></p><p>Call this function before calling the encoding function. Do not destroy the data to embed until after the encoding function completes. <br />
+ The values specified by this function are cleared after the encoding function completes, regardless of whether the encoding function succeeded or failed. When encoding multiple times, you must call this function before each encoding function call. The values specified by this function are also cleared if you specify <code>NULL</code> for the <emphasis>pBuffer</emphasis> argument, if you specify <code>0</code> for the <emphasis>size</emphasis> parameter, or if you reinitialize the encoder object using the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Initialize.html">Initialize</a></code> function.</p><p>Any data can  be embedded in the Maker Note.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/05/30</dt>
+        <dd><item xmlns="">Added mention of data can be embedded.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetRtcAlarm</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/ptm/Overview.html">ptm</a>::<a href="../../../nn/ptm/CTR/Overview.html">CTR</a>::SetRtcAlarm Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> SetRtcAlarm(
+     <a href="../../../nn/fnd/DateTime/Overview.html">nn::fnd::DateTime</a> datetime
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>datetime</th>
+          <td>Specifies an alarm time</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotRegistered</th>
+          <td>The <code><a href="../../../nn/ptm/CTR/RegisterAlarmEvent.html">nn::ptm::CTR::RegisterAlarmEvent</a></code> function has not been called.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidAlarm</th>
+          <td>The specified date is not in the valid range.</td>
+        </tr>
+        <tr>
+          <th>ResultOverWriteAlarm</th>
+          <td>The alarm has already been set.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets an alarm.</p><p>Specify the time you want to send notification of the alarm; when that time comes, the events registered by <tt><a href="../../../nn/ptm/CTR/RegisterAlarmEvent.html">nn::ptm::CTR::RegisterAlarmEvent</a></tt> are signaled.</p><p>You can specify any time between 2000/01/01 and 2099/12/31.</p><p>Sometimes, there is as much as a one-minute delay past the specified time before the event is signaled.  Alternatively, the event is sometimes signaled several seconds (roughly 3 seconds) before the specified time.</p><p>If you specify a time that has already passed, the event is signaled immediately.</p><p>If the alarm has already been set, the function returns <tt><span>nn::ptm::CTR::ResultOverWriteAlarm</span></tt>.  The alarm is set successfully even in this case.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/01/19</dt>
+        <dd><item xmlns="">Revised the explanation of return values.</item><br />
+        </dd>
+        <dt>2010/12/03</dt>
+        <dd><item xmlns="">Added information about alarm accuracy.</item><br />
+        </dd>
+        <dt>2010/09/18</dt>
+        <dd><item xmlns="">Added restrictions on times for which the alarm can be set.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

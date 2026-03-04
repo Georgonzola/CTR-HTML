@@ -1,0 +1,408 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::hid::CTR::GyroscopeReader</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::GyroscopeReader Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class GyroscopeReader : private <a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable< GyroscopeReader ></a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for loading sampling data from the gyro sensor.</p><h3>Sampling Rate</h3><p>Samples the angular velocity of the gyro sensor an average of every 10 milliseconds. <BR /> If you want to monitor the exact timing of sampling, you can use the <tt><a href="../../../../nn/hid/CTR/Gyroscope/Overview.html">Gyroscope</a></tt> class to know precisely when sampling occurs. <BR /></p><h3>Output Value Details</h3>This class stores sampling results in a <tt><a href="../../../../nn/hid/CTR/GyroscopeStatus/Overview.html">GyroscopeStatus</a></tt> structure. This structure contains not just the angular velocity, but also attitude information calculated from the angular velocity.  Because attitude is calculated when the <tt><a href="../../../../nn/hid/CTR/GyroscopeReader/Read.html">Read</a></tt> or <tt><a href="../../../../nn/hid/CTR/GyroscopeReader/ReadLatest.html">ReadLatest</a></tt> function is called, one of these functions must be called regularly (ideally in every frame).  Data stored in the internal buffer can become discontinuous, resulting in less accurate attitude information, if too much time elapses between calls to either of these functions.<h3>Conditions to Start Sampling</h3><p>The gyro sensor halts sampling and transitions to sleep in two cases: when the system itself is in Sleep Mode, and when there are no instances of the <tt>GyroscopeReader</tt> class anywhere in the application. <BR /> To explicitly stop sampling you must destroy all instances. <BR /><BR /> It takes up to approximately 160 milliseconds for the sensor to transition from sleep to the active state where sampling is possible. <BR /> No sampling is done during this transition time, and calls to the <tt><a href="../../../../nn/hid/CTR/GyroscopeReader/Read.html">Read</a></tt> and <tt><a href="../../../../nn/hid/CTR/GyroscopeReader/ReadLatest.html">ReadLatest</a></tt> functions do not yield valid results.  To be sure to obtain sampling results, we recommend using the <tt><a href="../../../../nn/hid/CTR/Gyroscope/Overview.html">Gyroscope</a></tt> function in the <tt><a href="../../../../nn/hid/CTR/HidBase/WaitSampling.html">nn::hid::CTR::HidBase::WaitSampling</a></tt> class to wait until sampling has been performed at least once.  Starting from the second instance, this sampling wait time is the same as the wait until the next sample, which is a maximum of approximately 10 milliseconds.<BR /></p><h3>Creating/Destroying Instances and Power-Supply Control</h3><p>As mentioned, creating or destroying instances serves as a trigger to switch the gyro sensor between the sleeping and active states. <BR /> Frequent switching places a load on the device and results in more wear and tear on the device and higher power consumption. <BR /> Try as much as possible to use the same instance throughout intervals where you are using gyro sensor output values, and avoid frequently creating or destroying instances. <BR /> Below is an example of <i>what to avoid</i>.</p><pre>
+   void GetGyroscopeValue(f32* x,f32* y,f32* z)
+   {
+      GyroscopeReader reader;	// Instance created: device is activated.
+      GyroscopeStatus status;
+
+      reader.ReadLatest( &status );     // Get value.
+      *x = status.speed.x;
+      *y = status.speed.y;
+      *z = status.speed.z;
+      
+      return;                   // "reader" destroyed: device enters Sleep Mode.
+   }
+   
+   void MainLoop() // Loop called once per frame.
+   {
+       ... some sort of processing ...
+       GetGyroscopeValue( &x, &y, &z );  //Value obtained once in every frame.
+       
+       ... some sort of processing ...
+   }
+   </pre><p>In the bad example above, an instance of <tt>GyroscopeReader</tt> is created and destroyed on the stack in every frame. It is impossible to get appropriate values because the gyro sensor has not met the launch time to go from Sleep Mode to active mode.  The design should be revised, for example by creating the instance in the heap, so that the instance continues to exist during the period when the application needs to get the angular velocity.</p><h3>Correction Processing</h3><p>This class includes the following correction processing for getting information more accurately.<BR /><table><tr><th>Acceleration Correction</th><td>Uses the accelerometer to improve the accuracy of CTR attitude calculations.</td></tr><tr><th>Zero-Point Drift Correction</th><td>The gyro sensor's zero point can drift due to environmental factors. <br /> This correction automatically detects zero-point drift and adjusts angular velocity values accordingly.</td></tr></table><br /> All correction processes are enabled by default, but can be configured or disabled as necessary.  For details, see the various API references.</p><h3>Output Value Processing Features</h3><p>This class includes the following features to process output values.<BR /><table><tr><th>Zero-Point Play Tolerance</th><td>Sampling results within an optional radius from the zero point are output as the zero point. <br /> Use this when you want to ignore small movements.</td></tr><tr><th>Axial Rotation</th><td>Outputs sampling results multiplied by an optional rotation matrix. <br /> Use this to output gyro sensor values that mimic a tilt.</td></tr></table><BR /> All processing features are disabled by default. Configure and enable them as needed.  For details, see the various API references.</p><h3>Axis Orientation</h3><p>The default gyro sensor axes are as follows.<BR /><table><tr><th>X+</th><td>A clockwise rotation about the direction indicated by the Left Button on the +Control Pad.</td></tr><tr><th>Y+</th><td>A clockwise rotation about the direction normal to and outward from the Touch Screen.</td></tr><tr><th>Z+</th><td>A clockwise rotation about the direction indicated by the Up Button on the +Control Pad.</td></tr></table></p><h3>Recalibration of Accelerometer from HOME Menu</h3><p>A future update to the HOME Menu will add a feature enabling users to recalibrate the accelerometer whenever they like. <br /><br /> As a result, correction in accordance with the user's environment may start while the user is transitioned from the application to the HOME Menu using the HOME Button. <br /> After this operation, the values obtained by the <tt><a href="../../../../nn/hid/CTR/GyroscopeReader/Read.html">Read</a></tt> and <tt><a href="../../../../nn/hid/CTR/GyroscopeReader/ReadLatest.html">ReadLatest</a></tt> functions are the corrected values. In most cases, the corrected values accurately reflect the user's environment. <br /><br /> The application, however, does not need to take any special measures to deal with this.</p><h3>Miscellaneous Notes</h3><p>This class maintains an internal instance of <tt><a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">AccelerometerReader</a></tt> for acceleration correction, so generating an instance of this class activates the accelerometer.</p></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/hid/CTR/GyroscopeReader/MAX_READ_NUM.html">MAX_READ_NUM</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s8.html">s8</a></td>
+            <td>The maximum number of data samples that can be read.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Constructors/Destructors</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/GyroscopeReader.html">GyroscopeReader</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/~GyroscopeReader.html">~GyroscopeReader</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Reading Sampling Data</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/Read.html">Read</a>
+            </th>
+            <td>Loads sampling data from the gyro sensor, starting with the most recent data. Does not load any data that has been previously loaded.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/ReadLatest.html">ReadLatest</a>
+            </th>
+            <td>Loads the most recent sampling data from the gyro sensor. Unlike the <code><a href="../../../../nn/hid/CTR/GyroscopeReader/Read.html">Read</a></code> function, this function can load the same sampling data more than once.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Reset</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/Reset.html">Reset</a>
+            </th>
+            <td>Initializes internal settings.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Output Value Settings</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/SetAngle.html">SetAngle</a>
+            </th>
+            <td>Resets to an arbitrary value the angle member of the <code><a href="../../../../nn/hid/CTR/GyroscopeStatus/Overview.html">GyroscopeStatus</a></code> Structure (obtained by the <code><a href="../../../../nn/hid/CTR/GyroscopeReader/Read.html">Read</a></code> and <code><a href="../../../../nn/hid/CTR/GyroscopeReader/ReadLatest.html">ReadLatest</a></code> functions).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/SetDirection.html">SetDirection</a>
+            </th>
+            <td>Resets to an arbitrary value the direction member of the <code><a href="../../../../nn/hid/CTR/GyroscopeStatus/Overview.html">GyroscopeStatus</a></code> Structure (obtained by the <code><a href="../../../../nn/hid/CTR/GyroscopeReader/Read.html">Read</a></code> and <code><a href="../../../../nn/hid/CTR/GyroscopeReader/ReadLatest.html">ReadLatest</a></code> functions).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/SetAngleMagnification.html">SetAngleMagnification</a>
+            </th>
+            <td>Sets individual scaling factors to apply for each axis when calculating angular velocity.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/SetDirectionMagnification.html">SetDirectionMagnification</a>
+            </th>
+            <td>Sets the scaling factor to apply to the angular velocity used when calculating the direction member of the <code><a href="../../../../nn/hid/CTR/GyroscopeStatus/Overview.html">GyroscopeStatus</a></code> structure, which is obtained by the <code><a href="../../../../nn/hid/CTR/GyroscopeReader/Read.html">Read</a></code> and <code><a href="../../../../nn/hid/CTR/GyroscopeReader/ReadLatest.html">ReadLatest</a></code> functions.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Zero-Point Play Tolerance</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/EnableZeroPlay.html">EnableZeroPlay</a>
+            </th>
+            <td>Enables zero-point play tolerance.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/DisableZeroPlay.html">DisableZeroPlay</a>
+            </th>
+            <td>Disables the zero-point play tolerance.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/IsEnableZeroPlay.html">IsEnableZeroPlay</a>
+            </th>
+            <td>Checks whether zero-point play tolerance is enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/GetZeroPlayEffect.html">GetZeroPlayEffect</a>
+            </th>
+            <td>Gets the strength of correction applied by the zero-point play tolerance.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/SetZeroPlayParam.html">SetZeroPlayParam</a>
+            </th>
+            <td>Sets the zero-point (at-rest) play tolerance.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/GetZeroPlayParam.html">GetZeroPlayParam</a>
+            </th>
+            <td>Gets the zero-point play tolerance.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/ResetZeroPlayParam.html">ResetZeroPlayParam</a>
+            </th>
+            <td>Initializes the zero-point play tolerance.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Zero-Point Drift Correction</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/EnableZeroDrift.html">EnableZeroDrift</a>
+            </th>
+            <td>Enables zero-point drift correction.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/DisableZeroDrift.html">DisableZeroDrift</a>
+            </th>
+            <td>Disables zero-point drift correction.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/IsEnableZeroDrift.html">IsEnableZeroDrift</a>
+            </th>
+            <td>Checks whether zero-point drift correction is enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/GetZeroDriftEffect.html">GetZeroDriftEffect</a>
+            </th>
+            <td>Gets the strength of zero-point drift correction.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/ResetZeroDriftMode.html">ResetZeroDriftMode</a>
+            </th>
+            <td>Initializes the zero-point drift correction mode.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/SetZeroDriftMode.html">SetZeroDriftMode</a>
+            </th>
+            <td>Sets the zero-point drift correction mode.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/GetZeroDriftMode.html">GetZeroDriftMode</a>
+            </th>
+            <td>Gets the zero-point drift correction mode.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Acceleration Correction</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/EnableAccRevise.html">EnableAccRevise</a>
+            </th>
+            <td>Enables acceleration correction.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/DisableAccRevise.html">DisableAccRevise</a>
+            </th>
+            <td>Disables acceleration correction.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/IsEnableAccRevise.html">IsEnableAccRevise</a>
+            </th>
+            <td>Checks whether acceleration correction is enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/GetAccReviseEffect.html">GetAccReviseEffect</a>
+            </th>
+            <td>Gets the strength of acceleration correction.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/SetAccReviseParam.html">SetAccReviseParam</a>
+            </th>
+            <td>Sets the weight and enabled range for acceleration correction.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/GetAccReviseParam.html">GetAccReviseParam</a>
+            </th>
+            <td>Gets the weight and enabled range for acceleration correction.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/ResetAccReviseParam.html">ResetAccReviseParam</a>
+            </th>
+            <td>Initializes the weight and enabled range for acceleration correction.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Axial Rotation</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/EnableAxisRotation.html">EnableAxisRotation</a>
+            </th>
+            <td>Enables axial rotation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/DisableAxisRotation.html">DisableAxisRotation</a>
+            </th>
+            <td>Disables axial rotation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/IsEnableAxisRotation.html">IsEnableAxisRotation</a>
+            </th>
+            <td>Checks whether axial rotation is enabled or disabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/SetAxisRotationMatrix.html">SetAxisRotationMatrix</a>
+            </th>
+            <td>Sets the rotation matrix used for axial rotation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/GetAxisRotationMatrix.html">GetAxisRotationMatrix</a>
+            </th>
+            <td>Gets the rotation matrix used for axial rotation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/GyroscopeReader/ResetAxisRotationMatrix.html">ResetAxisRotationMatrix</a>
+            </th>
+            <td>Initializes the rotation matrix used for axial rotation. When this function is called, the rotation matrix is set to a <code><a href="../../../../nn/math/MTX34/Overview.html">nn::math::MTX34</a></code> identity matrix. This setting is equivalent to disabling axial rotation.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<b>nn::hid::CTR::GyroscopeReader</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/06</dt>
+        <dd><item xmlns="">Noted you cannot get values using the example of what not to do.</item><br />
+        </dd>
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Added text about creation and destruction of instances.</item><br />
+        </dd>
+        <dt>2011/03/15</dt>
+        <dd><item xmlns="">Explained the possibility of accelerometer recalibration from the HOME Menu.</item><br />
+        </dd>
+        <dt>2010/12/06</dt>
+        <dd><item xmlns="">Added explanation of conditions under which sampling stops.</item><br />
+        </dd>
+        <dt>2010/10/20</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

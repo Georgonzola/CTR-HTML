@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Create</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fnd/Overview.html">fnd</a>::<a href="../../../nn/fnd/ExpHeapTemplate/Overview.html">ExpHeapTemplate</a>::Create Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../nn/fnd/ExpHeapTemplate/Overview.html">ExpHeapTemplate</a> * Create(
+     <a href="../../../nn/fnd/HeapBase/Overview.html">HeapBase</a> * parent,
+     void * addr,
+     size_t size,
+     <a href="../../../nn_types/bit32.html">bit32</a> option = 0,
+     <a href="../../../nn_types/bit32.html">bit32</a> placement = HEAP_INFOPLACEMENT_HEAD
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>parent</th>
+          <td>Specifies the parent heap whose region contains <emphasis>addr</emphasis>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>addr</th>
+          <td>The starting address of the memory block to be allocated to the heap.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>The size of the memory block to be allocated to the heap.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>option</th>
+          <td>Specifies the options.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>placement</th>
+          <td>Specifies the location where the management region (<code>ExpHeap</code> object) is located.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates an extended heap within a parent heap.</p><p>Heaps that are created with this function must be destroyed using <code><a href="../../../nn/fnd/HeapBase/Destroy.html">HeapBase::Destroy</a></code>.</p><p>The actual <code>ExpHeap</code> object is created within the region defined by the values specified for the <emphasis>addr</emphasis> and <emphasis>size</emphasis> parameters. The actual size allocated to the heap is the size of the specified region minus <code>sizeof(ExpHeap)</code>.</p><p>Use the <emphasis>placement</emphasis> parameter to specify where the <code>ExpHeap</code> object is placed. If you specify <code>HEAP_INFOPLACEMENT_HEAD</code> for <emphasis>placement</emphasis>, the actual <code>ExpHeap</code> object is placed at the start of the region (in other words, the region that starts at <emphasis>addr</emphasis> and ends at <emphasis>addr</emphasis><code>Sizeof(ExpHeap)</code>. If you specify <code>HEAP_INFOPLACEMENT_TAIL</code> for <emphasis>placement</emphasis>, the actual <code>ExpHeap</code> object is placed at the end of the region (in other words, the region that starts at <emphasis>addr</emphasis><code>+</code><emphasis>size</emphasis><code>-sizeof(ExpHeap)</code> and ends at <emphasis>addr</emphasis><code>+</code><emphasis>size</emphasis>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/08</dt>
+        <dd><item xmlns="">Added the placement argument, which is used to specify where to place the management region.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

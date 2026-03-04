@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::ServiceItemCatalogFilter</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::ServiceItemCatalogFilter Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ServiceItemCatalogFilter : public nn::ec::CTR::detail::CatalogFilterImpl&lt;ServiceItemCatalogFilter&gt;</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Filter for using <code><a href="../../../../nn/ec/CTR/ServiceItemCatalog/Overview.html">ServiceItemCatalog</a></code> to search for <code><a href="../../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a></code> objects.</p><p>Search by passing this class to the <code><a href="../../../../nn/ec/CTR/ServiceItemCatalog/Retrieve.html">ServiceItemCatalog::Retrieve</a></code> function to filter the <code><a href="../../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a></code> search results.</p></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/ServiceItemCatalogFilter.html">ServiceItemCatalogFilter</a>
+            </th>
+            <td>Constructor for configuring a buffer for the filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/SetReturnAttributes.html">SetReturnAttributes</a>
+            </th>
+            <td>Configures the attribute name for the attribute value to get. Call the <code><a href="../../../../nn/ec/CTR/ServiceItemCatalog/Retrieve.html">ServiceItemCatalog::Retrieve</a></code> function using the filter configured with the attribute names to get the attribute values corresponding to the attribute names of matching <code><a href="../../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a></code> objects. Use the <code><a href="../../../../nn/ec/CTR/ServiceItem/GetAttributeByName.html">ServiceItem::GetAttributeByName</a></code> function to access the retrieved attribute value. You can specify multiple attribute names in an array. <code><a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/Overview.html">ServiceItemCatalogFilter</a></code> only maintains references to the configured attribute name array and does not copy it, so be sure not to destroy this array until you are done using the configured filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/SetAttributeFilters.html">SetAttributeFilters</a>
+            </th>
+            <td>Configures the attribute filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/SetTitleFilters.html">SetTitleFilters</a>
+            </th>
+            <td>Configures the title filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/SetSelectionFilter.html">SetSelectionFilter</a>
+            </th>
+            <td>Sets the search range. Specify <code>SELECTION_FILTER_PURCHASABLE</code> to only search content sets that are currently available for purchase. <code>SELECTION_FILTER_PURCHASABLE</code> is used as the default even if this function has not been called. Specify <code>SELECTION_FILTER_ALL</code> to search all items, including those that are not currently available for purchase such as those that have not yet come on sale, and those that are no longer being sold. Specify this value when you want to show a user items that will be for sale in future, or when you want to get information for items no longer for sale but that the user might want to download again.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy">nn::ec::CTR::detail::CatalogFilterImpl<br />&nbsp;&nbsp;<b>nn::ec::CTR::ServiceItemCatalogFilter</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

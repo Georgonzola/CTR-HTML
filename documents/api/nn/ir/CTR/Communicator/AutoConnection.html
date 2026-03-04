@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>AutoConnection</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ir/Overview.html">ir</a>::<a href="../../../../nn/ir/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ir/CTR/Communicator/Overview.html">Communicator</a>::AutoConnection Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">Result</a> AutoConnection();
+
+static <a href="../../../../nn/Result/Overview.html">Result</a> AutoConnection(
+     <a href="../../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> sendReplyDelay,
+     <a href="../../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> waitRequestMin,
+     <a href="../../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> waitRequestMax,
+     <a href="../../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> waitReplyMin,
+     <a href="../../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> waitReplyMax
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./AutoConnection(0).html">AutoConnection (  ) </a>
+          </td>
+          <td>Tries to make an authenticated connection. This function returns control before the connection is made. This function repeatedly executes the processes described for the <code>WaitConnection</code> and <code>RequireConnection</code> functions while randomly changing the amount of time to wait for a connection request and the amount of time to wait after a request has been sent for a connection reply. These operations are repeated in an attempt to connect to a peer that is performing the same <code>AutoConnection</code> operations on its side. The function runs repeatedly until a connection has been made. If you want to abort the process, therefore, call the <code>Disconnect</code> function. If the connection succeeds, the <code>GetConnectionStatusEvent</code> function signals the success by returning an event. Use <code>GetConnectionRole</code> to determine whether you sent the connection request, or received it when the connection was established. The ranges that define the minimum and maximum times to wait for connection requests and connection replies are defined by <code>DEFAULT_WAIT_REQUEST_MIN</code>, <code>DEFAULT_WAIT_REQUEST_MAX</code>, <code>DEFAULT_WAIT_REPLY_MIN</code>, and <code>DEFAULT_WAIT_REPLY_MAX</code>. The amount of time to delay before making a connection reply is defined by <code>DEFAULT_SEND_REPLY_DELAY</code>. The system always waits after connection authentication. If data has been provided by the <code>Send</code> function, the system sends the data packets after it has received all incoming data and then waits again. If the size of the region used to save incoming and outgoing packets&#8212;as passed to the <code>Initialize</code> function&#8212;is smaller than the size defined by <code>NECESSARY_BUFFER_SIZE_FOR_CONNECTION</code>, or if the size of the region used to manage packets is smaller than <code>GetManagementSize(1)</code>, the connection cannot be authenticated and this function fails.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./AutoConnection(1).html">AutoConnection ( nn::fnd::TimeSpan, nn::fnd::TimeSpan, nn::fnd::TimeSpan, nn::fnd::TimeSpan, nn::fnd::TimeSpan ) </a>
+          </td>
+          <td>Tries to make an authenticated connection. This function can specify ranges of minimum and maximum times to wait for connection requests and connection replies. It can also specify an amount of time to delay before sending a connection reply. When specifying the amount of time to wait for a connection request, specify a value that is larger than the time it takes to receive <code>CONNECTION_REQUEST_PACKET_SIZE</code> of data at the current baud rate. If you specify a shorter time, the system may time out before the connection request packet has been received and the connection will not be accepted. For the same reason, when specifying the amount of time to wait for a connection request, specify a value that is larger than the time it takes to receive <code>CONNECTION_REPLY_PACKET_SIZE</code> of data. If you specify a small value, such as <code>0</code>, for the wait time, the processing load is very heavy. Take care to not unintentionally specify a small value.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of AutoConnection (  ) </h2>
+    <div class="section"><!-- write here --></div>
+    <h2>Description of AutoConnection ( nn::fnd::TimeSpan, nn::fnd::TimeSpan, nn::fnd::TimeSpan, nn::fnd::TimeSpan, nn::fnd::TimeSpan ) </h2>
+    <div class="section"><!-- write here --></div>
+  </body>
+</html>

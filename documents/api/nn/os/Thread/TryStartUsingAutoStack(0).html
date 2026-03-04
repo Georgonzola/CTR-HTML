@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>TryStartUsingAutoStack</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/Thread/Overview.html">Thread</a>::TryStartUsingAutoStack Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+<a href="../../../nn/Result/Overview.html">nn::Result</a> TryStartUsingAutoStack(
+     void(*)() f,
+     size_t stackSize,
+     <a href="../../../nn_types/s32.html">s32</a> priority = DEFAULT_THREAD_PRIORITY,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_USE_PROCESS_VALUE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>f</th>
+          <td>Pointer to the function to begin running.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>stackSize</th>
+          <td>The stack size.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>priority</th>
+          <td>Priority of the thread.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>coreNo</th>
+          <td>Preferred processor for the thread.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Tries to initialize and run a thread.</p><p>Initializes and runs a thread, but returns an error when it fails because of a lack of resources, or for some other reason.</p></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../nn/os/Thread/StartUsingAutoStack.html">StartUsingAutoStack</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/09/01</dt>
+        <dd><item xmlns="">Deleted the note about specifying a preferred processor.</item><br />
+        </dd>
+        <dt>2011/06/22</dt>
+        <dd><item xmlns="">Added a note about specifying a preferred processor.</item><br />
+        </dd>
+        <dt>2010/03/28</dt>
+        <dd><item xmlns="">Clarified the restrictions on the stackSize argument.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

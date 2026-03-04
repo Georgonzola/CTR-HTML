@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>VerifySaveDataSecureValueLoosely</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::VerifySaveDataSecureValueLoosely Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool VerifySaveDataSecureValueLoosely(
+     <a href="../../nn_types/bit64.html">bit64</a> value
+);
+
+<a href="../../nn/Result/Overview.html">Result</a> VerifySaveDataSecureValueLoosely(
+     bool * pOut,
+     const char * archiveName,
+     <a href="../../nn_types/bit64.html">bit64</a> value
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./VerifySaveDataSecureValueLoosely(0).html">VerifySaveDataSecureValueLoosely ( bit64 ) </a>
+          </td>
+          <td>This function verifies a secure value stored in the secure region for use with the loose save data rollback prevention feature.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./VerifySaveDataSecureValueLoosely(1).html">VerifySaveDataSecureValueLoosely ( bool *, const char *, bit64 ) </a>
+          </td>
+          <td>Verifies a masked value stored in a secure region for use with the save data rollback prevention feature.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of VerifySaveDataSecureValueLoosely ( bit64 ) </h2>
+    <div class="section"><p>This function verifies that the specified <emphasis>value</emphasis> matches the value stored in the secure region for use with the save data rollback prevention feature. This function compares the values using the rules for loose save data rollback prevention and returns <code>true</code> for systems that have just been repaired.</p><p>You cannot use this function in combination with an overload that takes the <emphasis>mask</emphasis> parameter of the <code><a href="../../nn/fs/SetSaveDataSecureValue.html">SetSaveDataSecureValue</a></code> function. Use this function with overloads that take only the <emphasis>value</emphasis> parameter.</p>For more information, see <a href="./briefing/secureValue.html">Overview of the Save Data Rollback Prevention Feature</a>.</div>
+    <h2>Description of VerifySaveDataSecureValueLoosely ( bool *, const char *, bit64 ) </h2>
+    <div class="section"><p>This function verifies that the value specified with <emphasis>value</emphasis> matches the value in the secure region for use with the save data rollback prevention feature that corresponds with the save data archive specified with <emphasis>archiveName</emphasis>. This function compares the values using the rules for loose save data rollback prevention and returns <code>true</code> for systems that have just been repaired.</p><p>You cannot use this function in combination with an overload that takes the <emphasis>mask</emphasis> parameter of the <code><a href="../../nn/fs/SetSaveDataSecureValue.html">SetSaveDataSecureValue</a></code> function. Use this function with overloads that take only the <emphasis>value</emphasis> parameter.</p>For more information, see <a href="./briefing/secureValue.html">Overview of the Save Data Rollback Prevention Feature</a>.</div>
+  </body>
+</html>

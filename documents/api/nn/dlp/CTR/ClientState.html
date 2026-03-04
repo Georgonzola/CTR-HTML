@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>ClientState</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/dlp/Overview.html">dlp</a>::<a href="../../../nn/dlp/CTR/Overview.html">CTR</a>::ClientState Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum ClientState;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>CLIENT_STATE_INVALID</th>
+          <td>The server could not recognize this state. The client is not initialized.</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_DISCONNECTED_NETWORK</th>
+          <td>The server could not recognize this state. Not connected to the network.</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_SCANNING</th>
+          <td>The server could not recognize this state. Scanning.</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_WAITING_CONNECT</th>
+          <td>The server could not recognize this state. Waiting to connect to the network.</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_WAITING_INVITE</th>
+          <td>Connected to the network. Waiting for the session invite from the server.</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_JOINED_SESSION</th>
+          <td>Joined a session.</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_DOWNLOADING</th>
+          <td>Downloading. This may include cases where no data is being received from the server.</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_DOWNLOAD_COMPLETE</th>
+          <td>Downloading is complete.</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_REBOOTING</th>
+          <td>The server could not recognize this state. After download, waiting for the application's reboot process.</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_ERROR</th>
+          <td>The server could not recognize this state. An error has occurred, and reinitialization must occur. There are three conditions under which a client enters this state: (1) the system enters Sleep Mode or wireless-disabled mode between calls to the <code><a href="../../../nn/dlp/CTR/FakeClient/Initialize.html">FakeClient::Initialize</a></code> and <code><a href="../../../nn/dlp/CTR/FakeClient/Finalize.html">FakeClient::Finalize</a></code> functions, (2) this or another client is disconnected from the server after a download session has started (during the time between <code>CLIENT_STATE_WAITING_INVITE</code> and <code>CLIENT_STATE_REBOOTING</code>), or (3) the client is disconnected by <code>CLIENT_STATE_WAITING_CONNECT</code> (a connection failure).</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_WAITING_ACCEPT</th>
+          <td>The client could not recognize this state. Connected to the network, but waiting for permission from the server to enter the session.</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_CONFIRMING_DOWNLOAD_PROGRESS</th>
+          <td>This status is for system applications. Do not use it. The client could not recognize this state. Confirming download progress.</td>
+        </tr>
+        <tr>
+          <th>CLIENT_STATE_RECONNECTING_NETWORK</th>
+          <td>This status is for system applications. Do not use it. After system download, waiting for the application to reconnect to the network.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Client states.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/03/16</dt>
+        <dd><item xmlns="">Revised the conditions for return of  CLIENT_STATE_ERROR.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

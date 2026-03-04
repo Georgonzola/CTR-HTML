@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetBooleanv</title>
+  </head>
+  <body>
+    <h1>glGetBooleanv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetBooleanv(
+     GLenum pname,
+     GLboolean * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Array storing the retrieved parameters.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets GL parameter settings as <code>GLboolean</code>-type values.</p><P>Set <span class="argument">pname</span> to one of the following values.<TABLE><TR><TH>GL_COLOR_WRITEMASK</TH><TD>Gets the setting that indicates whether color buffer access is enabled. </TD></TR><TR><TH>GL_DEPTH_WRITEMASK</TH><TD>Gets the setting that indicates whether depth buffer access is enabled. </TD></TR><TR><TH>GL_SHADER_COMPILER</TH><TD>Always gets <tt>GL_FALSE</tt>. </TD></TR><TR><TH>GL_COLOR_LOGIC_OP</TH><TD>Gets a value that indicates whether logical operations are enabled for pixels. </TD></TR><TR><TH>GL_BLEND</TH><TD>Gets a value that indicates whether blend features are enabled. </TD></TR><TR><TH>GL_DEPTH_TEST</TH><TD>Gets a value that indicates whether depth tests are enabled. </TD></TR><TR><TH>GL_STENCIL_TEST</TH><TD>Gets a value that indicates whether stencil tests are enabled. </TD></TR><TR><TH>GL_POLYGON_OFFSET_FILL</TH><TD>Gets a value that indicates whether polygon offsets are enabled. </TD></TR><TR><TH>GL_CULL_FACE</TH><TD>Gets a value that indicates whether culling is enabled.</TD></TR></TABLE><!-- source pnameにはGL_COLOR_WRITEMASK、GL_DEPTH_WRITEMASK、GL_SHADER_COMPILER、 GL_COLOR_LOGIC_OP、GL_BLEND、GL_DEPTH_TEST、GL_STENCIL_TEST、GL_SCISSOR_TEST、GL_POLYGON_OFFSET_FILL、GL_CULL_FACEが指定できます。 GL_COLOR_WRITEMASKはカラーバッファのアクセス有効・無効の設定を取得します。 GL_DEPTH_WRITEMASKはデプスバッファのアクセス有効・無効の設定を取得します。 GL_SHADER_COMPILERは常にGL_FALSEを取得します。 GL_COLOR_LOGIC_OPはピクセルの論理演算の有効・無効を取得します。 GL_BLENDはブレンド機能の有効・無効を取得します。 GL_DEPTH_TESTはデプステストの有効・無効を取得します。 GL_STENCIL_TESTはステンシルテストの有効・無効を取得します。 GL_POLYGON_OFFSET_FILLはポリゴンオフセットの有効・無効を取得します。 GL_CULL_FACEはカリングの有効・無効を取得します。 --></P><P>You can also specify any setting that can be obtained by <tt>glGetIntegerv</tt> or <tt>glGetFloatv</tt>, but you will get <tt>GL_FALSE</tt> for any setting that has a value of 0 and <tt>GL_TRUE</tt> for any setting that has a nonzero value.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">pname</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

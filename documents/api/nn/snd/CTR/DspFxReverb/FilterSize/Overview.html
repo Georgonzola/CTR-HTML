@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::snd::CTR::DspFxReverb::FilterSize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/snd/CTR/DspFxReverb/Overview.html">DspFxReverb</a>::FilterSize Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct FilterSize
+{
+   <a href="../../../../../nn_types/u32.html">u32</a> m_Comb0;
+   <a href="../../../../../nn_types/u32.html">u32</a> m_Comb1;
+   <a href="../../../../../nn_types/u32.html">u32</a> m_AllPass;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This structure represents the filter size.</p><p><tt>m_Comb0</tt> and <tt>m_Comb1</tt> represent the size of comb filters used on back-end reverberations (see the description in <tt><a href="../../../../../nn/snd/CTR/DspFxReverb/Param/Overview.html">nn::snd::CTR::DspFxReverb::Param</a></tt> for more information).  The smaller these values, the more sounds with certain frequencies will take on a metallic timbre.  The initial value of <tt>m_Comb0</tt> is 19 * 160, and the initial value of <tt>m_Comb1</tt> is 23 * 160.</p><p><tt>m_AllPass</tt> represents the size (delay length) of the all-pass filter used on back-end reverberations.  The larger this value, the more detailed the back-end reverberations can become.  The initial value is 13 * 160.</p><p>160 has its origin in the number of samples that can be processed in one audio frame (approximately 5 msec).  As for the initial values, such as 19, 23, 13, etc., a value setting that is relatively prime is preferable.  When you do not use a relatively prime value, it becomes easier for cycles to occur in the reverb.</p><p>When you change these values while an effect is executing, there is the possibility that noise will occur.</p><p>Values larger than <tt>0</tt> must be set for <tt>m_Comb0</tt>, <tt>m_Comb1</tt>, and <tt>m_AllPath</tt>.</p></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_Comb0</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u32.html">u32</a></td>
+            <td>Size of comb filter 0. (Default = 19 * 160.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_Comb1</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u32.html">u32</a></td>
+            <td>Size of comb filter 1. (Default = 23 * 160.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">m_AllPass</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u32.html">u32</a></td>
+            <td>Coefficient for the full band pass filter. (Default = 13 * 160.)</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

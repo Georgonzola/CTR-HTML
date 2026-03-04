@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dlp/Overview.html">dlp</a>::<a href="../../../../nn/dlp/CTR/Overview.html">CTR</a>::<a href="../../../../nn/dlp/CTR/FakeClient/Overview.html">FakeClient</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">nn::Result</a> Initialize(
+     <a href="../../../../nn_types/u8.html">u8</a> scanNum,
+     nn::Handle eventHandle,
+     void * pBuffer,
+     const size_t bufferSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>scanNum</th>
+          <td>Specifies the number of child programs that can be received by a single scan request. The maximum value is <code><a href="../../../../nn/dlp/CTR/MAX_SCAN_NUM.html">MAX_SCAN_NUM</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>eventHandle</th>
+          <td>Specifies a handle to the <code><a href="../../../../nn/os/Event/Overview.html">nn::os::Event</a></code> object waiting for a signal from Download Play. Initialize the event in the application. Use the <code><a href="../../../../nn/dlp/CTR/FakeClient/GetEventDesc.html">GetEventDesc</a></code> function to get the event information.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Pointer to the DLP working buffer. Align to a <code>BUFFER_ALIGNMENT</code>-byte boundary (a 4096-byte boundary).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>Specifies the size of the work buffer. Make the size a multiple of <code>BUFFER_UNITSIZE</code> bytes (4096 bytes).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">The following <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values are returned as the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that initialization succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td><emphasis>pBuffer</emphasis> is either <code>NULL</code> or not aligned to 4096 bytes.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfRange</th>
+          <td>Either <emphasis>scanNum</emphasis> or <emphasis>bufferSize</emphasis> is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidHandle</th>
+          <td><emphasis>eventHandle</emphasis> is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyOccupiedWirelessDevice</th>
+          <td>The wireless device is already occupied for another purpose. Exit the other wireless process.</td>
+        </tr>
+        <tr>
+          <th>ResultWirelessOff</th>
+          <td>Communication is impossible. (The system is in Sleep Mode or wireless-disabled mode.)</td>
+        </tr>
+        <tr>
+          <th>ResultInternalError</th>
+          <td>An irrecoverable error occurred internally.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes a fake client.</p><p>For the <emphasis>pBuffer</emphasis> argument, specify a 4096-byte aligned buffer of the size specified by the <code><a href="../../../../nn/dlp/CTR/FakeClient/GetBufferSize.html">GetBufferSize()</a></code> function. Do not use device memory for the buffer. <br />
+ This function might block for a long time. This can happen because communications in the background have been completed and the DLP library has taken control of the communications device. <br />
+ This control of the communications device continues until the <code><a href="../../../../nn/dlp/CTR/FakeClient/Finalize.html">Finalize()</a></code> function is called.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>UploadLookUpTableFloat</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Light/Overview.html">Light</a>::UploadLookUpTableFloat Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nnResult/Overview.html">nnResult</a> UploadLookUpTableFloat(
+     <a href="../../../../nn/gd/CTR/Light/LightLookUpTableUploadId.html">LightLookUpTableUploadId</a> lightLutID,
+     <a href="../../../../nn_types/u32.html">u32</a> lutStartIndex,
+     const <a href="../../../../nn_types/f32.html">f32</a> * valueData,
+     const <a href="../../../../nn_types/f32.html">f32</a> * deltaData,
+     <a href="../../../../nn_types/u32.html">u32</a> dataCount
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>lightLutID</th>
+          <td>Specifies the type of lookup table to set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>lutStartIndex</th>
+          <td>Specifies the index of the lookup table to be set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>valueData</th>
+          <td>Specifies lookup table data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>deltaData</th>
+          <td>Specifies lookup table delta data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dataCount</th>
+          <td>Specifies the number of data items in the lookup table.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for dataValue or dataDelta.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidParameter</th>
+          <td><code>0</code> was specified in dataCount. Alternatively, lightLutID was not <code>LOOKUP_TABLE_UPLOAD_SP</code> or <code>LOOKUP_TABLE_UPLOAD_DA</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfRangeParameter</th>
+          <td>The sum of lutStartIndex + dataCount specifies a value greater than or equal to 256 (the maximum size of a light lookup table.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the lighting lookup table. The floating point value you specify is converted into fixed point data by this function and then sent to the GPU. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</p><p>This function first uses <code><a href="../../../../nn/gd/CTR/LightingStage/Helper/ConvertLookUpTableDataFloatToNative.html">LightingStage::Helper::ConvertLookUpTableDataFloatToNative</a></code> to convert from a float to the specified integer value.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetClamp</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/mic/Overview.html">mic</a>::<a href="../../../nn/mic/CTR/Overview.html">CTR</a>::SetClamp Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> SetClamp(
+     bool enable
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>enable</th>
+          <td>When <code>true</code>, clamping is enabled. (The default is <code>true</code>.)</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures whether microphone data is clamped.</p><p>The ideal is for the full range of microphone data input to be accepted, but in actual practice variations in microphones occur. <br />
+ A microphone's guaranteed input range is defined as the range for which input is guaranteed, regardless of the microphone. <br /></p><p>When this function is called with a <code>true</code> argument, clamping is performed for the value of the microphone's guaranteed input range. <br />
+ Always use clamping to avoid problems that could be caused by differences in microphones. <br /></p><p>When a broader range is necessary, you can disable clamping. <br />
+ Note, however, that , you might not be able to get values outside the microphone's guaranteed input range.</p><p>For the microphone's guaranteed input range based on the sampling type, see the following. <br /><a href="../../../nn/mic/CTR/TYPE_8BIT_GUARANTEED_INPUT_MIN.html">nn::mic::CTR::TYPE_8BIT_GUARANTEED_INPUT_MIN</a><br /><a href="../../../nn/mic/CTR/TYPE_8BIT_GUARANTEED_INPUT_MAX.html">nn::mic::CTR::TYPE_8BIT_GUARANTEED_INPUT_MAX</a><br /><a href="../../../nn/mic/CTR/TYPE_16BIT_GUARANTEED_INPUT_MIN.html">nn::mic::CTR::TYPE_16BIT_GUARANTEED_INPUT_MIN</a><br /><a href="../../../nn/mic/CTR/TYPE_16BIT_GUARANTEED_INPUT_MAX.html">nn::mic::CTR::TYPE_16BIT_GUARANTEED_INPUT_MAX</a><br /><a href="../../../nn/mic/CTR/TYPE_SIGNED_8BIT_GUARANTEED_INPUT_MIN.html">nn::mic::CTR::TYPE_SIGNED_8BIT_GUARANTEED_INPUT_MIN</a><br /><a href="../../../nn/mic/CTR/TYPE_SIGNED_8BIT_GUARANTEED_INPUT_MAX.html">nn::mic::CTR::TYPE_SIGNED_8BIT_GUARANTEED_INPUT_MAX</a><br /><a href="../../../nn/mic/CTR/TYPE_SIGNED_16BIT_GUARANTEED_INPUT_MIN.html">nn::mic::CTR::TYPE_SIGNED_16BIT_GUARANTEED_INPUT_MIN</a><br /><a href="../../../nn/mic/CTR/TYPE_SIGNED_16BIT_GUARANTEED_INPUT_MAX.html">nn::mic::CTR::TYPE_SIGNED_16BIT_GUARANTEED_INPUT_MAX</a><br /></p><p>If sampling is already taking place when this function is called, the setting gets applied from after the current position of writing. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/12/18</dt>
+        <dd><item xmlns="">Revised the description of the return values.</item><br />
+        </dd>
+        <dt>2010/10/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

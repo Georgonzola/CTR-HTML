@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetProgramiv</title>
+  </head>
+  <body>
+    <h1>glGetProgramiv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetProgramiv(
+     GLuint program,
+     GLenum pname,
+     GLint * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>program</th>
+          <td>Program object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Region that stores the retrieved parameter.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a program object parameter.</p><P>Set <span class="argument">program</span> to the program object.</P><P>You can set <span class="argument">pname</span> to the following values.<TABLE><TR><TH>GL_DELETE_STATUS</TH><TD>Gets <tt>GL_TRUE</tt> if the program object is waiting to be deleted and <tt>GL_FALSE</tt> otherwise. A program object in use by <tt>glUseProgram</tt> begins "waiting to be deleted" when <tt>glDeleteProgram</tt> is called on it.</TD></TR><TR><TH>GL_LINK_STATUS</TH><TD>Gets <tt>GL_TRUE</tt> if the program object has been successfully linked by <tt>glLinkProgram</tt> and <tt>GL_FALSE</tt> otherwise.</TD></TR><TR><TH>GL_INFO_LOG_LENGTH</TH><TD>Always gets a value of 0.</TD></TR><TR><TH>GL_ATTACHED_SHADERS</TH><TD>Gets the number of shader objects attached to the program.</TD></TR><TR><TH>GL_ACTIVE_ATTRIBUTES</TH><TD>Gets the number of active vertex attributes in the program.</TD></TR><TR><TH>GL_ACTIVE_ATTRIBUTE_MAX_LENGTH</TH><TD>Gets the number of characters in the name of the longest-named active vertex attribute in the program. A NULL terminator is also included in the character count.</TD></TR><TR><TH>GL_ACTIVE_UNIFORMS</TH><TD>Gets the number of active uniforms in the program.</TD></TR><TR><TH>GL_ACTIVE_UNIFORM_MAX_LENGTH</TH><TD>Gets the number of characters in the name of the longest-named active uniform in the program. A NULL terminator is also included in the character count.</TD></TR></TABLE><!-- source pnameにはGL_DELETE_STATUS、GL_LINK_STATUS、GL_VALIDATE_STATUS、GL_INFO_LOG_LENGTH、 GL_ATTACHED_SHADERS、GL_ACTIVE_ATTRIBUTES、GL_ACTIVE_ATTRIBUTE_MAX_LENGTH、GL_ACTIVE_UNIFORMS、 GL_ACTIVE_UNIFORM_MAX_LENGTHが指定できます。GL_DELETE_STATUSを指定した場合、プログラムオブジェクトが削除待ち状態である場合にGL_TRUEが取得され、それ以外の場合にGL_FALSEが取得されます。 glUseProgramにより使用中となっているプログラムオブジェクトに対し、glDeleteProgramを呼び出すと、削除待ち状態になります。 GL_LINK_STATUSを指定した場合、プログラムオブジェクトがglLinkProgramによりリンクに成功している場合にGL_TRUEが取得され、それ以外の場合にGL_FALSEが取得されます。GL_VALIDATE_STATUSには、DMPGL2.0ではGL_LINK_STATUSと同じ値が取得されます。 GL_INFO_LOG_LENGTHを指定した場合、常に0が取得されます。 GL_ATTACHED_SHADERSを指定した場合、プログラムにアタッチされているシェーダオブジェクトの個数が取得されます。 GL_ACTIVE_ATTRIBUTESを指定した場合、プログラムでアクティブになっている頂点属性の個数が取得されます。 GL_ACTIVE_ATTRIBUTE_MAX_LENGTHを指定した場合、プログラムでアクティブになっている頂点属性のうち最も長い名前の文字数が取得されます。 文字数には終端を示すNULLの数も含まれます。 GL_ACTIVE_UNIFORMSを指定した場合、プログラムでアクティブになっているユニフォームの個数が取得されます。 GL_ACTIVE_UNIFORM_MAX_LENGTHを指定した場合、プログラムでアクティブになっているユニフォームのうち最も長い名前の文字数が取得されます。 文字数には終端を示すNULLの数も含まれます。 --></P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">pname</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">program</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 programに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

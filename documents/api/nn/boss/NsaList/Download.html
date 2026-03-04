@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Download</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/NsaList/Overview.html">NsaList</a>::Download Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Download(
+     const char * bossCode,
+     const char * taskId,
+     const <a href="../../../nn/boss/NsaList/SearchAttributes/Overview.html">SearchAttributes</a> * attributes = NULL,
+     <a href="../../../nn_types/u32.html">u32</a> waitTimeoutSec = <a href="../../../nn/boss/NsaList/NN_BOSS_NSALIST_WAIT_FINISH_TIMEOUT_DEFAULT_SEC.html">NN_BOSS_NSALIST_WAIT_FINISH_TIMEOUT_DEFAULT_SEC</a>,
+     <a href="../../../nn_types/s64.html">s64</a> fileSize = <a href="../../../nn/boss/NsaList/NN_BOSS_NSALIST_MAX_SIZE.html">NN_BOSS_NSALIST_MAX_SIZE</a>
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>bossCode</th>
+          <td>BOSS code of the target task.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>taskId</th>
+          <td><a href="../../../nn/boss/Task/Overview.html">Task</a> ID of the target task.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>attributes</th>
+          <td>Attributes used for NSA searches. (May be omitted when not specifying attributes.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>waitTimeoutSec</th>
+          <td>Timeout for download processes. (The default value is applied if omitted. No timeout is set if <code>0</code> is specified.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>fileSize</th>
+          <td>The size of the NSA list file to create. (The function creates an empty file of this size, and then writes the NSA list to it. If this parameter is omitted, the maximum size of an NSA list (<code><a href="../../../nn/boss/NsaList/NN_BOSS_NSALIST_MAX_SIZE.html">NN_BOSS_NSALIST_MAX_SIZE</a></code>) is set. This function returns the error <code><a href="../../../nn/boss/ResultNSAListDownloadTaskError/Overview.html">ResultNSAListDownloadTaskError</a></code> if the size value is smaller than the downloaded NSA list.&#65289;</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates successful retrieval.</td>
+        </tr>
+        <tr>
+          <th>ResultWaitFinishTaskNotDone</th>
+          <td><a href="../../../nn/boss/Task/Overview.html">Task</a> execution is stopped (<code><span>TASK_STOPPED</span></code> status). This result is returned when downloading the NSA list has been canceled.</td>
+        </tr>
+        <tr>
+          <th>ResultWaitFinishTimeout</th>
+          <td>The <code>WaitFinish</code> function timed out.</td>
+        </tr>
+        <tr>
+          <th>ResultNSAListDownloadTaskError</th>
+          <td>The result of the download task was an error.</td>
+        </tr>
+        <tr>
+          <th>ResultUnexpect</th>
+          <td>An unexpected result code (result code for which an error code is not allocated) is passed.</td>
+        </tr>
+        <tr>
+          <th>ResultIpcNotSessionInitialized</th>
+          <td>Indicates that the session is not initialized. The function returns this <code><a href="../../../nn/Result/Overview.html">Result</a></code> if it is called before <code><a href="../../../nn/boss/Initialize.html">Initialize</a></code> is called. Always call the <code><a href="../../../nn/boss/Initialize.html">Initialize</a></code> function before you use the BOSS library.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Downloads the NSA list.</p><p>When downloading the list, the system country and language settings are automatically embedded in the query string.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/27</dt>
+        <dd><item xmlns="">Added information about the behavior when getting NSA lists.</item><br />
+        </dd>
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

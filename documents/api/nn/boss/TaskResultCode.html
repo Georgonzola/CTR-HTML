@@ -1,0 +1,490 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>TaskResultCode</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/boss/Overview.html">boss</a>::TaskResultCode Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum TaskResultCode;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>TASK_SUCCESS</th>
+          <td><code>0</code>: Returned when the task succeeded, or when there was no issue with task processing itself (including cases when, for example, the task could not be run because the wireless switch was turned off).</td>
+        </tr>
+        <tr>
+          <th>BOSS_ERROR_NOMEM</th>
+          <td><code>1</code>: Dynamic memory allocation failure.</td>
+        </tr>
+        <tr>
+          <th>GET_TASK_RESULT_ERROR</th>
+          <td><code>2</code>: Could not get the task result.</td>
+        </tr>
+        <tr>
+          <th>TASK_NOT_EXIST</th>
+          <td><code>3</code>: The specified task does not exist.</td>
+        </tr>
+        <tr>
+          <th>TASK_CANCELED</th>
+          <td><code>4</code>: The task was canceled.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_NOMEM</th>
+          <td><code>5</code>: Failed to get memory dynamically during HTTP communication.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CREATE_EVENT</th>
+          <td><code>6</code>: Failed to create an internal resource (event) during HTTP communication.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CREATE_MUTEX</th>
+          <td><code>7</code>: Failed to create an internal resource (mutex) during HTTP communication.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CREATE_QUEUE</th>
+          <td><code>8</code>: Failed to create an internal resource (queue) during HTTP communication.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CREATE_THREAD</th>
+          <td><code>9</code>: Failed to create an internal resource (thread) during HTTP communication.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_IPC_SESSION</th>
+          <td><code>10</code>: Invalid IPC session.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CLIENT_PROCESS_MAX</th>
+          <td><code>11</code>: The maximum number of simultaneous client processes are already in use.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_IPC_SESSION_MAX</th>
+          <td><code>12</code>: The maximum number of simultaneous IPC sessions are already connected.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_MSGQ_SEND_LSN</th>
+          <td><code>13</code>: Failed to send data to a listener thread's message queue.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_MSGQ_RECV_LSN</th>
+          <td><code>14</code>: Failed to receive data from a listener thread's message queue.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_MSGQ_SEND_COMM</th>
+          <td><code>15</code>: Failed to receive data from a communication thread's message queue.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CONN_NOMORE</th>
+          <td><code>16</code>: Exceeded the maximum number of connection handles that can be registered.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CONN_STATUS</th>
+          <td><code>17</code>: Invalid connection handle status.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CONN_ADD</th>
+          <td><code>18</code>: Failed to register a connection handle.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CONN_HOST_MAX</th>
+          <td><code>19</code>: Exceeded the maximum number of simultaneous connections to the same host.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_INVALID_URL</th>
+          <td><code>20</code>: Invalid URL.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_RESPONSE_HEADER</th>
+          <td><code>21</code>: Invalid HTTP header.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_NO_NEWLINE</th>
+          <td><code>22</code>: No newline in an HTTP header.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_SSL</th>
+          <td><code>23</code>: SSL authentication error.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CERT_EXIST</th>
+          <td><code>24</code>: An SSL certificate has already been set. (You must delete this before registering it again.)</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_NO_CA_CERT_STORE</th>
+          <td><code>25</code>: A CA certificate store has not been registered for SSL.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_NO_CLIENT_CERT</th>
+          <td><code>26</code>: A client certificate has not been registered for SSL.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CA_CERT_STORE_MAX</th>
+          <td><code>27</code>: The maximum number of simultaneous CA certificate stores per SSL process have already been registered.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CLIENT_CERT_MAX</th>
+          <td><code>28</code>: The maximum number of simultaneous client certificates per SSL process have already been registered.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_FAIL_TO_CREATE_CERT_STORE</th>
+          <td><code>29</code>: Failed to create an SSL certificate store.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_FAIL_TO_CREATE_CLIENT_STORE</th>
+          <td><code>30</code>: Failed to create an SSL client certificate.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_DNS</th>
+          <td><code>31</code>: Failed to resolve the DNS name.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_SEND</th>
+          <td><code>32</code>: Failed to send <a href="../../nn/socket/Overview.html">socket</a> data. (Upon being disconnected from infrastructure communication, for example.)</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_RECV</th>
+          <td><code>33</code>: Failed to receive <a href="../../nn/socket/Overview.html">socket</a> data. (Upon being disconnected from infrastructure communication, for example.)</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_CONNECT</th>
+          <td><code>34</code>: Failed to make a <a href="../../nn/socket/Overview.html">socket</a> connection. (When a server cannot be found, for example.)</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_GET_PROXY_SETTING</th>
+          <td><code>35</code>: Failed to get proxy settings from the device information.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_TIMEOUT</th>
+          <td><code>36</code>: HTTP communication timeout.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_401_UNAUTHORIZED</th>
+          <td><code>37</code>: Received status code 401 Unauthorized.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_403_FORBIDDEN</th>
+          <td><code>38</code>: Received status code 403 Forbidden.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_404_NOT_FOUND</th>
+          <td><code>39</code>: Received status code 404 Not Found.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_408_REQUEST_TIMEOUT</th>
+          <td><code>40</code>: Received status code 408 Request Timeout.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_416_REQUESTED_RANGE_NOT_SATISFABLE</th>
+          <td><code>41</code>: Received status code 416 Requested Range Not Satisfiable.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_500_INTERNAL_SERVER_ERROR</th>
+          <td><code>42</code>: Received status code 500 Internal Server Error.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_502_BAD_GATEWAY</th>
+          <td><code>34</code>: Received status code 502 Bad Gateway.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_503_SERVICE_UNAVAILABLE</th>
+          <td><code>44</code>: Received status code 503 Service Unavailable.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_504_GATEWAY_TIMEOUT</th>
+          <td><code>45</code>: Received status code 504 Gateway Timeout.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_505_VERSION_NOT_SUPPORTED</th>
+          <td><code>46</code>: Received status code 505 Version Not Supported.</td>
+        </tr>
+        <tr>
+          <th>HTTP_ERROR_UNSUPPORTED_STATUS</th>
+          <td><code>47</code>: Received a 1xx, 3xx, 4xx, or 5xx error other than the ones above during HTTP communication.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_FAILED</th>
+          <td><code>48</code>: Error caused by SSL protocol failure. (Such as when validation of a client certificate fails on the server side.)</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_WANT_READ</th>
+          <td><code>49</code>: A <code>Read</code> function has not finished processing while an asynchronous <a href="../../nn/socket/Overview.html">socket</a> is in use by the SSL module. (Please try again.)</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_WANT_WRITE</th>
+          <td><code>50</code>: A <code>Write</code> function has not finished processing while an asynchronous <a href="../../nn/socket/Overview.html">socket</a> is in use by the SSL module. (Please try again.)</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_SYSCALL</th>
+          <td><code>51</code>: An unexpected error was returned by a system function used internally by the SSL module.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_ZERO_RETURN</th>
+          <td><code>52</code>: A value of zero was returned at an unexpected point during <a href="../../nn/socket/Overview.html">socket</a><code>read</code>/<code>write</code> operations within the SSL module.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_WANT_CONNECT</th>
+          <td><code>53</code>: A connection did not complete while asynchronous sockets were used in the SSL module. (Please try again.)</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_SSLID</th>
+          <td><code>54</code>: An internal SSL module error. (Invalid SSLID.)</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_VERIFY_CERT</th>
+          <td><code>55</code>: Server authentication error. Failed to validate a server certificate.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_VERIFY_COMMON_NAME</th>
+          <td><code>56</code>: Server authentication error. The server certificate's <code>CommonName</code> does not match the hostname of the destination server specified by the <code>AssignServer</code> function.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_VERIFY_ROOT_CA</th>
+          <td><code>57</code>: Server authentication error. The server certificate's Root CA certificate does not match the certificate set by <code>Connection</code>.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_VERIFY_CHAIN</th>
+          <td><code>58</code>: Server authentication error. The certificate chain of the server certificate is invalid.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_VERIFY_DATE</th>
+          <td><code>59</code>: Server authentication error. The server certificate has expired.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_GET_SERVER_CERT</th>
+          <td><code>60</code>: Failed to save to the buffer for certificate data. (This occurs when the buffer is smaller than the certificate size given to the <code>DoHandshake</code> function with arguments.)</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_VERIFY_REVOKED_CERT</th>
+          <td><code>61</code>: Server authentication error. The server certificate was found to be registered on the revocation list.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_OUT_OF_MEMORY</th>
+          <td><code>62</code>: The SSL module failed to get memory dynamically.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_SESSION</th>
+          <td><code>63</code>: Invalid IPC session in the SSL module.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_FAIL_TO_CREATE_CERT_STROE</th>
+          <td><code>64</code>: Failed to create a certificate store.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_FAIL_TO_CREATE_CRL_STORE</th>
+          <td><code>65</code>: Failed to create a CRL store.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_FAIL_TO_CREATE_CLIENT_CERT</th>
+          <td><code>66</code>: Failed to create a client certificate.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_CLIENT_PROCESS_MAX</th>
+          <td><code>67</code>: The maximum number of simultaneous client processes are already in use.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_IPC_SESSION</th>
+          <td><code>68</code>: The maximum number of simultaneous IPC sessions are already connected.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_INTERNAL_CERT</th>
+          <td><code>69</code>: Failed to use a built-in certificate.</td>
+        </tr>
+        <tr>
+          <th>SSL_ERROR_INTERNAL_CRL</th>
+          <td><code>70</code>: Failed to use a built-in CRL.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_INVALID_POSITION_BASE</th>
+          <td><code>71</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_ARCHIVE_NOT_FOUND</th>
+          <td><code>72</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_FAILED_OPEN_FILE</th>
+          <td><code>73</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_UNSUPPORTED_OPERATION</th>
+          <td><code>74</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_INVALID_PATH_FORMAT</th>
+          <td><code>75</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_ACCESS_DENIED</th>
+          <td><code>76</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_LIBRARY_NOT_INITIALIZED</th>
+          <td><code>77</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_INVALID_POSITION</th>
+          <td><code>78</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_TOO_LONG_PATH</th>
+          <td><code>79</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_NOT_DEVELOPMENT_ID</th>
+          <td><code>80</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_HASH_MISMATCH</th>
+          <td><code>81</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_NO_SUCH_PROCESS_REGISTERED</th>
+          <td><code>82</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_INVALID_CXI_FORMAT</th>
+          <td><code>83</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_UNSUPPORTED_ALIGNMENT</th>
+          <td><code>84</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_INVALID_HANDLE</th>
+          <td><code>85</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>FS_ERROR_NOT_FOUND</th>
+          <td><code>86</code>: A file system-related error occurred.</td>
+        </tr>
+        <tr>
+          <th>NSA_ERROR_STORAGE_INSUFFICIENCY</th>
+          <td><code>87</code>: Insufficient NSA storage region.</td>
+        </tr>
+        <tr>
+          <th>NSA_ERROR_NUMBER_OF_NSD_MAX</th>
+          <td><code>88</code>: The maximum number of NSD files in the NSA was exceeded.</td>
+        </tr>
+        <tr>
+          <th>NSA_ERROR_VERIFY_HASH</th>
+          <td><code>89</code>: An error has been detected in the NSA INFO hash.</td>
+        </tr>
+        <tr>
+          <th>NSA_ERROR_VERIFY_SIGNATURE</th>
+          <td><code>90</code>: An error has been detected in the NSA INFO signature.</td>
+        </tr>
+        <tr>
+          <th>NSA_NSD_ERROR_VERIFY_HASH</th>
+          <td><code>91</code>: An error has been detected in the NSA INFO hash.</td>
+        </tr>
+        <tr>
+          <th>NSA_NSD_ERROR_VERIFY_SIGNATURE</th>
+          <td><code>92</code>: An error has been detected in the NSD HEADER signature.</td>
+        </tr>
+        <tr>
+          <th>NSA_NSD_ERROR_INVALID_FORMAT</th>
+          <td><code>93</code>: An error has been detected in the NSD format.</td>
+        </tr>
+        <tr>
+          <th>NSA_ERROR_INVALID_FORMAT</th>
+          <td><code>94</code>: An error has been detected in the NSA format.</td>
+        </tr>
+        <tr>
+          <th>SEVERE_ERROR</th>
+          <td><code>95</code>: An unknown error has been detected.</td>
+        </tr>
+        <tr>
+          <th>UNKNOWN_ERROR</th>
+          <td><code>96</code>: An error on the system side has been detected. The ID of the module where the error originated (<code>nnResult::Module</code>) is added to the value of this enumerator and the sum is returned as <code>TaskResultCode</code>.</td>
+        </tr>
+        <tr>
+          <th>FS_UNKNOWN_ERROR</th>
+          <td><code>113</code>: A system-side FS error was detected. By using the <code><a href="../../nn/boss/TaskError/GetProperty.html">nn::boss::TaskError::GetProperty</a></code> function to get the value of <code>TASK_ERROR_CODE</code>, you can check the <code><a href="../../nn/Result/Overview.html">nn::Result</a></code> value returned by the file system.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_DNS</th>
+          <td><code>230</code>: DNS-related error occurred during DataStore communication. This error also occurs when the specified game server ID is invalid.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_PROXY</th>
+          <td><code>231</code>: HTTP proxy-related error occurred during DataStore communication.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_CONNECTION_RESET</th>
+          <td><code>232</code>: DataStore communication was interrupted.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_SERVER_REQUEST_ERROR</th>
+          <td><code>233</code>: Invalid access key specified for DataStore communication.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_TEMPORARY_SERVER_ERROR</th>
+          <td><code>234</code>: A temporary error occurred on the server during DataStore communication.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_PERMANENT_SERVER_ERROR</th>
+          <td><code>235</code>: A permanent error occurred on the server during DataStore communication.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_SERVICE_UNAVAILABLE</th>
+          <td><code>236</code>: The server is temporarily unavailable for DataStore communication, either because it is temporarily overloaded or because it is down for maintenance.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_CONNECTION_UNKNOWN</th>
+          <td><code>237</code>: A communication-related error other than those described above occurred during DataStore communication.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_VALIDATION_ERROR</th>
+          <td><code>238</code>: Invalid account password for DataStore communication.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_INTERNAL_ERROR</th>
+          <td><code>239</code>: An internal error occurred on the client during DataStore communication.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_INVALID_ARGUMENT</th>
+          <td><code>240</code>: Invalid arguments provided for DataStore communication.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_TIMEOUT</th>
+          <td><code>241</code>: DataStore communication timed out.</td>
+        </tr>
+        <tr>
+          <th>DATASTORE_UNKNOWN</th>
+          <td><code>242</code>: An error other than those described above occurred during DataStore communication.</td>
+        </tr>
+        <tr>
+          <th>ERROR_MAX_VALUE</th>
+          <td>(The enumerator used during internal processing. This enumerator cannot be used by applications.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A task's exit state. You can use the <code><a href="../../nn/boss/Task/GetResult.html">Task::GetResult</a></code> function to get these values after a task exits. (The numeric value of each enumerator is shown at the start of its description.)</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/01/15</dt>
+        <dd><item xmlns="">Revised the description of TASK_SUCCESS</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

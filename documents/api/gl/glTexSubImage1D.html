@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glTexSubImage1D</title>
+  </head>
+  <body>
+    <h1>glTexSubImage1D Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glTexSubImage1D(
+     GLenum target,
+     GLint level,
+     GLint xoffset,
+     GLsizei width,
+     GLenum format,
+     GLenum type,
+     const GLvoid * pixels
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Texture target.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>level</th>
+          <td>Mipmap level of the data to load.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>xoffset</th>
+          <td>Number of the first entry you want to overwrite.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Size of entries in the lookup table.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>format</th>
+          <td>Format of the lookup table.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>type</th>
+          <td>The lookup table type.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pixels</th>
+          <td>Pointer to lookup table data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets partial lookup table data.</p><P>You can set <span class="argument">target</span> to <tt>GL_LUT_TEXTUREi_DMP</tt>. Set <tt>i</tt> to a value that is greater than or equal to 0 and is at least one less than the value that can be obtained from <tt>glGetIntegerv</tt> with <tt>GL_MAX_LUT_ENTRIES_DMP</tt> specified.  Specify 0 for <span class="argument">level</span>.  Set <span class="argument">xoffset</span> to the number at which to start replacing entries.  Set <span class="argument">width</span> to the entry size to replace.  Set <span class="argument">format</span> to <tt>GL_LUMINANCEF_DMP</tt>.  Set <span class="argument">type</span> to <tt>GL_FLOAT</tt>.  The sum of <span class="argument">width</span> and <span class="argument">xoffset</span> must not be greater than the value obtained from <tt>glGetIntegerv</tt> with <tt>GL_MAX_LUT_ENTRIES_DMP</tt> specified.  Set <span class="argument">pixels</span> to a pointer to the partial lookup table data.</P><P>Specify 0 for <span class="argument">level</span>.</P><P>Set <span class="argument">xoffset</span> to the number at which to start replacing entries.</P><P>Set <span class="argument">width</span> to the entry size to replace.</P><P>The sum of <span class="argument">width</span> and <span class="argument">xoffset</span> must not be greater than the value obtained from <tt>glGetIntegerv</tt> with <tt>GL_MAX_LUT_ENTRIES_DMP</tt> specified.</P><P>Set <span class="argument">format</span> to <tt>GL_LUMINANCEF_DMP</tt>.</P><P>Set <span class="argument">type</span> to <tt>GL_FLOAT</tt>.</P><P>Set <span class="argument">pixels</span> to a pointer to the partial lookup table data.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span>, <span class="argument">format</span>, or <span class="argument">type</span> arguments were set to an invalid value.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">level</span>, <span class="argument">xoffset</span>, or <span class="argument">width</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>0 was bound to the lookup table texture target specified by <span class="argument">target</span>.</TD></TR></TABLE><!-- source target、format、typeに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 level、xoffset、widthに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 targetで指定した参照テーブルのテクスチャターゲットに0がバインドされている場合エラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

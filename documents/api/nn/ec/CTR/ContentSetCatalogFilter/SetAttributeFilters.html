@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetAttributeFilters</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">ContentSetCatalogFilter</a>::SetAttributeFilters Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">ContentSetCatalogFilter</a> & SetAttributeFilters(
+     const <a href="../../../../nn/ec/CTR/AttributeFilter/Overview.html">AttributeFilter</a> filters[],
+     size_t numFilters
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>filters[]</th>
+          <td>Array of attribute filters to set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numFilters</th>
+          <td>Number of attribute filters to set.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a reference to the filter set for the attribute filter. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures the attribute filter. Call the <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function using the filter set for the attribute filter to get just the <code><a href="../../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code> that matches the attribute filter. For more information about the attribute filter format, see <code><a href="../../../../nn/ec/CTR/AttributeFilter/Overview.html">AttributeFilter</a></code>. You can specify multiple attribute filters in an array. <code><a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">ContentSetCatalogFilter</a></code> only maintains a reference to the configured attribute filter array and does not copy it, so be sure not to destroy the attribute filter array until you are done using the configured filters.</p>
+    </div>
+  </body>
+</html>

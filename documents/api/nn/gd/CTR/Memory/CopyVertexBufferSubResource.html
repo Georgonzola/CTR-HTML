@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CopyVertexBufferSubResource</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a>::CopyVertexBufferSubResource Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CopyVertexBufferSubResource(
+     const VertexBufferResource * source,
+     <a href="../../../../nn_types/u32.html">u32</a> sourceOffset,
+     <a href="../../../../nn_types/u32.html">u32</a> size,
+     const VertexBufferResource * dest,
+     <a href="../../../../nn_types/u32.html">u32</a> destOffset
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>source</th>
+          <td>Specifies a pointer to the source vertex buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>sourceOffset</th>
+          <td>Specifies a transfer start offset. The offset must be smaller than the source vertex buffer size being used.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the transfer size. The size of sourceOffset + size must be equal to or less than the transfer source size.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dest</th>
+          <td>Specifies a pointer to the destination vertex buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>destOffset</th>
+          <td>Specifies the destination offset. The size of destOffset + size must be less than or equal to the destination size.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for source or <code>dest</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidParameter</th>
+          <td>0 was specified in size.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfRangeParameter</th>
+          <td>The offset of the transfer source or transfer destination is invalid.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Copies data from the source vertex buffer to the destination vertex buffer.</p><p>A function with the same functionality as <code>nngxAddBlockImageCopyCommand</code> is called internally. <br />
+ This function adds commands to the command list. For more information, see the Programming Manual.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

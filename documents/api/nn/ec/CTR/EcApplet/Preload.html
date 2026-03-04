@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Preload</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/EcApplet/Overview.html">EcApplet</a>::Preload Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static void Preload();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Preloads the EC <a href="../../../../nn/applet/Overview.html">applet</a>. Preloads the EC <a href="../../../../nn/applet/Overview.html">applet</a> to make it start faster. However, the following cautions are needed. Preloading will not be finished even when returning from this function. Consequently, you must either call the <code><a href="../../../../nn/ec/CTR/EcApplet/WaitForPreload.html">EcApplet::WaitForPreload</a></code> function when calling this function to preload, or use the <code><a href="../../../../nn/ec/CTR/EcApplet/IsRegistered.html">EcApplet::IsRegistered</a></code> function to confirm that preloading is complete before calling any request function. When a library <a href="../../../../nn/applet/Overview.html">applet</a> other than the EC <a href="../../../../nn/applet/Overview.html">applet</a> is preloading, you must cancel that preload before calling this function. You must not terminate the application while an <a href="../../../../nn/applet/Overview.html">applet</a> is in a preloaded state. Call <code><a href="../../../../nn/ec/CTR/EcApplet/CancelPreload.html">EcApplet::CancelPreload</a></code> to cancel the preload before closing the application. After calling the <code>Preload</code> function, the application must not process the HOME Button until the <code>IsRegistered</code> function returns <code>true</code>. Specifically, if the <code>IsExpectedToProcessHomeButton()</code> function returns <code>true</code>, you must call the <code>ClearHomeButtonState()</code> function instead of the <code>ProcessHomeButton()</code> function.</p>
+    </div>
+  </body>
+</html>

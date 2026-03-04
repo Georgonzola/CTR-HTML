@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>EncoderOption</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../nn/jpeg/CTR/Overview.html">CTR</a>::EncoderOption Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum EncoderOption;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>JPEG_ENCODER_OPTION_NONE</th>
+          <td>
+        </td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_OPTION_OMIT_APP1</th>
+          <td>
+        </td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_OPTION_OMIT_DHT</th>
+          <td>
+        </td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Options used when encoding.</p><p>The default value is <code>JPEG_ENCODER_OPTION_NONE</code> (0).</p><p>You can specify values that are the bitwise OR of these constants by using <code><a href="../../../nn/jpeg/CTR/JpegMpEncoder/SetOption.html">JpegMpEncoder::SetOption</a></code>.</p><p><UL> <LI> <code>JPEG_ENCODER_OPTION_NONE</code><br />
+ Equal to 0, you can clear options by specifying this option.</p><p><LI> <code>JPEG_ENCODER_OPTION_OMIT_APP1</code><br />
+ If thumbnails are not attached, APP1 is not recorded. (If thumbnails are to be attached, APP1 is recorded regardless of the options specified.)</p><p><LI> <code>JPEG_ENCODER_OPTION_OMIT_DHT</code><br />
+ DHT (Huffman table) is not recorded. <br />
+ If you are decoding JPEG data for which DHT data is not recorded, you must specify <code>JPEG_DECODER_OPTION_ENABLE_DEFAULT_DHT</code> using<code><a href="../../../nn/jpeg/CTR/JpegMpDecoder/SetOption.html">JpegMpDecoder::SetOption</a></code>. <br />
+ Decoding may not be possible when using a JPEG decoder other than the <code><a href="../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a></code> class. </UL></p><p>The return value of <code><a href="../../../nn/jpeg/CTR/JpegMpEncoder/GetOption.html">JpegMpEncoder::GetOption</a></code> is the bitwise OR of these constants.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetDstBufferSize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::GetDstBufferSize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+static size_t GetDstBufferSize(
+     <a href="../../../../nn_types/u32.html">u32</a> maxWidth,
+     <a href="../../../../nn_types/u32.html">u32</a> maxHeight,
+     <a href="../../../../nn/jpeg/CTR/PixelFormat.html">PixelFormat</a> dstPixelFormat
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>maxWidth</th>
+          <td>Specifies the maximum width (in pixels) of an image that can be decoded (equal to or less than 65536). <br />
+ Specify the maximum decoded width (after shrinking) when shrinking and decoding by using the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoderShrink.html">StartJpegDecoderShrink</a></code> function. <br />
+ If you specify the width of the output image buffer with the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/SetOutputBufferWidth.html">SetOutputBufferWidth</a></code> function, specify a larger value in this function. <br />
+ You can also specify an even larger value.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxHeight</th>
+          <td>Specifies the maximum height (in pixels) of an image that can be decoded (equal to or less than 65536). <br />
+ Specify the maximum decoded height (after shrinking) when shrinking and decoding. <br />
+ You can also specify an even larger value.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstPixelFormat</th>
+          <td>Specifies the pixel format of the stored image. <br />
+ When specifying <code><span>PIXEL_FORMAT_CTR_RGB565_BLOCK8</span></code>, <code><span>PIXEL_FORMAT_CTR_RGB8_BLOCK8</span></code>, or <code><span>PIXEL_FORMAT_CTR_RGBA8_BLOCK8</span></code>, round up the values for <emphasis>maxWidth</emphasis> and <emphasis>maxHeight</emphasis> to the nearest multiple of 8 when calculating the buffer size in bytes. <br />
+ For <code><span>PIXEL_FORMAT_YUYV8</span></code>, round up <emphasis>maxWidth</emphasis> to the nearest multiple of 2 when calculating the buffer size.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the size (in bytes) of the buffer where the decoded results will be stored. <br />
+ Returns <code>0</code> to indicate an error if the arguments are invalid or if the number of bytes exceeds the range defined by the <code>size_t</code> type. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Calculates the number of bytes in the buffer where the decoded JPEG results (one image's worth) will be stored.</p><p>The application must handle the allocation and deallocation of the buffer.</p><p>Depending on the pixel format used to store the data (<emphasis>dstPixelFormat</emphasis>), the buffer image size is sometimes rounded up to a value larger than the maximum allowed decodable image size (<emphasis>maxWidth</emphasis> and <emphasis>maxHeight</emphasis>).</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/04/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

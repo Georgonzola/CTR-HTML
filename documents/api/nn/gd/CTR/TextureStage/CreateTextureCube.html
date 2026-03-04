@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CreateTextureCube</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/TextureStage/Overview.html">TextureStage</a>::CreateTextureCube Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CreateTextureCube(
+     Texture2DResource ** tex2DResources,
+     <a href="../../../../nn/gd/CTR/TextureCubeDescription/Overview.html">TextureCubeDescription</a> * desc,
+     TextureCube ** textureCube
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td />
+          <th>tex2DResources</th>
+          <td>
+            </td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>desc</th>
+          <td>Specifies the parameters of the texture cube.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>textureCube</th>
+          <td>Specifies the address storing the pointer to the created texture cube object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>tex2DResource</th>
+          <td>Specifies a pointer array to the already created <code>Texture2DResource </code> objects for the six faces of a cube. This array must be specified in the following order: (X_POS, X_NEG, Y_POS, Y_NEG, Z_POS, Z_NEG)</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td>Some parameters were set to <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormat</th>
+          <td>The gas texture format has been specified, or the pixel format is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLayout</th>
+          <td>The memory layout is not <code><span>Memory::LAYOUT_BLOCK_8</span></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLocation</th>
+          <td>The resources are not all located in the same memory region (FCRAM, VRAM, and so on).</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureMipLevelIndex</th>
+          <td>The mipmap level is not correct. This result is also returned if the texture is a shadow texture and cannot use mipmap levels. You must specify <code>1</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureResolution</th>
+          <td>The resolution width or height is incorrect. You must specify a power of 2. The maximum size is 1024x1024. This error is also returned if the resolution is a different resource.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLocation</th>
+          <td>The addresses for the resources for the six faces differ among the most-significant 7 bits. The addresses for all six faces must be the same for the most-significant 7 bits.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td><a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a> allocation failed.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a texture cube object from a <code>Texture2DResource</code>.</p><p>The six faces of the texture cube must use <code>Texture2DResource</code> objects that all have the same resolution, pixel format, and mipmap level. In addition, all six faces must fit within a 32-MB boundary. The memory layout must be set to <code><span>Memory::LAYOUT_BLOCK_8</span></code>, and the resolution of each <code>Texture2DResource</code> must define a square.</p><!-- write here --></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../../nn/gd/CTR/Resource/CreateTexture2DResource.html">Resource::CreateTexture2DResource</a> Creates a <code>Texture2DResource</code> resource object.<br /><code><a href="../../../../nn/gd/CTR/Resource/CreateTexture2DResource.html">Resource::CreateTexture2DResource</a></code> to create a <code>Texture2DResource</code> object.<br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

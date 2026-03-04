@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/nfp/Overview.html">nfp</a>::<a href="../../../nn/nfp/CTR/Overview.html">CTR</a>::Initialize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Initialize();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+      <br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Indicates that initialization succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidOperation</th>
+          <td>The library is already initialized.</td>
+        </tr>
+        <tr>
+          <th>ResultNeedRetry</th>
+          <td>Initialization failed. Retrying may succeed.</td>
+        </tr>
+        <tr>
+          <th>ResultIrFunctionError</th>
+          <td>The IrDA module may be malfunctioning. This result can only occur on the <a href="../../../nn/nfp/CTR/Overview.html">CTR</a>. Equivalent to <code><a href="../../../nn/ir/CTR/ResultFatalError/Overview.html">ir::CTR::ResultFatalError</a></code>. <br />
+ Removing the IrDA module from the debugger forcibly triggers it.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Unexpected error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the NFP library.</p><p>This function must be called before using any of the features in the NFP library. Normally initialization finishes within a few hundred milliseconds. When you initialize the NFP library on that system for the first time, however, it can take a maximum of about five seconds because it is necessary to allocate memory to save backup data for NFP tags.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/02/18</dt>
+        <dd><item xmlns="">Added a method to forcibly issue <tt>ResultIrFunctionError</tt>.</item><br />
+        </dd>
+        <dt>2014/08/25</dt>
+        <dd><item xmlns="">Noted that the execution time is longer when Initialize is first called.</item><br />
+        </dd>
+        <dt>2014/07/28</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glBlendEquationSeparate</title>
+  </head>
+  <body>
+    <h1>glBlendEquationSeparate Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glBlendEquationSeparate(
+     GLenum modeRGB,
+     GLenum modeAlpha
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>modeRGB</th>
+          <td>Blending function for the RGB components.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>modeAlpha</th>
+          <td>Blending mode for the alpha component.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the function for the blending feature. Applies different blending functions to the RGB and alpha components.</p><P>You can specify <tt>GL_MIN</tt> or <tt>GL_MAX</tt> in addition to <tt>GL_FUNC_ADD</tt>, <tt>GL_FUNC_SUBTRACT</tt>, and <tt>GL_FUNC_REVERSE_SUBTRACT</tt> from the OpenGL ES 2.0 standard.</P><P>Using Cs as the product of the source color and source blend factor and Cd as the product of the destination color and destination blend factor, the color Cr for the blend result is calculated as follows for each setting.<TABLE><TR><TH>GL_FUNC_ADD</TH><TD>Cr = Cs + Cd</TD></TR><TR><TH>GL_FUNC_SUBTRACT</TH><TD>Cr = Cs - Cd</TD></TR><TR><TH>GL_FUNC_REVERSE_SUBTRACT</TH><TD>Cr = Cd - Cs</TD></TR><TR><TH>GL_MIN</TH><TD>Cr = Cs < Cd ? Cs : Cd</TD></TR><TR><TH>GL_MAX</TH><TD>Cr = Cs > Cd ? Cs : Cd</TD></TR></TABLE><!-- source GL_FUNC_ADDの場合、Cr= Cs + Cd GL_FUNC_SUBTRACTの場合、Cr= Cs - Cd GL_FUNC_REVERSE_SUBTRACTの場合、Cr= Cd - Cs GL_MINの場合、Cr= Cs < Cd ? Cs : Cd GL_MAXの場合、Cr= Cs > Cd ? Cs : Cd --></P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">modeRGB</span> or <span class="argument">modeAlpha</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 modeRGB、modeAlphaに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

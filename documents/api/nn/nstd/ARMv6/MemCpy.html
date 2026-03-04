@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>MemCpy</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/nstd/Overview.html">nstd</a>::<a href="../../../nn/nstd/ARMv6/Overview.html">ARMv6</a>::MemCpy Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void MemCpy(
+     void * dstp,
+     const void * srcp,
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>dstp</th>
+          <td>Copy destination address.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcp</th>
+          <td>Copy source address.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>The number of bytes to copy.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Uses the CPU to perform memory copy.</p><p>When alignment is undefined, this function is faster than <code>std::memcpy</code> because at run time it selects the optimal method based on the alignment of the copy source and destination addresses. For <code>u32*</code> and structures, and in other cases where alignment is determined statically and the copy source and destination addresses are aligned the same, use <code>std::memcpy</code>.</p><p>The copy source region and the copy destination region must not overlap.</p><!-- write here --></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../nn/nstd/ARMv6/MemMove.html">MemMove</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

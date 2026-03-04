@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetAttributeByName</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a>::GetAttributeByName Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+const char * GetAttributeByName(
+     const char * name
+) const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>name</th>
+          <td>NULL-terminated UTF-8 string that specifies the attribute name.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a pointer to a NULL-terminated UTF-8 string that indicates the attribute value. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a content set attribute value. Gets a content set attribute value specified by a NULL-terminated UTF-8 string attribute name. Returns <code>NULL</code> if the specified attribute name is not found. To include an attribute value in <code><a href="../../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code>, you must set an attribute name filter with <code><a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/SetReturnAttributes.html">ContentSetCatalogFilter::SetReturnAttributes</a></code> and then call <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code>. Specifying the set <code><a href="../../../../nn/ec/CTR/AttributeName/Overview.html">AttributeName::name</a></code> in the <emphasis>name</emphasis> parameter of this function enables you to get the attribute value found in search. Note that the pointer to the attribute value is invalidated when the <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Overview.html">ContentSetCatalog</a></code> obtained from the <code><a href="../../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code> is destroyed, or when the <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function is called.</p>
+    </div>
+  </body>
+</html>

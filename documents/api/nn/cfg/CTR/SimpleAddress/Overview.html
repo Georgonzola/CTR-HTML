@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::cfg::CTR::SimpleAddress</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cfg/Overview.html">cfg</a>::<a href="../../../../nn/cfg/CTR/Overview.html">CTR</a>::SimpleAddress Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct SimpleAddress
+{
+   <a href="../../../../nn_types/u32.html">u32</a> id;
+   wchar_t countryName[CFG_SIMPLE_ADDRESS_NUM_LANGUAGES][CFG_SIMPLE_ADDRESS_NAME_LENGTH];
+   wchar_t regionName[CFG_SIMPLE_ADDRESS_NUM_LANGUAGES][CFG_SIMPLE_ADDRESS_NAME_LENGTH];
+   <a href="../../../../nn_types/u16.html">u16</a> latitude;
+   <a href="../../../../nn_types/u16.html">u16</a> longitude;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Stores the user's simple address information configured in the System Settings.</p><p>The size of this structure is at least 4 KB. Be careful not to exhaust the stack if the user's simple address information is placed in the stack. The country and region names in the simple address information retrieved from the <code><a href="../../../../nn/cfg/CTR/GetSimpleAddress.html">nn::cfg::CTR::GetSimpleAddress</a></code> function are guaranteed to be <code>NULL</code> terminated.</p>The country code is stored in the upper 8 bits of <span class="argument">id</span>, and the region code is stored in the following 8 bits. The lower 16 bits are reserved.  The country code is the same value you can get using the <tt><a href="../../../../nn/cfg/CTR/GetCountry.html">nn::cfg::CTR::GetCountry</a></tt> function.  For more information about the region code, see <a href="SimpleAddressIdList.html">SimpleAddressIdList</a>.</div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">id</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>Simple address information ID. For more information, see the <code><a href="../../../../nn/cfg/CTR/SimpleAddressId/Overview.html">nn::cfg::CTR::SimpleAddressId</a></code> structure.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">countryName</span>
+            </th>
+            <td width="100">wchar_t</td>
+            <td>Stores country names in each language.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">regionName</span>
+            </th>
+            <td width="100">wchar_t</td>
+            <td>Stores region names in each language (such as the names of states or prefectures). If a region is not selected, stores "—." If regions cannot be selected for the specified country setting, stores the country name.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">latitude</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>The latitude. Values in the range from <code>0x0000</code> through <code>0x4000</code> represent the range from 0 through +90 degrees. Values from <code>0xC000</code> through <code>0xFFFF</code> represent the range from -90 through -0.005 degrees. Positive angles indicate the northern hemisphere; negative angles indicate the southern hemisphere.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">longitude</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>The longitude. Values from <code>0x0000</code> through <code>0x7FFF</code> represent the range from 0 through +179.995 degrees. Values from <code>0x8000</code> through <code>0xFFFF</code> represent the range from -180 through -0.005 degrees. Positive angles indicate the eastern hemisphere; negative angles indicate the western hemisphere.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/07/28</dt>
+        <dd><item xmlns="">Added a link to the <tt>SimpleAddressId</tt> structure.</item><br />
+        </dd>
+        <dt>2011/12/14</dt>
+        <dd><item xmlns="">Added a link for details about region codes.</item><br /><item xmlns="">Added an explanation of the data stored for region names.</item><br />
+        </dd>
+        <dt>2011/10/19</dt>
+        <dd><item xmlns="">Added information specific to simple address information IDs.</item><br />
+        </dd>
+        <dt>2011/10/11</dt>
+        <dd><item xmlns="">Added a note specific to region names.</item><br />
+        </dd>
+        <dt>2010/05/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

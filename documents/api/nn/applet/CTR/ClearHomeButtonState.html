@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>ClearHomeButtonState</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::ClearHomeButtonState Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void ClearHomeButtonState(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Clears the HOME Button state.</p><!-- write here --><P>This function clears the value obtained by calling the <tt><a href="../../../nn/applet/CTR/GetHomeButtonState.html">nn::applet::CTR::GetHomeButtonState</a></tt> function.  In other words, it sets the state value to <tt>nn::applet::CTR::HOME_BUTTON_NONE</tt>.</P><P>This function also serves to notify the system of the end of exclusive control between the HOME Button transition and the POWER Button or Sleep Mode transitions.</P><P>This function must be called after control returns to the application from the <tt><a href="../../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></tt> function. However, the application does not need to call this function because <tt><a href="../../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></tt> does.</P><P>Call this function when a HOME Button press is detected but not processed while the HOME Button is prohibited (disabled).</P><P>Example:</P><PRE>
+   // HOME Button transition check.
+   if ( applet::IsExpectedToProcessHomeButton() )
+   {
+       // When the HOME Button transition is prohibited (disabled).
+       if ( _is_suppressed_home_button() )
+       {
+          <FONT color="red">applet::ClearHomeButtonState();</FONT> 
+       }
+       else
+       {
+          WaitForStarting();
+          if ( applet::IsExpectedToCloseApplication() )
+          {
+             _close_application();
+          }
+     }
+   }
+</PRE></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

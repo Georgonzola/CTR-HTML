@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetReturnAttributes</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/Overview.html">ServiceItemCatalogFilter</a>::SetReturnAttributes Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/Overview.html">ServiceItemCatalogFilter</a> & SetReturnAttributes(
+     const <a href="../../../../nn/ec/CTR/AttributeName/Overview.html">AttributeName</a> names[],
+     size_t numNames
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>names[]</th>
+          <td>Array of attribute names to configure.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numNames</th>
+          <td>Number of attribute names to configure.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a reference to the filter set for the attribute name. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures the attribute name for the attribute value to get. Call the <code><a href="../../../../nn/ec/CTR/ServiceItemCatalog/Retrieve.html">ServiceItemCatalog::Retrieve</a></code> function using the filter configured with the attribute names to get the attribute values corresponding to the attribute names of matching <code><a href="../../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a></code> objects. Use the <code><a href="../../../../nn/ec/CTR/ServiceItem/GetAttributeByName.html">ServiceItem::GetAttributeByName</a></code> function to access the retrieved attribute value. You can specify multiple attribute names in an array. <code><a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/Overview.html">ServiceItemCatalogFilter</a></code> only maintains references to the configured attribute name array and does not copy it, so be sure not to destroy this array until you are done using the configured filter.</p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

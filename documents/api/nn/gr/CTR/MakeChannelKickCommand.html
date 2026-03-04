@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>MakeChannelKickCommand</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/gr/Overview.html">gr</a>::<a href="../../../nn/gr/CTR/Overview.html">CTR</a>::MakeChannelKickCommand Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/bit32.html">bit32</a> * MakeChannelKickCommand(
+     <a href="../../../nn_types/bit32.html">bit32</a> * command,
+     const <a href="../../../nn/gr/CTR/CommandBufferChannel.html">CommandBufferChannel</a> channel
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>command</th>
+          <td>The start address for storing the rendering command.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>channel</th>
+          <td>The channel number.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the address that follows the end of the stored rendering command. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Adds a kick command to the specified channel.</p><!-- write here --><p>Generates a write command to register <tt>0x23c</tt> for Channel 0, or to register <tt>0x23d</tt> for Channel 1.</p><p>Store these commands at the end of the command buffer.  Because the byte size of the command buffer must be a multiple of 16, you must create dummy write commands ahead of time to adjust the byte size.</p><p>The byte size of commands added by this function is 8 bytes.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/07/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

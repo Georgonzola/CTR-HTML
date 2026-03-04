@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glUniformsDMP</title>
+  </head>
+  <body>
+    <h1>glUniformsDMP Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glUniformsDMP(
+     GLuint n,
+     GLint * locations,
+     GLsizei * counts,
+     const GLuint * value
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>n</th>
+          <td>Number of uniforms to set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>locations</th>
+          <td>Pointer to an array that stores the locations of the n uniforms.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>counts</th>
+          <td>Pointer to an array that stores the elements of n number of uniforms.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>value</th>
+          <td>Pointer to an array that stores the values to set to the uniforms.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets several uniform values at once.</p><P>Sets multiple uniform values at once for the current program.</P><P>Set <span class="argument">n</span> to the number of uniforms to set, and set <span class="argument">locations</span> to a pointer to an array holding <span class="argument">n</span> uniform locations.  Set <span class="argument">counts</span> to a pointer to an array of <span class="argument">n</span> elements holding the uniform elements.  This is equivalent to the <span class="argument">count</span> argument to the <tt>glUniform{1234}fv</tt> function.  For array-type uniforms, specify the number of array elements to set. For non-array uniforms, specify <tt>1</tt>.</P><P>For <span class="argument">value</span>, specify an array of values to set in the uniform. Each uniform may have a different number of data items, so the data stored at any particular index in <span class="argument">value</span> might not match that for <span class="argument">locations</span> and <span class="argument">counts</span>.  The uniforms for the values to set may be mixed <tt>float</tt> and <tt>int</tt> types.  When specifying <tt>float</tt> type uniforms, <tt>float</tt> type data is stored in <span class="argument">value</span> as 32-bit data.</P><P>This function performs no error checking. Functionality is undefined when any of the arguments contains an invalid value.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/04/02</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

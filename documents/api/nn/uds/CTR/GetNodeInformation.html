@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetNodeInformation</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/uds/Overview.html">uds</a>::<a href="../../../nn/uds/CTR/Overview.html">CTR</a>::GetNodeInformation Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> GetNodeInformation(
+     <a href="../../../nn/uds/CTR/NodeInformation/Overview.html">NodeInformation</a> * pNodeInfo,
+     <a href="../../../nn_types/u16.html">u16</a> nodeId
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pNodeInfo</th>
+          <td>Information about the node. In a future implementation, this will be a structure corresponding to the stored data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>nodeId</th>
+          <td>The ID of the target node.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>Indicates that the library is not initialized. Call the <code><a href="../../../nn/uds/CTR/Initialize.html">Initialize</a></code> function.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidNode</th>
+          <td>The target node does not exist on the network. You might be disconnected.</td>
+        </tr>
+        <tr>
+          <th>ResultWirelessOff</th>
+          <td>Indicates that the device entered wireless off mode. Reinitialization is required.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure for other reasons.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets information about the specified node. <br /><br />
+ This function is thread-safe.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/09/07</dt>
+        <dd><item xmlns="">Standardized the notation for wireless-disabled mode.</item><br />
+        </dd>
+        <dt>2011/03/08</dt>
+        <dd><item xmlns="">Added a link to <tt>Initialize</tt> in Return Values.</item><br />
+        </dd>
+        <dt>2010/10/15</dt>
+        <dd><item xmlns="">Expanded the information about the return values.  Changed the members of the <tt>NodeInformation</tt> structure. For more information, see the reference for <tt>NodeInformation</tt>.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

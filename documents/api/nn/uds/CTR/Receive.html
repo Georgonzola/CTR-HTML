@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Receive</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/uds/Overview.html">uds</a>::<a href="../../../nn/uds/CTR/Overview.html">CTR</a>::Receive Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Receive(
+     const <a href="../../../nn/uds/CTR/EndpointDescriptor/Overview.html">EndpointDescriptor</a> & endpointDesc,
+     void * pBuffer,
+     size_t * pReceivedSize,
+     size_t bufferSize,
+     <a href="../../../nn_types/bit8.html">bit8</a> option = 0x00
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>endpointDesc</th>
+          <td>Specifies a <code>descriptor</code> indicating the <code>endpoint</code> to use. The port and sender must be attached in advance using the <code><a href="../../../nn/uds/CTR/Attach.html">Attach</a></code> function.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pBuffer</th>
+          <td>Specifies the location to store received data. Specify a buffer aligned to <emphasis>RECEIVE_DATA_ALIGNMENT</emphasis> (4 bytes).</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pReceivedSize</th>
+          <td>Specifies the size of the received data. The UDS maximum received data size is <code><a href="../../../nn/uds/CTR/UDS_PACKET_PAYLOAD_MAX_SIZE.html">UDS_PACKET_PAYLOAD_MAX_SIZE</a></code> bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>Specifies the size (in bytes) of the receive buffer (<emphasis>pBuffer</emphasis>). The size of the receive buffer must be a multiple of <emphasis>RECEIVE_DATA_UNITSIZE</emphasis> (4 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>option</th>
+          <td>Specifies the receive options. Specifying <code><a href="../../../nn/uds/CTR/NO_WAIT.html">NO_WAIT</a></code> causes the function to return immediately, even if no data has been received. If not specified, the function does not return until either it receives data or an error occurs.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>Indicates that the library is not initialized or the specified <code>endpoint</code> does not exist.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidState</th>
+          <td>Indicates that the function cannot be executed in this state. Returns that it was executed in a state where it was not connected to the network.</td>
+        </tr>
+        <tr>
+          <th>ResultNotAuthorized</th>
+          <td>Indicates that an <code>endpoint</code> that was not attached was specified.</td>
+        </tr>
+        <tr>
+          <th>ResultTooLarge</th>
+          <td>Indicates that the <emphasis>bufferSize</emphasis> was smaller than the received data. The best size is <code><a href="../../../nn/uds/CTR/UDS_PACKET_PAYLOAD_MAX_SIZE.html">UDS_PACKET_PAYLOAD_MAX_SIZE</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfRange</th>
+          <td>Indicates that an argument was outside of the allowed range. The function might succeed if you re-execute with an appropriate value for the argument.</td>
+        </tr>
+        <tr>
+          <th>ResultWirelessOff</th>
+          <td>Indicates that the device entered wireless off mode. Reinitialization is required.</td>
+        </tr>
+        <tr>
+          <th>ResultMisalignedSize</th>
+          <td>Invalid <emphasis>bufferSize</emphasis>. The function might succeed if you re-execute with an appropriate value for the argument.</td>
+        </tr>
+        <tr>
+          <th>ResultMisalignedAddress</th>
+          <td>The value of <emphasis>pBuffer</emphasis> is invalid. The function might succeed if you re-execute with an appropriate value for the argument.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure for other reasons.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>‏Receives data. (No functionality is provided for getting the address of the sender.)</p><p>Other than the parameters, this function is the same as <code><a href="../../../nn/uds/CTR/ReceiveFrom.html">ReceiveFrom</a></code>. For more information, see the <code><a href="../../../nn/uds/CTR/ReceiveFrom.html">ReceiveFrom</a></code> function reference. <br /><br />
+ This function is thread-safe.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2011/09/07</dt>
+        <dd><item xmlns="">Standardized the notation for wireless-disabled mode.</item><br />
+        </dd>
+        <dt>2011/03/08</dt>
+        <dd><item xmlns="">Added a link to <tt>UDS_PACKET_PAYLOAD_MAX_SIZE</tt> in Return Values.</item><br />
+        </dd>
+        <dt>2010/10/15</dt>
+        <dd><item xmlns="">Expanded the information about the return values.</item><br />
+        </dd>
+        <dt>2010/09/24</dt>
+        <dd><item xmlns="">Noted that the buffer specified for <span class="argument">pBuffer</span> must be 4-byte aligned.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

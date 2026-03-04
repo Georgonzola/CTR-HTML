@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glFramebufferRenderbuffer</title>
+  </head>
+  <body>
+    <h1>glFramebufferRenderbuffer Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glFramebufferRenderbuffer(
+     GLenum target,
+     GLenum attachment,
+     GLenum renderbuffertarget,
+     GLuint renderbuffer
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Target framebuffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>attachment</th>
+          <td>The attachment point.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>renderbuffertarget</th>
+          <td>Render buffer target.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>renderbuffer</th>
+          <td>Render buffer object.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Attaches a render buffer to the current framebuffer.</p><P>Set <span class="argument">target</span> to <tt>GL_FRAMEBUFFER</tt>.</P><P>Set <span class="argument">attachment</span> to <tt>GL_COLOR_ATTACHMENT0</tt>, <tt>GL_DEPTH_ATTACHMENT</tt>, or <tt>GL_DEPTH_STENCIL_ATTACHMENT</tt> to attach the render buffer to the color buffer, depth buffer, or depth buffer and stencil buffer, respectively.</P><P>Set <span class="argument">renderbuffertarget</span> to <tt>GL_RENDERBUFFER</tt>.</P><P>Set <span class="argument">renderbuffer</span> to the render buffer object to attach.  Set <span class="argument">renderbuffer</span> to 0 to detach an object.</P><P>From some POD environments, it is not possible to attach a render buffer in the <tt>GL_DEPTH24_STENCIL8_EXT</tt> format to <tt>GL_DEPTH_STENCIL_ATTACHMENT</tt>.  In a situation like this, you must call this function twice: once with <span class="argument">attachment</span> set to <tt>GL_DEPTH_ATTACHMENT</tt> and once with <span class="argument">attachment</span> set to <tt>GL_STENCIL_ATTACHMENT</tt>.  Use <tt>glCheckFramebufferStatus</tt> to determine whether it was attached successfully.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span>, <span class="argument">attachment</span>, or <span class="argument">renderbuffertarget</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>0 is bound to the current framebuffer in POD.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">renderbuffer</span> argument specifies an invalid render buffer object.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">attachment</span> argument is <tt>GL_COLOR_ATTACHMENT0</tt>, but the format of <span class="argument">renderbuffer</span> is not <tt>GL_RGB8_OES</tt>, <tt>GL_RGBA8_OES</tt>, <tt>GL_RGBA4</tt>, <tt>GL_RGB565</tt>, <tt>GL_RGB5_A1</tt>, or <tt>GL_GAS_DMP</tt>.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">attachment</span> argument is <tt>GL_DEPTH_ATTACHMENT</tt>, but the format of <span class="argument">renderbuffer</span> is not <tt>GL_DEPTH_COMPONENT16</tt>, <tt>GL_DEPTH_COMPONENT24_OES</tt>, or <tt>GL_DEPTH24_STENCIL8_EXT</tt>.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">attachment</span> argument is <tt>GL_STENCIL_ATTACHMENT</tt>, but the format of <span class="argument">renderbuffer</span> is not <tt>GL_DEPTH24_STENCIL8_EXT</tt>.</TD></TR></TABLE><!-- source target、attachment、renderbuffertargetに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 PODではカレントのフレームバッファに0がバインドされている場合エラーGL_INVALID_OPERATIONを生成します。 renderbufferが不正なレンダーバッファオブジェクトの場合エラーGL_INVALID_OPERATIONを生成します。 renderbufferのフォーマットがGL_RGB8_OES、GL_RGBA8_OES、GL_RGBA4、GL_RGB565、GL_RGB5_A1、GL_GAS_DMP以外で、 かつattachmentがGL_COLOR_ATTACHMENT0の場合エラーGL_INVALID_OPERATIONを生成します。 renderbufferのフォーマットがGL_DEPTH_COMPONENT16、GL_DEPTH_COMPONENT24_OES、GL_DEPTH24_STENCIL8_EXT以外で、 かつattachmentがGL_DEPTH_ATTACHMENTの場合エラーGL_INVALID_OPERATIONを生成します。 renderbufferのフォーマットがGL_DEPTH24_STENCIL8_EXT以外で、 かつattachmentがGL_STENCIL_ATTACHMENTの場合エラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

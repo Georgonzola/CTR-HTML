@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Retrieve</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/ServiceItemCatalog/Overview.html">ServiceItemCatalog</a>::Retrieve Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a> Retrieve(
+     <a href="../../../../nn_types/u32.html">u32</a> startOffset,
+     size_t numItems,
+     <a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/Overview.html">ServiceItemCatalogFilter</a> & filter
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>startOffset</th>
+          <td>Offset for getting service items from the search results that match the filter.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numItems</th>
+          <td>The number of service items to get.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>filter</th>
+          <td>Filter to use for the search.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. For more information about how to handle <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> objects, see the <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> reference. The results returned by the <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code> function are shown below.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultSessionInvalid</th>
+          <td>Invalid session.</td>
+        </tr>
+        <tr>
+          <th>ResultNewSessionRequired</th>
+          <td>A new session is required.</td>
+        </tr>
+        <tr>
+          <th>ResultCatalogInvalidArgument</th>
+          <td>An invalid filter was set for filter.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfFilterMemory</th>
+          <td>The buffer set in <code><a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/Overview.html">ServiceItemCatalogFilter</a></code> is too small.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfCatalogMemory</th>
+          <td>The buffer configured for the catalog is too small.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfCatalogMemoryError</th>
+          <td>The buffer set in the catalog is too small to hold the search results.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfSystemMemoryError</th>
+          <td>Insufficient system memory.</td>
+        </tr>
+        <tr>
+          <th>ResultAcNotConnectedError</th>
+          <td>Either not connected to the Internet, or the connection was lost.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraNeedsReconnect</th>
+          <td>Infrastructure reconnection requested.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraReportError</th>
+          <td>Infrastructure reported an error.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraReceiveError</th>
+          <td>Failed to receive from the infrastructure connection.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraInvalidResponseError</th>
+          <td>Invalid response from the infrastructure connection.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraNeedsUpdateError</th>
+          <td>Infrastructure updated, so the system must be updated.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraTimeoutError</th>
+          <td>Infrastructure communication timeout.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraBusyError</th>
+          <td>The infrastructure connection is busy.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Searches for service items.</p><p>This function requires an Internet connection because it communicates with the eShop server. When this function is called, it first uses the buffer set by <code><a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/Overview.html">ServiceItemCatalogFilter</a></code> to create a search query for the eShop server. The function returns <code><a href="../../../../nn/ec/CTR/ResultOutOfFilterMemory/Overview.html">ResultOutOfFilterMemory</a></code> if the buffer for creating the search query is too small. Set a larger buffer in the <code><a href="../../../../nn/ec/CTR/ServiceItemCatalogFilter/Overview.html">ServiceItemCatalogFilter</a></code> object.</p><p>The search results returned by the eShop server are extracted temporarily in system memory. The function returns <code><a href="../../../../nn/ec/CTR/ResultOutOfSystemMemoryError/Overview.html">ResultOutOfSystemMemoryError</a></code> if there is not enough system memory for this operation. You can avoid running out of memory by adjusting the number of service items obtained for each call, and calling this function multiple times with the offset specified to search through the service items a few at a time. Use the <code><a href="../../../../nn/ec/CTR/ServiceItemCatalog/GetTotalNumMatched.html">ServiceItemCatalog::GetTotalNumMatched</a></code> function to get the total number of service items that matched the filter. The function next copies the service item information from the search results extracted in system memory to the buffer set in the <code><a href="../../../../nn/ec/CTR/ServiceItemCatalog/ServiceItemCatalog.html">ServiceItemCatalog::ServiceItemCatalog</a></code> constructor.</p><p>The acquired service item information is sorted by ascending order of item code. Only part of the Service Item information is copied if this buffer is too small to hold all of the content set information. Use the <code><a href="../../../../nn/ec/CTR/ServiceItemCatalog/GetNumRetrieved.html">ServiceItemCatalog::GetNumRetrieved</a></code> function to get the number of service items stored in the buffer. The function returns <code><a href="../../../../nn/ec/CTR/ResultOutOfCatalogMemory/Overview.html">ResultOutOfCatalogMemory</a></code> or <code><a href="../../../../nn/ec/CTR/ResultOutOfCatalogMemoryError/Overview.html">ResultOutOfCatalogMemoryError</a></code> if the buffer is too small to hold even one item. Note that applying additions and updates to the items registered to the eShop server can change the service items that match the filter and the service items that can be obtained with one search query. If you do not plan for additions and updates, adding and updating items may not be possible in your application after it is released. To avoid this problem, adequately verify that you can add and update items under the expected conditions of actual operations.</p><p>The other member functions of this class must not be called if this function does not return successfully.</p><p>If this function is called multiple times, the <code><a href="../../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a></code> objects obtained from previous calls are invalidated.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/01/25</dt>
+        <dd><item xmlns="">Fixed an error, replacing <code>ResultOutOfSystemMemory</code> with <code><a href="../../../../nn/ec/CTR/ResultOutOfSystemMemoryError/Overview.html">ResultOutOfSystemMemoryError</a></code> Noted the constructor class used when configuring the buffer. Added a description of the item code ascending order sort for acquired service items.</item><br />
+        </dd>
+        <dt>2012/04/26</dt>
+        <dd><item xmlns="">Noted the importance of verifying the addition and updating of items under assumed actual operation situations.</item><br />
+        </dd>
+        <dt>2011/11/09</dt>
+        <dd><item xmlns="">Added <code><a href="../../../../nn/ec/CTR/ResultNewSessionRequired/Overview.html">ResultNewSessionRequired</a></code> to the results returned by <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code>. Added a note about communication with the eShop server.</item><br />
+        </dd>
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Added a note about the case when the buffer is too small to hold even one item.</item><br />
+        </dd>
+        <dt>2011/10/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

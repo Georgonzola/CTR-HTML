@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+    <title>ECDK: Developing Applications That Support Downloadable Content</title>
+</head>
+<body>
+    <h1>ECDK: Developing Applications That Support Downloadable Content</h1>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#Summary">Overview</a></li>
+      <li><a href="#Attention">Notes</a></li>
+      <li><a href="#DevelopmentFlow">Downloadable Content Development Flow</a></li>
+      <li><a href="#MakeAoc">Creating Downloadable Content</a></li>
+      <li><a href="#ImportAoc">Importing Downloadable Content</a></li>
+      <ul>
+        <li><a href="#LocalImport">Importing Locally</a></li>
+        <li><a href="#OnlineImport">Importing From the eShop Server</a></li>
+        <li><a href="#LocalImportAttention">Cautions When Switching Between Local Development and Development Using the eShop Server</a></li>
+      </ul>
+      <li><a href="#MountContent">Accessing Downloadable Content</a></li>
+      <li><a href="#ManageContents">Managing Downloadable Content</a></li>
+      <li><a href="#ManageRights">Managing Rights to Downloadable Content</a></li>
+      <li><a href="#UpdateContents">Adding and Updating Downloadable Content</a></li>
+      <li><a href="#ViewBalance">Displaying Account Balances</a></li>
+      <li><a href="#ChangeRegion">Notes on Changing Region or Country Settings</a></li>
+      <li><a href="#UseNNA">Notes on Using Nintendo Network Accounts</a></li>
+      <li><a href="#NoContent">Determining Whether Downloadable Content Is Available on the Release Date</a></li>
+      <li><a href="#UseEcApplet">Cautions When Calling the EC Applet</a></li>
+      <li><a href="#Sample">Samples</a></li>
+      <li><a href="#History">Revision History</a></li>
+    </ul>
+
+    <a name="Summary"><h2>Overview</h2></a>
+    <p>
+        This document explains the handling required for downloadable content when developing an application that uses downloadable content.
+    </p>
+
+    <a name="Attention"><h2>Notes</h2></a>
+    <p>
+        <ul>
+            <li>The correct serial number must be written to the CTR system for applications that use the EC library. You can use the Config tool to check the system's serial number. Verify that the serial number matches the serial number printed on the back of the system. If the serial number is not written correctly and the printed serial number starts with EJF, the system can be repaired. Contact Nintendo. Any other serial number is for a prototype system that cannot be repaired.</li>
+            <li>Data titles created with the version of E-Commerce Kit for CTR-SDK 3.2 or later are not compatible with those created with E-Commerce Kit for CTR-SDK 3.1. (Compatible with version 3.2 and later.)<br /> Note that for this reason, the demo data titles on the server have been replaced and some of the 3.1 demo programs will not work. <br /> Also, for the same reason, when independent data titles are already used with 3.1 and you are replacing with SDK 3.2 or later, the data title must be rebuilt and uploaded to the server.</li>
+                <li>The system might freeze if the user removes the SD card while the ES applet is running for a purchase or otherwise.<br /> This issue has been noted in <a href="./../../../../ReleaseNotes/knownIssues.html">Symptoms Due to Design Limitations of Specifications</a> as follows: <B>[FS] Removing a card while it is being accessed may cause a fatal error or cause the system to stop operating</B>.<br /> This freeze is something that applications cannot overcome, so consider this to be an error that your application cannot handle.
+                </li>
+                <li>The development and production shop environments have some differences. <br />For example, the production environment eShop for the Korean region does not allow credit card payments, but the development environment shows the option.</li>
+        </ul>
+    </p>
+
+    <a name="DevelopmentFlow"><h2>Downloadable Content Development Flow</h2></a>
+    <p>
+        The following example shows the workflow when developing for downloadable content.
+    </p>
+
+        <ol>
+            <li>Create the downloadable content data to be accessed from the application.<br /> For more information about how to create downloadable content data, see <a href="#MakeAoc">Creating Downloadable Content</a> and <a href="#DataTitle">Sample Demo for Making a Data Title</a>.</li>
+            <li>Use local import to import the downloadable content to your development machine, and implement a scene that uses the downloadable content.<br /> For more information about importing downloadable content locally, see <a href="#LocalImport">Importing Locally</a>. For more information about how to access downloadable content from the application, see <a href="#MountContent">Accessing Downloadable Content</a> and <a href="#ContentsListUp">Sample Demo for Managing Purchased downloadable Content</a>.</li>
+            <li>Implement a scene where the user can purchase, download, and manage downloadable content.<br /> For more information about how to upload data to the eShop server and how to purchase, download, and manage downloadable content from eShop in an application, see <a href="#OnlineImport">Importing from the eShop Server</a>, the EC library reference documentation, and <a href="#Purchase">Sample Demo for Purchasing and Removing downloadable Content</a>.</li>
+            <li>Verify that downloadable content can be added and updated, so that downloadable content can be added later if it becomes necessary. See <a href="#UpdateContents">Adding and Updating Downloadable Content</a>.</li>
+        </ol>
+
+    <a name="MakeAoc"><h2>Creating Downloadable Content</h2></a>
+    <div class="section">
+        <p>
+            The final step in creating downloadable content is the creation of a data title as a CIA file. For more information, see <a href="./aboutMakingDataTitle.html">How to Create Data Titles</a>.
+        </p>
+    </div>
+
+    <a name="ImportAoc"><h2>Importing Downloadable Content</h2></a>
+    <div class="section">
+        Save the downloadable content to an SD card to use it from an application. Import the downloadable content locally from the DevMenu, or by downloading from the eShop server after you upload your downloadable content to the eShop server.
+    </div>
+        <a name="LocalImport"><h3>Importing Locally</h3></a>
+        <div class="section">
+            Import locally to use content without downloading from a server. Import the data title containing the downloadable content (the CIA file) from the DevMenu. For more information about how to use the DevMenu, see the DevMenu documentation. Check <a href="#LocalImportAttention">Cautions When Switching Between Local Development and Development Using the eShop Server</a> before changing the import method.
+        </div>
+        <a name="OnlineImport"><h3>Importing From the eShop Server</h3></a>
+        <p>
+            Import from the server to use content from the eShop server, much as in a production environment. Upload the downloadable content to the eShop server, and then develop or test the process of downloading the content and using it from your application.
+        </p>
+        <p>
+            For more information about how to upload to the eShop server, see the <I>IMAS Operations Manual</I>, which is distributed separately.
+        </p>
+        <p>
+        Use <CODE><a href="../../../../ctools/EcDevTool.html">EcDevTool</a></CODE> to add any money required for purchases.
+        </p>
+        <p>
+            Check <a href="#LocalImportAttention">Cautions When Switching Between Local Development and Development Using the eShop Server</a> before changing the import method.
+        </p>
+<p>If you are going to revert downloadable content, first delete the license for the downloadable content using <a href="../../../../ctools/EcDevTool.html">EcDevTool</a> on the development hardware to which the content was downloaded. Error 005-5637 is returned if you revert without deleting the license for the downloadable content.</p>
+
+        <a name="LocalImportAttention"><h3>Cautions When Switching Between Local Development and Development Using the eShop Server</h3></a>
+        <p>
+            The handling is different for downloadable content downloaded and imported from the server and for downloadable content imported locally using the DevMenu.
+        </p>
+        <p class="warning">Using both import methods at the same time can result in being unable to access the content.
+        </p>
+        <p>
+        When switching between local development and development on the eShop server, delete the license and data title in advance using <CODE><a href="../../../../ctools/EcDevTool.html">EcDevTool</a></CODE>.
+        </p>
+            
+    <a name="MountContent"><h2>Accessing Downloadable Content</h2></a>
+    <div class="section">
+        Downloadable content is handled as a file archive, just as for <CODE>Romfs</CODE> packages in regular applications. To access imported downloadable content, call the <a href="../../../nn/fs/MountAddOnContent.html">nn::fs::MountAddOnContent</a> function to mount the downloadable content file archive, and then use functions such as <CODE>nn::fs::FileInputStream</CODE> to access the files within the archive. If <CODE>TryRead</CODE> was successful, the loaded data is guaranteed to be correct file data. 
+    </div>
+    <a name="ManageContents"><h2>Managing Downloadable Content</h2></a>
+    <div class="section">
+        You can browse and delete downloadable content from the DevMenu, whether imported locally or from the eShop server.
+    </div>
+
+    <a name="ManageRights"><h2>Managing Rights to Downloadable Content</h2></a>
+    <p>
+        Purchasing downloadable content grants users a permanent right to use that content, allowing users to redownload any purchased content that was deleted locally without having to repurchase that content.
+    </p>
+    <p>
+        Use <CODE><a href="../../../../ctools/EcDevTool.html">EcDevTool</a></CODE> to delete rights to any purchased content.
+    </p>
+    
+    <a name="UpdateContents"><h2>Adding and Updating Downloadable Content</h2></a>
+    <p>
+      If downloadable content will be added and updated to your application after it has been released, you must verify the application under assumed cases of actual operation. If the application does not provide sufficient support for these features, the post-release addition and updating of downloadable content may not be possible. We recommend that you verify your applications under conditions that are as close to actual operations as possible, taking the following points into consideration.
+
+      <ul>
+        <li>Does the application work as expected when the assumed item information is set to the eShop server?</li>
+        <li>Does the application work as expected when the data title is updated in the eShop server?</li>
+        <li>Does the application work as expected when the maximum number of content pieces are registered to the eShop server?</li>
+      </ul>
+
+    </p>
+
+    <a name="ViewBalance"><h2>Displaying Account Balances</h2></a>
+    <p>There is a possibility of the account balance changing even while the application is running, for example if the Theme Shop or another device sharing the same Nintendo Network ID is used.</p>
+    <p>When purchases are made, the correct balance is shown in the EC applet, so the application does not need to show the balance all the time. However, note that the balance can change this way if you plan to show the balance in your application.</p>
+
+    <a name="ChangeRegion"><h2>Notes on Changing Region or Country Settings</h2></a>
+    <p>
+        If you use the <CODE>Config</CODE> tool or System Settings to change the country settings on development hardware, you must also reflect the change in the eShop server account. You can run <CODE><a href="../../../../ctools/EcDevTool.html">EcDevTool</a></CODE> to apply changes to the country setting of the development hardware in the eShop account. It is not possible to purchase content if the country settings of the development hardware and eShop account do not match.
+    </p>
+    <p>
+        Although you can change the region of the development hardware by running the System Updater for each region, you must first delete the eShop account using <CODE><a href="../../../../ctools/EcDevTool.html">EcDevTool</a></CODE>. If you change the region without deleting the eShop account, you cannot connect to the eShop server. If you accidentally become unable to connect to the eShop server, run <CODE><a href="../../../../ctools/EcDevTool.html">EcDevTool</a></CODE> to delete the eShop account.<br /> If you still cannot connect, revert to the original region and then run <CODE><a href="../../../../ctools/EcDevTool.html">EcDevTool</a></CODE> again.
+    </p>
+    
+    <a name="UseNNA"><h2>Notes on Using Nintendo Network Accounts</h2></a>
+    <p>
+        If you register a Nintendo Network account and use the ECDK, the eShop account is managed automatically by the Nintendo Network account.<br /> When this happens, you can no longer use <CODE><a href="../../../../ctools/EcDevTool.html">EcDevTool</a></CODE> to delete licenses and change the country setting.<br />  Delete the eShop account to delete licenses.<br /> To change the country setting, first go to the System Settings and Nintendo Network ID Settings, and then erase the Nintendo Network ID. Then use <CODE><a href="../../../../ctools/EcDevTool.html">EcDevTool</a></CODE>.<br /> For more information, see <CODE><a href="../../../../ctools/EcDevTool.html">EcDevTool</a></CODE>.<br />
+    </p>
+    <p>
+        Because of this restriction, if you do not need a Nintendo Network account for development, we recommend that you develop and debug your application without registering a Nintendo Network account.
+    </p>
+    <p>
+        For more information about the operation of eShop accounts when a Nintendo Network account has been registered, see <I>Nintendo 3DS Overview - E-Commerce</I>.
+    </p>
+
+    <p>If a Nintendo Network ID has been registered to a 3DS system and that system is later initialized or the NNID is deleted, the fate of the license information for downloadable content will differ, depending on whether the October 2014 system update has been applied.</p>
+    <ul>
+        <li>For a 3DS system to which the October 2014 system update has not been applied:</li>
+        <ul>
+            <li>The license information for downloadable content remains, even if the system is initialized and the NNID is deleted.</li>
+        </ul>
+        <li>For a 3DS system to which the October 2014 system update has been applied:</li>
+        <ul>
+            <li>The license information for downloadable content is deleted when the system is initialized or the NNID is deleted.</li>
+        </ul>
+    </ul>
+<p>For more information about service item rights data behavior, see <a href="./aboutEcsvAppDevelopment.html">ECDK: Developing Applications That Support Service Items</a>.</p>
+    
+    <a name="NoContent"><h2>Determining Whether Downloadable Content Is Available on the Release Date</h2></a>
+    <p>
+        If you are not selling downloadable content on the day the application is released, this library provides the following means of notifying the user of that fact within the application.
+    </p>
+    <p>
+        Determine whether downloadable content is available for sale by checking whether the result of calling the <CODE>Session::GetNumPreparedTitles</CODE> function is 0 after the <CODE>EcApplet::RequestInitializeSession</CODE> function succeeds when the data title has not been registered on the server.
+    </p>
+    <p>
+        If the data title is registered on the server, but downloadable content is not available for sale, set <CODE>SELECTION_FILTER_PURCHASABLE</CODE> in the <CODE>ContentSetCatalogFilter</CODE> search range, and make the determination by checking whether the result of the <CODE>ContentSetCatalog::GetTotalNumMatched</CODE> function is 0 after the <CODE>ContentSetCatalog::Retrieve</CODE> function succeeds.
+    </p>
+
+    <a name="UseEcApplet"><h2>Cautions When Calling the EC Applet</h2></a>
+    <h3>Mounting Prohibited</h3>
+    <p>When calling the EC applet or when deleting content (by calling <span>nn::ec::DataTitle::DeleteContents</span>), first unmount all downloadable content and metadata content. If this content is mounted when these operations are performed, content management information cannot be updated. Making a purchase with these items mounted, for example, leaves the purchased content in an unusable state.</p>
+    <p>An error results if they are mounted when the function is called. When calling the applet, do not mount via a separate thread, either.</p>
+    <p>The <span>nn::ec::MetaDataReader::Initialize</span> function automatically mounts metadata content, so be sure to call the <span>MetaDataReader</span> object's <CODE>Finalize</CODE> function before calling the EC applet. Call <span>nn::fs::Unmount</span> to unmount any downloadable content mounted using the <span>nn::fs::MountAddOnContent</span> function.</p>
+    <h3>Cautions for File Streaming</h3>
+    <p>When calling the EC applet, allocate a buffer of sufficient size, in accordance with the file system reference, if you stream any files, such as via a sound thread. During streaming, downloading and writing operations for downloadable content are given lower priority, which causes the import process to take longer.</p>
+
+    <a name="Sample"><h2>Samples</h2></a>
+    <p>
+        Following are samples for downloadable content.
+    </p>
+    <a name="DataTitle"><h3>Sample Demo for Creating a Data Title</h3></a>
+    <div class="section">
+    <dl>
+    <dt><CODE>SampleDemos/ec/DataTitle</CODE></dt>
+    <dd>This demo creates downloadable content and a data title that includes the downloadable content.<br /> Documentation can be found in <CODE>SampleDemos/documents/demos/ec/DataTitle.html</CODE>.
+    </dd>
+    <dt><CODE>SampleDemos/ec/DataTitleRaw</CODE></dt>
+    <dd>This demo creates data titles by using the tools directly.<br /> Documentation can be found in <CODE>SampleDemos/documents/demos/ec/DataTitleRaw.html</CODE>.
+    </dd>
+    </dl>
+    </div>
+    
+    <a name="ContentsListUp"><h3>Sample Demo for Managing Purchased Downloadable Content</h3></a>
+    <div class="section">
+    <dl>
+    <dt><CODE>SampleDemos/ec/ContentsListUp</CODE></dt>
+    <dd>This demo uses the EC library to manage (list, access, delete, and redownload) downloadable content.<br /> Documentation can be found in <CODE>SampleDemos/documents/demos/ec/ContentsListUp.html</CODE>.</dd>
+    </dl>
+    </div>
+    
+    <a name="Purchase"><h3>Sample Demo for Purchasing and Deleting Downloadable Content</h3></a>
+    <div class="section">
+    <dl>
+    <dt><CODE>SampleDemos/ec/Purchase</CODE></dt>
+    <dd>This demo uses the EC library to purchase and delete downloadable content. It also implements a feature for the batch re-downloading of purchased content.<br /> Documentation can be found in <CODE>SampleDemos/documents/demos/ec/Purchase.html</CODE>.</dd>
+    </dl>
+    </div>
+    
+    <a name="EasyRedemption"><h3>Sample Demo That Redeems Download Code</h3></a>
+    <div class="section">
+    <dl>
+    <dt><CODE>SampleDemos/ec/EasyRedemption</CODE></dt>
+    <dd>This demo redeems download code using the EC library by entering a download code directly in the EC applet.<br /> The application only has to make a DLC redemption request to the EC applet, which makes the redemption process very simple.<br /> It also implements a feature for the batch re-downloading of purchased content.<br /> Documentation can be found in <CODE>SampleDemos/documents/demos/ec/EasyRedemption.html</CODE>.</dd>
+    </dl>
+    </div>
+
+    <a name="History"><h2>Revision History</h2></a>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/09/04</dt>
+<dd>Clarified error code that occurs when reverting without deleting the license for the downloadable content in the <B>Importing from the eShop server</B> section.</dd>
+        <dt>2015/01/07</dt>
+          <dd>Added a section to <B>Notes</B> about the differences in the eShop development and production environments. </dd>
+        <dt>2014/12/03</dt>
+          <dd>Added a section to <B>Notes</B> about the system freezing when the SD card is removed.</dd>
+        <dt>2014/10/09</dt>
+<dd>Added the <B>Displaying Account Balances</B> section.</dd>
+        <dt>2014/10/07</dt>
+<dd>Added the <B>Displaying Account Balances</B> section.</dd>
+        <dt>2014/10/03</dt>
+          <dd>Added text to <B>Notes on Using Nintendo Network Accounts</B> about changes in behavior related to license information following the October 2014 system update.</dd>
+        <dt>2014/06/30</dt>
+          <dd>Added to <B>Importing From the eShop Server</B>, noting the need to delete licenses when reverting downloadable content.</dd>
+        <dt>2014/03/27</dt>
+          <dd>Added a description for the <I>Sample Demo That Redeems Download Code</I>.</dd>
+          <dd>Added a batch re-download feature to the description of the Purchase demo.</dd>
+        <dt>2014/02/17</dt>
+          <dd>Revised the notes on Using Nintendo Network Accounts.</dd>
+        <dt>2014/01/18</dt>
+          <dd>In conjunction with the change in documentation name, changed <I>CTR Overview - ECDK</I> to <I>Nintendo 3DS Overview - E-Commerce</I></dd>
+        <dt>2013/11/11</dt>
+          <dd>Changed <CODE>EcCashTool</CODE>, <CODE>EcRightTool</CODE>, and <CODE>EcCountryTool</CODE> to <CODE>EcDevTool</CODE>.</dd>
+          <dd>Added support for Nintendo Network accounts.</dd>
+        <dt>2013/04/03</dt>
+          <dd>Added information about how to determine whether downloadable content is available for sale on an application's release date.</dd>
+          <dd>Revised the information about how to use <CODE>EcRightTool</CODE> when changing regions.</dd>
+        <dt>2013/03/01</dt>
+          <dd>Noted that when <CODE>TryRead</CODE> succeeds on downloadable content, the data loaded is guaranteed to be the correct data for the file.</dd>
+        <dt>2012/04/26</dt>
+          <dd>Added text about verifying the addition and updating of downloadable content.</dd>
+        <dt>2012/03/29</dt>
+          <dd>Changed <I>CTR Downloadable Content Debug Server User Manual</I> to <I>IMAS Operations Manual</I>.</dd>
+        <dt>2011/12/15</dt>
+          <dd>Revised the statement in Cautions When Switching Between Local Development and Development Using the eShop Server.</dd>
+        <dt>2011/10/19</dt>
+          <dd>Added notes on changing region or country settings.</dd>
+        <dt>2011/10/13</dt>
+          <dd>Added a note that the results of creating downloadable content is a CIA file. Added a note that building the demo in <CODE>SampleDemos/ec/DataTitle</CODE> creates downloadable content. Added descriptions of samples.</dd>
+        <dt>2011/09/08</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

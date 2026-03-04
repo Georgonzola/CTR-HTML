@@ -1,0 +1,359 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::cec::CTR::Message</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cec/Overview.html">cec</a>::<a href="../../../../nn/cec/CTR/Overview.html">CTR</a>::Message Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Message</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class that handles CEC <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code> objects.</p><!-- write here --><h3>Parameters Set in Messages</h3>The parameters set in messages placed in the outbox affect the message functionality, such as the search conditions for communication peers. <br /> You can set multiple messages in the outbox, but the parameters set to the first message are the parameters that are used as conditions.  When a message is sent successfully, that message is moved to the end of the queue.<h4><tt>MessageID</tt></h4>Identifies the message. <br /> It is generated and assigned to a message by <tt>MessageBox::WriteMessage</tt> when it writes the message to a box. <br /> Messages are deemed to be identical if they have the same message ID. A box cannot contain multiple instances of the same message. <br /> This value cannot be changed manually.<br /><h4><tt>GroupID</tt></h4>You can place multiple messages in the outbox. <br /> The outbox normally sends messages one at a time, in the order they were stored. <br /> You can send multiple messages simultaneously by assigning them a nonzero <tt>GroupId</tt>. <br /> If the first message in the outbox has a nonzero <tt>GroupId</tt>, any other messages in the outbox with that same group ID are sent together with it. <br /> The total size of the grouped messages must be no more than 100 KB. <br /><br /> You can switch between sending to peers that are friends or non-friends by preparing multiple messages with different <tt>MessageTypeFlag</tt> values and the same <tt>GroupId</tt>.<h4><tt>MessageTypeFlag</tt></h4>The flag for switching messages depending on the recipient peer. <br /> Specify <tt>MESSAGE_TYPEFLAG_ANYONE</tt> to send regardless of whether the peer is a friend. <br /> Specify <tt>MESSAGE_TYPEFLAG_FRIEND</tt> to send only to peers that are registered as friends. <br /> Specify <tt>MESSAGE_TYPEFLAG_NON_FRIEND</tt> to send only to peers that are not registered as friends. <br /> When sending to a StreetPass Relay point, the recipient is handled as a peer not registered as a friend.  Data with <tt>MESSAGE_TYPEFLAG_ANYONE</tt> or <tt>MESSAGE_TYPEFLAG_NON_FRIEND</tt> is sent.<br /><h4><tt>SendMode</tt></h4>The sending mode for messages. <br /><tt>SENDMODE_RECV</tt> : Receive only <br /><tt>SENDMODE_SEND</tt> : Send only <br /><tt>SENDMODE_SENDRECV</tt> : Send and receive <br /><tt>SENDMODE_EXCHANGE</tt> : Exchange <br /><br /> Communication is not performed if the send mode of the message the peer is attempting to send does not match this mode.  <br /> The combinations are as follows. <br /> Receive only: Can communicate when peer is set to "send only" or "send and receive" <br /> Send only: Can communicate when peer is set to "receive only" or "send and receive" <br /> Send and receive: Can communicate when peer is set to "receive only", "send only", or "send and receive" <br /> Exchange: Can communicate when peer is set to "exchange"<br /><h4>Send count.</h4>Specifies the send count. The send count is decremented by one with each send. Data is no longer sent after the count reaches zero. <br /> If you specify <tt>MESSAGE_SENDCOUNT_UNLIMITED</tt> to the send count, this value is not decremented and data is sent repeatedly. <br /> If data does not reach the peer because communications have been interrupted or for another reason, the send count is not decremented. <br /> The message remains in the outbox even after it has been sent and its send count is 0. <br /> When the send count for all messages in an outbox reaches 0, sending from that box stops.<br /><h4>Propagation count.</h4>Specifies the propagation count. <br /> If this value is 2 or higher, the received data is copied to the outbox and sent to a different person. <br /><br /> The send count and propagation count values cannot both be set to greater than 1 at the same time.</div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/cec/CTR/Message/MESSAGE_BODY_UNITSIZE.html">MESSAGE_BODY_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the size of the data body specified in the <code><a href="../../../../nn/cec/CTR/Message/SetMessageBody.html">SetMessageBody</a></code> function must be a multiple of. Defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/cec/CTR/Message/MESSAGE_BODY_SIZE_MAX.html">MESSAGE_BODY_SIZE_MAX</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Constant that represents the maximum size of the data body that can be specified in the <code><a href="../../../../nn/cec/CTR/Message/SetMessageBody.html">SetMessageBody</a></code> function. Defined as 96 KB.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">New Message Creation</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/NewMessage.html">NewMessage</a>
+            </th>
+            <td>Creates a new message.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Parameters.</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetCecTitleId.html">GetCecTitleId</a>
+            </th>
+            <td>Gets the StreetPass ID of the <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/SetGroupID.html">SetGroupID</a>
+            </th>
+            <td>Sets the group ID for a message. Messages in the outbox with the same <code>GroupID</code> are grouped and sent together.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetGroupID.html">GetGroupID</a>
+            </th>
+            <td>Gets a message's group ID. Messages in the outbox with the same <code>GroupID</code> are grouped and sent together.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetMessSize.html">GetMessSize</a>
+            </th>
+            <td>Gets the size of the message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetMessageSize.html">GetMessageSize</a>
+            </th>
+            <td>Gets the size of the message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetHeaderSize.html">GetHeaderSize</a>
+            </th>
+            <td>Gets the size of a message header (including the extended header).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetBodySize.html">GetBodySize</a>
+            </th>
+            <td>Gets the size of the message body.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetMessageId.html">GetMessageId</a>
+            </th>
+            <td>Gets the <code>MessageID</code> of the message. The <code>MessageID</code> is assigned when a message is created and then saved.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetMessageId_Pair.html">GetMessageId_Pair</a>
+            </th>
+            <td>Gets the <code>MessageID</code> of the exchanged message. If communication takes place with the "exchange" mode specified, the message ID of the message sent by the other peer (forming the pair) is recorded in the received message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/SetMessageTypeFlag.html">SetMessageTypeFlag</a>
+            </th>
+            <td>Specifies the recipients using the <code><a href="../../../../nn/cec/CTR/MessageTypeFlag.html">MessageTypeFlag</a></code> enumerated type.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetMessageTypeFlag.html">GetMessageTypeFlag</a>
+            </th>
+            <td>Gets the value specified for the message to send.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/SetSendMode.html">SetSendMode</a>
+            </th>
+            <td>Specifies the send mode (receive only, send only, send and receive, or exchange) using the <code><a href="../../../../nn/cec/CTR/SendMode.html">SendMode</a></code> enumerated type.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetSendMode.html">GetSendMode</a>
+            </th>
+            <td>Gets the send mode (receive only, send only, send and receive, or exchange).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetSendDate.html">GetSendDate</a>
+            </th>
+            <td>Gets the timestamp of when a received <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code> was sent (when StreetPass occurred). The time is according to the sender's clock.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetRecvDate.html">GetRecvDate</a>
+            </th>
+            <td>Gets the timestamp of when a received <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code> was received (when StreetPass occurred). The time is according to the recipient's clock.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetCreateDate.html">GetCreateDate</a>
+            </th>
+            <td>Gets the timestamp of when a message was created.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/SetSendCount.html">SetSendCount</a>
+            </th>
+            <td>Sets the send count. The send count is decremented by one with each send. Data is no longer sent after the count reaches zero.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetSendCount.html">GetSendCount</a>
+            </th>
+            <td>Gets the send count. The send count is decremented by one with each send. Data is no longer sent after the count reaches zero.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/SetPropagationCount.html">SetPropagationCount</a>
+            </th>
+            <td>Sets the propagation count. The propagation count is decremented by one upon reception. Data is copied to the outbox if the count is still <code>1</code> or greater.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetPropagationCount.html">GetPropagationCount</a>
+            </th>
+            <td>Gets the propagation count. The propagation count is decremented by one upon reception. Data is copied to the outbox if the count is still <code>1</code> or greater.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/SetTag.html">SetTag</a>
+            </th>
+            <td>Sets the 16-bit value in the header of the <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetTag.html">GetTag</a>
+            </th>
+            <td>Gets the <code>Tag</code> value from the header of a <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/SetExHeader.html">SetExHeader</a>
+            </th>
+            <td>Sets the data for a message's extended header.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetExHeader.html">GetExHeader</a>
+            </th>
+            <td>Gets the data from a message's extended header.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/SetIcon.html">SetIcon</a>
+            </th>
+            <td>Sets a message icon.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetIcon.html">GetIcon</a>
+            </th>
+            <td>Gets the <code>Icon</code> of the <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/SetInfoText.html">SetInfoText</a>
+            </th>
+            <td>Sets the information text of a message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetInfoText.html">GetInfoText</a>
+            </th>
+            <td>Gets the information text of a message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/SetMessageBody.html">SetMessageBody</a>
+            </th>
+            <td>Sets the data body for a message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetMessageBody.html">GetMessageBody</a>
+            </th>
+            <td>Gets the body data of a message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/GetMessageBodyPointer.html">GetMessageBodyPointer</a>
+            </th>
+            <td>Gets a pointer to the body data of a <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code>.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/Message.html">Message</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/Message/~Message.html">~Message</a>
+            </th>
+            <td>Destructor</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/08/19</dt>
+        <dd><item xmlns="">Made the argument for the SetIcon function a const void* type.</item><br />
+        </dd>
+        <dt>2011/03/11</dt>
+        <dd><item xmlns="">Added information about the parameters set in messages. Fixed broken links.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

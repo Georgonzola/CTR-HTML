@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::hio::CTR::SerialChannel</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hio/Overview.html">hio</a>::<a href="../../../../nn/hio/CTR/Overview.html">CTR</a>::SerialChannel Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/hio.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class SerialChannel</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Represents the channels used for serial communication.</p><p>The <a href="../../../../nn/hio/CTR/Overview.html">CTR</a> target board can communicate with a PC by opening serial communication using the same channel on both sides.</p><p>The device initiating communication calls <code><a href="../../../../nn/hio/CTR/SerialChannel/Connect.html">Connect</a></code>, and the device waiting for communication calls <code><a href="../../../../nn/hio/CTR/SerialChannel/WaitHost.html">WaitHost</a></code>. For example, if the <a href="../../../../nn/hio/CTR/Overview.html">CTR</a> calls <code>Connect</code>, the PC must call <code>WaitHost</code>.</p><!-- write here --></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/Attribute.html">Attribute</a>
+            </th>
+            <td>Enumerated type that represents sending and receiving attributes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/SerialChannel.html">SerialChannel</a>
+            </th>
+            <td>Constructor. You must make a separate call to <code><a href="../../../../nn/hio/CTR/SerialChannel/Open.html">Open</a></code> to open a channel.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/~SerialChannel.html">~SerialChannel</a>
+            </th>
+            <td>Destructor. Closes a channel if it is open.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/Open.html">Open</a>
+            </th>
+            <td>Opens a channel.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/Close.html">Close</a>
+            </th>
+            <td>Closes the channel.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/Connect.html">Connect</a>
+            </th>
+            <td>Connects to a host. Blocks until the host calls <code>Wait</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/WaitHost.html">WaitHost</a>
+            </th>
+            <td>Waits for a connection from the host.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/Disconnect.html">Disconnect</a>
+            </th>
+            <td>Disconnects from the host.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/Flush.html">Flush</a>
+            </th>
+            <td>Waits until the <a href="../../../../nn/hio/CTR/Overview.html">CTR</a> send buffer is empty. <br />
+ Whether this function waits for the host's receive buffer to become empty depends on the current program state. <br /></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/GetReadableSize.html">GetReadableSize</a>
+            </th>
+            <td>Gets the loadable size from the buffers and returns the result of the operation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/Read.html">Read</a>
+            </th>
+            <td>Receives data from the host and returns the result of the operation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/GetWritableSize.html">GetWritableSize</a>
+            </th>
+            <td>Gets the size of data that can be written to the buffers and returns the result of the operation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hio/CTR/SerialChannel/Write.html">Write</a>
+            </th>
+            <td>Sends data to the host and returns the result of the operation.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Added descriptions of the various functions.</item><br />
+        </dd>
+        <dt>2010/03/31</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

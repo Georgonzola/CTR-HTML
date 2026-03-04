@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/rdt/Overview.html">rdt</a>::<a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Initialize(
+     const <a href="../../../nn/rdt/ReceiverConfig/Overview.html">ReceiverConfig</a> & config
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>config</th>
+          <td>Data structure storing initialization parameters. For more information, see <code><a href="../../../nn/rdt/ReceiverConfig/Overview.html">ReceiverConfig</a></code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of initialization. Specifically, this function may return the following: a value for which the <code><a href="../../../nn/Result/IsSuccess.html">nn::Result::IsSuccess()</a></code> function returns <code>true</code>, or a result code returned by the UDS library (such as <code><a href="../../../nn/rdt/ResultAlreadyInitialized/Overview.html">ResultAlreadyInitialized</a></code>, <code><a href="../../../nn/rdt/ResultNullPointer/Overview.html">ResultNullPointer</a></code>, or <code><a href="../../../nn/rdt/ResultInvalidSize/Overview.html">ResultInvalidSize</a></code>). </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the instance. If initialization succeeds, this function implicitly consumes two <code>nn::uds::EndpointDescriptor</code> objects. If initialization fails, the function returns without consuming any <code>nn::uds::EndpointDescriptor</code> objects. Memory passed to the instance by this call must be allocated before calling <code><a href="../../../nn/rdt/Receiver/Finalize.html">Finalize</a></code>. The <code>nn::uds::Attach</code> function is called implicitly with <code>nn::uds::ATTACH_BUFFER_SIZE_DEFAULT</code> specified as the receive buffer size. If the application does not supply a large enough buffer to <code>nn::uds::Initialize</code>, initialization fails, returning <code>nn::uds::ResultOutOfResource</code>, because the <code>nn::uds::Attach</code> function uses the buffer passed to <code>nn::uds::Initialize</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

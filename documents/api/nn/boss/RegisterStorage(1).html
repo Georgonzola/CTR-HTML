@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>RegisterStorage</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/boss/Overview.html">boss</a>::RegisterStorage Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">nn::Result</a> RegisterStorage(
+     <a href="../../nn_types/bit32.html">bit32</a> storageId,
+     size_t storageSize,
+     <a href="../../nn_types/u16.html">u16</a> entryCount,
+     <a href="../../nn/boss/StorageType.html">nn::boss::StorageType</a> storageType = nn::boss::USER_EXT_SAVEDATA_STORAGE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>storageId</th>
+          <td>Specifies the ID of an expanded save data region that creates BOSS storage.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>storageSize</th>
+          <td>Specifies the maximum total size of files that can be held in BOSS storage.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>entryCount</th>
+          <td>Specifies the maximum number of NS data entries that can be held in BOSS storage.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>storageType</th>
+          <td>Specifies the BOSS storage type. <br />
+ (Omit this parameter because usually the default BOSS storage for the user's expanded save data region is used.)</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that registration succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultStorageAccessPermission</th>
+          <td>You do not have storage access rights. Reconfirm your access rights.</td>
+        </tr>
+        <tr>
+          <th>ResultIpcNotSessionInitialized</th>
+          <td>Indicates that the session is not initialized. The function returns this <code><a href="../../nn/Result/Overview.html">Result</a></code> if it is called before <code><a href="../../nn/boss/Initialize.html">Initialize</a></code> is called. Always call the <code><a href="../../nn/boss/Initialize.html">Initialize</a></code> function before you use the BOSS library.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Registers BOSS storage information to BOSS (to the save region on the game device). BOSS storage must be registered before registering or executing NADL tasks. <br />
+ NS data cannot be downloaded if the storage is not registered. Before registering BOSS storage, you must first create an extended save data region in memory. <br />
+ You must also create an expanded save data region, while specifying more than the total number of NS data files to store. <br />
+ This function returns an error if you specify an expanded save data region ID in the <emphasis>storageID</emphasis> argument to which the application does not have access rights. During downloading of NS data files, when the total size of the NS data files in the BOSS storage exceeds the maximum data size, NS data files with the oldest serial ID (that is, the smallest serial ID) are automatically deleted. <br />
+ When the total number of the NS data files in the BOSS storage exceeds <emphasis>entryCount</emphasis>, in the same way, NS data files with the oldest serial ID (that is, the smallest serial ID) are automatically deleted. <br />
+ There is a limit on the number of BOSS storage registrations. Storage can be automatically unregistered by BOSS. For more information, see the Programming Manual. 1) To get NS data without the application registering a task:<br />
+ After BOSS storage is registered, if NS data files are included for an application for which BOSS storage is registered within a downloaded NS archive, by a task registered by a different application, those NS data files are automatically downloaded to the registered BOSS storage. 2) To download NS data addressed to the application that registers a task:<br />
+ If the application registers BOSS storage and then registers and runs a task, it can download NS data addressed to the application and store it in the BOSS storage specified when it registered the task. <br />
+ As with step 1, if NS data files are included for an application for which BOSS storage is registered within a downloaded NS archive, by a task registered by a different application, those NS data files are automatically downloaded to the registered BOSS storage. 3) To share NS data with another application: You can get NS data downloaded to another application by registering BOSS storage ahead of time in the same extended save data region used for another application. <br />
+ An application can even get this NS data from other applications when it downloads its own NS data. <br />
+ For more information about these operations, see the <code><a href="../../nn/boss/GetNsDataIdList.html">GetNsDataIdList</a></code> and <code><a href="../../nn/boss/GetNewDataNsDataIdList.html">GetNewDataNsDataIdList</a></code> functions.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/02/25</dt>
+        <dd><item xmlns="">Added to the description of BOSS registration storage.</item><br />
+        </dd>
+        <dt>2011/12/16</dt>
+        <dd><item xmlns="">Deleted text about allocating expanded save data capacity.</item><br />
+        </dd>
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

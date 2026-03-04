@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>AppendWaveBuffer</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/snd/CTR/Voice/Overview.html">Voice</a>::AppendWaveBuffer Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void AppendWaveBuffer(
+     <a href="../../../../nn/snd/CTR/WaveBuffer/Overview.html">WaveBuffer</a> * pBuffer
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Pointer to a buffer information structure.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Appends sample data information corresponding to a voice. The starting address of the buffer to append must be aligned to <code>BUFFER_ALIGNMENT</code> (32 bytes) and be a multiple of <code>BUFFER_UNITSIZE</code> (32 bytes).</p><p>There is no upper limit to the number of sets of buffer information that this function can append.  Even if a voice is in the playback state, it does not produce audio output if it has no registered sound source data.  Likewise, even if sound source data has been registered in a voice, the voice does not produce audio output in the stopped state.</p><p>All of the following conditions must be met by the buffer memory region.<ul><li>The region has been obtained by the <tt><a href="../../../../nn/os/GetDeviceMemoryAddress.html">nn::os::GetDeviceMemoryAddress</a></tt> function.</li><li>The starting address is 32-byte aligned.</li><li>The buffer size is a multiple of 32 bytes.</li></ul>However, there are no restrictions on sample length. For instance, when adding a sample from a PCM8 monaural sound source, the data is 1 byte, but due to the 32-byte multiple restriction, the buffer must be allocated as 32 bytes.</p><p>The buffer region must always be written back from the cache to memory using the <tt>nn::snd::CTR::FlushDataCache</tt> function. To reduce the processing load, call <tt>nn::snd::CTR::FlushDataCache</tt> only when necessary.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2010/07/22</dt>
+        <dd><item xmlns="">Added a description of buffer memory region requirements.</item><br />
+        </dd>
+        <dt>2010/01/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

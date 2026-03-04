@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>AllocVoice</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/snd/Overview.html">snd</a>::<a href="../../../nn/snd/CTR/Overview.html">CTR</a>::AllocVoice Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/snd/CTR/Voice/Overview.html">Voice</a> * AllocVoice(
+     <a href="../../../nn_types/s32.html">s32</a> priority,
+     <a href="../../../nn/snd/CTR/VoiceDropCallbackFunc.html">VoiceDropCallbackFunc</a> callback,
+     <a href="../../../nn_types/uptr.html">uptr</a> userArg
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>priority</th>
+          <td>Priority.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>callback</th>
+          <td>The address of the callback function invoked when a voice-drop occurs.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>userArg</th>
+          <td>The user argument for the callback function invoked when a voice-drop occurs.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the address of a <code><a href="../../../nn/snd/CTR/Voice/Overview.html">Voice</a></code> object on success. Returns <code>NULL</code> on failure. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a voice.</p><p>Call this function to get a valid <tt>Voice</tt> object.  This function returns the address of one usable object of the 24 voice objects managed by the library.</p><p><tt>priority</tt> takes a value between 0 (the lowest) and VOICE_PRIORITY_NODROP (the highest).  If the maximum number of voice objects (24) have already been obtained, what happens depends on the priority specified as an argument.</p><p><table><tr><th>Normal priority</th><td>If the priority specified as an argument is greater than or equal to the lowest priority in the <tt>Voice</tt> objects that have already been obtained, the lowest-priority voice among them is stopped and released, and the object's address is returned.  The callback function specified by <span class="argument">callback</span> is invoked for the voice that is released.</td></tr><tr><th>VOICE_PRIORITY_NODROP</th><td>If the lowest-priority object among the obtained objects is <tt>VOICE_PRIORITY_NODROP</tt>, NULL is returned. If the lowest priority is lower than <tt>VOICE_PRIORITY_NODROP</tt>, this function works as if you specified a normal priority.</td></tr></table></p><p>Among voices that are set to the same level of priority, the voice that was set last takes the highest priority.  This setting of priority includes the <tt><a href="../../../nn/snd/CTR/Voice/SetPriority.html">nn::snd::CTR::Voice::SetPriority</a></tt> function. </p><p>The callback function that is specified by <tt>callback</tt> is called when a voice-drop occurs under the following conditions.<ul><li>When there is no usable <tt>Voice</tt>, and the lowest priority <tt>Voice</tt> has been released</li><li>When the lowest priority <tt>Voice</tt> has been released to prevent a large increase in processing load within the DSP</li></ul></p><p>For the former, the callback function is called from the <tt>AllocVoice</tt> function. <br /> For the latter, the callback function is called from the <tt><a href="../../../nn/snd/CTR/SendParameterToDsp.html">nn::snd::CTR::SendParameterToDsp</a></tt> function. </p><p>When <tt>VOICE_PRIORITY_NODROP</tt> is specified, there is no callback, because that <tt>Voice</tt> cannot be the target of a voice drop. As a result, for example, when all voices have been specified as <tt>VOICE_PRIORITY_NODROP</tt> and the processing load within the DSP grows too large, the sound might skip. You need to be aware of this possibility.</p><p>Once a callback has been called, you can no longer control that <tt>Voice</tt>.  The <tt><a href="../../../nn/snd/CTR/FreeVoice.html">nn::snd::CTR::FreeVoice</a></tt> function is also called automatically for the relevant Voice object. </p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/05/26</dt>
+        <dd><item xmlns="">Added the ordering of voices set to the same priority level.</item><br />
+        </dd>
+        <dt>2010/11/05</dt>
+        <dd><item xmlns="">Added a description of how the callback function is called when a voice-drop occurs.</item><br />
+        </dd>
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added more information specific to voice-drops.</item><br />
+        </dd>
+        <dt>2010/07/23</dt>
+        <dd><item xmlns="">Fixed a typo related to the maximum number of voices.</item><br />
+        </dd>
+        <dt>2010/01/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

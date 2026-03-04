@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetRenderbufferParameteriv</title>
+  </head>
+  <body>
+    <h1>glGetRenderbufferParameteriv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetRenderbufferParameteriv(
+     GLenum target,
+     GLenum pname,
+     GLint * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Target render buffer object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Region that stores the retrieved parameter.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the parameter from the currently bound render buffer object.</p><P><span class="argument">target</span> is specified as <tt>GL_RENDERBUFFER</tt>.</P><P>You can set <span class="argument">pname</span> to the following values.<TABLE><TR><th>GL_RENDERBUFFER_WIDTH</th><TD>Gets the render buffer's width (in pixels).</TD></TR><TR><th>GL_RENDERBUFFER_HEIGHT</th><TD>Gets the render buffer's height (in pixels).</TD></TR><TR><th>GL_RENDERBUFFER_INTERNAL_FORMAT</th><TD>Gets the render buffer's internal format.</TD></TR><TR><th>GL_RENDERBUFFER_RED_SIZE</th><TD>Gets the number of bits in the render buffer's red component.</TD></TR><TR><th>GL_RENDERBUFFER_GREEN_SIZE</th><TD>Gets the number of bits in the render buffer's green component.</TD></TR><TR><th>GL_RENDERBUFFER_BLUE_SIZE</th><TD>Gets the number of bits in the render buffer's blue component.</TD></TR><TR><th>GL_RENDERBUFFER_ALPHA_SIZE</th><TD>Gets the number of bits in the render buffer's alpha component.</TD></TR><TR><th>GL_RENDERBUFFER_DEPTH_SIZE</th><TD>Gets the number of bits in the render buffer's depth component.</TD></TR><TR><th>GL_RENDERBUFFER_STENCIL_SIZE</th><TD>Gets the number of bits in the render buffer's stencil component.</TD></TR><TR><th>GL_RENDERBUFFER_DATA_ADDR_DMP</th><TD>Gets the address of the render buffer.</TD></TR></TABLE><!-- source pnameにはGL_RENDERBUFFER_WIDTH、GL_RENDERBUFFER_HEIGHT、GL_RENDERBUFFER_INTERNAL_FORMAT、GL_RENDERBUFFER_RED_SIZE、 GL_RENDERBUFFER_GREEN_SIZE、GL_RENDERBUFFER_BLUE_SIZE、GL_RENDERBUFFER_ALPHA_SIZE、GL_RENDERBUFFER_DEPTH_SIZE、 GL_RENDERBUFFER_STENCIL_SIZEを指定します。 GL_RENDERBUFFER_WIDTHを指定した場合、レンダーバッファの横幅のピクセル数が取得されます。 GL_RENDERBUFFER_HEIGHTを指定した場合、レンダーバッファの縦幅のピクセル数が取得されます。 GL_RENDERBUFFER_INTERNAL_FORMATを指定した場合、レンダーバッファの内部フォーマットが取得されます。 GL_RENDERBUFFER_RED_SIZEを指定した場合、レンダーバッファの赤成分のビット数が取得されます。 GL_RENDERBUFFER_GREEN_SIZEを指定した場合、レンダーバッファの緑成分のビット数が取得されます。 GL_RENDERBUFFER_BLUE_SIZEを指定した場合、レンダーバッファの青成分のビット数が取得されます。 GL_RENDERBUFFER_ALPHA_SIZEを指定した場合、レンダーバッファのアルファ成分のビット数が取得されます。 GL_RENDERBUFFER_DEPTH_SIZEを指定した場合、レンダーバッファのデプス成分のビット数が取得されます。 GL_RENDERBUFFER_STENCIL_SIZEを指定した場合、レンダーバッファのステンシル成分のビット数が取得されます。 --></P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> or <span class="argument">pname</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>Render buffer object 0 is bound.</TD></TR></TABLE><!-- source target、pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 レンダーバッファオブジェクト0がバインドされている場合エラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/07/07</dt>
+        <dd><item xmlns="">Added GL_RENDERBUFFER_DATA_ADDR_DMP to param.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

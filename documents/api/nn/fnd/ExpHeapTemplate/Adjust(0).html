@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Adjust</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fnd/Overview.html">fnd</a>::<a href="../../../nn/fnd/ExpHeapTemplate/Overview.html">ExpHeapTemplate</a>::Adjust Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/u32.html">u32</a> Adjust();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">On success, returns the overall size of the extended heap after reducing its size. On failure, returns 0. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Use of this function is NOT recommended. This function frees unused areas at the tail of the extended heap to reduce the amount of memory the extended heap uses.</p><p>This function's return value cannot be used to determine the result of the operation. A value of zero can indicate two different situations: (1) that adjustment failed, or (2) that adjustment reduced the heap size to zero because no part of the heap was allocated.</p>This function is retained for compatibility.  Use the <tt><a href="../../../nn/fnd/ExpHeapTemplate/Adjust(1).html">Adjust(mode)</a></tt> function instead. That version of the function allows you to specify the direction of adjustment, and returns the range of memory that was freed up as an <tt><a href="../../../nn/fnd/MemoryRange/Overview.html">nn::fnd::MemoryRange</a></tt> object.</div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/14</dt>
+        <dd><item xmlns="">Added <a href="../../../nn/fnd/ExpHeapTemplate/Adjust(1).html">Adjust(mode)</a> as the new interface. The function on this page is no longer recommended.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>StopDecoder</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::StopDecoder Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+void StopDecoder();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Requests to stop decoding that is being performed by another thread.</p><p>This function sets a "stop request flag" inside the decoder object. The decoding functions (<code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoder.html">StartJpegDecoder</a></code>, <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoderShrink.html">StartJpegDecoderShrink</a></code> and <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartMpDecoderLR.html">StartMpDecoderLR</a></code>) monitor this flag and stop decoding when the flag is set.</p><p>Because decoder objects are not thread-safe, as a basic rule multiple threads cannot access the same decoder object.</p><p>However, during the periods of time when the application can check whether the decoder object is valid (meaning the object has been initialized and has not ended), this function can be called on the decoder object from a different thread.</p><p>Generally it takes some time to decode a JPEG image. Applications sometimes use a separate thread for decoding to maintain the response speed of the main thread.</p><p>For example, say you have a screen that shows a list of images, and you want to stop the decoding that has already begun for a certain image. To do this, you can call this function from a different thread (the main thread or an alarm handler) that has a higher priority than the decoding thread.</p><p>The stop request flag is cleared immediately before the decoding functions begin their main processing. The following conditions apply, so there is no certainty that simply calling this function once will stop ongoing decoding.</p><p>1. Decoding cannot be stopped before the decoding thread calls a decoding function or before control reaches the main decoding process within the function. <br />
+ 2. After main processing within decoding has completed, execution cannot be stopped. (Decoding succeeds unless another error occurs.) <br />
+ 3. <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartMpDecoderLR.html">StartMpDecoderLR</a></code> clears flags each time two images are decoding. Decoding cannot be stopped during the period after the first image finishes decoding and before the second image begins decoding.</p><p>To deal with situations 1 and 3, you must continue to call this function (for example, in every game frame) until you have verified that decoding has been stopped, or has ended, whether in success or failure.</p><p>If a request to halt a decoding function is received, the function returns <code>0</code>, as it does when decoding fails. (The error code returned by <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastError.html">GetLastError</a></code> is <code><span>JPEG_DECODER_ERROR_STOPPED</span></code> unless another error occurs.)</p><p>Stop requests cannot be canceled. After decoding has stopped, it cannot be resumed from the same point at which it stopped.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

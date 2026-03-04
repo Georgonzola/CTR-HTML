@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>jpb - Boolean jump</title>
+  </head>
+  <body>
+    <h1>jpc - Condition jump</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+jpc     status0, status1, mode, label
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>status0</th>
+          <td>
+            Value of status register 0 (the value is either 0 or 1).<br />
+          </td>
+        </tr>
+        <tr>
+          <th>status1</th>
+          <td>
+            Value of status register 1 (the value is either 0 or 1).<br />
+          </td>
+        </tr>
+        <tr>
+          <th>mode</th>
+          <td>
+            Conditional mode (0: OR, 1: AND, 2: Only status register 0, 3: Only status register 1)<br />
+          </td>
+        </tr>
+        <tr>
+          <th>label</th>
+          <td>
+            Label name.<br />
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Causes control to jump conditionally based on the status register values.<br /> The value specified by <SPAN class="argument">status0</SPAN> (or <SPAN class="argument">status1</SPAN>) is tested for equality against the value of status register 0 (or 1). When <SPAN class="argument">mode</SPAN> is 0, the result is true when either status register 0 or status register 1 matches its respective operand.<br /> When <SPAN class="argument">mode</SPAN> is 1, both status registers must match their respective operands.<br /> When <SPAN class="argument">mode</SPAN> is 2, status register 0 must match <SPAN class="argument">status0</SPAN>.<br /> When <SPAN class="argument">mode</SPAN> is 3, status register 1 must match <SPAN class="argument">status1</SPAN>.<br /> When the specified condition is true, this instruction causes control to jump to the address of the specified label.<br /> Unlike the <CODE>call</CODE> instruction, control does not return at a <CODE>ret</CODE> instruction. Also, you can specify labels for which <CODE>ret</CODE> instructions have not been set.<br />
+      </p>
+      <p class="notice">
+        An error will result if you jump to an external location from within an <CODE>if</CODE> or <CODE>loop</CODE> block, or jump from an external location into an <CODE>if</CODE> or <CODE>loop</CODE> block.<br /> An error also will result if you call this instruction immediately prior to an <CODE>else</CODE>, <CODE>endif</CODE>, <CODE>endloop</CODE>, or <CODE>ret</CODE> instruction.<br /> Behavior is undefined if you jump to an external location from between the <CODE>main</CODE> and <CODE>endmain</CODE> labels, or from within subroutines.<br /> In the same way, jumping to a <CODE>ret</CODE> instruction within a subroutine also results in undefined behavior.<br /> Jumping to an <CODE>else</CODE>, <CODE>endif</CODE>, or <CODE>endloop</CODE> instruction has the same effect as jumping to the instruction immediately following that instruction.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+switch ( mode )
+{
+    case 0 :
+        if ( status0 == Status_register0 || status1 == Status_register1 )
+            jump to label
+        break;
+    case 1 :
+        if ( status0 == Status_register0 && status1 == Status_register1 )
+            jump to label
+        break;
+    case 2 :
+        if ( status0 == Status_register0 )
+            jump to label
+        break;
+    case 3 :
+        if ( status1 == Status_register1 )
+            jump to label
+        break;
+}
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+jpc     1, 1, 0, subfunction0  // Call subfunction0 if either status register 0 or status register 1 is 1
+
+subfunction0:
+..
+</pre>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

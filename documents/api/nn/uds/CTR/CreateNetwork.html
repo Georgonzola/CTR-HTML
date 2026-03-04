@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>CreateNetwork</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/uds/Overview.html">uds</a>::<a href="../../../nn/uds/CTR/Overview.html">CTR</a>::CreateNetwork Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> CreateNetwork(
+     <a href="../../../nn_types/u8.html">u8</a> subId,
+     <a href="../../../nn_types/u8.html">u8</a> maxEntry,
+     <a href="../../../nn_types/bit32.html">bit32</a> localId,
+     const char passphrase[],
+     size_t passphraseLength
+);
+
+<a href="../../../nn/Result/Overview.html">nn::Result</a> CreateNetwork(
+     <a href="../../../nn_types/u8.html">u8</a> subId,
+     <a href="../../../nn_types/u8.html">u8</a> maxEntry,
+     <a href="../../../nn_types/bit32.html">bit32</a> localId,
+     const char passphrase[],
+     size_t passphraseLength,
+     const void * pData,
+     size_t dataSize
+);
+
+<a href="../../../nn/Result/Overview.html">nn::Result</a> CreateNetwork(
+     <a href="../../../nn_types/u8.html">u8</a> subId,
+     <a href="../../../nn_types/u8.html">u8</a> maxEntry,
+     <a href="../../../nn_types/bit32.html">bit32</a> localId,
+     const char passphrase[],
+     size_t passphraseLength,
+     <a href="../../../nn_types/u8.html">u8</a> channel
+);
+
+<a href="../../../nn/Result/Overview.html">nn::Result</a> CreateNetwork(
+     <a href="../../../nn_types/u8.html">u8</a> subId,
+     <a href="../../../nn_types/u8.html">u8</a> maxEntry,
+     <a href="../../../nn_types/bit32.html">bit32</a> localId,
+     const char passphrase[],
+     size_t passphraseLength,
+     <a href="../../../nn_types/u8.html">u8</a> channel,
+     const void * pData,
+     size_t dataSize
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./CreateNetwork(0).html">CreateNetwork ( u8, u8, bit32, const char, size_t ) </a>
+          </td>
+          <td>Creates a new network.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./CreateNetwork(1).html">CreateNetwork ( u8, u8, bit32, const char, size_t, const void *, size_t ) </a>
+          </td>
+          <td>Sets application data in the beacon and builds a new network.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./CreateNetwork(2).html">CreateNetwork ( u8, u8, bit32, const char, size_t, u8 ) </a>
+          </td>
+          <td>Creates a new network. This function is provided for debugging purposes, and can be used to specify the channel to use for wireless communication during development. Note that the <emphasis>channel</emphasis> argument is ignored on production hardware.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./CreateNetwork(3).html">CreateNetwork ( u8, u8, bit32, const char, size_t, u8, const void *, size_t ) </a>
+          </td>
+          <td>Sets application data in the beacon and builds a new network. This function is provided for debugging purposes, and can be used to specify the channel to use for wireless communication during development. Note that the <emphasis>channel</emphasis> argument is ignored on production hardware.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of CreateNetwork ( u8, u8, bit32, const char, size_t ) </h2>
+    <div class="section"><p>Approximately 800 ms is needed to complete this because auto-selection of channels and other operations must be performed. <br /><br />
+ This function is thread-safe.</p><!-- write here --></div>
+    <h2>Description of CreateNetwork ( u8, u8, bit32, const char, size_t, const void *, size_t ) </h2>
+    <div class="section"><p>Approximately 800 ms is needed to complete this because auto-selection of channels and other operations must be performed.</p><p>This API function allows you to set application data in the beacon when building the network. To update the beacon's application data after the network has been built, use the <code><a href="../../../nn/uds/CTR/SetApplicationDataToBeacon.html">SetApplicationDataToBeacon</a></code> function. The maximum size of this application data is <code><a href="../../../nn/uds/CTR/NET_DESC_APPDATA_SIZE_MAX.html">NET_DESC_APPDATA_SIZE_MAX</a></code> bytes. The data is not encrypted. It can be collected by any general-purpose computing device, such as a desktop computer. Other devices can get this data by calling <code><a href="../../../nn/uds/CTR/Scan.html">Scan</a></code> while they are connected as a <code>Client</code> or <code>Spectator</code>. <br /><br />
+ This function is thread-safe.</p><!-- write here --></div>
+    <h2>Description of CreateNetwork ( u8, u8, bit32, const char, size_t, u8 ) </h2>
+    <div class="section"><p>Approximately 800 ms is needed to complete this because auto-selection of channels and other operations must be performed. <br /><br />
+ This function is thread-safe.</p><!-- write here --></div>
+    <h2>Description of CreateNetwork ( u8, u8, bit32, const char, size_t, u8, const void *, size_t ) </h2>
+    <div class="section"><p>Approximately 800 ms is needed to complete this because auto-selection of channels and other operations must be performed.</p><p>This API function allows you to set application data in the beacon when building the network. To update the beacon's application data after the network has been built, use the <code><a href="../../../nn/uds/CTR/SetApplicationDataToBeacon.html">SetApplicationDataToBeacon</a></code> function. The maximum size of this application data is <code><a href="../../../nn/uds/CTR/NET_DESC_APPDATA_SIZE_MAX.html">NET_DESC_APPDATA_SIZE_MAX</a></code> bytes. The data is not encrypted. It can be collected by any general-purpose computing device, such as a desktop computer. Other devices can get this data by calling <code><a href="../../../nn/uds/CTR/Scan.html">Scan</a></code> while they are connected as a <code>Client</code> or <code>Spectator</code>. <br /><br />
+ This function is thread-safe.</p><!-- write here --></div>
+  </body>
+</html>

@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::fs::FileOutputStream</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fs/Overview.html">fs</a>::FileOutputStream Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class FileOutputStream : <br />&nbsp;&nbsp;&nbsp;&nbsp;private nn::fs::IOutputStream,<br />&nbsp;&nbsp;&nbsp;&nbsp;private nn::fs::detail::FileBase,<br />&nbsp;&nbsp;&nbsp;&nbsp;private <a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable< FileOutputStream ></a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for writing to files.</p><p>Opens a file specified by a path name and writes data to it.</p><p>To improve the efficiency of writing to files, if the <code><a href="../../../nn/fs/FileOutputStream/TryWrite.html">TryWrite</a></code> or <code><a href="../../../nn/fs/FileOutputStream/Write.html">Write</a></code> functions are called with <code>flush = false</code>, physical storage itself is not actually written. Instead, write data is temporarily saved in a buffer managed by the system. To actually write to physical storage (flush the buffer), call these write functions with <code>flush = true</code>. Then, either indicate that the buffer should be flushed after data is written or explicitly flush it by calling <code><a href="../../../nn/fs/FileOutputStream/TryFlush.html">TryFlush</a></code>. If a file is closed by executing the <code><a href="../../../nn/fs/FileOutputStream/Finalize.html">Finalize</a></code> function or a destructor, without flushing this buffer, programs stop if using other than Release version libraries. Plans call for changing this in the next SDK, so that programs will stop even for Release versions.</p><p>If you are writing the same file consecutively more than once, after writing is finished using <code>flush = false</code> for efficiency, be sure to finally call <code><a href="../../../nn/fs/FileOutputStream/TryFlush.html">TryFlush</a></code>.</p><p>You can specify path names using both wide strings and multibyte strings. If you specify a multibyte string, a buffer for conversion to wide characters is allocated on the stack. Be careful with conversions to wide characters, though, because they are not thread-safe. Use a wide string unless you have a specific reason not to.</p><p>This class cannot be used to create new files in expanded save data. For that, use a <code><a href="../../../nn/fs/TryCreateFile.html">TryCreateFile</a></code> function that specifies the size.</p><h3>Limitations</h3><div class="section">When writing to a file, performance degrades enormously if the write position and buffer alignment do not match. <br /> We recommend writing to files in multiples of four bytes and also aligning your buffer on a multiple of four bytes.</div></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/FileOutputStream.html">FileOutputStream</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/Initialize.html">Initialize</a>
+            </th>
+            <td>Opens the specified file or files.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/TryInitialize.html">TryInitialize</a>
+            </th>
+            <td>Opens the specified file or files.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/Finalize.html">Finalize</a>
+            </th>
+            <td>Closes the file.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/~FileOutputStream.html">~FileOutputStream</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/Write.html">Write</a>
+            </th>
+            <td>Writes the specified amount of data from a buffer to a file.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/TryWrite.html">TryWrite</a>
+            </th>
+            <td>Writes the specified amount of data from a buffer to a file.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/Seek.html">Seek</a>
+            </th>
+            <td>Changes the access position in the file.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/TrySeek.html">TrySeek</a>
+            </th>
+            <td>Changes the access position in the file.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/GetPosition.html">GetPosition</a>
+            </th>
+            <td>Gets the current write position relative to the start of the file.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/TryGetPosition.html">TryGetPosition</a>
+            </th>
+            <td>Gets the current write position relative to the start of the file.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/SetPosition.html">SetPosition</a>
+            </th>
+            <td>Sets the current write position relative to the start of the file.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/TrySetPosition.html">TrySetPosition</a>
+            </th>
+            <td>Sets the current write position relative to the start of the file.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/GetSize.html">GetSize</a>
+            </th>
+            <td>Gets the file size.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/TryGetSize.html">TryGetSize</a>
+            </th>
+            <td>Gets the file size.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/SetSize.html">SetSize</a>
+            </th>
+            <td>Sets the file size.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/TrySetSize.html">TrySetSize</a>
+            </th>
+            <td>Sets the file size.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/Flush.html">Flush</a>
+            </th>
+            <td>Writes the file cache back to the device.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/TryFlush.html">TryFlush</a>
+            </th>
+            <td>Writes the file cache back to the device.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/SetPriority.html">SetPriority</a>
+            </th>
+            <td>Sets the access priority for a stream.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/fs/FileOutputStream/TrySetPriority.html">TrySetPriority</a>
+            </th>
+            <td>Sets the access priority for a stream.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><span>nn::fs::IPositionable</span><br />&nbsp;&nbsp;<span>nn::fs::IOutputStream</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::fs::FileOutputStream</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/08/07</dt>
+        <dd><item xmlns="">Standardized the expressions related to the <tt>Seek</tt> and <tt>TrySeek</tt> functions.</item><br />
+        </dd>
+        <dt>2012/01/23</dt>
+        <dd><item xmlns="">Added a description of flushing the buffer.</item><br />
+        </dd>
+        <dt>2011/11/08</dt>
+        <dd><item xmlns="">Noted that conversions to wide strings are not thread-safe.</item><br />
+        </dd>
+        <dt>2011/10/12</dt>
+        <dd><item xmlns="">Added functions for setting access priorities.</item><br />
+        </dd>
+        <dt>2011/03/14</dt>
+        <dd><item xmlns="">Added a note about the limitations on write position and buffer alignment.</item><br />
+        </dd>
+        <dt>2010/01/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

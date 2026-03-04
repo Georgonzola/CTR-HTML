@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+        span.static_style
+        { 
+            font-size			: 8pt;
+            color				: white;
+            font-weight			: bold;
+            background			: #44f;
+            border-left			: solid 1px #aaf;
+            border-top			: solid 1px #aaf;
+            border-right		: solid 1px #00c;
+            border-bottom		: solid 1px #00c;
+            padding-left		: 2px;
+            padding-right		: 2px;
+        }
+
+        span.virtual_style
+        { 
+            font-size			 : 8pt;
+            color				 : white;
+            font-weight			: bold;
+            background			: #0a0;
+            border-left			: solid 1px #0f0;
+            border-top			: solid 1px #0f0;
+            border-right		: solid 1px #060;
+            border-bottom		: solid 1px #060;
+            padding-left		: 2px;
+            padding-right		: 2px; 
+        }
+
+        span.protected_style
+        { 
+            font-size			 : 8pt;
+            color				 : white;
+            font-weight			: bold;
+            background			: #444;
+            border-left			: solid 1px #ccc;
+            border-top			: solid 1px #ccc;
+            border-right		: solid 1px #222;
+            border-bottom		: solid 1px #222;
+            padding-left		: 2px;
+            padding-right		: 2px;
+        }
+        table.table, table.table td, table.table th
+        {
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        table.table
+        {
+            width: auto;
+            margin: 1em;
+            position	: static;
+            font-family	: Arial;
+        }
+
+        table.table td, table.table th
+        {
+            padding: 0.2em;
+        }
+
+        table.table td.number, table.table th.number
+        {
+            text-align: right;
+        }
+
+        table.table tbody tr th
+        {
+            text-align: left;
+            font-weight: normal;
+            width: auto;
+        }
+
+        table.table thead tr th,
+        table.table tbody tr th.category
+        {
+            padding: 0 0.2em;
+        }
+
+        table.table caption
+        {
+            font-weight: bold;
+            padding: 0.4em;
+        }
+        table.table th
+        {
+            font-weight			: bold;
+            background			: #acf;
+        }
+        --></style>
+    <title>NfpSdmcTool</title>
+</head>
+<body>
+
+<h1>NfpSdmcTool</h1>
+
+<h2>Contents</h2>
+<ol>
+    <li><a href="#abstract">Overview</a></li>
+    <li><a href="#guide">How to Operate</a></li>
+    <ol>
+        <li><a href="#guide_menu">Menu Screen</a></li>
+        <li><a href="#guide_read">Reading NFP Tags</a></li>
+        <li><a href="#guide_write">Writing NFP Tags</a></li>
+        <li><a href="#guide_edit">Editing Tag Data</a></li>
+        <li><a href="#guide_sd">SD card Access</a></li>
+    </ol>
+    <li><a href="#note">Notes</a></li>
+    <li><a href="#history">Revision History</a></li>
+</ol>
+
+<h2 id="abstract">1. Introduction</h2>
+
+<div class="section">
+  <p>
+    NfpSdmcTool is a tool that uses the NFP library and supports debugging of applications.
+  </p>
+  <p>
+    If NFP tags used for debugging are exported to an SD card using NfpSdmcTool, the same data can be imported from the SD card and rewritten to NFP tags.<br><br> In addition, a feature to edit tag data is also provided, so tags for debugging can be generated on this tool.
+  </p>
+  <p>
+    <B>Note:</B> Prepare the NFP tags in advance, using the NoftWriter tool to write to the tags the amiibo data you plan to use in your application.
+  </p>
+</div>
+
+<h2 id="guide">2. Using the Application</h2>
+
+<div class="section">
+
+    <p>
+        To use this application, follow the instructions displayed at the bottom of the lower screen.
+    </p>
+
+    <h3 id="guide_menu">2.1. Menu Screen</h3>
+    <p>
+        The following menu is displayed on the lower screen when NfpSdmcTool starts.
+    </p>
+    <p>
+        <img src="Fig/NfpSdmcTool_01.png" alt="NfpSdmcTool Menu Screen">
+    </p>
+    <p>
+        Select a menu using Up and Down on the +Control Pad, and then execute that menu by pressing the A Button.
+    </p>
+
+    <h3 id="guide_read">2.2. Reading NFP Tags</h3>
+    <p>
+        Select <B>Read from the Menu Screen</B> while the NFP tag is placed in the center of the lower screen LCD for a new Nintendo 3DS and in the NFC reader/writer for a Nintendo 3DS.<br>
+    </p>
+    <p>
+        When the process is successful, information read from the NFP tag is displayed on the upper screen.
+    </p>
+    <p>
+        <img src="Fig/NfpSdmcTool_02.png" alt="Information read from an NFP tag">
+    </p>
+    <p>
+        The information displayed on the top screen can be switched using the L Button and R Button.
+    </p>
+
+    <h3 id="guide_write">2.3. Writing NFP Tags</h3>
+    <p>
+        Select <B>Write from the Menu Screen</B> while the NFP tag is placed in the center of the lower screen LCD for a New Nintendo 3DS and in the NFC reader/writer for a Nintendo 3DS.<br>
+    </p>
+    <p>
+        When the process is successful, the data displayed on the upper screen is written to an NFP tag.
+    </p>
+
+    <h3 id="guide_edit">2.4. Editing Tag Data</h3>
+    <p>
+        To run, select <B>Edit from the Menu Screen</B> after reading data from NFP tags with the Read command or after importing tag data from an SD card.<br>
+    </p>
+    <p>
+        As shown below, the leading parameter on the upper screen (<CODE>WriteDate</CODE> in this example) is selected, and other parameters can be selected by pressing Up and Down on the +Control Pad, or by pressing the L Button and R Button.<br>
+    </p>
+    <p>
+        <img src="Fig/NfpSdmcTool_03.png" alt="Selecting tag data to edit">
+    </p>
+    <p>
+        When the A Button is pressed after selecting a parameter, that parameter can be edited.<br> <font color="red"><B>Note:</B> Parameters in red cannot be edited because they are written on ROM that cannot be rewritten.</font>
+    </p>
+    <p>
+        <img src="Fig/NfpSdmcTool_04.png" alt="Editing tag data">
+    </p>
+    <p>
+        In this figure, the year of the <VAR>writeData</VAR> (2104) is selected, and the value can be changed with Up and Down on the +Control Pad.<br> In the same way, the month or day is selected by pressing Left and Right on the +Control Pad, and the value can be changed by pressing Up and Down on the +Control Pad.<br> When the values are set, end the parameter editing by pressing the B Button.
+    </p>
+
+    <h3 id="guide_sd">2.5. SD card Access</h3>
+    <p>
+        After inserting a SD card, select the SD card from the Menu Screen and execute.<br> <font color="red"><B>Note:</B> Do not insert or remove SD cards while NfpSdmcTool is running.</font>
+    </p>
+    <p>
+        As shown below, a list of files stored on the SD card is shown.
+    </p>
+    <p>
+        <img src="Fig/NfpSdmcTool_05.png" alt="SD card access">
+    </p>
+    <p>
+        Files can be selected by pressing Up and Down on the +Control Pad.<br> Directories have &quot;/&quot; at the end of the filename, and a directory hierarchy can be traced by pressing Left and Right on the +Control Pad.
+    </p>
+    <p>
+        To import data saved on a SD card, select the target file and press the A Button.<br> To export data read from a NFP tag with <B>Read</B> or data edited with <B>Edit</B> to an SD card, either save by selecting a filename by pressing the R Button, or overwrite by selecting the file and pressing the X Button.<br>
+    </p>
+    <p>
+        After exporting to or importing from the SD card completes, press the B Button to return to the Menu Screen.
+    </p>
+</div>
+
+<h2 id="note">3. Notes</h2>
+<div class="section">
+    <p>
+        There is no problem if the tags exported to the SD card and the tags to which data imported from the SD card is written are different.<br> However, this tool cannot modify <CODE>UID</CODE> or <CODE>CharacterID</CODE> because they are written to ROM that cannot be rewritten.<br>
+    </p>
+    <p>
+        In other words, to reproduce data the same as tags from the export source that contains data that cannot be rewritten, such as <CODE>CharacterID</CODE> or <CODE>NumberingID</CODE>, the same amiibo data must be written in advance using the NoftWriter tool.<br><br>
+    </p>
+</div>
+
+<h2 id="history">4. Revision History</h2>
+<div class="section">
+    <dl class="history">
+        <dt>2015-01-05</dt>
+        <dd>Initial version.<br /></dd>
+    </dl>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetTitleFilters</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/ContentSetGroupCatalogFilter/Overview.html">ContentSetGroupCatalogFilter</a>::SetTitleFilters Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ContentSetGroupCatalogFilter/Overview.html">ContentSetGroupCatalogFilter</a> & SetTitleFilters(
+     const <a href="../../../../nn/ec/CTR/TitleInfo/Overview.html">TitleInfo</a> infos[],
+     size_t numInfos
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>infos[]</th>
+          <td>Array of title filters to configure.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numInfos</th>
+          <td>Number of title filters to configure.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a reference to the filter set for the title filter. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures the title filter. Call the <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/Retrieve.html">ContentSetGroupCatalog::Retrieve</a></code> function using the filter configured with the title filters to get just the <code><a href="../../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> objects included in the configured data titles. There is usually no need to configure title filters, because if none are configured, all of the data titles initialized in the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object set in the <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/Overview.html">ContentSetGroupCatalog</a></code> object are used as title filters. Specifying a data title not initialized in the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object as a title filter causes the <code>ContentSetrGroupCatalog::Retrieve</code> function to return <code><a href="../../../../nn/ec/CTR/ResultSessionPreparedTitleNotFound/Overview.html">ResultSessionPreparedTitleNotFound</a></code> and fail. You can specify multiple title filters in an array. Do not destroy the title filter array until you are done using the configured filter, because <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalogFilter/Overview.html">ContentSetGroupCatalogFilter</a></code> only maintains a reference to the specified title filter array and does not copy it.</p>
+    </div>
+  </body>
+</html>

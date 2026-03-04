@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::WaitObject</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::WaitObject Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/os.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class WaitObject : public <a href="../../../nn/os/HandleObject/Overview.html">nn::os::HandleObject</a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Base class for objects that are able to wait.</p><p>Waiting on instance objects can be done using <code><a href="../../../nn/os/WaitObject/WaitOne.html">WaitOne</a></code>. The <code><a href="../../../nn/os/WaitObject/WaitAny.html">WaitAny</a></code> and <code><a href="../../../nn/os/WaitObject/WaitAll.html">WaitAll</a></code> functions allow you to wait for multiple <code>WaitObjects</code> simultaneously. These <code>Wait</code> operations are "released" automatically by state changes in the objects being waited on. However, the "release" behavior for a <code>Wait</code> operation varies depending on the derived class. Some derived classes define their own functions whose names indicate the specific behavior of their <code>Wait</code> operations.</p><p>Threads that have carried out a <code>Wait</code> operation are blocked until the wait is released, yielding the CPU resources to other threads.</p><p>This class cannot be instantiated directly. Use derived classes instead.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/WaitObject/WaitOne.html">WaitOne</a>
+            </th>
+            <td>Waits for a single instance object.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/WaitObject/WaitAll.html">WaitAll</a>
+            </th>
+            <td>Waits for all objects.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/WaitObject/WaitAny.html">WaitAny</a>
+            </th>
+            <td>Waits for any single object.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<a href="../../../nn/os/HandleObject/Overview.html">nn::os::HandleObject</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::os::WaitObject</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,350 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::gr::CTR::FragmentLight::Source</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/gr/Overview.html">gr</a>::<a href="../../../../../nn/gr/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/gr/CTR/FragmentLight/Overview.html">FragmentLight</a>::Source Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Source</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for making settings per light source.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">id</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>The light source number. The type is <code>u8</code>. Set a value between 0 and -7.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableTwoSideDiffuse</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Light can be made to strike both sides by setting this to <code>true</code>. The type is <code>bool</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableGeomFactor0</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Sets whether to use geometric factor 0. The type is <code>bool</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableGeomFactor1</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Sets whether to use geometric factor 1. The type is <code>bool</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">diffuseR</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Red component setting for diffuse light. The type is <code>u8</code>. The product of <code>dmp_FragmentMaterial.diffuse</code> and <code>dmp_FragmentLightSource[i].diffuse</code> is set after it has been mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">diffuseG</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Green component setting for diffuse light. The type is <code>u8</code>. The product of <code>dmp_FragmentMaterial.diffuse</code> and <code>dmp_FragmentLightSource[i].diffuse</code> is set after it has been mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">diffuseB</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Blue component setting for diffuse light. The type is <code>u8</code>. The product of <code>dmp_FragmentMaterial.diffuse</code> and <code>dmp_FragmentLightSource[i].diffuse</code> is set after it has been mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">ambientR</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Red component setting for ambient light. The type is <code>u8</code>. The product of <code>dmp_FragmentMaterial.ambient</code> and <code>dmp_FragmentLightSource[i].ambient</code> is set after it has been mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">ambientG</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Green component setting for ambient light. The type is <code>u8</code>. The product of <code>dmp_FragmentMaterial.ambient</code> and <code>dmp_FragmentLightSource[i].ambient</code> is set after it has been mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">ambientB</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Blue component setting for ambient light. The type is <code>u8</code>. The product of <code>dmp_FragmentMaterial.ambient</code> and <code>dmp_FragmentLightSource[i].ambient</code> is set after it has been mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">specular0R</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Red component setting for specular 0. The type is <code>u8</code>. The product of <code>dmp_FragmentMaterial.specular0</code> and <code>dmp_FragmentLightSource[i].specular0</code> is set after it has been mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">specular0G</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Green component setting for specular 0. The type is <code>u8</code>. The product of <code>dmp_FragmentMaterial.specular0</code> and <code>dmp_FragmentLightSource[i].specular0</code> is set after it has been mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">specular0B</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Blue component setting for specular 0. The type is <code>u8</code>. The product of <code>dmp_FragmentMaterial.specular0</code> and <code>dmp_FragmentLightSource[i].specular0</code> is set after it has been mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">specular1R</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Red component setting for specular 1. The type is <code>u8</code>. Either <code>dmp_FragmentLightSource[i].specular1</code> is set (if <code>true</code> is specified for <code>Light::isEnableLutRefl</code>), or the product of <code>dmp_FragmentMaterial.specular1</code> and <code>dmp_FragmentLightSource[i].specular1</code> is set (if it is set to <code>false</code>). Each setting is first mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">specular1G</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Green component setting for specular 1. The type is <code>u8</code>. Either <code>dmp_FragmentLightSource[i].specular1</code> is set (if <code>true</code> is specified for <code>Light::isEnableLutRefl</code>), or the product of <code>dmp_FragmentMaterial.specular1</code> and <code>dmp_FragmentLightSource[i].specular1</code> is set (if it is set to <code>false</code>). Each setting is first mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">specular1B</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Blue component setting for specular 1. The type is <code>u8</code>. Either <code>dmp_FragmentLightSource[i].specular1</code> is set (if <code>true</code> is specified for <code>Light::isEnableLutRefl</code>), or the product of <code>dmp_FragmentMaterial.specular1</code> and <code>dmp_FragmentLightSource[i].specular1</code> is set (if it is set to <code>false</code>). Each setting is first mapped from a value between <code>0.0f</code> and <code>1.0f</code> to a value between <code>0</code> and <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">posXY</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Holds a light's x-coordinate and y-coordinate, converted into rendering command format. The type is <code>bit32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">posZ</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Holds a light's z-coordinate, converted into rendering command format. The type is <code>bit32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">isInfinity</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>A flag that indicates whether to send a light's position to infinity. The type is <code>u8</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">distAttnBias</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Holds a light's distance attenuation bias, converted into rendering command format. The type is <code>bit32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">distAttnScale</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Holds a light's distance attenuation scale, converted into rendering command format. The type is <code>bit32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">spotDirectionXY</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Holds the X and Y components of a spotlight's direction, converted into rendering command format. The type is <code>bit32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">spotDirectionZ</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Holds the Z component of a spotlight's direction, converted into rendering command format. The type is <code>bit32</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/FragmentLight/Source/SetPosition.html">SetPosition</a>
+            </th>
+            <td>Configures the light position. Converts the set value to a 16-bit floating point number used to set the rendering command and stores it.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/FragmentLight/Source/SetSpotDirection.html">SetSpotDirection</a>
+            </th>
+            <td>Sets the spotlight light direction. Converts the set value to a 13-bit fixed point number used to set the rendering command and stores it.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/FragmentLight/Source/SetDistAttnScaleBias.html">SetDistAttnScaleBias</a>
+            </th>
+            <td>Sets the scale and bias for distance attenuation. Converts the set value to a 20-bit floating point number used to set the rendering command and stores it.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/FragmentLight/Source/SetDistAttnScaleBiasDirectly.html">SetDistAttnScaleBiasDirectly</a>
+            </th>
+            <td>Sets the scale and bias for distance attenuation. You must specify a value already converted to a 20-bit floating point number as an argument.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/FragmentLight/Source/SetDistAttnStartEnd.html">SetDistAttnStartEnd</a>
+            </th>
+            <td>Sets scale and bias for distance attenuation by specifying an attenuation start distance and attenuation end distance. Converts the set values to scale and bias values, and then converts them to 20-bit floating point numbers used to set the render command and stores them.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/FragmentLight/Source/MakeAllCommand.html">MakeAllCommand</a>
+            </th>
+            <td>Generates all light source commands based on configured data. In other words, it includes commands generated by the <code><a href="../../../../../nn/gr/CTR/FragmentLight/Source/MakeColorCommand.html">MakeColorCommand</a></code> and <code><a href="../../../../../nn/gr/CTR/FragmentLight/Source/MakeGeometryCommand.html">MakeGeometryCommand</a></code> functions.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/FragmentLight/Source/MakeCommand.html">MakeCommand</a>
+            </th>
+            <td>Generates all light source commands based on configured data. The <code>MakeAllCommand</code> function is called internally. This function has been retained to maintain compatibility.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/FragmentLight/Source/MakeColorCommand.html">MakeColorCommand</a>
+            </th>
+            <td>Generates color information commands for light sources based on configured data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/FragmentLight/Source/MakeGeometryCommand.html">MakeGeometryCommand</a>
+            </th>
+            <td>Generates geometric information commands for light sources based on configured data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/FragmentLight/Source/MakeAttitudeCommand.html">MakeAttitudeCommand</a>
+            </th>
+            <td>Generates geometric information commands for light sources based on configured data. However, unlike the <code><a href="../../../../../nn/gr/CTR/FragmentLight/Source/MakeGeometryCommand.html">MakeGeometryCommand</a></code> function, only commands about source light position and spotlight orientation are generated.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/FragmentLight/Source/Source.html">Source</a>
+            </th>
+            <td>The constructor initializes member variables.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

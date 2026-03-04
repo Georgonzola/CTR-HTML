@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>EC_GetChallenge</title>
+  </head>
+  <body>
+    <h1>EC_GetChallenge Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+int EC_GetChallenge(
+     int challengeId,
+     ECChallengeBlob cBlob_out,
+     time_t secsTillExpire
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>challengeId</th>
+          <td>A challenge ID to associate with the challenge blob.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>cBlob_out</th>
+          <td>A buffer to write the challenge blob to.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>secsTillExpire</th>
+          <td>The amount of time until the challenge blob expires.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>EC_OK</th>
+          <td>Success.</td>
+        </tr>
+        <tr>
+          <th>EC_OUT_OF_MEMORY</th>
+          <td>Insufficient memory to complete the process.</td>
+        </tr>
+        <tr>
+          <th>EC_GEN_KEY_ERROR</th>
+          <td>Internal encryption error.</td>
+        </tr>
+        <tr>
+          <th>EC_INVALID_CERT_FILE</th>
+          <td>Settings error. Invalid certificate authority file.</td>
+        </tr>
+        <tr>
+          <th>EC_CRYPTO_ERROR</th>
+          <td>Internal encryption error while verifying the ticket envelope. The ticket envelope may be invalid or corrupted.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a new challenge blob for the specified challenge ID and writes it to the output buffer.</p><p>For the challenge IDs, use values that can uniquely identify secure communication channels between clients and the game server. The created challenge blob is sent to the clients.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ir::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/ir/Overview.html">ir</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the <a href="../../../nn/ir/CTR/Overview.html">CTR</a> library for infrared communication between systems. (It can also be written without the <code>CTR</code> portion.)</p><P><b>Note:</b> Supporting Sleep Mode <br /> When the system transitions to Sleep Mode while the IR library is in use, the ongoing connection status and any ongoing connection authentication is forced to terminate. <br /> In addition, any unsent packets and any data not yet processed by the <tt>Receive</tt> function are destroyed. <br /> If the system was in the connected state, no disconnection request was sent to the communication partner, so if necessary call the <tt>Disconnect</tt> function and confirm that the function has completed before transitioning to Sleep Mode.<br /></P><P><b>Note:</b> Handling Malfunctions <br /> If there is a possibility that the IR is malfunctioning, all functions that return <tt>Result</tt> will invariably return <tt>ResultFatalError</tt> (with the exception of the <tt>Finalize</tt> function). IR communication becomes unusable after this, so finalize the IR library. <br /> Although there is a possibility that the IR module is malfunctioning, it may recover if the user turns the system off and on again. For this reason, we recommend you display a message to the user explaining the possibility of a malfunction and what to do about it.<br /></P></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/Communicator/Overview.html">nn::ir::CTR::Communicator</a>
+            </th>
+            <td>Class that supports IR communication between <a href="../../../nn/ir/CTR/Overview.html">CTR</a> systems.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultNotInitialized/Overview.html">nn::ir::CTR::ResultNotInitialized</a>
+            </th>
+            <td>Indicates that the IR library has not been initialized.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultAlreadyInitialized/Overview.html">nn::ir::CTR::ResultAlreadyInitialized</a>
+            </th>
+            <td>Indicates that the IR library is already initialized.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultInvalidSize/Overview.html">nn::ir::CTR::ResultInvalidSize</a>
+            </th>
+            <td>Indicates that the size of an argument value is incorrect.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultInvalidEnumValue/Overview.html">nn::ir::CTR::ResultInvalidEnumValue</a>
+            </th>
+            <td>Indicates that an argument value exceeds the range.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultOutOfRange/Overview.html">nn::ir::CTR::ResultOutOfRange</a>
+            </th>
+            <td>Indicates that a parameter specification is out of range.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultNoData/Overview.html">nn::ir::CTR::ResultNoData</a>
+            </th>
+            <td>Indicates that there are no values to be obtained.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultOutOfResource/Overview.html">nn::ir::CTR::ResultOutOfResource</a>
+            </th>
+            <td>Indicates a resource insufficiency.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultFatalError/Overview.html">nn::ir::CTR::ResultFatalError</a>
+            </th>
+            <td>Indicates that the IR module may be malfunctioning.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultPerformanceError/Overview.html">nn::ir::CTR::ResultPerformanceError</a>
+            </th>
+            <td>Indicates that an error related to system performance or <a href="../../../nn/ir/CTR/Overview.html">CTR</a> performance at a high baud-rate setting occurred.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultFramingError/Overview.html">nn::ir::CTR::ResultFramingError</a>
+            </th>
+            <td>Indicates that a receive data framing error occurred.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultOverrunError/Overview.html">nn::ir::CTR::ResultOverrunError</a>
+            </th>
+            <td>Indicates that the receiving process could not keep pace with the device's data receive speed.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultModuleOtherError/Overview.html">nn::ir::CTR::ResultModuleOtherError</a>
+            </th>
+            <td>Indicates that some other unknown error relating to the IR module occurred.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultMachineSleep/Overview.html">nn::ir::CTR::ResultMachineSleep</a>
+            </th>
+            <td>Indicates sleeping because the system is in Sleep Mode.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultSignatureNotFound/Overview.html">nn::ir::CTR::ResultSignatureNotFound</a>
+            </th>
+            <td>Could not find the signature in the received data indicating the start of the packet.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultdifferentSessionId/Overview.html">nn::ir::CTR::ResultdifferentSessionId</a>
+            </th>
+            <td>The packet's session ID is not correct.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultInvalidCrc/Overview.html">nn::ir::CTR::ResultInvalidCrc</a>
+            </th>
+            <td>Indicates an incorrect result from verifying the CRC of the received data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultFollowingDataNotExist/Overview.html">nn::ir::CTR::ResultFollowingDataNotExist</a>
+            </th>
+            <td>Indicates that the subsequent data necessary for parsing the packet does not exist.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultAlreadyConnected/Overview.html">nn::ir::CTR::ResultAlreadyConnected</a>
+            </th>
+            <td>Already in the connected state.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultAlreadyTryingToConnect/Overview.html">nn::ir::CTR::ResultAlreadyTryingToConnect</a>
+            </th>
+            <td>In the process of connecting.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultNotConnected/Overview.html">nn::ir::CTR::ResultNotConnected</a>
+            </th>
+            <td>Not connected.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultBufferFull/Overview.html">nn::ir::CTR::ResultBufferFull</a>
+            </th>
+            <td>The buffer is full.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultPacketFull/Overview.html">nn::ir::CTR::ResultPacketFull</a>
+            </th>
+            <td>The packet is full.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultBufferInsufficient/Overview.html">nn::ir::CTR::ResultBufferInsufficient</a>
+            </th>
+            <td>The buffer size is insufficient.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultTimeout/Overview.html">nn::ir::CTR::ResultTimeout</a>
+            </th>
+            <td>A timeout has occurred.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultPeripheral/Overview.html">nn::ir::CTR::ResultPeripheral</a>
+            </th>
+            <td>Error from the communication partner.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultCannotConfirmId/Overview.html">nn::ir::CTR::ResultCannotConfirmId</a>
+            </th>
+            <td>Could not confirm the ID of the communication partner.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/ir/CTR/ResultInvalidData/Overview.html">nn::ir::CTR::ResultInvalidData</a>
+            </th>
+            <td>Invalid data.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/ir/CTR/ConnectionStatus.html">ConnectionStatus</a>
+            </th>
+            <td>Enumerated type that represents the connection status with another device.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/ir/CTR/TryingToConnectStatus.html">TryingToConnectStatus</a>
+            </th>
+            <td>Enumerated type that represents the status of the connection authentication process with another device.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/ir/CTR/MachineId.html">MachineId</a>
+            </th>
+            <td>Enumerated type that represents the IDs assigned to devices.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/ir/CTR/ConnectionRole.html">ConnectionRole</a>
+            </th>
+            <td>Enumerated type that represents whether the local system is server or client in the established connection.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ir/CTR/FREE_PACKET_BORDER_SIZE.html">FREE_PACKET_BORDER_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Threshold value at which the total size of the header and footer appended to the data in a packet changes. When equal to or greater than this value, the header size becomes <code>FREE_PACKET_HEADER_FOOTER_SIZE_OVER_BORDER</code>. When less than this value, the header size becomes <code>FREE_PACKET_HEADER_FOOTER_SIZE_UNDER_BORDER</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ir/CTR/FREE_PACKET_HEADER_FOOTER_SIZE_UNDER_BORDER.html">FREE_PACKET_HEADER_FOOTER_SIZE_UNDER_BORDER</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The total size of the header and footer appended to the data in a packet when the data size is less than <code>FREE_PACKET_BORDER_SIZE</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ir/CTR/FREE_PACKET_HEADER_FOOTER_SIZE_OVER_BORDER.html">FREE_PACKET_HEADER_FOOTER_SIZE_OVER_BORDER</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The total size of the header and footer appended to the data in a packet when the data size is equal to or larger than <code>FREE_PACKET_BORDER_SIZE</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ir/CTR/PAYLOAD_SIZE_MAX.html">PAYLOAD_SIZE_MAX</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The maximum amount of data that can be sent or received.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ir/CTR/NECESSARY_BUFFER_SIZE_FOR_CONNECTION.html">NECESSARY_BUFFER_SIZE_FOR_CONNECTION</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The size of the receive (or send) buffer that is required in order to connect.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ir/CTR/CONNECTION_REQUEST_PACKET_SIZE.html">CONNECTION_REQUEST_PACKET_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The size of the connection-request packet.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ir/CTR/CONNECTION_REPLY_PACKET_SIZE.html">CONNECTION_REPLY_PACKET_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The size of the connection-reply packet.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/ir/CTR/MANAGEMENT_BUFFER_ALLIGNMENT_SIZE.html">MANAGEMENT_BUFFER_ALLIGNMENT_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The per-entry size in the packet management table.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

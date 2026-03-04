@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>CloseAsync</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/ac/Overview.html">ac</a>::<a href="../../../nn/ac/CTR/Overview.html">CTR</a>::CloseAsync Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> CloseAsync(
+     <a href="../../../nn/os/Event/Overview.html">os::Event</a> * event
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>event</th>
+          <td>An initialized <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> that indicates the completion of the operation.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the call completed successfully.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidData</th>
+          <td>Either <code>NULL</code> was specified as an argument or an uninitialized event was specified.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyExists</th>
+          <td>Already processing.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure for other reasons.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Closes an asynchronously established automatic connection.</p><p>When this function succeeds, asynchronous processing begins. After that processing ends, regardless of its success or failure, the <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> specified in the arguments is signaled. <br />
+ If the function itself fails, no asynchronous processes are started and <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> is not signaled. <br /><br />
+ There is no need to call this function when the event registered with <code>DisconnectEvent</code> is signaled. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/09/19</dt>
+        <dd><item xmlns="">Improved the description of Event signals.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

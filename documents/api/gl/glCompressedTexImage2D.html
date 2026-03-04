@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glCompressedTexImage2D</title>
+  </head>
+  <body>
+    <h1>glCompressedTexImage2D Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glCompressedTexImage2D(
+     GLenum target,
+     GLint level,
+     GLenum internalformat,
+     GLsizei width,
+     GLsizei height,
+     GLint border,
+     GLsizei imageSize,
+     const void * data
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Texture target.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>level</th>
+          <td>Mipmap level of the data to load.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>internalformat</th>
+          <td>Texture format (<code>GL_ETC1_RGB8_NATIVE_DMP</code> or <code>GL_ETC1_RGB8_A4_NATIVE_DMP</code>).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Texture width.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Texture height.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>border</th>
+          <td>Border width. (<code>0</code> is the only valid value.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>imageSize</th>
+          <td>Texture data size.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>data</th>
+          <td>Pointer to texture data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Loads compressed texture data.</p><P>
+                You can set <span class="argument">target</span> to one of the following values.
+                <TABLE><TR><TH>GL_TEXTURE_2D</TH><TD> 2D texture. </TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_NEGATIVE_X</th><TD> Face of a cube-map texture in the negative x direction. </TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_POSITIVE_X</th><TD> Face of a cube-map texture in the positive x direction. </TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_NEGATIVE_Y</th><TD> Face of a cube-map texture in the negative y direction. </TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_POSITIVE_Y</th><TD> Face of a cube-map texture in the positive y direction. </TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_NEGATIVE_Z</th><TD> Face of a cube-map texture in the negative z direction. </TD></TR><TR><th>GL_TEXTURE_CUBE_MAP_POSITIVE_Z</th><TD> Face of a cube-map texture in the positive z direction. </TD></TR></TABLE><!-- source
+                     targetにはGL_TEXTURE_2DまたはGL_TEXTURE_CUBE_MAP_NEGATIVE_X、GL_TEXTURE_CUBE_MAP_POSITIVE_X、 GL_TEXTURE_CUBE_MAP_NEGATIVE_Y、GL_TEXTURE_CUBE_MAP_POSITIVE_Y、GL_TEXTURE_CUBE_MAP_NEGATIVE_Z、GL_TEXTURE_CUBE_MAP_POSITIVE_Zが指定できます。
+                --></P><P>
+                To specify the region that is accessed by the GPU, set <span class="argument">target</span> to a bitwise OR of the aforementioned and the following values.
+                <TABLE><TR><th>NN_GX_MEM_FCRAM</th><TD>The GPU accesses FCRAM.</TD></TR><TR><th>NN_GX_MEM_VRAMA</th><TD>The GPU accesses VRAMA.</TD></TR><TR><th>NN_GX_MEM_VRAMB</th><TD>The GPU accesses VRAMB.  You can also specify whether copies of data are generated in FCRAM by including the following values in the bitwise OR.</TD></TR><TR><th>GL_COPY_FCRAM_DMP</th><TD>Copies of data are generated in FCRAM.</TD></TR><TR><th>GL_NO_COPY_FCRAM_DMP</th><TD>Copies of data are not generated in FCRAM.</TD></TR></TABLE><!-- source
+                     NN_GX_MEM_FCRAM ・・・ FCRAMにGPUがアクセスします。 NN_GX_MEM_VRAMA ・・・ VRAMAにGPUがアクセスします。 NN_GX_MEM_VRAMB ・・・ VRAMBにGPUがアクセスします。 さらに次の値を論理和で指定することで、FCRAMにデータのコピーを生成するか否かを指定することができます。 GL_COPY_FCRAM_DMP ・・・ FCRAMにデータのコピーを生成します。 GL_NO_COPY_FCRAM_DMP ・・・ FCRAMにデータのコピーを生成しません。
+                --></P><P>
+                These combinations cause data to be transferred as follows.
+                <TABLE><TR><TH>(<tt>NN_GX_MEM_FCRAM</tt> | <tt>GL_NO_COPY_FCRAM_DMP</tt>)</TH><TD>The GPU directly accesses the region specified by <span class="argument">data</span>.</TD></TR><TR><TH>(<tt>NN_GX_MEM_VRAMA</tt> | <tt>GL_NO_COPY_FCRAM_DMP</tt>)</TH><TD>A region is allocated in VRAMA; <span class="argument">data</span> is transferred to VRAMA via DMA; and then the GPU accesses VRAMA.</TD></TR><TR><TH>(<tt>NN_GX_MEM_VRAMB</tt> | <tt>GL_NO_COPY_FCRAM_DMP</tt>)</TH><TD>A region is allocated in VRAMB; <span class="argument">data</span> is transferred to VRAMB via DMA; and then the GPU accesses VRAMB.</TD></TR><TR><TH>(<tt>NN_GX_MEM_FCRAM</tt> | <tt>GL_COPY_FCRAM_DMP</tt>)</TH><TD>A region is allocated in FCRAM; <span class="argument">data</span> is copied to FCRAM via the CPU; and then the GPU accesses FCRAM.</TD></TR><TR><TH>(<tt>NN_GX_MEM_VRAMA</tt> | <tt>GL_COPY_FCRAM_DMP</tt>)</TH><TD>A region is allocated in VRAMA and FCRAM; <span class="argument">data</span> is copied to FCRAM via the CPU, then transferred from FCRAM to VRAMA via DMA; and then the GPU accesses VRAMA.</TD></TR><TR><TH>(<tt>NN_GX_MEM_VRAMB</tt> | <tt>GL_COPY_FCRAM_DMP</tt>)</TH><TD>A region is allocated in VRAMB and FCRAM; <span class="argument">data</span> is copied to FCRAM via the CPU, then transferred from FCRAM to VRAMB via DMA; and then the GPU accesses VRAMB.</TD></TR></TABLE><!-- source
+                      (NN_GX_MEM_FCRAM | GL_NO_COPY_FCRAM_DMP) ・・・ dataに指定した領域を直接GPUがアクセスする。 (NN_GX_MEM_VRAMA | GL_NO_COPY_FCRAM_DMP) ・・・ VRAMAに領域を確保し、DMAでdataからVRAMAへ転送し、VRAMAをGPUがアクセスする。 (NN_GX_MEM_VRAMB | GL_NO_COPY_FCRAM_DMP) ・・・ VRAMBに領域を確保し、DMAでdataからVRAMBへ転送し、VRAMBをGPUがアクセスする。 (NN_GX_MEM_FCRAM | GL_COPY_FCRAM_DMP) ・・・ FCRAMに領域を確保し、CPUでdataからFCRAMへコピーし、FCRAMをGPUがアクセスする。 (NN_GX_MEM_VRAMA | GL_COPY_FCRAM_DMP) ・・・ VRAMAおよびFCRAMに領域を確保し、CPUでdataからFCRAMへコピーし、DMAでFCRAMからVRAMAへ転送し、VRAMAをGPUがアクセスする。 (NN_GX_MEM_VRAMB | GL_COPY_FCRAM_DMP) ・・・ VRAMBおよびFCRAMに領域を確保し、CPUでdataからFCRAMへコピーし、DMAでFCRAMからVRAMBへ転送し、VRAMBをGPUがアクセスする。
+                --></P><P>
+                If you do not specify which region is accessed by the GPU or whether data is copied to FCRAM, <tt>(NN_GX_MEM_FCRAM | GL_COPY_FCRAM_DMP)</tt> is used.  (These settings cannot be specified for POD.)
+            </P><P>
+                Set <span class="argument">level</span> to a negative value that is equal to the number of mipmaps to load for the texture data stored in <span class="argument">data</span>.  For example, specify a value of -2 to load two mipmap levels and a value of -3 to load three mipmap levels.
+            </P><P>
+                If you set <span class="argument">level</span> to 0 or -1, it is recognized as indicating the minimum single-level mipmap.
+            </P><P>
+                For <span class="argument">internalformat</span>, you can specify either <tt>GL_ETC1_RGB8_NATIVE_DMP</tt> or <tt>GL_ETC1_ALPHA_RGB8_A4_NATIVE_DMP</tt>.
+            </P><P>
+                Set <span class="argument">width</span> and <span class="argument">height</span> to the texture size of the data to load. Specify the size of level 0 when you load multiple mipmap levels of data.  With <tt>GL_ETC1_RGB8_NATIVE_DMP</tt>, the texture size must be a power of 2 between 16 and 1024, inclusive.
+            </P><P>
+                You must set <span class="argument">border</span> equal to <tt>0</tt>.
+            </P><P>
+                Set <span class="argument">imageSize</span> to the number of bytes of data specified by <span class="argument">data</span>.
+            </P><P>
+                Set <span class="argument">data</span> to a pointer to the texture data to load. When data is loaded for multiple mipmap levels, it is stored in ascending level order starting with level 0.  You cannot separately load the individual mipmap levels of the data.  When <span class="argument">data</span> is set to NULL, this function simply allocates a region as large as the data size.
+            </P><P>
+                This function generates the following errors.
+                <TABLE><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound when DMA transfers were in use.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">width</span>, <span class="argument">height</span>, <span class="argument">internalformat</span>, <span class="argument">border</span>, or <span class="argument">level</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">imageSize</span> argument was set to a value of 0 or less.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">target</span> argument was set to an invalid transfer method.</TD></TR></TABLE><!-- source
+                                     DMA転送を使用する場合、コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 width、height、internalformat、border、levelに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 imageSizeに0以下の値を指定した場合エラーGL_INVALID_OPERATIONを生成します。 targetに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 また、targetに不正な転送処理方式を指定した場合エラーGL_INVALID_OPERATIONを生成します。
+                --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/29</dt>
+        <dd><item xmlns="">Added GL_ETC1_ALPHA_RGB8_A4_NATIVE_DMP, which had been omitted by mistake, as one of the specifiable values for internalformat.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

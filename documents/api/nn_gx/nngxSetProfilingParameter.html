@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxSetProfilingParameter</title>
+  </head>
+  <body>
+    <h1>nngxSetProfilingParameter Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxSetProfilingParameter(
+     GLenum pname,
+     GLuint param
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>Profiling feature parameter.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>param</th>
+          <td>Value to set.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets a profiling feature parameter.</p><p>Operation is undefined when starting the profiling features (busy counters) before setting the parameters.  Be sure to configure the parameters with appropriate values before starting the profiling features.</p><p>The following table lists the parameter names and values that can be specified in <span class="argument">pname</span>.</p><p><TABLE><TR><th>NN_GX_PROFILING_BUSY_SAMPLING_TIME</th><TD>Specifies the amount of time in clock ticks to spend profiling the busy counter each time it is sampled.  Specify a 16-bit value other than <tt>0</tt> in <span class="argument">param</span>.<br /></TD></TR><TR><th>NN_GX_PROFILING_BUSY_SAMPLING_TIME_MICRO_SECOND</th><TD>Set to the same value as <tt>NN_GX_PROFILING_BUSY_SAMPLING_TIME</tt> in microseconds.  Set to a value between 1 and 244. <br /> (The specified value is converted internally to clock cycles for a 268-MHz operation clock and set to the hardware. The value converted to clock cycles must fit within 16 bits.)</TD></TR><TR><th>NN_GX_PROFILING_BUSY_SAMPLING_TIME_NANO_SECOND</th><TD>Set to the same value as <tt>NN_GX_PROFILING_BUSY_SAMPLING_TIME</tt> in nanoseconds.  Set to a value between 1 and 244537. <br /> (The specified value is converted internally to clock cycles for a 268-MHz operation clock and set to the hardware. The value converted to clock cycles must fit within 16 bits.)</TD></TR><TR><th>NN_GX_PROFILING_BUSY_SAMPLING_COUNT</th><TD>Specifies the number of samplings of the busy counter. Specify a 16-bit value for <span class="argument">param</span>. If <tt>0</tt> is specified, once sampling starts, it continues until <tt><a href="../nn_gx/nngxStopProfiling.html">nngxStopProfiling</a></tt> is called. <br /> (Profiling is performed for the duration specified by <tt>NN_GX_PROFILING_BUSY_SAMPLING_TIME</tt> and is repeated until stopped.) <br /> If the time is set to a value of 1 or higher, and if the results are obtained after waiting for profiling to end, the sum of the values of the profiling results for the various modules calculated by the busy counter feature is equal to the number of times profiling took place with this configuration.</TD></TR></TABLE></p><p>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_80A5_DMP</TH><TD>The <span class="argument">pname</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_ERROR_80A6_DMP</TH><TD>The <span class="argument">param</span> parameter was set to an invalid value.</TD></TR></TABLE></p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/06/14</dt>
+        <dd><item xmlns="">Revised the description for NN_GX_PROFILING_BUSY_SAMPLING_{TIME, COUNT}.</item><br />
+        </dd>
+        <dt>2012/02/03</dt>
+        <dd><item xmlns="">Added more comments for various parameters.</item><br />
+        </dd>
+        <dt>2011/08/24</dt>
+        <dd><item xmlns="">Added explanations about NN_GX_PROFILING_BUSY_SAMPLING_TIME_MICRO_SECOND and NN_GX_PROFILING_BUSY_SAMPLING_TIME_NANO_SECOND.</item><br />
+        </dd>
+        <dt>2011/07/28</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

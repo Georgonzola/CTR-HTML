@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dbg/Overview.html">dbg</a>::<a href="../../../../nn/dbg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/dbg/CTR/Instrument/Overview.html">Instrument</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/dbg.h&gt;
+void Initialize(
+     void * buffer,
+     size_t bufferSize,
+     <a href="../../../../nn_types/s32.html">s32</a> type = TRACE_STACK
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td />
+          <th>buffer</th>
+          <td>Instrumentation buffer</td>
+        </tr>
+        <tr>
+          <td />
+          <th>bufferSize</th>
+          <td>Size of instrumentation buffer (in bytes)</td>
+        </tr>
+        <tr>
+          <td />
+          <th>type</th>
+          <td>The instrumentation type</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Declares the buffer region passed to the instrumentation class and performs initialization.</p><P>Stores measured results in the buffer given by <span class="argument">buffer</span>.  This size of <span class="argument">buffer</span> is given by <span class="argument">bufferSize</span>.</P><P><span class="argument">type</span> represents the instrumentation type and is specified as follows.  Either log mode or stack mode must be specified. Use the logical sum if you need to both record system ticks and specify a ring buffer.</P><TABLE><THEAD><TR><TH>Value</TH><TH>Description</TH></TR></THEAD><TR><TD>nn::dbg::CTR::TRACE_LOG</TD><TD>Log Mode</TD></TR><TR><TD>nn::dbg::CTR::TRACE_STACK</TD><TD>Stack Mode</TD></TR><TR><TD>nn::dbg::CTR::RECORD_TICK</TD><TD>Also records system ticks</TD></TR><TR><TD>nn::dbg::CTR::RING_BUFFER</TD><TD>Uses buffer as a ring buffer.</TD></TR></TABLE><P>Each of these modes is described below.</P><H4>Log mode (TRACE_LOG) and stack mode (TRACE_STACK)</H4><P>In log mode, a log of calls is taken upon entering the function.  In stack mode, a log of calls is taken upon entering the function and the log is destroyed on exit.  Either log mode or stack mode must be specified for the instrumentation type.</P><H4>Recording system ticks (RECORD_TICK)</H4><P>If RECORD_TICK is specified, the number of system ticks when the function was called is also recorded.  The amount of instrumentation buffer memory being used increases by eight bytes per function call.</P><H4>Using a ring buffer (RING_BUFFER).</H4><P>If RING_BUFFER is specified, when the instrumentation buffer becomes full, the oldest data is deleted from the next time data is recorded.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/07/15</dt>
+        <dd><item xmlns="">Added information about instrumentation types</item><br />
+        </dd>
+        <dt>2011/07/12</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

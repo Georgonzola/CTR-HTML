@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::LightEvent</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::LightEvent Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/os.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class LightEvent : private <a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable< LightEvent ></a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Synchronization mechanism for communicating flags between threads.</p><p>The class has an internal flag that multiple threads can control in a safe manner. It can also be used to wait for the flag to be set. The <code><a href="../../../nn/os/LightEvent/Overview.html">nn::os::LightEvent</a></code> class is superior to the <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> class. Use it in normal cases. Its only disadvantage is that it cannot wait for multiple synchronization objects simultaneously.</p><p>All member functions of this class are thread-safe except for the <code>Initialize</code> and <code>Finalize</code> functions.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Initialization and Termination</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightEvent/LightEvent.html">LightEvent</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightEvent/Initialize.html">Initialize</a>
+            </th>
+            <td>Performs initialization.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightEvent/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the object.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Obtaining Debug Info</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightEvent/IsSignaled.html">IsSignaled</a>
+            </th>
+            <td>Gets whether the flag is set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightEvent/IsManualReset.html">IsManualReset</a>
+            </th>
+            <td>Determines whether an event is a manually resetting event.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Flag Operations and Blocking</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightEvent/TryWait.html">TryWait</a>
+            </th>
+            <td>Gets whether the flag is set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightEvent/Wait.html">Wait</a>
+            </th>
+            <td>Wait until the flag is set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightEvent/Signal.html">Signal</a>
+            </th>
+            <td>Sets flags.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightEvent/Pulse.html">Pulse</a>
+            </th>
+            <td>Cancel threads waiting for the flag to be set. For an automatically resetting event, only the waiting thread with the highest priority is woken up. Its flag is then cleared. This function differs from <code>Signal</code> in that it clears the flag even if no threads are waiting.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/LightEvent/ClearSignal.html">ClearSignal</a>
+            </th>
+            <td>Clears flags.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<b>nn::os::LightEvent</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size           : 8pt;
+        color               : white;
+        font-weight         : bold;
+        background          : #44f;
+        border-left         : solid 1px #aaf;
+        border-top          : solid 1px #aaf;
+        border-right        : solid 1px #00c;
+        border-bottom       : solid 1px #00c;
+        padding-left        : 2px;
+        padding-right       : 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size            : 8pt;
+        color                : white;
+        font-weight         : bold;
+        background          : #0a0;
+        border-left         : solid 1px #0f0;
+        border-top          : solid 1px #0f0;
+        border-right        : solid 1px #060;
+        border-bottom       : solid 1px #060;
+        padding-left        : 2px;
+        padding-right       : 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size            : 8pt;
+        color                : white;
+        font-weight         : bold;
+        background          : #444;
+        border-left         : solid 1px #ccc;
+        border-top          : solid 1px #ccc;
+        border-right        : solid 1px #222;
+        border-bottom       : solid 1px #222;
+        padding-left        : 2px;
+        padding-right       : 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position    : static;
+        font-family : Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight         : bold;
+        background          : #acf;
+      }
+        --></style>
+    <title>DummyNintendoEShop</title>
+  </head>
+  <body>
+    <h1>DummyNintendoEShop</h1>
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        DummyNintendoEShop is an application that replaces Nintendo eShop and is a tool for verifying the operation of features that jump to Nintendo eShop.<br />
+      </p>
+      <p>
+        Because Nintendo eShop is not included in development machines after System Updater is applied, DummyNintendoEShop must be imported to verify the feature to jump to Nintendo eShop.<br />
+      </p>
+      <p>
+        The <CODE>$CTRSDK_ROOT/tools/TargetTools/CTR-TS/Release</CODE> directory contains a <CODE>DummyNintendoEShop<I>XX</I>.cia</CODE> (<I><I>XX</I></I> is the region name) file for each region.<br /> Import the CIA file corresponding to your region from DevMenu.<br /> If the import is successful, a DummyNintendoEShop icon with a pink frame appears in the HOME Menu. 
+      </p>
+    </div>
+    <h2>Jump Feature Operation Verification</h2>
+    <div class="section">
+      <p>
+        Verify by jumping from the application to Nintendo eShop.<br /> The applet library has the following functions for jumping to Nintendo eShop.<br />
+      </p>
+      <li><a href="../api/nn/applet/CTR/JumpToEShopTitlePage.html">nn::applet::JumpToEShopTitlePage</a> ... Jumps to the software information page of the specified title.</li>
+      <li><a href="../api/nn/applet/CTR/JumpToEShopPatchPage.html">nn::applet::JumpToEShopTitlePage</a> ... Jumps to the patch page of the specified title.</li>
+      <p>
+        When these functions are called, the application ends and DummyNintendoEShop starts, so verify the content displayed in the upper screen.<br />For more information, see <B>Screen Description</B>.<br /> If the jump destination page and the title unique ID are as expected, jumping to the actual Nintendo eShop is also possible. 
+      </p>
+    </div>
+    <h2>Screen Description</h2>
+    <div class="section">
+      <p>
+        The upper screen displays the title and unique ID of the page specified as the jump destination for Nintendo eShop and the unique ID of the application where the jump originates.
+        <table class="table"><tbody>
+          <tr><th>Jump Destination</th><th>Content Shown</th></tr>
+          <tr><td>Software information page</td><td>Dummy Nintendo eShop<br />Title page uniqueID=Unique ID of title to jump to jump from app (Unique ID of the application where the jump originates)<br />JumpType=2(Public) OK</td></tr>
+          <tr><td>Patch Page</td><td>Dummy Nintendo eShop<br />Patch uniqueID=Unique ID of title to jump to jump from app (Unique ID of the application where the jump originates)<br />JumpType=2(Public) OK</td></tr>
+        </tbody></table>
+        The lower screen shows ways to cancel DummyNintendoEShop (press the HOME button) and exit DummyNintendoEShop (press the POWER Button).
+      </p>
+    </div>
+    <h2>Notes</h2>
+    <div class="section">
+      <p>
+        The <a href="../api/nn/applet/CTR/JumpToEShopPatchPage.html"><CODE>nn::applet::JumpToEShopPatchPage</CODE></a> function is used to guide to the patch page of the Nintendo eShop title when the authentication server or account server returns an error such as <a href="../api/nn/act/ResultApplicationUpdateRequired/Overview.html"><CODE>nn::act::ResultApplicationUpdateRequired</CODE></a> that requires an application update.<br />
+      </p>
+      <p>
+        However, when the application update is operated with remastering, the patch page for the title in Nintendo eShop does not exist.<br /> In this case, an error that the title does not exist on the actual Nintendo eShop is displayed and transition to the Nintendo eShop startup screen.<br /> When operating a remaster, use the <a href="../api/nn/applet/CTR/JumpToEShopTitlePage.html"><CODE>nn::applet::JumpToEShopTitlePage</CODE></a> function.
+      </p>
+      <p>
+        With DummyNintendoEShop, verify that &quot;Patch page&quot; is displayed when operating with a patch and that &quot;Title page&quot; is displayed when operating with a remaster.
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015-02-16</dt>
+        <dd>Initial version.</dd>
+      </dl>
+    </div>
+  <hr><p>CONFIDENTIAL</p></body>
+</html>

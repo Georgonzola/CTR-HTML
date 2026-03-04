@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxAddMemoryFillCommand</title>
+  </head>
+  <body>
+    <h1>nngxAddMemoryFillCommand Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxAddMemoryFillCommand(
+     GLvoid * startaddr0,
+     GLsizei size0,
+     GLuint data0,
+     GLsizei width0,
+     GLvoid * startaddr1,
+     GLsizei size1,
+     GLuint data1,
+     GLsizei width1
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>startaddr0</th>
+          <td>Start address of the region to fill with data (channel 0).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size0</th>
+          <td>Size of the region to fill, in bytes (channel 0).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>data0</th>
+          <td>The data to use when filling (channel 0).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width0</th>
+          <td>Fill pattern bit width (16, 24, or 32) (channel 0).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>startaddr1</th>
+          <td>Start address of the region to fill with data (channel 1).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size1</th>
+          <td>Size of the region to fill, in bytes (channel 1).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>data1</th>
+          <td>The data to use when filling (channel 1).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width1</th>
+          <td>Fill pattern bit width (16, 24, or 32) (channel 1).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Adds a memory-fill command.</p><P>Use this function to clear the color and depth (stencil) buffers by filling memory with a specified data pattern. The <span class="argument">glClear</span> function provides equivalent functionality, but this function has more general uses.</P><P>You can fill two regions using separate parameters for each. Channel 0 is configured by <span class="argument">startaddr0</span>, <span class="argument">size0</span>, <span class="argument">data0</span>, and <span class="argument">width0</span>. Channel 1 is configured by <span class="argument">startaddr1</span>, <span class="argument">size1</span>, <span class="argument">data1</span>, and <span class="argument">width1</span>.</P><P>Memory is filled starting at addresses <span class="argument">startaddr0</span> and <span class="argument">startaddr1</span>. The <span class="argument">startaddr0</span> and <span class="argument">startaddr1</span> addresses must be 16-byte aligned. If an address is 0, its corresponding channel is not used. This function can only fill VRAM. It cannot fill main memory (FCRAM).</P><P><span class="argument">size0</span> and <span class="argument">size1</span> bytes of memory are filled. Both <span class="argument">size0</span> and <span class="argument">size1</span> must be multiples of 16.</P><P>The <span class="argument">data0</span> and <span class="argument">data1</span> arguments specify the fill data. The data specified in each argument is repeated until the specified size is filled.</P><P>The number of bits in each fill pattern is specified by <span class="argument">width0</span> and <span class="argument">width1</span>. You can specify <tt>16</tt>, <tt>24</tt>, or <tt>32</tt>. If you specify <tt>16</tt>, memory is filled 16 bits at a time using bits [15:0] of <span class="argument">data0</span> and <span class="argument">data1</span>. If you specify <tt>24</tt>, memory is filled 24 bits at a time using bits [23:0] of <span class="argument">data0</span> and <span class="argument">data1</span>. If you specify <tt>32</tt>, memory is filled 32 bits at a time using bits [31:0] of <span class="argument">data0</span> and <span class="argument">data1</span>.</P><P>The following table shows sample argument values for each color buffer format.<TABLE><THEAD><TR><TD>format</TD><TD><span class="argument">data0</span> or <span class="argument">data1</span></TD><TD><span class="argument">width0</span> or <span class="argument">width1</span></TD></TR></THEAD><TR><TD>GL_RGBA8_OES</TD><TD>R[31:24], G[23:16], B[15:8], A[7:0]</TD><TD>32</TD></TR><TR><TD><tt>GL_RGBA4</tt></TD><TD>R[15:12], G[11:8], B[7:4], A[3:0]</TD><TD>16</TD></TR><TR><TD><tt>GL_RGB5_A1</tt></TD><TD>R[3:11 PM], G[10:6], B[5:1], A[0:0]</TD><TD>16</TD></TR><TR><TD><tt>GL_RGB565</tt></TD><TD>R[15:11], G[10:5], B[4:0]</TD><TD>16</TD></TR><TR><TD><tt>GL_DEPTH24_STENCIL8_EXT</tt></TD><TD>stencil[31:24], depth[23:0]</TD><TD>32</TD></TR><TR><TD><tt>GL_DEPTH_COMPONENT24_OES</tt></TD><TD>depth[23:0]</TD><TD>24</TD></TR><TR><TD><tt>GL_DEPTH_COMPONENT16</tt></TD><TD>depth[15:0]</TD><TD>16</TD></TR></TABLE></P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_8078_DMP</TH><TD>0 is bound to the current command list or the command request queue is full.</TD></TR><TR><TH>GL_ERROR_8079_DMP</TH><TD>The <span class="argument">startaddr0</span> or <span class="argument">startaddr1</span> value is not 16-byte aligned.</TD></TR><TR><TH>GL_ERROR_807A_DMP</TH><TD>The <span class="argument">size0</span> or <span class="argument">size1</span> value is not a multiple of 16.</TD></TR><TR><TH>GL_ERROR_807B_DMP</TH><TD>The <span class="argument">width0</span> or <span class="argument">width1</span> value is invalid.</TD></TR></TABLE>The <span class="argument">size0</span>, <span class="argument">data0</span>, and <span class="argument">width0</span> arguments are not checked for errors when <span class="argument">startaddr0</span> is set to <tt>0</tt>. The <span class="argument">size1</span>, <span class="argument">data1</span>, and <span class="argument">width1</span> arguments are not checked for errors when <span class="argument">startaddr1</span> is set to <tt>0</tt>.</P><P>Channel 0 and channel 1 are executed simultaneously. If they have overlapping regions, it is undefined which result will ultimately be applied.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/01</dt>
+        <dd><item xmlns="">Corrected the text.</item><br />
+        </dd>
+        <dt>2010/10/07</dt>
+        <dd><item xmlns="">Added information on address restrictions.</item><br />
+        </dd>
+        <dt>2010/09/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

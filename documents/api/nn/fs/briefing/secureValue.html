@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+    <title>File System: Save Data Rollback Prevention Feature</title>
+</head>
+<body>
+    <h1>File System: Save Data Rollback Prevention Feature</h1>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#Summary">Overview</a></li>
+      <li><a href="#Usage">Usage</a></li>
+      <ul>
+        <li><a href="#Usage_SecureValue">Secure Value Region</a></li>
+        <li><a href="#Usage_Save">Saving Save Data</a></li>
+        <li><a href="#Usage_Load">Loading Save Data</a></li>
+        <li><a href="#Usage_Loosely">Loose Rollback Prevention</a></li>
+        <li><a href="#Usage_Mask">Secure Value Mask</a></li>
+        <li><a href="#Usage_Overload">Whether to Specify an Archive Name</a></li>
+        <li><a href="#Usage_DebugSupport">Debug Support</a></li>
+      </ul>
+      <li><a href="#History">Revision History</a></li>
+    </ul>
+
+    <a name="Summary"><h2>Overview</h2></a>
+    <div class="section">
+      <p>
+        On the CTR, downloaded applications are stored on the SD card. This makes it easy for users to back up their save data on a PC, but also makes it relatively easy to accidentally overwrite game save data at a later time. You can use the features provided in the SDK for preventing rollback of save data to avoid ruining the game experience by accidentally overwriting (rolling back) save data.
+      </p>
+      <p>
+        Save data for card applications is stored in a dedicated region in CTR memory. You do not need to use the save data rollback prevention feature for this save data because users cannot easily roll it back by accident. The SDK can automatically determine what kind of application is being used, and it can decide whether to use the rollback prevention feature because the source code and binary data for card applications and downloadable applications are essentially identical. As a result, if there is any chance that the application you are developing may be distributed as a downloadable application in the future and may use the save data rollback prevention feature (even if you only plan on releasing it as a card application for now), we strongly recommend that you develop the application using the save data rollback prevention API to add support for the feature ahead of time, and also <B>fully debug your application in the download distribution format</B>.
+      </p>
+    </div>
+    
+    <a name="Usage"><h2>Usage</h2></a>
+    <div class="section">
+      <a name="Usage_SecureValue"><h3>Secure Value Region</h3></a>
+      <div class="section">
+        <p>
+          A 64-bit region known as a <I>secure value region</I> is created in system memory for each application for use with the save data rollback prevention feature. You can use the save data rollback prevention feature API to write values to and verify values from the secure regions. If you want to prevent save data rollback for a particular application, you can also use the API to associate a value in the secure region with a value in the application.
+        </p>
+      </div>
+      <a name="Usage_Save"><h3>Saving Save Data</h3></a>
+      <div class="section">
+        <p>
+          To prevent save data rollback for an application, create a 64-bit secure value when saving game data. There are no restrictions on the values that can be saved in the secure region, but we recommend the following methods to prevent duplicate saves.
+        </p>
+        <p>
+          <ul>
+            <li>Increment the value previously saved in the region.</li>
+            <li>Generate a random value.</li>
+            <li>Create a hash for the data to save.</li>
+          </ul>
+        </p>
+        <p>
+          After the secure value is created and written to the save data, specify the secure value and the archive name when calling the <a href="../../../nn/fs/CommitSaveDataAndSetSecureValue.html">nn::fs::CommitSaveDataAndSetSecureValue</a> function to commit the save data and overwrite the console's secure region. (If you are using the save data rollback prevention feature, do not use the <a href="../../../nn/fs/CommitSaveData.html">nn::fs::CommitSaveData</a> function.) If the power is turned off or the SD card is removed while this function is being executed, the secure values saved by both of these functions will be inconsistent. Make sure to <B>display an appropriate message to users during this time</B> to prevent this from happening. <B>Do not allow the system to enter Sleep Mode or transition to the HOME Menu during this time.</B>
+        </p>
+        <p>
+          For card application save data, calling the <a href="../../../nn/fs/CommitSaveDataAndSetSecureValue.html">nn::fs::CommitSaveDataAndSetSecureValue</a> function does not write a value to the secure region in system memory. Instead, the value is written to a region managed by the SDK on the CTR card. This value is used by a tool that can transfer card application save data so that it can be used with the download version of the application. When the save data is transferred, the value is copied to the secure value region in system memory.
+        </p>
+        <p>
+          Using the <a href="../../../nn/fs/CommitSaveData.html">nn::fs::CommitSaveData</a> and <a href="../../../nn/fs/SetSaveDataSecureValue.html">nn::fs::SetSaveDataSecureValue</a> functions together to commit the save data and overwrite the secure region at the same time is no longer recommended. The rate at which inconsistencies occur due to interruptions during processing with this not-recommended approach is higher than when using the newly introduced <a href="../../../nn/fs/CommitSaveDataAndSetSecureValue.html">nn::fs::CommitSaveDataAndSetSecureValue</a> function.
+        </p>
+        <p>
+          To overwrite the secure area without committing the save data, call the <a href="../../../nn/fs/SetSaveDataSecureValue.html">nn::fs::SetSaveDataSecureValue</a> function instead of the <a href="../../../nn/fs/CommitSaveDataAndSetSecureValue.html">nn::fs::CommitSaveDataAndSetSecureValue</a> function.
+        </p>
+      </div>
+      <a name="Usage_Load"><h3>Loading Save Data</h3></a>
+      <div class="section">
+        <p>
+When loading save data, first retrieve the secure value from the save data. Pass this value to <a href="../../../nn/fs/VerifySaveDataSecureValue.html">nn::fs::VerifySaveDataSecureValue</a> to compare it with the secure value stored in system memory. This function returns a <CODE>bool</CODE> that indicates whether the values match. If this function returns <CODE>false</CODE>, the save data may have accidentally been rolled back. If so, make sure the application determines what to do next. For example, it could do one of the following.
+        </p>
+        <p>
+          <ul>
+            <li>Treat the save data as invalid and delete it.</li>
+            <li>Make part of the save data invalid.</li>
+            <li>Display a warning.</li>
+          </ul>
+        </p>
+        <p>
+          <strong>If you choose to have the application make some or all of the save data invalid, make sure to allow users to confirm whether to complete the operation.</strong> This situation may arise if the same application has been downloaded to more than one SD card and the user inserts the wrong SD card. However, the issue typically resolves if the user inserts the correct SD card and starts the application again.
+        </p>
+        <p>
+          Do not call the <a href="../../../nn/fs/VerifySaveDataSecureValue.html">nn::fs::VerifySaveDataSecureValue</a> function if the application save data is the factory default data, if it is corrupted, or if the secure value was not successfully written in the save data.
+        </p>
+        <p>
+          For card application save data, the <a href="../../../nn/fs/VerifySaveDataSecureValue.html">nn::fs::VerifySaveDataSecureValue</a> function always returns <CODE>true</CODE> for any secure value passed to it because the save data rollback prevention feature is disabled.
+        </p>
+      </div>
+      <a name="Usage_Loosely"><h3>Loose Rollback Prevention</h3></a>
+      <div class="section">
+        <p>
+          If you used a system to play applications that enabled the save data rollback prevention feature, and that system breaks and the values in the secure regions in system memory cannot be restored during the repair process, the secure values in the save data on the SD card do not match the secure values in system memory because they have not been written in the system. In this case, you can use the <a href="../../../nn/fs/VerifySaveDataSecureValueLoosely.html">nn::fs::VerifySaveDataSecureValueLoosely</a> function, which returns <CODE>true</CODE> for CTR systems on which the secure values have not yet been written, in place of the <a href="../../../nn/fs/VerifySaveDataSecureValue.html">nn::fs::VerifySaveDataSecureValue</a> function. Using the <a href="../../../nn/fs/VerifySaveDataSecureValueLoosely.html">nn::fs::VerifySaveDataSecureValueLoosely</a> function instead of the <a href="../../../nn/fs/VerifySaveDataSecureValue.html">nn::fs::VerifySaveDataSecureValue</a> function to verify secure values allows you to treat save data as if it had never been rolled back even on CTR systems that have been repaired.
+        </p>
+        <p>
+          In general, we recommend emphasizing usability and using Loose Rollback Prevention, but when using the <a href="../../../nn/fs/VerifySaveDataSecureValueLoosely.html">nn::fs::VerifySaveDataSecureValueLoosely</a> function, there is the problem of being able to freely roll back data on systems just after they have been repaired. If rollback of save data in general would be more problematic for your game application than the issue that occurs on the repaired system, use the <a href="../../../nn/fs/VerifySaveDataSecureValue.html">nn::fs::VerifySaveDataSecureValue</a> function.
+        </p>
+      </div>
+      <a name="Usage_Mask"><h3>Secure Value Mask</h3></a>
+      <div class="section">
+        <p>
+          The <a href="../../../nn/fs/SetSaveDataSecureValue.html">nn::fs::SetSaveDataSecureValue</a> function has an overload that also takes a 64-bit mask. When you specify this overload, only the bits of the secure value that are set in the mask are written to the secure value region. Similarly, for the <a href="../../../nn/fs/VerifySaveDataSecureValue.html">nn::fs::VerifySaveDataSecureValue</a> function that has an overload that takes masks, it only compares the bits of the secure value for which the bits of the mask were set and returns <CODE>true</CODE> if the bits that were set match. By using masks, you can emulate having multiple secure values by dividing up the 64 bits that comprise them.
+        </p>
+        <p>
+          Masks cannot be used with the <a href="../../../nn/fs/VerifySaveDataSecureValueLoosely.html">nn::fs::VerifySaveDataSecureValueLoosely</a> function. Accordingly, because masks cannot be set when using Loose Rollback Prevention, call the overload that does not take a mask specification when calling the <a href="../../../nn/fs/SetSaveDataSecureValue.html">nn::fs::SetSaveDataSecureValue</a> function.
+        </p>
+      </div>
+      <a name="Usage_Overload"><h3>Whether to Specify an Archive Name</h3></a>
+      <div class="section">
+        <p>
+In the API for the save data rollback prevention feature, some overloads take <VAR>archiveName</VAR> as an argument and others do not.
+        </p>
+        <p>
+You can use the overload that does not take <VAR>archiveName</VAR> as an argument when you are using the save data rollback prevention feature on save data for your application that is mounted with the <a href="../../../nn/fs/MountSaveData(0).html">nn::fs::MountSaveData</a> function without a <VAR>uniqueId</VAR> parameter.
+        </p>
+        <p>
+You must use the overload that takes <VAR>archiveName</VAR> as an argument when you use the save data rollback prevention feature on save data for another application that is mounted with the <a href="../../../nn/fs/MountSaveData(1).html">nn::fs::MountSaveData</a> function with a <VAR>uniqueId</VAR> parameter. This overload can also be used on save data for your own application.
+        </p>
+      </div>
+<a name="Usage_DebugSupport"><h3>Debug Support</h3></a>
+      <div class="section">
+        <p>
+You can save or delete rollback prevention values by using <a href="../../../../ctools/SaveDataFiler.html">SaveDataFiler</a>. For more information, see <a href="../../../../ctools/SaveDataFiler.html"><CODE>SaveDataFiler</CODE></a>.
+        </p>
+      </div>
+    </div>
+
+    <a name="History"><h2>Revision History</h2></a>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/07/15</dt>
+<dd>Added a description of <CODE>SaveDataFiler</CODE>.</dd>
+        <dt>2013/04/24</dt>
+<dd>Added information about the API that takes <VAR>archiveName</VAR> as an argument.</dd>
+          <dd>Added information about the <CODE>nn::fs::CommitSaveDataAndSetSecureValue</CODE> function.</dd>
+        <dt>2013/04/23</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

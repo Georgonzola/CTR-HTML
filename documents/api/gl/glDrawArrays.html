@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glDrawArrays</title>
+  </head>
+  <body>
+    <h1>glDrawArrays Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glDrawArrays(
+     GLenum mode,
+     GLint first,
+     GLsizei count
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>mode</th>
+          <td>Primitive mode.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>first</th>
+          <td>First index in the vertex data array to draw.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>count</th>
+          <td>The number of vertices to draw.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Draws primitives using the vertex array.</p><P>Accesses a vertex data array in order.</P><P>Set <span class="argument">mode</span> to one of the following values when the geometry shader is not in use.<TABLE><TR><TH>GL_TRIANGLES</TH><TD> Triangles </TD></TR><TR><TH>GL_TRIANGLE_STRIP</TH><TD> Triangle strip </TD></TR><TR><TH>GL_TRIANGLE_FAN</TH><TD> Triangle fan </TD></TR></TABLE><!-- source modeにはジオメトリシェーダを使用しない場合、GL_TRIANGLES、GL_TRIANGLE_STRIP、GL_TRIANGLE_FANのいずれかを指定します。 --></P><P>Specify a value of <tt>GL_GEOMETRY_PRIMITIVE_DMP</tt> when the geometry shader is in use.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">mode</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_FRAMEBUFFER_OPERATION</TH><TD>The framebuffer was configured incorrectly.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">mode</span> argument was either set to <tt>GL_GEOMETRY_PRIMITIVE_DMP</tt> when a geometry shader had <i>not</i> been linked to the current program, or it was set to a value other than <tt>GL_GEOMETRY_PRIMITIVE_DMP</tt> when a geometry shader had been linked to the current program.</TD></TR></TABLE></P><P>Also, because this function performs a process for each state corresponding to <tt>nngxValidateState</tt>, when using the gl API, an error may occur for reasons that are not listed.  In this case, you can narrow down the reason for the error by calling the <tt>nngxValidateState</tt> function for each state before calling this function.</P><P>In some cases, the library allocates an internal buffer when this function is called.  For more information, see the Functions That Allocate Internal Buffers Within the Library section in the <i>3DS Programming Manual: Basic Graphics</i>.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/11/18</dt>
+        <dd><item xmlns="">Noted that in some cases an internal buffer is allocated in the library.</item><br />
+        </dd>
+        <dt>2011/06/15</dt>
+        <dd><item xmlns="">Added internal processes and how to check error causes.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

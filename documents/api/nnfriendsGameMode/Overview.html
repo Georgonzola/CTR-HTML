@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nnfriendsGameMode</title>
+  </head>
+  <body>
+    <h1>nnfriendsGameMode Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct nnfriendsGameMode
+{
+   <a href="../nn_types/u32.html">u32</a> joinAvailabilityFlag;
+   <a href="../nn_types/u32.html">u32</a> matchmakeSystemType;
+   <a href="../nn_types/u32.html">u32</a> joinGameId;
+   <a href="../nn_types/u32.html">u32</a> joinGameMode;
+   <a href="../nn_friends/nnfriendsPrincipalId.html">nnfriendsPrincipalId</a> ownerPrincipalId;
+   <a href="../nn_types/u32.html">u32</a> joinGroupId;
+   <a href="../nn_types/u8.html">u8</a> applicationArg[NN_FRIENDS_APPLICATION_ARG_SIZE];
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Structure that stores information about the game the local host is currently playing. This information is required in order for friends to join in.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">joinAvailabilityFlag</span>
+            </th>
+            <td width="100"><a href="../nn_types/u32.html">u32</a></td>
+            <td>Specifies whether the game on the local host is available for friends in the matchmaking group to join in.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">matchmakeSystemType</span>
+            </th>
+            <td width="100"><a href="../nn_types/u32.html">u32</a></td>
+            <td>The local host's matchmaking group type.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">joinGameId</span>
+            </th>
+            <td width="100"><a href="../nn_types/u32.html">u32</a></td>
+            <td>The matchmaking game ID. An ID used to distinguish within the group what game titles allow friends to join in.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">joinGameMode</span>
+            </th>
+            <td width="100"><a href="../nn_types/u32.html">u32</a></td>
+            <td>The join-in game mode. A value used to distinguish what game modes allow friends to join. For partners to be able to join, the bitwise AND of the partners' join game mode mask (1 &lt;&lt; join game mode) must be a value other than 0. As a result, a value between 0 and 63 must be specified for the join-in game mode.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">ownerPrincipalId</span>
+            </th>
+            <td width="100"><a href="../nn_friends/nnfriendsPrincipalId.html">nnfriendsPrincipalId</a></td>
+            <td>The principal ID of the owner of the current matchmaking group.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">joinGroupId</span>
+            </th>
+            <td width="100"><a href="../nn_types/u32.html">u32</a></td>
+            <td>The local host's matchmaking group ID.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">applicationArg</span>
+            </th>
+            <td width="100"><a href="../nn_types/u8.html">u8</a></td>
+            <td>Information that can be freely defined by applications.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Changed the description with the public disclosure of join-in related features.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

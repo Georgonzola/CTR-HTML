@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>StartMpEncoderLR</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a>::StartMpEncoderLR Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+size_t StartMpEncoderLR(
+     <a href="../../../../nn_types/u8.html">u8</a> * dst,
+     size_t limit,
+     const void * srcL,
+     const void * srcR,
+     <a href="../../../../nn_types/u32.html">u32</a> width,
+     <a href="../../../../nn_types/u32.html">u32</a> height,
+     <a href="../../../../nn_types/u32.html">u32</a> quality,
+     <a href="../../../../nn/jpeg/CTR/PixelSampling.html">PixelSampling</a> dstPixelSampling,
+     <a href="../../../../nn/jpeg/CTR/PixelFormat.html">PixelFormat</a> srcPixelFormat,
+     bool addThumbnailL,
+     bool addThumbnailR
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>dst</th>
+          <td>Specifies the buffer that stores the encoded result.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>limit</th>
+          <td>Specifies the size of <emphasis>dst</emphasis> in bytes. Encoding fails if this size is exceeded.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcL</th>
+          <td>Specifies the image data buffer to encode for the left eye. Must be aligned to <emphasis>SRC_ALIGNMENT</emphasis> (4 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcR</th>
+          <td>Specifies the image data buffer to encode for the right eye. Must be aligned to <emphasis>SRC_ALIGNMENT</emphasis> (4 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Specifies the image width in pixels (equal to or less than 65,536). Shared between the left and right images, except for thumbnails.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Specifies the image height in pixels (equal to or less than 65,536). Shared between the left and right images, except for thumbnails.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>quality</th>
+          <td>Specifies the encoding quality. <br />
+ Values can be set from 1-100, with 100 being the highest quality and the largest size. <br />
+ Shared between the left and right images, except for thumbnails.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstPixelSampling</th>
+          <td>Specifies the image's output format (its pixel sampling). Shared between the left and right images, except for thumbnails.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcPixelFormat</th>
+          <td>Specifies the input pixel format of the image to encode. This value applies to all images.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>addThumbnailL</th>
+          <td>Specifies whether to add a thumbnail to the image for the left eye.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>addThumbnailR</th>
+          <td>Specifies whether to add a thumbnail to the image for the right eye.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">If successful, returns the number of bytes of MP-format data that was generated. Returns <code>0</code> if unsuccessful. <br />
+ Use the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetLastError.html">GetLastError</a></code> function to get the reason for failure. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Runs the JPEG encoder on two images and stores the results in Extended MP format (for stereoscopic display).</p><p>First, the encoder is run on the image for the left eye, and the result is stored in the MP format as the first (and representative) image. If the result is successful, the image for the right eye is then encoded and stored. With this function, the viewpoint number of the left-eye image is considered to be <code>1</code>, which is also the base viewpoint number. Images for the right eye have viewpoint number 2.</p><p>The widths and heights of images that this function can encode depend on the output format of the image (in other words, the <emphasis>dstPixelSampling</emphasis> parameter). The same is true of the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartJpegEncoder.html">StartJpegEncoder</a></code> function.</p><p>The convergence angle and baseline length take the default values <code>{0xFFFFFFFF, 0xFFFFFFFF}</code>.</p><p>Calling the following functions to register data has no effect.</p><p><itemizedlist><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetUserMakerNote.html">SetUserMakerNote</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetImageUid.html">SetImageUid</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpTypeFlags.html">SetMpTypeFlags</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpIndividualNum.html">SetMpIndividualNum</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPanOrientation.html">SetMpPanOrientation</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPanOverlapH.html">SetMpPanOverlapH</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPanOverlapV.html">SetMpPanOverlapV</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpBaseViewpointNum.html">SetMpBaseViewpointNum</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpConvergenceAngle.html">SetMpConvergenceAngle</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpBaselineLength.html">SetMpBaselineLength</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpVerticalDivergence.html">SetMpVerticalDivergence</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpAxisDistanceX.html">SetMpAxisDistanceX</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpAxisDistanceY.html">SetMpAxisDistanceY</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpAxisDistanceZ.html">SetMpAxisDistanceZ</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpYawAngle.html">SetMpYawAngle</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPitchAngle.html">SetMpPitchAngle</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpRollAngle.html">SetMpRollAngle</a></para></listitem></itemizedlist></p><p>Any values specified in calls to the following functions are valid for both images, with the same value registered.</p><p><itemizedlist><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetThumbnailSize.html">SetThumbnailSize</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetInputBufferWidth.html">SetInputBufferWidth</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetDateTime.html">SetDateTime</a> (*) </para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetSoftware.html">SetSoftware</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetOrientation.html">SetOrientation</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsData.html">SetGpsData</a></para></listitem></itemizedlist></p><p>(*) When <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetDateTime.html">SetDateTime</a></code> has not been called, the function gets the current date and time when encoding the first image, and uses that for both images.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment.</item><br />
+        </dd>
+        <dt>2010/10/22</dt>
+        <dd><item xmlns="">Made revisions to make descriptions easier to understand.</item><br />
+        </dd>
+        <dt>2010/04/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

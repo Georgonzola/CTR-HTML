@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <title>ColorizeMipmaps</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/gd/CTR/System/Overview.html">System</a>::<a href="../../../../../nn/gd/CTR/System/Debug/Overview.html">Debug</a>::ColorizeMipmaps Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../../nnResult/Overview.html">nnResult</a> ColorizeMipmaps(
+     Texture2DResource * texture2DResource,
+     <a href="../../../../../nn_types/s32.html">s32</a> minMipLevelIndex,
+     <a href="../../../../../nn_types/s32.html">s32</a> maxMipLevelIndex,
+     <a href="../../../../../nn_types/u8.html">u8</a> colors[][4]
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td />
+          <th>texture2DResource</th>
+          <td>
+            </td>
+        </tr>
+        <tr>
+          <td />
+          <th>minMipLevelIndex</th>
+          <td>
+            </td>
+        </tr>
+        <tr>
+          <td />
+          <th>maxMipLevelIndex</th>
+          <td>
+            </td>
+        </tr>
+        <tr>
+          <td />
+          <th>colors[][4]</th>
+          <td>
+            </td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Colors the several mipmap levels of a resource with a single color.</p><p>This function helps visualize the mipmap level of several textures for user debugging. This function internally calls the <code><simplesect kind="see"><para><a href="../../../../../nn/gd/CTR/Memory/ClearTexture2DResource.html">nn::gd::CTR::Memory::ClearTexture2DResource</a> function.</para></simplesect><parameterlist kind="param"><parameteritem><parameternamelist><parametername direction="in">texture2DResource</parametername></parameternamelist><parameterdescription><para>Specifies a pointer to the target <code>Texture2DResource</code> resource. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername direction="in">minMipLevelIndex</parametername></parameternamelist><parameterdescription><para>Specifies the lowest mipmap level index to be colored, in the range [0, texture2DResource->mipLevels]. Specifying <code>-1</code> uses the last mipmap level. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername direction="in">maxMipLevelIndex</parametername></parameternamelist><parameterdescription><para>Specifies the highest mipmap level index to be colored, in the range [0, texture2DResource->mipLevels]. Specifying <code>-1</code> uses the last mipmap level. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername direction="in">colors</parametername></parameternamelist><parameterdescription><para>Specifies an array of colors used to color in mipmap levels. The array specifies the color values used to color each mipmap level. (Specify minMipLevelIndex and maxMipLevelIndex.) If <code>NULL</code> is specified for a color value, the initial array for color values is used.</para></parameterdescription></parameteritem></parameterlist><simplesect kind="return"><para>Returns the execution result. </para></simplesect><parameterlist kind="retval"><parameteritem><parameternamelist><parametername><a href="../../../../../nn/Result/IsSuccess.html">Result::IsSuccess</a></parametername></parameternamelist><parameterdescription><para>Indicates that the operation succeeded. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername><a href="../../../../../nn/gd/CTR/ResultNullParameter/Overview.html">ResultNullParameter</a></parametername></parameternamelist><parameterdescription><para><code>NULL</code> was specified for the resource. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername><a href="../../../../../nn/gd/CTR/ResultInvalidTextureFormat/Overview.html">ResultInvalidTextureFormat</a></parametername></parameternamelist><parameterdescription><para>A format other than ETC and depth formats included in <code><a href="../../../../../nn/gd/CTR/Resource/NativeFormat.html">Resource::NativeFormat</a></code> has been specified for the format of the resource. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername><a href="../../../../../nn/gd/CTR/ResultInvalidTextureMipLevelIndex/Overview.html">ResultInvalidTextureMipLevelIndex</a></parametername></parameternamelist><parameterdescription><para>A value larger than mipLevelIndexEnd has been specified for mipLevelIndexStart. Alternatively, a value larger than the mipmap level of the specified <code>tex2DResource</code> was specified for mipLevelIndexEnd. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername><a href="../../../../../nn/gd/CTR/ResultInvalidMemoryRegion/Overview.html">ResultInvalidMemoryRegion</a></parametername></parameternamelist><parameterdescription><para>The resource memory type is invalid. The specified resource is in FCRAM region memory. </para></parameterdescription></parameteritem></parameterlist></code></p><p>The following color values are used when <code>NULL</code> is specified for colors[][4].</p><table><thead><tr><td width="30">index</td><td width="30"><tt>R</tt></td><td width="30">G</td><td width="30">B</td><td width="30">A</td><td /></tr></thead><tr><td>0</td><td>0</td><td>0</td><td>255</td><td>255</td><td /></tr><tr><td>1</td><td>255</td><td>0</td><td>0</td><td>255</td><td /></tr><tr><td>2</td><td>0</td><td>255</td><td>0</td><td>255</td><td /></tr><tr><td>3</td><td>255</td><td>0</td><td>255</td><td>255</td><td /></tr><tr><td>4</td><td>128</td><td>220</td><td>50</td><td>255</td><td /></tr><tr><td>5</td><td>100</td><td>50</td><td>120</td><td>255</td><td /></tr><tr><td>6</td><td>25</td><td>240</td><td>240</td><td>255</td><td /></tr><tr><td>7</td><td>220</td><td>20</td><td>150</td><td>255</td><td /></tr><tr><td>8</td><td>180</td><td>160</td><td>20</td><td>255</td><td /></tr></table></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

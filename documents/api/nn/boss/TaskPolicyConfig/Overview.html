@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::boss::TaskPolicyConfig</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::TaskPolicyConfig Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct TaskPolicyConfig
+{
+   <a href="../../../nn_types/u8.html">u8</a> priority;
+   <a href="../../../nn/boss/SchedulingPolicy.html">SchedulingPolicy</a> schedulingPolicy;
+   <a href="../../../nn/boss/TaskPermission.html">TaskPermission</a> taskPermission;
+   <a href="../../../nn_types/u32.html">u32</a> targetDuration;
+   <a href="../../../nn_types/u32.html">u32</a> execInterval;
+   <a href="../../../nn_types/u32.html">u32</a> execCount;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Definition of an internal structure that maintains attribute information for the <code><a href="../../../nn/boss/TaskPolicy/Overview.html">TaskPolicy</a></code> class.</p>
+    </div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">priority</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u8.html">u8</a></td>
+            <td><a href="../../../nn/boss/Task/Overview.html">Task</a> priority as set on task registration.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">schedulingPolicy</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/SchedulingPolicy.html">SchedulingPolicy</a></td>
+            <td>Scheduling policy of the task.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">taskPermission</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/TaskPermission.html">TaskPermission</a></td>
+            <td><a href="../../../nn/boss/Task/Overview.html">Task</a> execution restrictions as set by Parental Controls and EULA permissions.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">targetDuration</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Targeted task execution time. (This is provided for future extensibility and cannot be used.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">execInterval</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td><a href="../../../nn/boss/Task/Overview.html">Task</a> execution interval. Units are seconds.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">execCount</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td><a href="../../../nn/boss/Task/Overview.html">Task</a> execution count.</td>
+          </tr> </table>
+      </div>
+    </a>
+  </body>
+</html>

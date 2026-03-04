@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>EncoderErrorCode</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../nn/jpeg/CTR/Overview.html">CTR</a>::EncoderErrorCode Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum EncoderErrorCode;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>JPEG_ENCODER_ERROR_NONE</th>
+          <td>Specifies no error.</td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_ERROR_NOT_INITIALIZED</th>
+          <td>The encoder object is not initialized.</td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_ERROR_INVALID_ARGUMENT</th>
+          <td>The argument is invalid.</td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_ERROR_SRC_ALIGNMENT</th>
+          <td>Illegal alignment of the graphics data buffer (<emphasis>src</emphasis>).</td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_ERROR_APP1</th>
+          <td>Encoding failed because the number of bytes of data in the APP1 segment is greater than 0xFFFF bytes. Decrease the number or size of things such as thumbnails and manufacturer notes.</td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_ERROR_APP2_MP</th>
+          <td>Encoding failed because the number of bytes of data in the APP2 segment is greater than 0xFFFF bytes. Reduce the number of MP format images being stored.</td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_ERROR_INVALID_MP_NUM_IMAGES</th>
+          <td>Illegal specification of the number of MP format images.</td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_ERROR_INVALID_MP_TYPE_CODE</th>
+          <td>Illegal MP type specification in the MP format.</td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_ERROR_INVALID_MP_SEQUENCE</th>
+          <td>Illegal encoding sequence in the MP format. There was either an attempt to encode a later image without encoding the first image, or an attempt to encode more images than specified.</td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_ERROR_INSUFFICIENT_OUTPUT_BUFFER</th>
+          <td>Not enough bytes allocated for the encoding result buffer.</td>
+        </tr>
+        <tr>
+          <th>JPEG_ENCODER_ERROR_INTERNAL</th>
+          <td>There is a problem with the library implementation if this error occurs.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gives the reason why the encoding just performed failed.</p><p>The return value of <code><a href="../../../nn/jpeg/CTR/JpegMpEncoder/GetLastError.html">JpegMpEncoder::GetLastError</a></code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

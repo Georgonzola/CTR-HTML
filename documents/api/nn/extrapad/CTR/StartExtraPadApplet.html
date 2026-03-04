@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StartExtraPadApplet</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/extrapad/Overview.html">extrapad</a>::<a href="../../../nn/extrapad/CTR/Overview.html">CTR</a>::StartExtraPadApplet Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void StartExtraPadApplet(
+     <a href="../../../nn/applet/CTR/WakeupState.html">nn::applet::AppletWakeupState</a> * pWakeupState,
+     <a href="../../../nn/extrapad/CTR/Parameter/Overview.html">Parameter</a> * pParameter
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pWakeupState</th>
+          <td>The type of startup request. An undefined value is stored here on failure.</td>
+        </tr>
+        <tr>
+          <td>inout</td>
+          <th>pParameter</th>
+          <td><a href="../../../nn/extrapad/CTR/Parameter/Overview.html">Parameter</a> structure.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Starts the Nintendo 3DS Circle Pad Pro calibration <a href="../../../nn/applet/Overview.html">applet</a>.</p><p>Before calling this function, use the <code><a href="../../../nn/hid/CTR/ExtraPad/StopSampling.html">nn::hid::ExtraPad::StopSampling</a></code> function to stop sampling the Nintendo 3DS Circle Pad Pro.</p><p>When any library applet other than the Nintendo 3DS Circle Pad Pro calibration applet has been preloaded, you must cancel that preload before calling this function.</p><p>This function calls the <tt><a href="../../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></tt> function. <br /> Because you must determine whether to close the application when this function returns, call the <tt><a href="../../../nn/applet/CTR/IsExpectedToCloseApplication.html">nn::applet::CTR::IsExpectedToCloseApplication</a></tt> function immediately after control exits this function. </p><p>The system runs in the operation mode that corresponds to the application's <tt>desc</tt> even while this function is being called.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/01/31</dt>
+        <dd><item xmlns="">Added information about operation modes.</item><br />
+        </dd>
+        <dt>2011/07/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

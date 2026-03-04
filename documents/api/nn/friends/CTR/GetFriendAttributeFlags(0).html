@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetFriendAttributeFlags</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::GetFriendAttributeFlags Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> GetFriendAttributeFlags(
+     <a href="../../../nn_types/bit32.html">bit32</a> * pAttributeFlagsList,
+     const <a href="../../../nnfriendsFriendKey/Overview.html">FriendKey</a> * pFriendKeyList,
+     size_t size = 1
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td />
+          <th>pAttributeFlagsList</th>
+          <td>
+            </td>
+        </tr>
+        <tr>
+          <td />
+          <th>pFriendKeyList</th>
+          <td>
+            </td>
+        </tr>
+        <tr>
+          <td />
+          <th>size</th>
+          <td>
+            </td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a list of friend relationships. Friend relationships are represented as a bitwise OR of attributes. Friends that have established a friend relationship with the local host at least once have the <code><span>nn::friends::CTR::ATTRIBUTE_FLAG_ESTABLISHED</span></code> bit set to <code>1</code>. Friends that meet all of the following conditions have the <code><span>nn::friends::CTR::ATTRIBUTE_FLAG_REMOTE_ACCESSIBLE</span></code> bit set to <code>1</code>. <br /><br /></p><p><itemizedlist><listitem><para>A friend relationship has been established on the friend server. (It does not include the local friend state.) </para></listitem><listitem><para>The friend has not deleted the friend relationship, or the deleted friend relationship has not been synchronized yet from the friend server. <br />
+ The friend list on the local system does not explicitly show the user that the friend has deleted their friend relationship, and it appears to the user as if that person is always offline. The functionality is the same to the fullest extent, so developers do not need to worry about it when using the friend presence library or the NEX library. When accessing the latest data about users in friend lists on independent servers, use the <code><span>nn::friends::CTR::ATTRIBUTE_FLAG_REMOTE_ACCESSIBLE</span></code> bit to determine whether the latest friend relationships can be evaluated only locally, and it is difficult to hide the deletion of friend relationships. <parameterlist kind="param"><parameteritem><parameternamelist><parametername direction="out">pAttributeFlagsList</parametername></parameternamelist><parameterdescription><para>Specifies a pointer to the buffer that stores obtained relationship information. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername direction="in">pFriendKeyList</parametername></parameternamelist><parameterdescription><para>Specifies a pointer to a list of friend keys. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername direction="in">size</parametername></parameternamelist><parameterdescription><para>Specifies the number of buffer elements in the friend key list. </para></parameterdescription></parameteritem></parameterlist><simplesect kind="return"><para>Returns the result of the operation. </para></simplesect><parameterlist kind="retval"><parameteritem><parameternamelist><parametername><a href="../../../nn/Result/IsSuccess.html">Result::IsSuccess</a></parametername></parameternamelist><parameterdescription><para>Indicates success. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername><a href="../../../nn/friends/ResultInvalidPointer/Overview.html">ResultInvalidPointer</a></parametername></parameternamelist><parameterdescription><para>An invalid pointer was passed as an argument. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername><a href="../../../nn/friends/ResultTooLarge/Overview.html">ResultTooLarge</a></parametername></parameternamelist><parameterdescription><para>The value passed as the argument is too large. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername><a href="../../../nn/friends/ResultNotInitialized/Overview.html">ResultNotInitialized</a></parametername></parameternamelist><parameterdescription><para>The friend presence library is not initialized. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername>Other</parametername></parameternamelist><parameterdescription><para>Other results can be returned depending on the internal state of the daemon. </para></parameterdescription></parameteritem></parameterlist></para></listitem></itemizedlist></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/02/16</dt>
+        <dd><item xmlns="">Added an explanation about the ATTRIBUTE_FLAG_REMOTE_ACCESSIBLE bit.</item><br />
+        </dd>
+        <dt>2011/03/11</dt>
+        <dd><item xmlns="">Noted that the function will still return success even if an invalid local friend code returned.<br /> Added specific examples of return values.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>EnableAxisRotation</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hid/CTR/GyroscopeReader/Overview.html">GyroscopeReader</a>::EnableAxisRotation Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void EnableAxisRotation();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enables axial rotation.</p><p>When axial rotation is enabled, the rotation matrix specified by the <code><a href="../../../../nn/hid/CTR/GyroscopeReader/SetAxisRotationMatrix.html">SetAxisRotationMatrix</a></code> function is used to perform a rotational transformation on the sampling data. The resulting values are output.</p><p>This processing allows you to handle the sensor readings as though the sensor is tilted within the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system.</p><p>If both axial rotation and acceleration correction are performed, you must keep track of the accelerometer settings. <br />
+ In such cases, the referenced <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">AccelerometerReader</a></code> and the gyro sensor must share the same settings for axial rotation. <br />
+ If you use the default <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">AccelerometerReader</a></code> and call the <code><a href="../../../../nn/hid/CTR/GyroscopeReader/EnableAxisRotation.html">EnableAxisRotation</a></code>, <code><a href="../../../../nn/hid/CTR/GyroscopeReader/DisableAxisRotation.html">DisableAxisRotation</a></code>, <code><a href="../../../../nn/hid/CTR/GyroscopeReader/SetAxisRotationMatrix.html">SetAxisRotationMatrix</a></code>, or <code><a href="../../../../nn/hid/CTR/GyroscopeReader/ResetAxisRotationMatrix.html">ResetAxisRotationMatrix</a></code> function, the SDK calls the function corresponding to the default <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">nn::hid::CTR::AccelerometerReader</a></code> and the same settings are propagated. However, when you specify an independent <code><a href="../../../../nn/hid/CTR/AccelerometerReader/Overview.html">nn::hid::CTR::AccelerometerReader</a></code> instance with the constructor, the application is responsible for ensuring that the same settings are propagated. <br /><bold>Note:</bold> If the axial rotation settings are different, acceleration correction might yield inappropriate results. <br /></p><p>The initial value is disabled.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/20</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

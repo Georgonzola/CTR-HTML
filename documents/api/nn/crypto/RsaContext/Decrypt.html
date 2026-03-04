@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Decrypt</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/crypto/Overview.html">crypto</a>::<a href="../../../nn/crypto/RsaContext/Overview.html">RsaContext</a>::Decrypt Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Decrypt(
+     size_t * pDecrptLength,
+     void * pDest,
+     size_t destSize,
+     const void * pSrc,
+     size_t srcLength = SIZE_STRING_LENGTH
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDecrptLength</th>
+          <td>Specifies the length of decrypted data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pDest</th>
+          <td>The address of the buffer storing decrypted data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>destSize</th>
+          <td>The size of the buffer storing decrypted data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pSrc</th>
+          <td>The address of the buffer storing data to be decrypted.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcLength</th>
+          <td>The length of the data to be decrypted. (This parameter may be omitted and, if it is, the length is measured within the function.)</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns an <code><a href="../../../nn/Result/Overview.html">nn::Result</a></code> value. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Decrypts using RSA.</p><p>This writes the decrypted data followed by some junk data (not to exceed the buffer size). All data beyond *pDecryptLength bytes is unnecessary. Have the application delete the additional data.</p></div>
+  </body>
+</html>

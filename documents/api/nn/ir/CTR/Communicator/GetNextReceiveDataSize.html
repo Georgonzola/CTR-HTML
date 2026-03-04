@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetNextReceiveDataSize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ir/Overview.html">ir</a>::<a href="../../../../nn/ir/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ir/CTR/Communicator/Overview.html">Communicator</a>::GetNextReceiveDataSize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">Result</a> GetNextReceiveDataSize(
+     size_t * pSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pSize</th>
+          <td>Stores the size of the receive data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotConnected</th>
+          <td>The system is not connected.</td>
+        </tr>
+        <tr>
+          <th>ResultNoData</th>
+          <td>No received data.</td>
+        </tr>
+        <tr>
+          <th>ResultMachineSleep</th>
+          <td>Sleeping because the system is in Sleep Mode.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>The IR module may be malfunctioning.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Returns the size of data that will be received in the next call to the <code>Receive</code> function. This size includes the header and other data added for communication between systems. In other words, it returns the size of the portion of the received packet that is calculated by the <code>CalculateBufferSizeToCommunicate</code> function. Use this function when you need to know ahead of time the buffer size required to execute the <code>Receive</code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

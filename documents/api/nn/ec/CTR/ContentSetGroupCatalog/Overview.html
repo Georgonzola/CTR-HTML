@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::ContentSetGroupCatalog</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::ContentSetGroupCatalog Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ContentSetGroupCatalog : private nn::ec::CTR::detail::SessionHolder</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for searching for content set groups. Content set groups provide information about content sets grouped by user-defined keyword attribute values. Set a filter to group content sets by using <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalogFilter/Overview.html">ContentSetGroupCatalogFilter</a></code>, and then call <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/Retrieve.html">ContentSetGroupCatalog::Retrieve</a></code> to get a <code><a href="../../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> as information grouped by <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/GetContentSetGroup.html">ContentSetGroupCatalog::GetContentSetGroup</a></code>. Content sets are grouped by attribute values of the specified length. For example, assume that the attribute name <code>Color</code> has four content sets, having the values <code>BLACK</code>, <code>BLUE</code>, <code>GREEN</code>, and <code>BLACK</code>. Grouping these content sets in <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalogFilter/SetAttributeGroupFilter.html">ContentSetGroupCatalogFilter::SetAttributeGroupFilter</a></code> with a filter specifying the attribute name "Color" and length "2" yields the following two groups. A group named <code>BL</code> containing 3 content sets. A group named <code>GR</code> containing 1 content set. If you specify a length of <code>0</code> in <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalogFilter/SetAttributeGroupFilter.html">ContentSetGroupCatalogFilter::SetAttributeGroupFilter</a></code>, content sets are grouped by the attribute value. In this example, the following three groups are returned. A group named <code>BLACK</code> containing 2 content sets. A group named <code>GREEN</code> containing 1 content set. A group named <code>BLUE</code> containing 1 content set.</p>
+    </div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/ContentSetGroupCatalog.html">ContentSetGroupCatalog</a>
+            </th>
+            <td>Constructor for configuring the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object and buffer. The <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object must have been initialized by the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function. The initialized data title maintained by the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object is the one that is searched. The configured buffer is used when the <code>ContentSetCatalogGroup::Retrieve</code> function is run.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/~ContentSetGroupCatalog.html">~ContentSetGroupCatalog</a>
+            </th>
+            <td>Destructor. After the instance is destroyed, the <code><a href="../../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> obtained by <code>ContentSetCatalogGroup::GetContentSetGroup</code> is invalidated.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/Retrieve.html">Retrieve</a>
+            </th>
+            <td>Searches for content set groups.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/GetTotalNumMatched.html">GetTotalNumMatched</a>
+            </th>
+            <td>Returns the total number of content set groups matching a search.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/GetNumRetrieved.html">GetNumRetrieved</a>
+            </th>
+            <td>Returns the number of content set groups that were obtained in a single search query.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/GetContentSetGroup.html">GetContentSetGroup</a>
+            </th>
+            <td>Gets content set group information. Gets the <code><a href="../../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> from the content set group information retrieved by the <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/Retrieve.html">ContentSetGroupCatalog::Retrieve</a></code> function. Specify a value for <emphasis>offset</emphasis> to select a specific <code><a href="../../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> from the multiple content sets obtained from the <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/Retrieve.html">ContentSetGroupCatalog::Retrieve</a></code> function. The <emphasis>offset</emphasis> value must be smaller than the number of content sets returned by the <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/GetNumRetrieved.html">ContentSetGroupCatalog::GetNumRetrieved</a></code> function. Operation is undefined when specifying a larger value for <emphasis>offset</emphasis>. The <code><a href="../../../../nn/ec/CTR/ContentSetGroup/Overview.html">ContentSetGroup</a></code> object is invalidated when the <code><a href="../../../../nn/ec/CTR/ContentSetGroupCatalog/Overview.html">ContentSetGroupCatalog</a></code> instance from which it was obtained is destroyed.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy">nn::ec::CTR::detail::SessionHolder<br />&nbsp;&nbsp;<b>nn::ec::CTR::ContentSetGroupCatalog</b>
+      </p>
+    </div>
+  </body>
+</html>

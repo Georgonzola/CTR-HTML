@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::Result</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::Result Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/Result.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Result</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Represents the result of an operation.</p><p>The SDK interface will return an instance of the <tt>nn:Result</tt> class when it is possible to return an error.</p><p>For the handling of the results returned by the different libraries, see the manuals for the respective libraries and APIs.  A general description of result handling follows.</p><h3> The Meaning of Values Held by Result </h3><p>The 32 bits of Result are divided into four sections: LEVEL, SUMMARY, MODULE, and DESCRIPTION.</p><p>The internal values of Result are used when debugging to determine the cause of an error.</p><p>LEVEL indicates the error processing policy.  For the meaning of the values, see <tt><a href="../../nn/Result/Level.html">nn::Result::Level</a></tt>. </p><p>SUMMARY indicates a summary of the error, and MODULE indicates the module where the error occurred. DESCRIPTION indicates the details of the error.</p><p>The application in principle does not branch processing on individual values such as those in DESCRIPTION. Instead it processes errors by comparing the overall 32-bit value.  Each library defines the 32-bit Result values that the application must process.</p><h3> Error Handling Example </h3><p> The following gives an example of error handling using the <tt><a href="../../nn/uds/Overview.html">nn::uds</a></tt> library.</p><pre>
+
+    nn::Result result = nn::uds::CTR::EjectClient();
+
+    if( result.IsFailure() )
+    {
+        if( result == nn::uds::ResultNotInitialized() )
+        {
+            // Not initialized.
+        }
+        else if( result == nn::uds::ResultInvalidState() )
+        {
+            // Request cannot be executed in the current system state. 
+        }
+        else if( result == nn::uds::ResultWirelessOff() )
+        {
+            // Wireless-disabled mode. 
+        }
+        else
+        {
+            // Some other error has occurred. 
+        }
+    }
+
+    </pre><p> As shown above, first determine from the result if the operation succeeded or failed, and if it failed, match against the results defined by the libraries to identify the error details.</p><p> Take note of the following points.</p><h4> Identifying the Error Type When Processing Has Failed </h4><p> System updates might define additional result values that were not defined when an application was developed. In such cases, you can call the <tt><a href="../../nn/Result/IsSuccess.html">nn::Result::IsSuccess</a></tt> or <tt><a href="../../nn/Result/IsFailure.html">nn::Result::IsFailure</a></tt> function to determine whether a process succeeded or failed. </p><p> We recommend not just using matching result values without also checking for success, as this entails the risk of falsely determining success in cases of unexpected errors.</p><h4> Explicitly Specifying Namespaces </h4><p> Some result codes are defined with the same names but different values in different libraries. Always specify the namespace explicitly so that your application does not mishandle unexpected errors.</p><h4><tt>fs</tt> Library Handling </h4><p> The <tt>fs</tt> library includes a very large number of error types. Due to the risk that the above matching approach might fail to identify an error, <tt>fs</tt> library errors are handled in special way.  See the <tt><a href="../../nn/fs/Overview.html">nn::fs</a></tt> library reference materials for details. </p></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/Result/Level.html">Level</a>
+            </th>
+            <td>Enumerated type indicating the severity of an error. (Do not use this type for error handling.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/Result/Summary.html">Summary</a>
+            </th>
+            <td>Enumerated type that indicates an overview of the errors. (Do not use this type for error handling.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/Result/Module.html">Module</a>
+            </th>
+            <td>Enumerated type that indicates the modules in which errors occurred. (Do not use this type for error handling.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/Result/Description.html">Description</a>
+            </th>
+            <td>Enumerated type that indicates the details of errors. (Do not use this type for error handling.)</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Determinations</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/Result/IsFailure.html">IsFailure</a>
+            </th>
+            <td>Returns <code>true</code> if the operation failed, or <code>false</code> if it succeeded.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/Result/IsSuccess.html">IsSuccess</a>
+            </th>
+            <td>Returns <code>true</code> if the operation succeeded, or <code>false</code> if it failed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/Result/operator==.html">operator==</a>
+            </th>
+            <td>Checks for equality.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/Result/operator!=.html">operator!=</a>
+            </th>
+            <td>Checks for inequality.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Development Support</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/Result/GetPrintableBits.html">GetPrintableBits</a>
+            </th>
+            <td>Converts a <code><a href="../../nn/Result/Overview.html">Result</a></code> code into a 32-bit array.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Added a description of error handling.</item><br />
+        </dd>
+        <dt>2010/10/27</dt>
+        <dd><item xmlns="">Added description of result value handling.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>MountAddOnContent</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::MountAddOnContent Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> MountAddOnContent(
+     const char * archiveName,
+     <a href="../../nn_types/bit32.html">bit32</a> uniqueId,
+     <a href="../../nn_types/u32.html">u32</a> contentIndex,
+     size_t maxFile,
+     size_t maxDirectory,
+     void * workingMemory,
+     size_t workingMemorySize,
+     bool useCache
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>archiveName</th>
+          <td>Specifies the archive name.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>uniqueId</th>
+          <td>Specifies the <code>UniqueId</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>contentIndex</th>
+          <td>Specifies the <code>ContentIndex</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxFile</th>
+          <td>The maximum number of files that can be opened simultaneously.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxDirectory</th>
+          <td>The maximum number of directories that can be opened simultaneously.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>workingMemory</th>
+          <td>Start address of the memory region used for archive operation.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>workingMemorySize</th>
+          <td>Size of the memory region used for archive operation.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>useCache</th>
+          <td>Set to <code>true</code> to enable caching of metadata to memory, or <code>false</code> to disable metadata caching.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotFound</th>
+          <td>The specified add-on content was not found. <br />
+ You must not allow this error to occur in retail products.</td>
+        </tr>
+        <tr>
+          <th>ResultMediaNotFound</th>
+          <td>An SD card could not be found or recognized.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyExists</th>
+          <td>The specified archive name is already mounted. <br />
+ You must not allow this error to occur in retail products.</td>
+        </tr>
+        <tr>
+          <th>ResultNotEnoughSpace</th>
+          <td>An insufficient memory size was specified to workingMemory. <br />
+ You must not allow this error to occur in retail products.</td>
+        </tr>
+        <tr>
+          <th>ResultMediaAccessError</th>
+          <td>An error occurred while accessing the SD card because of some cause such as a loose connection.</td>
+        </tr>
+        <tr>
+          <th>ResultBadFormat</th>
+          <td>The SD card has an invalid format. The SD card must be formatted.</td>
+        </tr>
+        <tr>
+          <th>ResultVerificationFailed</th>
+          <td>Either verification failed or some form of tampering was detected. You must re-download add-on content.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>An unexpected or fatal error occurred.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Mounts an add-on content archive.</p><p>Mounts the add-on content of the specified archive name. <br />
+ Implicitly uses <code>0</code> as the Variation value for the add-on data. <br />
+ The numbers of files and directories you can simultaneously open from the add-on content archive are specified by maxFile and maxDirectory, respectively. <br /></p><p>The region passed to workingMemory must be at least the size calculated by the <code><a href="../../nn/fs/GetAddOnContentRequiredMemorySize.html">GetAddOnContentRequiredMemorySize</a></code> function. <br />
+ You can cache archive metadata to memory by setting the useCache parameter to <code>true</code>. This reduces the time taken to open files and scan directories. However, it also increases the amount of memory required.</p><p>Mounting an add-on content archive consumes a resource that is shared by the system as a whole. <br />
+ Currently, you must have no more than two instances of add-on content mounted at one time.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/11/21</dt>
+        <dd><item xmlns="">Added a note that no more than two instances of add-on content should be mounted at one time.</item><br />
+        </dd>
+        <dt>2011/10/11</dt>
+        <dd><item xmlns="">Added a note about expected <code><a href="../../nn/Result/Overview.html">Result</a></code> return values.</item><br />
+        </dd>
+        <dt>2011/09/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

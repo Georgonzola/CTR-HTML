@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>AddDummyDataForCommandBuffer</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/gr/Overview.html">gr</a>::<a href="../../../nn/gr/CTR/Overview.html">CTR</a>::AddDummyDataForCommandBuffer Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/bit32.html">bit32</a> * AddDummyDataForCommandBuffer(
+     <a href="../../../nn_types/bit32.html">bit32</a> * command,
+     const size_t addSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>command</th>
+          <td>Address of the write destination for the next command.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>addSize</th>
+          <td>Command buffer size, including the command that you plan to add later.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the address that follows the end of the stored rendering command. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>When you add a command of the specified size, the buffer size is adjusted to a multiple of 16.</p><p>Normally, the nngx API automatically adjusts the command buffer size. However, when you create a command buffer to execute as a subroutine, the buffer size must be adjusted manually because the nngx API cannot be used.</p><p>At the end of the command buffer to execute as a subroutine, a kick command is added to return to the execution destination.  By calling this function before you add that command, you guarantee that the size limitation of the command buffer is not broken, and that the buffer is a multiple of 16.<pre>
+    u32* command;  // Stores the address for the next write destination of the command buffer. 
+    u32* head = command;
+
+    ... // Omitted. (Write the command to execute as a subroutine.)
+
+    // With this function, the final buffer size is adjusted to a multiple of 16. 
+    // Remember that the kick command to add later is 8 bytes. 
+    command = nn::gr::AddDummyDataForCommandBuffer( command, (command - head) * sizeof(u32) + 8 );
+    // Add the kick command.
+    command = nn::gr::MakeChannelKickCommand( command, nn::gr::CTR::CMD_BUF_CH1 );
+
+    ... // Omitted.
+</pre></p></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../nn/gr/CTR/MakeChannelKickCommand.html">nn::gr::CTR::MakeChannelKickCommand</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/06/26</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nninitStartUp</title>
+  </head>
+  <body>
+    <h1>nninitStartUp Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void nninitStartUp(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This routine initializes memory management for the application. This function is not called by applications, but is implemented for the application. Under C++, memory must be allocated before <code>nnMain</code>, depending on the use. This function is provided so that the application's own memory management mechanism can be initialized even earlier. Defined as a weak function under the default implementation. Application-specific processing can be implemented by defining a function having the same name inside the application. This function is called at a point where not all initialization required by the application has been completed. Accordingly, there are restrictions on this function. For example, it cannot use many of the library functions in the SDK. For more information, see the System Programming Guide. For a list of library functions in the SDK that can be used inside this function, see <code><a href="../nn_init_api_list/Overview.html">List of Usable API Functions</a></code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

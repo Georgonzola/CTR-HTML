@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>DecoderOption</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../nn/jpeg/CTR/Overview.html">CTR</a>::DecoderOption Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum DecoderOption;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>JPEG_DECODER_OPTION_NONE</th>
+          <td>
+        </td>
+        </tr>
+        <tr>
+          <th>JPEG_DECODER_OPTION_ENABLE_DEFAULT_DHT</th>
+          <td>
+        </td>
+        </tr>
+        <tr>
+          <th>JPEG_DECODER_OPTION_MATCH_WIDTH_HEIGHT</th>
+          <td>
+        </td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Options used when decoding.</p><p>The default value is <code>JPEG_DECODER_OPTION_NONE</code> (0).</p><p>You can specify values that are the bitwise logical sum of these constants using <code><a href="../../../nn/jpeg/CTR/JpegMpDecoder/SetOption.html">JpegMpDecoder::SetOption</a></code>. <br /></p><p><ul><li><code>JPEG_DECODER_OPTION_NONE</code><br />
+ Equal to 0, you can clear options by specifying this option.</p><p></li><li><code>JPEG_DECODER_OPTION_ENABLE_DEFAULT_DHT</code><br />
+ If no DHT (Huffman table) is found in the JPEG data, the library's standard Huffman table is used. This results in an error under the default behavior of the decoding functions. (The error code returned by <code><a href="../../../nn/jpeg/CTR/JpegMpDecoder/GetLastError.html">JpegMpDecoder::GetLastError</a></code> is <code>JPEG_DECODER_ERROR_DHT_NOT_FOUND</code> unless another error occurs.) <br />
+ This option must be specified for encoded JPEG data for where DHT has not been recorded by the <code><a href="../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a></code> class.</p><p></li><li><code>JPEG_DECODER_OPTION_MATCH_WIDTH_HEIGHT</code><br />
+ Decoding is performed only if the image size matches the specified size; otherwise, an error results. (The error code returned by <code><a href="../../../nn/jpeg/CTR/JpegMpDecoder/GetLastError.html">JpegMpDecoder::GetLastError</a></code> is <code>JPEG_DECODER_ERROR_WIDTH_HEIGHT_DIFFERENT</code> unless another error occurs.) <br />
+ Under the default operation of the decoding functions, decoding is only performed when the values are within the specified range. </p></li></ul></p><p>The return value of <code><a href="../../../nn/jpeg/CTR/JpegMpDecoder/GetOption.html">JpegMpDecoder::GetOption</a></code> is the bitwise OR of these constants.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>ChangeDisplaybuffer</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dbg/Overview.html">dbg</a>::<a href="../../../../nn/dbg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/dbg/CTR/DirectPrint/Overview.html">DirectPrint</a>::ChangeDisplaybuffer Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/dbg.h&gt;
+void ChangeDisplaybuffer(
+     void * dispbuf,
+     GLenum format,
+     const <a href="../../../../nn/math/VEC2/Overview.html">nn::math::VEC2</a> & size
+);
+
+void ChangeDisplaybuffer(
+     void * dispbuf
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./ChangeDisplaybuffer(0).html">ChangeDisplaybuffer ( void *, GLenum, const nn::math::VEC2 & ) </a>
+          </td>
+          <td>Specifies the display buffer to write to.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./ChangeDisplaybuffer(1).html">ChangeDisplaybuffer ( void * ) </a>
+          </td>
+          <td>Specifies the display buffer to write to.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of ChangeDisplaybuffer ( void *, GLenum, const nn::math::VEC2 & ) </h2>
+    <div class="section"><p>VRAM cannot be specified in dispbuf. The display buffer must be placed in the device memory.</p><p>Use <code><a href="../../../../nn_gx/nngxGetDisplaybufferParameteri.html">nngxGetDisplaybufferParameteri</a></code> to get the values to pass to dispbuf, format, and size.</p><p>The values passed to size are specified by height and width (normally width) from the user's point of view. Note that the values obtained by <code><a href="../../../../nn_gx/nngxGetDisplaybufferParameteri.html">nngxGetDisplaybufferParameteri</a></code> are reversed for height and width.</p></div>
+    <h2>Description of ChangeDisplaybuffer ( void * ) </h2>
+    <div class="section"><p>VRAM cannot be specified in dispbuf. The display buffer must be placed in the device memory.</p><p>Uses the format and size as previously set. This is convenient if the format and size remain unchanged from the previous settings.</p></div>
+  </body>
+</html>

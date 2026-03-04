@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>SecureUncompressAny</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/cx/Overview.html">cx</a>::SecureUncompressAny Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/cx.h&gt;
+<a href="../../nn_types/s32.html">s32</a> SecureUncompressAny(
+     const void * srcp,
+     <a href="../../nn_types/u32.html">u32</a> srcSize,
+     void * destp
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>srcp</th>
+          <td>Address of the compressed data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcSize</th>
+          <td>Size of the compressed data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>destp</th>
+          <td>Address to store decompressed data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">If the conversion succeeds, returns <code>0</code>; otherwise, returns a negative error code. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Detects the compression format from the data header and executes the appropriate decompression process while checking for errors. Because they do not have headers, LZ backward compressed files (BLZ files) cannot be handled by this API. In addition, LH and LRC files that require a work buffer cannot be handled by this API. This function results in the linkage of the decompression code for all compression types. If you are using only certain compression formats, we recommend using the decompression functions specific to those being used.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

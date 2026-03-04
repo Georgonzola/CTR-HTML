@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>StickClampMode</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hid/CTR/PadReader/Overview.html">PadReader</a>::StickClampMode Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum StickClampMode;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>STICK_CLAMP_MODE_CIRCLE</th>
+          <td>Circular clamping. For more information, see the explanation further down on this page.</td>
+        </tr>
+        <tr>
+          <th>STICK_CLAMP_MODE_CROSS</th>
+          <td>Cross-shaped clamping. For more information, see the explanation further down on this page.</td>
+        </tr>
+        <tr>
+          <th>STICK_CLAMP_MODE_MINIMUM</th>
+          <td>Minimal clamping. For more information, see the explanation further down on this page.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enumerated type that indicates the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> clamp mode set by the <code>SetStickClampMode</code> function.</p><p><itemizedlist><listitem><para><code>STICK_CLAMP_MODE_CIRCLE</code> (Circular Clamping)<br />
+ Clamps the inner and outer edges in a circle. <br />
+ Given min and max as the minimum and maximum clamping values set by the <code>SetStickClamp</code> function, the clamped coordinates <code>(x', y')</code> are obtained as follows according to the distance <code>d</code> from the origin to the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> input coordinates <code>(x, y)</code>. <br /><br />
+ If <code>d <= min</code>, <code>(x', y') = (0, 0)</code><br />
+ If <code>min < d < max</code>, <code>(x', y') = (d - min) / d * (x, y)</code><br />
+ If <code>d >= max</code>, <code>(x', y') = (max - min) / d * (x, y)</code><br /><br /></para></listitem><listitem><para><code>STICK_CLAMP_MODE_CROSS</code> (Cross-Shaped Clamping)<br />
+ Clamps the inner edge in a cross and the outer edge in a circle. <br />
+ First, <code>x</code> and <code>y</code> from the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> input coordinates <code>(x, y)</code> are clamped independently as follows. <br />
+ If <code>x < 0</code>, <code>x'</code> is equal to <code>x + min</code> (always less than zero).<br />
+ If <code>x >= 0</code>, <code>x'</code> is equal to <code>x - min</code> (always greater than zero).<br />
+ If the distance <code>d</code> from the origin to the coordinates <code>(x', y')</code> is greater than <code>max - min</code>, the clamped coordinates <code>(x', y')</code> are obtained as follows. <br /><code>(x', y')</code> = <code>(max - min) / d * (x,' y')</code><br /><br /></para></listitem><listitem><para><code>STICK_CLAMP_MODE_MINIMUM</code><br />
+ Minimizes the inner clamping region. For the interior region, clamping is applied to the smaller of the areas derived by setting the lower limit values for circular clamping and cross-shaped clamping.</para></listitem></itemizedlist>
+The region shape is a circle with notches removed at the top, bottom, left, and right. <br />
+ The exterior region uses circular clamping, reflecting the max value set by the <code>SetStickClamp</code> function. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/09</dt>
+        <dd><item xmlns="">Revised Japanese terminology for the Circle Pad.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

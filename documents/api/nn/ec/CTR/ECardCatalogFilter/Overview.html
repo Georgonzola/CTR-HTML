@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::ECardCatalogFilter</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::ECardCatalogFilter Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ECardCatalogFilter : public nn::ec::CTR::detail::CatalogFilterImpl&lt;ECardCatalogFilter&gt;</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Filter for using <code><a href="../../../../nn/ec/CTR/ECardCatalog/Overview.html">ECardCatalog</a></code> to search for <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> objects. Search by passing this class to the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function to filter the <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> search results.</p>
+    </div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardCatalogFilter/ECardCatalogFilter.html">ECardCatalogFilter</a>
+            </th>
+            <td>Constructor for configuring a buffer for the filter. The configured buffer is used when calling the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function. You need the same number of buffers as you have configured filters. <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> returns <code><a href="../../../../nn/ec/CTR/ResultOutOfFilterMemory/Overview.html">ResultOutOfFilterMemory</a></code> if the buffer is too small for the filters that were set. Fix the problem by such means as increasing the size of the buffer or setting fewer filters. The system consumes the buffer even if nothing is set for the filters.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardCatalogFilter/SetReturnAttributes.html">SetReturnAttributes</a>
+            </th>
+            <td>Configures the attribute name for the attribute value to get. Call the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function using the filter configured with the attribute names to get the attribute values corresponding to the relevant attribute names of the <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> objects. Use the <code><a href="../../../../nn/ec/CTR/ECardItem/GetAttributeByName.html">ECardItem::GetAttributeByName</a></code> function to access the retrieved attribute values. You can specify multiple attribute names in an array. <code><a href="../../../../nn/ec/CTR/ECardCatalogFilter/Overview.html">ECardCatalogFilter</a></code> only maintains references to the configured attribute name array and does not copy it, so be sure not to destroy the attribute name array until you are done using the configured filters.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardCatalogFilter/SetAttributeFilters.html">SetAttributeFilters</a>
+            </th>
+            <td>Configures the attribute filter. Call the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function using the filter configured with the attribute filters to get just the <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> objects that match the attribute filters. For more information about how to code attribute filters, see <code><a href="../../../../nn/ec/CTR/AttributeFilter/Overview.html">AttributeFilter</a></code>. Currently, the only <code><a href="../../../../nn/ec/CTR/AttributeFilter/Overview.html">AttributeFilter::filterType</a></code> that can be set in a <code><a href="../../../../nn/ec/CTR/ECardCatalogFilter/Overview.html">ECardCatalogFilter</a></code> is <code>"=="</code>. The <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> object will return an error if a different filter type is set. You can specify multiple attribute filters in an array. Do not destroy the attribute filter array until you are done using the configured filter, because <code><a href="../../../../nn/ec/CTR/ECardCatalogFilter/Overview.html">ECardCatalogFilter</a></code> only maintains a reference to the specified attribute filter array and does not copy it.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardCatalogFilter/SetTitleFilters.html">SetTitleFilters</a>
+            </th>
+            <td>Configures the title filter. Call the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function using a filter configured with the title filters to get just the <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> objects included in the configured data titles. There is usually no need to set title filters, because if none are configured, all of the data titles initialized in the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object set in the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Overview.html">ECardCatalog</a></code> object will be used as title filters. Specifying a data title not initialized in the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object as a title filter will cause the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function to return <code><a href="../../../../nn/ec/CTR/ResultSessionPreparedTitleNotFound/Overview.html">ResultSessionPreparedTitleNotFound</a></code> and fail. You can specify multiple title filters in an array. <code><a href="../../../../nn/ec/CTR/ECardCatalogFilter/Overview.html">ECardCatalogFilter</a></code> only maintains a reference to the specified title filter array and does not copy it, so be sure not to destroy the title filter array until you are done using the configured filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardCatalogFilter/SetECardTypeCode.html">SetECardTypeCode</a>
+            </th>
+            <td>Configures the download code. Specify the download code retrieved from the <code>CardInfo::GetTypeCode</code> function. The item to be redeemed for the set download code can be searched when <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> is run using the selected filter. If no download code is set in the filter, it is treated as an invalid filter.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy">nn::ec::CTR::detail::CatalogFilterImpl<br />&nbsp;&nbsp;<b>nn::ec::CTR::ECardCatalogFilter</b>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetBuffer</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/mic/Overview.html">mic</a>::<a href="../../../nn/mic/CTR/Overview.html">CTR</a>::SetBuffer Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> SetBuffer(
+     void * address,
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>address</th>
+          <td>Specifies the starting address of the memory block.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the size of the memory region.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyInitialized</th>
+          <td>A memory region has already been set.</td>
+        </tr>
+        <tr>
+          <th>ResultMisalignedSize</th>
+          <td>The specified memory region size is not 4096-byte aligned.</td>
+        </tr>
+        <tr>
+          <th>ResultMisalignedAddress</th>
+          <td>The specified memory region address is not 4096-byte aligned.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidHandle</th>
+          <td>The specified memory region is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidSize</th>
+          <td>The specified size is 0, which is invalid.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the memory region in which to store the sampling results.</p><p>Sets the memory that was obtained by the application. Device memory cannot be used.</p><p>This function cannot be called multiple times. To call this function more than once, you must first call the <code><a href="../../../nn/mic/CTR/ResetBuffer.html">nn::mic::CTR::ResetBuffer</a></code> function.</p><p>For the memory region address, specify a value that is a multiple of <emphasis>BUFFER_ALIGNMENT</emphasis> (4096 bytes). For the size, specify a value that is a multiple of <emphasis>BUFFER_UNITSIZE</emphasis> (4096 bytes). The last four bytes of the specified memory region are used by the <a href="../../../nn/mic/Overview.html">mic</a> library for administrative purposes. Do not overwrite the last four bytes of this region. The size of the buffer in which the actual sampling results are saved is the size obtained using <code><a href="../../../nn/mic/CTR/GetSamplingBufferSize.html">nn::mic::CTR::GetSamplingBufferSize</a></code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2011/03/08</dt>
+        <dd><item xmlns="">Revised Description.</item><br />
+        </dd>
+        <dt>2010/12/18</dt>
+        <dd><item xmlns="">Revised the description of the return values.</item><br />
+        </dd>
+        <dt>2010/06/23</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

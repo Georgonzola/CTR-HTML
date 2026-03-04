@@ -1,0 +1,440 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::os Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the operating system library.</p><p>This namespace class is thread-safe between instances. In addition, it is also thread-safe within some instances.</p><!-- write here --></div>
+    <a name="namespace" id="namespace">
+      <h2>Namespaces</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../nn/os/ARM/Overview.html">nn::os::ARM</a>
+            </th>
+            <td>The namespace of the <a href="../../nn/os/ARM/Overview.html">ARM</a> operating system library. <linebreak />
+(It can also be written without the <code>ARM</code> portion.))</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/CTR/Overview.html">nn::os::CTR</a>
+            </th>
+            <td>The namespace of the <a href="../../nn/os/CTR/Overview.html">CTR</a> operating system library. (It can also be written without the <code>CTR</code> portion.)</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="2">Time</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/Alarm/Overview.html">nn::os::Alarm</a>
+            </th>
+            <td>Class for handling alarms.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/Tick/Overview.html">nn::os::Tick</a>
+            </th>
+            <td>Class for handling ticks.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/Timer/Overview.html">nn::os::Timer</a>
+            </th>
+            <td>Class for representing timers.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Threads</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/AutoStackManager/Overview.html">nn::os::AutoStackManager</a>
+            </th>
+            <td>Stack manager interface used by the <code><a href="../../nn/os/Thread/StartUsingAutoStack.html">Thread::StartUsingAutoStack</a></code> function.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/ManagedThread/Overview.html">nn::os::ManagedThread</a>
+            </th>
+            <td>Utility class with additional features to the standard <code><a href="../../nn/os/Thread/Overview.html">Thread</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/SimpleAutoStackManager/Overview.html">nn::os::SimpleAutoStackManager</a>
+            </th>
+            <td>Implementation of <code><a href="../../nn/os/AutoStackManager/Overview.html">AutoStackManager</a></code> using <code><a href="../../nn/fnd/IAllocator/Overview.html">fnd::IAllocator</a></code>. Uses the specified <code><a href="../../nn/fnd/IAllocator/Overview.html">nn::fnd::IAllocator</a></code> derived class instance to allocate memory for the stack, and then uses it as the stack. If this class instance is used with the <code><a href="../../nn/os/Thread/SetAutoStackManager.html">Thread::SetAutoStackManager</a></code> function, the area that is actually available to be used as a stack is slightly smaller than the size specified to <code><a href="../../nn/os/Thread/StartUsingAutoStack.html">Thread::StartUsingAutoStack</a></code> or <code><a href="../../nn/os/Thread/TryStartUsingAutoStack.html">Thread::TryStartUsingAutoStack</a></code>, because part of the region is used for management and alignment purposes.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/StackMemoryAutoStackManager/Overview.html">nn::os::StackMemoryAutoStackManager</a>
+            </th>
+            <td>Implementation of <code><a href="../../nn/os/AutoStackManager/Overview.html">AutoStackManager</a></code> using <code><a href="../../nn/os/StackMemory/Overview.html">StackMemory</a></code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/Thread/Overview.html">nn::os::Thread</a>
+            </th>
+            <td>Represents threads.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/StackBuffer/Overview.html">nn::os::StackBuffer</a>
+            </th>
+            <td>Class template used for placing the thread stack in locations such as within a static region or a structure.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/ThreadLocalStorage/Overview.html">nn::os::ThreadLocalStorage</a>
+            </th>
+            <td>Class that represents thread-local storage with the same size as the <code>uptr</code> type.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Synchronization</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/BlockingQueue/Overview.html">nn::os::BlockingQueue</a>
+            </th>
+            <td>Class for handling blocking queues.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/SafeBlockingQueue/Overview.html">nn::os::SafeBlockingQueue</a>
+            </th>
+            <td>Class for handling blocking queues.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/CriticalSection/Overview.html">nn::os::CriticalSection</a>
+            </th>
+            <td>Class for handling critical sections. Critical sections are synchronization objects used for providing mutual exclusion.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/Event/Overview.html">nn::os::Event</a>
+            </th>
+            <td>Class for handling events. Events are synchronization objects that send notification that an event has occurred.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/LightBarrier/Overview.html">nn::os::LightBarrier</a>
+            </th>
+            <td>Synchronization mechanism that waits for the arrival of multiple threads.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/LightEvent/Overview.html">nn::os::LightEvent</a>
+            </th>
+            <td>Synchronization mechanism for communicating flags between threads.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/LightSemaphore/Overview.html">nn::os::LightSemaphore</a>
+            </th>
+            <td>Synchronization mechanism for mutual exclusion of resources between threads.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/Mutex/Overview.html">nn::os::Mutex</a>
+            </th>
+            <td>Class for handling mutexes. Mutexes are synchronization objects used for providing mutual exclusion.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/Semaphore/Overview.html">nn::os::Semaphore</a>
+            </th>
+            <td>Class for handling semaphores. Semaphores are synchronization objects that have counters.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/WaitObject/Overview.html">nn::os::WaitObject</a>
+            </th>
+            <td>Base class for objects that are able to wait.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Managing</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/MemoryBlock/Overview.html">nn::os::MemoryBlock</a>
+            </th>
+            <td>Class allocating memory from the specified region in the heap.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/MemoryBlockBase/Overview.html">nn::os::MemoryBlockBase</a>
+            </th>
+            <td>Base class for classes handling contiguous memory regions.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/StackMemory/Overview.html">nn::os::StackMemory</a>
+            </th>
+            <td>Class that partitions a specified memory region for use as a stack.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/StackMemoryBlock/Overview.html">nn::os::StackMemoryBlock</a>
+            </th>
+            <td>Class allocating stack memory from the heap in the specified region.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Other</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/os/HandleObject/Overview.html">nn::os::HandleObject</a>
+            </th>
+            <td>Abstract base class that represents an object managed by the OS.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../nn/os/LockPolicy/Overview.html">nn::os::LockPolicy</a>
+            </th>
+            <td>Container class used for operations related to lock policies.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="typedef" id="typedef">
+      <h2>typedef Definitions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/os/AlarmHandler.html">AlarmHandler</a>
+            </th>
+            <td>Type representing handlers that are run for alarms.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/os/TlsDestructor.html">TlsDestructor</a>
+            </th>
+            <td>The type that represents destructor functions for thread-local storage.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/os/DEVICE_MEMORY_UNITSIZE.html">DEVICE_MEMORY_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the size of device memory specified in <code><a href="../../nn/os/SetDeviceMemorySize.html">SetDeviceMemorySize</a></code> must be a multiple of. It is defined as 4096 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/os/HEAP_UNITSIZE.html">HEAP_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the heap size specified in <code><a href="../../nn/os/SetHeapSize.html">SetHeapSize</a></code> must be a multiple of. It is defined as 4096 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/os/MEMORY_BLOCK_UNITSIZE.html">MEMORY_BLOCK_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the size of the memory region specified in <code><a href="../../nn/os/InitializeMemoryBlock.html">InitializeMemoryBlock</a></code> must be a multiple of. It is defined as 4096 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/os/WAIT_INFINITE.html">WAIT_INFINITE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s64.html">s64</a></td>
+            <td>The function continues running until a result is obtained. (Used by <a href="../../nn/applet/Overview.html">applet</a> library functions that specify a time.)</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/InitializeAlarmSystem.html">InitializeAlarmSystem</a>
+            </th>
+            <td>Initializes the alarm system.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/GetAppMemorySize.html">GetAppMemorySize</a>
+            </th>
+            <td>Gets the maximum total amount of memory that the application can use.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/GetUsingMemorySize.html">GetUsingMemorySize</a>
+            </th>
+            <td>Gets the total size of memory currently allocated to the program.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/SetupHeapForMemoryBlock.html">SetupHeapForMemoryBlock</a>
+            </th>
+            <td>This function sets up the OS to emulate the same memory environment that was used in CTR-SDK 0.9 and prior versions.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/GetDeviceMemoryAddress.html">GetDeviceMemoryAddress</a>
+            </th>
+            <td>Gets the starting address of the device memory.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/SetDeviceMemorySize.html">SetDeviceMemorySize</a>
+            </th>
+            <td>Changes the size of the device memory.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/GetDeviceMemorySize.html">GetDeviceMemorySize</a>
+            </th>
+            <td>Gets the size of the device memory.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/GetHeapAddress.html">GetHeapAddress</a>
+            </th>
+            <td>Gets the starting address of the heap.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/SetHeapSize.html">SetHeapSize</a>
+            </th>
+            <td>Changes the size of the heap.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/GetHeapSize.html">GetHeapSize</a>
+            </th>
+            <td>Gets the size of the heap.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/GetCodeRegionAddress.html">GetCodeRegionAddress</a>
+            </th>
+            <td>Gets the starting address of the executable code region.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/GetCodeRegionSize.html">GetCodeRegionSize</a>
+            </th>
+            <td>Gets the size of the executable code region.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/os/InitializeMemoryBlock.html">InitializeMemoryBlock</a>
+            </th>
+            <td>Allows use of the <code><a href="../../nn/os/MemoryBlock/Overview.html">MemoryBlock</a></code> and <code><a href="../../nn/os/StackMemoryBlock/Overview.html">StackMemoryBlock</a></code> classes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/23</dt>
+        <dd><item xmlns="">Categorized the various classes.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

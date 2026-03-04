@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::CriticalSection</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::CriticalSection Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/os.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class CriticalSection : private <a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable< CriticalSection ></a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for handling critical sections. Critical sections are synchronization objects used for providing mutual exclusion.</p><p>This mechanism prevents certain areas within programs from being run simultaneously within multiple threads. It also prevents resources from being accessed by multiple threads simultaneously.</p><p>Critical sections play the same role as mutexes (<code><a href="../../../nn/os/Mutex/Overview.html">nn::os::Mutex</a></code>), but they have the following limitations.</p><p><itemizedlist><listitem><para>No priority inheritance takes place. Problems such as priority inversion may occur. </para></listitem><listitem><para>Critical sections use more memory to store objects than mutexes do. The <code><a href="../../../nn/os/CriticalSection/Overview.html">nn::os::CriticalSection</a></code> class performs considerably faster than <code><a href="../../../nn/os/Mutex/Overview.html">nn::os::Mutex</a></code> when there are no lock collisions between threads. In most cases, use <code><a href="../../../nn/os/CriticalSection/Overview.html">nn::os::CriticalSection</a></code> instead of <code><a href="../../../nn/os/Mutex/Overview.html">nn::os::Mutex</a></code>.</para></listitem></itemizedlist>
+The use of <code><a href="../../../nn/os/CriticalSection/ScopedLock/Overview.html">nn::os::CriticalSection::ScopedLock</a></code> makes it possible to enter a critical section when an object is created and stay in the critical section until the scope is exited.</p><!-- write here --></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/os/CriticalSection/ScopedLock/Overview.html">nn::os::CriticalSection::ScopedLock</a>
+            </th>
+            <td>Enters a critical section when an object is created and stays in until the scope is exited.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/CriticalSection/CriticalSection.html">CriticalSection</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/CriticalSection/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes an object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/CriticalSection/TryInitialize.html">TryInitialize</a>
+            </th>
+            <td>Tries to initialize an object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/CriticalSection/Finalize.html">Finalize</a>
+            </th>
+            <td>Destroys a critical section.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/CriticalSection/~CriticalSection.html">~CriticalSection</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/CriticalSection/Enter.html">Enter</a>
+            </th>
+            <td>Locks out other threads and prevents them from entering a critical section. This blocks.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/CriticalSection/TryEnter.html">TryEnter</a>
+            </th>
+            <td>Locks out other threads and prevents them from entering a critical section. Does not block.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/CriticalSection/Leave.html">Leave</a>
+            </th>
+            <td>Unlocks and allows other threads to enter a critical section.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<b>nn::os::CriticalSection</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>ConnectAsync</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/ac/Overview.html">ac</a>::<a href="../../../nn/ac/CTR/Overview.html">CTR</a>::ConnectAsync Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> ConnectAsync(
+     <a href="../../../nnacConfig/Overview.html">Config</a> & config,
+     <a href="../../../nn/os/Event/Overview.html">os::Event</a> * event
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>config</th>
+          <td>Instance of connection conditions.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>event</th>
+          <td>An initialized <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> that indicates the completion of the operation.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the call completed successfully.</td>
+        </tr>
+        <tr>
+          <th>nn::fs::ResultNotInitialized</th>
+          <td>Specifies that the FS library has not been initialized.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidData</th>
+          <td>Either <code>NULL</code> was specified as an argument or an uninitialized event was specified.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyExists</th>
+          <td>Already processing.</td>
+        </tr>
+        <tr>
+          <th>ResultCanceled</th>
+          <td>Canceled while a connection was being processed.</td>
+        </tr>
+        <tr>
+          <th>ResultNotAgreeEula</th>
+          <td>The EULA has not been agreed to, or the icon file has not been configured.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure for other reasons.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Starts an asynchronous automatic connection.</p><p>When this function succeeds, asynchronous processing begins. After that processing ends, regardless of its success or failure, the <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> specified in the arguments is signaled. <br />
+ If the function itself fails, no asynchronous processes are started and <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> is not signaled. <br /><br />
+ This API may return success immediately when a connection is completed using background communications. <br />
+ If a connection was not established using background communications, some time may be required for the connection. <br />
+ We recommend using <code><a href="../../../nn/ndm/SuspendScheduler.html">nn::ndm::SuspendScheduler</a></code> to stop background communications and verify operations as needed. <br /><br />
+ A process runs inside this function to verify that a connection to the Internet is possible. <br />
+ As a result, when connecting to an access point that cannot connect to the Internet, it may take more time than usual because of the time needed to verify. <br /><br />
+ Use this function only after you have called the <code><a href="../../../nn/fs/Initialize.html">nn::fs::Initialize</a></code> function. <br /><br />
+ After connection completes, the <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> registered with <code><a href="../../../nn/ac/CTR/RegisterDisconnectEvent.html">RegisterDisconnectEvent</a></code> signals when there is an unintentional disconnect from the access point. <br /><br />
+ When an icon file is not set in the calling application, <code><a href="../../../nn/ac/ResultNotAgreeEula/Overview.html">ResultNotAgreeEula</a></code> is returned. <br /><br />
+ When called while using UDS communication, this function returns <code>nn::ndm::ResultExclusiveByOwnProcess</code>. <br />
+ When using UDS communications, you must call the <code><a href="../../../nn/uds/CTR/Finalize.html">nn::uds::CTR::Finalize</a></code> function to finalize communications before calling this function. <br /><br />
+ Also, after calling this function, the <code><a href="../../../nn/uds/CTR/Initialize.html">nn::uds::CTR::Initialize</a></code> function fails and switching to StreetPass does not occur until you call the <code><a href="../../../nn/ac/CTR/GetConnectResult.html">nn::ac::CTR::GetConnectResult</a></code> function. <br />
+ If you are signaled to do so by the <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> passed in the arguments, make sure to get the result with the <code><a href="../../../nn/ac/CTR/GetConnectResult.html">nn::ac::CTR::GetConnectResult</a></code> function so that communication processes running in the background are not impeded. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/09/19</dt>
+        <dd><item xmlns="">Improved the description of Event signals.</item><br />
+        </dd>
+        <dt>2013/12/03</dt>
+        <dd><item xmlns="">Left only the warning about the icon file and deleted the description of acquiring the application EULA information.</item><br />
+        </dd>
+        <dt>2013/06/03</dt>
+        <dd><item xmlns="">Added cautionary information about the side effects of communication switching and getting results.</item><br />
+        </dd>
+        <dt>2010/11/18</dt>
+        <dd><item xmlns="">Explained that this function gets the application's EULA information.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

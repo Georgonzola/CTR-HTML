@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::StackMemory</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::StackMemory Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class StackMemory : public <a href="../../../nn/os/MemoryBlockBase/Overview.html">nn::os::MemoryBlockBase</a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class that partitions a specified memory region for use as a stack.</p><p>The specified memory region is remapped to an address that differs from the region allocated by 4 KB of unmapped space on either side.</p><p>Given this unmapped space, it can be detected as a data abort for stack overflows or underflows when the region is used in a stack.</p><!-- write here --></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/os/StackMemory/MEMORY_ALIGNMENT.html">MEMORY_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>The address of the memory region buffer specified by <code><a href="../../../nn/os/StackMemory/Initialize.html">Initialize</a></code>, <code><a href="../../../nn/os/StackMemory/TryInitialize.html">TryInitialize</a></code>, or the constructor must be aligned to the number of bytes specified here. It is defined as 4096 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/os/StackMemory/MEMORY_UNITSIZE.html">MEMORY_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the size of the memory region buffer specified by <code><a href="../../../nn/os/StackMemory/Initialize.html">Initialize</a></code>, <code><a href="../../../nn/os/StackMemory/TryInitialize.html">TryInitialize</a></code>, or the constructor must be aligned to. It is defined as 4096 bytes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/StackMemory/StackMemory.html">StackMemory</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/StackMemory/TryInitialize.html">TryInitialize</a>
+            </th>
+            <td>Tries to partition a memory region.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/StackMemory/Initialize.html">Initialize</a>
+            </th>
+            <td>Partitions a memory region.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/StackMemory/~StackMemory.html">~StackMemory</a>
+            </th>
+            <td>Destroys the object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/StackMemory/Finalize.html">Finalize</a>
+            </th>
+            <td>Frees a memory partition.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/StackMemory/GetStackBottom.html">GetStackBottom</a>
+            </th>
+            <td>Gets the ending address of the allocated memory region.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/StackMemory/GetStackSize.html">GetStackSize</a>
+            </th>
+            <td>Gets the size of the allocated memory region.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<span>nn::fnd::IntrusiveLinkedList</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../nn/os/MemoryBlockBase/Overview.html">nn::os::MemoryBlockBase</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::os::StackMemory</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/18</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

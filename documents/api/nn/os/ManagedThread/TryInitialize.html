@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>TryInitialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a>::TryInitialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+template &lt;typename T, typename U, typename Stack&gt;<a href="../../../nn/Result/Overview.html">nn::Result</a> TryInitialize(
+     void(*)(T) f,
+     U param,
+     Stack & stack,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+
+template &lt;typename T, typename Stack&gt;<a href="../../../nn/Result/Overview.html">nn::Result</a> TryInitialize(
+     void(*)(T *) f,
+     const T & param,
+     Stack & stack,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+
+template &lt;typename T, typename Stack&gt;<a href="../../../nn/Result/Overview.html">nn::Result</a> TryInitialize(
+     void(*)(const T *) f,
+     const T & param,
+     Stack & stack,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+
+template &lt;typename Stack&gt;<a href="../../../nn/Result/Overview.html">nn::Result</a> TryInitialize(
+     void(*)() f,
+     Stack & stack,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./TryInitialize(0).html">TryInitialize ( void(*)(T), U, Stack &, s32, s32 ) </a>
+          </td>
+          <td>Specifies a buffer for the stack and creates a thread.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./TryInitialize(1).html">TryInitialize ( void(*)(T *), const T &, Stack &, s32, s32 ) </a>
+          </td>
+          <td>Specifies a buffer for the stack and creates a thread.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./TryInitialize(2).html">TryInitialize ( void(*)(const T *), const T &, Stack &, s32, s32 ) </a>
+          </td>
+          <td>Specifies a buffer for the stack and creates a thread.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./TryInitialize(3).html">TryInitialize ( void(*)(), Stack &, s32, s32 ) </a>
+          </td>
+          <td>Specifies a buffer for the stack and creates a thread.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of TryInitialize ( void(*)(T), U, Stack &, s32, s32 ) </h2>
+    <div class="section"><p>Uses the buffer specified by the user for a stack and creates a thread.  To actually begin the processing of the thread you need to call <tt><a href="../../../nn/os/ManagedThread/Start.html">Start</a></tt>. </p><p><span class="argument">param</span> is copied to the buffer after the value has been passed as the stack, and then passed from there as the <span class="argument">f</span> argument.</p><p>The <span class="argument">stack</span> argument must be a class instance that has the <tt>GetStackBottom</tt> member function (which returns an <tt>uptr</tt> type value as the address of the bottom of the stack) and the <tt>GetStackSize</tt> member function (which returns a <tt>size_t</tt> type value for the stack size.  <tt><a href="../../../nn/os/StackBuffer/Overview.html">StackBuffer</a></tt> satisfies these conditions and can be used as the argument.</p><p>You must call <tt><a href="../../../nn/os/ManagedThread/InitializeEnvironment.html">InitializeEnvironment</a></tt> before using <tt>ManagedThread</tt>.</p></div>
+    <h2>Description of TryInitialize ( void(*)(T *), const T &, Stack &, s32, s32 ) </h2>
+    <div class="section"><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/TryInitialize(0).html">TryInitialize&#x3c;T, U, Stack&#x3e;()</a></tt> function, with the exception that the data referenced by <span class="argument">param</span> is copied to the buffer passed as the stack, and the pointer to that copied region is passed as the <span class="argument">f</span> argument.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/TryInitialize(0).html">TryInitialize&#x3c;T, U, Stack&#x3e;()</a></tt> function. </p></div>
+    <h2>Description of TryInitialize ( void(*)(const T *), const T &, Stack &, s32, s32 ) </h2>
+    <div class="section"><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/TryInitialize(0).html">TryInitialize&#x3c;T, U, Stack&#x3e;()</a></tt> function, with the exception that the data referenced by <span class="argument">param</span> is copied to the buffer passed as the stack, and the pointer to that copied region is passed as the <span class="argument">f</span> argument.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/TryInitialize(0).html">TryInitialize&#x3c;T, U, Stack&#x3e;()</a></tt> function. </p></div>
+    <h2>Description of TryInitialize ( void(*)(), Stack &, s32, s32 ) </h2>
+    <div class="section"><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/TryInitialize(0).html">TryInitialize&#x3c;T, U, Stack&#x3e;()</a></tt> function, with the exception that a function that does not take arguments is used as the thread function.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/TryInitialize(0).html">TryInitialize&#x3c;T, U, Stack&#x3e;()</a></tt> function. </p></div>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxRunCmdlist</title>
+  </head>
+  <body>
+    <h1>nngxRunCmdlist Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxRunCmdlist(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Runs the current command list.</p><P>Sequentially runs the commands accumulated in the current command list.  Calls to this function are ignored when 0 is bound to the current command list.  Calls to this function are ignored when the command list is running and other command-list objects are bound to the current list.  Commands can be accumulated in a command list that is running.</P><P>Calls to this function are ignored when it has been called after the <tt><a href="../nn_gx/nngxStopCmdlist.html">nngxStopCmdlist</a></tt>function has been specified to stop commands but before all issued commands have stopped. To confirm that all issued commands have completed, call the <tt><a href="../nn_gx/nngxGetCmdlistParameteri.html">nngxGetCmdlistParameteri</a></tt> function and specify <tt>NN_GX_CMDLIST_IS_RUNNING</tt> for <span class="argument">pname</span>, or use the <tt><a href="../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a></tt> function to wait until the commands complete. </P><P>This API function calls a system process to start command execution and blocks all other execution until that process completes. If there are no command requests, this process is called when a function used to add a command request to the start is called, not at the point this function is called. (The same is true when a command request being executed is emptied and then added anew.)</P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_8009_DMP</TH><TD>The bound command list does not have a region allocated for the command buffer or a command request.</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxStopCmdlist.html">nngxStopCmdlist</a><br /><a href="../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/11/29</dt>
+        <dd><item xmlns="">Added information about the timing of execution blocking caused by calling this function.</item><br />
+        </dd>
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added See Also section.</item><br />
+        </dd>
+        <dt>2010/10/07</dt>
+        <dd><item xmlns="">Added a method for verifying that issued commands have finished running.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Added extended error codes.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

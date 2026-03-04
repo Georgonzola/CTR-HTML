@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetSoftware</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a>::SetSoftware Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+void SetSoftware(
+     const char * pBuffer
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Specifies the name of the software. <br />
+ Specified text data must be maintained until the encoding function exits. <br />
+ The information is not registered if <code>NULL</code> is specified.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Registers the software name to embed in the Exif IFD of a JPEG file.</p><p>This information is the information registered in the IFD0 <code>Software</code> tag. The default is not to register.</p><p>Call this function before calling the encoding function. The values specified by this function are cleared after the encoding function completes, regardless of whether the encoding function succeeded or failed. When encoding multiple times, you must call this function before each encoding function call. The values specified by this function are also cleared if you specify <code>NULL</code> for the <emphasis>pBuffer</emphasis> argument, or if you reinitialize the encoder object using the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Initialize.html">Initialize</a></code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/06</dt>
+        <dd><item xmlns="">Noted that strings must be maintained until the encoding function has finished.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

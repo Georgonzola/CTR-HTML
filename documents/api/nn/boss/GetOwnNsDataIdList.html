@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>GetOwnNsDataIdList</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/boss/Overview.html">boss</a>::GetOwnNsDataIdList Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">nn::Result</a> GetOwnNsDataIdList(
+     <a href="../../nn_types/u32.html">u32</a> dataType,
+     <a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a> * pNsDataId
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>dataType</th>
+          <td>Specifies the data type. (Use <code>DATA_TYPE_ALL</code> to specify all data types. Note that this excludes the data type for notifications because this data cannot be obtained from the application.)</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pNsDataId</th>
+          <td>Specifies an object storing a list of NS data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates successful retrieval.</td>
+        </tr>
+        <tr>
+          <th>ResultNsDataListSizeShortage</th>
+          <td>Because the size of <code><a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a></code> was insufficient, not all NS data serial IDs could be stored. <br />
+ Continue to call repeatedly until all NS data serial IDs are obtained.</td>
+        </tr>
+        <tr>
+          <th>ResultNsDataListUpdated</th>
+          <td>The target NSD group for BOSS storage was updated since the last time a list was obtained.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidNsDataIdList</th>
+          <td>The pointer to NS data list information is <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultStorageNotFound</th>
+          <td>The BOSS storage corresponding to the application is not registered. Determine whether the BOSS storage is registered.</td>
+        </tr>
+        <tr>
+          <th>ResultFileAccess</th>
+          <td>File access to BOSS storage failed. This error can occur if a task using the target BOSS storage is running when this function is called and there is a conflict in file access between that task and this function. This error disappears when that task is finished running. If you use this function without stopping BOSS or tasks, just call this function again when this error occurs. <bold>Note:</bold> File access may also fail for other reasons (for example, because of a broken SD card). Report the error to the user if it has not gone away even after you have tried calling the function several times.</td>
+        </tr>
+        <tr>
+          <th>ResultIpcNotSessionInitialized</th>
+          <td>Indicates that the session is not initialized. <br />
+ The function returns this <code><a href="../../nn/Result/Overview.html">Result</a></code> if it is called before <code><a href="../../nn/boss/Initialize.html">Initialize</a></code> is called. <br />
+ Always call the <code><a href="../../nn/boss/Initialize.html">Initialize</a></code> function before you use the BOSS library.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Excludes the shared NS data, and gets the list of NS content for the application from the expanded save data region where the BOSS storage is registered. <br />
+ The NS data IDs are stored in descending order from the start of the list. In other words, only NS data for the invoked application is included in the list, even if there is shared NS data. The new arrival flag is cleared if this function is used to get all lists. <br /><code><a href="../../nn/boss/ResultNsDataListSizeShortage/Overview.html">ResultNsDataListSizeShortage</a></code> is returned if the entire list could not be obtained. <br /><code><a href="../../nn/boss/ResultNsDataListUpdated/Overview.html">ResultNsDataListUpdated</a></code> is returned when changes to list content are detected during a continued acquisition of the list, or a new download. In this case, you must get the entire list again. <br />
+ In this case, call this function again after initializing the instance of <code><a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a></code>. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/26</dt>
+        <dd><item xmlns="">Added note that the new arrival flag is cleared if this operation is used to get all lists.</item><br />
+        </dd>
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

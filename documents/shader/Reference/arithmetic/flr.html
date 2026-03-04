@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>flr - Floor</title>
+  </head>
+  <body>
+    <h1>flr - Floor</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+flr     dest, src
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Registers</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>dest</th>
+          <td>An output register or temporary register.</td>
+        </tr>
+        <tr>
+          <th>src</th>
+          <td>A temporary register, input register, or floating-point constant register.</td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>Finds the largest integer not greater than <SPAN class="argument">src</SPAN> and stores it in <SPAN class="argument">dest</SPAN>.</p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+dest.x = floor ( src.x )
+dest.y = floor ( src.y )
+dest.z = floor ( src.z )
+dest.w = floor ( src.w )
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+flr     r0,     r1
+</pre>
+    </div>
+
+    <h2>Timetable</h2>
+    <div class="section">
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th>
+        </tr>
+        <tr>
+          <th>flr</th>
+          <td class="read">read</td>
+          <td class="FLOOR">FLOOR</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

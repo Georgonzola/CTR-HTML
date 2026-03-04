@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetSharedFontRequiredMemorySize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/pl/Overview.html">pl</a>::<a href="../../../nn/pl/CTR/Overview.html">CTR</a>::GetSharedFontRequiredMemorySize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> GetSharedFontRequiredMemorySize(
+     <a href="../../../nn_types/s32.html">s32</a> * pOut,
+     <a href="../../../nn/pl/CTR/SharedFontType.html">SharedFontType</a> sharedFontType,
+     size_t maxFile,
+     size_t maxDirectory
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pOut</th>
+          <td>Returns the calculated memory size.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>sharedFontType</th>
+          <td>Specifies the type of the shared <a href="../../../nn/font/Overview.html">font</a>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxFile</th>
+          <td>The maximum number of files that can be opened simultaneously.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxDirectory</th>
+          <td>The maximum number of directories that can be opened simultaneously.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>nn::pl::ResultSharedFontNotFound</th>
+          <td>The specified shared <a href="../../../nn/font/Overview.html">font</a> was not found.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyExists</th>
+          <td>The specified archive name is already mounted. <br />
+ You must not allow this error to occur in retail products.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>An unexpected or fatal error occurred.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the size of memory needed to mount a shared <a href="../../../nn/font/Overview.html">font</a> archive.</p><p>Calculates the size of memory needed to mount a shared <a href="../../../nn/font/Overview.html">font</a> archive. <br />
+ The returned memory size allows only the number of files specified by maxFile and the number of directories specified by maxDirectory to be opened simultaneously.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

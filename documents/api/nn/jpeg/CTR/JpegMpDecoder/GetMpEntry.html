@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetMpEntry</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::GetMpEntry Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+static bool GetMpEntry(
+     <a href="../../../../nn/jpeg/CTR/MpEntry/Overview.html">MpEntry</a> * pEntry,
+     const <a href="../../../../nn/jpeg/CTR/MpIndex/Overview.html">MpIndex</a> * pIndex,
+     <a href="../../../../nn_types/u32.html">u32</a> index
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pEntry</th>
+          <td>Specifies the buffer storing the MP entry. <br />
+ The stored data has been converted to a format that is easier for the library to process, and so the binary representation of a stored MP entry differs from that of the original data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pIndex</th>
+          <td>Specifies the MP index IFD. To get this value ahead of time, use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpIndex.html">GetMpIndex</a></code> function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>index</th>
+          <td>Specifies the storage order index within the MP entries.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> on success. Returns <code>false</code> on failure. <br />
+ This is because this function ascertains whether the reason for failure is an invalid argument or an invalid MP entry. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets an MP entry included in the data stored in MP format.</p><p>Gets one specified MP entry from among all MP entries. <br />
+ Specify the MP entry to get by its storage order index within all the MP entries. These begin from 0. <br />
+ This storage order is different from the individual image numbers in MP format. <br />
+ (The individual image numbers generally begin from 1, but in some cases numbers are not sequential or are not assigned.)</p><p>Access the obtained MP entry using functions such as <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpImageOffset.html">GetMpImageOffset</a></code> or <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpImageSize.html">GetMpImageSize</a></code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

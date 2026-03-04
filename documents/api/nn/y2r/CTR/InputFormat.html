@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>InputFormat</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/y2r/Overview.html">y2r</a>::<a href="../../../nn/y2r/CTR/Overview.html">CTR</a>::InputFormat Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum InputFormat;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>INPUT_YUV422_INDIV_8</th>
+          <td>YUV 4:2:2 individual input mode (8-bit format)</td>
+        </tr>
+        <tr>
+          <th>INPUT_YUV420_INDIV_8</th>
+          <td>YUV 4:2:0 individual input mode (8-bit format)</td>
+        </tr>
+        <tr>
+          <th>INPUT_YUV422_INDIV_16</th>
+          <td>YUV 4:2:2 individual input mode (16-bit padding format)</td>
+        </tr>
+        <tr>
+          <th>INPUT_YUV420_INDIV_16</th>
+          <td>YUV 4:2:0 individual input mode (16-bit padding format)</td>
+        </tr>
+        <tr>
+          <th>INPUT_YUV422_BATCH</th>
+          <td>YUV 4:2:2 batch mode</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enumerated type that indicates the input mode.</p><P>The input data formats are as follows.</P><P><B>YUV 4:2:2 / YUV 4:2:0 individual input mode (8-bit format)</B><table><tr><td>Bits 31-24</td><td>Bits 23-16</td><td>Bits 15-8</td><td>Bits 7-0</td></tr><tr><td>Y (n+3)</td><td>Y (n+2)</td><td>Y (n+1)</td><td>Y (n)</td></tr><tr><td>U (n+3)</td><td>U (n+2)</td><td>U (n+1)</td><td>U (n)</td></tr><tr><td>V (n+3)</td><td>V (n+2)</td><td>V (n+1)</td><td>V (n)</td></tr></table></P><P><B>YUV 4:2:2 / YUV 4:2:0 individual input mode (16-bit padding format)</B><table><tr><td>Bits 31-24</td><td>Bits 23-16</td><td>Bits 15-8</td><td>Bits 7-0</td></tr><tr><td>padding</td><td>Y (n+1)</td><td>padding</td><td>Y (n)</td></tr><tr><td>padding</td><td>U (n+1)</td><td>padding</td><td>U (n)</td></tr><tr><td>padding</td><td>V (n+1)</td><td>padding</td><td>V (n)</td></tr></table></P><P><B>YUV 4:2:2 batch mode</B><table><tr><td>Bits 31-24</td><td>Bits 23-16</td><td>Bits 15-8</td><td>Bits 7-0</td></tr><tr><td>V (n)</td><td>Y (n+1)</td><td>U (n)</td><td>Y (n)</td></tr></table></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/03/11</dt>
+        <dd><item xmlns="">Corrected the text.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

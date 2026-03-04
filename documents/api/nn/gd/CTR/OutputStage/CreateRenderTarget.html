@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CreateRenderTarget</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/OutputStage/Overview.html">OutputStage</a>::CreateRenderTarget Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CreateRenderTarget(
+     const Texture2DResource * texture2DResource,
+     const <a href="../../../../nn/gd/CTR/RenderTargetDescription/Overview.html">RenderTargetDescription</a> * desc,
+     RenderTarget ** renderTarget
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>texture2DResource</th>
+          <td>Specifies a pointer to an already created <code>Texture2DResource</code> object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>desc</th>
+          <td>Specifies parameters for creating a render target.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>renderTarget</th>
+          <td>Specifies the address storing a pointer to the created render target object.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified in an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureMipLevelIndex</th>
+          <td><code>m_mipLevelIndex</code> in <code><a href="../../../../nn/gd/CTR/RenderTargetDescription/Overview.html">RenderTargetDescription</a></code> is larger than the mipmap level of the specified resource.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureResolution</th>
+          <td>The height or width of <code>Texture2DResource</code> is 0 or greater than 1024, or the size is not a multiple of eight. Alternatively, the memory layout of the Texture2DResource resource is <code>LAYOUT_BLOCK_32</code>, but the height and width of the Texture2DResource resource is not a multiple of 32.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormatForCreatingRenderTarget</th>
+          <td>The pixel format of Texture2DResource is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLocation</th>
+          <td>The memory type of Texture2DResource is invalid. Specify the VRAM memory type.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td>Cannot allocate memory.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryLayout</th>
+          <td>The memory layout is invalid. Specify either <code>LAYOUT_BLOCK_8</code> or <code>LAYOUT_BLOCKE_32</code>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a render target from a <code>Texture2DResource</code>.</p><p>The following pixel formats can be specified for Texture2DResource. <br /><itemizedlist><listitem><para>NATIVE_FORMAT_RGBA_8888 <br /></para></listitem><listitem><para>NATIVE_FORMAT_GAS <br /></para></listitem><listitem><para>NATIVE_FORMAT_SHADOW <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_5551 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGB_565 <br /></para></listitem><listitem><para>NATIVE_FORMAT_RGBA_4444 <br /></para></listitem></itemizedlist></p><!-- write here --></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../../nn/gd/CTR/Resource/CreateTexture2DResource.html">Resource::CreateTexture2DResource</a> creates a <code>Texture2DResource</code> object.<br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

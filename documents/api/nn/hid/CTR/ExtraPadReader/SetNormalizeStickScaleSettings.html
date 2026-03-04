@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetNormalizeStickScaleSettings</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hid/CTR/ExtraPadReader/Overview.html">ExtraPadReader</a>::SetNormalizeStickScaleSettings Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetNormalizeStickScaleSettings(
+     <a href="../../../../nn_types/f32.html">f32</a> scale,
+     <a href="../../../../nn_types/s16.html">s16</a> threshold
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>scale</th>
+          <td>Sensitivity adjustment parameter. (The default is <code>1.5</code>.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>threshold</th>
+          <td>Internal processing threshold. (The default is <code>141</code>.)</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures settings for the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/NormalizeStickWithScale.html">NormalizeStickWithScale</a></code> function.</p><p>The application functions as if the movable range of the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> were multiplied by scale. <br />
+ When the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> value is less than threshold, the normalized value obtained with the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/NormalizeStickWithScale.html">NormalizeStickWithScale</a></code> function is <code>1/</code>scale. <br />
+ When the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> value is threshold or greater, the normalized value obtained with the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/NormalizeStickWithScale.html">NormalizeStickWithScale</a></code> function gradually approaches &#177;1.0. <br />
+ Set a value less than or equal to <code><a href="../../../../nn/hid/CTR/LIMIT_OF_STICK_CLAMP_MAX.html">LIMIT_OF_STICK_CLAMP_MAX</a></code> for threshold.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/06</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

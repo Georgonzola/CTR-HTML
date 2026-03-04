@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetBufferErrorInterruptEvent</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::GetBufferErrorInterruptEvent Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void GetBufferErrorInterruptEvent(
+     <a href="../../../nn/os/Event/Overview.html">nn::os::Event</a> * pEvent,
+     <a href="../../../nn/camera/CTR/Port.html">Port</a> port
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pEvent</th>
+          <td>Event to signal when a buffer error or reboot occurs.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>port</th>
+          <td>Specifies the port on which to detect interrupts.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the event used to detect <a href="../../../nn/camera/Overview.html">camera</a> buffer error interrupts and reboots.</p><p>Reboot notifications occur for both <code>PORT_CAM1</code> and <code>PORT_CAM2</code>.</p><p>This function gets an auto-reset event in <span class="argument">pEvent</span> regardless of how the application was initialized.</p><p>When the camera data transfer does not happen in time and the SoC buffer overflows, camera image data is not retrieved and the <tt>pEvent</tt> obtained by this function is in the signaled state.  In such a case, the SoC buffer is cleared by the camera library.  Upon detecting the signaled state, reconfigure the transfer with the <tt><a href="../../../nn/camera/CTR/SetReceiving.html">nn::camera::CTR::SetReceiving</a></tt> function and resume data retrieval with the <tt><a href="../../../nn/camera/CTR/StartCapture.html">nn::camera::CTR::StartCapture</a></tt> function. </p><p>The camera may also behave abnormally following a large static electricity shock.  When the camera library detects abnormal operation, it resets and reboots the camera, and restores the previous settings.  Recovery halts image data retrieval from the camera and clears the SoC buffer, after which the <tt>pEvent</tt> obtained by this function is in the signaled state.  Upon detecting the signaled state, reconfigure the transfer with the <tt>SetReceiving</tt> function and resume data retrieval with the <tt><a href="../../../nn/camera/CTR/StartCapture.html">nn::camera::CTR::StartCapture</a></tt> function. </p><p>For either buffer overflows or reboots, the SoC buffer state is the same following the signal of the <tt>pEvent</tt> obtained by this function, so there is no need for the application to implement any special handling code.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/07/14</dt>
+        <dd><item xmlns="">Added to description of conditions for an event to enter the signaled state.</item><br />
+        </dd>
+        <dt>2010/06/17</dt>
+        <dd><item xmlns="">Added information on event types.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

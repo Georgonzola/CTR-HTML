@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetHeaderInfo</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/NsData/Overview.html">NsData</a>::GetHeaderInfo Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> GetHeaderInfo(
+     <a href="../../../nn/boss/HeaderInfoType.html">HeaderInfoType</a> type,
+     void * pValue,
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>type</th>
+          <td>Specifies the header element type.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pValue</th>
+          <td>Specifies a buffer storing the header information.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the buffer size.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Read successfully.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidNsDataValue</th>
+          <td>The pointer to the region that stores NSDATA is <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultNsDataNotFound</th>
+          <td>The specified NS data is not found. It might have been automatically deleted.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidNsDataGetHeadSize</th>
+          <td>The header size does not match the header type specified by the <code>GetHeaderInfo</code> function. Normally this does not occur, but it is possible that something abnormal occurred. Perform error handling as if the NS data is corrupted (damaged, or spoofed). For more on error handling methods, see the programming manual.</td>
+        </tr>
+        <tr>
+          <th>ResultStorageAccessPermission</th>
+          <td>You do not have storage access rights. Cannot access the expanded save data region. Reconfirm your access rights.</td>
+        </tr>
+        <tr>
+          <th>ResultIpcNotSessionInitialized</th>
+          <td>Indicates that the session is not initialized. If this function is called before <code><a href="../../../nn/boss/Initialize.html">nn::boss::Initialize</a></code> is called, this <code><a href="../../../nn/Result/Overview.html">Result</a></code> is returned. Always call the <code><a href="../../../nn/boss/Initialize.html">nn::boss::Initialize</a></code> function before you use the BOSS library.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than the above Unexpected error. (For more on error handling methods, see the programming manual.) Perform error handling as if the NS data is corrupted (damaged, or spoofed). For more on error handling methods, see the programming manual.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Reads NS archive header information.</p><p>Specify the following types of NS archive header information to get the corresponding values. <br />
+ To do so, you must allocate the necessary memory in advance. The function returns a <code><a href="../../../nn/boss/ResultInvalidNsDataGetHeadSize/Overview.html">ResultInvalidNsDataGetHeadSize</a></code> error when the required amount of memory is not available. <br /><br />
+ NSD_TITLEID: The 64-bit title ID. (<code>s64</code>) <br />
+ NSD_FLAGS: NSD flag. (<code>bit32</code>)<br /><code>NSD_DATATYPE</code>: The NSD data type. (<code>bit32</code>)<br /><code>NSD_LENGTH</code>: The NSD length. (<code>s32</code>) <br /><code>NSD_SERIALID</code>: The NSD serial ID. (<code>u32</code>) <br /><code>NSD_VERSION</code>: The NSD version number. (<code>u32</code>) <br /><code>NSD_ALL</code>: All NSD attributes. (<code><a href="../../../nn/boss/NsDataHeaderInfo/Overview.html">NsDataHeaderInfo</a></code>)<br /><br />
+ Note that sometimes the desired NS data cannot be found, either because it was deleted by another application, there was insufficient memory during an NSA download, or it was automatically deleted. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/02/26</dt>
+        <dd><item xmlns="">Added a description about the return value when NS data is corrupted.</item><br />
+        </dd>
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

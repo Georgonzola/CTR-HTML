@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::snd::CTR::DspFxReverb</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../nn/snd/CTR/Overview.html">CTR</a>::DspFxReverb Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class DspFxReverb : private <a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable< DspFxReverb ></a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A class used to control DSP reverb effects.</p><p>This class allows you to process reverb effects with the DSP. It implements nearly the same signal processing as <tt><a href="../../../../nn/snd/CTR/FxReverb/Overview.html">nn::snd::CTR::FxReverb</a></tt> and can achieve the same effects. Although this can reduce the load on the CPU, caution is needed because it also increases the load on the DSP and makes it easier for voices to be dropped.</p></div>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/FilterSize/Overview.html">nn::snd::CTR::DspFxReverb::FilterSize</a>
+            </th>
+            <td>This structure represents the filter size.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/Param/Overview.html">nn::snd::CTR::DspFxReverb::Param</a>
+            </th>
+            <td>The data structure for reverb parameters.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Constructors/Destructors</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/DspFxReverb.html">DspFxReverb</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/~DspFxReverb.html">~DspFxReverb</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes a <code><a href="../../../../nn/snd/CTR/DspFxReverb/Overview.html">DspFxReverb</a></code> object and registers a work buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes a <code><a href="../../../../nn/snd/CTR/DspFxReverb/Overview.html">DspFxReverb</a></code> object and unregisters the work buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/Attach.html">Attach</a>
+            </th>
+            <td>Attaches an instance of this class to the AUX bus.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/Detach.html">Detach</a>
+            </th>
+            <td>Detaches an instance of this class from the AUX bus.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/SetParam.html">SetParam</a>
+            </th>
+            <td>Sets parameters.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/Enable.html">Enable</a>
+            </th>
+            <td>Switches between enabling and disabling reverb effects.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/Disable.html">Disable</a>
+            </th>
+            <td>Disables reverb effects.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/IsEnabled.html">IsEnabled</a>
+            </th>
+            <td>Returns a value indicating whether reverb effects are currently enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/IsBufferInUse.html">IsBufferInUse</a>
+            </th>
+            <td>Returns a value indicating whether the memory specified for the reverb buffer is in use.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/DspFxReverb/GetRequiredMemorySize.html">GetRequiredMemorySize</a>
+            </th>
+            <td>Calculates the required buffer size for the specified parameters.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<b>nn::snd::CTR::DspFxReverb</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

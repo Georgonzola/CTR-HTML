@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetApproachContextScreenName</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::GetApproachContextScreenName Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> GetApproachContextScreenName(
+     <a href="../../../nn_types/char16.html">char16</a> screenName[SCREEN_NAME_SIZE],
+     const <a href="../../../nnfriendsApproachContext/Overview.html">ApproachContext</a> & approachContext,
+     bool replaceForeignCharacters = true,
+     <a href="../../../nn_types/u8.html">u8</a> * pFontRegion = NULL
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>screenName[SCREEN_NAME_SIZE]</th>
+          <td>Specifies a pointer to a buffer that stores acquired screen names.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>approachContext</th>
+          <td>Specifies the approach context of the user for which to get the display name.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>replaceForeignCharacters</th>
+          <td>Specifies whether to convert non-ASCII characters to ? when the local host's <a href="../../../nn/font/Overview.html">font</a> region differs from the one for the display name included in the approach context.</td>
+        </tr>
+        <tr>
+          <td />
+          <th>pFontRegion</th>
+          <td>
+            </td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pFontRegionList</th>
+          <td>Specifies a pointer to a buffer that stores the <a href="../../../nn/font/Overview.html">font</a> region of the display name included in the approach context. Specify <code>NULL</code> if not needed.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>An invalid pointer was passed as an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>The friend presence library is not initialized.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidArgument</th>
+          <td>Approach context decryption failed.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Other results can be returned depending on the internal state of the daemon.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the display name of the user that is included in the approach context.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

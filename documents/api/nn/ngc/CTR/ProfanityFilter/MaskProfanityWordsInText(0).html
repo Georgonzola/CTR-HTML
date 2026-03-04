@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>MaskProfanityWordsInText</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ngc/Overview.html">ngc</a>::<a href="../../../../nn/ngc/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ngc/CTR/ProfanityFilter/Overview.html">ProfanityFilter</a>::MaskProfanityWordsInText Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+virtual <a href="../../../../nn/Result/Overview.html">nn::Result</a> MaskProfanityWordsInText(
+     int * pProfanityWordCount,
+     wchar_t * pText
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pProfanityWordCount</th>
+          <td>Specifies a pointer to the number of times profanity appeared in a text. If this information is not required, you can specify <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <td />
+          <th>pText</th>
+          <td>Specifies the pointer to the text that is the subject of the check. Places where profanity appears in the text are overwritten by an asterisk. For this reason, you must specify a buffer that the application can write to. The maximum number of characters than can be checked is <code><a href="../../../../nn/ngc/MAX_TEXT_LENGTH.html">nn::ngc::MAX_TEXT_LENGTH</a></code> (512), including the null character. If a string is longer than this value, the part that exceeds this maximum length is not inspected.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Checks the specified text against all pattern lists to determine whether strings contain profanity and should not be displayed.</p><p>This function processes text strings equal to or longer than a particular length. The maximum number of characters (including the null terminator) for the text is <code><a href="../../../../nn/ngc/MAX_TEXT_LENGTH.html">nn::ngc::MAX_TEXT_LENGTH</a></code>. It cannot process short single words, such as screen names. To check words, use the <code><a href="../../../../nn/ngc/CTR/ProfanityFilter/CheckProfanityWords.html">ProfanityFilter::CheckProfanityWords</a></code> function instead.</p><p>When this function is called, it checks the specified strings to determine whether they contain profanity and masks those parts with asterisks (*).</p><p>This operation may take a long time. (It blocks.) Processing time can vary, depending on such factors as the version of the system and the length of the strings. We recommend running this function in a separate thread. Running it in the main thread can reduce the frame rate.</p><p>To determine which pattern lists you need to check against, see the UGC guidelines in the latest 3DS Guidelines.</p></div>
+  </body>
+</html>

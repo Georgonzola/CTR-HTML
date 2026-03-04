@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>StartDistribute</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dlp/Overview.html">dlp</a>::<a href="../../../../nn/dlp/CTR/Overview.html">CTR</a>::<a href="../../../../nn/dlp/CTR/Server/Overview.html">Server</a>::StartDistribute Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">nn::Result</a> StartDistribute();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">The following <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values are returned as the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the session started successfully.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidState</th>
+          <td>The state is invalid or there is no client that was <code><a href="../../../../nn/dlp/CTR/Server/AcceptClient.html">AcceptClient()</a></code>. Use with the <code>SERVER_STATE_OPENED_SESSIONS</code> state (after <code><a href="../../../../nn/dlp/CTR/Server/OpenSessions.html">OpenSessions()</a></code> was successful).</td>
+        </tr>
+        <tr>
+          <th>ResultWirelessOff</th>
+          <td>Communications cannot occur in this state (sleep or the wireless switch is off).</td>
+        </tr>
+        <tr>
+          <th>ResultFailedToAccessMedia</th>
+          <td>Cannot access the media. The card may have been removed.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Begins download sessions.</p><p>After this API is called, no new client connections can be made. In addition, clients in the <code>CLIENT_STATE_WAITING_ACCEPT</code> state are disconnected when this function is called. <br />
+ The server not only distributes the client program but may also distribute the system that is required to start the client program. The server can continue to wait indefinitely for clients that downloaded the system to restart and reconnect. The client may not be able to reconnect in situations such as the following: the client cancels the download, turns off wireless, turns off power, or is disconnected from the host by degraded connection quality. Make sure that the user can stop the data download session at any point.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

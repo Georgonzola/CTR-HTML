@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetNow</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fnd/Overview.html">fnd</a>::<a href="../../../nn/fnd/DateTime/Overview.html">DateTime</a>::GetNow Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/fnd.h&gt;
+static <a href="../../../nn/fnd/DateTime/Overview.html">DateTime</a> GetNow();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the current date and time. This interface returns a value that is valid to the millisecond. Individual differences in the current date and time are returned by the interface, and it greatly depends on temperature. The precision is somewhere around ±60 seconds per month. This value is not something that can be guaranteed in the retail product. The tick value retrieved using <code><a href="../../../nn/os/Tick/Overview.html">nn::os::Tick</a></code> progresses at a different speed, so the two values must not be used in combination. Because the current date and time that is returned by the interface is a value that has been interpolated, the speed not only is different, but it also fluctuates. The speed varies by around ±1 second per hour. For this reason, even though you get values in the same units with the <code><a href="../../../nn/os/Tick/ToTimeSpan.html">nn::os::Tick::ToTimeSpan</a></code> function, you do not get the same value even when you take the measurement at the same time. In most cases, time also progresses at different rates in libraries that handle time internally (for example, for streaming playback of audio and video). So, for example, if you want to synchronize the application's gameplay with the sound playback, you must understand the specifications for the individual libraries and use the same rate of time progression for both. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the current date and time.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/01/17</dt>
+        <dd><item xmlns="">Noted that mixed use with <a href="../../../nn/os/Tick/Overview.html">nn::os::Tick</a> is prohibited, and added a description of precision.</item><br />
+        </dd>
+        <dt>2010/01/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

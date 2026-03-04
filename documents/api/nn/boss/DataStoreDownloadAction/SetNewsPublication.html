@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetNewsPublication</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/DataStoreDownloadAction/Overview.html">DataStoreDownloadAction</a>::SetNewsPublication Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> SetNewsPublication(
+     <a href="../../../nn_types/bit32.html">bit32</a> serialId,
+     const wchar_t * pSubject,
+     const wchar_t * pMessage,
+     const <a href="../../../nn_types/u8.html">u8</a> jumpParam[8]
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>serialId</th>
+          <td>Specifies a notification's serial ID. (Specify the ID issued by Nintendo.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pSubject</th>
+          <td>Specifies the subject of the notification. (Do not specify more than 31 characters.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pMessage</th>
+          <td>Specifies the message in the notification. (Do not specify more than 149 characters.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>jumpParam[8]</th>
+          <td>Specifies general-purpose parameters for notification application jumps.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that initialization succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>The pointer to the notification data subject, body, and jump parameters is NULL.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidSize</th>
+          <td>The string length of the notification data subject or body is 0 or exceeds the maximum limit.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures how a notification is issued. <br /><br />
+ The notification to be issued must have a subject and text that comply with the <emphasis>3DS Guidelines</emphasis>. <br />
+ Use the serial IDs issued by Nintendo for these types of notifications when you specify values for this function's <emphasis>serialId</emphasis> parameter. <br />
+ Apply for DataStore notifications on OMAS. <br /><br />
+ The <emphasis>jumpParam</emphasis> parameter can be used starting at SDK 4.1.0 or later. If the value will be used in the destination application, put it in an 8-byte array. <br />
+ The specified value can be obtained with <code><a href="../../../nn/news/CTR/user/IsFromNewsList.html">nn::news::CTR::user::IsFromNewsList</a></code> in the destination application. <br />
+ If the value will not be used in the destination application, the specified value is meaningless and can be set to any number (for example, an 8-byte array filled with 0s). <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

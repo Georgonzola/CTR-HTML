@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nninit</title>
+  </head>
+  <body>
+    <h1>nninit</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Functions in this namespace are defined by the application to control application startup.</p><p>For more information about starting applications, see the 3DS Programming Manual: System.</p><p>C linkage is required.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_init/nnMain.html">nnMain</a>
+            </th>
+            <td>Entry function for applications. This function is not called by applications, but is implemented for the application. It is equivalent to the <code>main</code> function used in standard C. Although there are exceptions such as <code><a href="../nn_init/nninitStartUp.html">nninitStartUp</a></code>, applications typically execute from inside this function. All applications must be implemented by defining this function. If <code>nnMain</code> is not defined for application code, the application build fails.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_init/nninitStartUp.html">nninitStartUp</a>
+            </th>
+            <td>This routine initializes memory management for the application. This function is not called by applications, but is implemented for the application. Under C++, memory must be allocated before <code>nnMain</code>, depending on the use. This function is provided so that the application's own memory management mechanism can be initialized even earlier. Defined as a weak function under the default implementation. Application-specific processing can be implemented by defining a function having the same name inside the application. This function is called at a point where not all initialization required by the application has been completed. Accordingly, there are restrictions on this function. For example, it cannot use many of the library functions in the SDK. For more information, see the System Programming Guide. For a list of library functions in the SDK that can be used inside this function, see <code><a href="../nn_init_api_list/Overview.html">List of Usable API Functions</a></code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

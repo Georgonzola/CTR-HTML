@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetLastDateTimePointer</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::GetLastDateTimePointer Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+const char * GetLastDateTimePointer() const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">If successful, returns a string pointer to the date and time information. Returns <code>NULL</code> on failure. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a string pointer to the time stamp (time of capture) of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</p><p>If that processing fails, this function also fails. <br />
+ This function needs image data to get the information. Do not destroy the GPS IFD structure. <br />
+ This information is the information registered in the IFD0 <code>DateTime</code> tag.</p><p>This function fails if the string is not <code>0</code>-terminated. The size of the data is <code><a href="../../../../nn/jpeg/CTR/DATE_TIME_SIZE.html">DATE_TIME_SIZE</a></code>(20) bytes. <br />
+ The date and time are obtained as a string with the format "<tt>YYYY:MM:DD HH:MM:DD</tt>" terminated with <code>0x00</code> (20 characters in total).</p><p>If the obtained pointer is used to change the time stamp of the image data, the time stamp obtained from <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastDateTime.html">GetLastDateTime</a></code> is the modified value.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/03</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

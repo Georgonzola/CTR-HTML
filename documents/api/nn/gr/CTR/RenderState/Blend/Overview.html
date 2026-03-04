@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::gr::CTR::RenderState::Blend</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/gr/Overview.html">gr</a>::<a href="../../../../../nn/gr/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/gr/CTR/RenderState/Overview.html">RenderState</a>::Blend Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Blend</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for configuring blend settings. By setting each value and calling the <code>MakeCommand</code> function, you can generate the render command. Because registers are shared, this cannot be used at the same time as logical operation settings.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnable</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Setting to enable or disable blending. The type is <code>bool</code>. The initial value is <code>false</code> (disabled). You can only enable logical operations or blending, and not both.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">eqRgb</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendEquation.html">PicaDataBlendEquation</a> ></td>
+            <td>Sets the blend method for RGB components. The type is <code><a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendEquation.html">PicaDataBlendEquation</a></code>. The initial value is <code>PICA_DATA_BLEND_EQUATION_ADD</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">eqAlpha</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendEquation.html">PicaDataBlendEquation</a> ></td>
+            <td>Sets the blend function for the alpha component. The type is <code><a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendEquation.html">PicaDataBlendEquation</a></code>. The initial value is <code>PICA_DATA_BLEND_EQUATION_ADD</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">srcRgb</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendFunc.html">PicaDataBlendFunc</a> ></td>
+            <td>Sets the blend RGB component source. The type is <code><a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendFunc.html">PicaDataBlendFunc</a></code>. The initial value is <code>PICA_DATA_BLEND_FUNC_SRC_ALPHA</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">srcAlpha</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendFunc.html">PicaDataBlendFunc</a> ></td>
+            <td>Sets the blend alpha component source. The type is <code><a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendFunc.html">PicaDataBlendFunc</a></code>. The initial value is <code>PICA_DATA_BLEND_FUNC_SRC_ALPHA</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">dstRgb</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendFunc.html">PicaDataBlendFunc</a> ></td>
+            <td>Sets the blend RGB component destination. The type is <code><a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendFunc.html">PicaDataBlendFunc</a></code>. The initial value is <code>PICA_DATA_BLEND_FUNC_ONE_MINUS_SRC_ALPHA</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">dstAlpha</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendFunc.html">PicaDataBlendFunc</a> ></td>
+            <td>Sets the blend ALPHA component destination. The type is <code><a href="../../../../../nn_gx_CTR_Pica/PicaDataBlendFunc.html">PicaDataBlendFunc</a></code>. The initial value is <code>PICA_DATA_BLEND_FUNC_ONE_MINUS_SRC_ALPHA</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">colorR</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Sets the red component to use for the blend constant color. The type is <code>u8</code>. Specify a value in the range <code>[0, 255]</code>. The initial value is <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">colorG</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Sets the green component to use for the blend constant color. The type is <code>u8</code>. Specify a value in the range <code>[0, 255]</code>. The initial value is <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">colorB</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Sets the blue component to use for the blend constant color. The type is <code>u8</code>. Specify a value in the range <code>[0, 255]</code>. The initial value is <code>255</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">colorA</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/u8.html">u8</a></td>
+            <td>Sets the alpha component to use for the blend constant color. The type is <code>u8</code>. Specify a value in the range <code>[0, 255]</code>. The initial value is 255.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/Blend/Blend.html">Blend</a>
+            </th>
+            <td>Initializes the blend settings to the initial values.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/Blend/MakeCommand.html">MakeCommand</a>
+            </th>
+            <td>Generates a rendering command based on information already set.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/Blend/MakeDisableCommand.html">MakeDisableCommand</a>
+            </th>
+            <td>Disables blending.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

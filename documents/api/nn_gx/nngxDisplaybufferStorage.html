@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxDisplaybufferStorage</title>
+  </head>
+  <body>
+    <h1>nngxDisplaybufferStorage Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxDisplaybufferStorage(
+     GLenum format,
+     GLsizei width,
+     GLsizei height,
+     GLenum area
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>format</th>
+          <td>The format of the display buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>The width of the display buffer (in the scan line direction).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>The height of the display buffer (in the vertical scan line direction).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>area</th>
+          <td>Region for the display buffer.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Allocates a region for the display buffer bound to an active display target.</p><P>The allocated region stores image data to display.</P><P>Set <span class="argument">format</span> to the following values for the display buffer format.<TABLE><TR><th>GL_RGB8_OES</th><TD>RGB8 (24 bits)</TD></TR><TR><th>GL_RGBA4</th><TD>RGBA4 (16 bits)</TD></TR><TR><th>GL_RGB5_A1</th><TD>RGBA5551 (16 bits)</TD></TR><TR><th>GL_RGB565</th><TD>RGB565 (16 bits)</TD></TR></TABLE><!-- source GL_RGBA8_OES ・・・ R8G8B8A8の32bit GL_RGB8_OES ・・・ R8G8B8の32bit GL_RGBA4 ・・・ R4G4B4A4の16bit GL_RGB5_A1 ・・・ R5G5B5A1の16bit GL_RGB565 ・・・ R5G6B5の16bit --></P><P>Set <span class="argument">width</span> and <span class="argument">height</span> to the width and height of the display buffer.  Both <span class="argument">width</span> and <span class="argument">height</span> must be greater than 0.  You must also set <span class="argument">width</span> and <span class="argument">height</span> to a multiple of the block size for the color buffer to transfer to the display buffer.  This must be a multiple of 8 in 8-block mode and a multiple of 32 in 32-block mode.</P><P>Set <tt>area</tt> to the following values to configure where the region is placed.<TABLE><TR><th>NN_GX_MEM_FCRAM</th><TD>Allocates the region in main memory.</TD></TR><TR><th>NN_GX_MEM_VRAMA</th><TD>Allocates the region in the A channel in VRAM.</TD></TR><TR><th>NN_GX_MEM_VRAMB</th><TD>Allocates the region in the B channel in VRAM.</TD></TR></TABLE><!-- source NN_GX_MEM_FCRAM ・・・ FCRAMに領域を確保 NN_GX_MEM_VRAMA ・・・ VRAMのAチャネルに領域を確保 NN_GX_MEM_VRAMB ・・・ VRAMのBチャネルに領域を確保 --></P><P><B><b>Note:</b></B> If allocating the display buffer in VRAM, do not place it in the latter 1.5 MB area of either the A-channel or B-channel region. <BR /> In <tt>Development</tt> and <tt>Debug</tt> builds, if the allocated display buffer overlaps with these regions at all and <tt>nngxSwapBuffers</tt> is called, an assert occurs.</P><P>This function generates the following errors.<TABLE><TR><th>GL_ERROR_8021_DMP</th><TD><tt>0</tt> was bound to the display target.</TD></TR><TR><th>GL_ERROR_8022_DMP</th><TD>The <span class="argument">width</span> or <span class="argument">height</span> argument was set to an invalid value.</TD></TR><TR><th>GL_ERROR_8023_DMP</th><TD>The <span class="argument">format</span> argument is set to an invalid value.</TD></TR><TR><th>GL_ERROR_8024_DMP</th><TD>The <span class="argument">area</span> argument was set to an invalid value.</TD></TR><TR><th>GL_ERROR_8025_DMP</th><TD>Failed to allocate the display buffer.</TD></TR></TABLE></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/07/04</dt>
+        <dd><item xmlns="">Added a note about the assert issued on memory allocated for the display buffer.</item><br />
+        </dd>
+        <dt>2011/02/01</dt>
+        <dd><item xmlns="">Deleted RGBA8 format.</item><br />
+        </dd>
+        <dt>2010/09/28</dt>
+        <dd><item xmlns="">Added Note about restricted ranges when allocating the buffer in VRAM.</item><br />
+        </dd>
+        <dt>2010/08/11</dt>
+        <dd><item xmlns="">Revised the description of each format value.</item><br />
+        </dd>
+        <dt>2010/06/23</dt>
+        <dd><item xmlns="">Added Note about allowed ranges when allocating the buffer in VRAM.</item><br />
+        </dd>
+        <dt>2010/03/17</dt>
+        <dd><item xmlns="">Fixed an incorrect number of bits in the GL_RGB8_OES format; revised terminology.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Added extended error code(s).</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

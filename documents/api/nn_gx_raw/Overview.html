@@ -1,0 +1,430 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>gx Raw</title>
+  </head>
+  <body>
+    <h1>gx Raw</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>DMPGL system API for direct specification of command lists.</p><p>The <tt>gx Raw</tt> API is a group of functions that enable the command list-related controls of the <tt>gx</tt> API to be processed in the form of directly specified command list objects.</p><p>With the existing <tt>gx</tt> API, command list processing adheres to OpenGL style rules: you specify the IDs for objects allocated in the library and use them in a bound form.  The code for the use of command lists looks something like this.</p><pre>
+// For saving the command list ID.
+GLuint s_MyCmdListId;
+
+{
+    // Prepare a new command list.
+    nngxGenCmdlists(1, &s_MyCmdListId);
+    
+    nngxBindCmdlist(s_MyCmdListId);
+    nngxCmdlistStorage(MY_CMDLIST_BUFFER_SIZE, MY_CMDLIST_NUM_REQUESTS);
+    nngxClearCmdlist();
+}
+
+{
+    // Run the command list.
+    nngxBindCmdlist(s_MyCmdListId);
+    nngxRunCmdlist();
+}
+
+{
+    // Destroy the command list.
+    nngxDeleteCmdlists(1, &s_MyCmdListId);
+}
+            </pre><p>In contrast, with this <tt>gx Raw</tt> function group, the definition of the <tt>nngxCommandList</tt> structure that maintains command list management information is provided, and the various functions are called with a pointer to an object of this type specified as the first argument.  In this case, the code for performing this same kind of process looks something like this.</p><pre>
+// Allocate command list object.
+nngxCommandList s_MyCmdListObj;
+
+{
+    // Prepare a new command list.
+    GLsizei reqSize;
+    GLvoid* pCmdBuffer;
+    GLvoid* pReqBuffer;
+    
+    // The application allocates the required buffer region.
+    reqSize = nngxGetCommandRequestSizeRaw(MY_CMDLIST_NUM_REQUESTS);
+    pCmdBuffer = MyAlloc(MY_CMDLIST_BUFFER_SIZE);
+    pReqBuffer = MyAlloc(reqSize);
+    
+    nngxCmdlistStorageRaw(&s_MyCmdListObj, MY_CMDLIST_BUFFER_SIZE, pCmdBuffer, MY_CMDLIST_NUM_REQUESTS, pReqBuffer);
+    nngxClearCmdlistRaw(&s_MyCmdListObj);
+}
+
+{
+    // Run the command list.
+    nngxRunCmdlistRaw(&s_MyCmdListObj);
+}
+
+// No need to explicitly destroy the command list.
+            </pre><p>Although this requires that the application take complete responsibility for managing the allocating and deallocating of objects and buffer regions, it gives you more freedom to build a framework that is not dependent on the state inside the library.</p><p>The provided APIs are named like the existing functions but with "<tt>Raw</tt>" appended to the end of the name, and with the added parameter of the pointer to <tt>nngxCommandList</tt>. As long as there are no special descriptions, you can read details about operations and errors by reading the references for the existing functions. (Wherever the reference says "the current command list," replace it with "the command list specified by <tt>nngxCommandList</tt>.")</p><h4><b>Note:</b></h4><ul><li>Because the <tt>gl</tt> and <tt>gd</tt> APIs operate on the presumption that the command list is bound inside the library,  you cannot use those functions in combination with the <tt>gx Raw</tt> API. It is assumed that the <tt>gx Raw</tt> API is used mainly in combination with the <tt>gr</tt> API.</li><li>For the sake of internal implementation, you cannot use copies of <tt>nngxCommandList</tt> objects.</li><li>Operations are not guaranteed if you use normal <tt>gx</tt> command list processing functions in combination with <tt>gx Raw</tt> functions. However, the following functions are exceptions in that they can be used at the same time as the <tt>gx Raw</tt> functions.</li><ul><li><a href="../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a></li><li><a href="../nn_gx/nngxSetTimeout.html">nngxSetTimeout</a></li><li><a href="../nn_gx/nngxStopCmdlist.html">nngxStopCmdlist</a></li><li><a href="../nn_gx/nngxGetIsRunning.html">nngxGetIsRunning</a></li></ul></ul></div>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../nngxCommandList/Overview.html">nngxCommandList</a>
+            </th>
+            <td>Structure that holds command list information.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Command list execution controls.</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxCmdlistStorageRaw.html">nngxCmdlistStorageRaw</a>
+            </th>
+            <td>Allocates a data region for the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetCommandRequestSizeRaw.html">nngxGetCommandRequestSizeRaw</a>
+            </th>
+            <td>Calculates and returns the required size for the buffer for storing command list queue data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxSplitDrawCmdlistRaw.html">nngxSplitDrawCmdlistRaw</a>
+            </th>
+            <td>Splits the 3D command buffer from the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxEnableCmdlistCallbackRaw.html">nngxEnableCmdlistCallbackRaw</a>
+            </th>
+            <td>Enables calling a callback function upon completion of the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxDisableCmdlistCallbackRaw.html">nngxDisableCmdlistCallbackRaw</a>
+            </th>
+            <td>Disables calling a callback function upon completion of the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxSetCmdlistCallbackRaw.html">nngxSetCmdlistCallbackRaw</a>
+            </th>
+            <td>Sets the callback function to call upon completion of the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxRunCmdlistRaw.html">nngxRunCmdlistRaw</a>
+            </th>
+            <td>Runs the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxReserveStopCmdlistRaw.html">nngxReserveStopCmdlistRaw</a>
+            </th>
+            <td>Reserve-stops execution of the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxClearCmdlistRaw.html">nngxClearCmdlistRaw</a>
+            </th>
+            <td>Clears accumulated commands from the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxClearFillCmdlistRaw.html">nngxClearFillCmdlistRaw</a>
+            </th>
+            <td>Clears accumulated commands from the specified command list and replaces them with the specified value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxSetGasAutoAccumulationUpdateRaw.html">nngxSetGasAutoAccumulationUpdateRaw</a>
+            </th>
+            <td>Updates the result of additive blending due to rendering the gas density information in the specified command request handler for the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxSetGasUpdateRaw.html">nngxSetGasUpdateRaw</a>
+            </th>
+            <td>Specifies whether to update the result of additive blending due to rendering the gas density information in the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetIsRunningRaw.html">nngxGetIsRunningRaw</a>
+            </th>
+            <td>Checks whether the specified command list is currently running.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetUsedBufferSizeRaw.html">nngxGetUsedBufferSizeRaw</a>
+            </th>
+            <td>Returns the size of the accumulated 3D command buffer for the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetUsedRequestCountRaw.html">nngxGetUsedRequestCountRaw</a>
+            </th>
+            <td>Returns the number of accumulated command requests in the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetMaxBufferSizeRaw.html">nngxGetMaxBufferSizeRaw</a>
+            </th>
+            <td>Returns the maximum size of the 3D command buffer that can be accumulated for the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetMaxRequestCountRaw.html">nngxGetMaxRequestCountRaw</a>
+            </th>
+            <td>Returns the maximum number of command requests that can be accumulated in the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetTopBufferAddrRaw.html">nngxGetTopBufferAddrRaw</a>
+            </th>
+            <td>Returns the start address of the 3D command buffer set to the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetRunBufferSizeRaw.html">nngxGetRunBufferSizeRaw</a>
+            </th>
+            <td>Returns the size of the executed 3D command buffer for the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetRunRequestCountRaw.html">nngxGetRunRequestCountRaw</a>
+            </th>
+            <td>Returns the number of the executed command requests in the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetTopRequestAddrRaw.html">nngxGetTopRequestAddrRaw</a>
+            </th>
+            <td>Returns the start address buffer for storing command request queue data set to the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetNextRequestTypeRaw.html">nngxGetNextRequestTypeRaw</a>
+            </th>
+            <td>Returns the type of the next command request that will be run out of the command requests accumulated in the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetNextBufferAddrRaw.html">nngxGetNextBufferAddrRaw</a>
+            </th>
+            <td>Returns the address of the next buffer that will be executed out of the 3D command buffers accumulated for the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetNextBufferSizeRaw.html">nngxGetNextBufferSizeRaw</a>
+            </th>
+            <td>Returns the size of the next buffer that will be executed out of the 3D command buffers accumulated for the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetCurrentBufferAddrRaw.html">nngxGetCurrentBufferAddrRaw</a>
+            </th>
+            <td>Returns the address of the 3D command buffer in which the next 3D command will be accumulated for the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxGetHWStateRaw.html">nngxGetHWStateRaw</a>
+            </th>
+            <td>Gets a 32-bit piece of data that indicates the state of the hardware.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Command cache operations.</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxCopyCmdlistRaw.html">nngxCopyCmdlistRaw</a>
+            </th>
+            <td>Copies a command list object to another command list object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxAdd3DCommandNoCacheFlushRaw.html">nngxAdd3DCommandNoCacheFlushRaw</a>
+            </th>
+            <td>Adds the data (3D commands) in the specified region to the 3D command buffer for the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxAddCmdlistRaw.html">nngxAddCmdlistRaw</a>
+            </th>
+            <td>Copies the content of the specified command list object to add to another command list object.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Low-level Command Request Issuance</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxFlush3DCommandNoCacheFlushRaw.html">nngxFlush3DCommandNoCacheFlushRaw</a>
+            </th>
+            <td>Issues a 3D run command to the specified command list and flushes the accumulated 3D command buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxFlush3DCommandPartiallyRaw.html">nngxFlush3DCommandPartiallyRaw</a>
+            </th>
+            <td>Issues a 3D run command to the specified command list and flushes the accumulated 3D command buffer. However, only the specified amount of 3D commands are executed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxMoveCommandbufferPointerRaw.html">nngxMoveCommandbufferPointerRaw</a>
+            </th>
+            <td>Moves the 3D command buffer's current output target pointer to the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxAddB2LTransferCommandRaw.html">nngxAddB2LTransferCommandRaw</a>
+            </th>
+            <td>Adds a command to convert and transfer a block image to a linear image to the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxAddBlockImageCopyCommandRaw.html">nngxAddBlockImageCopyCommandRaw</a>
+            </th>
+            <td>Adds a block image transfer command to the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxAddL2BTransferCommandRaw.html">nngxAddL2BTransferCommandRaw</a>
+            </th>
+            <td>Adds a command to convert and transfer a linear image to a block image to the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxAddMemoryFillCommandRaw.html">nngxAddMemoryFillCommandRaw</a>
+            </th>
+            <td>Adds a memory-fill command to the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxAddVramDmaCommandNoCacheFlushRaw.html">nngxAddVramDmaCommandNoCacheFlushRaw</a>
+            </th>
+            <td>Adds a DMA transfer command to the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxFilterBlockImageRaw.html">nngxFilterBlockImageRaw</a>
+            </th>
+            <td>Adds a block image antialiasing filter transfer command to the specified command list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxAddJumpCommandRaw.html">nngxAddJumpCommandRaw</a>
+            </th>
+            <td>Takes a command for jumping to the run address in a specified command buffer and adds it to a specified command list object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../nn_gx_raw/nngxAddSubroutineCommandRaw.html">nngxAddSubroutineCommandRaw</a>
+            </th>
+            <td>Takes a command for jumping to the run address in a specified command buffer, and a command for setting the address information for returning back to the command buffer from where the jump took place, and adds them both to a specified command list object.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/06/10</dt>
+        <dd><item xmlns="">Added nngxStopCmdlist as an API function that can be used at the same time as gx Raw.</item><br />
+        </dd>
+        <dt>2013/01/25</dt>
+        <dd><item xmlns="">Corrected the mistake in the argument to the nngxCmdlistStorageRaw function in the example of the gx Raw implementation.</item><br />
+        </dd>
+        <dt>2012/06/14</dt>
+        <dd><item xmlns="">Added a list of the gx command list processing functions that can be used at the same time as the gx Raw functions.</item><br />
+        </dd>
+        <dt>2012/05/09</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

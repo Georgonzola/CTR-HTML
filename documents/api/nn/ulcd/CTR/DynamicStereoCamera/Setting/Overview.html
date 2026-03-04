@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ulcd::CTR::DynamicStereoCamera::Setting</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/ulcd/Overview.html">ulcd</a>::<a href="../../../../../nn/ulcd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/Overview.html">DynamicStereoCamera</a>::Setting Structure</h1>
+    <div class="section">
+      <b>Header File: </b>nn/ulcd.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct Setting
+{
+   <a href="../../../../../nn_types/f32.html">f32</a> StereoFactor;
+   <a href="../../../../../nn_types/f32.html">f32</a> ParallaxDistanceLimit;
+   <a href="../../../../../nn_types/f32.html">f32</a> DynamicPerspectiveAmplitudeX;
+   <a href="../../../../../nn_types/f32.html">f32</a> DynamicPerspectiveAmplitudeY;
+   <a href="../../../../../nn_types/f32.html">f32</a> DynamicPerspectiveClampingLeft;
+   <a href="../../../../../nn_types/f32.html">f32</a> DynamicPerspectiveClampingRight;
+   <a href="../../../../../nn_types/f32.html">f32</a> DynamicPerspectiveClampingBottom;
+   <a href="../../../../../nn_types/f32.html">f32</a> DynamicPerspectiveClampingTop;
+   <a href="../../../../../nn_types/f32.html">f32</a> RealisticFovFactor;
+   <a href="../../../../../nn_types/f32.html">f32</a> WideFovMotionFactor;
+   bool TiltEnabled;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Stores data used to configure the rendering method. This <code><a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/Setting/Overview.html">Setting</a></code> structure is passed to the <code><a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/ComputeViewsAndProjections.html">nn::ulcd::CTR::DynamicStereoCamera::ComputeViewsAndProjections</a></code> function, but the data is not retained in the <code><a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/Overview.html">nn::ulcd::CTR::DynamicStereoCamera</a></code> class.</p><p>The <code>StereoFactor</code> member adjusts the parallax amount. <a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/Setting/Overview.html">Setting</a> this value to <code>0</code> turns off the parallax and the display becomes 2D. <a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/Setting/Overview.html">Setting</a> it to <code>1</code> provides the standard stereoscopic display. This parameter is multiplied by the <code>3DVolume</code> value. The default value is 1.</p><p>The value specified in <code>ParallaxDistanceLimit</code> is the distance in millimeters of the far plane. If an object is placed far away, the parallax of the left and right images approaches the distance between the user's eyes (62 mm), but the parallax effect is too strong and does not provide an optimal 3D viewing experience. This parameter can be used to configure a maximum parallax value that provides a better viewing experience. However, note that limiting the amount of parallax also reduces the overall parallax amount in the scene. The <code>DynamicPerspectiveAmplitudeX</code> and <code>DynamicPerspectiveAmplitudeY</code> values are multiplied by the x-coordinates and y-coordinates of the user's eyes. For example, if you set a value of 0 for the X direction, horizontal movement will no longer be applied. The default value is 1. The <code>DynamicPerspectiveClampingLeft</code>, <code>DynamicPerspectiveClampingRight</code>, <code>DynamicPerspectiveClampingBottom</code> and <code>DynamicPerspectiveClampingTop</code> values limit the range in which user motion is applied in each respective direction. For example, if you set a value of <code>0</code> for the Left direction, movement to the left will no longer be applied. The default value is <code>1</code>.</p><p>The <code>RealisticFovFactor</code> parameter adjusts the relationship between the <emphasis>realistic <a href="../../../../../nn/camera/Overview.html">camera</a></emphasis> that represents the eyes of a person at the optimal viewing distance from the screen, and the <emphasis>custom <a href="../../../../../nn/camera/Overview.html">camera</a></emphasis> that is set in the <code><a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/SetView.html">nn::ulcd::CTR::DynamicStereoCamera::SetView</a></code>, <code><a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/SetWindowFromSize.html">nn::ulcd::CTR::DynamicStereoCamera::SetWindowFromSize</a></code>, <code><a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/SetWindowFromTangent.html">nn::ulcd::CTR::DynamicStereoCamera::SetWindowFromTangent</a></code>, and <code><a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/SetWindowFromProjectionMatrix.html">nn::ulcd::CTR::DynamicStereoCamera::SetWindowFromProjectionMatrix</a></code> functions. When this value is set to <code>1</code>, the realistic <a href="../../../../../nn/camera/Overview.html">camera</a> is used for rendering. When set to <code>0</code>, the custom <a href="../../../../../nn/camera/Overview.html">camera</a> is used. The default value is <code>1</code>.</p><p>The <code>WideFovMotionFactor</code> parameter can be used to specify how to move the <a href="../../../../../nn/camera/Overview.html">camera</a> based on the user's movement. When set to <code>0</code>, the <a href="../../../../../nn/camera/Overview.html">camera</a> moves proportionally to the distance to the screen. For example, if the <a href="../../../../../nn/camera/Overview.html">camera</a> and screen used for rendering is half the distance of the realistic <a href="../../../../../nn/camera/Overview.html">camera</a> and screen, the <a href="../../../../../nn/camera/Overview.html">camera</a> movement is half of the eye movement. When set to <code>1</code>, the <a href="../../../../../nn/camera/Overview.html">camera</a> movement is the same as the eye movement. Note that this parameter is ignored when realistic <a href="../../../../../nn/camera/Overview.html">camera</a> is used. The default value is 0. The <code>TiltEnabled</code> flag determines whether stereoscopic <a href="../../../../../nn/camera/Overview.html">camera</a> calculations account for the tilt of the head that can be calculated from the positions of both eyes. This is enabled by default.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">StereoFactor</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Parallax adjustment factor. Specify <code>0</code> for no parallax. Specify <code>1</code> for standard stereoscopic display.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">ParallaxDistanceLimit</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Specifies the maximum parallax at the far plane.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">DynamicPerspectiveAmplitudeX</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>This factor adjusts the amount of horizontal head movement. Specify <code>0</code> for no horizontal movement. Specify <code>1</code> to use the horizontal movement of the head as is.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">DynamicPerspectiveAmplitudeY</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>This factor adjusts the amount of vertical head movement. Specify <code>0</code> for no vertical movement. Specify <code>1</code> to use the vertical movement of the head as is.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">DynamicPerspectiveClampingLeft</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>This is used from clamping in the left direction. The value is used in a linear calculation, where 1 is the limit of the value that can be retrieved from <code><a href="../../../../../nn/qtm/CTR/GetTrackingData.html">nn::qtm::CTR::GetTrackingData</a></code>, and 0 is the center. Specify a value in the range from 0 to 1.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">DynamicPerspectiveClampingRight</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>This is used from clamping in the right direction. The value is used in a linear calculation, where 1 is the limit of the value that can be retrieved from <code><a href="../../../../../nn/qtm/CTR/GetTrackingData.html">nn::qtm::CTR::GetTrackingData</a></code>, and 0 is the center. Specify a value in the range from 0 to 1.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">DynamicPerspectiveClampingBottom</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>This is used from clamping in the down direction. The value is used in a linear calculation, where 1 is the limit of the value that can be retrieved from <code><a href="../../../../../nn/qtm/CTR/GetTrackingData.html">nn::qtm::CTR::GetTrackingData</a></code>, and 0 is the center. Specify a value in the range from 0 to 1.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">DynamicPerspectiveClampingTop</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>This is used from clamping in the up direction. The value is used in a linear calculation, where 1 is the limit of the value that can be retrieved from <code><a href="../../../../../nn/qtm/CTR/GetTrackingData.html">nn::qtm::CTR::GetTrackingData</a></code>, and 0 is the center. Specify a value in the range from 0 to 1.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">RealisticFovFactor</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Realistic FOV adjustment factor. Specify <code>0</code> to use the realistic <a href="../../../../../nn/camera/Overview.html">camera</a>, or <code>1</code> to use the custom <a href="../../../../../nn/camera/Overview.html">camera</a>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">WideFovMotionFactor</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Specifies how to move the <a href="../../../../../nn/camera/Overview.html">camera</a> based on the face position when the realistic <a href="../../../../../nn/camera/Overview.html">camera</a> is not being used.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">TiltEnabled</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Flag that indicates whether stereoscopic <a href="../../../../../nn/camera/Overview.html">camera</a> calculations account for the tilt of the head.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/ulcd/CTR/DynamicStereoCamera/Setting/Setting.html">Setting</a>
+            </th>
+            <td>Instantiates the object with default parameters (default constructor).</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

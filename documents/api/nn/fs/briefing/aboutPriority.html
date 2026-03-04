@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+<title>File System: Access Priorities</title>
+<style type="text/css">
+<!--
+    strong { color: red; }
+-->
+</style>
+</head>
+<body>
+    <h1>File System: Access Priorities</h1>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#Summary">Overview</a></li>
+      <li><a href="#PriorityKind">Access Priority Types</a></li>
+      <li><a href="#SetPriority">Access Priority Settings</a>
+        <ul>
+          <li><a href="#SetPriority_FileSystem">File System Overall Priority</a></li>
+          <li><a href="#SetPriority_Archive">Archive Priority</a></li>
+          <li><a href="#SetPriority_FileStreamDirectory">File Stream Directory Priority</a></li>
+        </ul>
+      </li>
+      <li><a href="#Realtime">File Access Requiring Real-Time Performance</a>
+        <ul>
+          <li><a href="#Realtime_Restriction">Limitations of Real-Time Priority</a></li>
+          <li><a href="#Realtime_AccessTime">Estimating File Access Time</a></li>
+        </ul>
+      </li>
+      <li><a href="#Warning">Note:</a>
+        <ul>
+          <li><a href="#Warning_ThreadPriority">Priority of Threads Calling FS Functions</a></li>
+          <li><a href="#Warning_NoAssuranceOfSequence">Sequence of File Access Not Guaranteed</a></li>
+          <li><a href="#Warning_SdPerformance">Performance of Accessing Files on SD card</a></li>
+        </ul>
+      </li>
+      <li><a href="#History">Revision History</a></li>
+    </ul>
+    
+    <h2><a name="Summary">Overview</a></h2>
+    <div class="section">
+      <p>
+        The CTR system supports access priority for the file system. When multiple threads are accessing multiple files, it coordinates the order of execution, giving precedence to the thread configured with the highest priority.
+      </p>
+      <p>
+        You can also minimize the latency of file access by configuring real-time priority. This feature is useful when real-time performance is needed (when you need to perform a specific amount of processing every set period), such as for streaming playback.
+      </p>
+    </div>
+    
+    <h2><a name="PriorityKind">Access Priority Types</a></h2>
+    <div class="section">
+      <p>
+        Three access priorities can be set. They are as follows, from highest to lowest.
+      </p>
+      <p>
+        <ul>
+          <li>Real-time priority (<CODE>nn::fs::PRIORITY_APP_REALTIME</CODE>)</li>
+          <li>Normal priority (<CODE>nn::fs::PRIORITY_APP_NORMAL</CODE>)</li>
+          <li>Low priority (<CODE>nn::fs::PRIORITY_APP_LOW</CODE>)</li>
+        </ul>
+      </p>
+      <p>
+        Use normal priority for general file access, such as loading model data and scene data, and accessing save data. Low priority is lower than normal priority. Use low priority for file access that can wait for execution until file access is at a relatively low level, such as auto-save. Real-time priority is a special priority level. Use it when delays in file access would affect the user experience, such as loading streaming data. However, there are some limitations on the use of real-time priority.
+      </p>
+    </div>
+    
+    <h2><a name="SetPriority">Access Priority Settings</a></h2>
+    <div class="section">
+      <p>
+        Consider the access priority for the following.
+      </p>
+      <p>
+        <ul>
+          <li>The entire file system for the application.</li>
+          <li>Individual archives.</li>
+          <li>Open file streams and directories.</li>
+        </ul>
+      </p>
+      <p>
+        You can set the access priority for these by calling the corresponding <CODE>SetPriority</CODE> functions.
+      </p>
+      <p>
+        One of the following constants, of the <a href="../../../nn/fs/PriorityForApplication.html">nn::fs::PriorityForApplication</a> enumerated type, must be specified as an argument to be passed to these functions: <span>nn::fs::PRIORITY_APP_REALTIME</span>, <span>nn::fs::PRIORITY_APP_NORMAL</span> or <span>nn::fs::PRIORITY_APP_LOW</span>. No values other than these constants can be specified.
+      </p>
+      
+      <h3><a name="SetPriority_FileSystem">File System Overall Priority</a></h3>
+      <div class="section">
+        <p>
+          Use the <a href="../../../nn/fs/SetPriority.html">nn::fs::SetPriority</a> function to set the priority for the entire file system. <br />The priority settings configured here affect the following.
+        </p>
+        <p>
+          <ul>
+            <li>Execution priority of <CODE>fs</CODE> functions that do not take path names (such as the various mount functions, the <a href="../../../nn/fs/FormatSaveData.html">nn::fs::FormatSaveData</a> function and the <a href="../../../nn/fs/CreateExtSaveData.html">nn::fs::CreateExtSaveData</a> function).</li>
+            <li>Initial priority of mounted archives.</li>
+          </ul>
+        </p>
+        <p>
+             
+        </p>
+        <p>
+          The file system overall has the normal priority set by default.
+        </p>
+      </div>
+      
+      <h3><a name="SetPriority_Archive">Archive Priority</a></h3>
+      <div class="section">
+        <p>
+          Use the <a href="../../../nn/fs/SetArchivePriority.html">nn::fs::SetArchivePriority</a> function to set the priority for individual archives. If this function is not used to explicitly set the priority of an archive, the priority of the file system as a whole is applied when it is mounted. (Changing the priority of the file system as a whole after the archive is mounted does not change the priority of the archive.) <br />The priority settings configured here affect the following.
+        </p>
+        <p>
+          <ul>
+            <li>The execution priority of functions that take a path name including the name of the archive (such as the <a href="../../../nn/fs/CommitSaveData.html">nn::fs::CommitSaveData</a> function).</li>
+            <li>The initial priority of file streams and directories opened with the archive name.</li>
+          </ul>
+        </p>
+        <p>
+             
+        </p>
+      </div>
+      
+      <h3><a name="SetPriority_FileStreamDirectory">File Stream Directory Priority</a></h3>
+      <div class="section">
+        <p>
+          You can set the access priority of file-stream and directory objects using the <CODE>[Try]SetPriority</CODE> member functions of the <a href="../../../nn/fs/FileStream/Overview.html">FileStream</a>, <a href="../../../nn/fs/FileInputStream/Overview.html">FileInputStream</a>, <a href="../../../nn/fs/FileOutputStream/Overview.html">FileOutputStream</a> and <a href="../../../nn/fs/Directory/Overview.html">Directory</a> classes. If none of these functions is used to explicitly set the priority of an object, the priority of its parent archive is applied when it is initialized. (Changing the priority of the parent archive after the object is initialized does not change the priority of the object.) The priority set here affects the execution priority of all member functions of the object.
+        </p>
+        <p>
+          If you initialize another stream object using the same file path, the priority settings are handled separately. To read the same file using different priorities for separate uses, open the file multiple times and set a separate priority for each object.
+        </p>
+      </div>
+      
+    </div>
+    
+    <h2><a name="Realtime">File Access Requiring Real-Time Performance</a></h2>
+    <div class="section">
+      <p>
+        Some file access requires real-time performance, such as the streaming playback of sound and movies. Although real-time priority is normally the best choice for file access, it has many limitations.
+      </p>
+      
+      <h3><a name="Realtime_Restriction">Limitations of Real-Time Priority</a></h3>
+      <div class="section">
+        <p>
+          The system completes file access operations with real-time priority as soon as possible. When the file-access load is heavy, the system gives highest priority to access having real-time priority. It suspends any previously requested file access operations that have lower priority, and gives precedence to the file access operation that has real-time priority. (Normal-priority access may also sometimes temporarily suspend low-priority access.) The system does not begin processing requests for file access that have lower priority while it is processing a file access operation that has real-time priority. (The system handles the suspension of processing and other actions automatically. There is no need to account for this in the program code.)
+        </p>
+        <p>
+          Use real-time priority only for operations, such as streaming, that require real-time performance. Excessive access with real-time priority (more than about 1 MB/s on average) could lower the performance of the system as a whole. Use normal or low priority for file access if a certain level of latency is tolerable, such as when there is a temporary fade to black or a loading screen. One example is when switching scenes.
+        </p>
+        <p>
+          If you access two or more files at the same time with real-time priority, the access succeeds, but it is not possible to predict performance, because the access operations interfere with each other. <br /> <strong>Only access one file at a time with real-time priority.</strong> For example, if you stream a movie and sound while reading them from separate files, do not read them from two threads at the same time. Instead, read them alternately (in a single thread, or in two threads using mutual exclusion).
+        </p>
+        <p>
+          Priorities other than real time (normal and low) are general and do not represent absolute priority settings. It is possible that a low-priority file access operation will be executed even if a request for a normal-priority file access is being processed. When the file-access load is extremely heavy, access operations that use normal priority may take considerable time. <br /> <strong>Use real-time priority if you need file access to complete within a specific time.</strong>
+        </p>
+      </div>
+      
+      <h3><a name="Realtime_AccessTime">Estimating File Access Time</a></h3>
+      <div class="section">
+        <p>
+          The time required for file access is generally calculated as follows.
+        </p>
+        <p>
+          <ul>
+            <li>File-access time = overhead time + number of bytes x time per byte = overhead time + number of bytes ÷ speed (excluding overhead)</li>
+          </ul>
+        </p>
+        <p>
+           
+        </p>
+        <p>
+          Ordinarily, the overhead is relatively low when access has real-time priority, or when using a priority other than real time and there are no other accesses. As an example, the overhead for reading a ROM file of a card application is only about 10 ms or less on average. <br />But because of the way the system is designed, on rare occasions the overhead time can be significant. To avoid unnecessary issues in your software, use real-time priority when you need real-time performance (such as streaming playback), and allow for worst-case overhead times. <br /> <strong>Do not use measured performance data as the basis of your performance specifications for file loading that requires real-time responsiveness.</strong>
+        </p>
+        <p>
+          The following list provides a rule of thumb for overheads and speed (excluding overhead) for each archive type. Use these values to determine the buffer size and read period for streaming playback.
+        </p>
+        <ul>
+          <li>Loading a ROM for card-based software: 200 ms, 5 MB/s</li>
+          <li>Loading a ROM for an application on an SD card: 1000 ms, 3 MB/s</li>
+          <li>Loading add-on content: 1000 ms, 3 MB/s</li>
+          <li>Loading expanded save data: 1000 ms, 3 MB/s</li>
+          <li>Writing expanded save data: 2000 ms, 0.5 MB/s</li>
+        </ul>
+        <p>
+          <B>Note:</B> Do not perform processing requiring real-time performance using any other archive types. Other types may have unexpected overhead, even when using real-time priority. <br />These values may change in a future firmware update.
+        </p>
+        <p>
+          <B>Note:</B> These values represent the generally expected worst cases. They are not actual measurements. The average measured speeds are faster than those listed. It is fine to design performance using the values listed in the performance tips or other documentation, or using your own performance measurements, if your file access does not require real-time performance (if occasional slowdowns do not present a problem). One such example is loading scenes.
+        </p>
+        <p>
+          For example, assume that you must periodically read a movie file with a bitrate of 1 Mbps (128 KB/s) from a ROM file for card-based software. Assuming a buffer size of 32 KB, it takes about 207 ms to read one buffer's worth of data (200 ms + 32 KB ÷ 5 MB/s). Because you only need to make four reads per second (128 KB ÷ 32 KB), it takes 207 ms × 4, which equals 828 ms. You can fit all of the required read operations within one second. If the bitrate is three times higher (3 Mbps, or 384 KB/s), you would need to make 12 reads of a 32 KB buffer per second, which increases the calculation to greater than two seconds. It is not possible to read all of the data in one second. <br />If you quadruple the size of the buffer to 128 KB, it takes 226 milliseconds to read one buffer's worth of data, and all necessary data is read in one second using three read operations. The total time is then 678 milliseconds, which is less than one second.
+        </p>
+        <p>
+          The figures refer to the performance of accessing the file system. To estimate actual performance, you must separately estimate the time for any other processing, such as decoding video and audio. File access generally does not take up a great deal of CPU resources. As long as you can stay within the listed figures, you are likely to avoid most of the issues using, for example, double buffering for loading and processing. However, <strong>you must fully verify overall performance, even if your requirements fit within the range of file-access performance.</strong>
+        </p>
+      </div>
+    
+    </div>
+    
+    <h2><a name="Warning">Note:</a></h2>
+    <div class="section">
+      <h3><a name="Warning_ThreadPriority">Priority of Threads Calling FS Functions</a></h3>
+      <div class="section">
+        <p>
+          File-access priority specifies the priority of file-related access processed by the system. It does not regulate the priority of user threads that call <CODE>fs</CODE> functions. <br /> Even if you specify high priority for file access, if the priority of the thread that calls the <CODE>fs</CODE> function is low, it may take a long time for the thread to issue the processing request to the system, and the end of the process could then be delayed. <strong>The priority of the thread calling the <CODE>fs</CODE> function must therefore be high enough for the purpose of the process.</strong> For example, if you are loading a file for audio streaming, before calling the <CODE>fs</CODE> functions, set the access priority to real-time and set the priority of the thread to roughly that of the sound-processing thread.
+        </p>
+      </div>
+      <h3><a name="Warning_NoAssuranceOfSequence">Sequence of File Access Not Guaranteed</a></h3>
+      <div class="section">
+        <p>
+          If there are multiple file access operations at the same time, the order of file accesses is not guaranteed, even if real-time priority is used. When possible, the system processes multiple file access operations in parallel. <br /> Consequently, it is possible for a low-priority file access operation that was started after a high-priority file access operation to finish before the high-priority one. If you will be performing multiple file access operations in parallel, <strong>ensure that your implementation does not depend on the order that they finish.</strong>
+        </p>
+      </div>
+      <h3><a name="Warning_SdPerformance">Performance of Accessing Files on SD card</a></h3>
+      <div class="section">
+        <p>
+          Because the throughput and latency performance of SD cards can vary greatly by manufacturer and model number, you must have performance specifications that allow for this variation when accessing SD cards. <br /> Although the access performance figures for SD card data listed in <a href="#Realtime_AccessTime">Estimating File Access Time</a> are extremely conservative, <B>use these values when determining the performance specifications for accessing data on an SD card when real-time performance is required</B>. <br /> Because the SD cards that come with the system have relatively low overhead time, problems may arise, depending on the SD card type, if performance specifications are based on these figures. <strong>Do not use measured performance data as the basis of your performance specifications for file loading that requires real-time responsiveness.</strong>
+        </p>
+      </div>
+    </div>
+    
+    <h2><a name="History">Revision History</a></h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/11/01</dt>
+          <dd>Revised the wording.</dd>
+        <dt>2011/10/27</dt>
+          <dd>Revised the figures in <a href="#Realtime_AccessTime">Estimating File Access Time</a>.</dd>
+        <dt>2011/10/18</dt>
+          <dd>Revised the figures in <a href="#Realtime_AccessTime">Estimating File Access Time</a>.</dd>
+          <dd>Added the <a href="#Warning_NoAssuranceOfSequence">Sequence of File Access Not Guaranteed</a> section.</dd>
+          <dd>Added the <a href="#Warning_SdPerformance">Performance of Accessing Files on SD card</a> section.</dd>
+          <dd>Fixed typos and formatting issues.</dd>
+        <dt>2011/10/13</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

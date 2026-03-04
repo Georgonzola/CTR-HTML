@@ -1,0 +1,1230 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="en-US">
+
+<HEAD>
+    <META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+    <META http-equiv="Content-Style-Type" content="text/css">
+
+    <TITLE>DLL Manual</TITLE>
+
+    <STYLE>
+        h1.left
+        {
+            color: #46f;
+            font-size: 100%;
+        }
+        ul.left, ul.left ul
+        {
+            margin: 0;
+            padding: 0;
+        }
+        ul.left
+        {
+            font-size: 0.8em;
+        }
+        ul.left li
+        {
+            margin: 0;
+            padding: 0;
+            margin-left: 1em;
+            line-height: 1.5em;
+        }
+        ul.left li a
+        {
+            margin: 0;
+            padding: 0;
+        }
+
+        H1
+        {
+            font-weight         : bold;
+            font-size           : 250%;
+            text-align          : left;
+            color               : #46f;
+            margin-bottom       : 0px;
+        }
+
+        H2
+        {
+            font-weight         : normal;
+            font-size           : 180%;
+            margin              : 24pt 0pt 6pt 0pt;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+        }
+
+        H3
+        {
+            font-weight         : bold;
+            font-size           : 120%;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+            width: 75%;
+            margin              : 18pt 0pt 6pt 30pt;
+        }
+
+        H4
+        {
+            font-weight         : bold;
+            font-size           : 100%;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H5
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H6
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        DIV.date
+        {
+            text-align          : right;
+            color               : #46f;
+            margin-bottom       : 30pt;
+            line-height         : 150%;
+        }
+
+        P
+        {
+            margin              : 0pt 0pt 12pt 30pt;
+            line-height         : 150%;
+        }
+
+        OL,UL,DL
+        {
+            margin              : 6pt 0pt 6pt 50pt;
+        }
+        OL OL, UL UL
+        {
+            margin-left: 3em;
+        }
+
+        DT
+        {
+            font-family         : "Courier New", monospace;
+            margin-top : 0.3em;
+            margin-bottom : 0.3em;
+        }
+        DD
+        {
+            margin-top : 0.3em;
+            margin-bottom : 0.6em;
+        }
+
+        PRE
+        {
+            font-family         : "Courier New", monospace;
+            font-weight         : normal;
+
+            margin              : 0pt 0pt 20pt 50pt;
+            padding             : 2pt 8pt 2pt 8pt;
+            background-color    : #eee;
+
+            border-style        : solid;
+            border-width        : 1px;
+        }
+        em
+        {
+            font-style: normal;
+            color: red;
+        }
+        TABLE
+        {
+            margin-left         : 40pt;
+            margin-bottom       : 20pt;
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        TD
+        {
+            font-style          : normal;
+            padding             : 2pt 4pt 2pt 4pt;
+
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        div.footer
+        {
+            border-color: black;
+            padding-top: 0.5em;
+            border-top-style    : solid;
+            border-top-width    : 1px;
+            width:              100%;
+            margin-top: 2em;;
+        }
+        div.footer span
+        {
+            color               : #46f;
+            float: right;
+        }
+        table
+        {
+            border-collapse:    collapse;
+        }
+        table td
+        {
+        }
+        table th
+        {
+            border              : solid 1px;
+        }
+        ul
+        {
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        span.here
+        {
+            color: red;
+        }
+        DL.history
+        {
+            margin: 1em;
+        }
+        DL.history DT
+        {
+            font-family         : sans-serif;
+            font-weight         : bold;
+            font-size           : 0.8em;
+            margin              : 0px;
+        }
+        DL.history DD
+        {
+            font-size           : 0.9em;
+            margin              : 0px 0px 4px 0px;
+        }
+
+    </STYLE>
+    <SCRIPT type="text/javascript">
+    <!--
+        function DeleteRule(index)
+        {
+            var ss = document.styleSheets.item(0);
+
+            if( ss.removeRule )
+            {
+                ss.removeRule(index);
+            }
+            else
+            {
+                ss.deleteRule(index);
+            }
+        }
+        function OnClickAnchor(e, anchor)
+        {
+            window.parent.frames[1].location.hash = anchor;
+
+            if( e.preventDefault )
+            {
+                e.preventDefault();
+            }
+            else
+            {
+                e.returnValue = false;
+            }
+        }
+        function TravLeft(obj)
+        {
+            var ary = new Array();
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var text  = "--no name--";
+
+                        var anchor = "name-" + index;
+                        index++;
+
+                        if( c.hasChildNodes() )
+                        {
+                            var a = c.childNodes.item(0);
+
+                            if( a && a.tagName == "A" )
+                            {
+                                text  = a.innerHTML;
+                            }
+                            else
+                            {
+                                text  = c.innerHTML;
+                            }
+                        }
+
+                        ary.push([c.tagName.substr(1,1), "<a target=\"right\" href=\"?right#" + anchor + "\" onclick=\"OnClickAnchor(event, '" + anchor + "')\">" + text + "</a>"]);
+                    }
+                    else
+                    {
+                        ary = ary.concat(TravLeft(c));
+                    }
+                }
+            }
+
+            return ary;
+        }
+        function TravRight(obj)
+        {
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var anchor = "name-" + index;
+                        index++;
+
+                        c.innerHTML = "<a name=\"" + anchor + "\">" + c.innerHTML + "</a>"
+                    }
+                    else
+                    {
+                        TravRight(c);
+                    }
+                }
+            }
+        }
+        function OnLoad_Left()
+        {
+            var test = TravLeft(document.body);
+            var test2 = "";
+            var level = 2;
+
+            test2 += "<h1 class='left'>" + document.title + "</h1>";
+            test2 += "<ul class='left'>";
+            for( var i in test )
+            {
+                while( test[i][0] > level )
+                {
+                    level++;
+                    test2 += "<ul>";
+                }
+                while( test[i][0] < level )
+                {
+                    level--;
+                    test2 += "</ul>";
+                }
+
+                test2 += "<li>" + test[i][1];
+            }
+            test2 += "</ul>";
+
+            document.body.innerHTML = test2;
+            DeleteRule(0);
+        }
+        function OnLoad_Right()
+        {
+            TravRight(document.body);
+        }
+        function OnLoad_Frame()
+        {
+            var myname = location.pathname.substr(location.pathname.lastIndexOf("/") + 1);
+
+            var f = document.createElement("frameset");
+            var l = document.createElement("frame");
+            var r = document.createElement("frame");
+
+            f.appendChild(l);
+            f.appendChild(r);
+            f.cols = "250,*";
+
+            l.src  = myname + "?left"  + location.hash;
+            r.src  = myname + "?right" + location.hash;
+            l.name = "left";
+            r.name = "right";
+
+            var h = document.documentElement;
+            var b = h.getElementsByTagName("body").item(0);
+
+            h.replaceChild(f, b);
+        }
+
+
+        if( ! window.opera )
+        {
+            var search = location.search;
+
+            if( search == "?left" )
+            {
+                window.onload = OnLoad_Left;
+            }
+            else if( search == "" )
+            {
+                window.onload = OnLoad_Frame;
+            }
+            else if( search == "?right" )
+            {
+                window.onload = OnLoad_Right;
+            }
+
+            if( search != "?right" )
+            {
+                var ss = document.styleSheets.item(0);
+
+                if( ss.addRule )
+                {
+                    ss.addRule("body", "display: none", 0);
+                }
+                else
+                {
+                    ss.insertRule("body {display: none}", 0);
+                }
+            }
+        }
+    //-->
+    </SCRIPT>
+</HEAD>
+
+<BODY>
+
+
+
+
+
+<H1>DLL Manual</H1>
+<DIV class="date">(2012/06/22)</DIV>
+
+
+
+
+
+<H2>Introduction</H2>
+
+<H3>About This Document</H3>
+<P>
+    This document provides information about the DLL mechanism that the CTR-SDK provides.
+</P>
+<ul>
+    <li>DLL Basics
+    <li>Features and Limitations of DLLs
+    <li>Basic API Usage
+    <li>Special Features
+</ul>
+
+<P>
+    Information about the following can be found in the referenced documentation.
+</P>
+<ul>
+    <li>Procedures for creating DLLs using the SDK build system:<br /><i><a href="BuildSystemManualForDll.html" target="_parent">CTR-SDK Build System Manual (for DLLs)</a></i>
+    <li>Information about developing your own build system:<br /><i><a href="BuildSystemDevelopmentGuideForDll.html" target="_parent">Guide to Developing a Build System (for DLLs)</a></i>
+<li>Information about developing a more sophisticated build system:<br /><i><a href="BuildSystemDevelopmentGuideForDllAdvanced.html" target="_parent">Guide to Developing a Build System (for High-Level DLLs)</a></i>
+</ul>
+
+<P>
+This document assumes basic knowledge of CTR-SDK terminology. For a glossary of basic CTR-SDK terms, see <i><a href="../Glossary/Glossary.html" target="_parent">CTR-SDK Terminology</a></i>.
+</P>
+
+<H3>Notation Used in This Document</H3>
+<P>
+Content in shaded boxes, as shown below, indicate a sequence to be entered on the command line.
+</P>
+<pre>
+nn::ro::Initialize(pCrs, crsSize);
+</pre>
+
+<P>
+Sample source code uses the following user-defined functions to make the code easier to understand. You must implement processing equivalent to these functions in your application.
+</P>
+<dl>
+<dt><CODE>s64 GetFileSize(const wchar_t* path)</CODE>
+    <dd>
+    Returns the size of the file specified by <SPAN class="argument">path</SPAN>.
+
+<dt><CODE>void* AllocateMemory(size_t size, int alignment)</CODE>
+    <dd>
+    Allocates a memory area of <SPAN class="argument">size</SPAN> bytes, in accordance with the alignment restrictions specified by <SPAN class="argument">alignment</SPAN>.
+
+<dt><CODE>void LoadFile(void* pBuffer, const wchar_t* path, size_t size)</CODE>
+    <dd>
+    Reads <SPAN class="argument">size</SPAN> bytes from the file specified by <SPAN class="argument">path</SPAN> into <SPAN class="argument">pBuffer</SPAN>.
+</dl>
+
+
+
+
+
+<H2>Terminology</H2>
+<P>
+    This section defines terminology relating to the DLL mechanism provided by the CTR-SDK.
+</P>
+<P>
+    The meanings and usage of terms used in this document and the CTR-SDK may differ from their general meanings and usage.
+</P>
+
+
+<dl>
+    <dt>Executable code
+    <dd>
+    Sequences of machine code interpreted and executed by the CPU, and constants and variables referenced directly from it.
+
+    <dt>Module
+    <dd>
+    A chunk of execution code divided into a meaningful unit.
+
+    <dt>Static module
+    <dd>
+The main application module, which contains <CODE>nnMain</CODE>. This module is the first module that is executed when application execution begins.
+
+    <dt>Dynamic module
+    <dd>
+    A module that can be loaded into memory and used dynamically.
+
+    <dt>DLL
+    <dd>
+    The mechanism for implementing a dynamic module. It can also refer to a dynamic module itself.
+
+    <dt>Symbol
+    <dd>
+    A meaningful location in a module. In most cases, the symbol is named, but sometimes it is not.
+
+    <dt>See Also
+    <dd>
+Use a symbol from another module. Refers to calling a function defined in another module, or reading and writing a variable defined in another module.
+
+    <dt>Resolve
+    <dd>
+Make the symbol being referenced available. It determines the address of a symbol so that a function can be called, or a variable read and written.
+
+    <dt>Export
+    <dd>
+    Make a module's symbol available for reference from another module. A symbol can only be referenced if it has been exported.
+
+    <dt>Export type
+    <dd>
+    Indicates the format in which information is referenced from other modules. Three export types are available in <CODE>ro</CODE>: <I>name</I>, <I>index</I>, and <I>offset</I>.
+
+    <dt>Import
+    <dd>
+    Declares a reference. The linker attempts to resolve symbols that have not been imported at link time. This normally results in an undefined symbol error.
+
+<dt>Exporting
+    <dd>
+    Same as &quot;export.&quot;
+
+<!--     <dt>基本スタイル     <dd>     このドキュメントおよび SDK のビルドシステムがサポートする     5 種類の DLL の使い方のこと。     標準スタイル、ライブラリスタイル、プラグインスタイル、RSO スタイル、REL スタイルの 5 種類。      <dt>共有ライブラリ     <dd>     複数の静的モジュールから単一の DLL を使用することを目的として構成した DLL のこと。     <br />     共有ライブラリ → 静的モジュールの順で開発が行われる。      <dt>RSO     <dd>     RVL-SDK で提供されている DLL 実装の一形式。      <dt>REL     <dd>     RVL-SDK で提供されている DLL 実装の一形式。      <dt>プラグイン     <dd>     単一の静的モジュールから同じ I/F をもつ複数の DLL を使用することを目的として構成した DLL のこと。     <br />     静的モジュール → プラグインの順で開発が行われる。 -->
+<dt>RO File
+    <dd>
+    A format for implementing DLLs provided by the CTR-SDK.
+
+<dt>CRO File
+    <dd>
+The dynamic-module file format used by RO files.
+<dt>CRR File
+    <dd>
+A file that stores DLL registration information. It can store information for one or more CRO files.
+
+    <dt><CODE>cro.rlt</CODE>
+    <dd>
+    A file that stores DLL registration information. This file stores information for one CRO file. It is converted into a CRR file for use.
+
+    <dt><CODE>edit</CODE>
+    <dd>
+    A steering file used by the <CODE>ARMCC</CODE> linker.
+
+<dt>CRS File
+    <dd>
+    A file storing information about a static module.
+<dt>XRL File
+    <dd>
+A file format for storing export and reference symbol information for a module.
+<dt>UAE File
+    <dd>
+A command-line option file format specified to the <CODE>ARMCC</CODE> linker.
+<dt>RO library
+    <dd>
+The <CODE><a href="../../api/nn/ro/Overview.html">nn::ro namespace</a></CODE> section of the API provided by the CTR-SDK. It is a collection of functions for using DLLs.
+
+    <dt>
+    <dd>
+</dl>
+
+
+<H2>DLLs</H2>
+
+<H3>Static and Dynamic Modules</H3>
+<P>
+If an application does not use dynamic modules, all of its executable code is collected into a single file.
+
+When an application starts, all of its executable code is loaded into memory and maintained there until the application exits. The executable code is never modified while the application is running.
+
+    The executable code that is loaded upon startup is called the &quot;static module.&quot;
+</P>
+<P>
+Meanwhile, if the application uses dynamic modules, it can split up its executable code into multiple modules.
+When the application starts, only the static module is loaded into memory. The static module is then able to load the dynamic modules, and therefore run executable code including dynamic modules that can be loaded into and released from memory during program execution.
+</P>
+
+
+
+<H3>What You Can Do With a DLL</H3>
+
+<H4>Conserve Memory</H4>
+<P>
+    You can reduce the amount of memory that your code uses by breaking up your application into multiple modules, and loading them into memory only when needed, freeing them afterward.
+</P>
+<P>
+For example, you could put single-player mode and multiplayer mode into separate DLLs, and load just one of them depending on the play mode. This reduces your application's memory footprint by the size of the other mode.
+</P>
+
+<H4>Shorten Startup Time</H4>
+<P>
+When your application is started, it starts running after all of its static modules have been loaded into memory. The time it takes from the application's start instruction until <code>nnMain</code> starts executing is proportional to the size of the static modules. You can shorten the time it takes for your application's first screen to appear by putting just the minimum code needed to show the first screen in your static module, and putting the other portions of your application into DLLs, and loading them after the first screen appears.
+</P>
+
+
+
+
+<h3>Features and Limitations of the RO Format</h3>
+<P>
+The DLL mechanism provided by the CTR-SDK is called RO.
+</P>
+
+<h4>Features</h4>
+<P>
+The RO format features the following differences from other DLL implementations.
+</P>
+
+<ul>
+<li>Three export types.<br />One of three formats can be used for symbol resolution: <CODE>offset</CODE>, <CODE>index</CODE>, or <CODE>name</CODE>. Although you can select the format for each symbol individually, the SDK's build system only supports selection at the module level. For information about specifying export types, see <a href="BuildSystemManualForDll.html" target="_parent">CTR-SDK Build System Manual (for DLLs)</a> or <a href="BuildSystemDevelopmentGuideForDll.html" target="_parent">Guide to Developing a Build System (for DLLs)</a>.
+<li>Automatic resolution of references between modules.<br />The build system automatically resolves references between modules just by loading them, making functions and variables available. You can also get pointers to symbols manually.
+<li>The application developer loads DLLs into memory.<br />The application developer is responsible for loading DLLs into memory and handling where they are allocated in memory.
+<li>Support for C++.<br />You can code DLLs in C++. You can also reference and resolve C++ symbols between modules. <br /><B>Note:</B> If you get pointers to C++ symbols manually, you must use the mangled names.
+<li>Ability to pass C++ exceptions across module boundaries.<br />You can <CODE>throw</CODE> an exception from one module and <CODE>catch</CODE> it in another.
+<li>Support for automating imports and exports.<br />Although this feature is not part of the RO format itself, the SDK provides a tool to support automation of imports and exports. When you use the SDK's build system, it uses this tool to perform imports and exports automatically. You can also use this tool to strip dead code automatically.
+</ul>
+
+<h4>Upper Limit</h4>
+<P>
+The RO format has the following limitations.
+</P>
+<ul>
+<li>You can load up to 64 modules simultaneously.
+<li>Each module can export no more than 65,535 symbols by name.
+<li>The maximum length of a symbol that can be exported by name is 8,192 characters.
+</ul>
+
+<h4><a name="restriction">Restrictions</a></h4>
+<P>
+The RO format has the following restrictions.
+</P>
+<ul>
+<li>Template class static member variables defined in a header and instances of static local variables in inline functions must be included in static modules. For more information, see <a href="#vague_linkage">Handling for Overloaded Symbols</a>.
+<li>You cannot include symbols belonging to the C Runtime (CRT) in dynamic modules. They are always included in static modules. The CRT includes standard C functions, in addition to <CODE>new</CODE>, <CODE>delete</CODE>, and other language features implemented as internal function calls, such as integer division and 64-bit arithmetic.
+<li>You cannot define static variables or constants specifying an alignment greater than 8 bytes. Alignment restrictions greater than 8 bytes are ignored.
+<li>Functionality may not be as intended when you use <CODE>weak</CODE> symbols and other features that are not part of the  C/C++ language standards.
+</ul>
+<P>
+In the RO format, you can make and use any static library (<CODE>.a</CODE>)  as a DLL. But because of these restrictions, if you intend to use a static library as a DLL, be sure to confirm with the library's creator that it can be made and used as a DLL.
+</P>
+<P>
+    The static libraries (<code>.a</code>) provided in the SDK must not be made and used as DLLs. That is prohibited.
+</P>
+
+
+<h3>RO File Structure</h3>
+<P>
+    If you did not use DLLs, you would develop CTR applications by creating CXI and CCI files from AXF files. If you use DLLs, you must additionally create CRS, CRR, and CRO files.
+</P>
+
+<h4>CRS Files</h4>
+<P>
+    A CRS file stores reference and export information for static modules. It is used to resolve symbols between DLLs. It does not contain executable code.
+</P>
+<h4>CRR Files</h4>
+<P>
+    A CRR file contains CRO management information. It also contains information necessary for debugging DLLs.
+</P>
+<P>
+CRR files have an important limitation: they must be stored on the ROM-FS, directly under the <CODE>.crr</CODE> directory, which is in turn directly under the ROM-FS root directory. (If the ROM-FS root directory is <code>/</code>, this directory is <code>/.crr</code>.) The <code>.crr</code> directory must not contain any file other than the CRR file.
+</P>
+
+<h4>CRO Files</h4>
+<P>
+    A CRO file is a dynamic module. It stores executable code and information necessary to resolve symbols between the application's various modules.
+</P>
+
+
+
+
+
+
+
+<H2>Creating Dynamic Modules</H2>
+
+<H3>Creating the Source Code</H3>
+<P>
+There are no special requirements for the source code of a dynamic module, with the exception of a few limitations. You can create them in the same manner as static modules. As with ordinary code, the only actions you need to take to call functions and reference variables across modules are to share headers and code the calls and references.
+</P>
+<P>
+For more information about the restrictions on dynamic modules, see <a href="#restriction">Restrictions</a>.
+</P>
+<P>
+You must add extra code to use DLL features. For more information, see <a href="#other_feature">Special Uses</a>.
+</P>
+
+
+
+<H3>Building DLLs</H3>
+<P>
+If you intend to use the SDK's build system, see <a href="BuildSystemManualForDll.html" target="_parent">CTR-SDK Build System Manual (for DLLs)</a>. If you plan to develop your own build system, see <a href="BuildSystemDevelopmentGuideForDll.html" target="_parent">Guide to Developing a Build System (for DLLs)</a>.
+</P>
+
+
+
+<H3><a name="choose_type">Selecting the Export Type</a></H3>
+<P>
+The RO format has three export types. You must select which export types to use when you create your CRO file. The following table shows the differences between the export types.
+</P>
+<table>
+<tr><th><th>Name<th>Index<th>Offset
+<tr><th>Size of the referencing CRO file<td>Large<td>Small<td>Small
+<tr><th>Size of the exporting CRO file<td>Large<td>Small<td>0
+<tr><th>Time required by <CODE>LoadModule</CODE><td>Long<td>Medium<td>Short
+<tr><th>Getting the pointer manually<td>Possible<td>Possible<td>No
+<tr><th>Creating the referencing module first<td>Possible<td>No<td>No
+<tr><th>Build steps<td>Normal<td>Normal<td>Many
+</table>
+<P>
+    <CODE>Name</CODE> has the greatest functionality, followed by <CODE>index</CODE> and then <CODE>offset</CODE>, and greater functionality comes at a correspondingly greater cost.
+</P>
+<P>
+Normally, it is fine to choose <CODE>offset</CODE> as the export type. If you want to get pointers manually (using <a href="../../api/nn/ro/Module/GetPointer.html"><code>GetPointer</code></a>) or use a DLL that functions as a library, choose <CODE>index</CODE> or <CODE>name</CODE>, depending on your needs.
+</P>
+
+<H3>Using Static Libraries</H3>
+<P>
+Static libraries can be embedded into dynamic modules. However, in addition to the <a href="#restriction">RO restrictions</a>, also note the following caution:
+</P>
+<ul>
+<li><b>Do not embed the same static library into multiple DLLs. </b><br />If you embed the same static library into multiple DLLs, there will be multiple global variables where there should only be one.The internal state in the library will not be what you intended. In particular, if you create a mutual exclusion object (mutex) as a global variable, it acts as if the library is not conducting mutual exclusion, even though it is treating the mutex correctly. In this case, sometimes a bug arises and sometimes it does not (depending on the timing), so debugging is difficult. Also, because the coding is correct in the source code, it is extremely difficult to find the bug.
+</ul>
+
+
+
+
+<H2>Creating Static Modules</H2>
+<H3>Creating the Source Code</H3>
+<P>
+Some variables require special treatment. For more information, see <a href="#vague_linkage">Handling for Overloaded Symbols</a>.<br/><br/> Other than taking care of the overloaded symbols, there is nothing special that must be done to reference DLL functions and variables. You simply share headers and reference the normal way.
+</P>
+<P>
+In the RO format, the management of DLLs is left entirely up to the application. To prepare memory for use by DLLs and to load DLLs you must implement everything with code in the application. For more information, see <a href="#use_dll">Using DLLs</a>.
+</P>
+<P>
+In addition, you must add extra code to use DLL features. For more information, see <a href="#other_feature">Special Uses</a>.
+</P>
+
+
+
+<H3>Building</H3>
+<P>
+If you intend to use the SDK's build system, see <a href="BuildSystemManualForDll.html" target="_parent">CTR-SDK Build System Manual (for DLLs)</a>. If you plan to develop your own build system, see <a href="BuildSystemDevelopmentGuideForDll.html" target="_parent">Guide to Developing a Build System (for DLLs)</a>.
+</P>
+
+
+
+<H3>Selecting the Export Type</H3>
+<P>
+You can select the export type, so that the static module also exports symbols for the dynamic module. <br/>Selecting export types for static modules is the same as selecting export types for dynamic modules. For more information, see the <a href="#choose_type">dynamic modules</a> section.
+</P>
+
+
+
+
+
+<H2><a name="vague_linkage">Handling of Symbols with Multiple Definitions</a></H2>
+<P>
+Overloaded symbols require special treatment.
+</P>
+
+<H3>Overloaded Symbols in C++</H3>
+<P>
+    Usually, having multiple instances of the same symbol in a single program is not permitted in the C/C++ programming languages. However, for the following elements in C++, the same symbol can be included in multiple object files and used normally.
+</P>
+<ul>
+<li>Template instances.
+<li>Inline functions that were not inlined.
+<li>Class member variables for the template class.
+<li>Static local variables in inline functions.
+<li>Type information.
+<li>Virtual tables.
+</ul>
+<P>
+Symbols for these elements are merged appropriately by the linker during linking, and an adjustment is made so that all the symbols become one in the overall program.
+</P>
+<H3>Handling of Overloaded Symbols in RO</H3>
+<P>
+Because the symbols are merged by a linker, they must be merged in each module. Also, because plug-in type use is supported in RO, multiple modules can contain the same symbol. As a result, an instance of the symbols for these elements exists in each module that is referenced.
+</P>
+<P>
+However, because usually symbols that represent variables among these elements are used with the assumption that all references are made to a unique instance, unintended results may occur if different instances are referenced in each module.
+</P>
+<P>
+To handle both situations, processes for variables and elements other than variables are separated in RO. Among symbols that are defined in multiple modules, for symbols that represent variables, an instance in the static module is always referenced, and all other symbols can be contained in every module.
+</P>
+<H3>Support for Overloaded Symbols</H3>
+<P>
+As described previously, when symbols that represent variables are defined in multiple modules, RO assumes that those symbol definitions are in the static module and then references them in the static module.
+</P>
+<P>
+If a definition that is referenced is not in the static module, an error occurs when linking the static module. In such cases, the code must be revised so that the static module contains a definition for the referenced symbol.
+</P>
+<P>
+If multiple definitions are not created (intentionally or accidentally), support is necessary for the following.
+</P>
+<ul>
+    <li>Class member variables for the template class.
+    <li>Static local variables in inline functions.
+</ul>
+<P>
+The definitions of symbols for these elements are created in object files created from the source files that referenced those symbols. Reference these symbols from the static module source files to make sure that the definitions are contained in the static module. Often these symbols cannot be directly referenced. The definitions can be included in the static module by using indirect methods such as referencing the function using the target variable. <br/>You can use <a href="../../api/nn_util/NN_UTIL_REFER_SYMBOL.html"><code>NN_UTIL_REFER_SYMBOL</code></a> for this purpose.
+</P>
+<P>
+For example, when a header such as the following is used, the conditions described previously apply because <code>ms_pInstance</code> is a template class member variable. If the static module is not using a class <code>S</code> at all and the <code>S</code> class is used in multiple dynamic modules, <code>Singleton&lt;S&gt;::ms_pInstance</code> causes an error in the static modules at build time.
+</P>
+<P>
+    Header<br/> (Code from the very beginning.)
+</P>
+<PRE>
+... (omitted) ...
+
+template &lt;class T&gt;
+class Singleton
+{
+public:
+    static T& GetInstance() { return *ms_pInstance; }
+
+protected:
+    Singleton()  { ms_pInstance = static_cast&lt;T*&gt;(this); }
+    ~Singleton() { ms_pInstance = NULL; }
+
+private:
+    static T* ms_pInstance;
+};
+
+template &lt;class T&gt; T* Singleton &lt;T&gt;::ms_pInstance = NULL;
+
+class S : public Singleton&lt;S&gt;
+{
+};
+
+... (omitted) ...
+</PRE>
+<P>
+    In this case, the following functions are added to source files and other files that include <code>nnMain</code>. These functions do not actually need to be called.
+</P>
+<P>
+    Any source files that are used in static modules. <br/> (Code added for RO support.)
+</P>
+<PRE>
+... (omitted) ...
+
+void DummyReference()
+{
+    <span class="here">NN_UTIL_REFER_SYMBOL(S::GetInstance);</span>
+}
+</PRE>
+
+
+
+
+
+<H2><a name="use_dll">Using DLLs</a></H2>
+
+<H3>Basic Sequence</H3>
+<P>
+The following list shows the sequence from loading a single CRO file, to using it, and then freeing all memory.
+</P>
+
+<ol>
+<li>Load the CRS file into memory.<br /> ↓
+<li><code>nn::ro::Initialize(crs)</code><br /> ↓
+<li>Load the CRR file into memory.<br /> ↓
+<li><code>nn::ro::RegisterList(crr)</code><br /> ↓
+<li>Load the CRO file into memory.<br /> ↓
+<li><code>nn::ro::LoadModule(cro)</code><br /> ↓
+<li><code>pModule-&gt;DoInitialize()</code><br /> ↓<br />Execute the process using the CRO file.<br /> ↓
+<li><code>pModule-&gt;DoFinalize()</code><br /> ↓
+<li><code>pModule-&gt;Unload()</code><br /> ↓
+<li>Free memory for the CRO file.<br /> ↓
+<li><code>pRr-&gt;Unregister()</code><br /> ↓
+<li>Free memory for the CRR file.<br /> ↓
+<li><code>nn::ro::Finalize()</code><br /> ↓
+<li>Free memory for the CRS file.<br /> ↓
+</ol>
+
+<P>
+    If you use multiple CRO files at the same time, simply repeat steps 5 to 7 as many times as necessary. If you want to load and use another CRO file after freeing the first, continue to step 10, and then return to step 5.
+</P>
+<P>
+Normally, you perform up to step 4 when the application starts, and 11 and beyond when it exits. You only perform steps 5 to 10 as appropriate when the application is running.
+</P>
+<P>
+The following sections describe each of these steps in detail.
+</P>
+
+<H3>Loading the CRS File and Initializing the ro Library</H3>
+<P>
+You must first load the CRS file into memory (such as from ROM-FS), and then call <a href="../../api/nn/ro/Initialize.html"><code>nn::ro::Initialize</code></a> with this as the argument.
+</P>
+<PRE>
+const wchar_t* crsPath = L"rom:/static.crs";
+
+size_t crsSize  = GetFileSize(crsPath);
+void* pCrs      = AllocateMemory(crsSize, 0x1000);
+
+LoadFile(pCrs, crsPath, crsSize);
+<span class="here">nn::ro::Initialize(pCrs, crsSize);</span>
+</PRE>
+<P>
+CRS files and static modules have a one-to-one relationship; there can only be one of them per static module. Similarly, the CRS file of one static module is different from the CRS file of another. A single application never has more than one CRS file, and applications never choose which CRS file to load.
+</P>
+
+<H3>Registering CRR Files</H3>
+<P>
+You must first load the CRR file into memory (such as from ROM-FS), and then call <a href="../../api/nn/ro/RegisterList.html"><code>nn::ro::RegisterList</code></a> with this as the argument.
+</P>
+<PRE>
+const wchar_t* crrPath = L"rom:/.crr/static.crr";
+
+size_t crrSize  = GetFileSize(crrPath);
+void* pCrr      = AllocateMemory(crrSize, 0x1000);
+
+LoadFile(pCrr, crrPath, crrSize);
+nn::ro::RegistrationList* pList = <span class="here">nn::ro::RegisterList(pCrr, crrSize);</span>
+</PRE>
+<P>
+A CRR file contains information about multiple CRO files. Before loading a CRO file, you must register the CRR file that contains the information about it. Ordinarily, you create a single CRR file containing the information for all CRO files that the application uses. It is normally sufficient to register just that one file. Use multiple CRR files if you want to also optimize the memory used by CRR files, or if you will be distributing additional programs.
+</P>
+
+<H3>Loading the CRO File</H3>
+<P>
+Load the CRO file, which is the actual dynamic module. Load the CRO file into memory (such as from ROM-FS), and then pass that as an argument to <a href="../../api/nn/ro/LoadModule.html"><code>nn::ro::LoadModule</code></a>. You must pass to <code>LoadModule</code> a memory area for the buffer required separately by the CRO file. Pass the CRO object as an argument to <a href="../../api/nn/ro/GetSizeInfo.html"><code>nn::ro::GetSizeInfo</code></a> to get the size of the buffer required by the CRO file.
+</P>
+<P>
+    After <code>LoadModule</code> succeeds, you must call  <a href="../../api/nn/ro/Module/DoInitialize.html"><code>nn::ro::Module::DoInitialize</code></a> on the value returned by <code>LoadModule</code> before using the module.
+</P>
+<PRE>
+const wchar_t* croPath = L"rom:/module1.cro";
+
+size_t croSize  = GetFileSize(croPath);
+void* pCro      = AllocateMemory(croSize, 0x1000);
+
+LoadFile(pCro, croPath, croSize);
+
+nn::ro::SizeInfo sizeInfo;
+<span class="here">nn::ro::GetSizeInfo(&sizeInfo, pCro);</span>
+
+void* pBuffer   = AllocateMemory(sizeInfo.bufferSize, 8);
+nn::ro::Module* pModule = <span class="here">nn::ro::LoadModule(
+                            pCro, croSize, pBuffer, sizeInfo.bufferSize);</span>
+
+<span class="here">pModule-&gt;DoInitialize();</span>
+</PRE>
+<P>
+    <code>DoInitialize</code> builds global objects. If two modules reference each other in the global-objects building stage, first perform the steps up to <code>LoadModule</code> for each module, and then call <code>DoInitialize</code> after both calls to <code>LoadModule</code> complete.
+</P>
+
+<H3>Using CRO Files</H3>
+<P>
+You have now resolved the references to the CRO file, and can call functions and read and write the variables defined in it. However, this does not necessarily mean that all the references by the loaded CRO file to other modules have been resolved. The other CRO modules that this one references may not have been loaded yet, or the symbols that it references may not have been defined or exported at all.<br /> You can use the <a href="../../api/nn/ro/Module/IsAllSymbolResolved.html"><code>nn::ro::Module::IsAllSymbolResolved</code></a> function to determine whether all references to other modules by the CRO file you've loaded are resolved.
+</P>
+<P>
+Although references are resolved automatically, you can also get pointers manually. To get a pointer to a function or variable manually, use <a href="../../api/nn/ro/GetPointer.html"><code>nn::ro::GetPointer</code></a> or <a href="../../api/nn/ro/Module/GetPointer.html"><code>nn::ro::Module::GetPointer</code></a>.
+</P>
+<PRE>
+// Get a pointer to a function manually, and call it.
+int (*pFunc)(int) = <span class="here">pModule-&gt;GetPointer&lt;void (*)(int)&gt;("TestFunc");</span>
+int ret = pFunc(0x1234);
+
+// Get a pointer to a variable manually, and read and write it.
+int& var = *<span class="here">pModule-&gt;GetPointer&lt;int*&gt;("g_Variable");</span>
+NN_LOG("%d\n", var);
+var = ret;
+</PRE>
+
+
+<H3>Releasing CRO Files</H3>
+<P>
+    To release the memory used by a CRO object, call <a href="../../api/nn/ro/Module/DoFinalize.html"><code>nn::ro::Module::DoFinalize</code></a> and <a href="../../api/nn/ro/Module/Unload.html"><code>nn::ro::Module::Unload</code></a> on the value returned by <code>LoadModule</code>.
+</P>
+<PRE>
+<span class="here">pModule-&gt;DoFinalize();</span>
+<span class="here">pModule-&gt;Unload();</span>
+
+FreeMemory(pBuffer);
+FreeMemory(pCro);
+</PRE>
+<P>
+Under some conditions, you can call <code>LoadModule</code> again for the CRO object in the freed memory area, and use it again. For more information, see <a href="#reuse_cro">Reusing CRO Objects</a>.
+</P>
+
+<H3>Releasing CRR Files</H3>
+<P>
+    To release the memory used by a CRR object, call <a href="../../api/nn/ro/RegistrationList/Unregister.html"><code>nn::ro::RegistrationList::Unregister</code></a> on the value returned by <code>RegisterList</code>.
+</P>
+<PRE>
+<span class="here">pList-&gt;Unregister();</span>
+
+FreeMemory(pCrr);
+</PRE>
+
+<H3>Releasing CRS Files</H3>
+<P>
+    To release the memory area used by a CRS object, call <a href="../../api/nn/ro/Finalize.html"><code>nn::ro::Finalize</code></a>.
+</P>
+<PRE>
+<span class="here">nn::ro::Finalize();</span>
+
+FreeMemory(pCrs);
+</PRE>
+<P>
+Calling <code>nn::ro::Finalize</code> enables you to free the memory for the CRS object in addition to all CRR and CRO objects.
+</P>
+
+
+
+
+<h2>Debugging</h2>
+<P>
+    A <CODE>CRO</CODE> object can be used to debug source code in the debugger. You must include debugging information in the <CODE>CRR</CODE> object to debug source code.
+</P>
+<P>
+For information about including debugging information in a <CODE>CRR</CODE> object, see <a href="BuildSystemManualForDll.html">CTR-SDK Build System Manual (for DLLs)</a> and <a href="BuildSystemDevelopmentGuideForDll.html">Guide to Developing a Build System (for DLLs)</a>.
+</P>
+
+
+
+<h2><a name="other_feature">Special Uses</a></h2>
+
+<h3><a name="explicit_import_export">Explicit Imports and Exports</a></h3>
+<p>
+    Explicit imports and exports are mainly used in combination to enable use of plug-in type DLLs.
+</p>
+
+<H4>Explicit Imports</H4>
+<P>
+    To explicitly import a symbol, add <CODE>NN_DLL_IMPORT</CODE> to the beginning of the function or variable declaration.
+</P>
+<PRE>
+extern NN_DLL_IMPORT int g_Variable;
+
+extern NN_DLL_IMPORT void Function();
+</PRE>
+<P>
+An explicitly imported symbol does not generate an error, even if this definition cannot be found at link time by the linker. <br /> An explicitly exported symbol is not automatically imported, so you need to either explicitly import the symbol or get the pointer manually.
+</P>
+
+
+<H4>Explicit Exports</H4>
+<P>
+    To explicitly export a symbol, add <CODE>NN_DLL_EXPORT</CODE> to the beginning of the function or variable declaration.
+</P>
+<PRE>
+NN_DLL_EXPORT int g_Variable;
+
+NN_DLL_EXPORT void Function()
+{
+    ... (omitted) ...
+}
+</PRE>
+<P>
+Explicitly exported symbols are exported. If explicit exports are used in a dynamic module,  dead-code stripping does not remove the symbols, even if they are not referenced in the module.
+</P>
+<P>
+Defining variables in multiple modules is equivalent to defining them in a static module (see <a href="#vague_linkage">Handling for Overloaded Symbols</a>). However, variables exported explicitly in any module are not included. In short, they are treated as separate variables that have their own separate memory regions in each module.
+</P>
+
+
+<h3><a name="special_func">Special Functions</a></h3>
+<P>
+Some of the names exported by a DLL are handled in a special way. There are three such names: <code>nnroProlog</code>, <code>nnroEpilog</code>, and <code>nnroUnresolved</code>. If a function with one of these names is defined in a DLL and exported, it is handled as follows.
+</P>
+<P>
+<B>Note:</B> If it is a C++ function, you must add <CODE>extern &quot;C&quot;</CODE> to the definition. To export it, you must do so explicitly.
+</P>
+
+<h4>nnroProlog</h4>
+<P>
+If you define a function with the name <code>nnroProlog</code> in a CRO file, <code>nnroProlog</code> is called when <a href="../../api/nn/ro/Module/DoInitialize.html"><code>nn::ro::Module::DoInitialize</code></a> is called on that CRO file. This enables you to implement initialization unique to that DLL.
+</P>
+<P>
+    <code>nnroProlog</code> is called after <code>DoInitialize</code> has completed all initialization steps, including building global objects.
+</P>
+<PRE>
+extern "C" NN_DLL_EXPORT void nnroProlog()
+{
+    ... (omitted) ...
+}
+</PRE>
+
+
+<h4>nnroEpilog</h4>
+<P>
+If you define a function with the name <code>nnroEpilog</code> in a CRO file and export it, <code>nnroProlog</code> is called when <a href="../../api/nn/ro/Module/DoFinalize.html"><code>nn::ro::Module::DoFinalize</code></a> is called on that CRO file. This enables you to implement finalization unique to that DLL.
+</P>
+<P>
+    <code>nnroEpilog</code> is called before <code>DoFinalize</code> does any finalization, such as freeing global objects.
+</P>
+<PRE>
+extern "C" NN_DLL_EXPORT void nnroEpilog()
+{
+    ... (omitted) ...
+}
+</PRE>
+
+
+<h4><a name="nnroUnresolved">nnroUnresolved</a></h4>
+<P>
+If you define a function named <code>nnroUnresolved</code> in your CRO file and export it, unresolved references from this file are linked to this function. If you do so, <code>nnroUnresolved</code> are called when a function is called, and the DLL in which it is defined has not been loaded.
+</P>
+<PRE>
+extern "C" NN_DLL_EXPORT void nnroUnresolved()
+{
+    ... (omitted) ...
+}
+</PRE>
+<P>
+This particular function can also be used in static modules. However, there is a limitation. It stops working if references, after they have been resolved, are reverted to the unresolved state.
+</P>
+
+
+
+
+<h3><a name="free_unused">Freeing Unneeded Memory</a></h3>
+<P>
+In addition to executable code, a CRO file contains information about symbols referenced from other modules, and symbols exported to other modules. If you know that this information will not be needed after the CRO file is loaded, you can free it and use it for other purposes after <CODE>LoadModule</CODE> by specifying a <CODE>fixLevel</CODE> argument to <a href="../../api/nn/ro/LoadModule.html"><code>nn::ro::LoadModule</code></a>. This can greatly reduce your memory usage, particularly when the module references or exports a large number of symbols. Conversely, if the module does not have much of this information, freeing it may not increase the available memory size at all.
+</P>
+<PRE>
+const wchar_t* croPath = L"rom:/module1.cro";
+
+size_t croSize  = GetFileSize(croPath);
+void* pCro      = AllocateMemory(croSize, 0x1000);
+
+LoadFile(pCro, croPath, croSize);
+
+nn::ro::SizeInfo sizeInfo;
+nn::ro::GetSizeInfo(&sizeInfo, pCro);
+
+void* pBuffer   = AllocateMemory(sizeInfo.bufferSize, 8);
+nn::ro::Module* pModule = nn::ro::LoadModule(
+                            pCro, croSize, pBuffer, sizeInfo.bufferSize,
+                            true, <span class="here">nn::ro::FIX_LEVEL_3</span>);
+
+<span class="here">void* pFreeBuffer = reinterpret_cast&lt;void*&gt;(sizeInfo.fix3End)</span>;
+<span class="here">size_t freeSize   = croSize - (sizeInfo.fix3End - reinterpret_cast&lt;uptr&gt;(pCro))</span>;
+</PRE>
+<P>
+This code made the <code>freeSize</code> portion of <code>pFreeBuffer</code> available.
+</P>
+<P>
+</P>
+<h3><a name="reuse_cro">Reusing CRO Objects</a></h3>
+<P>
+Normally, you cannot reuse a CRO module you passed to <a href="../../api/nn/ro/LoadModule.html"><code>nn::ro::LoadModule</code></a> after you have called <a href="../../api/nn/ro/Module/Unload.html"><code>nn::ro::Module::Unload</code></a> on it. However, you can reuse them if the following conditions are met.
+</P>
+<ol>
+<li>You use <code>FIX_LEVEL_0</code>.
+<li>It does not use initial values for static variables.
+</ol>
+<P>
+The following practices enable you to satisfy condition 2 in your implementation:
+</P>
+<ul>
+<li>Do not use static variables.
+<li>Initialize all static variables by using the <code>nnroProlog</code> function.
+</ul>
+<P>
+  
+</P>
+<PRE>
+const wchar_t* croPath = L"rom:/module1.cro";
+
+size_t croSize  = GetFileSize(croPath);
+void* pCro      = AllocateMemory(croSize, 0x1000);
+
+LoadFile(pCro, croPath, croSize);
+
+nn::ro::SizeInfo sizeInfo;
+nn::ro::GetSizeInfo(&sizeInfo, pCro);
+
+void* pBuffer   = AllocateMemory(sizeInfo.bufferSize, 8);
+
+// Loaded the first time.
+nn::ro::Module* pModule = nn::ro::LoadModule(
+                            pCro, croSize, pBuffer, sizeInfo.bufferSize,
+                            true, <span class="here">nn::ro::FIX_LEVEL_0</span>);
+pModule-&gt;DoInitialize();
+
+    ... (use cro module) ...
+
+// Free it.
+pModule-&gt;DoFinalize();
+pModule-&gt;Unload();
+
+// You can reload it without reading it from memory again.
+<span class="here">pModule = nn::ro::LoadModule(pCro, croSize, pBuffer, sizeInfo.bufferSize);</span>
+<span class="here">pModule-&gt;DoInitialize();</span>
+</PRE>
+
+
+
+
+
+<H2>Revision History</H2>
+<dl class="history">
+    <dt>2012/06/22</dt>
+    <dd>
+Added a link to <I>Guide to Developing a Build System (for High-Level DLLs)</I>.<br/>
+    </dd>
+
+    <dt>2012/04/23</dt>
+    <dd>
+Added the Handling for Overloaded Symbols section.<br/>Updated the description of handling of static variables in the Restrictions section.<br/>Added the description about support for multiple definitions in Creating the Source Code in the Creating Static Modules section.<br/>Added the relationship with multiple definitions in the Explicit Imports and Exports section.<br/>
+    </dd>
+
+    <dt>2012/02/27</dt>
+    <dd>
+Added specific descriptions to the Restrictions section about standard C functions and similar functions.
+    </dd>
+
+    <dt>2012/01/23</dt>
+    <dd>
+Added a note to the Restrictions section that static variables cannot be properly handled.
+    </dd>
+
+    <dt>2011/12/12</dt>
+    <dd>
+Added the Restrictions item to the section Features and Limitations of the RO Format, and moved the information about this topic to this item.<br />Clarified in Restrictions that the SDK's static libraries must not be made and used as DLLs.<br />Added the section Using Static Libraries.<br />Added the section Creating Static Modules.<br />Updated the section Special Functions to reflect the fact that <CODE>nnroUnresolved</CODE> can be used in static modules.<br />Touched up the section Explicit Imports and Exports.<br />Corrected the Explicit Imports example.<br />
+    </dd>
+
+    <dt>2011/09/26</dt>
+    <dd>
+Updated the Debugging section to reflect the debugging source code. Added the Revision History section.
+    </dd>
+
+    <dt>2011/08/03</dt>
+    <dd>
+        Initial version.
+    </dd>
+</dl>
+
+
+<div class="footer"><span>DLL Manual</span></div>
+
+  <hr /><p>CTR-06-0201-011-C<br />CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::dbg::CTR::ExceptionScreen</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dbg/Overview.html">dbg</a>::<a href="../../../../nn/dbg/CTR/Overview.html">CTR</a>::ExceptionScreen Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/dbg.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ExceptionScreen</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for displaying when there are CPU exceptions.</p><p>・ Displays messages to the screen using <code><a href="../../../../nn/dbg/CTR/DirectPrint/Overview.html">DirectPrint</a></code> when exceptions occur. <br />
+ ・ If the message cannot fit on the screen, it is scrolled automatically so it is displayed in its entirety. <br />
+ ・ After the auto-scrolling has ended, you can use Up/Down on the +Control Pad to scroll the screen. <br /></p><p>This class provides an easy way of parsing stack traces. Note that addresses that are not function calls might be included in the display.</p><p>We recommend use with <code><a href="../../../../nn/os/ManagedThread/Overview.html">nn::os::ManagedThread</a></code>. If an exception comes about on a thread that is not <code><a href="../../../../nn/os/ManagedThread/Overview.html">nn::os::ManagedThread</a></code>, then <code><a href="../../../../nn/dbg/CTR/ExceptionScreen/Overview.html">ExceptionScreen</a></code> moves toward the base of the stack from the location where the exception was thrown and parses the stack in the 16 KB range.</p><p>If the range at this time has exceeded the valid memory region, there might be an abort.</p><!-- write here --></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/ExceptionScreen/Option.html">Option</a>
+            </th>
+            <td>Option flags used with <code><a href="../../../../nn/dbg/CTR/ExceptionScreen/Create.html">Create</a></code>. Use a bitwise-OR to specify a combination.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/ExceptionScreen/Create.html">Create</a>
+            </th>
+            <td>Generates <code><a href="../../../../nn/dbg/CTR/ExceptionScreen/Overview.html">ExceptionScreen</a></code> and registers to the exception handler.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/ExceptionScreen/GetDirectPrint.html">GetDirectPrint</a>
+            </th>
+            <td>Gets an instance of the <code><a href="../../../../nn/dbg/CTR/DirectPrint/Overview.html">DirectPrint</a></code> class.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/ExceptionScreen/SetBuildInfo.html">SetBuildInfo</a>
+            </th>
+            <td>Sets information such as the build date and time and the revision number.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/ExceptionScreen/SetSuffix.html">SetSuffix</a>
+            </th>
+            <td>Sets suffix information.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/ExceptionScreen/HandleException.html">HandleException</a>
+            </th>
+            <td>Performs processing when there is an exception.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/ExceptionScreen/PutBackTraceString.html">PutBackTraceString</a>
+            </th>
+            <td>Generates a back-trace for the current thread.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/10/01</dt>
+        <dd><item xmlns="">Added a description concerning ManagedThread.</item><br />
+        </dd>
+        <dt>2012/04/20</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

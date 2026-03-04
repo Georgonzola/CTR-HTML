@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetStartupArgument</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::GetStartupArgument Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool GetStartupArgument(
+     void * pParam,
+     size_t paramSize = NN_APPLET_PARAM_BUF_SIZE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pParam</th>
+          <td>The buffer to get data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>paramSize</th>
+          <td>The size of the parameter to get data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>false</code> if the data could not be obtained. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the data that was specified when <code><a href="../../../nn/applet/CTR/RestartApplication.html">RestartApplication()</a></code> was called.</p><p>In a Debug/Development build, execution stops at an assert statement if <span class="argument">pParam</span> is <code>NULL</code>.  In a Release build, this function returns <tt>false</tt> because it cannot get data.</p></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../nn/applet/CTR/RestartApplication.html">RestartApplication</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/11</dt>
+        <dd><item xmlns="">Added a description of what happens when <code>NULL</code> is specified for the <span class="argument">pParam</span> argument.</item><br />
+        </dd>
+        <dt>2011/07/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

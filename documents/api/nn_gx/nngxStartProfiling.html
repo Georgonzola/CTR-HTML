@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxStartProfiling</title>
+  </head>
+  <body>
+    <h1>nngxStartProfiling Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxStartProfiling(
+     GLenum item
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>item</th>
+          <td>Profile feature.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Starts sampling profile information.</p><p>Starts the profiling functionality specified in <tt>item</tt>.</p><p>You can set the following values in <tt>item</tt>.<TABLE><TR><th>NN_GX_PROFILING_BUSY</th><TD>Starts incrementing the busy counter. Execution stops when the amount of time (measurement interval * sampling count) set in the <tt><a href="../nn_gx/nngxSetProfilingParameter.html">nngxSetProfilingParameter</a></tt> function has elapsed or when the <tt><a href="../nn_gx/nngxStopProfiling.html">nngxStopProfiling</a></tt> function is called.  When the sampling count is <tt>0</tt>, execution does not stop until the <tt><a href="../nn_gx/nngxStopProfiling.html">nngxStopProfiling</a></tt> function is called.  <br />Operation is undefined when starting profiling without configuring the relevant parameters by calling the <tt><a href="../nn_gx/nngxSetProfilingParameter.html">nngxSetProfilingParameter</a></tt> function. Be sure to configure the parameters with appropriate values before starting.</TD></TR><TR><th>NN_GX_PROFILING_VERTEX_CACHE</th><TD>Starts the vertex cache input vertex count counter. Execution stops when the <tt><a href="../nn_gx/nngxStopProfiling.html">nngxStopProfiling</a></tt> function is called.  Power consumption may rise when this feature starts. Always stop execution if this feature is not going to be used.</TD></TR></TABLE></p><p>Some profiling items require the specification of start and stop times for the sampling of profiling information.  If a profile item is not listed in the above table, the counter runs continuously for that item.  The results of profiling can be obtained even if sampling is not explicitly started using this function.</p><p>If the vertex cache input count counter is not started using this function, you can still obtain a profiling result as if the counter were running, but the value may not be correct.  Always start the counter by calling this function to get the correct profiling results.</p><p>Do not call this function while the GPU is executing (executing a command list).  Although errors will not occur if this function is called during GPU execution, the GPU may perform illegal operations.</p><p>This function generates the following errors.<TABLE><TR><th>GL_ERROR_80A2_DMP</th><TD>An illegal value was specified in <tt>item</tt>.</TD></TR></TABLE></p></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxStopProfiling.html">nngxStopProfiling</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/24</dt>
+        <dd><item xmlns="">Added explanation that parameters must be configured before starting the busy counter.</item><br />
+        </dd>
+        <dt>2011/07/28</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

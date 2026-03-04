@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Enumerate</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a>::Enumerate Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+static void Enumerate(
+     <a href="../../../nn/os/ManagedThread/EnumerateCallback/Overview.html">EnumerateCallback</a> * p
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>p</th>
+          <td>The pointer to the callback object.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enumerates the initialized <code><a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a></code> instances.</p><p>The <code>EnumerateCallback::operator()</code> function specified by p is called for every instance of <code><a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a></code> for which <code><a href="../../../nn/os/ManagedThread/Initialize.html">Initialize</a></code> has been called but not <code><a href="../../../nn/os/ManagedThread/Finalize.html">Finalize</a></code>.</p><p>The series of callbacks called internally by <code><a href="../../../nn/os/ManagedThread/Enumerate.html">Enumerate</a></code> is performed after a lock has been obtained, so during that process no calls to <code><a href="../../../nn/os/ManagedThread/Initialize.html">Initialize</a></code> and <code><a href="../../../nn/os/ManagedThread/Finalize.html">Finalize</a></code> can be made by other threads.</p><p>This function is thread-safe. Note, however, that thread safety is guaranteed only inside the function.</p><p>It is possible for <code><a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a></code> instances enumerated internally by this function to be finalized immediately after processing has returned from this function.</p><p>While this function is being called, calls by other threads to <code><a href="../../../nn/os/ManagedThread/Initialize.html">Initialize</a></code>, <code><a href="../../../nn/os/ManagedThread/Finalize.html">Finalize</a></code>, <code><a href="../../../nn/os/ManagedThread/FindByStackAddress.html">FindByStackAddress</a></code>, <code><a href="../../../nn/os/ManagedThread/FindById.html">FindById</a></code>, and <code><a href="../../../nn/os/ManagedThread/Enumerate.html">Enumerate</a></code> are blocked.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/13</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

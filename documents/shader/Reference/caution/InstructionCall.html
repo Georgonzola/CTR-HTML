@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>Instructions That Cannot be Called Twice Consecutively</title>
+  </head>
+  <body>
+    <h1><a name="top">Instructions That Cannot be Called Twice Consecutively</a></h1>
+    <div class="section">
+      <p>
+        Some instructions and certain combinations of instructions cannot be called consecutively.<br />
+      </p>
+    </div>
+
+    <h2><a name="block_end">Consecutive Calls to else, endif, ret, and endloop</a></h2>
+    <div class="section">
+      <p>
+        You cannot call <CODE>else</CODE>, <CODE>endif</CODE>, <CODE>ret</CODE>, and <CODE>endloop</CODE> consecutively. <br /> Example:<br />
+<pre class="definition">
+ifb     b0
+  nop
+  nop
+  ifb     b1
+    nop
+  else
+    nop
+    nop
+  endif // Error
+else
+  nop
+  nop
+  call    subroutine // Error because 'ret' is called at the end of the calling subroutine
+endif
+</pre>
+      </p>
+    </div>
+
+    <h2><a name="call_mova">Consecutive Calls to mova</a></h2>
+    <div class="section">
+      <p>
+        The mova instruction cannot be called twice consecutively.<br />
+      </p>
+    </div>
+
+
+    <h2><a name="call_jump">Calling jpc/jpb immediately before an else, endif, ret, or endloop</a></h2>
+    <div class="section">
+      <p>
+        You cannot call <CODE>jpc</CODE> or <CODE>jpb</CODE> immediately before an <CODE>else</CODE>, <CODE>endif</CODE>, <CODE>ret</CODE>, or <CODE>endloop</CODE>.<br /> <br /> Example:<br />
+<pre class="definition">
+ifb     b0
+  nop
+  nop
+  jumplabel:
+  nop
+  nop
+  jpb     b1, true, jumplabel // jpb cannot be called immediately before an endif
+endif
+</pre>
+      </p>
+    </div>
+
+    <h2><a name="call_breakc">Calling breakc immediately before an endloop</a></h2>
+    <div class="section">
+      <p>
+        You cannot call <CODE>breakc</CODE> immediately before <CODE>endloop</CODE>.<br /> <br /> Example:<br />
+<pre class="definition">
+loop    i0
+  nop
+  breakc  1, 1, 1 // You cannot call breakc immediately before endloop
+endloop
+</pre>
+      </p>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

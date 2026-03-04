@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxStopCmdlist</title>
+  </head>
+  <body>
+    <h1>nngxStopCmdlist Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxStopCmdlist(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Stops execution of the command list.</p><P>You cannot stop a command that is already running when this function is called.</P><P>Calling the <tt><a href="../nn_gx/nngxRunCmdlist.html">nngxRunCmdlist</a></tt> function runs each command request in the command list object in turn. When this function is called, execution stops after the command currently running completes. (Commands are not interrupted if they have already started running or were issued in advance and are waiting to run. The number of commands issued in advance depends on the system.)</P><P>This function merely specifies to stop a command list execution, and it does not actually wait for command execution to stop. To confirm that command execution has stopped, use the <tt><a href="../nn_gx/nngxGetCmdlistParameteri.html">nngxGetCmdlistParameteri</a></tt> function or call the <tt><a href="../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a></tt> to wait for command execution to end. </P><P>To resume command request processing that has been stopped, call the <tt><a href="../nn_gx/nngxRunCmdlist.html">nngxRunCmdlist</a></tt> function.</P><P>No errors occur in this function.</P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxRunCmdlist.html">nngxRunCmdlist</a><br /><a href="../nn_gx/nngxGetCmdlistParameteri.html">nngxGetCmdlistParameteri</a><br /><a href="../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/11/29</dt>
+        <dd><item xmlns="">Added information that this function does not wait for command execution to stop.</item><br />
+        </dd>
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added the See Also section.</item><br />
+        </dd>
+        <dt>2010/10/07</dt>
+        <dd><item xmlns="">Supplemented the text for the <tt>nngxRunCmdlist</tt> function.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

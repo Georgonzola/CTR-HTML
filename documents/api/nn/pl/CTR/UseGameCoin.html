@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>UseGameCoin</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/pl/Overview.html">pl</a>::<a href="../../../nn/pl/CTR/Overview.html">CTR</a>::UseGameCoin Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> UseGameCoin(
+     <a href="../../../nn_types/u16.html">u16</a> * pCount,
+     <a href="../../../nn_types/u16.html">u16</a> useCount
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pCount</th>
+          <td>The number of Play Coins owned after spending.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>useCount</th>
+          <td>The number of Play Coins to spend.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Consumes (spends) only the specified number of Play Coins.</p><p>This function entails a heavy processing load and also writes to NAND.</p><p>If the function succeeds, the number of Play Coins owned after spending is stored in the pCount parameter. <br />
+ If the function fails, an undefined value is stored there.</p><p>If <code><a href="../../../nn/pl/ResultLackOfGameCoin/Overview.html">nn::pl::ResultLackOfGameCoin</a></code> is returned, it means there were not enough Play Coins.</p><p>Use the <code><a href="../../../nn/pl/CTR/GetGameCoinCount.html">nn::pl::CTR::GetGameCoinCount</a></code> function to determine the number of Play Coins owned, and set a value equal to or less than this number for the useCount parameter.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/19</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

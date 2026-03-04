@@ -1,0 +1,451 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::cec::CTR::MessageBox</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cec/Overview.html">cec</a>::<a href="../../../../nn/cec/CTR/Overview.html">CTR</a>::MessageBox Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class MessageBox</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This class is used to access CEC <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code> objects.</p><p>It allows you to create and delete boxes, write and load messages, get box information, and so on. <br />
+ By creating a box with the <code><a href="../../../../nn/cec/CTR/MessageBox/CreateMessageBox.html">CreateMessageBox</a></code> function and then opening it with the <code><a href="../../../../nn/cec/CTR/MessageBox/OpenMessageBox.html">OpenMessageBox</a></code> function, you can access the messages in that box. <br />
+ You can use the <code><a href="../../../../nn/cec/CTR/MessageBox/WriteMessage.html">WriteMessage</a></code> function to write messages to a box. Messages written to the outbox are sent. Received messages are stored in the inbox and can be read with the <code><a href="../../../../nn/cec/CTR/MessageBox/ReadMessage.html">ReadMessage</a></code> function. <br />
+ Call the <code><a href="../../../../nn/cec/CTR/MessageBox/CloseMessageBox.html">CloseMessageBox()</a>/tt> function when you have finished accessing the box. Changes are committed when you call the <code>CloseMessageBox</code>/<code><a href="../../../../nn/cec/CTR/MessageBox/CommitMessageBox.html">CommitMessageBox</a></code> pair. If the program is ended before changes are committed, all changes up to that point are reverted. Changes may also be reverted due to system operations, even when communication control returns to the system, such as when transitioning to Sleep Mode/Home Menu. <br />
+ Treat the interval from <code>Open/Create</code> to <code>Close</code> as a single unit of processing and block entry to Sleep Mode/Home Menu during that time. <br /><br />
+ When a message is created and written, a <code><a href="../../../../nn/cec/CTR/MessageId/Overview.html">MessageId</a></code> is given to the message. The <code><a href="../../../../nn/cec/CTR/MessageId/Overview.html">MessageId</a></code> is a randomly generated unique value, and each message is accessed using this value as the key. <br /><br />
+ Use the <code>GetMessageXXX</code> functions to get various information, such as the attributes of individual messages. <br />
+ Because the <code>GetMessageXXX</code> functions retrieve information from the message list stored in the system, they can get information faster than the message itself can be accessed with <code>ReadMessage</code>. This information is read from the system when the <code>OpenMessageBox</code> function is called. <br />
+ It is possible that the message list stored in the system and the information in the messages themselves may become unsynchronized due to an unexpected power outage or other interruption. (For example, you may be able to get the message ID but <code>ReadMessage</code> may fail.) The message list is regenerated when a message is written with <code>WriteMessage</code>, but if processing enters an irrecoverable state, delete it using <code><a href="../../../../nn/cec/CTR/MessageBox/DeleteAllMessages.html">DeleteAllMessages</a></code> and then <code><a href="../../../../nn/cec/CTR/MessageBox/DeleteMessageBox.html">DeleteMessageBox</a></code>. <br /><br />
+ Do not adopt implementations that periodically call the <code>OpenMessageBox</code> and <code>CloseMessageBox</code> functions to check the arrival of messages in real time. Because communication stops whenever the <code>OpenMessageBox</code> function is called, send and receive processes cannot be executed in the background. Use the <code>GetCecEvent</code> and <code>GetCecInfoBuffer</code> functions to find out if there has been communication. <br /><br />
+ Using this class requires running the <code><a href="../../../../nn/aacdec/CTR/Initialize.html">nn::cec::Initialize()</a></code> function in advance. <br />
+ The EULA version to which the user has agreed is checked when a message is written by the <code><a href="../../../../nn/cec/CTR/MessageBox/WriteMessage.html">WriteMessage</a></code> function. <br />
+ You must initialize the FS library before calling this function because the check uses <code>FS</code> library features. </code></p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Create/Delete a Message Box</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/CreateMessageBox.html">CreateMessageBox</a>
+            </th>
+            <td>Creates a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>. An inbox and outbox are created within the message box. <br />
+ Any <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code> set in the outbox is automatically sent during StreetPass communication, and any received data is stored in the inbox.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/DeleteMessageBox.html">DeleteMessageBox</a>
+            </th>
+            <td>Deletes a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/OpenMessageBox.html">OpenMessageBox</a>
+            </th>
+            <td>Opens a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>. You must use this function to open a box before you can access the messages within it.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/CloseMessageBox.html">CloseMessageBox</a>
+            </th>
+            <td>Closes the <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>. This function is called when you have finished accessing the box.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/IsOpened.html">IsOpened</a>
+            </th>
+            <td>Gets whether a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code> is already opened.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Message Operations</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/ReadMessage.html">ReadMessage</a>
+            </th>
+            <td>Reads a <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/WriteMessage.html">WriteMessage</a>
+            </th>
+            <td>Writes a <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code> to the system save region.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/DeleteMessage.html">DeleteMessage</a>
+            </th>
+            <td>Deletes a <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/DeleteAllMessages.html">DeleteAllMessages</a>
+            </th>
+            <td>Deletes all messages in the box.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/CommitMessageBox.html">CommitMessageBox</a>
+            </th>
+            <td>Commits the data written in the system save region.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Controlling Boxes and Getting Information</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageBoxData.html">GetMessageBoxData</a>
+            </th>
+            <td>Gets the data associated with a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageBoxDataSize.html">GetMessageBoxDataSize</a>
+            </th>
+            <td>Gets the data size associated with a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/SetMessageBoxData.html">SetMessageBoxData</a>
+            </th>
+            <td>Sets the data associated with a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/SetMessageBoxName.html">SetMessageBoxName</a>
+            </th>
+            <td>Sets the name of a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/SetMessageBoxIcon.html">SetMessageBoxIcon</a>
+            </th>
+            <td>Sets a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>'s icon.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageBoxName.html">GetMessageBoxName</a>
+            </th>
+            <td>Gets the name of a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageBoxIcon.html">GetMessageBoxIcon</a>
+            </th>
+            <td>Gets a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>'s icon.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Getting Message Box Information</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetBoxSizeMax.html">GetBoxSizeMax</a>
+            </th>
+            <td>Gets the capacity of the inbox or outbox.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetBoxSize.html">GetBoxSize</a>
+            </th>
+            <td>Gets the used capacity of the inbox or outbox.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetBoxMessageNumMax.html">GetBoxMessageNumMax</a>
+            </th>
+            <td>Gets the maximum number of messages in the inbox or outbox.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetBoxMessageNum.html">GetBoxMessageNum</a>
+            </th>
+            <td>Gets the number of messages in the inbox or outbox.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetBoxGroupNumMax.html">GetBoxGroupNumMax</a>
+            </th>
+            <td>Gets the maximum number of message groups in the inbox or outbox.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetBoxGroupNum.html">GetBoxGroupNum</a>
+            </th>
+            <td>Gets the number of message groups in the inbox or outbox.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/SetBoxGroupNumMax.html">SetBoxGroupNumMax</a>
+            </th>
+            <td>Sets the maximum number of message groups in the inbox or outbox.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetBoxSessionNum.html">GetBoxSessionNum</a>
+            </th>
+            <td>Gets the Session ID count for (the number of items received in) the inbox.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Getting Message Information (Old API)</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetInBoxMessIdByIndex.html">GetInBoxMessIdByIndex</a>
+            </th>
+            <td>Gets the message ID of the <code>n</code><superscript>th</superscript> message in the inbox.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetOutBoxMessIdByIndex.html">GetOutBoxMessIdByIndex</a>
+            </th>
+            <td>Gets the message ID of the <code>n</code><superscript>th</superscript> message in the outbox.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessSizeByMessId.html">GetMessSizeByMessId</a>
+            </th>
+            <td>Gets the size of the message with the specified message ID.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Getting Message Information</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageSize.html">GetMessageSize</a>
+            </th>
+            <td>Gets the size of a message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageBodySize.html">GetMessageBodySize</a>
+            </th>
+            <td>Gets the size of a message's body.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageGroupId.html">GetMessageGroupId</a>
+            </th>
+            <td>Gets the group ID of a message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageSessionId.html">GetMessageSessionId</a>
+            </th>
+            <td>Gets an inbox message's session ID. (The ID assigned when received.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageTypeFlag.html">GetMessageTypeFlag</a>
+            </th>
+            <td>Gets the <code><a href="../../../../nn/cec/CTR/MessageTypeFlag.html">MessageTypeFlag</a></code> of a box message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageSendMode.html">GetMessageSendMode</a>
+            </th>
+            <td>Gets the <code><a href="../../../../nn/cec/CTR/SendMode.html">SendMode</a></code> of a box message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageSendCount.html">GetMessageSendCount</a>
+            </th>
+            <td>Gets the send count of a message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessagePropagationCount.html">GetMessagePropagationCount</a>
+            </th>
+            <td>Gets the propagation count of a message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageTag.html">GetMessageTag</a>
+            </th>
+            <td>Gets the message tag of a message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageSendDate.html">GetMessageSendDate</a>
+            </th>
+            <td>Gets the timestamp of when a received message was sent.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageRecvDate.html">GetMessageRecvDate</a>
+            </th>
+            <td>Gets the timestamp of when a message was received.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageCreateDate.html">GetMessageCreateDate</a>
+            </th>
+            <td>Gets the timestamp of when a message was created.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageIdPair.html">GetMessageIdPair</a>
+            </th>
+            <td>Gets the ID of the exchanged message that forms a pair with this one. When the communication method (<code><a href="../../../../nn/cec/CTR/SendMode.html">SendMode</a></code>) is "exchange," the message ID of the message sent by the other peer is recorded in the received message, forming a pair.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageId.html">GetMessageId</a>
+            </th>
+            <td>Gets the <code>MessageID</code> of a message.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetMessageIndex.html">GetMessageIndex</a>
+            </th>
+            <td>Gets a message's index (<emphasis>messIndex</emphasis>) based on its <code>MessageID</code>.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/SetBoxActivate.html">SetBoxActivate</a>
+            </th>
+            <td>Specifies whether a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code> is enabled or disabled. A disabled message box does not send or receive data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/GetBoxActivate.html">GetBoxActivate</a>
+            </th>
+            <td>Gets whether a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code> is enabled or disabled. A disabled message box does not send or receive data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/CanCreateMessageBox.html">CanCreateMessageBox</a>
+            </th>
+            <td>Checks whether a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code> for the specified StreetPass ID can be created.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/cec/CTR/MessageBox/RoundOutBoxIndex.html">RoundOutBoxIndex</a>
+            </th>
+            <td>Moves the message with the specified message ID to the end of the outbox's outgoing message queue. (The message ID order is automatically changed when a message is sent, so there is normally no need to call this function.)</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/02/13</dt>
+        <dd><item xmlns="">Added that cec initialization is necessary before using the <tt>MessageBox</tt> class.</item><br />
+        </dd>
+        <dt>2013/08/19</dt>
+        <dd><item xmlns="">Noted that there can be no line breaks in the string for the name argument in <tt>CreateMessageBox</tt>.</item><br />
+        </dd>
+        <dt>2011/03/18</dt>
+        <dd><item xmlns="">Renamed functions as follows: GetBoxMessNumMax to GetBoxMessageNumMax; GetBoxMessNum to GetBoxMessageNum; GetMessageMessSize to GetMessageSize; GetMessageMessTypeFlag  to GetMessageTypeFlag; GetMessageMessIdPairto GetMessageIdPair; GetMessageMessId to GetMessageId; GetMessIndex to GetMessageIndex</item><br />
+        </dd>
+        <dt>2011/01/24</dt>
+        <dd><item xmlns="">Added description of errors in OpenMessageBox, ReadMessage, and WriteMessage.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

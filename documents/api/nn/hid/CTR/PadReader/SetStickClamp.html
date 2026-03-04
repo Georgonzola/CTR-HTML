@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetStickClamp</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hid/CTR/PadReader/Overview.html">PadReader</a>::SetStickClamp Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetStickClamp(
+     <a href="../../../../nn_types/s16.html">s16</a> min,
+     <a href="../../../../nn_types/s16.html">s16</a> max
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>min</th>
+          <td>Lower limit for clamping. By default, this is <code><a href="../../../../nn/hid/CTR/MIN_OF_STICK_CLAMP_MODE_CIRCLE.html">nn::hid::CTR::MIN_OF_STICK_CLAMP_MODE_CIRCLE</a></code> for circular clamping and <code><a href="../../../../nn/hid/CTR/MIN_OF_STICK_CLAMP_MODE_CROSS.html">nn::hid::CTR::MIN_OF_STICK_CLAMP_MODE_CROSS</a></code> for cross-shaped clamping.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>max</th>
+          <td>Upper limit for clamping. The default value is <code><a href="../../../../nn/hid/CTR/LIMIT_OF_STICK_CLAMP_MAX.html">nn::hid::CTR::LIMIT_OF_STICK_CLAMP_MAX</a></code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the clamp values for the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</p><p>For max, specify a value less than or equal to <code><a href="../../../../nn/hid/CTR/LIMIT_OF_STICK_CLAMP_MAX.html">nn::hid::CTR::LIMIT_OF_STICK_CLAMP_MAX</a></code>. <br />
+ The values that can be specified for min depend on the clamp mode that was set by the <code>SetStickClampMode</code> function. <br />
+ For circular clamping, specify a value of <code><a href="../../../../nn/hid/CTR/MIN_OF_STICK_CLAMP_MODE_CIRCLE.html">nn::hid::CTR::MIN_OF_STICK_CLAMP_MODE_CIRCLE</a></code> or greater. <br />
+ For cross-shaped clamping, specify a value of <code><a href="../../../../nn/hid/CTR/MIN_OF_STICK_CLAMP_MODE_CROSS.html">nn::hid::CTR::MIN_OF_STICK_CLAMP_MODE_CROSS</a></code> or greater. <br />
+ The <code>min</code> value for minimal clamping is fixed at <code><a href="../../../../nn/hid/CTR/MIN_OF_STICK_CLAMP_MODE_CIRCLE.html">nn::hid::CTR::MIN_OF_STICK_CLAMP_MODE_CIRCLE</a></code>, and any set value is ignored. <br />
+ If a value that exceeds one of these limits is specified, it is clamped to the limit before being applied. <br />
+ The values for max and min are managed separately for each clamp mode.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/09</dt>
+        <dd><item xmlns="">Revised Japanese terminology for the Circle Pad.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

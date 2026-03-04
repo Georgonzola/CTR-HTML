@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetFramebufferAttachmentParameteriv</title>
+  </head>
+  <body>
+    <h1>glGetFramebufferAttachmentParameteriv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetFramebufferAttachmentParameteriv(
+     GLenum target,
+     GLenum attachment,
+     GLenum pname,
+     GLint * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Target framebuffer object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>attachment</th>
+          <td>Name of the attachment point of the parameter to get.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Region that stores the retrieved parameter.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets an attachment parameter for a framebuffer object.</p><P>Set <span class="argument">target</span> to <tt>GL_FRAMEBUFFER</tt>.</P><P>Set <span class="argument">attachment</span> to one of the following values.<TABLE><TR><TH>GL_COLOR_ATTACHMENT0</TH><TD>Gets color buffer parameters.</TD></TR><TR><TH>GL_DEPTH_ATTACHMENT</TH><TD>Get depth buffer parameters.</TD></TR><TR><TH>GL_DEPTH_STENCIL_ATTACHMENT</TH><TD>Gets both depth buffer and stencil buffer parameters.</TD></TR></TABLE><!-- source attachmentにはGL_COLOR_ATTACHMENT0、GL_DEPTH_ATTACHMENT、GL_DEPTH_STENCIL_ATTACHMENTを指定します。 GL_COLOR_ATTACHMENT0を指定した場合、カラーバッファのパラメータ値を取得します。 GL_DEPTH_ATTACHMENTを指定した場合、デプスバッファのパラメータ値を取得します。 GL_DEPTH_STENCIL_ATTACHMENTを指定した場合、デプスバッファおよびステンシルバッファのパラメータ値を取得します。 --></P><P>You can set <span class="argument">pname</span> to the following values.<TABLE><TR><TH>GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE</TH><TD>Gets the attached object type.</TD></TR><TR><TH>GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME</TH><TD>Gets the attached object name.</TD></TR><TR><TH>GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL</TH><TD>If there is an attached texture, gets its mipmap level.</TD></TR><TR><TH>GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE</TH><TD>If there is an attached cube-map texture, gets its cube map face.</TD></TR></TABLE><!-- source pnameにはGL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE、GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME、GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL、 GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACEを指定します。 GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPEを指定した場合、アタッチされているオブジェクトタイプが取得されます。 オブジェクトがアタッチされている場合、GL_RENDERBUFFERまたはGL_TEXTUREが取得されます。 オブジェクトがアタッチされていない場合、GL_NONEが取得されます。 GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAMEを指定した場合、アタッチされているオブジェクト名が取得されます。 GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVELを指定した場合、テクスチャがアタッチされている場合にテクスチャのミップマップレベルが取得されます。 GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACEを指定した場合、キューブマップテクスチャがアタッチされている場合にキューブマップフェイスが取得されます。 --></P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span>, <span class="argument">attachment</span>, or <span class="argument">pname</span> argument was set to an invalid value.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">pname</span> argument was set to <tt>GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL</tt> or <tt>GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE</tt> for an attachment point with a render buffer attached.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>No object has been attached to <span class="argument">attachment</span>, and <span class="argument">pname</span> is not <tt>GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE</tt>.</TD></TR></TABLE><!-- source target、attachment、pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 レンダーバッファがアタッチされているアタッチメントポイントに対して、pnameにGL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVELまたは GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACEを指定した場合エラーGL_INVALID_ENUMを生成します。 attachmentにオブジェクトがアタッチされていない、かつpnameがGL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPEではない場合 エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetFriendPresence</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::GetFriendPresence Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> GetFriendPresence(
+     <a href="../../../nnfriendsFriendPresence/Overview.html">FriendPresence</a> * pFriendPresenceList,
+     const <a href="../../../nnfriendsFriendKey/Overview.html">FriendKey</a> * pFriendKeyList,
+     size_t size = 1
+);
+
+<a href="../../../nn/Result/Overview.html">Result</a> GetFriendPresence(
+     <a href="../../../nnfriendsFriendPresence/Overview.html">FriendPresence</a> * pFriendPresenceList,
+     const <a href="../../../nn/friends/CTR/PrincipalId.html">PrincipalId</a> * pPrincipalIdList,
+     size_t size = 1
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./GetFriendPresence(0).html">GetFriendPresence ( FriendPresence *, const FriendKey *, size_t ) </a>
+          </td>
+          <td>Gets a list of friend presence information. Cannot acquire the invitation flag and game mode of a friend who has a different matchmaking game ID specified. <br /><br />
+ Returns an empty presence in this buffer if there is no friend corresponding to the key passed in the arguments. The function still returns success in this case. <br /><br />
+ The function retrieves an empty presence when a non-existent friend is specified. This state is represented by a <code><a href="../../../nn/friends/CTR/FriendPresence.html">nn::friends::CTR::FriendPresence</a></code> structure that sets <code>isValid</code> to <code>false</code>. If the friend is offline, or has made the online status private, the obtained presence sets <code>isValid</code> to <code>true</code>, but <code>isOnline</code> is <code>false</code>, and the <code>gameMode</code> structure is filled with zeros.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./GetFriendPresence(1).html">GetFriendPresence ( FriendPresence *, const PrincipalId *, size_t ) </a>
+          </td>
+          <td>Gets a list of friend presence information. Cannot acquire the invitation flag and game mode of a friend who has a different matchmaking game ID specified. <br /><br />
+ Returns an empty presence in this buffer if there is no friend corresponding to the key passed in the arguments. The function still returns success in this case. <br /><br />
+ The function retrieves an empty presence when a non-existent friend is specified. This state is represented by a <code><a href="../../../nn/friends/CTR/FriendPresence.html">nn::friends::CTR::FriendPresence</a></code> structure that sets <code>isValid</code> to <code>false</code>. If the friend is offline, or has made the online status private, the obtained presence sets <code>isValid</code> to <code>true</code>, but <code>isOnline</code> is <code>false</code>, and the <code>gameMode</code> structure is filled with zeros.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of GetFriendPresence ( FriendPresence *, const FriendKey *, size_t ) </h2>
+    <div class="section"><!-- write here --></div>
+    <h2>Description of GetFriendPresence ( FriendPresence *, const PrincipalId *, size_t ) </h2>
+    <div class="section"><!-- write here --></div>
+  </body>
+</html>

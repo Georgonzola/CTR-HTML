@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>SetHeapSize</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/os/Overview.html">os</a>::SetHeapSize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+<a href="../../nn/Result/Overview.html">Result</a> SetHeapSize(
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the new heap size. You must specify a value for size that is a multiple of <code>HEAP_UNITSIZE</code> (4096) and is 100,663,296 (96 Mi) or less.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Changes the size of the heap.</p><p>It is inappropriate to call this function if <code>nninitStartUp</code> is not being replaced in the application. In an environment where assertions are enabled, processing stops if this function is called without replacing <code>nninitStartUp</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to size.</item><br />
+        </dd>
+        <dt>2014/03/26</dt>
+        <dd><item xmlns="">Added a description of the <tt>size</tt> argument.</item><br />
+        </dd>
+        <dt>2012/03/12</dt>
+        <dd><item xmlns="">Added information about the relationship to <tt>nninitStartUp</tt>.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

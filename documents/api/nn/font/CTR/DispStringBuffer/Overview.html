@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::font::CTR::DispStringBuffer</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/font/Overview.html">font</a>::<a href="../../../../nn/font/CTR/Overview.html">CTR</a>::DispStringBuffer Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct DispStringBuffer
+{
+   <a href="../../../../nn_types/u16.html">u16</a> charCount;
+   <a href="../../../../nn_types/u16.html">u16</a> drawCharCount;
+   <a href="../../../../nn_types/u8.html">u8</a> generatedCommand;
+   <a href="../../../../nn_types/u8.html">u8</a> * drawFlags;
+   <a href="../../../../nn_types/u32.html">u32</a> * commandBuffer;
+   <a href="../../../../nn_types/u32.html">u32</a> commandBufferSize;
+   <a href="../../../../nn_types/u32.html">u32</a> commandBufferCapacity;
+   <a href="../../../../nn_types/u32.html">u32</a> textColorCommandOffset;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A class that manages a buffer for displaying strings.</p><!-- write here --></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">charCountMax</span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>Number of characters that can be stored.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">charCount</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>The number of stored characters.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">drawCharCount</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>The number of characters for which to generate rendering commands.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">generatedCommand</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>Commands were generated.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">drawFlags</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a> *</td>
+            <td>An array of flags.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">commandBuffer</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a> *</td>
+            <td>A command buffer.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">commandBufferSize</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The command buffer size that is in use.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">commandBufferCapacity</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The command buffer capacity.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">textColorCommandOffset</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>Offset to the text color command.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/font/CTR/DispStringBuffer/GetCharAttrs.html">GetCharAttrs</a>
+            </th>
+            <td>Vertex attribute array.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/font/CTR/DispStringBuffer/DispStringBuffer.html">DispStringBuffer</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/font/CTR/DispStringBuffer/ClearCommand.html">ClearCommand</a>
+            </th>
+            <td>Clears a command.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/font/CTR/DispStringBuffer/IsGeneratedCommand.html">IsGeneratedCommand</a>
+            </th>
+            <td>Determines whether a command has already been generated.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/font/CTR/DispStringBuffer/IsCommandEmpty.html">IsCommandEmpty</a>
+            </th>
+            <td>Determines whether a command is empty.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/font/CTR/DispStringBuffer/GetDrawCharCount.html">GetDrawCharCount</a>
+            </th>
+            <td>Gets the number of characters for which to generate rendering commands.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/font/CTR/DispStringBuffer/SetDrawCharCount.html">SetDrawCharCount</a>
+            </th>
+            <td>Sets the number of characters for which to generate rendering commands.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/font/CTR/DispStringBuffer/ResetDrawCharCount.html">ResetDrawCharCount</a>
+            </th>
+            <td>Resets the number of characters for which to generate rendering commands.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

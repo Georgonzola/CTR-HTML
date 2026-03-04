@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>IsBusy</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::IsBusy Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool IsBusy(
+     <a href="../../../nn/camera/CTR/Port.html">Port</a> port
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>port</th>
+          <td>Specifies the port to check.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if currently capturing; otherwise, returns <code>false</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets whether the <a href="../../../nn/camera/Overview.html">camera</a> is currently capturing image data.</p><P>In specific terms, the cameras begin capturing image data at the end of the next camera V-Blank after calling <tt><a href="../../../nn/camera/CTR/StartCapture.html">nn::camera::CTR::StartCapture</a></tt>, and they continue capturing until the beginning of the next camera V-Blank after calling <tt><a href="../../../nn/camera/CTR/StopCapture.html">nn::camera::CTR::StopCapture</a></tt>. </P><P>If the following functions are called during a camera V-Blank, the camera state is updated during that V-Blank instead of the next V-Blank.</P><P>If the camera was stopped by a call to <tt><a href="../../../nn/camera/CTR/Activate.html">nn::camera::CTR::Activate</a>( SELECT_NONE )</tt> before calling <tt><a href="../../../nn/camera/CTR/StopCapture.html">nn::camera::CTR::StopCapture</a></tt>, this function might always return true, depending on when the <tt><a href="../../../nn/camera/CTR/Activate.html">nn::camera::CTR::Activate</a></tt> function was called. In this case, when the <tt><a href="../../../nn/camera/CTR/Activate.html">nn::camera::CTR::Activate</a></tt> function is run on either camera again, this function returns <tt>false</tt>.  To ensure this function returns <tt>false</tt> while the camera is actually stopped, call the <tt><a href="../../../nn/camera/CTR/StopCapture.html">nn::camera::CTR::StopCapture</a></tt> function, and then, after confirming that this function returns <tt>false</tt>, stop the camera with <tt><a href="../../../nn/camera/CTR/Activate.html">nn::camera::CTR::Activate</a>( SELECT_NONE )</tt>. </P><P>Closing the cover of the system automatically stops the camera.  For this reason, depending on the timing of when the cover is closed, this function may enter a state where it always returns <tt>true</tt>.  When the cover is opened, the system automatically restarts the camera, and the above state is canceled. But when a process to transition from the cover closed to sleep is implemented, be aware that if this function performs polling, it may not be able to exit from the loop.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/01</dt>
+        <dd><item xmlns="">Added an explanation about what happens when the camera is stopped and when the cover is closed.</item><br />
+        </dd>
+        <dt>2010/04/09</dt>
+        <dd><item xmlns="">Added description text.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

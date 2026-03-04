@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>WriteMessage</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cec/Overview.html">cec</a>::<a href="../../../../nn/cec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a>::WriteMessage Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/Result/Overview.html">nn::Result</a> WriteMessage(
+     const <a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a> & cecMessage,
+     const <a href="../../../../nn/cec/CTR/CecBoxType.html">CecBoxType</a> boxType,
+     <a href="../../../../nn/cec/CTR/MessageId/Overview.html">MessageId</a> & messageIdOut
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>cecMessage</th>
+          <td>An object of the <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code> class.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>boxType</th>
+          <td>Inbox and outbox specification.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>messageIdOut</th>
+          <td>Returns the <code><a href="../../../../nn/cec/CTR/MessageId/Overview.html">MessageId</a></code> that is assigned during the write operation.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns an <code><a href="../../../../nn/Result/Overview.html">nn::Result</a></code> value.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultNotAuthorized</th>
+          <td>The box has not been opened.</td>
+        </tr>
+        <tr>
+          <th>ResultMessTooLarge</th>
+          <td>The message is too large.</td>
+        </tr>
+        <tr>
+          <th>ResultBoxSizeFull</th>
+          <td>The box's capacity has been exceeded.</td>
+        </tr>
+        <tr>
+          <th>ResultBoxMessNumFull</th>
+          <td>The maximum number of boxes has been exceeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNoData</th>
+          <td>No message body or icon has been set for the message.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidCombination</th>
+          <td>The send count and propagation count have both been set equal to a value of <code>2</code> or greater.</td>
+        </tr>
+        <tr>
+          <th>ResultNotAgreeEula</th>
+          <td>The EULA has not been agreed to, or no icon file (<code>.icn</code>) is configured in the ROM.</td>
+        </tr>
+        <tr>
+          <th>ResultParentalControlCec</th>
+          <td>Not allowed by Parental Controls.</td>
+        </tr>
+        <tr>
+          <th>ResultStateBusy</th>
+          <td>Cannot access because the daemon is busy (<code>BUSY</code> state). It may succeed if you wait some time before accessing again.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Writes a <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code> to the system save region.</p><p>The message cannot be written if it is larger than 100 KB (including data such as the header and icon), or if it would exceed the box's maximum save capacity or maximum number of messages. You can use the <code><a href="../../../../nn/cec/CTR/Message/GetMessageSize.html">Message::GetMessageSize</a></code> function to get the message size. <br />
+ Because NAND memory (the save region) uses a block size of 4 KB, for some message sizes it may be impossible to write up to the maximum storage capacity. If the message size is 5 KB, a NAND memory region of 8 KB is used for storing the message. After usage exceeds 1024 KB, messages cannot be written to memory. The number of 5 KB messages that can be stored (in the inbox and outbox combined) is 1024/8 = 128 messages. <br />
+ Written data is committed when the <code>CloseMessageBox</code> or <code><a href="../../../../nn/cec/CTR/MessageBox/CommitMessageBox.html">CommitMessageBox</a></code> function is called after a write operation has been made. <br />
+ The EULA version to which the user has agreed is checked when a message is written. If an icon file (<code>.icn</code>) is not set in the ROM, <code><a href="../../../../nn/cec/ResultNotAgreeEula/Overview.html">ResultNotAgreeEula</a></code> is returned. <br />
+ You must initialize the FS library before calling this function because the check uses <code>FS</code> library features.</p><!-- write here --><h3>Error Handling</h3>The following simplified C++ code provides guidelines for error handling. <br /><pre>
+    nn::Result result = WriteMessage();
+    if(result.IsFailure())
+    {
+        if(result == nn::cec::ResultNotAgreeEula())
+        {
+            // The user has not agreed to the EULA.
+        }
+        else if(result == nn::cec::ResultParentalControlCec())
+        {
+            // Not permitted by Parental Controls.
+        }
+        else if(result == nn::cec::ResultNotAuthorized())
+        {
+            // Box is not open.
+            //  --> OpenMessageBox
+        }
+        else if(result == nn::cec::ResultBoxSizeFull() || result == nn::cec::ResultBoxMessNumFull())
+        {
+            // Outbox capacity exceeded.
+            // You must delete some outbox messages -> DeleteMessage/DeleteAllMessages
+        }
+        else if(result == nn::cec::ResultMessTooLarge() || result == nn::cec::ResultNoData() 
+             || result == nn::cec::ResultInvalidCombination() )
+        {
+            // Invalid message.
+        }
+        else if(result == nn::cec::ResultStateBusy() )
+        {
+            // Daemon is BUSY. This state usually does not occur, but it might be possible to succeed by retrying.
+        }
+        else
+        {
+            // Error
+        }
+        return result;	// Failure
+    }
+    return result;  // Success
+
+    </pre></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/01/19</dt>
+        <dd><item xmlns="">Added a description of error handling.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

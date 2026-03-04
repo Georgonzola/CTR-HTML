@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetDepthRangeMode</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/OutputStage/Overview.html">OutputStage</a>::SetDepthRangeMode Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static void SetDepthRangeMode(
+     <a href="../../../../nn/gd/CTR/OutputStage/DepthBufferType.html">DepthBufferType</a> type,
+     <a href="../../../../nn_types/f32.html">f32</a> depthRangeNear,
+     <a href="../../../../nn_types/f32.html">f32</a> depthRangeFar,
+     <a href="../../../../nn_types/s32.html">s32</a> offset
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>type</th>
+          <td>Specifies the type of depth buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>depthRangeNear</th>
+          <td>If the depth buffer type is <code>DEPTHBUFFER_RECIPROCAL_FUNCTION</code> mode, specify a value that lies in the range [0, 1]. This parameter is not used in <code>DEPTHBUFFER_LINEAR</code> mode.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>depthRangeFar</th>
+          <td>If the depth buffer type is <code>DEPTHBUFFER_RECIPROCAL_FUNCTION</code> mode, specify a value that lies in the range [0, 1]. Specify a scale for the depth value when in <code>DEPTHBUFFER_LINEAR</code> mode.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>offset</th>
+          <td>Specifies the polygon offset. This offset value is divided by <code>65535</code> if the bound depth buffer has a 16-bit precision and <code>16777215</code> if it has 24-bit precision. If the depth buffer is not bound, the offset value is divided by 16777215 because it is 24-bit precision.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the depth buffer mode.</p><p>The default values are as follows.</p><TABLE><TR><TH>type</TH><TD>DEPTHBUFFER_RECIPROCAL_FUNCTION</TD></TR><TR><th>depthRangeNear</th><TD>0.0f</TD></TR><TR><th>depthRangeFar</th><TD><tt>1.0f</tt></TD></TR><TR><TH>offset</TH><TD>0</TD></TR></TABLE></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/07/13</dt>
+        <dd><item xmlns="">Added the default value.</item><br />
+        </dd>
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetSelectionFilter</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">ContentSetCatalogFilter</a>::SetSelectionFilter Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">ContentSetCatalogFilter</a> & SetSelectionFilter(
+     <a href="../../../../nn/ec/CTR/SelectionFilter.html">SelectionFilter</a> selection
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>selection</th>
+          <td>Search range to set.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a reference to the filter set for the search range. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the search range.</p><p>When <code>SELECTION_FILTER_PURCHASABLE</code> is specified, only items that can currently be purchased are searched. By default, this filter is applied even when this function is not run.</p><p>This filter targets both purchasable and downloadable items. There is no way to target just downloadable items.</p><p>When <code>SELECTION_FILTER_ALL</code> is specified, items that have not yet gone up for sales and items that are no longer for sale are added to the list of currently purchasable items. Specify this filter when you want to show the user items that will be on sale, or when you want to get information on items that could be redownloaded after sales have ended.</p><p>When searching for content using a sequence to redownload add-on content, use the <code>SELECTION_FILTER_ALL</code> filter to search all items that have been released until now, and not just what can be purchased currently.</p></div>
+  </body>
+</html>

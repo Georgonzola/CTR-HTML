@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>Suspend</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/ndm/Overview.html">ndm</a>::Suspend Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> Suspend(
+     <a href="../../nn/ndm/CTR/DaemonName.html">DaemonName</a> name
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>name</th>
+          <td>Specifies the target daemon.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a value that indicates whether the function succeeded.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultAlreadySuspended</th>
+          <td>The suspend count managed for each process is invalid. This error does not normally occur.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidOperation</th>
+          <td>There are too many suspend operations.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Suspends autonomous operation of a network daemon.</p><p>The process returns without waiting for the suspension to complete, but that usually happens within one second of the issuance of the instruction to suspend operations. <br />
+ There are basically no cases where the application must wait for the suspension to complete. <br />
+ The requests to suspend a daemon are managed by a counter, so they can be nested. <br />
+ Suspending all daemons does not suspend the operation of searching for access points and automatically connecting. Use the <code><a href="../../nn/ndm/SuspendScheduler.html">SuspendScheduler</a></code> function to completely stop all background operations, including automatic connections. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

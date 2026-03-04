@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Context</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::Context Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum Context;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>CONTEXT_NONE</th>
+          <td>Specifies no contexts.</td>
+        </tr>
+        <tr>
+          <th>CONTEXT_A</th>
+          <td>Specifies context A.</td>
+        </tr>
+        <tr>
+          <th>CONTEXT_B</th>
+          <td>Specifies context B.</td>
+        </tr>
+        <tr>
+          <th>CONTEXT_BOTH</th>
+          <td>Specifies both context A and context B.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enumerated type that indicates the <a href="../../../nn/camera/Overview.html">camera</a> context.</p><P>Think of a "context" here as a place to save the state for camera settings.</P><P>You can save combinations of three settings (resolution, effects, and flipping) in two contexts: A and B.  By default, the inner camera and left and right outer cameras all use context A when started.</P><P>Contexts are used as follows. If you use the <tt><a href="../../../nn/camera/CTR/SetSize.html">nn::camera::CTR::SetSize</a></tt>, <tt><a href="../../../nn/camera/CTR/SetDetailSize.html">nn::camera::CTR::SetDetailSize</a></tt>, <tt><a href="../../../nn/camera/CTR/FlipImage.html">nn::camera::CTR::FlipImage</a></tt>, and <tt><ref def="SetEffect" /></tt> functions to set the necessary values in context B ahead of time, you can then call the <tt><a href="../../../nn/camera/CTR/SwitchContext.html">nn::camera::CTR::SwitchContext</a></tt> function to switch the current context to context B when those settings are required. It is faster to switch settings in this way than to change camera settings individually on demand.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/04/09</dt>
+        <dd><item xmlns="">Added description text.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

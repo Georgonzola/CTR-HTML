@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetSleepCanceledCallback</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::SetSleepCanceledCallback Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetSleepCanceledCallback(
+     <a href="../../../nn/applet/CTR/AppletSleepCanceledCallback.html">AppletSleepCanceledCallback</a> callback,
+     <a href="../../../nn_types/uptr.html">uptr</a> arg = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>callback</th>
+          <td>Specifies the callback.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>arg</th>
+          <td>Specifies callback arguments.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the sleep cancel callback.</p><!-- write here --><P>
+This callback is called when the system is opened while the current applet manager is sending a sleep query to the applet or application.
+</P><P><FONT color="red">The name of this callback implies that this callback is called after it is certain that sleep is canceled. This is not the case.</FONT>
+This callback is intended simply to inform ongoing processes that the system has been opened.
+</P><P>If this callback is called while the local process is deferring reply to the sleep request (see Note 1) and you then want to reject the sleep request, use the <tt><a href="../../../nn/applet/CTR/ReplySleepQuery.html">nn::applet::CTR::ReplySleepQuery</a></tt> function to return <tt>nn::applet::CTR::REPLY_REJECT</tt>.  If you simply wish to be informed that the system was opened, you do not need to do anything. The applet manager will continue to wait for replies to the sleep query.
+</P><P>This callback is intended for uses such as quickly detecting that the system has been opened and canceling the transition to Sleep Mode when it might otherwise take a while to fully transition, with the screens remaining dark for several seconds if the user opens the system in the middle of the transition.
+</P><PRE>
+Example:
+bool isShellOpened;
+nn::os::LightEvent awakeEvent;
+
+// Sleep cancel callback.
+void mySleepCanceledCallback(uptr arg)
+{
+  NN_UNUSED_VAR(arg);
+  if ( applet::IsActive() )
+  {
+    isShellOpened = true; // System opened.
+    applet::ReplySleepQuery( applet::REPLY_REJECT );
+  }
+}
+
+// Sleep query callback.
+void mySleepQueryCallback(uptr arg)
+{
+  NN_UNUSED_VAR(arg);
+  if ( applet::IsActive() )
+  {
+    isShellOpened = false;
+    awakeEvent.ClearSignal();
+    return applet::REPLY_LATER;
+  }
+  else
+  {
+    return applet::REPLY_ACCEPT;
+  }
+}
+
+// Wakeup callback.
+void myAwakeCallback(uptr arg)
+{
+  NN_UNUSED_VAR(arg);
+  awakeEvent.Signal();   // Wake up.
+}
+
+// Main.
+void nnMain()
+{
+   awakeEvent.Initialize(false);
+   applet::SetSleepQueryCallback( mySleepQueryCallback, 0 );
+   applet::SetSleepCanceledCallback( mySleepCanceledCallback, 0 );
+   applet::SetAwakeCallback( myAwakeCallback, 0 );
+   applet::Enable();
+
+
+   while(1)
+   {
+      _exec();
+      _draw();
+
+      if ( applet::IsExpectedToReplySleepQuery() )
+      {
+          for(int i=0; i<N; n++) // Heavy processing before entering Sleep Mode. For instance, when saving <i>N</i> items of data.
+          {
+            _save( data[i] );
+            if ( isShellOpened ) // Interrupt since system is opened in the middle of all this.
+            {
+              break;
+            }
+          }
+
+          // If system not opened, permit Sleep Mode query and wait to wake up.
+          if ( ! isShellOpened )
+          {
+            applet::ReplySleepQuery( applet::REPLY_ACCEPT );
+            awakeEvent.Wait();
+          }
+      }
+   }
+}
+</PRE><P><b>Note 1:</b></P><P>
+This callback is called whenever the system is opened while the applet manager is still waiting to receive all the replies from all the applications and applets. That means that coincidences of system status and timing can cause it to be called before applications have returned any replies at all, and likewise it might be called after applications have replied as long as some other applet has not yet returned a reply.
+</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glTexParameteriv</title>
+  </head>
+  <body>
+    <h1>glTexParameteriv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glTexParameteriv(
+     GLenum target,
+     GLenum pname,
+     const GLint * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Texture target.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>params</th>
+          <td>Array that stores the values to set for the parameters.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets an array of texture parameter values as <code>GLint</code>-type values.</p><P>You can set <span class="argument">target</span> to the following values.<TABLE><TR><TH>GL_TEXTURE_2D</TH><TD>2D texture.</TD></TR><TR><TH>GL_TEXTURE_CUBE_MAP</TH><TD>Cube-map texture.</TD></TR></TABLE><!-- source targetにはGL_TEXTURE_2D、GL_TEXTURE_CUBE_MAPを指定します。 --></P><P>Set <span class="argument">pname</span> to one of the following values.<TABLE><TR><TH>GL_TEXTURE_MIN_FILTER</TH><TD>Sets the texture minification filter.</TD></TR><TR><TH>GL_TEXTURE_MAG_FILTER</TH><TD>Sets the texture magnification filter.</TD></TR><TR><TH>GL_TEXTURE_WRAP_S</TH><TD>Sets the wrapping mode of texture coordinate s.</TD></TR><TR><TH>GL_TEXTURE_WRAP_T</TH><TD>Sets the wrapping mode of texture coordinate t.</TD></TR><TR><TH>GL_TEXTURE_MIN_LOD</TH><TD>Sets the smallest mipmap level.</TD></TR><TR><TH>GL_GENERATE_MIPMAP</TH><TD>Sets whether mipmap data is automatically generated.</TD></TR></TABLE><!-- source pnameにはGL_TEXTURE_MIN_FILTER、GL_TEXTURE_MAG_FILTER、GL_TEXTURE_WRAP_S、GL_TEXTURE_WRAP_T、GL_TEXTURE_MIN_LODが指定できます。 --></P><P><tt>GL_TEXTURE_MIN_FILTER</tt> specifies a texture minification filter. Set <span class="argument">params[0]</span> to <tt>GL_NEAREST</tt>, <tt>GL_LINEAR</tt>, <tt>GL_NEAREST_MIPMAP_NEAREST</tt>, <tt>GL_LINEAR_MIPMAP_NEAREST</tt>, <tt>GL_NEAREST_MIPMAP_LINEAR</tt>, or <tt>GL_LINEAR_MIPMAP_LINEAR</tt>.  <tt>GL_TEXTURE_MAG_FILTER</tt> specifies a texture magnification filter. Set <span class="argument">params[0]</span> to <tt>GL_NEAREST</tt> or <tt>GL_LINEAR</tt>.</P><P><tt>GL_TEXTURE_WRAP_S</tt> and <tt>GL_TEXTURE_WRAP_T</tt> specify the wrapping modes for texture coordinates s and t, respectively.  Set <span class="argument">params[0]</span> to <tt>GL_CLAMP_TO_EDGE</tt>, <tt>GL_REPEAT</tt>, <tt>GL_CLAMP_TO_BORDER</tt>, or <tt>GL_MIRRORED_REPEAT</tt>.  <tt>GL_TEXTURE_MIN_LOD</tt> specifies the minimum level of detail for valid mipmaps.  <tt>GL_GENERATE_MIPMAP</tt> specifies whether mipmap data is automatically generated (only for some texture formats). You can also set <span class="argument">pname</span> to any parameter that can be specified with <tt>glTexParameterfv</tt>.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> or <span class="argument">pname</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">param</span> parameter was set to an invalid value.</TD></TR></TABLE><!-- source target、pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 paramに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/09</dt>
+        <dd><item xmlns="">Added support for GL_GENERATE_MIPMAP.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

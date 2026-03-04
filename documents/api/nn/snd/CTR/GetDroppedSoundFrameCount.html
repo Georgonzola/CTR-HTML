@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetDroppedSoundFrameCount</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/snd/Overview.html">snd</a>::<a href="../../../nn/snd/CTR/Overview.html">CTR</a>::GetDroppedSoundFrameCount Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/s32.html">s32</a> GetDroppedSoundFrameCount();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the number of dropped sound frames. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the number of dropped sound frames.</p><p>When processing within a sound thread does not occur quickly (when the processing within a sound thread does not complete within an approximately 5 millisecond cycle), there is the possibility of sound skipping as a result of processing drops.  This function can be used to confirm the total number of frames where processing drops occurred.</p><p>The processing drop counter is initialized for the sound thread when the <tt><a href="../../../nn/snd/CTR/SendParameterToDsp.html">nn::snd::CTR::SendParameterToDsp</a></tt> function is first called. The counter value returns the total number of processing dropped frames.  The counter value can also be initialized by the <tt><a href="../../../nn/snd/CTR/ClearDroppedSoundFrameCount.html">nn::snd::CTR::ClearDroppedSoundFrameCount</a></tt> function. </p><p>The processing drop counter is incremented under the following conditions.</p><p><ul><li>The sound thread does not exist</li><li>Processing within the sound thread is not occurring fast enough and synchronous processing cannot keep pace.</li><li>The DSP processing load exceeded 100 percent, and processing cannot keep pace.</li></ul></p><p>The counter is 16 bit, so unless you regularly initialize it, you will not get an accurate value from it.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>exp - Exponential base 2</title>
+  </head>
+  <body>
+    <h1>exp - Exponential base 2</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+exp     dest, src{ .x | .y | .z | .w }
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Registers</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>dest</th>
+          <td>An output register or temporary register.</td>
+        </tr>
+        <tr>
+          <th>src</th>
+          <td>A temporary register, input register, or floating-point constant register.</td>
+        </tr>
+      </table>
+      <p class="notice">
+        Only one component must be specified for <SPAN class="argument">src</SPAN>.<br />
+      </p>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Calculates a power of two.<br /> <br /> If the result of the operation is positive or negative infinity, <CODE>NaN</CODE> may be output. <br />Use the <a href="../flowcntl/cmp.html">cmp</a> instruction if you need to distinguish between <CODE>NaN</CODE> and positive or negative infinity.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+tmp = src { .x | .y | .z | .w }
+dest.x = 2 ^ tmp
+dest.y = 2 ^ tmp
+dest.z = 2 ^ tmp
+dest.w = 2 ^ tmp
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+exp     r0,     c1.x
+</pre>
+    </div>
+
+    <h2>Timetable</h2>
+    <div class="section">
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        </tr>
+        <tr>
+          <th>exp</th>
+          <td class="read">read</td>
+          <td class="EXP" colspan="2">EXP</td>
+          <td class="post">post</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetTextureCombinerUnitConstantColor</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/CombinerStage/Overview.html">CombinerStage</a>::SetTextureCombinerUnitConstantColor Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> SetTextureCombinerUnitConstantColor(
+     <a href="../../../../nn/gd/CTR/CombinerStage/UnitId.html">UnitId</a> unit,
+     <a href="../../../../nn_types/u8.html">u8</a> colorR,
+     <a href="../../../../nn_types/u8.html">u8</a> colorG,
+     <a href="../../../../nn_types/u8.html">u8</a> colorB,
+     <a href="../../../../nn_types/u8.html">u8</a> colorA
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>unit</th>
+          <td>The unit number of the texture combiner for which constant color is being set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>colorR</th>
+          <td>The red color value.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>colorG</th>
+          <td>The green color value.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>colorB</th>
+          <td>The blue color value.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>colorA</th>
+          <td>The alpha value.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureUnitId</th>
+          <td>The texture unit ID is invalid.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets a constant color to the specified texture combiner unit. To use this constant color, you must define the combiner state source RGB and source alpha values in <code><span>CombinerStage::SOURCE_CONSTANT</span></code>. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</p><p>The following format is used for the data inserted into the command buffer.<br />
+ 0x00000000 (R | (G &lt;&lt; 8) | (B &lt;&lt; 16) | (A &lt;&lt; 24)) <br />
+ 0x00000004 [Reserved] <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

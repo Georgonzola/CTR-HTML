@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetConnectionStatusEvent</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ir/Overview.html">ir</a>::<a href="../../../../nn/ir/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ir/CTR/Communicator/Overview.html">Communicator</a>::GetConnectionStatusEvent Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static void GetConnectionStatusEvent(
+     <a href="../../../../nn/os/Event/Overview.html">nn::os::Event</a> * pEvent
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pEvent</th>
+          <td>Stores the event.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets events that are used to detect changes in the state of the IR library. Typically, these events are signaled by a change in the status returned by <code>GetConnectionStatus</code>. <br />
+ The following is a description of the conditions for the signaling of events. <br />
+ 1. When a connection with a peer device is established. At such times, the status transitions to <code>CONNECTION_STATUS_CONNECTED</code>. <br />
+ 2. When a process requested by <code>Disconnect</code> has completed. At such times, the status transitions to <code>CONNECTION_STATUS_STOP</code>. <br />
+ 3. When a disconnection request has been received from a peer and the connection has been disconnected. At such times, the status transitions to <code>CONNECTION_STATUS_STOP</code>. <br />
+ 4. When the IR module may be malfunctioning and has transitioned to the fail state. At such times, the status transitions to <code>CONNECTION_STATUS_FATAL</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/05</dt>
+        <dd><item xmlns="">Fixed missing reference pertaining to the argument.</item><br />
+        </dd>
+        <dt>2011/08/30</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

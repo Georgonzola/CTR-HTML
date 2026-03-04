@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::erreula::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/erreula/Overview.html">erreula</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the <a href="../../../nn/erreula/CTR/Overview.html">CTR</a> error/EULA <a href="../../../nn/applet/Overview.html">applet</a> call-up library. (It can also be written without the <code>CTR</code> portion.)</p><p>Applications that use this library must call the <tt>nn::applet::CTR::Enable</tt> function to enable the applet features.  In addition, graphics command requests must be stopped when the applet is called. End rendering (by calling the <tt>nngxWaitCmdlistDone</tt> function, for example).</p><p><b>Note:</b> Thread priorities 17 through 20 are used by error EULA applet threads. Take this into consideration if your application sets priorities for threads that continue to run while the applet is running.  Also, separately from this, thread priority 15 is created for running applets.</p></div>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/erreula/CTR/Config/Overview.html">nn::erreula::CTR::Config</a>
+            </th>
+            <td>The structure that is exchanged between the application and the error EULA <a href="../../../nn/applet/Overview.html">applet</a> that stores data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/erreula/CTR/Parameter/Overview.html">nn::erreula::CTR::Parameter</a>
+            </th>
+            <td>The structure storing parameters to pass when executing the error EULA <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/erreula/CTR/ErrorType.html">ErrorType</a>
+            </th>
+            <td>Enumerates error codes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/erreula/CTR/UseLanguage.html">UseLanguage</a>
+            </th>
+            <td>Enumerates languages for the Error/EULA <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/erreula/CTR/ReturnCode.html">ReturnCode</a>
+            </th>
+            <td>Enumerated type representing return codes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/erreula/CTR/ERROR_TEXT_LENGTH_MAX.html">ERROR_TEXT_LENGTH_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>The maximum number of characters in free text to display for the error. This character count includes the NULL terminator.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/erreula/CTR/InitializeConfig.html">InitializeConfig</a>
+            </th>
+            <td>Initializes the <code><a href="../../../nn/erreula/CTR/Config/Overview.html">Config</a></code> structure to default values.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/erreula/CTR/PreloadErrEulaApplet.html">PreloadErrEulaApplet</a>
+            </th>
+            <td>Preloads the error EULA <a href="../../../nn/applet/Overview.html">applet</a>. If you have preloaded the <a href="../../../nn/applet/Overview.html">applet</a>, use <code><a href="../../../nn/erreula/CTR/WaitForPreloadErrEulaApplet.html">WaitForPreloadErrEulaApplet</a></code> to wait for preloading to end, and then call <code><a href="../../../nn/erreula/CTR/StartErrEulaApplet.html">StartErrEulaApplet</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/erreula/CTR/CancelPreloadErrEulaApplet.html">CancelPreloadErrEulaApplet</a>
+            </th>
+            <td>Cancels the preloading of the error EULA <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/erreula/CTR/WaitForPreloadErrEulaApplet.html">WaitForPreloadErrEulaApplet</a>
+            </th>
+            <td>Waits for the error EULA <a href="../../../nn/applet/Overview.html">applet</a> to finish preloading.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/erreula/CTR/IsRegisteredErrEulaApplet.html">IsRegisteredErrEulaApplet</a>
+            </th>
+            <td>Checks whether preloading of the error EULA <a href="../../../nn/applet/Overview.html">applet</a> has ended.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/erreula/CTR/StartErrEulaApplet.html">StartErrEulaApplet</a>
+            </th>
+            <td>Starts the error EULA <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/07/29</dt>
+        <dd><item xmlns="">Added an enumeration that represents the languages to use.</item><br />
+        </dd>
+        <dt>2014/09/02</dt>
+        <dd><item xmlns="">Mentioned the thread for running applets.</item><br />
+        </dd>
+        <dt>2014/07/01</dt>
+        <dd><item xmlns="">Added the fact that applications that call this function must enable the applet features and stop rendering.</item><br />
+        </dd>
+        <dt>2011/08/04</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

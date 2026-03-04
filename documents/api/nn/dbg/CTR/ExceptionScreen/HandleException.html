@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>HandleException</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dbg/Overview.html">dbg</a>::<a href="../../../../nn/dbg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/dbg/CTR/ExceptionScreen/Overview.html">ExceptionScreen</a>::HandleException Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/dbg.h&gt;
+static void HandleException(
+     nn::os::ExceptionInfo * pei,
+     nn::os::ExceptionContext * pec
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pei</th>
+          <td>The exception information to pass to the exception handler.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pec</th>
+          <td>The context information to pass to the exception handler.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Performs processing when there is an exception.</p><p>Outputs the specified exception information in accordance with option as specified by <code><a href="../../../../nn/dbg/CTR/ExceptionScreen/Create.html">Create</a></code>.</p><p>This function does not need to be called when using <code><a href="../../../../nn/dbg/CTR/ExceptionScreen/Overview.html">ExceptionScreen</a></code>. Use this function if you want to perform proprietary processing before or after the exception handler runs the <code><a href="../../../../nn/dbg/CTR/ExceptionScreen/Overview.html">ExceptionScreen</a></code> exception handling.</p><p>If <code>OPTION_DIRECT_PRINT</code> is specified, you can return from this function by pressing START.</p><p>The <code><a href="../../../../nn/dbg/CTR/ExceptionScreen/Create.html">Create</a></code> function must have been called before calling this function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/20</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

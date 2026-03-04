@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/socket/Overview.html">socket</a>::Initialize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> Initialize(
+     <a href="../../nn_types/uptr.html">uptr</a> bufferAddress,
+     size_t bufferSize,
+     <a href="../../nn_types/s32.html">s32</a> bufferSizeForSockets,
+     <a href="../../nn_types/s32.html">s32</a> maxSessions
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>bufferAddress</th>
+          <td>Specifies the address of the working region used by the <a href="../../nn/socket/Overview.html">socket</a> library. Must be <code>BUFFER_ALIGNMENT</code> (4096)-byte aligned. Device memory cannot be used.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>Specifies the size of the working region. <br />
+ The size of the working region must be greater than or equal to the size returned by the <code><a href="../../nn/socket/GetRequiredMemorySize.html">GetRequiredMemorySize</a></code> function. <br />
+ Although you can normally use this value unchanged, specify a larger size as necessary when you allocate a large number of <code><a href="../../nn/socket/AddrInfo/Overview.html">AddrInfo</a></code> instances with the <code>GetAddrInfo</code> function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSizeForSockets</th>
+          <td>Specifies how much of the working region to use for assigning <a href="../../nn/socket/Overview.html">socket</a> send and receive buffers. <br />
+ Use the <code>SetSockOpt</code> function to specify the send and receive buffer for each <a href="../../nn/socket/Overview.html">socket</a>. By default, 16 KB are assigned for a single TCP <a href="../../nn/socket/Overview.html">socket</a> (8 KB for sending and 8 KB for receiving) and 32 KB are assigned for a single UDP <a href="../../nn/socket/Overview.html">socket</a>. Even if you only use a single <a href="../../nn/socket/Overview.html">socket</a>, allocate at least 64 KB. <br /><bold>Note:</bold> The default buffer size may be changed in the future.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxSessions</th>
+          <td>Specifies the number of threads that use <a href="../../nn/socket/Overview.html">socket</a> functions. <br />
+ A single session is consumed for calls from a single thread. You cannot call blocking <a href="../../nn/socket/Overview.html">socket</a> functions from more than this number of threads. Socket functions can technically be called from more than this number of threads as long as the threads do not call blocking functions simultaneously, but it is not recommended. <br />
+ Both synchronous and asynchronous functions return an <code>EBUSY</code> error when they are called until there are enough available sessions. <br />
+ To check the state of multiple sockets, make a single call to the <code>Poll</code> function. This enables you to reduce the number of threads that use <a href="../../nn/socket/Overview.html">socket</a> functions.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">The result of processing. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the <a href="../../nn/socket/Overview.html">socket</a> library, allowing <a href="../../nn/socket/Overview.html">socket</a> API functions to be called.</p>
+    </div>
+  </body>
+</html>

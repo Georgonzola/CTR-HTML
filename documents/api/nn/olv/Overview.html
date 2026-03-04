@@ -1,0 +1,1098 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::olv</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::olv Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the OLV library.</p><p>
+            The OLV library provides features for using Miiverse in applications. For an overview of the Miiverse specifications, see <i>3DS Planning and Operations Manual - Miiverse</i><i>Edition.</i></p><p>
+            The function references clearly indicate those OLV library functions that are not thread-safe. All other functions are thread-safe.<br />
+            In addition, classes are thread-safe between instances.
+        </p><p>
+            The method of writing code for error handling for the OLV library is different than for other libraries. For more information, see the following.<br /><ul><li><a href="briefing/aboutErrorHandling.html">Error Handling</a></li></ul></p><h3>Finish initial startup of Miiverse</h3><p>
+            The initial startup of Miiverse is the first time the Miiverse application is run on hardware and allowed to progress to the community.<br />
+            Because information is deleted when the system is initialized, complete the Miiverse initial startup.<br />
+            If the Miiverse initial startup is not completed and the OLV library used, an error occurs.
+        </p><h3>Cautions when using Debugger</h3><p>
+            The amount of memory that the Miiverse application can use is less for a PARTNER-CTR series or IS-CTR series Debugger than for an actual system, so when verifying by starting the Miiverse application, an error may occur. <br />
+            (There is no problem with the development emulator, or the IS-SNAKE DevKit with the standard 2GB or more.)
+        </p><h3>Functions and Parameters Mainly Available for Debugging Only</h3><p><b>
+            *IMPORTANT*<br /></b><table><caption>Table:  Functions and Parameters Mainly Available for Debugging Only</caption><thead><tr><td>Functions</td><td>Parameters</td></tr></thead><tbody><tr><td>nn::olv::UploadPostData</td><td>nn::olv::UploadPostDataParam</td></tr><tr><td>nn::olv::UploadCommentData</td><td>nn::olv::UploadCommentDataParam</td></tr></tbody></table></p><h3>Other</h3><ul><li><a href="briefing/usage.html">Main Specifications and How to Use</a></li></ul></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../nn/olv/Result/Overview.html">nn::olv::Result</a>
+            </th>
+            <td>Class that indicates the result of an OLV library operation.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ConnectParam/Overview.html">nn::olv::ConnectParam</a>
+            </th>
+            <td>Represents the parameters when connecting.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ConnectedData/Overview.html">nn::olv::ConnectedData</a>
+            </th>
+            <td>A class that stores the connection results.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/DeleteCommentDataParam/Overview.html">nn::olv::DeleteCommentDataParam</a>
+            </th>
+            <td>The class representing the parameters used when deleting comments.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/DeletePostDataParam/Overview.html">nn::olv::DeletePostDataParam</a>
+            </th>
+            <td>The class representing the parameters used when deleting posts.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/DownloadCommentDataListParam/Overview.html">nn::olv::DownloadCommentDataListParam</a>
+            </th>
+            <td>Represents the parameters when downloading comment data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/DownloadCommunityDataListParam/Overview.html">nn::olv::DownloadCommunityDataListParam</a>
+            </th>
+            <td>Represents the parameters when downloading community data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/DownloadedCommunityData/Overview.html">nn::olv::DownloadedCommunityData</a>
+            </th>
+            <td>A class that stores the downloaded community data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/DownloadedCommentData/Overview.html">nn::olv::DownloadedCommentData</a>
+            </th>
+            <td>A class that stores the downloaded comment data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/DownloadedPostData/Overview.html">nn::olv::DownloadedPostData</a>
+            </th>
+            <td>A class that stores the downloaded post data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/DownloadPostDataListParam/Overview.html">nn::olv::DownloadPostDataListParam</a>
+            </th>
+            <td>Represents the parameters when downloading post data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/DownloadedTopicData/Overview.html">nn::olv::DownloadedTopicData</a>
+            </th>
+            <td>A class that stores the downloaded topic data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/DownloadUserDataListParam/Overview.html">nn::olv::DownloadUserDataListParam</a>
+            </th>
+            <td>The class representing the parameters used when downloading user data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/DownloadedUserData/Overview.html">nn::olv::DownloadedUserData</a>
+            </th>
+            <td>The class for storing the downloaded user data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/InitializeParam/Overview.html">nn::olv::InitializeParam</a>
+            </th>
+            <td>Represents the parameters when initializing the OLV library.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/InitializedData/Overview.html">nn::olv::InitializedData</a>
+            </th>
+            <td>The class that stores the results when the OLV library is initialized.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResumeParam/Overview.html">nn::olv::ResumeParam</a>
+            </th>
+            <td>Represents the parameters when recovering.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResumedData/Overview.html">nn::olv::ResumedData</a>
+            </th>
+            <td>A class that stores the recovery results.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/StartPortalAppParam/Overview.html">nn::olv::StartPortalAppParam</a>
+            </th>
+            <td>Represents the parameters when starting the Miiverse application.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadCommentDataByPostAppParam/Overview.html">nn::olv::UploadCommentDataByPostAppParam</a>
+            </th>
+            <td>The class representing the parameters used when starting the posting <a href="../../nn/applet/Overview.html">applet</a> and uploading comments.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadedCommentData/Overview.html">nn::olv::UploadedCommentData</a>
+            </th>
+            <td>The class that stores the results when comments are uploaded.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadCommentDataParam/Overview.html">nn::olv::UploadCommentDataParam</a>
+            </th>
+            <td>The class representing the parameters used when uploading and deleting comments. (For debugging.)</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadCommunityDataParam/Overview.html">nn::olv::UploadCommunityDataParam</a>
+            </th>
+            <td>The class representing the parameters used when creating, updating, and deleting community data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadedCommunityData/Overview.html">nn::olv::UploadedCommunityData</a>
+            </th>
+            <td>The class for storing the results when community data is created or uploaded.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadEmpathyToCommentDataParam/Overview.html">nn::olv::UploadEmpathyToCommentDataParam</a>
+            </th>
+            <td>The class representing the parameters used when giving a Yeah to a comment or removing a Yeah.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadEmpathyToPostDataParam/Overview.html">nn::olv::UploadEmpathyToPostDataParam</a>
+            </th>
+            <td>The class representing the parameters used when uploading a Yeah to a post or removing a Yeah.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadFavoriteToCommunityDataParam/Overview.html">nn::olv::UploadFavoriteToCommunityDataParam</a>
+            </th>
+            <td>The class representing the parameters used when registering a favorite to a community or removing a favorite.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadFollowToUserDataParam/Overview.html">nn::olv::UploadFollowToUserDataParam</a>
+            </th>
+            <td>The class representing the parameters used when following users and canceling the following of users.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadPostDataByPostAppParam/Overview.html">nn::olv::UploadPostDataByPostAppParam</a>
+            </th>
+            <td>The class representing the parameters used when starting the posting <a href="../../nn/applet/Overview.html">applet</a> and uploading posts.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadedPostData/Overview.html">nn::olv::UploadedPostData</a>
+            </th>
+            <td>The class that stores the results when posts are uploaded.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/UploadPostDataParam/Overview.html">nn::olv::UploadPostDataParam</a>
+            </th>
+            <td>The class representing the parameters used when uploading or deleting posts. (For debugging.)</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultFatalError/Overview.html">nn::olv::ResultFatalError</a>
+            </th>
+            <td>Fatal error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultUsageError/Overview.html">nn::olv::ResultUsageError</a>
+            </th>
+            <td>Usage error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultCanceled/Overview.html">nn::olv::ResultCanceled</a>
+            </th>
+            <td>Canceled.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultLibraryError/Overview.html">nn::olv::ResultLibraryError</a>
+            </th>
+            <td>Library error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultLibraryPermanentError/Overview.html">nn::olv::ResultLibraryPermanentError</a>
+            </th>
+            <td>Permanent library error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultLibraryTemporaryError/Overview.html">nn::olv::ResultLibraryTemporaryError</a>
+            </th>
+            <td>Temporary library error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultNetworkError/Overview.html">nn::olv::ResultNetworkError</a>
+            </th>
+            <td>Network error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultNetworkDataError/Overview.html">nn::olv::ResultNetworkDataError</a>
+            </th>
+            <td>Network data error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultNetworkLibraryError/Overview.html">nn::olv::ResultNetworkLibraryError</a>
+            </th>
+            <td>Network library error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultNetworkHttpError/Overview.html">nn::olv::ResultNetworkHttpError</a>
+            </th>
+            <td>HTTP error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultServerError/Overview.html">nn::olv::ResultServerError</a>
+            </th>
+            <td>Server error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultServerPermanentError/Overview.html">nn::olv::ResultServerPermanentError</a>
+            </th>
+            <td>Permanent server error.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultServerTemporaryError/Overview.html">nn::olv::ResultServerTemporaryError</a>
+            </th>
+            <td>Temporary server error.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../nn/olv/ResultSuccess/Overview.html">nn::olv::ResultSuccess</a>
+            </th>
+            <td>Successful.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/olv/Feeling.html">Feeling</a>
+            </th>
+            <td>Enumerates the moods.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../nn/olv/CommonDataType.html">CommonDataType</a>
+            </th>
+            <td>Enumerated type representing data types.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/POST_ID_BUFF_LENGTH.html">POST_ID_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the post ID, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/POST_ID_MAX_NUM.html">POST_ID_MAX_NUM</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum number of post IDs that can be specified when downloading posts.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/COMMENT_ID_BUFF_LENGTH.html">COMMENT_ID_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the comment ID, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/APP_DATA_BUFF_LENGTH.html">APP_DATA_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the buffer for the application data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/BODY_TEXT_MAX_LENGTH.html">BODY_TEXT_MAX_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum length of the text data, excluding the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/BODY_TEXT_BUFF_LENGTH.html">BODY_TEXT_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the text data, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/BODY_MEMO_WIDTH.html">BODY_MEMO_WIDTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The width of the handwritten memo data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/BODY_MEMO_HEIGHT.html">BODY_MEMO_HEIGHT</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The height of the handwritten memo data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/BODY_MEMO_BUFF_LENGTH.html">BODY_MEMO_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The buffer size of the handwritten memo data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/COMPRESSED_BODY_MEMO_BUFF_LENGTH.html">COMPRESSED_BODY_MEMO_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The buffer size of the handwritten memo data after compression.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/TOPIC_TAG_MAX_LENGTH.html">TOPIC_TAG_MAX_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum length of the topic tag, excluding the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/TOPIC_TAG_BUFF_LENGTH.html">TOPIC_TAG_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the topic tag, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/SEARCH_KEY_MAX_NUM.html">SEARCH_KEY_MAX_NUM</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum number of search keys that can be specified when uploading posts.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/SEARCH_KEY_MAX_LENGTH.html">SEARCH_KEY_MAX_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum length of the search key, excluding the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/SEARCH_KEY_BUFF_LENGTH.html">SEARCH_KEY_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the search key, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/EXTERNAL_URL_BUFF_LENGTH.html">EXTERNAL_URL_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the attached URL, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/EXTERNAL_IMAGE_DATA_MAX_LENGTH.html">EXTERNAL_IMAGE_DATA_MAX_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum size of the attached image data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/EXTERNAL_THUMBNAIL_IMAGE_DATA_MAX_LENGTH.html">EXTERNAL_THUMBNAIL_IMAGE_DATA_MAX_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum size of the attached thumbnail image data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/EXTERNAL_IMAGE_DATA_TOTAL_MAX_LENGTH.html">EXTERNAL_IMAGE_DATA_TOTAL_MAX_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum combined size of the attached image data and the attached thumbnail image data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/MII_NICKNAME_BUFF_LENGTH.html">MII_NICKNAME_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the nickname of the Mii, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/MII_DATA_BUFF_LENGTH.html">MII_DATA_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the buffer for the Mii data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/COMMUNITY_CODE_BUFF_LENGTH.html">COMMUNITY_CODE_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the community code, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/COMMUNITY_ID_MAX_NUM.html">COMMUNITY_ID_MAX_NUM</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum number of community IDs that can be specified when downloading community data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/COMMUNITY_ID_ALL_OFFICIAL.html">COMMUNITY_ID_ALL_OFFICIAL</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>Community IDs representing all official communities.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/LANGUAGE_ID_ALL.html">LANGUAGE_ID_ALL</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u8.html">u8</a></td>
+            <td>Language IDs representing all languages.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/TITLE_TEXT_BUFF_LENGTH.html">TITLE_TEXT_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the community name, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/DESCRIPTION_TEXT_BUFF_LENGTH.html">DESCRIPTION_TEXT_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the community description, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/ICON_DATA_BUFF_LENGTH.html">ICON_DATA_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the buffer for the community icon data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/COMPRESSED_ICON_DATA_BUFF_LENGTH.html">COMPRESSED_ICON_DATA_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the buffer for the community icon data after compression.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/ICON_DATA_BUFF_LENGTH_WIIU.html">ICON_DATA_BUFF_LENGTH_WIIU</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the buffer for the Wii U community icon data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/COMPRESSED_ICON_DATA_BUFF_LENGTH_WIIU.html">COMPRESSED_ICON_DATA_BUFF_LENGTH_WIIU</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the buffer for the compressed Wii U community icon data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/BANNER_DATA_BUFF_LENGTH.html">BANNER_DATA_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The size of the buffer for banner data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/URL_BUFF_LENGTH.html">URL_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the URL, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/USER_AGENT_BUFF_LENGTH.html">USER_AGENT_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the user agent, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/PARAM_PACK_BUFF_LENGTH.html">PARAM_PACK_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the parameter pack, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/HOST_NAME_BUFF_LENGTH.html">HOST_NAME_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the hostname, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/SYSTEM_ARGS_COMMON_STRING_BUFF_LENGTH.html">SYSTEM_ARGS_COMMON_STRING_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The length of the buffer for the system argument common strings, including the terminating null character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/STAMP_DATA_MAX_NUM.html">STAMP_DATA_MAX_NUM</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum amount of stamp data that can be specified when starting the posting <a href="../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/STAMP_DATA_100_100_BUFF_LENGTH.html">STAMP_DATA_100_100_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The stamp data size (100x100) that can be specified when starting the posting <a href="../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/STAMP_DATA_200_200_BUFF_LENGTH.html">STAMP_DATA_200_200_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The stamp data size (200x200) that can be specified when starting the posting <a href="../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/PORTAL_APP_APPLET_ID.html">PORTAL_APP_APPLET_ID</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>The <a href="../../nn/applet/Overview.html">applet</a> ID for the Miiverse application.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/POST_APP_APPLET_ID.html">POST_APP_APPLET_ID</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/u32.html">u32</a></td>
+            <td>The <a href="../../nn/applet/Overview.html">applet</a> ID for the posting <a href="../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/VIOLATION_TEXT_MAX_LENGTH.html">VIOLATION_TEXT_MAX_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum number of characters, exclusive of the <code>NULL</code>-terminating character, that can be used in the report reason text for a report.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/olv/VIOLATION_TEXT_BUFF_LENGTH.html">VIOLATION_TEXT_BUFF_LENGTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>The maximum number of buffer characters, inclusive of the <code>NULL</code>-terminating character, that can be used in the report reason text for a report.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the OLV library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the OLV library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/Connect.html">Connect</a>
+            </th>
+            <td>Processes OLV library connections.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/Cancel.html">Cancel</a>
+            </th>
+            <td>Cancels the Internet communication process.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/IsInitialized.html">IsInitialized</a>
+            </th>
+            <td>Determines whether the OLV library has been initialized.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/IsConnected.html">IsConnected</a>
+            </th>
+            <td>Determines whether the OLV library has been connected to.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/GetErrorCode.html">GetErrorCode</a>
+            </th>
+            <td>Gets the error code.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/StartPortalApp.html">StartPortalApp</a>
+            </th>
+            <td>Starts the Miiverse application.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/Resume.html">Resume</a>
+            </th>
+            <td>Handles recovery operations.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/DownloadPostDataList.html">DownloadPostDataList</a>
+            </th>
+            <td>Downloads post data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/DownloadCommentDataList.html">DownloadCommentDataList</a>
+            </th>
+            <td>Downloads comment data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/DownloadCommunityDataList.html">DownloadCommunityDataList</a>
+            </th>
+            <td>Downloads community data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/DownloadUserDataList.html">DownloadUserDataList</a>
+            </th>
+            <td>Downloads user data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/UploadCommunityData.html">UploadCommunityData</a>
+            </th>
+            <td>Creates, updates, or deletes community data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/UploadEmpathyToPostData.html">UploadEmpathyToPostData</a>
+            </th>
+            <td>Gives a Yeah to a post or removes a Yeah from a post.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/UploadEmpathyToCommentData.html">UploadEmpathyToCommentData</a>
+            </th>
+            <td>Gives a Yeah to a comment or removes a Yeah from a comment.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/UploadFavoriteToCommunityData.html">UploadFavoriteToCommunityData</a>
+            </th>
+            <td>Registers a community as a favorite or removes a community as a favorite.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/UploadFollowToUserData.html">UploadFollowToUserData</a>
+            </th>
+            <td>Uploads whether to follow a user or to stop following a user.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/UploadPostDataByPostApp.html">UploadPostDataByPostApp</a>
+            </th>
+            <td>Starts the posting <a href="../../nn/applet/Overview.html">applet</a> and uploads posts.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/UploadCommentDataByPostApp.html">UploadCommentDataByPostApp</a>
+            </th>
+            <td>Starts the posting <a href="../../nn/applet/Overview.html">applet</a> and uploads comments.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/DeletePostData.html">DeletePostData</a>
+            </th>
+            <td>Deletes posts.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/DeleteCommentData.html">DeleteCommentData</a>
+            </th>
+            <td>Deletes comments.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/UploadPostData.html">UploadPostData</a>
+            </th>
+            <td>Makes posts or deletes post data. (For debugging.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/olv/UploadCommentData.html">UploadCommentData</a>
+            </th>
+            <td>Posts comments or deletes comment data. (For debugging.)</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/05/22</dt>
+        <dd><item xmlns="">• When starting the Post application, it is no longer possible for the user to save posts in the application.
+                • A connection (<tt>nn::olv::Connect</tt>) is now required before starting the Post application.
+                • Added a process to the StartPortalApp demo to receive arguments from the Miiverse application when resuming from the HOME Menu.</item><br />
+        </dd>
+        <dt>2015/02/20</dt>
+        <dd><item xmlns="">• Revised the documentation (API reference and headers).
+                • Added RSF files to each sample demo.</item><br />
+        </dd>
+        <dt>2014/10/08</dt>
+        <dd><item xmlns="">• Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

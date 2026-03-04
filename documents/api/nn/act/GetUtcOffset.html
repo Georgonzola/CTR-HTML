@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>GetUtcOffset</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/act/Overview.html">act</a>::GetUtcOffset Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn_types/s64.html">s64</a> GetUtcOffset(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a value in microseconds for the difference from UTC for the time zone set in the system account. Returns <code>0</code> if the account is not a network account or if the account library has not been initialized. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the time difference of the time zone set for the system account.</p><p>Gets a value in microseconds for the difference from UTC for the time zone set for the Nintendo Network account associated with the system account. However, this function gets the value the system cached for the locale, so calling this function does not trigger communication. <br /><br />
+ The function does take daylight saving time into account, but note that changes due to the start or end of daylight saving time might not be immediately applied to the value cached for the locale. Also, note that applying this function to a date in the past or future is highly likely to result in a value that differs from the actual time on that day. We recommend using an independent server and resolving the time difference from the time zone name obtained with the <code><a href="../../nn/act/GetTimeZoneId.html">nn::act::GetTimeZoneId</a></code> function if you need to deal with precise time difference information.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/11/20</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

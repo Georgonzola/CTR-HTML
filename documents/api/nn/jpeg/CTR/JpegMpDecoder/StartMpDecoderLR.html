@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>StartMpDecoderLR</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::StartMpDecoderLR Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+size_t StartMpDecoderLR(
+     void * dstL,
+     void * dstR,
+     size_t dstSize,
+     const <a href="../../../../nn_types/u8.html">u8</a> * src,
+     size_t srcSize,
+     <a href="../../../../nn_types/u32.html">u32</a> maxWidth,
+     <a href="../../../../nn_types/u32.html">u32</a> maxHeight,
+     <a href="../../../../nn/jpeg/CTR/PixelFormat.html">PixelFormat</a> dstPixelFormat
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>dstL</th>
+          <td>Specifies the buffer that stores the decoded result of the starting image. <br />
+ The alignment of this buffer must match the output pixel format specified by the dstPixelFormat argument.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>dstR</th>
+          <td>Specifies the buffer for storing the decoded result of the next individual image. <br />
+ The alignment of this buffer must match the output pixel format specified by the dstPixelFormat argument.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstSize</th>
+          <td>Specifies the size of dstL and dstR in bytes. <br />
+ This value indicates the size of a single image, not the total size of the two images. <br />
+ Specify the return value of <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetDstBufferSize.html">GetDstBufferSize</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>src</th>
+          <td>Specifies the MP-format data to decode.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcSize</th>
+          <td>Specifies the size of src in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxWidth</th>
+          <td>Specifies the maximum width (in pixels) of an image that can be decoded (equal to or less than 65536). <br />
+ After decoding successfully completes, you can use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastWidth.html">GetLastWidth</a></code> function to get the actual image width and the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferWidth.html">GetLastOutputBufferWidth</a></code> function to get the buffer width (for one image).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxHeight</th>
+          <td>Specifies the maximum height (in pixels) of an image that can be decoded (equal to or less than 65536). <br />
+ After decoding successfully completes, you can use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastHeight.html">GetLastHeight</a></code> function to get the actual image height and the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferHeight.html">GetLastOutputBufferHeight</a></code> function to get the buffer height (for one image).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstPixelFormat</th>
+          <td>Specifies the output pixel format.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">On success, returns the size (in bytes) of the buffer storing the decoded result. <br />
+ This value indicates the size of a single image, not the total size of the two images. <br />
+ Returns 0 if unsuccessful. <br />
+ Use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastError.html">GetLastError</a></code> function to get the reason for failure. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Runs the JPEG decoder on a pair of images stored in MP format.</p><p>Much as for the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoder.html">StartJpegDecoder</a></code> function, processing takes longer if the image size is not a multiple of 8 or 16 pixels. The same is true of the alignment of the dst argument.</p><p>The MP type (<code><a href="../../../../nn/jpeg/CTR/MpTypeCode.html">MpTypeCode</a></code>) of the image data stored in MP format is looked up in MP entry storage order, and only two stereoscopic images are decoded. The lookup does not check if the first stereoscopic image found is for the left eye, however, nor if the next image is for the right eye.</p><p>This function requires that both primary images are the same size. After this function completes successfully, call the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastWidth.html">GetLastWidth</a></code> and <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastHeight.html">GetLastHeight</a></code> functions to get the primary image's dimensions. If the sizes do not match, decoding fails. The function also fails if fewer than two primary images could be decoded. Thumbnails are not decoded.</p><p>If <code>JPEG_DECODER_OPTION_MATCH_WIDTH_HEIGHT</code> is specified using <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/SetOption.html">SetOption</a></code>, the values of arguments maxWidth and maxHeight must match, otherwise decoding fails. Even if this option is not specified, the size of the two primary images must match as mentioned previously.</p><p>This function takes the EXIF information that can be retrieved after successful decoding and decodes 2 stereoscopic images in the order the MP entries are stored. <br />
+ When the following functions are used to obtain EXIF information, they obtain the EXIF information for the last image decoded (stored as the second MP entry).</p><p><UL> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastDateTime.html">GetLastDateTime</a> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastDateTimePointer.html">GetLastDateTimePointer</a> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastSoftwarePointer.html">GetLastSoftwarePointer</a> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastSoftwareLength.html">GetLastSoftwareLength</a> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastUserMakerNotePointer.html">GetLastUserMakerNotePointer</a> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastUserMakerNoteSize.html">GetLastUserMakerNoteSize</a> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastImageUid.html">GetLastImageUid</a> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOrientation.html">GetLastOrientation</a> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastGpsData.html">GetLastGpsData</a> </LI></UL></p><p>The following functions also work without causing problems, but we do not recommend using them.</p><p><UL> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastTwlPhotoMakerNote.html">GetLastTwlPhotoMakerNote</a> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastTwlUserMakerNotePointer.html">GetLastTwlUserMakerNotePointer</a> <LI> <a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastTwlUserMakerNoteSize.html">GetLastTwlUserMakerNoteSize</a> </LI></UL></p><p>To get the EXIF information for each image, decode each individually without using this function, or use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/ExtractExif.html">ExtractExif</a></code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/03</dt>
+        <dd><item xmlns="">Added GetLastDateTimePointer to the list of functions that retrieve Exif data.</item><br />
+        </dd>
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added a description of SetOption.</item><br />
+        </dd>
+        <dt>2010/04/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

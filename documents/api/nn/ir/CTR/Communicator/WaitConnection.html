@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>WaitConnection</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ir/Overview.html">ir</a>::<a href="../../../../nn/ir/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ir/CTR/Communicator/Overview.html">Communicator</a>::WaitConnection Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">Result</a> WaitConnection();
+
+static <a href="../../../../nn/Result/Overview.html">Result</a> WaitConnection(
+     <a href="../../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> sendReplyDelay
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./WaitConnection(0).html">WaitConnection (  ) </a>
+          </td>
+          <td>Waits for a connection request and then tries making an authenticated connection. This function returns control before connection authentication with the partner is completed. When a connection request is received, this function returns a connection reply to the partner <a href="../../../../nn/ir/CTR/Overview.html">CTR</a> system and then transitions to the connected state. This function waits until a connection request arrives. If you want to abort the process, call the <code>Disconnect</code> function. If the connection succeeds, the <code>GetConnectionStatusEvent</code> function signals the success by returning an event. The system always waits after connection authentication. If data has been provided by the <code>Send</code> function, the system sends the data packets after it has received all incoming data and then waits again. If the size of the region used to save incoming and outgoing packets&#8212;as passed to the <code>Initialize</code> function&#8212;is smaller than the size defined by <code>NECESSARY_BUFFER_SIZE_FOR_CONNECTION</code>, or if the size of the region used to manage packets is smaller than <code>GetManagementSize(1)</code>, the connection cannot be authenticated and this function fails.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./WaitConnection(1).html">WaitConnection ( nn::fnd::TimeSpan ) </a>
+          </td>
+          <td>Waits for a connection request and then tries making an authenticated connection. When a connection request is received, waits to send a connection reply for at least the time specified by <code>sendReplyDelay</code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of WaitConnection (  ) </h2>
+    <div class="section"><!-- write here --></div>
+    <h2>Description of WaitConnection ( nn::fnd::TimeSpan ) </h2>
+    <div class="section"><!-- write here --></div>
+  </body>
+</html>

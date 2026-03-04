@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ctr_makecrr</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size     : 150%;
+  font-family       : Arial;
+  border-bottom-width   : 5px;
+  border-bottom-style   : solid;
+  border-bottom-color   : #CD202C;
+  padding-bottom        : 1px;
+  margin-bottom     : 20px;
+  letter-spacing        : normal;
+  font-weight       : bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+CODE {
+  font-family       : "Courier New", monospace;
+  left          : 12px;
+  font-size     : 10pt;
+}
+table {
+    margin: 0.5em 0 0.5em 1em;
+    padding-left      : 0pt;
+    padding-right     : 0pt;
+    font-family       : Arial;
+    font-size         : 0.8em;
+    border-style      : none;
+}
+table table
+{
+  border-collapse   : collapse;
+  width             : 90%;
+}
+table table td
+{
+  border      : solid 1px black;
+}
+th
+{
+    white-space: nowrap;
+}
+
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+table tbody th
+{
+    white-space: nowrap;
+    background        : #e8f4f4;
+    font-weight       : normal;
+    font-family: monospace;
+}
+
+p {
+    margin-left     : 4px;
+}
+pre.code {
+    margin-left     : 1em;
+  font-family       : "Courier New", monospace;
+  left          : 12px;
+  font-size     : 10pt;
+  background            : #e8f4f4;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+<h1>ctr_makecrr</h1>
+
+
+<h2><a name="intro">Introduction</a></h2>
+<p>
+    <CODE>ctr_makecrr</CODE> is a Windows program for creating <CODE>.crr</CODE> files from <CODE>.rlt</CODE> files that are created with <A href="ctr_makecro.html"><CODE>ctr_makecro</CODE></A>.
+</p>
+<p>
+    For more information, see <a href="../TechnicalNotes/Dll/BuildSystemDevelopmentGuideForDllAdvanced.html" target="_parent">Guide to Developing a Build System (for High-Level DLLs)</a>.
+</p>
+
+
+
+
+
+<h2><a name="usage">How to Use</a></h2>
+
+<h3>What Is Required</h3>
+<p>
+    The following file is used for creating <CODE>.crr</CODE> files.
+</p>
+<ul>
+<li> An <CODE>.rlt</CODE> file created with <A href="ctr_makecro.html"><CODE>ctr_makecro</CODE></A>.</li>
+</ul>
+
+
+
+
+
+<h3>Commands</h3>
+
+<pre class="code">
+% ctr_makecrr [-d] -o CRR_FILE -r RLT_FILE1 -r RLT_FILE2 ...
+</pre>
+
+
+<h4 >Options</h4>
+
+<table border="1" summary="options">
+<thead>
+<tr>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th><code>-d</code></th>
+    <td>
+        When specified, this option includes the debugging information in the <CODE>.crr</CODE> file.<br/> To debug the source <CODE>.cro</CODE> file, this option must be specified when the <CODE>.crr</CODE> file is created. If this option is not specified, you cannot debug the <CODE>.cro</CODE> source file.
+    </td>
+</tr>
+<tr>
+    <th><CODE>-o OUTPUT_FILE</CODE></th>
+    <td>Specifies the file path for the output <CODE>.crr</CODE> file.</td>
+</tr>
+<tr>
+    <th><CODE>-r RLT_FILE</CODE></th>
+    <td>
+        Specifies the path of the input <CODE>.rlt</CODE> file.<br/> To include data from multiple <CODE>.rlt</CODE> files in a single <CODE>.crr</CODE> file, specify the <CODE>-r</CODE> option multiple times in the command.
+    </td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+<h2><a name="history">Revision History</a></h2>
+    <dl class="history">
+      <dt>2012/06/22</dt>
+      <dd>Initial version.</dd>
+    </dl>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Finalize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::Finalize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void Finalize();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Finalizes the <code>CAMERA</code> library.</p><p><b>Note:</b> When shutting down the application, if this function is not called after stopping capture with the <tt><a href="../../../nn/camera/CTR/StopCapture.html">nn::camera::CTR::StopCapture</a></tt> function and stopping the cameras with the <tt><a href="../../../nn/camera/CTR/Activate.html">nn::camera::CTR::Activate</a>(SELECT_NONE)</tt> function, then there may be audible noise while on the HOME Menu.</p><p>On SNAKE, the Super-Stable 3D feature is disabled from when the <tt><a href="../../../nn/camera/CTR/Initialize.html">nn::camera::CTR::Initialize</a></tt> function is called until the <tt>nn::camera::CTR::Finalize</tt> function is called.  In addition, note that these functions take longer to execute on SNAKE than on CTR due to the disabling and re-enabling of the Super-Stable 3D feature.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/06/29</dt>
+        <dd><item xmlns="">Added a description of the behavior of the Super-Stable 3D feature on SNAKE.</item><br />
+        </dd>
+        <dt>2011/04/06</dt>
+        <dd><item xmlns="">Added an explanation about noise that might be generated in the HOME Menu depending on the shutdown procedure.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

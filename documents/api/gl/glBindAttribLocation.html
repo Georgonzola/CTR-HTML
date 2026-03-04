@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glBindAttribLocation</title>
+  </head>
+  <body>
+    <h1>glBindAttribLocation Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glBindAttribLocation(
+     GLuint program,
+     GLuint index,
+     const char * name
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>program</th>
+          <td>Program object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>index</th>
+          <td>Vertex attribute index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>name</th>
+          <td>Vertex attribute name.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Binds a vertex attribute index to a name.</p><P>You can set <span class="argument">index</span> to a value that is greater than or equal to 0 and at least one less than the value that can be obtained by <tt>glGetIntegerv</tt> with <tt>GL_MAX_VERTEX_ATTRIBS</tt> specified.</P><P>Set <span class="argument">name</span> to a NULL-terminated string.  This function binds an input register named by <tt>pragma bind_symbol</tt> in shader assembly code to the vertex attribute number used by the application.</P><P>Call the <tt>glLinkProgram</tt> function to enable the settings made by this function.  The vertex attribute numbers in this function have nothing to do with the order of definitions in shader assembly code or with input register indices.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">index</span> argument was set to an invalid value, or <span class="argument">program</span> is a nonexistent program object.</TD></TR><TR><th>GL_OUT_OF_MEMORY</th><TD>Failed to allocate the management region.</TD></TR></TABLE><!-- source indexに不正な値を指定した場合、およびprogramが存在しないプログラムオブジェクトの場合エラーGL_INVALID_VALUEを生成します。 管理用領域の確保に失敗した場合エラーGL_OUT_OF_MEMORYを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

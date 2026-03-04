@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StartUsingAutoStack</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/Thread/Overview.html">Thread</a>::StartUsingAutoStack Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+void StartUsingAutoStack(
+     void(*)() f,
+     size_t stackSize,
+     <a href="../../../nn_types/s32.html">s32</a> priority = DEFAULT_THREAD_PRIORITY,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_USE_PROCESS_VALUE
+);
+
+template &lt;typename T, typename U&gt;void StartUsingAutoStack(
+     void(*)(T) f,
+     U param,
+     size_t stackSize,
+     <a href="../../../nn_types/s32.html">s32</a> priority = DEFAULT_THREAD_PRIORITY,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_USE_PROCESS_VALUE
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./StartUsingAutoStack(0).html">StartUsingAutoStack ( void(*)(), size_t, s32, s32 ) </a>
+          </td>
+          <td>Initializes and runs a thread.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./StartUsingAutoStack(1).html">StartUsingAutoStack ( void(*)(T), U, size_t, s32, s32 ) </a>
+          </td>
+          <td>Initializes and runs a thread.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of StartUsingAutoStack ( void(*)(), size_t, s32, s32 ) </h2>
+    <div class="section"><p>Allocates a stack of the specified size using <code><a href="../../../nn/os/AutoStackManager/Overview.html">AutoStackManager</a></code>. The thread is automatically destroyed when it exits.</p></div>
+    <h2>Description of StartUsingAutoStack ( void(*)(T), U, size_t, s32, s32 ) </h2>
+    <div class="section"><p>Allocates a stack of the specified size using <code><a href="../../../nn/os/AutoStackManager/Overview.html">AutoStackManager</a></code>. The thread is automatically destroyed when it exits.</p></div>
+  </body>
+</html>

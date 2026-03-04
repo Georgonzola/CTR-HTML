@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+        span.static_style
+        { 
+            font-size			: 8pt;
+            color				: white;
+            font-weight			: bold;
+            background			: #44f;
+            border-left			: solid 1px #aaf;
+            border-top			: solid 1px #aaf;
+            border-right		: solid 1px #00c;
+            border-bottom		: solid 1px #00c;
+            padding-left		: 2px;
+            padding-right		: 2px;
+        }
+
+        span.virtual_style
+        { 
+            font-size			 : 8pt;
+            color				 : white;
+            font-weight			: bold;
+            background			: #0a0;
+            border-left			: solid 1px #0f0;
+            border-top			: solid 1px #0f0;
+            border-right		: solid 1px #060;
+            border-bottom		: solid 1px #060;
+            padding-left		: 2px;
+            padding-right		: 2px; 
+        }
+
+        span.protected_style
+        { 
+            font-size			 : 8pt;
+            color				 : white;
+            font-weight			: bold;
+            background			: #444;
+            border-left			: solid 1px #ccc;
+            border-top			: solid 1px #ccc;
+            border-right		: solid 1px #222;
+            border-bottom		: solid 1px #222;
+            padding-left		: 2px;
+            padding-right		: 2px;
+        }
+        table.table, table.table td, table.table th
+        {
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        table.table
+        {
+            width: auto;
+            margin: 1em;
+            position	: static;
+            font-family	: Arial;
+        }
+
+        table.table td, table.table th
+        {
+            padding: 0.2em;
+        }
+
+        table.table td.number, table.table th.number
+        {
+            text-align: right;
+        }
+
+        table.table tbody tr th
+        {
+            text-align: left;
+            font-weight: normal;
+            width: auto;
+        }
+
+        table.table thead tr th,
+        table.table tbody tr th.category
+        {
+            padding: 0 0.2em;
+        }
+
+        table.table caption
+        {
+            font-weight: bold;
+            padding: 0.4em;
+        }
+        table.table th
+        {
+            font-weight			: bold;
+            background			: #acf;
+        }
+        --></style>
+    <title>IrCommunicatorChecker</title>
+</head>
+<body>
+
+<h1>IrCommunicatorChecker</h1>
+
+<h2>Overview</h2>
+
+<div class="section">
+    <p>
+<B>IrCommunicatorChecker</B> is a tool for checking the communication ID (unique ID and demo flag) and communication mode ID used for infrared communication between Nintendo CTR systems.
+    </p>
+</div>
+
+<h2>Required Environment</h2>
+
+<div class="section">
+    <ul>
+        <li>
+        This tool checks communication IDs by monitoring application communication data that is sent between systems. This tool therefore needs two CTR systems to communicate, and one CTR system to run the tool.</li>
+    </ul>
+</div>
+
+
+<h2>Screen Description</h2>
+
+<div class="section">
+    <p>When the software starts, the following screen appears. </p>
+    <p>
+    <img src="Fig/IrCommunicatorChecker_Startup.bmp" alt="">
+    </p>
+
+    <p>
+    The upper screen displays the results if the communication ID was successfully acquired.
+
+    <table class="table"><tbody>
+            <tr><th>Item</th> <th>Description</th></tr>
+            <tr><td><CODE>Data Found</CODE></td><td>Indicates whether the communication ID was confirmed.</td></tr>
+            <tr><td><CODE>uniqueId</CODE></td> <td>The unique ID from which the communication ID was generated.</td></tr>
+            <tr><td><CODE>subId</CODE></td> <td>Communication mode ID.</td></tr>
+            <tr><td><CODE>isDemo</CODE></td> <td>The demo flag of the communication ID.</td></tr>
+    </tbody></table>
+
+    The lower screen displays a menu and the status.<br/> Use the +Control Pad to navigate to menu items, and the A Button to execute them. 
+
+    <table class="table"><tbody>
+            <tr><th>Item</th> <th>Description</th></tr>
+            <tr><td><CODE>Initialize</CODE></td><td>Use the Left and Right Keys to select a baud rate, then click the A Button to initialize the tool at the selected baud rate.</td></tr>
+            <tr><td><CODE>Start capturing</CODE></td> <td>Starts monitoring communication.</td></tr>
+            <tr><td><CODE>Clear captured data</CODE></td> <td>Clears captured data.</td></tr>
+            <tr><td><CODE>Stop capturing</CODE></td> <td>Stops monitoring communication.</td></tr>
+    </tbody></table>
+
+    The status can be one of the following values.
+
+    <table class="table"><tbody>
+            <tr><th>Item</th> <th>Description</th></tr>
+            <tr><td><CODE>State</CODE></td><td>Indicates whether the tool has stopped monitoring (<CODE>STOP</CODE>) or is still monitoring (<CODE>CAPTURING</CODE>).</td></tr>
+            <tr><td><CODE>Current BaudRate</CODE></td> <td>Indicates the baud rate currently configured for the tool.</td></tr>
+            <tr><td><CODE>Captured data size</CODE></td> <td>Indicates the total size of all received data while communication has been monitored.</td></tr>
+            <tr><td><CODE>Message</CODE></td> <td>Displays notifications for the user in response to user operations or changes in the state of the tool.</td></tr>
+    </tbody></table>
+    </p>
+</div>
+
+<h2>Procedure</h2>
+
+<div class="section">
+    <h3>Initialization</h3>
+
+    <p> 
+    Select <CODE>Initialize</CODE> to initialize the tool. Use the Left and Right keys to select the baud rate used by the application performing communication between the systems. Next, press the A Button to initialize the tool at the selected baud rate.
+    </p>
+
+    <h3>Monitoring Communication</h3>
+
+    <p>
+    Select <B>Start capturing</B> and press the A Button to monitor an application's communication between systems. The tool will stand by for data until <B>End capturing</B> is selected or a communication error occurs. Subsequently, it obtains the communication ID by the following procedure.
+    </p>
+
+    <p>
+    <img src="Fig/IrCommunicatorChecker_Capturing.bmp" alt="">
+    </p>
+
+    <ul>
+        <li>Close the CTR system running the tool (<I>CTR-T</I> hereafter). The tool does not enter Sleep Mode and continues monitoring communication.</li>
+        <li>Place CTR-T under one of the two CTR systems communicating (<I>CTR-A</I> and <I>CTR-B</I>), so that CTR-T can monitor their communication.</li>
+        <li>Connect CTR-A and CTR-B for communication.</li>
+    </ul>
+
+    <p>
+    When CTR-T receives data transmitted by a procedure that confirms the communication ID used for communication between the systems (the <CODE>RequireToConfirmId</CODE> or <CODE>WaitToConfirmId</CODE> function), it extracts the communication ID (unique ID and demo flag) and communication mode ID from the received data.
+    </p>
+
+    <h3>Displaying Results</h3>
+
+    <p>
+    When CTR-T obtains the communication ID, it displays the results on the upper screen. Confirm that each item is configured as you intend. If CTR-T is not able to obtain the communication ID, disconnect the two communicating CTR systems and try again.
+    </p>
+
+    <p>
+    <img src="Fig/IrCommunicatorChecker_DataFound.bmp" alt="">
+    </p>
+</div>
+
+
+<h2>Revision History</h2>
+<div class="section">
+    <dl class="history">
+        <dt>2011/9/20</dt>
+        <dd>Initial version.<br /></dd>
+    </dl>
+</div>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

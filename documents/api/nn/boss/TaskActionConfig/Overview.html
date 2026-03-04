@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::boss::TaskActionConfig</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::TaskActionConfig Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct TaskActionConfig
+{
+   <a href="../../../nn/boss/Action.html">Action</a> action;
+   <a href="../../../nn_types/u8.html">u8</a> privateRootCA;
+   <a href="../../../nn_types/u8.html">u8</a> privateClientCert;
+   <a href="../../../nn/boss/ApInfoType.html">ApInfoType</a> infoAP;
+   <a href="../../../nn/boss/FileDescriptor.html">FileDescriptor</a> fDesc;
+   <a href="../../../nn/boss/CfgInfoType.html">CfgInfoType</a> infoCfg;
+   <a href="../../../nn_types/u32.html">u32</a> actionOption;
+   <a href="../../../nn_types/u32.html">u32</a> offset;
+   <a href="../../../nn/os/Event/Overview.html">nn::os::Event</a> * event;
+   nn::Handle fileHandle;
+   char url[MAX_URL_LENGTH];
+   struct nn::boss::TaskActionConfig::HhttpRequestHeader httpRequestHeader[MAX_HTTP_HEADER];
+   <a href="../../../nn_types/u32.html">u32</a> rootCA[MAX_ROOT_CA];
+   <a href="../../../nn_types/u32.html">u32</a> clientCert[MAX_CLIENT_CERT];
+   <a href="../../../nn_types/u32.html">u32</a> rootCANum;
+   <a href="../../../nn_types/u32.html">u32</a> clientCertNum;
+   char lastModified[MAX_LASTMODIFIED_LENGTH];
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Definition of an internal structure that maintains attribute information for the <code><a href="../../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> class.</p>
+    </div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">action</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/Action.html">Action</a></td>
+            <td>Code for the task type.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">privateRootCA</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Flag for enabling a private root certificate.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">privateClientCert</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Flag for enabling a private client certificate.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">infoAP</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/ApInfoType.html">ApInfoType</a></td>
+            <td>Type for access point information for attaching AP information to an HTTP query.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">fDesc</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/FileDescriptor.html">FileDescriptor</a></td>
+            <td>File descriptor type.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">infoCfg</span>
+            </th>
+            <td width="100"><a href="../../../nn/boss/CfgInfoType.html">CfgInfoType</a></td>
+            <td>Type for access point information for attaching system settings to an HTTP query.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">actionOption</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td><a href="../../../nn/boss/Task/Overview.html">Task</a> execution options. The usage varies by task type.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">offset</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The offset from the starting position of the data specified by the URL.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">event</span>
+            </th>
+            <td width="100"><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a> *</td>
+            <td>Event for startup tasks. (This is provided for future extensibility and cannot be used.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">fileHandle</span>
+            </th>
+            <td width="100">nn::Handle</td>
+            <td>The file handle targeted by the task.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">url</span>
+            </th>
+            <td width="100">char</td>
+            <td>Target URL.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">httpRequestHeader</span>
+            </th>
+            <td width="100">struct nn::boss::TaskActionConfig::HhttpRequestHeader</td>
+            <td>Structure for URL option request headers.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">rootCA</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The internal root certificate for HTTPS communication.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">clientCert</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The built-in client certificate for HTTPS communication.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">rootCANum</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>The number of built-in root certificates to specify.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">clientCertNum</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Number of configured built-in client certificates.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">lastModified</span>
+            </th>
+            <td width="100">char</td>
+            <td>The "Last-Modified" date and time to set in the HTTP request header.</td>
+          </tr> </table>
+      </div>
+    </a>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetState</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/snd/CTR/Voice/Overview.html">Voice</a>::SetState Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetState(
+     <a href="../../../../nn/snd/CTR/Voice/State.html">State</a> state
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>state</th>
+          <td>Status.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the current state of a voice.</p><p>If you specify a value of <tt>STATE_PLAY</tt>, the voice transitions to the "playback instruction received" state (note that this is a playback <i>instruction</i>; the voice is not necessarily played back). If a buffer has been registered through <tt><a href="../../../../nn/snd/CTR/Voice/AppendWaveBuffer.html">nn::snd::CTR::Voice::AppendWaveBuffer</a></tt>, playback starts immediately. If a sound source buffer has not been registered, nothing happens until one is. Playback starts immediately once a buffer is registered.  Once you finish playing all of the sound source buffers, the "playback instruction received" state is maintained but nothing happens.</p><p>Voices are played back in descending priority order, so some voices may not be played back depending on the priorities and the processor load.</p><p>If you specify a value of <tt>STATE_STOP</tt>, playback stops. All registered buffers are changed to the "playback complete" state.</p><p>If you specify a value of <tt>STATE_PAUSE</tt>, playback is paused. The buffer state is maintained.  To resume playback, call <tt><a href="../../../../nn/snd/CTR/Voice/SetState.html">nn::snd::CTR::Voice::SetState</a></tt> with <tt>STATE_PLAY</tt> as an argument. Playback resumes where it was paused.</p><p>The <span class="argument">state</span> for the <tt>Voice</tt> class only changes when it is set by the user.  For example, even if playback has ended for a <tt>WaveBuffer</tt> added by the <tt><a href="../../../../nn/snd/CTR/Voice/AppendWaveBuffer.html">nn::snd::CTR::Voice::AppendWaveBuffer</a></tt> function, <span class="argument">state</span> remains at <tt>STATE_PLAY</tt>; you can restart playback by appending another <tt>WaveBuffer</tt>. Use the <tt><a href="../../../../nn/snd/CTR/Voice/IsPlaying.html">nn::snd::CTR::Voice::IsPlaying</a></tt> function to determine whether a <tt>Voice</tt> is actually being played back.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/24</dt>
+        <dd><item xmlns="">Added an explanation of state transitions.</item><br />
+        </dd>
+        <dt>2010/02/02</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

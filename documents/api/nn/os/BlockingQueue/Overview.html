@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::BlockingQueue</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::BlockingQueue Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/os.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class BlockingQueue : private nn::os::detail::BlockingQueueBase</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for handling blocking queues.</p><p>A blocking queue is a messaging mechanism that provides the ability to synchronize threads safely.</p><p>The number of elements that can be placed in the queue is limited by the size of the buffer provided during initialization. Attempting to add additional elements to the queue beyond this limit causes the thread to block. Similarly, attempting to retrieve an element from an empty queue causes the thread to block.</p><p>Blocking queues have the same features as what have up until now been referred to as "message queues."</p><p>Because <code><a href="../../../nn/os/CriticalSection/Overview.html">CriticalSection</a></code> sections are used internally for thread synchronization, deadlocks may occur in situations that could lead to priority inversion or other scheduling issues. When such a possibility exists, use <code><a href="../../../nn/os/SafeBlockingQueue/Overview.html">SafeBlockingQueue</a></code> instead.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/BlockingQueue.html">BlockingQueue</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/~BlockingQueue.html">~BlockingQueue</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes a blocking queue using the specified buffer and size.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/TryInitialize.html">TryInitialize</a>
+            </th>
+            <td>Initializes a blocking queue using the specified buffer and size.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/Finalize.html">Finalize</a>
+            </th>
+            <td>Destroys a blocking queue.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/Enqueue.html">Enqueue</a>
+            </th>
+            <td>Inserts an element at the end of the queue.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/TryEnqueue.html">TryEnqueue</a>
+            </th>
+            <td>Tries to insert an element at the end of the queue.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/Jam.html">Jam</a>
+            </th>
+            <td>Inserts an element at the front of the queue.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/TryJam.html">TryJam</a>
+            </th>
+            <td>Tries to insert an element at the front of the queue.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/Dequeue.html">Dequeue</a>
+            </th>
+            <td>Removes the first element from the front of the queue.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/TryDequeue.html">TryDequeue</a>
+            </th>
+            <td>Removes the first element from the front of the queue.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/GetFront.html">GetFront</a>
+            </th>
+            <td>Gets the element at the front of the queue.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/BlockingQueue/TryGetFront.html">TryGetFront</a>
+            </th>
+            <td>Gets the element at the front of the queue.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;nn::os::detail::BlockingQueueBase<br />&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::os::BlockingQueue</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

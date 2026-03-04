@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>IsJoinable</title>
+  </head>
+  <body>
+    <h1><a href="../nnfriendsFriendPresence/Overview.html">nnfriendsFriendPresence</a>::IsJoinable Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool IsJoinable(
+     <a href="../nn_types/bit64.html">bit64</a> joinGameModeMask
+) const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>joinGameModeMask</th>
+          <td>Specifies the bitmask for the game modes that the local system can join. The least significant bit indicates mode 0, and the most significant bit indicates mode 63.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if the local system can participate in the communication partner's matchmaking group, and <code>false</code> otherwise. <br /><br />
+ The function always returns <code>false</code> if the library is uninitialized even though the participation is allowed. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Checks whether the local system is allowed to join a matchmaking group that a communication partner system is participating in.</p><p>When attempting to join a matchmaking group that a friend is participating in, first call this function to find out whether a partner allows you to join that group. <br /><br />
+ This function only returns <code>true</code>(allowed) when the partner's join-in game ID is the same as the local system's. <br /><br />
+ The results of this function are no guarantee that the local system can successfully join. The application must also handle the results of actually attempting to join.</p></div>
+  </body>
+</html>

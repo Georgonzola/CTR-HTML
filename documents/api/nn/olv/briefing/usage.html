@@ -1,0 +1,1247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+    <title>olv: Main Specifications and How to Use</title>
+</head>
+<body>
+    <h1>OLV: Main Specifications and How to Use</h1>
+        <h2>Contents</h2>
+        <ul>
+          <li><a href="#Spec">Main Specifications</a></li>
+          <li><a href="#Data">Main Content of Send Data</a></li>
+          <li><a href="#MiiverseInit">Miiverse Initial Settings</a></li>
+          <li><a href="#MiiverseAppStart">Starting Applications From Posts in the Miiverse Application</a></li>
+          <li><a href="#ApiUsage">How to Use</a>
+            <ul>
+              <li><a href="#usage_prepare">Preparing the Library for Use</a></li>
+              <li><a href="#usage_initialize">Initializing and Finalizing the OLV Library</a></li>
+              <li><a href="#usage_connect">OLV Library Connection Process</a></li>
+              <li><a href="#usage_parental">Parental Controls</a></li>
+              <li><a href="#usage_blocklist">Blocked Users</a></li>
+              <li><a href="#usage_post">Processes Related to Posts</a></li>
+              <li><a href="#usage_community">Processes Related to Communities</a></li>
+              <li><a href="#usage_comment">Processes Related to Comments</a></li>
+              <li><a href="#usage_user">Processes Related to User Data</a></li>
+              <li><a href="#usage_miiverse">Processes Related to the Miiverse Application</a></li>
+              <li><a href="#usage_postapp">Processes Related to Starting the Post Application</a></li>
+            </ul>
+          </li>
+        </ul>
+        <a name="Spec"><h2>Main Specifications</h2></a>
+        <p>
+            The following table lists the main specifications of the OLV library.<br /> <br />
+            <table>
+                <caption>Table: Main Specifications</caption>
+                <thead>
+                <tr><td>Item</td><td>Description</td></tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Posts</td>
+                  <td>Retrieving posts.<br />Giving Yeahs to posts.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Communities</td>
+                  <td>Creating, deleting, and editing communities.<br /> Getting lists of communities.<br /> Adding or deleting communities in favorites.<br /> <b>NOTE: For each title, each user can have up to 16 favorite communities, and create up to four communities.</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>User data</td>
+                  <td>Retrieving user data.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Comment data</td>
+                  <td>Retrieving comments.<br /> Giving Yeahs to comment data.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Follow users</td>
+                  <td>Following users.<br />Unfollowing users.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Miiverse application</td>
+                  <td>Starting the Miiverse application.<br />Starting an application from the Miiverse application.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Post application</td>
+                  <td>Starting the Miiverse application.<br /> Sending posts through the post application.<br /> Sending comments through the post application.<br />
+                  </td>
+                </tr>
+                </tbody>
+            </table>
+            <br /> <br />
+            <table>
+                <caption>Table: Main Specifications (Features Mainly Used for Debugging)</caption>
+                <thead>
+                <tr><td>Item</td><td>Description</td></tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Posts</td>
+                  <td>Send post data.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Comment data</td>
+                  <td>Sending comment data.
+                  </td>
+                </tr>
+                </tbody>
+            </table>
+        </p>
+        <a name="Data"><h2>Main Content of Send Data</h2></a>
+        <p>
+            For information about the content of the send data, see below.<br /> <br />
+            <table>
+                <caption>Table: Send Data</caption>
+                <thead>
+                    <tr><td>Item</td><td>Content and Size</td></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Text post</td>
+                        <td>Maximum of 255 characters per post using the post application.</td>
+                    </tr>
+                    <tr>
+                        <td>Handwritten message data</td>
+                        <td>※See <a href="./aboutImageFormat.html">Image Formats Handled by the OLV Library</a>.</td>
+                    </tr>
+                    <tr>
+                        <td>Attached image data</td>
+                        <td>※See <a href="./aboutImageFormat.html">Image Formats Handled by the OLV Library</a>.</td>
+                    </tr>
+                    <tr>
+                        <td>Attached thumbnail image data</td>
+                        <td>※See <a href="./aboutImageFormat.html">Image Formats Handled by the OLV Library</a>.<br /> <b>If an attached thumbnail image is not set, the attached image data is resized and used as the thumbnail image. Set the attached thumbnail image data only if you want to change the thumbnail image.</b></td>
+                    </tr>
+                    <tr>
+                        <td>Application data</td>
+                        <td>Maximum 1 KB.</td>
+                    </tr>
+                    <tr>
+                        <td>Topic tag</td>
+                        <td>Maximum 50 characters.</td>
+                    </tr>
+                    <tr>
+                        <td>Search keys</td>
+                        <td>Up to five search keys of up to 50 characters each can be specified.</td>
+                    </tr>
+                    <tr>
+                        <td>External URL</td>
+                        <td>Maximum 255 characters.</td>
+                    </tr>
+                    <tr>
+                        <td>Community ID</td>
+                        <td>Generally always 0 (the default official community).</td>
+                    </tr>
+                    <tr>
+                        <td>Icon data</td>
+                        <td>※See <a href="./aboutImageFormat.html">Image Formats Handled by the OLV Library</a>.</td>
+                    </tr>
+                    <tr>
+                        <td>Stamp data</td>
+                        <td>※See <a href="./aboutImageFormat.html">Image Formats Handled by the OLV Library</a>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <a name="MiiverseInit"><h2>Miiverse Initial Settings</h2></a>
+        <p>
+            Before using the OLV library, you must configure the initial settings for Miiverse.<br /> Initial settings are required for the following Miiverse functions.<br /> <br />
+            <table>
+                <caption>Table: Miiverse Functions That Require Initial Settings</caption>
+                <thead>
+                    <tr><td><B>Functions</B></td></tr>
+                </thead>
+                <tbody>
+                    <tr><td>nn::olv::UploadPostDataByPostApp</td></tr>
+                    <tr><td>nn::olv::DeletePostData</td></tr>
+                    <tr><td>nn::olv::UploadEmpathyToPostData</td></tr>
+                    <tr><td>nn::olv::UploadCommunityData</td></tr>
+                    <tr><td>nn::olv::UploadFavoriteToCommunityData </td></tr>
+                    <tr><td>nn::olv::UploadCommentDataByPostApp</td></tr>
+                    <tr><td>nn::olv::DeleteCommentData</td></tr>
+                    <tr><td>nn::olv::UploadEmpathyToCommentData</td></tr>
+                    <tr><td>nn::olv::UploadFollowToUserData</td></tr>
+                </tbody>
+                <thead>
+                    <tr><td><B>Functions (Mainly Used for Debugging)</B></td></tr>
+                </thead>
+                <tbody>
+                    <tr><td>nn::olv::UploadPostData</td></tr>
+                    <tr><td>nn::olv::UploadCommentData</td></tr>
+                </tbody>
+            </table>
+        </p>
+        <a name="MiiverseAppStart"><h2>Starting Applications From Posts in the Miiverse Application</h2></a>
+        <p>
+            Under the following conditions, you can start an application from a post displayed in the Miiverse application.
+            <ul>
+                <li>The banner spec file (BSF file) for the application has <CODE>EnableMiiverseJumpArgs</CODE> enabled. (For the specification method, see the <CODE>ctr_makebanner</CODE> reference.)</li>
+                <li>The <CODE>FLAG_APP_STARTABLE</CODE> flag was set on the post when it was posted with <CODE>nn::olv::UploadPostDataByPostApp</CODE>.</li>
+            </ul>
+            <br /> When the application starts, it can receive the following parameters associated with the post.
+            <ul>
+                <li>Community ID</li>
+                <li>Post ID</li>
+                <li>Application data (only if set)</li>
+            </ul>
+            The method of retrieving the parameters differs depending on whether the application was started or resumed. For more information, see the descriptions at the following links.
+            <ul>
+                <li><a href="#miiverse_jump_boot">When Application Was Started</a></li>
+                <li><a href="#miiverse_jump_pause">When Application Was Resumed</a></li>
+            </ul>
+        </p>
+        <a name="ApiUsage"><h2>How to Use</h2></a>
+        <p>
+            Before using the OLV library, the following libraries must be initialized.<br />
+            <ul>
+                <li><CODE>nn::fs</CODE></li>
+                <li>nn::cfg</li>
+                <li><CODE>nn::act</CODE></li>
+            </ul>
+            <p class="notice">
+                To use the OLV library, an access key must be set.<br /> Access keys are distributed by Nintendo along with a unique ID.<br /> Set the access key using the Config tool.
+            </p>
+            <p class="notice">
+                The OLV access key is accessed along with a unique ID, and used to check posting to and viewing the Miiverse.<br /> The key and ID are to prevent posting to and viewing of unrelated titles on the development server using the OLV library and Miiverse application. 
+            </p>
+            <p>
+                The following steps are required before calling <CODE>nn::olv::Connect</CODE>.<br />
+                <ul>
+                    <li>Use the <CODE>nn::cfg::CTR::IsAgreedEula</CODE> function to check whether the EULA has been agreed to.</li>
+                    <li>Use the <CODE>nn:ac</CODE> library to connect to the Internet.</li>
+                    <li>Initialize the <CODE>nn:http</CODE> library.</li>
+                </ul>
+            </p>
+        </p>
+            <a name="usage_prepare"><h4>Preparing the Library for Use</h4></a>
+            <p>
+                Link <CODE>libnn_olv.fast.a</CODE> or <CODE>libnn_olv.small.a</CODE> to your project.<br /> In addition, add the following code to your program.<br /> <pre>
+#include &lt; nn/olv.h &gt;</pre>
+            </p>
+            <a name="usage_initialize"><h4>Initializing and Finalizing the OLV Library</h4></a>
+            <p>
+                Set the parameters in an <CODE>nn::olv::InitializeParam</CODE> object.<br /> <pre>
+nn::olv::InitializeParam initParam;
+u8* work;
+
+// Get the required working buffer size.
+u32 workSize = initParam.GetWorkSize();
+
+// Set the working buffer. Do not free the working buffer until the OLV library is no longer in use.
+work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+initParam.SetWork(work, workSize);</pre> <br /> Next, call the nn::olv::Initialize function to initialize the OLV library.<br /> <pre>
+nn::olv::InitializedData initData;
+// Initialize the OLV library.
+nn::olv::Result result = nn::olv::Initialize(&amp;initData, &amp;initParam);
+if (result.IsFailure())
+{
+    // Error handling.
+}</pre> <br /> Call the finalization function when you no longer need the OLV library.<br /> <pre>
+// OLV library finalization.
+nn::olv::Finalize();</pre>
+            </p>
+            <a name="usage_connect"><h4>OLV Library Connection Process</h4></a>
+            <p>
+                Set the parameters in an <CODE>nn::olv::ConnectParam</CODE> object.<br /> <pre>
+nn::olv::ConnectParam connectParam;
+// Set the service token for Miiverse obtained from the nn::act library.
+connectParam.SetServiceToken(serviceToken);</pre> <br /> Next, connect the library by calling nn::olv::Connect.<br /> <pre>
+nn::olv::ConnectedData connectData;
+// Run the OLV library connection process (initiates communication).
+nn::olv::Result result = nn::olv::Connect(&amp;connectData, &amp;connectParam);
+if (result.IsFailure())
+{
+    // Error handling.
+}</pre>
+            </p>
+            <a name="usage_parental"><h4>Parental Controls</h4></a>
+            <p>
+                The following functions are affected by the Parental Control settings. <br />
+                <table>
+                    <caption>Table: Functions That Cannot Be Used When Miiverse Posting Is Restricted</caption>
+                    <thead>
+                        <tr><td><B>Functions</B></td></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>nn::olv::UploadPostDataByPostApp</td></tr>
+                        <tr><td>nn::olv::DeletePostData</td></tr>
+                        <tr><td>nn::olv::UploadEmpathyToPostData</td></tr>
+                        <tr><td>nn::olv::UploadCommunityData</td></tr>
+                        <tr><td>nn::olv::UploadFavoriteToCommunityData </td></tr>
+                        <tr><td>nn::olv::UploadCommentDataByPostApp</td></tr>
+                        <tr><td>nn::olv::DeleteCommentData</td></tr>
+                        <tr><td>nn::olv::UploadEmpathyToCommentData</td></tr>
+                        <tr><td>nn::olv::UploadFollowToUserData</td></tr>
+                    </tbody>
+                    <thead>
+                        <tr><td><B>Functions (Mainly Used for Debugging)</B></td></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>nn::olv::UploadPostData</td></tr>
+                        <tr><td>nn::olv::UploadCommentData</td></tr>
+                    </tbody>
+                </table>
+                <br /> <br />
+                <table>
+                    <caption>Table: Functions That Cannot Be Used When Miiverse Browsing Is Restricted</caption>
+                    <thead>
+                        <tr><td><B>Functions</B></td></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>nn::olv::Initialize</td></tr>
+                    </tbody>
+                </table>
+                <p class="notice">
+                When there are restrictions on Miiverse browsing, the <CODE>nn::olv::Initialze</CODE> function fails and the OLV library is essentially unusable.
+                </p>
+            </p>
+            <a name="usage_blocklist"><h4>Blocked Users</h4></a>
+            <p>
+                Data that needs to be excluded based on the Blocked Users list is excluded on the server side. The developer is not required to implement any specific functionality. The following functions exclude data based on the Blocked Users list.<br /> <br />
+                <table>
+                    <caption>Table: Functions That Exclude Data Based on the Blocked Users List.</caption>
+                    <thead>
+                        <tr><td><B>Functions</B></td></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>nn::olv::DownloadPostDataList</td></tr>
+                        <tr><td>nn::olv::DownloadCommentDataList</td></tr>
+                    </tbody>
+                </table>
+                <br /> If support for the Blocked Users list is required for any other function, it must be implemented on the application side. 
+            </p>
+            <p>
+            <a name="usage_post"><h4>Processes Related to Posts</h4></a> Use the <CODE>nn::olv::UploadEmpathyToPostData</CODE> function to set a Yeah on post data. <br />An example is shown below. <pre>
+nn::olv::UploadEmpathyToPostDataParam uploadParam;
+
+// Configures the post ID.
+// The postDataList variable is expected to be populated with the post data downloaded by calling the nn::olv::DownloadPostDataList function.
+const char* postId = postDataList[0].GetPostId();
+uploadParam.SetPostId(postId);
+
+// Get the size of the work buffer.
+u32 workSize = uploadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+uploadParam.SetWork(work, workSize);
+
+// Set a Yeah on the post data (initiates communication).
+nn::olv::Result result = nn::olv::UploadEmpathyToPostData(&amp;uploadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre> <br /> Use the <CODE>nn::olv::DownloadPostDataList</CODE> function to get the posted data. <br />An example is shown below.
+                <p class="warning">
+                When you download post data, some or all of the data may be missing. This behavior is by design as long as it does not have a significant effect on the gameplay experience, such as the frequent inability to get posts that should be obtainable.
+                </p>
+                <p class="notice">
+                Friendships made with the Friend application in the system menu are not reflected in the friend filtering of the OLV library until a page like the Activity Feed is accessed in the Miiverse application. If you cannot get the posts of friends, start the Miiverse application, access the Activity Feed page, and then check again. 
+                </p>
+<pre>
+nn::olv::DownloadPostDataListParam downloadParam;
+
+// Maximum number of posts to download.
+const u32 DOWNLOAD_MAX_NUM = 5;
+
+// Set the maximum number to get.
+downloadParam.SetPostDataMaxNum(DOWNLOAD_MAX_NUM);
+
+// Set a search key to get specific posts with that key.
+//const wchar_t searchKey[] = L"key0";
+//downloadParam.SetSearchKey(searchKey);
+    
+// Set the flags.
+u32 flags = 0;    
+// If you want to filter on friends' posts, followers' posts, and the user's own posts, set the following flags. (Multiple flags can be set.)
+//flags |= nn::olv::DownloadPostDataListParam::FLAG_FILTER_BY_FRIEND;
+//flags |= nn::olv::DownloadPostDataListParam::FLAG_FILTER_BY_FOLLOW;
+//flags |= nn::olv::DownloadPostDataListParam::FLAG_FILTER_BY_SELF;
+
+// If you want to filter on text data and handwritten memo data, set the following flags.
+//flags |= nn::olv::DownloadPostDataListParam::FLAG_FILTER_BY_BODY_TEXT;
+//flags |= nn::olv::DownloadPostDataListParam::FLAG_FILTER_BY_BODY_MEMO;
+
+// If you want to get post data that includes Mii data, set the following flag.
+//flags |= nn::olv::DownloadPostDataListParam::FLAG_WITH_MII_DATA;
+
+// If you want to narrow down the results to one post per user, set the following flag.
+//flags |= nn::olv::DownloadPostDataListParam::FLAG_DISTINCT_PID;
+
+// If you want to get post data including posts that the user has added a Yeah to, set the following flag.
+//flags |= nn::olv::DownloadPostDataListParam::FLAG_WITH_EMPATHY_ADDED;    
+
+// If you want to get post that include spoilers and are under review, set the following flag.
+//flags |= nn::olv::DownloadPostDataListParam::FLAG_WITH_SPOILER;
+
+downloadParam.SetFlags(flags);
+
+// You can download specific post data by setting a post ID.
+// In this case, only the FLAG_WITH_MII_DATA and FLAG_WITH_EMPATHY_ADDED flags can be set.
+// You can set up to nn::olv::POST_ID_MAX_NUM post IDs.
+//downloadParam.SetPostId(postId, 0);
+
+// You can download posts from a specific user by setting the principal ID of that user's Nintendo Network ID.
+// In this case, the FLAG_FILTER_BY_FRIEND, FLAG_FILTER_BY_FOLLOW and FLAG_FILTER_BY_SELF flags cannot be set.
+//downloadParam.SetSearchPid(pid);
+
+// You can download posts from a specific community by setting the community ID.
+//downloadParam.SetCommunityId(communityId);
+
+// You can specify a language ID. nn::olv::LANGUAGE_ID_ALL represents all languages.
+// If you do not specify a language, the ID of the system language is used.
+//downloadParam.SetLanguageId(nn::olv::LANGUAGE_ID_ALL);
+
+// You can download posts from a specific date or earlier by setting a post date.
+// nn::fnd::DateTime postDate = nn::fnd::DateTime::FromParameters(2015, 1, 2, 3, 4);
+//downloadParam.SetPostDate(postDate);
+
+// Get the size of the work buffer.
+u32 workSize = downloadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+downloadParam.SetWork(work, workSize);
+
+nn::olv::DownloadedPostData postDataList[DOWNLOAD_MAX_NUM];
+nn::olv::DownloadedTopicData topicData;
+u32 downloadListSize = 0;
+
+// Download the post data. (Initiates communication.)
+nn::olv::Result result = nn::olv::DownloadPostDataList(
+                            &amp;topicData, postDataList,
+                            &amp;downloadListSize, &amp;downloadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre> <br /> Use <CODE>nn::olv::DownloadedPostData::TestFlags</CODE> to determine post data attributes by the flags. <br />An example is shown below. <pre>
+// The postDataList variable is expected to be populated with the post data downloaded by calling the nn::olv::DownloadPostDataList function.
+if (postDataList.TestFlags(nn::olv::DownloadedPostData::FLAG_EMPATHY_ADDED))
+{
+    // This post includes a Yeah.
+}
+if (postDataList.TestFlags(nn::olv::DownloadedPostData::FLAG_SPOILER))
+{
+    // This post is a spoiler. (Does not include spoilers under review.)
+}</pre> <br /> Use the <CODE>nn::olv::DownloadedPostData::DownloadExternalImageData</CODE> function to get the image data attached to post data. <br />An example is shown below. <pre>
+// The postDataList variable is expected to be populated with the post data downloaded by calling the nn::olv::DownloadPostDataList function.
+if (postDataList[0].TestFlags(nn::olv::DownloadedPostData::FLAG_WITH_EXTERNAL_IMAGE_DATA))
+{
+    // Get the size.
+    const u32 externalImageDataSize = postDataList[0].GetExternalImageDataSize();
+
+    // Allocate memory.
+    u8* externalImageData = new u8[externalImageDataSize];
+    if (externalImageData == NULL)
+    {
+        // Failed to allocate memory.
+    }
+
+    u32 downloadSize = 0;
+
+    // Get the image attachment. (Initiates communication.)
+    nn::olv::Result result = postDataList[0].DownloadExternalImageData(
+                                externalImageData, &amp;downloadSize, externalImageDataSize);
+    if (result.IsFailure())
+    {
+        // An error occurred. Handle it as required.
+    }
+}</pre> <br /> Use the <CODE>nn::olv::DownloadedPostData::GetBodyText</CODE> function to get the text data from the post data. <br />An example is shown below. <pre>
+// The postDataList variable is expected to be populated with the post data downloaded by calling the nn::olv::DownloadPostDataList function.
+if (postDataList[0].TestFlags(nn::olv::DownloadedPostData::FLAG_WITH_BODY_TEXT))
+{
+    wchar_t bodyText[nn::olv::BODY_TEXT_BUFF_LENGTH];
+
+    // Get the handwritten memo data.
+    postDataList[0].GetBodyText(bodyText, nn::olv::BODY_TEXT_BUFF_LENGTH);
+}</pre>
+                <br /> Use the <CODE>nn::olv::DownloadedPostData::GetBodyMemo</CODE> function to get the handwritten memo data from the post data. <br />An example is shown below. <pre>
+// The postDataList variable is expected to be populated with the post data downloaded by calling the nn::olv::DownloadPostDataList function.
+if (postDataList[0].TestFlags(nn::olv::DownloadedPostData::FLAG_WITH_BODY_MEMO))
+{
+    u8 bodyMemo[nn::olv::BODY_MEMO_MAX_SIZE];
+    u32 bodyMemoSize;
+
+    // Get the handwritten memo data.
+    postDataList[0].GetBodyMemo(bodyMemo, &amp;bodyMemoSize, nn::olv::BODY_MEMO_MAX_SIZE);
+}</pre>
+                <br /> Use the <CODE>nn::olv::DownloadedPostData::GetAppData</CODE> function to get the application data from the post data. <br />An example is shown below. <pre>
+// The postDataList variable is expected to be populated with the post data downloaded by calling the nn::olv::DownloadPostDataList function.
+if (postDataList[0].TestFlags(nn::olv::DownloadedPostData::FLAG_WITH_APP_DATA))
+{
+    u8 appData[nn::olv::APP_DATA_BUFF_LENGTH];
+    u32 appDataSize;
+
+    // Get the application data.
+    postDataList[0].GetAppData(appData, &amp;appDataSize, nn::olv::APP_DATA_BUFF_LENGTH);
+}</pre>
+                <br /> Use the <CODE>nn::olv::DownloadedPostData::GetMiiData</CODE> function to get the Mii data from the post data. <br />An example is shown below. <pre>
+// The postDataList variable is expected to be populated with the post data downloaded by calling the nn::olv::DownloadPostDataList function.
+if (postDataList[0].TestFlags(nn::olv::DownloadedPostData::FLAG_WITH_MII_DATA))
+{
+    nn::mii::StoreData miiData;
+
+    // Get the Mii data.
+    postDataList[0].GetMiiData(&amp;miiData);
+}</pre>
+            </p>
+            <p>
+            <a name="usage_community"><h4>Processes Related to Communities</h4></a> Use <CODE>nn::olv::UploadCommunityData</CODE> to create community data. <br />An example is shown below.
+                <p class="notice">
+                Communities created are automatically handled as favorite communities.
+                </p>
+<pre>
+nn::olv::UploadCommunityDataParam uploadParam;
+
+// Set the community ID to 0. (The default is 0 so you can also leave it unset.)
+uploadParam.SetCommunityId(0);
+
+// Set the community name.
+const wchar_t titleText[] = L"TEST TITLE";
+uploadParam.SetTitleText(titleText);
+
+// Set the community description.
+const wchar_t descriptionText[] = L"TEST DESCRIPTION";
+uploadParam.SetDescriptionText(descriptionText);
+
+// Set the application data.
+//u8 appData[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@";
+//uploadParam.SetAppData(appData, sizeof(appData));
+
+// Set the icon data.
+//uploadParam.SetIconData((u8*)iconData, iconDataSize);
+
+// Get the size of the work buffer.
+u32 workSize = uploadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+uploadParam.SetWork(work, workSize);
+
+nn::olv::UploadedCommunityData uploadedData;
+
+// Create the community data. This initiates communication.
+nn::olv::Result result = nn::olv::UploadCommunityData(&amp;uploadedData, &amp;uploadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre> <br /> Use <CODE>nn::olv::UploadCommunityData</CODE> to update community data. <br />An example is shown below. <pre>
+nn::olv::UploadCommunityDataParam uploadParam;
+
+// Set the ID of the community data to update.
+uploadParam.SetCommunityId(communityId);
+
+// Update the community description.
+const wchar_t descriptionText[] = "TEST DESCRIPTION 2";
+uploadParam.SetDescriptionText(descriptionText);
+
+// Get the size of the work buffer.
+u32 workSize = uploadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+uploadParam.SetWork(work, workSize);
+
+nn::olv::UploadedCommunityData uploadedData;
+
+// Update the community data. This initiates communication.
+nn::olv::Result result = nn::olv::UploadCommunityData(&amp;uploadedData, &amp;uploadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre> <br /> Use <CODE>nn::olv::UploadCommunityData</CODE> to delete community data. <br />An example is shown below. <pre>
+nn::olv::UploadCommunityDataParam uploadParam;
+
+// Set the ID of the community data to update.
+// The communityId variable is expected to be populated with the community ID.
+uploadParam.SetCommunityId(communityId);
+
+// Set the flag to indicate deletion.
+uploadParam.SetFlags(nn::olv::UploadCommunityDataParam::FLAG_DELETE);
+
+// Get the size of the work buffer.
+u32 workSize = uploadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+uploadParam.SetWork(work, workSize);
+
+// Delete the community data. This initiates communication.
+nn::olv::Result result = nn::olv::UploadCommunityData(NULL, &amp;uploadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre> <br /> Use <CODE>nn::olv::UploadFavoriteToCommunityData</CODE> to register a community to favorites. <br />An example is shown below. <pre>
+nn::olv::UploadFavoriteToCommunityDataParam uploadParam;
+
+// Set the community ID or community code of the community you want to add to your favorites.
+// Set using one of the following methods.
+{    
+    // The communityDataList variable is expected to be populated with the community data downloaded by calling the nn::olv::DownloadCommunityDataList function.
+
+    // Set the community code.
+    char communityCode[nn::olv::COMMUNITY_CODE_BUFF_LENGTH];
+    communityDataList[0].GetCommunityCode(communityCode, nn::olv::COMMUNITY_CODE_BUFF_LENGTH);
+    uploadParam.SetCommunityCode(communityCode);
+
+    // Set the community ID.
+    //const u32 communityId = communityDataList[0].GetCommunityId();
+    //uploadParam.SetCommunityId(communityId);
+}
+
+// Set FLAG_REMOVE to remove the community from Favorites.
+//u32 flags = nn::olv::UploadFavoriteToCommunityDataParam::FLAG_REMOVE;
+//uploadParam.SetFlags(flags);
+
+// Get the size of the work buffer.
+u32 workSize = uploadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+uploadParam.SetWork(work, workSize);
+
+// Add the community data to favorites. This initiates communication.
+nn::olv::Result result = nn::olv::UploadFavoriteToCommunityData(&amp;favoriteParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre> <br /> Use <CODE>nn::olv::DownloadCommunityDataList</CODE> to get community data. <br />An example is shown below.
+                <p class="notice">
+                Communities you have created yourself are treated as favorites, so the communities you get include your own communities if you specify the <code>nn::olv::DownloadCommunityDataListParam::FLAG_FILTER_BY_FAVORITE</code> flag. 
+                </p>
+<pre>
+nn::olv::DownloadCommunityDataListParam downloadParam;
+
+// Maximum number of communities to download.
+const u32 DOWNLOAD_MAX_NUM = 5;
+
+// Set the maximum number to get.
+downloadParam.SetCommunityDataMaxNum(DOWNLOAD_MAX_NUM);
+
+// Set the flags.
+u32 flags = 0;
+// Set one of the following filter flags: by self, by favorite, or by official.
+flags |= nn::olv::DownloadCommunityDataListParam::FLAG_FILTER_BY_SELF;
+//flags |= nn::olv::DownloadCommunityDataListParam::FLAG_FILTER_BY_FAVORITE;
+//flags |= nn::olv::DownloadCommunityDataListParam::FLAG_FILTER_BY_OFFICIAL;
+
+// If you want the community data to include the Mii data of the community creator, set the following flag.
+//flags |= nn::olv::DownloadCommunityDataListParam::FLAG_WITH_MII_DATA;
+
+// If you want to include the community icon in the data obtained, set the following flag.
+//flags |= nn::olv::DownloadCommunityDataListParam::FLAG_WITH_ICON_DATA;
+
+downloadParam.SetFlags(flags);
+
+// You can download specific community data by setting a community ID.
+// In this case, only the FLAG_WITH_MII_DATA and FLAG_WITH_ICON_DATA flags can be set.
+// You can set up to nn::olv::COMMUNITY_ID_MAX_NUM community IDs.
+//downloadParam.SetCommunityId(0, 0);
+
+// Get the size of the work buffer.
+u32 workSize = downloadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+downloadParam.SetWork(work, workSize);
+ 
+nn::olv::DownloadedCommunityData communityDataList[DOWNLOAD_MAX_NUM];
+u32 downloadListSize = 0;
+
+// Download the community data. This initiates communication.
+result = nn::olv::DownloadCommunityDataList(
+            communityDataList, &amp;downloadListSize, &amp;downloadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre>
+            </p>
+            <p>
+            <a name="usage_comment"><h4>Processes Related to Comments</h4></a> Use <CODE>nn::olv::DownloadCommentDataList</CODE> to get comment data. <br />An example is shown below. <pre>
+nn::olv::DownloadCommentDataListParam downloadParam;
+
+// Maximum number of posts to download.
+const u32 DOWNLOAD_MAX_NUM = 5;
+
+// Configures the post ID.
+downloadParam.SetPostId(postId);
+
+// Set the maximum number to get.
+downloadParam.SetCommentDataMaxNum(DOWNLOAD_MAX_NUM);
+
+// Set the flags.
+u32 flags = 0;    
+// If you want to filter on text data and handwritten memo data, set the following flags.
+//flags |= nn::olv::DownloadCommentDataListParam::FLAG_FILTER_BY_BODY_TEXT;
+//flags |= nn::olv::DownloadCommentDataListParam::FLAG_FILTER_BY_BODY_MEMO;
+
+// If you want to get comment data that includes Mii data, set the following flag.
+//flags |= nn::olv::DownloadCommentDataListParam::FLAG_WITH_MII_DATA;
+
+// If you want to narrow down the results to one comment per user, set the following flag.
+//flags |= nn::olv::DownloadCommentDataListParam::FLAG_DISTINCT_PID;
+
+// If you want to get comments that include spoilers and are under review, set the following flag.
+//flags |= nn::olv::DownloadCommentDataListParam::FLAG_WITH_SPOILER;
+
+downloadParam.SetFlags(flags);
+
+// You can download specific comment data by setting a comment ID.
+// In this case, only the FLAG_WITH_MII_DATA and FLAG_WITH_EMPATHY_ADDED flags can be set.
+//downloadParam.SetCommentId(commentId);
+
+// You can download comments from a specific date or earlier by setting a comment post date.
+// nn::fnd::DateTime postDate = nn::fnd::DateTime::FromParameters(2015, 1, 2, 3, 4);
+//downloadParam.SetPostDate(postDate);
+
+// Get the size of the work buffer.
+u32 workSize = downloadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+downloadParam.SetWork(work, workSize);
+
+nn::olv::DownloadedCommentData commentDataList[DOWNLOAD_MAX_NUM];
+u32 downloadListSize = 0;
+
+// Download the comment. This initiates communication.
+nn::olv::Result result = nn::olv::DownloadCommentDataList(
+                            commentDataList, &amp;downloadListSize, &amp;downloadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre> <br /> The function used to delete comments is <CODE>nn::olv::DeleteCommentData</CODE>. <br />An example is shown below. <pre>
+nn::olv::DeleteCommentDataParam deleteParam;
+
+// Set the comment ID.
+// The commentId variable is expected to be populated with the comment ID.
+deleteParam.SetCommentId(commentId);
+
+// Get the size of the work buffer.
+u32 workSize = deleteParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+deleteParam.SetWork(work, workSize);
+
+// Delete the comment data. This initiates communication.
+nn::olv::Result result = nn::olv::DeleteCommentData(&amp;deleteParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre>
+            </p>
+            <p>
+            <a name="usage_user"><h4>Processes Related to User Data</h4></a> To download user data for users who added a Yeah to the specified post, use the <CODE>nn::olv::DownloadUserDataList</CODE> function. <br />An example is shown below. <pre>
+nn::olv::DownloadUserDataListParam downloadParam;
+
+// Maximum number of users to download.
+const u32 DOWNLOAD_MAX_NUM = 5;
+
+// Set the maximum number to get.
+downloadParam.SetUserDataMaxNum(DOWNLOAD_MAX_NUM);
+
+// Configure the post ID.
+// The postId variable is expected to be populated with the post ID.
+downloadParam.SetPostId(postId);
+
+// Set the flags.
+u32 flags = 0;    
+// Set FLAG_EMPATHY_TO_POST.
+flags |= nn::olv::DownloadUserDataListParam::FLAG_EMPATHY_TO_POST;
+
+// If you want the user data to include Mii data, set the following flag.
+//flags |= nn::olv::DownloadUserDataListParam::FLAG_WITH_MII_DATA;
+
+downloadParam.SetFlags(flags);
+
+// Get the size of the work buffer.
+u32 workSize = downloadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+downloadParam.SetWork(work, workSize);
+
+nn::olv::DownloadedUserData userDataList[DOWNLOAD_MAX_NUM];
+u32 downloadListSize = 0;
+
+// Download the user data. This initiates communication.
+result = nn::olv::DownloadUserDataList(
+            userDataList, &amp;downloadListSize, &amp;downloadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre> <br /> To download user data for users who are the specified user's friends or followers, use the <CODE>nn::olv::DownloadUserDataList</CODE> function. <br />An example is shown below. <pre>
+nn::olv::DownloadUserDataListParam downloadParam;
+
+// Maximum number of users to download.
+const u32 DOWNLOAD_MAX_NUM = 5;
+
+// Set the maximum number to get.
+downloadParam.SetUserDataMaxNum(DOWNLOAD_MAX_NUM);
+
+// Set the principal ID of the user's Nintendo Network ID to get that user's friends or followers.
+// The userPid variable is expected to be populated with the principal ID of the Nintendo Network ID.
+downloadParam.SetUserPid(userPid);
+ 
+// Set the flags.
+u32 flags = 0;    
+// Set FLAG_FOLLOW_TO_USER to download followers.
+// Set FLAG_FRIEND_TO_USER to download friends.
+flags |= nn::olv::DownloadUserDataListParam::FLAG_FOLLOW_TO_USER;
+//flags |= nn::olv::DownloadUserDataListParam::FLAG_FRIEND_TO_USER;
+
+// If you want the user data to include Mii data, set the following flag.
+flags |= nn::olv::DownloadUserDataListParam::FLAG_WITH_MII_DATA;
+
+downloadParam.SetFlags(flags);
+
+// Get the size of the work buffer.
+u32 workSize = downloadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+downloadParam.SetWork(work, workSize);
+ 
+nn::olv::DownloadedUserData userDataList[DOWNLOAD_MAX_NUM];
+u32 downloadListSize = 0;
+
+// Download the user data. This initiates communication.
+nn::olv::Result result = nn::olv::DownloadUserDataList(
+                            userDataList, &amp;downloadListSize, &amp;downloadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre> <br /> To follow the specified user, use the nn::olv::UploadFollowToUserData function. <br />An example is shown below. <pre>
+nn::olv::UploadFollowToUserDataParam uploadParam;
+
+// Set the principal ID of the Nintendo Network ID of the user to follow.
+// The userPid variable is expected to be populated with the principal ID of the Nintendo Network ID.
+uploadParam.SetUserPid(userPid);
+ 
+// Get the size of the work buffer.
+u32 workSize = uploadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+uploadParam.SetWork(work, workSize);
+
+// Follow the user. This initiates communication.
+nn::olv::Result result = nn::olv::UploadFollowToUserData(&amp;uploadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre> <br /> To stop following the specified user, use the <CODE>nn::olv::UploadFollowToUserData</CODE> function. <br />An example is shown below. <pre>
+nn::olv::UploadFollowToUserDataParam uploadParam;
+
+// Set the principal ID of the Nintendo Network ID of the user to stop following.
+// The userPid variable is expected to be populated with the principal ID of the Nintendo Network ID.
+uploadParam.SetUserPid(userPid);
+
+// Set the FLAG_REMOVE flag.
+uploadParam.SetFlags(nn::olv::UploadFollowToUserDataParam::FLAG_REMOVE);
+ 
+// Get the size of the work buffer.
+u32 workSize = uploadParam.GetWorkSize();
+
+// Set the working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+uploadParam.SetWork(work, workSize);
+
+// Stop following the user. This initiates communication.
+nn::olv::Result result = nn::olv::UploadFollowToUserData(&amp;uploadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre>
+            </p>
+            <p>
+            <a name="usage_miiverse"><h4>Processes Related to the Miiverse Application</h4></a> Use the <CODE>nn::olv::StartPortalApp</CODE> function to start the Miiverse application. <br />An example is shown below. <pre>
+nn::olv::StartPortalAppParam startParam;
+
+// Settings for opening a community page.
+{
+    // Set the mode.
+    //startParam.SetMode(nn::olv::StartPortalAppParam::MODE_START_COMMUNITY);
+
+    // Set the community ID.
+    // The communityId variable is expected to be populated with the community ID.
+    //startParam.SetCommunityId(communityId);
+
+    // You can specify a topic tag.
+    // const wchar_t topicTag[] = L"TEST TAG";
+    //startParam.SetTopicTag(const wchar_t* topicTag);
+}
+
+// Settings for opening a post page.
+{
+    // Set the mode.
+    //startParam.SetMode(nn::olv::StartPortalAppParam::MODE_START_POST);
+
+    // Configure the post ID.
+    // The postId variable is expected to be populated with the post ID.
+    //startParam.SetPostId(postId);
+}
+
+// Settings for opening a user page.
+{
+    // Set the mode.
+    //startParam.SetMode(nn::olv::StartPortalAppParam::MODE_START_USER);
+
+    // Set the principal ID of the Nintendo Network ID.
+    // The userPid variable is expected to be populated with the principal ID of the Nintendo Network ID.
+    //startParam.SetUserPid(userPid);
+}
+
+// Get the size of the work buffer.
+u32 workSize = startParam.GetWorkSize();
+
+// Set the working buffer.
+// Device memory cannot be used for this working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+startParam.SetWork(work, workSize);
+
+nn::olv::Result result = nn::olv::StartPortalApp(&amp;startParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}
+else
+{
+    AppletId senderId = 0;
+    s32 systemArgsSize = 0;
+    u8 systemArgs[NN_APPLET_PARAMETER_MAX];
+
+    // Wait for the application to start.
+    nn::applet::WaitForStarting(&amp;senderId, systemArgs, NN_APPLET_PARAMETER_MAX, &amp;systemArgsSize);
+
+    // Determine whether application is expected to close.
+    if (nn::applet::CTR::IsExpectedToCloseApplication())
+    {
+        // Promptly close the application.
+        return;
+    }
+
+    nn::olv::ResumedData resumeData;
+    nn::olv::ResumeParam resumeParam;
+
+    // Call the function to resume the OLV library.
+    if (senderId == nn::olv::PORTAL_APP_APPLET_ID)
+    {
+        // Specify any system arguments passed by the Miiverse application.
+        resumeParam.SetSystemArgs(systemArgs, (u32)systemArgsSize);
+    }
+    result = nn::olv::Resume(&amp;resumeData, &amp;resumeParam);
+    if (result.IsFailure())
+    {
+        // An error occurred. Handle it as required.
+    }
+}</pre> <br /> <a name="miiverse_jump_boot"></a> If an application is started by the Miiverse application when no other application is running, get the system parameters from the <CODE>nn::applet::GetInitialParam</CODE> function and pass them to the <CODE>nn::olv::Resume</CODE> function. An example is shown below. <pre>
+nn::applet::AppletId senderId = 0;
+s32 systemArgsSize = 0;
+u8 systemArgs[NN_APPLET_PARAMETER_MAX];
+
+// Get the system arguments if started from the Miiverse application.
+nn::applet::GetInitialParam(&amp;senderId, systemArgs, NN_APPLET_PARAMETER_MAX, &amp;systemArgsSize);
+
+nn::olv::ResumedData resumeData;
+nn::olv::ResumeParam resumeParam;
+
+// Call the function to resume the OLV library.
+if (senderId == nn::olv::PORTAL_APP_APPLET_ID)
+{
+    // Specify any system arguments passed by the Miiverse application.
+    resumeParam.SetSystemArgs(systemArgs, (u32)systemArgsSize);
+}
+nn::olv::Result result = nn::olv::Resume(&amp;resumeData, &amp;resumeParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}
+else
+{
+    if (resumeData.GetMode() == nn::olv::ResumedData::MODE_START_POST)
+    {
+        // If it was started from a post in the Miiverse application, you can get the community ID, the post ID, and the application data.
+
+        // Get the community ID.
+        u32 communityId = resumeData.GetCommunityId();
+
+        // Get the post ID.
+        char postId[nn::olv::POST_ID_BUFF_LENGTH];
+        resumeData.GetPostId(postId, nn::olv::POST_ID_BUFF_LENGTH);
+
+        if (resumeData.TestFlags(nn::olv::ResumedData::FLAG_WITH_APP_DATA))
+        {
+            // Get the size of the application data.
+            u32 appDataSize = resumeData.GetAppDataSize();
+
+            // Get the application data.
+            u8 appData[nn::olv::APP_DATA_BUFF_LENGTH];
+            resumeData.GetAppData(appData, nn::olv::APP_DATA_BUFF_LENGTH);
+        }
+    }
+}</pre> <br /> <a name="miiverse_jump_pause"></a> When an application is suspended (by the HOME Menu or starting the Miiverse application with <CODE>nn::olv::StartPortalApp</CODE>), if the application is resumed by the Miiverse application, get the system arguments from <CODE>nn::applet::WaitForStarting</CODE> and pass them to <CODE>nn::olv::Resume</CODE>. <br />An example is shown below. <pre>
+// --Application is in a suspended state--
+
+nn::applet::AppletId senderId = 0;
+s32 systemArgsSize = 0;
+u8 systemArgs[NN_APPLET_PARAMETER_MAX];
+
+// Wait for the application to start.
+nn::applet::WaitForStarting(&amp;senderId, systemArgs, NN_APPLET_PARAMETER_MAX, &amp;systemArgsSize);
+
+// Determine whether application is expected to close.
+if (nn::applet::CTR::IsExpectedToCloseApplication())
+{
+    // Promptly close the application.
+    return;
+}
+
+nn::olv::ResumedData resumeData;
+nn::olv::ResumeParam resumeParam;
+
+// Call the function to resume the OLV library.
+if (senderId == nn::olv::PORTAL_APP_APPLET_ID)
+{
+    // Specify any system arguments passed by the Miiverse application.
+    resumeParam.SetSystemArgs(systemArgs, (u32)systemArgsSize);
+}
+nn::olv::Result result = nn::olv::Resume(&amp;resumeData, &amp;resumeParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}
+else
+{
+    if (resumeData.GetMode() == nn::olv::ResumedData::MODE_START_POST)
+    {
+        // If it was started from a post in the Miiverse application, you can get the community ID, the post ID, and the application data.
+
+        // Get the community ID.
+        u32 communityId = resumeData.GetCommunityId();
+
+        // Get the post ID.
+        char postId[nn::olv::POST_ID_BUFF_LENGTH];
+        resumeData.GetPostId(postId, nn::olv::POST_ID_BUFF_LENGTH);
+
+        if (resumeData.TestFlags(nn::olv::ResumedData::FLAG_WITH_APP_DATA))
+        {
+            // Get the size of the application data.
+            u32 appDataSize = resumeData.GetAppDataSize();
+
+            // Get the application data.
+            u8 appData[nn::olv::APP_DATA_BUFF_LENGTH];
+            resumeData.GetAppData(appData, nn::olv::APP_DATA_BUFF_LENGTH);
+        }
+    }
+}</pre>
+            </p>
+            <p>
+            <a name="usage_postapp"><h4>Processes Related to Starting the Post Application</h4></a> Use <CODE>nn::olv::UploadPostDataByPostApp</CODE> to send the post data in the Post application. <br />An example is shown below. <pre>
+nn::olv::UploadPostDataByPostAppParam uploadParam;
+
+// Set the maximum string length of text data that can be posted.
+//uploadParam.SetBodyTextMaxLength(nn::olv::BODY_TEXT_MAX_LENGTH);
+
+// Set the flags.
+u32 flags = 0;
+
+// Set the following flag to limit the post body to text only. This prevents the posting of handwritten memos.
+//flags |= nn::olv::UploadPostDataByPostAppParam::FLAG_ONLY_BODY_TEXT;
+// Set the following flag to limit the post body to handwritten memo only. This prevents the posting of text.
+//flags |= nn::olv::UploadPostDataByPostAppParam::FLAG_ONLY_BODY_MEMO;
+
+// Set the following flag to allow the starting of the application from a post in the Miiverse application.
+//flags |= nn::olv::UploadPostDataByPostAppParam::FLAG_APP_STARTABLE;
+
+uploadParam.SetFlags(flags);
+
+// Set the initial value of the text data.
+//const wchar_t bodyText[] = L"TEST TEXT";
+//uploadParam.SetBodyText(bodyText);
+
+// Set the initial value of the handwritten memo data.
+// The bodyMemoData and bodyMemoSize variables are expected to be populated with the handwritten memo data and the size of the handwritten memo data, respectively.
+//uploadParam.SetBodyMemo(bodyMemoData, bodyMemoSize);
+    
+// Set the feeling.
+//uploadParam.SetFeeling(nn::olv::FEELING_HAPPY);
+ 
+// Set a topic tag.
+//const wchar_t topicTag[] = L"TEST TOPIC";
+//uploadParam.SetTopicTag(topicTag);
+
+// Set the search key.
+//const wchar_t searchKey[] = L"KEY 0";
+//uploadParam.SetSearchKey(searchKey, 0);
+
+// Set the attachment URL.
+//const char externalUrl[] = "http://external-url-test/";
+//result = uploadParam.SetExternalUrl(externalUrl);
+
+// Set the application data.
+//const u8 appData[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@";
+//uploadParam.SetAppData(appData, sizeof(appData));
+
+// Set the attached image data.
+// The externalImageData and externalImageDataSize variables are expected to be populated with the attached image data and the size of the attached image data, respectively.
+//uploadParam.SetExternalImageData(externalImageData, externalImageDataSize);
+
+// Get the size of the work buffer.
+u32 workSize = uploadParam.GetWorkSize();
+
+// Set the working buffer.
+// Device memory cannot be used for this working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+uploadParam.SetWork(work, workSize);
+
+nn::olv::UploadedPostData uploadData;
+
+// Start the Post application and upload the post data.
+nn::olv::Result result = nn::olv::UploadPostDataByPostApp(&amp;uploadData, &amp;uploadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre> <br /> Use <CODE>nn::olv::UploadCommentDataByPostApp</CODE> to upload the comment data in the Post application. <br />An example is shown below. <pre>
+nn::olv::UploadCommentDataByPostAppParam uploadParam;
+
+// Configure the post ID.
+// The postId variable is expected to be populated with the post ID.
+uploadParam.SetPostId(postId);
+
+// Set the maximum string length of text data that can be posted.
+//uploadParam.SetBodyTextMaxLength(nn::olv::BODY_TEXT_MAX_LENGTH);
+
+// Set the flags.
+u32 flags = 0;
+
+// Set the following flag to limit the post body to text only. This prevents the posting of handwritten memos.
+//flags |= nn::olv::UploadCommentDataByPostAppParam::FLAG_ONLY_BODY_TEXT;
+// Set the following flag to limit the post body to handwritten memo only. This prevents the posting of text.
+//flags |= nn::olv::UploadCommentDataByPostAppParam::FLAG_ONLY_BODY_MEMO;
+
+uploadParam.SetFlags(flags);
+
+// Set the initial value of the text data.
+//const wchar_t bodyText[] = L"TEST TEXT";
+//uploadParam.SetBodyText(bodyText);
+
+// Set the initial value of the handwritten memo data.
+// The bodyMemoData and bodyMemoSize variables are expected to be populated with the handwritten memo data and the size of the handwritten memo data, respectively.
+//uploadParam.SetBodyMemo(bodyMemoData, bodyMemoSize);
+    
+// Set the feeling.
+//uploadParam.SetFeeling(nn::olv::FEELING_HAPPY);
+ 
+// Set the application data.
+//const u8 appData[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@";
+//uploadParam.SetAppData(appData, sizeof(appData));
+
+// Set the attached image data.
+// The externalImageData and externalImageDataSize variables are expected to be populated with the attached image data and the size of the attached image data, respectively.
+//uploadParam.SetExternalImageData(externalImageData, externalImageDataSize);
+
+// Get the size of the work buffer.
+u32 workSize = uploadParam.GetWorkSize();
+
+// Set the working buffer.
+// Device memory cannot be used for this working buffer.
+u8* work = new u8[workSize];
+if (work == NULL)
+{
+    // Failed to allocate the working buffer.
+}
+uploadParam.SetWork(work, workSize);
+
+nn::olv::UploadedCommentData uploadData;
+
+// Start the Post application and upload the comment data.
+nn::olv::Result result = nn::olv::UploadCommentDataByPostApp(&amp;uploadData, &amp;uploadParam);
+if (result.IsFailure())
+{
+    // An error occurred. Handle it as required.
+}</pre>
+            </p>
+    <a name="History"><h2>Revision History</h2></a>
+    <div class="section">
+      <dl class="history">
+        <dt>2015-05-22</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

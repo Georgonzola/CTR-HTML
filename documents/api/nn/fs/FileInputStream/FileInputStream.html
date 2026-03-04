@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>FileInputStream</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fs/Overview.html">fs</a>::<a href="../../../nn/fs/FileInputStream/Overview.html">FileInputStream</a>::FileInputStream Constructor</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+FileInputStream();
+
+explicit FileInputStream(
+     const wchar_t * pathName
+);
+
+explicit FileInputStream(
+     const char * pathName
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./FileInputStream(0).html">FileInputStream (  ) </a>
+          </td>
+          <td>Constructor.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./FileInputStream(1).html">FileInputStream ( const wchar_t * ) </a>
+          </td>
+          <td>A constructor that constructs an object and opens the specified file.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./FileInputStream(2).html">FileInputStream ( const char * ) </a>
+          </td>
+          <td>A constructor that constructs an object and opens the specified file.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of FileInputStream (  ) </h2>
+    <div class="section"><p>In the overloaded version without arguments, no file is opened. You must call the <code><a href="../../../nn/fs/FileInputStream/TryInitialize.html">TryInitialize</a></code> function separately to manipulate files.</p><p>In the overloaded version with the path name specified, it opens the file at the specified path with read-only access and enables reading.</p><!-- write here --></div>
+    <h2>Description of FileInputStream ( const wchar_t * ) </h2>
+    <div class="section"><p>It opens the file at the specified path with read-only access and enables reading.</p><!-- write here --></div>
+    <h2>Description of FileInputStream ( const char * ) </h2>
+    <div class="section"><p>It opens the file at the specified path with read-only access and enables reading.</p><p><bold>Note:</bold> This function uses about 1 KB of buffer space on the stack because it converts the path name from a multibyte string into a wide string. Pay careful attention to the stack size.</p><!-- write here --></div>
+  </body>
+</html>

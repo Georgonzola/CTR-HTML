@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>MakeChannel0SubroutineCommand</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/gr/Overview.html">gr</a>::<a href="../../../nn/gr/CTR/Overview.html">CTR</a>::MakeChannel0SubroutineCommand Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/bit32.html">bit32</a> * MakeChannel0SubroutineCommand(
+     <a href="../../../nn_types/bit32.html">bit32</a> * command,
+     <a href="../../../nn_types/uptr.html">uptr</a> * bufferSizePtr,
+     const <a href="../../../nn_types/uptr.html">uptr</a> commandBufferPtr,
+     const size_t commandBufferSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>command</th>
+          <td>The start address for storing the rendering command.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>bufferSizePtr</th>
+          <td>The data address storing the byte size of the command buffer to execute after control returns from the jump destination.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>commandBufferPtr</th>
+          <td>Address of the jump destination command buffer. Must be <code>COMMANDBUFFER_ALIGNMENT</code>-byte aligned (16-byte aligned).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>commandBufferSize</th>
+          <td>Byte size of the jump destination command buffer. Must be a multiple of <code>COMMANDBUFFER_UNITSIZE</code> (16 bytes).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the address that follows the end of the stored rendering command. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Adds a command set for jumping to a different command buffer (executed on Channel 0) and then returning control to the original command buffer.</p><!-- write here --><p>For convenience, the jump destination command buffer is called a subroutine.</p><p>The value found by taking the number of bytes from the point of returning from the subroutine to the next channel kick command or split command (the command added using the <tt>nngxSplitDrawCmdlist</tt> function or <tt>nngxFlush3DCommand</tt> function) and dividing by 8 must be written into <span class="argument">bufferSizePtr</span>.</p><p>If the return value of this function is saved for later use, the number of bytes can be calculated based on the difference in the command buffer address immediately after the split command is added.</p><p><span class="argument">commandBufferPtr</span> specifies the subroutine address, while <span class="argument">commandbufferSize</span> specifies the subroutine byte size.  Both of these values must be a multiple of 16.</p><p>Example:</p><pre>
+    u32* command;
+    u32* tmpHead;
+    uptr sizeAddr;
+    GLint bufSizeFirstKick;    // Stores the size from the start of the command buffer until the first channel kick command.
+
+    nngxGetCmdlistParameteri( NN_GX_CMDLIST_CURRENT_BUFADDR, reinterpret_cast< GLint* >( &command ) );
+    const u32* startAddr = command;  // Keep the start address.
+
+    ...
+
+    // In some cases, adjust the size of the command buffer (see below).
+
+    command = MakeChannel1SubroutineCommand( command, &sizeAddr, subroutineAddr, subroutineSize );
+    // Save the command buffer address immediately after adding the command set for making the jump.
+    tmpHead = command;
+    bufSizeFirstKick = (command - startAddr) * sizeof(u32);
+
+    ... // Create the necessary commands.
+
+    // Advance the pointer to the render command buffer.
+    nngxMoveCommandbufferPointer( ( command - startAddr ) * sizeof(u32) );
+
+    // Stop creating commands and add a split command.
+    // Specify the size from the start of the command buffer until the first channel kick command.
+    nngxFlush3DCommandPartially(bufSizeFirstKick);
+
+    // Get the command buffer address after adding the split command.
+    nngxGetCmdlistParameteri( NN_GX_CMDLIST_CURRENT_BUFADDR, reinterpret_cast< GLint* >( &command ) );
+
+    // Write the value given by taking the number of bytes from returning from the subroutine up to the split command and dividing by 8.
+    *(reinterpret_cast< u32* >(sizeAddr)) = ((command - tmpHead) * sizeof(u32)) >> 3;
+
+    // Apply content written by the CPU.
+    // The nngxFlush3DCommandPartially function does not perform caching operations on the command buffer, 
+    // so we must perform this for the entire area. 
+    nngxUpdateBufferLight( reinterpret_cast< u32* >(startAddr), (command - startAddr) * sizeof(u32) );
+</pre><br /><p>Make sure that the size of the buffer immediately after adding the command generated by this function is a multiple of 16. <br /> In some cases, you must adjust the size by generating a dummy command beforehand.</p><p>The byte size of commands added by this function is 24 bytes.</p><p>Also, a Channel 1 kick command must be stored at the end of command buffers specified as a subroutine.</p><p>Example: Adjusting the size of the command buffer</p><pre>
+    bit32* AddDummyDataForCommandBuffer( bit32* command, const size_t size )
+    {
+        // Adjust so that the size of the buffer is a multiple of 16.
+        if ( size % 16 )
+        {
+            int num = (size >> 2) % 4;
+            
+            for ( int i=4; i>num; --i )
+            {
+                *command++ = 0;
+            }
+        }
+        
+        return command;
+    }
+
+    void CreateCommand(void)
+    {
+        u32* command;
+        nngxGetCmdlistParameteri( NN_GX_CMDLIST_CURRENT_BUFADDR, reinterpret_cast< GLint* >( &command ) );
+
+        const u32* startAddr = command;  // Keep the start address.
+
+        ... // Create command.
+
+        // Add to command buffer, then add dummy command to make size a multiple of 16, 
+        // because command added by MakeChannel0SubroutineCommand function is 24 bytes.
+        command = AddDummyDataForCommandBuffer( command, (command - startAddr) * sizeof(u32) + 24 );
+
+        // Adding the kick command makes the size of the command buffer an exact multiple of 16
+        command = MakeChannel0SubroutineCommand( command, &sizeAddr, subroutineAddr, subroutineSize );
+
+        ... // Create command.
+    }
+</pre></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../nn/gr/CTR/MakeChannel1SubroutineCommand.html">nn::gr::CTR::MakeChannel1SubroutineCommand</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment.</item><br />
+        </dd>
+        <dt>2014/05/23</dt>
+        <dd><item xmlns="">Changed the cache operation function from <tt>nngxUpdateBuffer</tt> to <tt>nngxUpdateBufferLight</tt>.</item><br />
+        </dd>
+        <dt>2011/10/20</dt>
+        <dd><item xmlns="">Revised the code example, and added a code example demonstrating adjustment of the command buffer size.</item><br />
+        </dd>
+        <dt>2011/07/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

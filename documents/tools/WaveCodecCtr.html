@@ -1,0 +1,809 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>WaveCodecCtr.dll</title>
+    <style type="text/css">
+    <!--
+    body {
+    /*
+        font-size       : 10pt;
+    */
+        font-weight     : normal;
+        color           : #000000;
+        margin          : 8px;
+    }
+    
+    div {
+        width           : 98%;
+        /* white-space     : nowrap; */
+    }
+    
+    div.title {
+        text-align      : left;
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        color           : #202020;
+        border-style    : double;
+        border-width    : 8px;
+        /* タイトルを囲む枠線の色を指定 */
+        border-color    : #CD202C;
+    
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+    
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+    
+        margin          : 4px;
+        padding         : 4px;
+    }
+    H1 {
+      font-size     : 150%;
+      font-family       : Arial;
+      border-bottom-width   : 5px;
+      border-bottom-style   : solid;
+      border-bottom-color   : #CD202C;
+      padding-bottom        : 1px;
+      margin-bottom     : 20px;
+      letter-spacing        : normal;
+      font-weight       : bold;
+    }
+    
+    h2 {
+        font-weight     : bold;
+        font-size       : 150%;
+        border-style    : none none solid double;
+        border-width    : 0px 0px 2px 8px;
+        border-color    : #CD202C;
+    
+        margin-left     : 2px;
+        padding-left    : 4px;
+    }
+    CODE {
+      font-family       : "Courier New", monospace;
+      position      : normal;
+      left          : 12px;
+      font-size     : 10pt;
+    }
+    table {
+      margin-top        : 2pt;
+      margin-bottom     : 2pt;
+      margin-left       : 0pt;
+      margin-right      : 0pt;
+      padding-left      : 0pt;
+      padding-right     : 0pt;
+      position          : relative;
+      left              : 12px;
+      font-family       : Arial;
+      font-size         : 10pt;
+      border-style      : none none none none;
+    }
+    td,th {
+      padding           : 2pt;
+      border-width      : 2pt;
+      border-style      : none none none none;
+      font-style        : normal;
+      text-align        : left;
+    }
+    td {
+      background        : #e8f4f4;
+      font-weight       : normal;
+    }
+    th {
+      background        : #c0d8d8;
+      font-weight       : bold;
+    }
+    
+    p {
+        margin-left     : 4px;
+    }
+    p.code {
+      font-family       : "Courier New", monospace;
+      position      : normal;
+      left          : 12px;
+      font-size     : 10pt;
+      background            : #e8f4f4;
+    }
+
+    pre.definition {
+      padding: 10px;
+      background: #F0F0F0;
+      border: 1px solid #CCC;
+      font-size: 13px;
+    }
+    div.subSection {
+      white-space: wrap;
+    }
+    div.subSection pre,
+    div.subSection table,
+    div.subSection p,
+    div.subSection ol
+    {
+      margin-left: 2em;
+    }
+    div.subSection h3
+    {
+        border-bottom: 2px solid #CD202C;
+        padding-bottom: 4px;
+        margin-top: 2em;
+    }
+    div.subSection h4
+    {
+        font-weight: normal;
+        margin-left: .6em;
+    }
+    p.warning {
+        font-weight: bold;
+        color: red;
+    }
+    -->
+    </style>
+
+
+  </head>
+  <body>
+    <h1>WaveCodecCtr.dll</h1>
+    <h2>Contents</h2>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#api">Exported Functions</a></li>
+        <li><a href="#sampleCode">Sample Code</a></li>
+        <li><a href="#caution">Cautions for Encoding and Playing Looped Wave Files</a></li>
+        <li><a href="#history">Revision History</a></li>
+      </ul>
+
+    <h2><a name="overview"></a>Overview</h2>
+    <p>
+    <CODE>WaveCodecCtr.dll</CODE> is a Win32 run-time dynamic link library (DLL). This library provides an API for encoding and decoding between 16-bit signed (little-endian) sampling data and the DSP ADPCM compressed format.
+    </p>
+    <p>
+    The DSP ADPCM format is a compressed format that can be played by a CTR system's DSP. It can result in data sizes that are 1/3.5 of 16-bit PCM. This format can be used through the <a href="../api/nn/snd/CTR/Voice/Overview.html"><CODE>nn::snd::Voice</CODE></a> class and the <a href="../api/nn/snd/CTR/WaveBuffer/Overview.html"><CODE>nn::snd::WaveBuffer</CODE></a> structure.
+    </p>
+    <p>
+    This DLL is for developers who want to develop their own tools for creating and previewing DSP ADPCM sampling data. Note that this DLL is single-threaded.
+    </p>
+    <p>
+    <CODE><a href="ctr_WaveConverter.html">ctr_WaveConverter</a></CODE> uses the features of this DLL to create BCWAV files in ADPCM format.</p>
+
+    <h2><a name="api"></a>Exported Functions</h2>
+    <ul>
+      <li><a href="#getBytesForAdpcmBuffer"><CODE>getBytesForAdpcmBuffer</CODE></a></li>
+      <li><a href="#getBytesForAdpcmSamples"><CODE>getBytesForAdpcmSamples</CODE></a></li>
+      <li><a href="#getBytesForPcmBuffer"><CODE>getBytesForPcmBuffer</CODE></a></li>
+      <li><a href="#getBytesForPcmSamples"><CODE>getBytesForPcmSamples</CODE></a></li>
+      <li><a href="#getSampleForAdpcmNibble"><CODE>getSampleForAdpcmNibble</CODE></a></li>
+      <li><a href="#getNibbleAddress"><CODE>getNibbleAddress</CODE></a></li>
+      <li><a href="#getLoopContext"><CODE>getLoopContext</CODE></a></li>
+      <li><a href="#encode"><CODE>encode</CODE></a></li>
+      <li><a href="#decode"><CODE>decode</CODE></a></li>
+    </ul>
+    <div class="subSection">
+    <h3><a name="getBytesForAdpcmBuffer"></a>getBytesForAdpcmBuffer</h3>
+    <h4>Syntax</h4>
+    <pre class="definition">u32 getBytesForAdpcmBuffer(u32 samples);</pre>
+    <h4>Parameters</h4>
+    <table class="arguments">
+      <thead> <tr> <td width="15"> </td><th>Name</th> <td>Description</td> </tr> </thead>
+      <tbody>
+        <tr>
+          <td>in</td>
+          <th>samples</th>
+          <td>Number of (16-bit PCM) samples to encode.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Return Values</h4>
+    <p>The number of bytes required to store the DSP ADPCM-encoded samples.</p>
+    <h4>Description</h4>
+    <p>
+    <CODE>getBytesForAdpcmBuffer</CODE> calculates and returns the number of bytes required to store the sampling data that are being DSP ADPCM-encoded.
+    </p>
+    <p>Note that the number of bytes will be a multiple of the 8-byte length of DSP ADPCM frames.</p>
+    <p>The actual length (in bytes) of the sampling data being encoded will probably be smaller than the value returned by this function. (For more information, see the section <CODE><a href="#getBytesForAdpcmSamples">getBytesForAdpcmSamples</a></CODE>.)</p>
+    <p>
+    Use this function before encoding to allocate storage for the result.
+    </p>
+
+    <h3><a name="getBytesForAdpcmSamples"></a>getBytesForAdpcmSamples</h3>
+    <h4>Syntax</h4>
+    <pre class="definition">u32 getBytesForAdpcmSamples(u32 samples);</pre>
+    <h4>Parameters</h4>
+    <table class="arguments">
+      <thead> <tr> <td width="15"> </td><th>Name</th> <td>Description</td> </tr> </thead>
+      <tbody>
+        <tr>
+          <td>in</td>
+          <th>samples</th>
+          <td>Number of (16-bit PCM) samples to encode.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Return Values</h4>
+    <p> The actual length (in bytes) of the encoded sampling data. </p>
+    <h4>Description</h4>
+    <p><CODE>getBytesForAdpcmSamples</CODE> returns the actual number of bytes occupied by the sampling data that are being DSP ADPCM-encoded.</p>
+
+    <h3><a name="getBytesForPcmBuffer"></a>getBytesForPcmBuffer</h3>
+    <h4>Syntax</h4>
+    <pre class="definition">u32 getBytesForPcmBuffer(u32 samples); </pre>
+    <h4>Parameters</h4>
+    <table class="arguments">
+      <thead> <tr> <td width="15"> </td><th>Name</th> <td>Description</td> </tr> </thead>
+      <tbody>
+        <tr>
+          <td>in</td>
+          <th>samples</th>
+          <td>The number of samples being decoded.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Return Values</h4>
+    <p>The predicted length (in bytes) of the DSP ADPCM sampling data being decoded.</p>
+    <h4>Description</h4>
+    <p><CODE>getBytesForPcmBuffer</CODE> calculates and returns the number of bytes of data that must be stored after the number of samples passed in the argument have been decoded from the DSP ADPCM format.</p>
+
+
+    <h3><a name="getBytesForPcmSamples"></a>getBytesForPcmSamples</h3>
+    <h4>Syntax</h4>
+    <pre class="definition">u32 getBytesForPcmSamples(u32 samples);</pre>
+    <h4>Parameters</h4>
+    <table class="arguments">
+      <thead> <tr> <td width="15"> </td><th>Name</th> <td>Description</td> </tr> </thead>
+      <tbody>
+        <tr>
+          <td>in</td>
+          <th>samples</th>
+          <td>Number of samples.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Return Values</h4>
+    <p>The length (in bytes) of the value specified in the sampling data.</p>
+    <h4>Description</h4>
+    <p><CODE>getBytesForPcmSamples</CODE> returns the number of bytes for copying the specified user application value in the sampling data.
+    </p>
+
+
+    <h3><a name="getSampleForAdpcmNibble"></a>getSampleForAdpcmNibble</h3>
+    <h4>Syntax</h4>
+    <pre class="definition">u32 getSampleForAdpcmNibble(u32 nibble);</pre>
+    <h4>Parameters</h4>
+    <table class="arguments">
+      <thead> <tr> <td width="15"> </td><th>Name</th> <td>Description</td> </tr> </thead>
+      <tbody>
+        <tr>
+          <td>in</td>
+          <th>nibble</th>
+          <td>ADPCM nibble offset, including frame headers.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Return Values</h4>
+    <p>The zero-based sample index for the corresponding ADPCM sampling data.</p>
+    <h4>Description</h4>
+    <p><CODE>getSampleForAdpcmNibble</CODE> returns the number of zero-based samples for the corresponding ADPCM nibble.</p>
+
+    <h3><a name="getNibbleAddress"></a>getNibbleAddress</h3>
+    <h4>Syntax</h4>
+    <pre class="definition">u32 getNibbleAddress(u32 samples);</pre>
+    <h4>Parameters</h4>
+    <table class="arguments">
+      <thead> <tr> <td width="15"> </td><th>Name</th> <td>Description</td> </tr> </thead>
+      <tbody>
+        <tr>
+          <td>in</td>
+          <th>samples</th>
+          <td>16-bit PCM address offset. <CODE>0</CODE> is the first sample.  <CODE>100</CODE> is the 101st sample.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Return Values</h4>
+    <p>Corresponding nibble address.</p>
+    <h4>Description</h4>
+    <p>
+    <CODE>getNibbleAddress</CODE> calculates and returns the nibble corresponding to the sampling data, as based on the offset passed to the argument. </p>
+    <p>For example, the 100th sample (where the count starts at <CODE>0</CODE>) corresponds to the 116th nibble (where the count also starts at <CODE>0</CODE>). Note that the calculated nibble address incorporates the 2-nibble frame header that is already in DSP ADPCM compressed format.
+    </p>
+    <p>One more example: The 0th sample corresponds to a nibble offset of 2,  which is the 3rd nibble (counting from 0).</p>
+
+    <h3><a name="getLoopContext"></a>getLoopContext</h3>
+    <h4>Syntax</h4>
+    <pre class="definition">
+typedef struct 
+{ 
+    // start context 
+    s16 coef[16]; 
+    u16 gain; 
+    u16 pred_scale; 
+    s16 yn1; 
+    s16 yn2; 
+
+    // loop context 
+    u16 loop_pred_scale; 
+    s16 loop_yn1; 
+    s16 loop_yn2; 
+} ADPCMINFO;  
+
+void getLoopContext( 
+    u8          *src,       // location of ADPCM buffer in RAM 
+    ADPCMINFO   *cxt,       // location of adpcminfo 
+    u32         samples     // samples to desired context 
+);
+</pre>
+    <h4>Parameters</h4>
+    <table class="arguments">
+      <thead> <tr> <td width="15"> </td><th>Name</th> <td>Description</td> </tr> </thead>
+      <tbody>
+        <tr>
+          <td>in</td>
+          <th>src</th>
+          <td>Pointer to the buffer containing the DSP ADPCM encoded sample.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>cxt</th>
+          <td>The pointer to the ADPCMINFO structure. The <CODE>getLoopContext</CODE> function places the loop context information inside this structure.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>samples</th>
+          <td>The offset from the starting position of the loop in the sampling data. This loop starting position is not a nibble address, but rather the raw sample number where the loop starts (in other words, the first sample played in the loop). <br /> If the loop begins at the very first sample, the offset is zero. If the loop begins at the 101st sample, the offset is 100.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Return Values</h4>
+    <p>None.</p>
+    <h4>Description</h4>
+    <p><CODE>getLoopContext</CODE> returns the DSP ADPCM loop context, based on the offset in the sample data given to the argument.</p>
+
+    <h3><a name="encode"></a>encode</h3>
+    <h4>Syntax</h4>
+    <pre class="definition">
+typedef struct 
+{ 
+    // start context 
+    s16 coef[16]; 
+    u16 gain; 
+    u16 pred_scale; 
+    s16 yn1; 
+    s16 yn2; 
+
+    // loop context 
+    u16 loop_pred_scale; 
+    s16 loop_yn1; 
+    s16 loop_yn2; 
+} ADPCMINFO;  
+
+void encode( 
+    s16         *src,       // location of source samples (16bit PCM signed little endian) 
+    u8          *dst,       // location of destination buffer 
+    ADPCMINFO   *cxt,       // location of adpcm info 
+    u32         samples     // number of samples to encode 
+);
+</pre>
+    <h4>Parameters</h4>
+    <table class="arguments">
+      <thead> <tr> <td width="15"> </td><th>Name</th> <td>Description</td> </tr> </thead>
+      <tbody>
+        <tr>
+          <td>in</td>
+          <th>src</th>
+          <td>Pointer to the buffer for signed little-endian 16-bit PCM sampling data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>dst</th>
+          <td>The pointer to the buffer where the DSP ADPCM encoded data are output.<br /> The application must allocate memory for this buffer. You must calculate the buffer size using <CODE><a href="#getBytesForAdpcmBuffer">getBytesForAdpcmBuffer</a></CODE>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>cxt</th>
+          <td>Pointer to the <CODE>ADPCMINFO</CODE> structure. The <CODE>encode</CODE> function stores sampling data coefficients and context information in this structure. <br />Note that a number of parameters (<SPAN class="argument">gain</SPAN>, <SPAN class="argument">yn1</SPAN>, and <SPAN class="argument">yn2</SPAN>) are always <CODE>0</CODE>. <br />Before decoding commences, the corresponding registers in the DSP decoder hardware must be cleared. These parameters are included in the structure to force this to happen. <br />After <CODE>encode</CODE> has been called, the loop context parameters always become <CODE>0</CODE>. To set these values, you must call <CODE><a href="#getLoopContext">getLoopContext</a></CODE> after the sampling data have been looped.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>samples</th>
+          <td>Number of samples to encode.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Return Values</h4>
+    <p>None.</p>
+    <h4>Description</h4>
+    <p><CODE>encode</CODE> compresses 16-bit PCM data into DSP ADPCM format.</p>
+
+    <h3><a name="decode"></a>decode</h3>
+    <h4>Syntax</h4>
+    <pre class="definition">
+typedef struct 
+{ 
+    // start context 
+    s16 coef[16]; 
+    u16 gain; 
+    u16 pred_scale; 
+    s16 yn1; 
+    s16 yn2; 
+
+    // loop context 
+    u16 loop_pred_scale; 
+    s16 loop_yn1; 
+    s16 loop_yn2; 
+} ADPCMINFO;
+
+void decode( 
+    u8          *src,   // location of encoded source samples 
+    s16         *dst,   // location of destination buffer (16 bits / sample) 
+    ADPCMINFO   *cxt,   // location of adpcm info 
+    u32         samples // number of samples to decode 
+);
+</pre>
+    <h4>Parameters</h4>
+    <table class="arguments">
+      <thead> <tr> <td width="15"> </td><th>Name</th> <td>Description</td> </tr> </thead>
+      <tbody>
+        <tr>
+          <td>in</td>
+          <th>src</th>
+          <td>Pointer to the buffer containing the DSP ADPCM data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>dst</th>
+          <td>Pointer to a buffer that has been allocated for storing the uncompressed PCM data. <br />The size of this buffer is calculated by calling <CODE><a href="#getBytesForPcmBuffer">getBytesForPcmBuffer</a></CODE>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>cxt</th>
+          <td>Pointer to the <CODE>ADPCMINFO</CODE> structure.<br /> This structure must contain the coefficient and initial state data that corresponds to the sample being decoded.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>samples</th>
+          <td>Number of samples to decode.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Return Values</h4>
+    <p>None.</p>
+    <h4>Description</h4>
+    <p>
+    <CODE>decode</CODE> is used for decoding DSP ADPCM sample data into signed, little-endian, 16-bit PCM data.
+    </p>
+<!-- テンプレ
+    <h3></h3>
+    <h4>構文</h4>
+    <pre class="definition"></pre>
+    <h4>引数</h4>
+    <table class="arguments">
+      <thead> <tr> <td width="15"> </td><th>名前</th> <td>説明</td> </tr> </thead>
+      <tbody>
+        <tr>
+          <td>in</td>
+          <th></th>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>返り値</h4>
+    <h4>説明</h4>
+-->
+
+    </div>
+
+
+    <h2><a name="sampleCode"></a>Sample Code</h2>
+    <p><CODE>WaveCodecCtr.dll</CODE> has been created for use with Win32 applications. This section provides some samples.</p>
+    <ul>
+      <li><a href="#usage_init">Initialization</a></li>
+      <li><a href="#usage_encode">Encoding</a></li>
+      <li><a href="#usage_decode">Decoding</a></li>
+    </ul>
+
+    <div class="subSection">
+    <h3><a name="usage_init"></a>Initialization</h3>
+    <p>Applications that call DLLs must comply with Win32 rules when calling <CODE>WaveCodecCtr.dll</CODE>.
+    </p>
+<pre class="definition">
+typedef signed short   s16;
+typedef unsigned char  u8;
+typedef unsigned short u16;
+typedef unsigned long  u32;
+
+/* ---------------------------------------------------------------
+
+  Import the <CODE>WaveCodecCtr.dll</CODE> API.
+  
+ ---------------------------------------------------------------- */
+typedef struct
+{
+    // start context
+    s16 coef[16];
+    u16 gain;
+    u16 pred_scale;
+    s16 yn1;
+    s16 yn2;
+
+    // loop context
+    u16 loop_pred_scale;
+    s16 loop_yn1;
+    s16 loop_yn2;
+
+} ADPCMINFO;
+
+static HINSTANCE hDll; 
+typedef u32 (*lpFunc1)(u32); 
+typedef u32 (*lpFunc2)(void); 
+typedef void (*lpFunc3)(s16*, u8*, ADPCMINFO*, u32); 
+typedef void (*lpFunc4)(u8*, s16*, ADPCMINFO*, u32); 
+typedef void (*lpFunc5)(u8*, ADPCMINFO*, u32); 
+lpFunc1 getBytesForAdpcmBuffer; 
+lpFunc1 getBytesForAdpcmSamples; 
+lpFunc1 getBytesForPcmBuffer;
+lpFunc1 getBytesForPcmSamples; 
+lpFunc1 getSampleForAdpcmNibble; 
+lpFunc1 getNibbleAddress; 
+lpFunc2 getBytesForAdpcmInfo; 
+lpFunc3 encode; 
+lpFunc4 decode; 
+lpFunc5 getLoopContext; 
+
+/*--------------------------------------------------------------------------*/ 
+void clean_up(void) 
+{ 
+    if (hDll) 
+        FreeLibrary(hDll); 
+} 
+
+/*--------------------------------------------------------------------------*/ 
+int getDll(void) 
+{ 
+    hDll = LoadLibrary("WaveCodecCtr.dll"); 
+    if (hDll) 
+    { 
+        if (!(getBytesForAdpcmBuffer = 
+                (lpFunc1)GetProcAddress( 
+                             hDll, 
+                             "getBytesForAdpcmBuffer" 
+                             ))) return 1; 
+        if (!(getBytesForAdpcmSamples = 
+                (lpFunc1)GetProcAddress( 
+                             hDll, 
+                             "getBytesForAdpcmSamples" 
+                             ))) return 1; 
+        if (!(getBytesForPcmBuffer = 
+                (lpFunc1)GetProcAddress( 
+                             hDll, 
+                             "getBytesForPcmBuffer" 
+                             ))) return 1; 
+        if (!(getBytesForPcmSamples = 
+                (lpFunc1)GetProcAddress( 
+                             hDll, 
+                             "getBytesForPcmSamples" 
+                             ))) return 1; 
+        if (!(getNibbleAddress = 
+                (lpFunc1)GetProcAddress( 
+                             hDll, 
+                             "getNibbleAddress" 
+                             ))) return 1; 
+        if (!(getSampleForAdpcmNibble = 
+                (lpFunc1)GetProcAddress( 
+                             hDll, 
+                             "getSampleForAdpcmNibble" 
+                             ))) return 1; 
+        if (!(getBytesForAdpcmInfo = 
+                (lpFunc2)GetProcAddress( 
+                             hDll, 
+                             "getBytesForAdpcmInfo" 
+                             ))) return 1; 
+        if (!(encode =
+                (lpFunc3)GetProcAddress(
+                            hDll,
+                            "encode"
+                            ))) return 1;
+        if (!(decode =
+                (lpFunc4)GetProcAddress(
+                            hDll,
+                            "decode"
+                            ))) return 1;
+        if (!(getLoopContext = 
+                (lpFunc5)GetProcAddress( 
+                             hDll, 
+                             "getLoopContext" 
+                             ))) return 1; 
+        return(0); 
+    } 
+    return(1); 
+}
+
+
+/*--------------------------------------------------------------------------*/ 
+int _tmain(int argc, _TCHAR* argv[])
+{
+    if (getDll()) 
+    {
+        clean_up(); 
+        exit(1); 
+    } 
+
+    // do stuff here 
+
+    clean_up(); 
+}
+</pre>
+
+    <h3><a name="usage_encode"></a>Encoding</h3>
+    <p>
+    The encoding function assumes that the data are 16-bit, little endian, PCM data (as used for Windows <CODE>.wav</CODE> files). If you want the application to encode big-endian data, you must flip the endian before encoding.</p>
+    <pre class="definition">
+//... loaded WaveCodecCtr.dll 
+
+//... put some PCM buffer in memory, reverse the endian if you have to 
+u8 *adpcm = (u8*)malloc(getBytesForAdpcmBuffer(samplesToEncode)); 
+
+if (adpcm) 
+{ 
+    ADPCMINFO adpcminfo; 
+
+    // ok.. lets encode it! 
+    encode(source, adpcm, &amp;adpcminfo, samplesToEncode); 
+
+    // get ADPCM loop context if sample is looped 
+    if (samplesToLoopStart) 
+            getLoopContext(adpcm, &amp;adpcminfo, samplesToLoopStart); 
+
+    // see how many bytes to store the encoded data stream 
+    u32 nBytesToStore = getBytesForAdpcmSamples(samplesToEncode); 
+
+    ... store encoded ADPCM data stream to file 
+
+    ... store ADPCM context to file 
+
+    u32 nibbleStartOffset   = getNibbleAddress(0); 
+    u32 nibbleLoopStartOffset = getNibbleAddress(samplesToLoopStart); 
+    u32 nibbleEndAddress  = getNibbleAddress(samplesToEncode); 
+
+    ... store nibble addressing to file 
+
+    // do not need the ADPCM buffer anymore 
+    free(adpcm); 
+} 
+
+... continue 
+    </pre>
+
+    <h3><a name="usage_decode"></a>Decoding</h3>
+    <p>
+    The decoding result is output as 16-bit, little-endian, PCM data.
+    </p>
+
+    <pre class="definition">
+... loaded WaveCodecCtr.dll 
+
+... put some ADPCM buffer and corresponding ADPCMINFO in memory, 
+... ADPCM is byte ordered.. not endian sensitive. 
+
+s16 *pcm = (u8*)malloc(getBytesForPcmBuffer(samplesToDecode)); 
+
+if (pcm) 
+{ 
+    // Decode
+    decode(source, pcm, adpcminfo, samplesToDecode); 
+
+    ... store decoded PCM buffer to file 
+
+    // Free the PCM buffer
+    free(pcm); 
+} 
+
+... continue
+</pre>
+</div>
+
+<h2><a name="caution"></a>Cautions for Encoding and Playing Looped Wave Files</h2>
+<p>Note the following cautions when encoding looped waveforms and when playing them on the actual hardware.</p>
+<p class="warning">The information relating to encoding also pertains to the use of the <CODE>nn::snd::EncodeAdpcmData</CODE> function for encoding data into DSP ADPCM on the actual hardware.</p>
+
+<ul>
+  <li><a href="#caution_loop">How to Play Regular Looped Waveforms</a></li>
+  <li><a href="#caution_align">Align the Loop Start Position to an 8-byte Boundary</a></li>
+  <li><a href="#caution_loopStart">Noise When the Loop Start Equals the Start of the Waveform</a></li>
+  <li><a href="#caution_loopEnd">Noise When the Loop End Equals the End of the Waveform</a></li>
+</ul>
+
+<div class="subSection">
+<h3><a name="caution_loop"></a>How to Play Regular Looped Waveforms</h3>
+<p>When looping a waveform like the following on the actual hardware:</p>
+<pre class="definition">
+    WS      LS                     LE
+    |-------|&lt;--------------------&gt;|
+  
+      WS: Start of waveform
+      LS: Loop start position
+      LE: Loop end position
+</pre>
+<ol>
+    <li><CODE>WaveBuffer</CODE> for playing WS to LE</li>
+    <li><CODE>WaveBuffer</CODE> for playing LS to LE</li>
+</ol>
+<p>Prepare two <CODE>WaveBuffer</CODE> instances (as shown) and set the order as 1. → 2. in <CODE>nn::snd::Voice</CODE>.</p>
+
+  
+<pre class="definition">
+    WS                             LE
+ 1. |------------------------------|    (When the loopFlag of WaveBuffer is false.)
+  
+            LS                     LE
+ 2.         |&lt;--------------------&gt;|    (When the loopFlag of WaveBuffer is true.)
+</pre>
+
+<h3><a name="caution_align"></a>Align the Loop Start Position to an 8-byte Boundary</h3>
+<p>In the DSP ADPCM format, 8 bytes (corresponding to 14 samples) are handled as one set of information. For this reason, the <SPAN class="argument">bufferAddress</SPAN> argument of the <CODE>nn::snd::WaveBuffer</CODE> function must specify an address with an 8-byte boundary.</p>
+<p>On the other hand, when creating <a href="#caution_loop"><CODE>WaveBuffer</CODE> as described in 2</a>, LS is not necessarily at an 8-byte (14-sample) boundary.</p>
+<p>If the boundary is not 8 bytes (14 samples), you must displace the LS position to an 8-byte boundary so this restriction is satisfied.</p>
+<p>For example, if LS is at the 16th sample, you could slide it to the next 14-sample boundary (28 samples) and top off the waveforms after LE with the moved part before encoding.</p>
+
+<pre class="definition">
+     LS                  LE
+     |&lt;-----------------&gt;|
+      ^^^^
+                ↓
+         LS'                   LE'
+     ----|&lt;-------------------&gt;|
+                           ^^^^
+</pre>
+
+
+<h3><a name="caution_loopStart"></a>Noise When the Loop Start Equals the Start of the Waveform</h3>
+<p>Because of encoder limitations, when the loop start position equals the start of a waveform, you cannot play a clean loop without noise.</p>
+<p>If the loop start position equals the start of the waveform, use the technique described in <a href="#caution_align">Align the loop start position to an 8-byte boundary</a> to slide LS' to 14, so you can play the loop cleanly without noise.
+</p>
+
+<h3><a name="caution_loopEnd"></a>Noise When the Loop End Equals the End of the Waveform</h3>
+<p>Because of encoder limitations, when the loop start position equals the end of a waveform, encoding is not stable and noise occurs.</p>
+<p>When waveforms continue beyond LE, for the <SPAN class="argument">samples</SPAN> argument of the <CODE><a href="#encode">encode</a></CODE> function, pass <CODE>WS to end of waveform</CODE> rather than <CODE>WS to LE</CODE>.
+</p>
+<pre class="definition">
+    WS      LS                     LE   WE
+    |-------|&lt;--------------------&gt;|----|
+  
+      WS:  Start of waveform
+      WE : End of waveform
+      LS: Loop start position
+      LE: Loop end position
+
+    encode( WS address, dst, cxt, WE-WS );
+</pre>
+
+<p>When waveforms do not continue beyond LE, apply the technique introduced in <a href="#caution_align">Align the loop start position to an 8-byte boundary</a> to use copied waveforms for about 100 samples from LS, and position them after LE.</p>
+<pre class="definition">
+    WS      LS                     LE=WE
+    |-------|&lt;--------------------&gt;|
+             ^^^^^
+                      ↓
+    WS      LS                     LE   WE'
+    |-------|&lt;--------------------&gt;|----|
+                                    ^^^^^
+
+    encode( WS address, dst, cxt, WE'-WS );
+</pre>
+
+
+</div>
+
+    <h2><a name="history"></a>Revision History</h2>
+    <dl class="history">
+      <dt>2011/12/12</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hid/CTR/ExtraPad/Overview.html">ExtraPad</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static void Initialize(
+     void * workingMemory,
+     size_t workingMemorySize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>workingMemory</th>
+          <td>A <code>WORKING_MEMORY_ALIGNMENT</code>-byte aligned buffer (4096-byte aligned) <code>WORKING_MEMORY_SIZE</code> bytes (12,288 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>workingMemorySize</th>
+          <td>Specifies the size of the buffer specified by the <emphasis>workingMemory</emphasis> parameter.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Performs initialization for using the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro.</p><p>You must execute this function before calling the <code><a href="../../../../nn/hid/CTR/ExtraPad/StartSampling.html">StartSampling</a></code> or <code><a href="../../../../nn/hid/CTR/ExtraPad/StopSampling.html">StopSampling</a></code> function. If called multiple times when <code><a href="../../../../nn/hid/CTR/ExtraPad/Finalize.html">Finalize</a></code> has not been called, this function does nothing on the second and subsequent calls. Pass the buffer to use for connections and sampling as a parameter.</p><p>This buffer must be <code>WORKING_MEMORY_SIZE</code> bytes in size (12,288 bytes) and aligned according to <code>WORKING_MEMORY_ALIGNMENT</code> (4096-byte aligned).</p><p>If the buffer passed is less than <code>WORKING_MEMORY_SIZE</code> bytes (12,288 bytes), the function returns <code>PANIC</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/08/28</dt>
+        <dd><item xmlns="">Added a parameter that receives the size due to an increase in the required working memory size.</item><br />
+        </dd>
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2011/10/06</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetMessageBoxName</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cec/Overview.html">cec</a>::<a href="../../../../nn/cec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a>::SetMessageBoxName Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/Result/Overview.html">nn::Result</a> SetMessageBoxName(
+     const wchar_t * data,
+     size_t dataSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>data</th>
+          <td>Specifies the name to display on the system management screen and elsewhere. <br />
+ Encoding: UTF16-LE<br />
+ Display size: The number of characters displayable as 17 double-byte characters (without line breaks).<br />
+ Maximum buffer: 64 x 2 bytes (including the <code>NULL</code> terminator).<br /></td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dataSize</th>
+          <td>Specifies the size of the data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns an <code><a href="../../../../nn/Result/Overview.html">nn::Result</a></code> value.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultNotAuthorized</th>
+          <td>The box has not been opened.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidData</th>
+          <td>Specifies the data size is too large.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the name of a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

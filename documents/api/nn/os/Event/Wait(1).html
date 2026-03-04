@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Wait</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/Event/Overview.html">Event</a>::Wait Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+bool Wait(
+     <a href="../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> timeout
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>timeout</th>
+          <td>Specifies the timeout. Specifying <code>0</code> returns control immediately.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns whether an event occurred within the timeout period. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Waits for an event to enter the signaled state or to timeout.</p><p>Immediately returns <code>true</code> if an event is in the signaled state. If the event is not in the signaled state, this function waits for at most the length of time specified by timeout, and returns <code>true</code> if it receives a signal by then. Returns <code>false</code> if it does not receive a signal even after waiting for the time specified by timeout.</p></div>
+  </body>
+</html>

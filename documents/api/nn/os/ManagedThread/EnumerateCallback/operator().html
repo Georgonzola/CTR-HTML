@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>operator()</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/os/Overview.html">os</a>::<a href="../../../../nn/os/ManagedThread/Overview.html">ManagedThread</a>::<a href="../../../../nn/os/ManagedThread/EnumerateCallback/Overview.html">EnumerateCallback</a>::operator() Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+virtual bool operator()(
+     <a href="../../../../nn/os/ManagedThread/Overview.html">ManagedThread</a> * p
+) = 0;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>p</th>
+          <td>Pointer to an enumerated instance.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if enumeration continues, or <code>false</code> if it has stopped. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A user-defined process function.</p><p>This function is a pure virtual function, so it cannot be called. The intention is for users to implement their own processes in derived classes.</p><p>The pointers to the <code><a href="../../../../nn/os/ManagedThread/Overview.html">ManagedThread</a></code> instances that are the targets of <code><a href="../../../../nn/os/ManagedThread/Enumerate.html">Enumerate</a></code> are called one at a time as the argument of this function.</p><p>If this function has been called by <code><a href="../../../../nn/os/ManagedThread/Enumerate.html">Enumerate</a></code>, p cannot be <code>finalized</code> by another thread while it is executing.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/13</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

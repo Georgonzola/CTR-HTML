@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxStartCmdlistSave</title>
+  </head>
+  <body>
+    <h1>nngxStartCmdlistSave Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxStartCmdlistSave(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Starts saving the command list object.</p><P>Starts saving the current command list object.</P><P>You can use <tt><a href="../nn_gx/nngxStopCmdlistSave.html">nngxStopCmdlistSave</a></tt> to get the saved information.  It is assumed that saved commands will be reused.  Because there is no way of knowing what the PICA register values will be when the 3D command buffer is reused, you must save all commands that will need to be reset at that time.  If you save commands and then call functions as usual to generate commands, only the commands that are different from the saved commands are generated.  Because only differing commands are generated, it follows that the generated commands correspond only to states whose settings have changed. This means that sometimes not all necessary commands are generated.  To generate all of the necessary commands, either use complete commands or configure the command output mode.</P><P><b>Complete commands</b> refers to generating the entire set of commands for each state.  Complete commands can result in excessive command generation because it generates all commands for each feature.</P><P>You can configure the command output mode to always generate commands related to functions that have been called, regardless of whether their settings changed.</P><P>This combination of features allows you to generate and save the appropriate commands as necessary and sufficient.</P><P>Calls to this function sometimes cause dummy commands to be generated in the 3D command buffer for padding.</P><P>This function generates the following errors.<TABLE><TR><th>GL_ERROR_8034_DMP</th><TD>This function was called again before the previous call to this function finished saving the command list.</TD></TR><TR><th>GL_ERROR_8035_DMP</th><TD><tt>0</tt> is bound to the current command list.</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxStopCmdlistSave.html">nngxStopCmdlistSave</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added See Also section.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

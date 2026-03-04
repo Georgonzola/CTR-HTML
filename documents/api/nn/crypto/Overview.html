@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::crypto</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::crypto Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the encryption library.</p><h3>Block Cipher API</h3><p>Encryption using a block cipher has the following four stages, depending on the sophistication of the API.  <br /> If at all possible, use the first stage, which uses a single function to perform all operations.</p><ol><li><b>A single function that carries out all operations</b><p>It includes functions such as <tt><a href="../../nn/crypto/EncryptAes128Ctr.html">EncryptAes128Ctr</a></tt>, <tt><a href="../../nn/crypto/DecryptAes128Ctr.html">DecryptAes128Ctr</a></tt>, <tt><a href="../../nn/crypto/EncryptAndGenerateAes128Ccm.html">EncryptAndGenerateAes128Ccm</a></tt>, and <tt><a href="../../nn/crypto/DecryptAndVerifyAes128Ccm.html">DecryptAndVerifyAes128Ccm</a></tt>.  <br /> Perform all processing required to encrypt by calling only this one function and specifying the encryption key, data to encrypt, and buffer to store the results.</p></li><li><b>Batch processing using a combination of a block cipher and a cipher mode</b><p>This uses an instance of a class derived from <tt><a href="../../nn/crypto/BlockCipher/Overview.html">BlockCipher</a></tt> and one of the following functions.<ul><li>The <tt>Encrypt</tt> function from the <tt><a href="../../nn/crypto/Encryptor/Overview.html">Encryptor</a></tt> derived class</li><li>The <tt>Decrypt</tt> function from the <tt><a href="../../nn/crypto/Decryptor/Overview.html">Decryptor</a></tt> derived class</li><li>The <tt>EncryptAndGenerate</tt> function from the <tt><a href="../../nn/crypto/AuthenticatedEncryptor/Overview.html">AuthenticatedEncryptor</a></tt> derived class</li><li>The <tt>DecryptAndVerify</tt> function from the <tt><a href="../../nn/crypto/AuthenticatedDecryptor/Overview.html">AuthenticatedDecryptor</a></tt> derived class</li></ul>You cannot use instances of these classes.  <br /> You can use any combination of block cipher and cipher mode.  Enter all required parameters and run as a batch.  Consequently, all targeted data must be loaded into memory.</p></li><li><b>Stream processing using a combination of a block cipher and a cipher mode</b><p>Uses instances of a class derived from <tt><a href="../../nn/crypto/BlockCipher/Overview.html">BlockCipher</a></tt>, and a class derived from <tt><a href="../../nn/crypto/CipherMode/Overview.html">CipherMode</a></tt>.  <br /> You can use any combination of block cipher and cipher mode.  You can process a little at a time this way, allowing you to process a large volume of data using a smaller buffer to load and process the data.</p></li><li><b>Directly using the block cipher</b><p>Uses only an instance of a class derived from <tt><a href="../../nn/crypto/BlockCipher/Overview.html">BlockCipher</a></tt>.  <br /> Do not use this method unless you know enough about encryption, and have a firm understanding of what you are doing.</p></li></ol><p /></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="2">Block</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/Aes/Overview.html">nn::crypto::Aes</a>
+            </th>
+            <td>Class for implementing AES ciphers.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/AuthenticatedDecryptor/Overview.html">nn::crypto::AuthenticatedDecryptor</a>
+            </th>
+            <td>Base class for classes that decrypt ciphertexts with MAC and verify them.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/AuthenticatedEncryptor/Overview.html">nn::crypto::AuthenticatedEncryptor</a>
+            </th>
+            <td>Base class for classes that encrypt with MAC.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/BlockCipher/Overview.html">nn::crypto::BlockCipher</a>
+            </th>
+            <td>Base class for classes that implement block ciphers. Do not use the <code>Encrypt</code> or <code>Decrypt</code> functions in this class, unless you know enough about encryption and have a firm understanding of what you are doing.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/CbcDecryptor/Overview.html">nn::crypto::CbcDecryptor</a>
+            </th>
+            <td>Class for decrypting in CBC mode.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/CbcEncryptor/Overview.html">nn::crypto::CbcEncryptor</a>
+            </th>
+            <td>Class for encrypting in CBC mode.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/CcmDecryptor/Overview.html">nn::crypto::CcmDecryptor</a>
+            </th>
+            <td>Class for decrypting and verifying in CCM mode.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/CcmEncryptor/Overview.html">nn::crypto::CcmEncryptor</a>
+            </th>
+            <td>Class for encrypting and generating an MAC in CCM mode.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/CipherMode/Overview.html">nn::crypto::CipherMode</a>
+            </th>
+            <td>Base class for the cipher mode classes.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/CtrDecryptor/Overview.html">nn::crypto::CtrDecryptor</a>
+            </th>
+            <td>Class for decrypting in CTR mode.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/CtrEncryptor/Overview.html">nn::crypto::CtrEncryptor</a>
+            </th>
+            <td>Class for encrypting in CTR mode.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/Decryptor/Overview.html">nn::crypto::Decryptor</a>
+            </th>
+            <td>Base class for classes performing decryption using a cipher mode.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/Encryptor/Overview.html">nn::crypto::Encryptor</a>
+            </th>
+            <td>Base class for classes that perform encryption using a cipher mode.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Hash</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/HashContextBase/Overview.html">nn::crypto::HashContextBase</a>
+            </th>
+            <td>Base class for context objects used for hash calculation.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/Sha1Context/Overview.html">nn::crypto::Sha1Context</a>
+            </th>
+            <td>Context object for SHA-1 calculation.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/Sha256Context/Overview.html">nn::crypto::Sha256Context</a>
+            </th>
+            <td>Context object for SHA-256 calculation.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/ShaBlock512BitContext/Overview.html">nn::crypto::ShaBlock512BitContext</a>
+            </th>
+            <td>Context object for SHA calculation with a <code>BlockSize</code> of 512 bits.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">RSA</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/crypto/RsaContext/Overview.html">nn::crypto::RsaContext</a>
+            </th>
+            <td>The context class for RSA public key encryption.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="typedef" id="typedef">
+      <h2>typedef Definitions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/crypto/Aes128.html">Aes128</a>
+            </th>
+            <td>Class for AES encryption with a key length of 128 bits.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/crypto/Aes192.html">Aes192</a>
+            </th>
+            <td>Class for AES encryption with a key length of 192 bits.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/crypto/Aes256.html">Aes256</a>
+            </th>
+            <td>Class for AES encryption with a key length of 256 bits.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/crypto/CbcDecryptor128.html">CbcDecryptor128</a>
+            </th>
+            <td><code><a href="../../nn/crypto/CbcDecryptor/Overview.html">CbcDecryptor</a></code> class for a block size of 128 bits.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/crypto/CbcEncryptor128.html">CbcEncryptor128</a>
+            </th>
+            <td><code><a href="../../nn/crypto/CbcEncryptor/Overview.html">CbcEncryptor</a></code> class for a block size of 128 bits.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/crypto/CtrDecryptor128.html">CtrDecryptor128</a>
+            </th>
+            <td><code><a href="../../nn/crypto/CtrDecryptor/Overview.html">CtrDecryptor</a></code> class for a block size of 128 bits.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/crypto/CtrEncryptor128.html">CtrEncryptor128</a>
+            </th>
+            <td><code><a href="../../nn/crypto/CtrEncryptor/Overview.html">CtrEncryptor</a></code> class for a block size of 128 bits.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/crypto/OUTPUT_ALIGNMENT.html">OUTPUT_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address that stores the result of the <code><a href="../../nn/crypto/Sha1Context/GetHash.html">Sha1Context::GetHash</a></code>, <code><a href="../../nn/crypto/Sha256Context/GetHash.html">Sha256Context::GetHash</a></code>, <code><a href="../../nn/crypto/CalculateHmacSha1.html">CalculateHmacSha1</a></code>, <code><a href="../../nn/crypto/CalculateHmacSha256.html">CalculateHmacSha256</a></code>, <code><a href="../../nn/crypto/CalculateSha1.html">CalculateSha1</a></code>, and <code><a href="../../nn/crypto/CalculateSha256.html">CalculateSha256</a></code> functions must be aligned to.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/crypto/ENCRYPT_HEADER_SIZE.html">ENCRYPT_HEADER_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Amount by which data size increases when encrypted using the <code>EncryptAes128Ctr</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/crypto/GENERATE_HEADER_SIZE.html">GENERATE_HEADER_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Amount by which data size increases when encrypted using the <code>EncryptAndGenerateAes128Ccm</code> function. When encrypting using the <code>EncryptAndGenerateAes128Ccm</code> function, the encrypted data is this number of bytes bigger than the original data.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/crypto/EncryptAes128Ctr.html">EncryptAes128Ctr</a>
+            </th>
+            <td>Encrypts.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/crypto/DecryptAes128Ctr.html">DecryptAes128Ctr</a>
+            </th>
+            <td>Decrypts.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/crypto/EncryptAndGenerateAes128Ccm.html">EncryptAndGenerateAes128Ccm</a>
+            </th>
+            <td>Encrypts and generates data for tampering tests.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/crypto/DecryptAndVerifyAes128Ccm.html">DecryptAndVerifyAes128Ccm</a>
+            </th>
+            <td>Decrypts and tests for tampering.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/crypto/GenerateRandomBytes.html">GenerateRandomBytes</a>
+            </th>
+            <td>Generates a random number for encryption purposes.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/crypto/CalculateHmacSha1.html">CalculateHmacSha1</a>
+            </th>
+            <td>Performs HMAC-SHA1 calculation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/crypto/CalculateHmacSha256.html">CalculateHmacSha256</a>
+            </th>
+            <td>Performs HMAC-SHA256 calculation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/crypto/CalculateSha1.html">CalculateSha1</a>
+            </th>
+            <td>Utility function that encompasses a sequence of operations used for SHA-1 calculation.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/crypto/CalculateSha256.html">CalculateSha256</a>
+            </th>
+            <td>Utility function that encompasses a sequence of operations used for SHA-256 calculation.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/01</dt>
+        <dd><item xmlns="">Added an API for using CBC mode.</item><br />
+        </dd>
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Added an explanation of the block cipher API.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::uds::CTR::ConnectionStatus</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/uds/Overview.html">uds</a>::<a href="../../../../nn/uds/CTR/Overview.html">CTR</a>::ConnectionStatus Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct ConnectionStatus
+{
+   <a href="../../../../nn/uds/CTR/State.html">State</a> nowState;
+   <a href="../../../../nn/uds/CTR/DisconnectReason.html">DisconnectReason</a> disconnectReason;
+   <a href="../../../../nn_types/u16.html">u16</a> myNodeId;
+   <a href="../../../../nn_types/bit16.html">bit16</a> updateNodeBitmap;
+   <a href="../../../../nn_types/u16.html">u16</a> nodeIdList[NODE_MAX];
+   <a href="../../../../nn_types/u8.html">u8</a> nowEntry;
+   <a href="../../../../nn_types/u8.html">u8</a> maxEntry;
+   <a href="../../../../nn_types/bit16.html">bit16</a> slotBitmap;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Stores the UDS connection status.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">nowState</span>
+            </th>
+            <td width="100"><a href="../../../../nn/uds/CTR/State.html">State</a></td>
+            <td>Current state.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">disconnectReason</span>
+            </th>
+            <td width="100"><a href="../../../../nn/uds/CTR/DisconnectReason.html">DisconnectReason</a></td>
+            <td>Reason for disconnection. A value of <code>NETWORK_IS_AVAILABLE</code> is always returned while there is an active network connection.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">myNodeId</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>The node ID of the local system. This value is undefined in the absence of a network connection.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">updateNodeBitmap</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit16.html">bit16</a></td>
+            <td>Bitmap representing a list of IDs for nodes that have changed since the last time <code>GetConnectionStatus</code> was run.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">nodeIdList</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>List of the nodes currently connected to the network.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">nowEntry</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>The number of nodes connected to the network.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">maxEntry</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>The maximum number of nodes that can connect to the network at the same time. (This number does not change during communication.)</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">slotBitmap</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit16.html">bit16</a></td>
+            <td>Bitmap indicating which slots store node information. Unlike updateNodeBitmap, this attribute does not indicate changes from the previous values.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/17</dt>
+        <dd><item xmlns="">Added the nowEntry, maxEntry, and slotBitmap member variables. (The size of the structure increased by four bytes.)</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fs/Overview.html">fs</a>::<a href="../../../nn/fs/FileOutputStream/Overview.html">FileOutputStream</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void Initialize(
+     const char * pathName,
+     bool createIfNotExist
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pathName</th>
+          <td>Path of the file to open.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>createIfNotExist</th>
+          <td>Specifies whether to create a file if it does not exist at the specified path.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Opens the specified file or files.</p><p>Opens the file in the specified path with write-only access and enables writing. <br />
+ If the createIfNotExist parameter has been set to <code>true</code> and no file exists in the specified path, this function creates the file and opens it with write-only access. <br />
+ You cannot call this function if this object already has a file open.</p><p><bold>Note:</bold> This function uses about 1 KB of buffer space on the stack because it converts the path name from a multibyte string into a wide string. Pay careful attention to the stack size.</p><h3>Important</h3><div class="section">For expanded save data, you must explicitly create a file using the <tt><a href="../../../nn/fs/TryCreateFile.html">nn::fs::TryCreateFile</a></tt> function before calling this function.  <b>Note:</b> Specifying <tt>createIfNotExist=true</tt> for expanded save data causes an error. <br /> For more information about expanded save data, see <a href="../briefing/aboutArchive.html#Archives_ExtSaveDataArchive">Archives</a>.</div></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

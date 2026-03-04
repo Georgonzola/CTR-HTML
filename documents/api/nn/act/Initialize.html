@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/act/Overview.html">act</a>::Initialize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> Initialize(
+     <a href="../../nn_types/uptr.html">uptr</a> bufferAddress = 0,
+     size_t bufferSize = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>bufferAddress</th>
+          <td>Pointer to the start of the communication buffer. Memory for the buffer must be aligned to <code>BUFFER_ALIGNMENT</code> (4096 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>The size of the communication buffer This value must be a multiple of <code>BUFFER_UNITSIZE</code> (4096 bytes).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation. <br /><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Succeeded.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Other results can be returned depending on the internal state of the daemon.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the account library and makes the account features available for use. When using APIs that trigger communication with some servers, you must set a data buffer for communication as an argument. Because the size of the required buffer varies by API, see the reference for the API you are using, and then specify the largest size from there. When you are not using these APIs, you do not need to set anything for these arguments. For example, if you are just using the feature to get a service token, you do not need to specify a communication buffer. This function can be called multiple times even if the account library is already initialized, but the <code><a href="../../nn/act/Finalize.html">nn::act::Finalize</a></code> function must be called an equal number of times to completely finalize the account library. This function can only be specified when the communication buffer has not yet been initialized, however. If this function is called when the communication buffer is already initialized, the buffer specified in the argument is not used.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2013/08/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      {
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      {
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.protected_style
+      {
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        --></style>
+    <title>PedometerChanger</title>
+  </head>
+  <body>
+    <h1>PedometerChanger</h1>
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+	<CODE>PedometerChanger</CODE> is a tool that allows for the viewing, importing and exporting of pedometer information.
+      </p>
+    </div>
+
+     <h2>How to Use It</h2>
+    <div class="section">
+      <p>
+        <table class="table"><tbody>
+          <tr><th>Button</th> <th>Operation</th></tr>
+          <tr><td>↑↓</td> <td>Switch the selection.</td></tr>
+          <tr><td>A</td> <td>Confirm the selected item.</td></tr>
+        </tbody></table>
+      </p>
+    </div>
+
+    <h2>Tool Features</h2>
+    <div class="section">
+      <p>
+        <table class="table"><tbody>
+          <tr><th>Functionality</th> <th>Description</th></tr>
+          <tr><td>Import</td> <td>Imports the pedometer information included in the <CODE>ImportPedometerFile.csv</CODE> file, at the top level of the SD card. <br /> When it does so, all existing pedometer data is deleted.</td></tr>
+          <tr><td>Export</td> <td>Exports the system's pedometer information to the <CODE>ExportPedometerFile.csv</CODE> file, at the top level of the SD card.</td></tr>
+          <tr><td>Append</td> <td>Appends the pedometer information included in the <CODE>ImportPedometerFile.csv</CODE> file, at the top level of the SD card. <br /> This differs from the <CODE>Import</CODE> command in that any pedometer data existing on the system that does not have an equivalent in date and time in the <CODE>ImportPedometerFile.csv</CODE> file remains as is.</td></tr>
+          <tr><td><CODE>Display</CODE></td> <td>Displays the system's pedometer information on the lower screen.</td></tr>
+          <tr><td><CODE>Initialize</CODE></td> <td>Deletes all pedometer information on the system.</td></tr>
+        </tbody></table>
+      </p>
+    </div>
+    <h3>File Format</h3>
+    <div class="section">
+      <p>
+        The import file, <CODE>ImportPedometerFile.csv</CODE>, and the export file, <CODE>ExportPedometerFile.csv</CODE> use the following format.<br /> <br /><B>YEAR, MONTH, DAY, TIME, STEPS TAKEN</B><br /><br />For example, if you walked for 100 steps between 11:00 AM and 12:00 PM on 1 December 2000, and for 200 steps between 11:00 PM and 12:00 AM on 1 January 2001, the data would appear as follows in the files.<br /> <br /><b>2000,12,1,11,100</b> <br /><b>2001,1,1,23,200</b>
+      </p>
+    </div>
+
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/01/09</dt>
+        <dd>Initial version.<br /></dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

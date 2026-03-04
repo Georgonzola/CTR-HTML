@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>GetExtSaveDataFormatInfo</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::GetExtSaveDataFormatInfo Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> GetExtSaveDataFormatInfo(
+     <a href="../../nn_types/u32.html">u32</a> * entryDirectory,
+     <a href="../../nn_types/u32.html">u32</a> * entryFile,
+     <a href="../../nn/fs/ExtSaveDataId.html">nn::fs::ExtSaveDataId</a> id
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>entryDirectory</th>
+          <td>The maximum number of directories.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>entryFile</th>
+          <td>The maximum number of files.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>id</th>
+          <td>Specifies the ID of the expanded save data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultMediaNotFound</th>
+          <td>An SD card could not be found or recognized.</td>
+        </tr>
+        <tr>
+          <th>ResultOperationDenied</th>
+          <td>Operation was refused. <br />
+ This error is returned only when recovery was performed internally.</td>
+        </tr>
+        <tr>
+          <th>ResultWriteProtected</th>
+          <td>The SD card is write-protected. <br />
+ This error is returned only when recovery was performed internally.</td>
+        </tr>
+        <tr>
+          <th>ResultMediaAccessError</th>
+          <td>An error occurred while accessing the SD card because of some cause such as a loose connection.</td>
+        </tr>
+        <tr>
+          <th>ResultBadFormat</th>
+          <td>The SD card has an invalid format. The SD card must be formatted.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>An unexpected or fatal error occurred.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the format parameter for the extended save data region. This function executes recovery internally if any discrepancy arises between metadata and actual data. <code><a href="../../nn/fs/ResultWriteProtected/Overview.html">ResultWriteProtected</a></code> is returned as an error at this time if the SD card has been write-protected. In addition, <code><a href="../../nn/fs/ResultOperationDenied/Overview.html">ResultOperationDenied</a></code> is returned as an error if the read-only attribute has been set for the file on the SD card.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/07</dt>
+        <dd><item xmlns="">Removed ResultArchiveInvalidated from Return Values based on API revision.</item><br />
+        </dd>
+        <dt>2011/01/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

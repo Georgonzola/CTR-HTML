@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StackMemory</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/StackMemory/Overview.html">StackMemory</a>::StackMemory Constructor</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+StackMemory();
+
+explicit StackMemory(
+     void * pMem,
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./StackMemory(0).html">StackMemory (  ) </a>
+          </td>
+          <td>Constructor.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./StackMemory(1).html">StackMemory ( void *, size_t ) </a>
+          </td>
+          <td>Constructs an object and partitions a memory region.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of StackMemory (  ) </h2>
+    <div class="section"><p>Does not initialize the object when no arguments are specified. You must make a separate call to <code><a href="../../../nn/os/StackMemory/TryInitialize.html">TryInitialize</a></code> or <code><a href="../../../nn/os/StackMemory/Initialize.html">Initialize</a></code>.</p><!-- write here --></div>
+    <h2>Description of StackMemory ( void *, size_t ) </h2>
+    <div class="section"><p>Internally calls the <code><a href="../../../nn/os/StackMemory/Initialize.html">Initialize</a></code> function.</p><p>For this reason, this function can only partition memory allocated from the heap region. It cannot partition buffers allocated statically from the code region, and it cannot partition regions in device memory.</p><p>For more information, see <code><a href="../../../nn/os/StackMemory/Initialize.html">Initialize</a></code>.</p><!-- write here --></div>
+  </body>
+</html>

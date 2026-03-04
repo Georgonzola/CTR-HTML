@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetTexParameteriv</title>
+  </head>
+  <body>
+    <h1>glGetTexParameteriv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetTexParameteriv(
+     GLenum target,
+     GLenum pname,
+     GLint * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Texture target.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Array storing the retrieved parameters.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets texture object parameters from the currently bound texture as <code>GLint</code>-type values.</p><P>You can set <span class="argument">target</span> to the following values.<TABLE><TR><TH>GL_TEXTURE_2D</TH><TD>2D texture.</TD></TR><TR><TH>GL_TEXTURE_CUBE_MAP</TH><TD>Cube-map texture.</TD></TR></TABLE><!-- source targetにはGL_TEXTURE_2D、GL_TEXTURE_CUBE_MAPを指定します。 --></P><P>You can set <span class="argument">pname</span> to the following values.<TABLE><TR><TH>GL_TEXTURE_MIN_FILTER</TH><TD>Gets the texture minification filter.</TD></TR><TR><TH>GL_TEXTURE_MAG_FILTER</TH><TD>Gets the texture magnification filter.</TD></TR><TR><TH>GL_TEXTURE_WRAP_S</TH><TD>Gets the wrap mode for texture coordinate s.</TD></TR><TR><TH>GL_TEXTURE_WRAP_T</TH><TD>Gets the wrap mode for texture coordinate t.</TD></TR><TR><TH>GL_TEXTURE_MIN_LOD</TH><TD>Gets the minimum mipmap level of detail.</TD></TR><TR><th>GL_TEXTURE_DATA_ADDR_DMP</th><TD>Gets the address of the bound texture object(s).</TD></TR></TABLE><!-- source pnameにはGL_TEXTURE_MIN_FILTER、GL_TEXTURE_MAG_FILTER、GL_TEXTURE_WRAP_S、GL_TEXTURE_WRAP_T、 GL_TEXTURE_MIN_LODを指定します。 --><!-- source GL_TEXTURE_MIN_FILTERは、テクスチャの縮小フィルタが取得されます。 GL_TEXTURE_MAG_FILTERは、テクスチャの拡大フィルタが取得されます。 GL_TEXTURE_WRAP_Sは、テクスチャ座標sのラップモードが取得されます。 GL_TEXTURE_WRAP_Tは、テクスチャ座標tのラップモードが取得されます。 GL_TEXTURE_MIN_LODは、最小のミップマップレベルが取得されます。 --></P><P>In addition to those above, you can also specify parameters that can be obtained with <tt>glGetTexParameterfv</tt>.  However, values are cast to type <tt>GLint</tt>.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> or <span class="argument">pname</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source target、pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/05/12</dt>
+        <dd><item xmlns="">Added a value, GL_TEXTURE_DATA_ADDR_DMP, that can be specified for pname.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

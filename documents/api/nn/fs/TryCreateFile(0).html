@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>TryCreateFile</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::TryCreateFile Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> TryCreateFile(
+     const wchar_t * pathName,
+     <a href="../../nn_types/s64.html">s64</a> size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pathName</th>
+          <td>Path of the file to create.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Size of the file to create.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a file.</p><p>This function returns any error that occurs while it is creating the file.</p><p>If file creation fails, a garbage file may have been created. Call the <code><a href="../../nn/fs/TryDeleteFile.html">TryDeleteFile</a></code> function to delete it. If a garbage file has not been created, <code><a href="../../nn/fs/ResultNotFound/Overview.html">ResultNotFound</a></code> is returned.</p>Which <tt>Result</tt> values need handling differ depending on the archive. For more information, see <a href="briefing/aboutErrorHandling.html#FileAndDirectory">Handling Errors During File and Directory Operations</a>.<br /><br /><h3>Important</h3><div class="section">After a file has been created with this function, and if nothing has been written, the process of reading returns <tt><a href="../../nn/fs/ResultVerificationFailed/Overview.html">nn::fs::ResultVerificationFailed</a></tt>. <br /> However, if this function is called for save data or expanded save data, the first 512 bytes (or the entire file if the size is 512 bytes or smaller) are guaranteed to be zero-initialized.  By using this function and writing to the file in the order Create file > Write data and flush > Write file signature to front and flush, you can check that the file signature has been loaded correctly and guarantee that the file is written correctly.</div></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/21</dt>
+        <dd><item xmlns="">Explained that the first 512 bytes are zero-filled.</item><br />
+        </dd>
+        <dt>2010/12/24</dt>
+        <dd><item xmlns="">Added a note.</item><br />
+        </dd>
+        <dt>2010/12/22</dt>
+        <dd><item xmlns="">Added a link to the error handling page.</item><br />
+        </dd>
+        <dt>2010/11/09</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

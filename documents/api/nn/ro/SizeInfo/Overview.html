@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ro::SizeInfo</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/ro/Overview.html">ro</a>::SizeInfo Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct SizeInfo
+{
+   <a href="../../../nn_types/uptr.html">uptr</a> fix0End;
+   <a href="../../../nn_types/uptr.html">uptr</a> fix1End;
+   <a href="../../../nn_types/uptr.html">uptr</a> fix2End;
+   <a href="../../../nn_types/uptr.html">uptr</a> fix3End;
+   size_t bufferSize;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This structure stores memory size information required to load a <code>cro</code>.</p><p>This structure is used by <code>GetSizeInfo</code>.</p><p>If <code>FIX_LEVEL_0</code>, <code>FIX_LEVEL_1</code>, <code>FIX_LEVEL_2</code>, and <code>FIX_LEVEL_3</code> have been specified in the fixLevel argument of <code>LoadModule</code> for each of fix0End, fix1End, fix2End, and Fix3End, respectively; 1 + the end address of memory being managed by the <a href="../../../nn/ro/Overview.html">ro</a> library is stored.</p><p>If <code>FIX_LEVEL_[N]</code> is specified in the fixLevel argument of <code>LoadModule</code>, the memory region from the address specified in the pRo argument of <code>GetSizeInfo</code> up to fix[N]End - 1 is managed by the <a href="../../../nn/ro/Overview.html">ro</a> library.</p><p>Because the memory region beyond fix[N]End is released after <code>LoadModule</code> succeeds, it can be used for other purposes.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">fix0End</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/uptr.html">uptr</a></td>
+            <td>Stores a value of 1 + the end address of the memory being managed by the <a href="../../../nn/ro/Overview.html">ro</a> library if <code>FIX_LEVEL_NONE(FIX_LEVEL_0)</code> is specified.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">fix1End</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/uptr.html">uptr</a></td>
+            <td>Stores a value of 1 + the end address of the memory being managed by the <a href="../../../nn/ro/Overview.html">ro</a> library if <code>FIX_LEVEL_INTERNAL(FIX_LEVEL_1)</code> is specified.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">fix2End</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/uptr.html">uptr</a></td>
+            <td>Stores a value of 1 + the end address of the memory being managed by the <a href="../../../nn/ro/Overview.html">ro</a> library if <code>FIX_LEVEL_INTERNAL_IMPORT(FIX_LEVEL_2)</code> is specified.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">fix3End</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/uptr.html">uptr</a></td>
+            <td>Stores a value of 1 + the end address of the memory being managed by the <a href="../../../nn/ro/Overview.html">ro</a> library if <code>FIX_LEVEL_INTERNAL_IMPORT_EXPORT(FIX_LEVEL_3)</code> is specified.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">bufferSize</span>
+            </th>
+            <td width="100">size_t</td>
+            <td>Stores the minimum size that can be assigned to the bufferSize argument of <code>LoadModule</code>. <br />
+ Although a size exceeding this value can be specified as an argument to <code>LoadModule</code>, the excess part is not used.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/07/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

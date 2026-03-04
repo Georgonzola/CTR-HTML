@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetDigest</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/NsaList/Overview.html">NsaList</a>::GetDigest Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> GetDigest(
+     <a href="../../../nn_types/u8.html">u8</a> * pDigestBuf,
+     size_t digestBufSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDigestBuf</th>
+          <td>The buffer storing NSA digest information.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>digestBufSize</th>
+          <td><emphasis>pDigestBuf</emphasis> buffer size. (40 alphanumeric characters are returned for the digest value, so the buffer must be 41 bytes or greater.)</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates successful retrieval.</td>
+        </tr>
+        <tr>
+          <th>ResultNSAListInvalidFormat</th>
+          <td>The file format is invalid.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the digest value included in an NSA list.</p><p>Gets the digest value included in the NSA list. (In the <code><a href="../../../nn/boss/NsaList/CheckValidity.html">CheckValidity</a></code> function, compares the result of this function with the calculated digest value.) One use of this function is to check whether the NSA list has been updated. When the NSA is not frequently updated on the server, to shorten the time needed to check whether the NSA list has been updated, you can also use this function to get and remember a digest value for the downloaded NSA list. You can then compare just the digest value the next time you download the NSA list. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

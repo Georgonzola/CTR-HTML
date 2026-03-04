@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>AcquireOlvServiceToken</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/act/Overview.html">act</a>::<a href="../../../nn/act/applet/Overview.html">applet</a>::AcquireOlvServiceToken Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> AcquireOlvServiceToken(
+     char * pOlvServiceToken
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pOlvServiceToken</th>
+          <td>Specifies an out pointer to the buffer that stores the service token.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotNetworkAccount</th>
+          <td>Indicates that the account is not a network account.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>Indicates that an invalid pointer (such as a <code>NULL</code> pointer) was passed as an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultNotConnected</th>
+          <td>Not connected to an access point.</td>
+        </tr>
+        <tr>
+          <th>ResultAuthenticationError</th>
+          <td>Indicates that authentication failed.</td>
+        </tr>
+        <tr>
+          <th>ResultCanceled</th>
+          <td>Canceled.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a service token for the Miiverse.</p><p>No parental control checks are performed by this function. Configure the application as needed to implement functionality corresponding to Parental Controls settings.</p><p>Pass a pointer to a buffer at least as big as <code>NN_ACT_INDEPENDENT_SERVICE_TOKEN_SIZE</code> bytes to <emphasis>pOlvServiceToken</emphasis>.</p><p>This function sometimes returns a service token from the system's internal cache.</p><p>This function starts the <a href="../../../nn/act/applet/Overview.html">applet</a>, and blocks for the duration.</p><p>If the function fails, the value set in the buffer is undefined.</p><p>For information about using this function, see the section in the <code><a href="../../../nn/act/Overview.html">nn::act</a></code> namespace that describes how to make API functions that trigger communication.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/30</dt>
+        <dd><item xmlns="">Noted that the cache sometimes returns a service token.</item><br />
+        </dd>
+        <dt>2013/08/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

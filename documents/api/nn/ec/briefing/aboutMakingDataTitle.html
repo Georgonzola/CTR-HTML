@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"[]>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<title></title>
+<link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+</head>
+<body>
+<h1>ECDK: How to Create Data Titles</h1>
+<div class="section" id="id1">
+<h2>Contents</h2>
+<ul class="simple">
+<li><a class="reference internal" href="#id2" id="id20">Overview</a></li>
+<li><a class="reference internal" href="#id3" id="id21">Add-On Content and Data Titles</a></li>
+<li><a class="reference internal" href="#id4" id="id22">About Data Titles</a><ul>
+<li><a class="reference internal" href="#id5" id="id23">Structure of Data Titles</a></li>
+<li><a class="reference internal" href="#id6" id="id24">Required Information for Creating Data Titles</a></li>
+<li><a class="reference internal" href="#id7" id="id25">Required Information for Creating Add-On Content</a></li>
+<li><a class="reference internal" href="#id8" id="id26">Required Information for Creating Metadata Content</a></li>
+<li><a class="reference internal" href="#id9" id="id27">Data Title Updates</a></li>
+<li><a class="reference internal" href="#id10" id="id28">Data Title Versions</a></li>
+<li><a class="reference internal" href="#id11" id="id29">Icon Data</a></li>
+<li><a class="reference internal" href="#id12" id="id30">Content Indices</a></li>
+<li><a class="reference internal" href="#id13" id="id31">Upper Limits on the Number of Content Pieces and Content Indices</a></li>
+<li><a class="reference internal" href="#id14" id="id32">Creating and Using Multiple Data Titles</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id15" id="id33">How to Create Data Titles</a><ul>
+<li><a class="reference internal" href="#omakefile" id="id34">Build Using OMakefile</a></li>
+<li><a class="reference internal" href="#id16" id="id35">Build Using Tools</a></li>
+<li><a class="reference internal" href="#id_rsf" id="id_toc_rsf">The RSF File to Use for Creating Add-On Content</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id17" id="id36">Handling a Large Volume of Add-On Content</a></li>
+<li><a class="reference internal" href="#id18" id="id37">Revision History</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id20">Overview</a></h2>
+<p>This section describes how to create data titles that store add-on content and how to handle them during development.</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id21">Add-On Content and Data Titles</a></h2>
+<p>One application can provide multiple add-on content pieces.</p>
+<p>The CTR system treats multiple add-on content pieces provided by an application as one data title. The final step is the creation of a data title as a CIA file.</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id22">About Data Titles</a></h2>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id23">Structure of Data Titles</a></h3>
+<p>One data title contains one metadata file, and one or more add-on content pieces.</p>
+<p>Metadata content contains the content name, content description, and an icon image to indicate the content. The content of add-on content is maintained as a file archive. Metadata content and add-on content are created as CFA files.</p>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id24">Required Information for Creating Data Titles</a></h3>
+<p>To create a data title, information other than the add-on content data itself, such as the name of the add-on content and an icon, is required to indicate the type of add-on content.</p>
+<p>You need the following data to create a data title containing add-on content.</p>
+<dl class="docutils">
+<dt>Title name</dt>
+<dd>Required to create the CFA file.</dd>
+<dt>Unique ID</dt>
+<dd>ID to identify the data title. Use the value issued by Nintendo.</dd>
+<dt>Product code</dt>
+<dd>Code to indicate the product. Use the value issued by Nintendo.</dd>
+<dt>Data title version</dt>
+<dd>Starts from 0. Increment the value by one with each release of a new version of the data title.</dd>
+<dt>Icon data</dt>
+<dd>Use icon data created from the BSF file. Specifically, use the ICN file.</dd>
+</dl>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id25">Required Information for Creating Add-On Content</a></h3>
+<p>To create individual pieces of add-on content, you must have add-on content data in addition to the information required for creating a data title.</p>
+<p>The add-on content data is a file archive in the same format as the application ROMFS, and is created as a CFA file. For this reason, the add-on content itself is placed as files in a single directory during development.</p>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id26">Required Information for Creating Metadata Content</a></h3>
+<p>Metadata content stores content attributes for all content data stored in the data title and icon image. For more information, see <CODE><a class="reference external" href="../../../../tools/ctr_makeMetaDataContent.html">ctr_makeMetaDataContent</a></CODE>.</p>
+<p>The icon image stored in the metadata content is different from the icon image required to create data titles. The icon image stored in the metadata content indicates the individual add-on content pieces; for example, icons that indicate what the add-on content contains, such as swords or shields. The icon image required to create data titles usually represents the data title similar to an icon image that represents an application.</p>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id27">Data Title Updates</a></h3>
+<p>When a data title is updated with the CTR system, add-on content can be updated or added.</p>
+<p>Because data titles are updated separately from the application, it is important to test updating data titles during the application development phase.</p>
+<p>The data title update process is performed by the EC library. The data title version is used to determine whether an update is required. For this reason, when testing data title updates during application development, you must specify a version with a value greater than the original data title so that the system can identify the updated data title as being new.</p>
+</div>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id28">Data Title Versions</a></h3>
+<p>The data title version rules are different from those for application versions. When developing data titles, only one value called the data title version is used.</p>
+<p>Data title versions begin with 0, and are increased by 1 each time you submit to Lotcheck. </p>
+<p>The data title version can be up to a maximum of 4095.</p>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id29">Icon Data</a></h3>
+<p>As with applications, data titles display on the <B>Add-on Content Deletion</B> screen of the <B>Management</B> screen, and require an icon image along with the title name and publisher name in several languages. For basic information about creating icons, see <a class="reference external" href="../../../../tools/ctr_makebanner.html"><CODE>ctr_makebanner</CODE></a>.</p>
+<p>The created icon data is used when creating the metadata content CFA file and is included in the metadata content.</p>
+<p>However, the icon data required for the data title differs from the application in several respects.</p>
+<ul class="simple">
+<li>Sound and 3D models required to create banner files are unnecessary.</li>
+<li>Information about ratings and regions is unnecessary.</li>
+<li>Attributes for application execution, such as save data information, are unnecessary.</li>
+</ul>
+<p>Required data title attributes set in the BSF file are as follows.</p>
+<ul class="simple">
+<li>Icon Image (<CODE>LittleIconFile</CODE>, <CODE>BigIconFile</CODE>)</li>
+<li>Title Name (<CODE>XXXXLongName</CODE>, <CODE>XXXXShortName</CODE>)</li>
+<li>Publisher Name (<CODE>XXXXPublisher</CODE>)</li>
+</ul>
+<p>Set this information to match the region and language where the add-on content is to be provided.</p>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id30">Content Indices</a></h3>
+<p>Content attributes in the metadata content and add-on content CFA files are associated by a content index.</p>
+<p>The content index specified in the content attributes in the metadata content is written in an XML file used to input <a class="reference external" href="../../../../tools/ctr_makeMetaDataContent.html"><CODE>ctr_makeMetaDataContent</CODE></a>.</p>
+<p>For add-on content CFA files, the content index is specified when creating a CIA file with <a class="reference external" href="../../../../tools/ctr_makecia.html"><CODE>ctr_makecia</CODE></a>, and is specified with a <a class="reference external" href="../../../../tools/ctr_makecia.html"><CODE>ctr_makecia</CODE></a> program argument, or with a content list file.</p>
+<p>Specify a content index of 0 for metadata content; use a content index of 1 or greater for add-on content.</p>
+<p>Specify values for content indices as a sequential series beginning with 0. For example, you cannot specify a content index series such as <CODE>0,1,2,10,11</CODE>.</p>
+</div>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id31">Upper Limits on the Number of Content Pieces and Content Indices</a></h3>
+<p>There is an upper limit on the number of content pieces and content indices. Content exceeding this number cannot be handled. For more information about this upper limit, see <I>CTR-ECDK Overview</I>.</p>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id32">Creating and Using Multiple Data Titles</a></h3>
+<p>If you have more content pieces than can be placed in a single data title, or otherwise have a huge amount of add-on content to provide, you can create and use multiple data titles.</p>
+<p>To create and use multiple data titles for a single application, you can specify a value called the data title variation. By specifying the same value for the unique ID but different values for the data title variation, you can create multiple data titles.</p>
+<p>The data title variation can take values between 0 and 255. If only one data title will be used, specify <CODE>0</CODE> for the data title variation.</p>
+<p>Add-on content provides a feature so that content can be added and updated after the application has been released. However, it provides no mechanism for adding data titles. For this reason, when developing an application that uses add-on content, you must estimate whether a single data title will be enough and decide whether to use multiple data titles. Before releasing the application, you must test the updating of add-on content to multiple data titles.</p>
+<p>If you want to make use of multiple data titles, please contact Nintendo.</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id33">How to Create Data Titles</a></h2>
+<p>Both the method for writing an <CODE>OMakefile</CODE>, and the method for directly using the tools can be used to create data titles.</p>
+<p>When building using an <CODE>OMakefile</CODE>, you can create a data title by writing only minimal settings. However, this method cannot be used when including a data title in an independent build system or when creating a data title that stores a large volume of add-on content that exceeds several hundred pieces. For this reason, depending on the data title to be created, directly using the tools to build may be required without using the existing build rules that can be used by writing an <CODE>OMakefile</CODE>.</p>
+<div class="section" id="omakefile">
+<h3><a class="toc-backref" href="#id34">Build Using OMakefile</a></h3>
+<p>A data title can be created using <CODE>OMakefile</CODE> by specifying information with an <CODE>OMakefile</CODE>. For the information to specify, see <CODE>SampleDemos/ec/DataTitle</CODE>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Variable Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>TARGET_AOC_TITLE</td>
+<td>Specifies the application title in eight or fewer ASCII characters.</td>
+</tr>
+<tr><td>UNIQUE_ID</td>
+<td>Specifies a unique ID.</td>
+</tr>
+<tr><td>PRODUCT_CODE</td>
+<td>
+When you are building add-on content, specify <CODE>CTR-M-XXXX-00</CODE>.<br />M is specified for the configuration code.<br />The initial code of the application using the add-on content is specified for XXXX. The 00 at the end represents the data title variation.<br />00 is specified when there is no particular indication of the version.<br />
+</td>
+</tr>
+<tr><td>AOC_DATA_TITLE_VERSION</td>
+<td>Specifies the data title version.</td>
+</tr>
+<tr><td>AOC_DATA_TITLE_VARIATION</td>
+<td>Specifies the data title variation when one title makes use of multiple data titles. Specify a value in the range from 0 through 255. If omitted, <CODE>0</CODE> is specified. This is omitted in the demo.</td>
+</tr>
+<tr><td>AOC_BANNER_SPEC</td>
+<td>Specifies the BSF file to create the icon data.</td>
+</tr>
+<tr><td>AOC_CONTENT_INFOS</td>
+<td>Specifies the XML file to create the metadata content.</td>
+</tr>
+<tr><td>AOC_CONTENT_ICONS_DIR</td>
+<td>Specifies the directory where the icon image for the add-on content is located.</td>
+</tr>
+<tr><td>AOC_CONTENT_DIRS</td>
+<td>Specifies multiple directories where the add-on content files are stored. Content indices are assigned in order starting with 1.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id35">Build Using Tools</a></h3>
+<p>The following tools are used to create data titles. For information about how to use tools, see the documentation for each tool. For examples of using tools, see <CODE>SampleDemos/ec/DataTitleRaw</CODE>.</p>
+<dl class="docutils">
+<dt><a class="reference external" href="../../../../tools/ctr_makebanner.html">ctr_makebanner</a></dt>
+<dd>Creates icon data (<CODE>.icn</CODE>). Does not require a banner file (<CODE>.bnr</CODE>).</dd>
+<dt><a class="reference external" href="../../../../tools/ctr_makeMetaDataContent.html"><CODE>ctr_makeMetaDataContent</CODE></a></dt>
+<dd>Creates metadata content (<CODE>.cfa</CODE>).</dd>
+<dt><a class="reference external" href="../../../../tools/ctr_makerom.html">ctr_makerom</a></dt>
+<dd>Creates add-on content (<CODE>.cfa</CODE>).</dd>
+<dt><a class="reference external" href="../../../../tools/ctr_makecia.html"><CODE>ctr_makecia</CODE></a></dt>
+<dd>Creates a data title (<CODE>.cia</CODE>) to store both the metadata content and add-on content.</dd>
+</dl>
+
+<p>
+The following shows how to use <CODE><a class="reference external" href="../../../../tools/ctr_makerom.html">ctr_makerom</a></CODE> to create the CFA file. Options that are not shown here do not need to be specified.
+<pre class="literal-block">
+# Creation of add-on content (index 1).
+ctr_makerom \
+    -f data \
+    -rsf $(CTRSDK_ROOT)/resources/specfiles/AddOnContent.rsf \
+    -o objects/aoctitle_content_1.cfa \
+    -DUNIQUE_ID=$(UNIQUE_ID)
+    -DDATA_TITLE_INDEX=0
+    -DPRODUCT_CODE=$(PRODUCT_CODE)
+    -DTITLE=$(TITLE)
+    -DROMFS_ROOT=../DataTitle/content01 \
+</pre>
+</p>
+
+<p>With <a class="reference external" href="../../../../tools/ctr_makecia.html"><CODE>ctr_makecia</CODE></a>, program arguments can be used to specify the CFA files to store in the data title, but when there is a large amount of content, you may not be able to include any program arguments. For this reason, <a class="reference external" href="../../../../tools/ctr_makecia.html"><CODE>ctr_makecia</CODE></a> supports specifying CFA files with a content list file. The content list file is written in the following format. This example is excerpted from <CODE>SampleDemos/ec/DataTitleRaw/cfalist.yaml</CODE>.</p>
+<pre class="literal-block">
+-
+  Index: 0
+  Filename: objects/aoctitle_content_0.cfa
+
+-
+  Index: 1
+  Filename: objects/aoctitle_content_1.cfa
+
+-
+  Index: 2
+  Filename: objects/aoctitle_content_2.cfa
+</pre>
+<p>This format differs from the general YAML format. See the sample demo (<CODE>SampleDemos/ec/DataTitleRaw/cfalist.yaml</CODE>) when creating a content list file. </p>
+<p>The following shows how to create a data title with <CODE><a class="reference external" href="../../../../tools/ctr_makecia.html">ctr_makecia</a></CODE> using a content list file. Options that are not shown here do not need to be specified.</p>
+<pre class="literal-block">
+ctr_makecia
+    -o images/aoctitle.cia
+    --datatitle-version 0
+    -content-list cfalist.yaml
+</pre>
+</div>
+
+<div class="section" id="id_rsf">
+<h3><a class="toc-backref" href="#id_toc_rsf">The RSF File to Use for Creating Add-On Content</a></h3>
+<p>
+To create add-on content, use the following RSF file and no other: <CODE>CTR_SDK/resources/specfiles/AddOnContent.rsf</CODE>.
+</p>
+<p>
+Specify the following values for this <CODE>AddOnContent.rsf</CODE> file using the <CODE>-Dname=value</CODE> option of <CODE><a class="reference external" href="../../../../tools/ctr_makerom.html">ctr_makerom</a></CODE> or <CODE><a class="reference external" href="../../../../tools/ctr_makeMetaDataContent.html">ctr_makeMetaDataContent</a></CODE>. Specify all of these values when using <CODE><a class="reference external" href="../../../../tools/ctr_makerom.html">ctr_makerom</a></CODE> or <CODE><a class="reference external" href="../../../../tools/ctr_makeMetaDataContent.html">ctr_makeMetaDataContent</a></CODE>.
+</p>
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Variable Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>TITLE</td>
+<td>Specifies the application title in eight or fewer ASCII characters. <br /> This must match the value of the <CODE>TITLE</CODE> specified in the game application's RSF (which uses the data title).
+</td>
+</tr>
+<tr><td>PRODUCT_CODE</td>
+<td>Specifies the product code.</td>
+</tr>
+<tr><td>UNIQUE_ID</td>
+<td>Specifies a unique ID.</td>
+</tr>
+<tr><td>DATA_TITLE_INDEX</td>
+<td>Specifies the data title variation. Normally, specify <CODE>0</CODE>. <br />If you are using several data titles, you must set this to an appropriate value. For more information, see <a href="#id14">Creating and Using Multiple Data Titles</a>.
+</td>
+</tr>
+<tr><td>ROMFS_ROOT</td>
+<td>Specify the root directory for where the data for the add-on content is located.
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id36">Handling a Large Volume of Add-On Content</a></h2>
+<p>When a single application has several hundred or several thousand pieces of add-on content, time is required to create the data title.</p>
+<p>To shorten build times and reduce the time from revising add-on content to confirming the content, create data titles that store only the minimal add-on content that is required to verify the content of the metadata content, and then import this minimal add-on content using <CODE>DevMenu</CODE> during the development of add-on content.</p>
+</div>
+<div class="section" id="id18">
+<h2><a class="toc-backref" href="#id37">Revision History</a></h2>
+<dl class="docutils">
+<dt>2015-01-06</dt>
+<dd>Noted that the YAML format used for the file that specifies the content list differs from the general YAML format.</dd>
+<dt>2014-06-27</dt>
+<dd>Clarified that <CODE>AddOnContent.rsf</CODE> is also used from <CODE>ctr_makeMetaDataContent</CODE>.</dd>
+<dd>Noted that the <CODE>TITLE</CODE> variable specified as an option for <CODE>-Dname=value</CODE> must match the value of that set for the game application.</dd>
+<dt>2014-01-30</dt>
+<dd>Revised the way in which calculations for data title versions are described.</dd>
+<dt>2014-01-25</dt>
+<dd>Deleted the company code specification as it is currently not needed.</dd>
+<dt>2014-01-18</dt>
+<dd>Added that content index values cannot be specified at random; they must be sequential.</dd>
+<dt>2013-11-07</dt>
+<dd>Added a description of the <CODE>AddOnContent.rsf</CODE> file.</dd>
+<dt>2012-04-26</dt>
+<dd>Added text about the data title variation.</dd>
+<dt>2011-12-13</dt>
+<dd>Initial version.</dd>
+</dl>
+</div>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

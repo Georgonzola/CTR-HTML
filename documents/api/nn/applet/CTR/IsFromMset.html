@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>IsFromMset</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::IsFromMset Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool IsFromMset(
+     AppletMsetScene * pScene = NULL
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pScene</th>
+          <td>Indicates which scene to jump from in System Settings. This value is valid only when this function returns <code>true</code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Makes a return jump from System Settings if <code>true</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Determines whether to return jump from System Settings.</p><P>The term "return jump" refers to jumping back to the original application when a jump has been made from one application to another.</P><P>Be sure to call this function sometime after <tt><a href="../../../nn/applet/CTR/Enable.html">nn::applet::CTR::Enable</a></tt>.</P><P>If the return value is <tt>true</tt> (if there is to be a return jump from system settings), information regarding which scene in system settings to jump from is stored in the pointer <span class="argument">pScene</span>. Note, however, that nothing is stored if <span class="argument">pScene</span> is NULL.</P><P>The value and jump source scene stored are as follows.</P><TABLE><THEAD><TR bgcolor="#ccccdd"><TH>Value</TH><TH>The jump source system setting scene</TH></TR></THEAD><TR><TD><tt>nn::applet::CTR::MSET_INTERNEL_SETTING_TOP</tt></TD><TD>Internet settings</TD></TR><TR><TD><tt>nn::applet::CTR::MSET_PARENTAL_CONTROLS_TOP</tt></TD><TD>The first Parental Controls screen.</TD></TR><TR><TD><tt>nn::applet::CTR::MSET_DATA_MANAGEMENT_STREETPASS</tt></TD><TD>The chance encounter management screen.</TD></TR></TABLE></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/09/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

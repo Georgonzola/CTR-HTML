@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StartBgImmediate</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/Task/Overview.html">Task</a>::StartBgImmediate Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> StartBgImmediate(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Successfully issued the instruction to start the task.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTaskId</th>
+          <td>Indicates that the task ID pointer is <code>NULL</code> or a zero-length string.</td>
+        </tr>
+        <tr>
+          <th>ResultTaskNotExist</th>
+          <td>The specified task ID was not found. Confirm whether it is registered yet.</td>
+        </tr>
+        <tr>
+          <th>ResultIpcNotSessionInitialized</th>
+          <td>Indicates that the session is not initialized. The function returns this <code><a href="../../../nn/Result/Overview.html">Result</a></code> if it is called before <code><a href="../../../nn/boss/Task/Initialize.html">Initialize</a></code> is called. Always call the <code><a href="../../../nn/boss/Task/Initialize.html">Initialize</a></code> function before you use the BOSS library.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gives an instruction to start the task immediately in the background.</p><p>The scheduled tasks automatically run in the background when infrastructure connections are enabled. <br />
+ Except for the first time a task is run, this function works the same as the <code><a href="../../../nn/boss/Task/Start.html">Start</a></code> function. The first time a task is run, the <code><a href="../../../nn/boss/Task/Start.html">Start</a></code> function runs after waiting for the task execution interval. <br />
+ When calling this function, the call causes it to wait for the first task execution time, so the initial task after calling is run immediately as soon as an Internet connection is established. <br />
+ (Consequently, calling this function while connected to the Internet and when the application has allowed BOSS operations while the application is running, the task runs immediately in the background. <br />
+ However, even in such circumstances, task execution waits until any other running tasks complete. )<br /></p><p>Note that calling this function on tasks already instructed to run (such as tasks for which you have already called the <code><a href="../../../nn/boss/Task/Start.html">Start</a></code> function) does not change anything. <br />
+ To tell such tasks to run immediately in the background, you must first call the <code><a href="../../../nn/boss/Task/Cancel.html">Cancel</a></code> function and then call this function. <br /></p><p>When a task finishes running, the execution count specified in the task's attributes is decremented by 1 regardless of whether task execution resulted in an error. <br />
+ Unless the remaining execution count is 0, the task runs again after the execution interval specified in the task's attributes has elapsed. <br /><br /><bold>Note:</bold> After its execution count reaches 0, a task is sometimes deleted automatically if the internal database is filled to capacity. <br />
+ In the following circumstances, tasks are not executed even if a command is issued to start a task. <br /><itemizedlist><listitem><para>The task's execution count is 0.<itemizedlist><listitem><para>The execution priority of the task is <code><span>PRIORITY_STOPPED</span></code>.</para></listitem><listitem><para>Parental Controls are enabled, and the attributes of the task do not override Parental Controls.</para></listitem><listitem><para>The user has not accepted the EULA, and the attributes of the task do not override EULA acceptance.</para></listitem><listitem><para>A policy list blocks task execution. </para></listitem></itemizedlist></para></listitem><listitem><para>The server hosting the download service issued a "service suspended" notice. </para></listitem><listitem><para>The administrator has temporarily stopped all tasks. The <code>GetCount</code> function can be used to confirm whether the task execution count is the relevant case among those listed above. <br />
+ You can tell when the administrator has temporarily stopped all tasks because <code><span>TASK_PAUSED</span></code> is returned by the <code><a href="../../../nn/boss/Task/GetState.html">GetState</a></code> function for all running tasks. <br /><br />
+ The following methods can be used to wait for task completion. <br /></para></listitem><listitem><para>Use the <code><a href="../../../nn/boss/Task/WaitFinish.html">WaitFinish</a></code> function to wait until execution completes. </para></listitem><listitem><para>Use the <code><a href="../../../nn/boss/Task/WaitFinish.html">WaitFinish</a></code> function to wait until execution completes, specifying a maximum wait time. </para></listitem><listitem><para>Use the <code><a href="../../../nn/boss/Task/GetState.html">GetState</a></code> function to poll for task completion. </para></listitem><listitem><para>Wait for a "new arrival" event using an <code>Event</code> registered by the <code><a href="../../../nn/boss/RegisterNewArrivalEvent.html">RegisterNewArrivalEvent</a></code> function. Upon detection of completion, you can check the task state with <code><a href="../../../nn/boss/Task/GetState.html">GetState</a></code>, the task execution result code with <code><a href="../../../nn/boss/Task/GetResult.html">GetResult</a></code>, and the HTTP communication result code with <code><a href="../../../nn/boss/Task/GetHttpStatusCode.html">GetHttpStatusCode</a></code>. <br />
+ You can also get other details by using the <code><a href="../../../nn/boss/Task/GetStateDetail.html">GetStateDetail</a></code> function. <br /><br /></para></listitem></itemizedlist></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

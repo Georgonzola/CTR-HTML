@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>GetRomRequiredMemorySize</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::GetRomRequiredMemorySize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn_types/s32.html">s32</a> GetRomRequiredMemorySize(
+     size_t maxFile,
+     size_t maxDirectory,
+     bool useCache = true
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>maxFile</th>
+          <td>The maximum number of files that can be opened simultaneously.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxDirectory</th>
+          <td>The maximum number of directories that can be opened simultaneously.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>useCache</th>
+          <td>Specify <code>true</code> to enable caching of metadata to memory, or <code>false</code> to disable metadata caching.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the calculated memory size. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the size of memory needed to mount a ROM archive. This function calculates and returns the memory size needed to mount a ROM archive that accesses a ROMFS generated at build time. <br />
+ The returned memory size allows only the number of files specified by <emphasis>maxFile</emphasis> and the number of directories specified by <emphasis>maxDirectory</emphasis> to be opened simultaneously. <br />
+ By setting the <emphasis>useCache</emphasis> parameter equal to <code>true</code>, this size includes the amount of memory required to cache ROMFS metadata in memory.</p><h3>About the Return Values</h3><div class="section">This function was revised in the SDK version below to transition to the error display screen when an error occurs, rather than returning the process to the application. Applications do not need to implement error handling for this function.<br /><br /><table><thead><th>Series</th><th>SDK Version</th><th>Return Value Specification</th></thead><tr><th rowspan="2">CTR-SDK 1.X</th><td>1.1 and earlier</td><td>A value of 0 or lower is returned when an error occurs.</td></tr><tr><td>1.2 or later</td><td>An error causes a transition to the error display screen. (Invalid values are not returned.)</td></tr><tr><th rowspan="2">CTR-SDK 2.X</th><td>2.0 and earlier</td><td>A value of 0 or lower is returned when an error occurs.</td></tr><tr><td>2.1 or later</td><td>An error causes a transition to the error display screen. (Invalid values are not returned.)</td></tr></table></div></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../nn/fs/MountRom.html">nn::fs::MountRom</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/28</dt>
+        <dd><item xmlns="">Added information about changes to the return value specification.</item><br />
+        </dd>
+        <dt>2010/12/14</dt>
+        <dd><item xmlns="">Fixed the description of the return value when there is an internal error (this used to be described as "a negative value").</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

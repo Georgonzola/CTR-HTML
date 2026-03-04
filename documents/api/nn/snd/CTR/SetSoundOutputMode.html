@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetSoundOutputMode</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/snd/Overview.html">snd</a>::<a href="../../../nn/snd/CTR/Overview.html">CTR</a>::SetSoundOutputMode Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool SetSoundOutputMode(
+     <a href="../../../nn/snd/CTR/OutputMode.html">OutputMode</a> mode
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>mode</th>
+          <td>Sound output mode</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if configuration succeeded; otherwise, returns <code>false</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the sound output mode.</p><p>The default value is the sound mode specified by the System Settings.</p><p>For each sound output mode, the following operations are performed on the 4-channel (<tt>FrontLeft</tt>, <tt>FrontRight</tt>, <tt>RearLeft</tt>, <tt>RearRight</tt>) buffer that mixes the registered <tt>nn::snd::CTR::Voice</tt> information with the two <tt>Aux</tt> buses.<ul><li>Mono<pre>Output = (FrontLeft + FrontRight + RearLeft + RearRight) * 0.5</pre></li><li>
+                Stereo
+<pre>OutputLeft = FrontLeft + RearLeft
+OutputRight = FrontRight + RearRight</pre></li><li>
+                Surround
+                <pre><tt><a href="../../../nn/snd/CTR/SurroundSpeakerPosition.html">nn::snd::CTR::SurroundSpeakerPosition</a></tt>-based surround sound processing</pre></li></ul></p><p>The surround processing switches automatically depending on whether the sound is being output to the built-in speakers or headphones.  When sound is being output to the speakers, you can use <tt>nn::snd::CTR::SetSurroundDepth</tt> to set the depth and therefore vary the intensity of the surround sound effect. When sound is being output to headphones, this value is ignored.</p><p>Surround sound processing is run on mixed audio data as a whole rather than on each <tt>nn::snd::CTR::Voice</tt>. In contrast, <tt>nn::snd::CTR::Voice</tt> instances have a function called <tt>nn::snd::CTR::Voice::SetFrontBypassFlag</tt> that can be used to bypass surround sound processing of the front two channels (<tt>FrontLeft</tt> and <tt>FrontRight</tt>). See the figure below for details. </p><p align="center"><img src="./frontbypass.png" alt="front bypass" /></p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/07/22</dt>
+        <dd><item xmlns="">Changed System Settings value dependencies, the default value, and monaural downmixing coefficients.</item><br />
+        </dd>
+        <dt>2010/06/23</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

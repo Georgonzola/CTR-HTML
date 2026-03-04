@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        --></style>
+    <title>FragDisk</title>
+  </head>
+  <body>
+    <h1>FragDisk</h1>
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        <CODE>FragDisk</CODE> is a program for fragmenting the free regions in the FAT file systems on SD Memory Cards.<br /> <br /> When an application is imported to an SD card that is fragmented, the application also becomes fragmented.<br /> By running the application in this state, you can check how it runs when it is fragmented.<br />
+      </p>
+    </div>
+    <h2>Screen Description</h2>
+    <div class="section">
+      <p>
+The commands that are executed are displayed on the upper screen. You can scroll through the command log that is displayed on the upper screen by moving the Circle Pad up and down. You can clear the command log on the upper screen by pressing the X Button.<br> A user interface for selecting commands and configuring parameter settings is displayed on the lower screen. <br> <B>IsSdmcInserted</B> on the upper portion of the lower screen indicates whether an SD card is inserted. (<CODE>1</CODE> = SD card inserted, <CODE>0</CODE> = No SD card inserted)<br>
+      </p>
+    </div>
+    <h2>How to Use</h2>
+    <div class="section">
+      <p>
+        <table class="table"><tbody>
+          <tr><th>Button</th> <th>Operation</th></tr>
+          <tr><td>↑↓</td> <td>Navigate menu</td></tr>
+          <tr><td>A</td> <td>Select / Run</td></tr>
+          <tr><td>B</td> <td>Back / Cancel</td></tr>
+        </tbody></table>
+      </p>
+    </div>
+    <h2>Set Parameters</h2>
+    <div class="section">
+      <p>
+        Configure the fragmentation parameters.
+        <table class="table"><tbody>
+          <tr><th>Button</th> <th>Operation</th></tr>
+          <tr><td>↑↓</td> <td>Navigate menu</td></tr>
+          <tr><td>X</td> <td>Run</td></tr>
+          <tr><td>B</td> <td>Cancel</td></tr>
+        </tbody></table>
+      </p>
+      <p>
+        The following items can be selected.
+        <ul>
+          <li><a href="#SetDefaultParameters">SetDefaultParameters</a></li>
+          <li><a href="#FreeRegion">FreeRegion</a></li>
+          <li><a href="#Fragment">Fragment  32 KB</a></li>
+          <li><a href="#Fragment">Fragment  64 KB</a></li>
+          <li><a href="#Fragment">Fragment  128 KB</a></li>
+          <li><a href="#Fragment">Fragment  256 KB</a></li>
+          <li><a href="#Fragment">Fragment  512 KB</a></li>
+          <li><a href="#Fragment">Fragment  1 MB</a></li>
+          <li><a href="#Fragment">Fragment  2 MB</a></li>
+          <li><a href="#Fragment">Fragment  4 MB</a></li>
+          <li><a href="#Fragment">Fragment  8 MB</a></li>
+          <li><a href="#Fragment">Fragment  16 MB</a></li>
+          <li><a href="#Fragment">Fragment  32 MB</a></li>
+          <li><a href="#Fragment">Fragment  64 MB</a></li>
+        </ul>
+      </p>
+      <p>
+      <a name="SetDefaultParameters">
+      <h3>SetDefaultParameters</h3>
+      </a>
+        <p>
+          Returns all parameters to their default values.<br /> The following table contains the default values for each parameter.<br /> These default values were set based on sample data extracted from an SD card that was actually used with a CTR, and represent realistic usage conditions.<br />
+          <table class="table"><tbody>
+            <tr><th>Item</th> <th>Default</th></tr>
+            <tr><td>FreeRegion</td> <td>100000 KB</td></tr>
+            <tr><td>Fragment  32 KB</td> <td>  123 regions</td></tr>
+            <tr><td>Fragment  64 KB</td> <td>   88 regions</td></tr>
+            <tr><td>Fragment  128 KB</td> <td>   76 regions</td></tr>
+            <tr><td>Fragment  256 KB</td> <td>   53 regions</td></tr>
+            <tr><td>Fragment  512 KB</td> <td>   59 regions</td></tr>
+            <tr><td>Fragment  1 MB</td> <td>    9 regions</td></tr>
+            <tr><td>Fragment  2 MB</td> <td>   10 regions</td></tr>
+            <tr><td>Fragment  4 MB</td> <td>    5 regions</td></tr>
+            <tr><td>Fragment  8 MB</td> <td>    3 regions</td></tr>
+            <tr><td>Fragment  16 MB</td> <td>    2 regions</td></tr>
+            <tr><td>Fragment  32 MB</td> <td>    4 regions</td></tr>
+            <tr><td>Fragment  64 MB</td> <td>    2 regions</td></tr>
+          </tbody></table>
+      </p>
+      <a name="FreeRegion">
+      <h3>FreeRegion</h3>
+      </a>
+      <p>
+        Enables you to set the size of the free region on the SD Memory Card.<br /> After you select a value with the +Control Pad, confirm your setting with the B Button.<br /> Ultimately, the size that you specify is rounded to the nearest multiple of 32 KB, and then used as the value for the size of the free region.<br /> <br /> If the size of the free region is much larger than the size of the application to import, fragmenting the application is more difficult.<br /> Setting the size of the free region as close as possible to the size of the application to import results in fragmentation that is closer to the specified fragmentation parameters.<br />
+      </p>
+      <a name="Fragment">
+      <h3>Fragment 32 KB to 64 MB</h3>
+      </a>
+      <p>
+        These parameters enable you to specify the size and number of the fragmented regions that are created during fragmentation.<br /> After you select a value with the +Control Pad, confirm your setting with the B Button.<br /> For example, selecting &quot;Fragment 1 MB: 10 regions&quot; fragments the free space into 10 consecutive regions, each with a size of 1 MB.
+      </p>
+      </p>
+    </div>
+    <h2>Start Fragmentation</h2>
+    <div class="section">
+      <p>
+        Executes the fragmentation of the SD card according to the parameters configured in Set Parameters.<br /> The status of the fragmentation process is displayed on the upper screen.<br /> After the fragmentation process is complete, &quot;=== EndFragmentation ===&quot; displays on the upper screen.<br />
+        <table class="table"><tbody>
+          <tr><th>Button</th> <th>Operation</th></tr>
+          <tr><td>A</td> <td>Run</td></tr>
+        </tbody></table>
+        Specifically, the fragmentation process performs the following procedure.<br /> <br /> 1) A large number of files with names like &quot;sdmc:/FragDisk/d0000<I>XXXX</I>/f0000<I>YYYY</I>&quot; (<I>XXXX</I>, <I>YYYY</I> = sequential numbers) are created on the SD card.<br /> The files for which <I>YYYY</I> is an odd number are given a size of 1 byte.<br /> For files for which <I>YYYY</I> is even, the file size is the value from 32 KB to 64 MB that is selected in Set Parameters.<br /> <br /> 2) Next, all of the even-numbered files are deleted.<br /> At this point, the free region on the SD card is fragmented according to the parameters configured in Set Parameters.<br /> <br /> 3) Dummy files with names like &quot;sdmc:/dummy/dummy<I>XXX</I>&quot; (<I>XXX</I> = sequential numbers) are created on the SD card.<br /> The total free region on the SD card is adjusted to the value set for <CODE>FreeRegion</CODE> by adjusting the sizes of these dummy files.<br /> <br />
+      </p>
+    </div>
+    <h2>Stop Fragmentation</h2>
+    <div class="section">
+      <p>
+        Stops the fragmentation process.
+        <table class="table"><tbody>
+          <tr><th>Button</th> <th>Operation</th></tr>
+          <tr><td>A</td> <td>Stop fragmentation</td></tr>
+        </tbody></table>
+      </p>
+    </div>
+    <h2>Defragmenting the SD card</h2>
+    <div class="section">
+      <p>
+        You can defragment the free region in the FAT file system on the SD card by reformatting the card, or by deleting the <CODE>FragDisk</CODE> folder in the root directory of the SD card.
+      </p>
+    </div>
+    <h2>Effects of Fragmenting Applications</h2>
+    <div class="section">
+      <p>
+        Applications imported from the CTR tend to fragment easily into small regions as you go further back in the storage region. Access performance gets increasingly worse as fragments become smaller.<br /> As a result, the severity of the effect on access to files in the <CODE>ROMFS</CODE> archive changes depending on the location of those files.<br /> <br /> Also, with regard to the relative positions of files in the <CODE>ROMFS</CODE> archive, the filenames are exported in the build output <CODE>.cci</CODE> and <CODE>.xml</CODE> files in the order that they are located in the <CODE>ROMFS</CODE> archive.<br />
+      </p>
+    </div>
+    <h2>Precautions</h2>
+    <div class="section">
+      <p>
+        - If the free region on the SD card is already fragmented prior to running the <CODE>FragDisk</CODE> program, the number of fragments specified in Set Parameters might not be created. (There may be more fragments than the number specified.) We recommend formatting SD cards before you use the <CODE>FragDisk</CODE> tool.<br />
+        <br />
+        - If the total size of all the fragments is larger than the free space available on the SD card prior to the fragmentation process, the number of fragments specified in Set Parameters might not be created. (There may be fewer fragments than the number specified.)<br />
+        <br />
+        - If the total size of all the fragments is larger than the size specified for <CODE>FreeRegion</CODE>, the number of fragments specified in Set Parameters might not be created. (The larger the size of the individual fragments, the farther the number of fragments that are actually created are below the specified number of fragments.)
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/07/20</dt>
+<dd>Initial version.</dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

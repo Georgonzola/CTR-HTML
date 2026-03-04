@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StartSampling</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/mic/Overview.html">mic</a>::<a href="../../../nn/mic/CTR/Overview.html">CTR</a>::StartSampling Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> StartSampling(
+     <a href="../../../nn/mic/CTR/SamplingType.html">SamplingType</a> type,
+     <a href="../../../nn/mic/CTR/SamplingRate.html">SamplingRate</a> rate,
+     <a href="../../../nn_types/s32.html">s32</a> offset,
+     size_t size,
+     bool loop
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>type</th>
+          <td>Specifies the sampling type.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>rate</th>
+          <td>Specifies the sampling frequency.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>offset</th>
+          <td>Position from the start of the memory region where the first of the sampling results are stored. You must specify a position (in bytes) that is a multiple of <emphasis>OUTPUT_OFFSET_ALIGNMENT</emphasis> (2 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>The size within the memory region where the sampling results will be stored. Specify a size less than or equal to the value obtained using <code><a href="../../../nn/mic/CTR/GetSamplingBufferSize.html">nn::mic::CTR::GetSamplingBufferSize</a></code>. <br />
+ You must specify a size that is a multiple of <emphasis>nn::mic::CTR::OUTPUT_UNITSIZE</emphasis> (2 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>loop</th>
+          <td>Flag that specifies whether to reuse (loop through) the memory region after sampling <emphasis>size</emphasis> bytes. <br />
+ If <code>true</code>, sampling continues and loops through the region. <br />
+ After <emphasis>size</emphasis> bytes have been sampled, sampling loops back to the <emphasis>offset</emphasis> position and continues from where it left off. <br />
+ If <code>false</code>, sampling stops automatically after <emphasis>size</emphasis> bytes have been sampled.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>The memory region has not been allocated.</td>
+        </tr>
+        <tr>
+          <th>ResultMisalignedSize</th>
+          <td>The specified <emphasis>offset</emphasis> or <emphasis>size</emphasis> is not a multiple of 2.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td>The sum of the specified <emphasis>offset</emphasis> and <emphasis>size</emphasis> is larger than the allocated memory region.</td>
+        </tr>
+        <tr>
+          <th>ResultShellClose</th>
+          <td>Cannot start sampling because the system is closed.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Starts microphone auto-sampling.</p><p>If microphone auto-sampling has already been started, this function stops the active sampling session and starts a new one.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2010/12/18</dt>
+        <dd><item xmlns="">Revised the description of the return values.</item><br />
+        </dd>
+        <dt>2010/06/23</dt>
+        <dd><item xmlns="">Added that <tt>GetSamplingBufferSize</tt> should be used to specify size.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

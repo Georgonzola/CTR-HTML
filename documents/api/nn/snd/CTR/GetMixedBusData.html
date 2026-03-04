@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetMixedBusData</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/snd/Overview.html">snd</a>::<a href="../../../nn/snd/CTR/Overview.html">CTR</a>::GetMixedBusData Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool GetMixedBusData(
+     <a href="../../../nn_types/s16.html">s16</a> * pData,
+     <a href="../../../nn_types/s32.html">s32</a> nSamplesPerFrame = NN_SND_SAMPLES_PER_FRAME
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pData</th>
+          <td>Buffer address where the <code>Mix</code> bus data is copied. Must be aligned to <emphasis>MIXED_BUS_DATA_ALIGNMENT</emphasis> (4 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>nSamplesPerFrame</th>
+          <td>Number of samples per channel (in general, specify <code>NN_SND_SAMPLES_PER_FRAME</code>).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if the data was obtained successfully; otherwise, returns <code>false</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Copies the <code>Mix</code> bus data to the specified buffer.</p><p>The data is interleaved and copied to the region that begins at <span class="argument">pData</span>.  The <span class="argument">Mix</span> bus data contains 16-bit stereo PCM waveforms, so the length of the data being copied will be <tt>sizeof(s16) * nSamplesPerFrame * 2</tt>.</p><p>This function must be called within the sound thread.  Use the <tt><a href="../../../nn/snd/CTR/OutputCapture/Overview.html">nn::snd::CTR::OutputCapture</a></tt> class when you want to get data asynchronously within the sound thread.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment.</item><br />
+        </dd>
+        <dt>2010/10/25</dt>
+        <dd><item xmlns="">Added use cautions.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

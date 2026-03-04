@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetBalance</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/Server/Overview.html">Server</a>::GetBalance Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a> GetBalance(
+     <a href="../../../../nn/ec/CTR/Money/Overview.html">Money</a> * pOut
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pOut</th>
+          <td>Buffer for getting a string indicating the balance.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. The results returned by the <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code> function are shown below.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultSessionInvalid</th>
+          <td>Invalid session.</td>
+        </tr>
+        <tr>
+          <th>ResultNewSessionRequired</th>
+          <td>A new session is required.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfSystemMemoryError</th>
+          <td>Insufficient system memory.</td>
+        </tr>
+        <tr>
+          <th>ResultAcNotConnectedError</th>
+          <td>Either not connected to the Internet, or the connection was lost.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraNeedsReconnect</th>
+          <td>Infrastructure reconnection was requested.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraReportError</th>
+          <td>Infrastructure reported an error.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraReceiveError</th>
+          <td>Failed to receive from the infrastructure connection.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraInvalidResponseError</th>
+          <td>Invalid response from the infrastructure connection.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraNeedsUpdateError</th>
+          <td>Infrastructure was updated, so the system must be updated.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraTimeoutError</th>
+          <td>Infrastructure communication timeout.</td>
+        </tr>
+        <tr>
+          <th>ResultInfraBusyError</th>
+          <td>The infrastructure connection is busy.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the balance.</p><p>This function requires an Internet connection because it communicates with the Nintendo eShop server.</p><p>The balance may change while the application is running if funds are used on another device or theme shop that uses the same Nintendo Network ID.</p></div>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetServiceItem</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/ServiceItemCatalog/Overview.html">ServiceItemCatalog</a>::GetServiceItem Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a> GetServiceItem(
+     <a href="../../../../nn_types/u32.html">u32</a> offset
+) const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>offset</th>
+          <td>Offset of service item to get.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns service item information. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets service-item information.</p><p>Gets a <code><a href="../../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a></code> from the service-item information retrieved by the <code><a href="../../../../nn/ec/CTR/ServiceItemCatalog/Retrieve.html">ServiceItemCatalog::Retrieve</a></code> function. Specify a value for offset to select a specific <code><a href="../../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a></code> from the multiple service items obtained from the <code><a href="../../../../nn/ec/CTR/ServiceItemCatalog/Retrieve.html">ServiceItemCatalog::Retrieve</a></code> function. The offset value must be smaller than the number of service items obtained by the <code><a href="../../../../nn/ec/CTR/ServiceItemCatalog/GetNumRetrieved.html">ServiceItemCatalog::GetNumRetrieved</a></code> function. Operation is undefined when specifying a larger value for offset.</p><p>Note that the <code><a href="../../../../nn/ec/CTR/ServiceItem/Overview.html">ServiceItem</a></code> object is invalidated when the <code><a href="../../../../nn/ec/CTR/ServiceItemCatalog/Overview.html">ServiceItemCatalog</a></code> instance from which it was obtained is destroyed.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

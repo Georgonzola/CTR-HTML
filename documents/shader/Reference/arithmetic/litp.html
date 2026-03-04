@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>litp - Light coefficients</title>
+  </head>
+  <body>
+    <h1>litp - Light coefficients</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+litp    dest, src
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Registers</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>dest</th>
+          <td>An output register or temporary register.</td>
+        </tr>
+        <tr>
+          <th>src</th>
+          <td>A temporary register, input register, or floating-point constant register.</td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Runs some lighting calculations.<br /> This instruction determines the sign of the product of the normal and light vectors and that of the normal and half vectors required by the vertex shader to perform lighting. It also clamps the specular coefficient, which is equivalent to the value specified by <CODE>GL_SHININESS</CODE> for the material color in OpenGL ES1.1.<br /> <br /> If called with the dot product of the normal and light vector stored in <CODE>src.x</CODE>, the specular coefficient stored in <CODE>src.y</CODE>, and the dot project of the normal and half vector stored in src.w, then parameters that aid in calculating specular lighting will be stored in <CODE>dest</CODE> and the status register.<br /> <br /> Status registers are also simultaneously changed by this instruction.<br /> If <CODE>src.x</CODE> is larger than <CODE>0</CODE>, status register 0 is set to <CODE>1</CODE>. If <CODE>src.w</CODE> is larger than <CODE>0</CODE>, status register 1 is set to <CODE>1</CODE>.<br /> After this instruction is called, if a branch instruction, such as <CODE>ifc</CODE>, determines that both status registers are set to <CODE>1</CODE>, it is assumed a power calculation will be made.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+dest.x = ( src.x < 0 ) ? 0 : src.x
+dest.y = ( src.y < -127.9961 ) ? -127.9961 : ( src.y > 127.9961 ? 127.9961 : src.y )
+dest.z = 0
+dest.w = ( src.w < 0 ) ? 0 : src.w
+status_reg0 = ( src.x > 0 ) ? 1 : 0
+status_reg1 = ( src.w > 0 ) ? 1 : 0
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+// r0.x: Stores the dot product of the normal and light vectors.
+// r0.y: Stores the specular coefficient.
+// r0.z: This value is not used.
+// r0.w: Stores the dot product of the normal and half vectors.
+
+litp    r1, r0
+ifc     1, 1, 1             // if ( N*H &gt; 0 && N*L &gt; 0 )
+  pow     r2.x, r1.w, r1.y  // r2.x = power ( r1.w , r1.y );
+endif
+</pre>
+    </div>
+
+    <h2>Timetable</h2>
+    <div class="section">
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        </tr>
+        <tr>
+          <th rowspan="2"><CODE>litp</CODE></th>
+          <td class="read" rowspan="2">read</td>
+          <td class="MAX">MAX</td>
+          <td class="MIN">MIN</td>
+          <td class="post" rowspan="2">post</td>
+          <td class="write" rowspan="2">write</td>
+          <td class="dummy" rowspan="2"></td>
+        </tr>
+        <tr>
+          <td class="CMP" colspan="2">CMP</td>
+        </tr>
+      </table>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

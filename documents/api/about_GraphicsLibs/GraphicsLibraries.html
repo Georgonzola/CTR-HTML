@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"[]>
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css">
+      <!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        -->
+    </style>
+    <title>Various Graphics Libraries</title>
+  </head>
+  <body>
+    <h1>Various CTR Graphics Libraries</h1>
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+CTR graphics are implemented by generating lists of GPU commands and using the lists to operate the GPU. (GPU commands are called <I>3D commands</I> and <I>command requests</I>.) The graphics libraries can be broadly grouped into those that control command lists and those that generate the commands to actually render images.
+</p>
+<p>
+Use the GX (<CODE>nngx</CODE>) library for low-level operations such as controlling command lists or display buffers. No matter what approach you use, you must use this library.</p>
+<p>
+When it comes to generating the 3D rendering commands, however, you can choose between the GL, GD, GR, and NW4C libraries. Alternatively, applications can directly generate 3D commands.
+</p><p>
+The following sections describe each command generation method. This information can help you select the best method or combination of methods for your purposes.
+      </p>
+    </div>
+
+    <h3> GL Library (DMPGL)</h3>
+    <div class="section">
+      <p>
+The CTR basic graphics library. This library offers a rich feature set, including OpenGL ES-compatible API functions, error handling, and state change management. This library entails a heavier processing load than the others, with a substantial CPU load. We recommend not using this library if performance is a concern.
+      </p>
+    </div>
+
+    <h3>GD Library</h3>
+    <div class="section">
+      <p>
+A lightweight library compared to GL.<br /> It provides the same functionality as the GL library, but the API is in a form that is easier for developers to handle. (Note that it is not compatible with GL.)<br /> A certain load on the CPU is required for purposes of internal processing.
+      </p>
+    </div>
+
+    <h3>GR Library</h3>
+    <div class="section">
+      <p>
+This graphics library supports the direct generation of 3D commands. This library does not manage states internally, making it faster than the GL or GD libraries and also reducing the amount of memory required. However, using this library requires an in-depth understanding of how to set the GPU registers, as described in the <I>Programming Manual: Practical Guide</I>.<br />It is also more difficult to implement because users must handle error checks and other details.
+      </p>
+    </div>
+
+    <h3>NW4C (NintendoWare for CTR)</h3>
+    <div class="section">
+      <p>
+The NW4C library, which serves as Nintendo's application development middleware, handles both graphics and sound. The NW4C graphics features generate internal commands rather than using other graphics libraries. This implementation means that it can be used on its own to achieve optimized performance. For more information, see the NintendoWare for CTR package and documentation.
+      </p>
+    </div>
+
+    <h3>Directly Generating 3D Commands</h3>
+    <div class="section">
+      <p>
+You can directly generate the register write commands applied to the GPU. Generating only the required commands can boost operating speeds. However, this implementation is the most difficult because it requires an in-depth understanding of how to set the GPU registers, as described in the <I>Programming Manual: Practical Guide</I>.<br />We therefore recommend using the GR library, which is implemented to support direct command generation.
+      </p>
+    </div>
+
+    <h3>Vertex Shader Instructions</h3>
+    <div class="section">
+      <p>
+<br /> The CTR-SDK implements only the vertex shader as a programmable shader.<br />The vertex shader is coded in an assembly language using PICA-specific specifications.<br /> For more information, see the reference manual for the vertex shader. For the vertex shader instructions available on the CTR system, see the list of vertex shader instructions.
+      </p>
+    </div>
+
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/07/11</dt>
+<dd>Revised the name of the document referred to in the text.<br /></dd>
+        <dt>2011/10/12</dt>
+        <dd>Added a description of vertex shader instructions.</dd>
+        <dt>2011/02/15</dt>
+        <dd>Revised text in line with the publication of the GD library.<br /></dd>
+        <dt>2010/09/28</dt>
+        <dd>Initial version.<br /></dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

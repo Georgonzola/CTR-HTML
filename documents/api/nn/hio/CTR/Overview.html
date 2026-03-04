@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::hio::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/hio/Overview.html">hio</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the <a href="../../../nn/hio/CTR/Overview.html">CTR</a> library for communicating with a host PC. (It can also be written without the <code>CTR</code> portion.)</p>Host IO provides three methods of communicating with a PC: files, serial communication, and shared memory.<H3> Files </H3><P>Files and directories on a PC can be accessed using the <tt><a href="../../../nn/hio/CTR/HostFile/Overview.html">nn::hio::CTR::HostFile</a></tt> and <tt><a href="../../../nn/hio/CTR/HostDirectoryA/Overview.html">nn::hio::CTR::HostDirectoryA</a></tt> classes.</P><P>To use the <tt>HostFile</tt> class, you must run the PARTNER-CTR HIO-Daemon or the IS-CTR HIO Manager on the PC.</P><H3> Serial Communication </H3><P>The <tt><a href="../../../nn/hio/CTR/SerialChannel/Overview.html">nn::hio::CTR::SerialChannel</a></tt> class provides a means of bidirectional communication with programs running on the PC.</P><P>The PC must be running a program that performs serial communication.</P><H3> Shared Memory </H3>The <tt><a href="../../../nn/hio/CTR/SharedMemoryChannel/Overview.html">nn::hio::CTR::SharedMemoryChannel</a></tt> class provides shared memory that can be accessed from both the PC and the CTR system.<P>The PC must be running a program that uses Host IO shared memory.</P><h3> Using Channels </h3>The serial communication and shared memory features of the Host IO library use channels to communicate. You can use multiple channels simultaneously.  However, use a single process and a single thread for all channel operations. Serial sending and receiving can be done in separate threads.</div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/hio/CTR/HostDirectoryA/Overview.html">nn::hio::CTR::HostDirectoryA</a>
+            </th>
+            <td>Represents directories in the host file system. It can be used to get information about the entries that belong to directories.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/hio/CTR/HostDirectoryW/Overview.html">nn::hio::CTR::HostDirectoryW</a>
+            </th>
+            <td>Unicode version of the <code><a href="../../../nn/hio/CTR/HostDirectoryA/Overview.html">HostDirectoryA</a></code> class.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/hio/CTR/HostFile/Overview.html">nn::hio::CTR::HostFile</a>
+            </th>
+            <td>Represents files in the host file system. It provides the ability to read from and write to files.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/hio/CTR/SerialChannel/Overview.html">nn::hio::CTR::SerialChannel</a>
+            </th>
+            <td>Represents the channels used for serial communication.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/hio/CTR/SharedMemoryChannel/Overview.html">nn::hio::CTR::SharedMemoryChannel</a>
+            </th>
+            <td>Represents the channels used for shared memory.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/hio/CTR/HostSystemTime/Overview.html">nn::hio::CTR::HostSystemTime</a>
+            </th>
+            <td>Structure representing time stamps.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/hio/CTR/DirectoryEntryA/Overview.html">nn::hio::CTR::DirectoryEntryA</a>
+            </th>
+            <td>Structure representing directory entries.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/hio/CTR/DirectoryEntryW/Overview.html">nn::hio::CTR::DirectoryEntryW</a>
+            </th>
+            <td>Unicode version of the <code><a href="../../../nn/hio/CTR/DirectoryEntryA/Overview.html">DirectoryEntryA</a></code> class.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/hio/CTR/FileAttribute.html">FileAttribute</a>
+            </th>
+            <td>Enumerated type that represents file attributes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/hio/CTR/ResultDescription.html">ResultDescription</a>
+            </th>
+            <td>Displays error details.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/hio/CTR/WORKMEMORY_SIZE.html">WORKMEMORY_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Size of the work memory required to open a channel.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/hio/CTR/MAX_CHANNEL_NUM.html">MAX_CHANNEL_NUM</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Maximum number of channels.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/hio/CTR/MAX_PATH.html">MAX_PATH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>Represents the maximum allowable path length. This value includes the null terminator at the end of the path.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Initialize/Finalize</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the HIO library. Call this function once before using the library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the HIO library. Call this function once after using the library.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/GetHioDaemonStatus.html">GetHioDaemonStatus</a>
+            </th>
+            <td>Gets whether the <code>HostIO</code> daemon process is running on the host.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/GetVersion.html">GetVersion</a>
+            </th>
+            <td>Gets the version of the HIO library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/DeleteFile.html">DeleteFile</a>
+            </th>
+            <td>Deletes the file and returns the result of the process.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/DeleteDirectory.html">DeleteDirectory</a>
+            </th>
+            <td>Deletes the directory and returns the result of the process.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/CreateDirectory.html">CreateDirectory</a>
+            </th>
+            <td>Creates the directory and returns the result of the process.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/Rename.html">Rename</a>
+            </th>
+            <td>Changes the file and directory name and returns the result of the process.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/GetCurrentDirectory.html">GetCurrentDirectory</a>
+            </th>
+            <td>Gets the current directory and returns the result of the process.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/SetCurrentDirectory.html">SetCurrentDirectory</a>
+            </th>
+            <td>Sets the current directory and returns the result of the process.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/GetEnvironmentVariable.html">GetEnvironmentVariable</a>
+            </th>
+            <td>Gets the environment variable and returns the result of the process.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/ResultNoConnected.html">ResultNoConnected</a>
+            </th>
+            <td>Returns a <code><a href="../../../nn/Result/Overview.html">Result</a></code> value indicating that there is no connection.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/hio/CTR/ResultConnected.html">ResultConnected</a>
+            </th>
+            <td>Returns a <code><a href="../../../nn/Result/Overview.html">Result</a></code> value indicating that the local host is connected.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/03/10</dt>
+        <dd><item xmlns="">Added information about IS-CTR HIO Manager.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Added descriptions of the various functions.</item><br />
+        </dd>
+        <dt>2010/03/03</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

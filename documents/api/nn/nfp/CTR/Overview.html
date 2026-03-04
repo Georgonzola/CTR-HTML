@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::nfp::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/nfp/Overview.html">nfp</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The NFP library namespace for <a href="../../../nn/nfp/CTR/Overview.html">CTR</a> (the "::CTR" portion is optional).</p><p>The API functions in the NFP library are not intended for multithread use. Do not call NFP library API functions from multiple threads simultaneously. <br />
+ The NFP library cannot currently be used on <a href="../../../nn/nfp/CTR/Overview.html">CTR</a>.</p><!-- write here --></div>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/nfp/CTR/Input/Overview.html">nn::nfp::CTR::Input</a>
+            </th>
+            <td><a href="../../../nn/nfp/CTR/Parameter/Overview.html">Parameter</a> structure to pass to the <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/nfp/CTR/Output/Overview.html">nn::nfp::CTR::Output</a>
+            </th>
+            <td><a href="../../../nn/nfp/CTR/Parameter/Overview.html">Parameter</a> structure received from the <a href="../../../nn/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/nfp/CTR/Parameter/Overview.html">nn::nfp::CTR::Parameter</a>
+            </th>
+            <td><a href="../../../nn/nfp/CTR/Parameter/Overview.html">Parameter</a> structure to pass to the amiibo Settings <a href="../../../nn/applet/Overview.html">applet</a> when it executes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/AmiiboSettingsMode.html">AmiiboSettingsMode</a>
+            </th>
+            <td>The mode that the amiibo Settings starts in.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/AmiiboSettingsResultCode.html">AmiiboSettingsResultCode</a>
+            </th>
+            <td>The result of amiibo Settings processing.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Initialization and Shutdown</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the NFP library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the NFC library.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Connecting and Disconnecting</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/Connect.html">Connect</a>
+            </th>
+            <td>Makes the connection to the NFC reader and writer. This function is asynchronous, so get the connection status with the <code><a href="../../../nn/nfp/CTR/GetTargetConnectionStatus.html">GetTargetConnectionStatus()</a></code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/GetConnectResult.html">GetConnectResult</a>
+            </th>
+            <td>Returns the result of the <code>Connect</code> function. When called on SNAKE, the function succeeds without doing anything.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/Disconnect.html">Disconnect</a>
+            </th>
+            <td>Breaks the connection to the NFC reader and writer.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">NFP Tag Access</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/StartDetection.html">StartDetection</a>
+            </th>
+            <td>Starts detecting a tag.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/StopDetection.html">StopDetection</a>
+            </th>
+            <td>Stops detecting a tag.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/Mount.html">Mount</a>
+            </th>
+            <td>Mounts a tag. Can access all of the data on the tag.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/MountRom.html">MountRom</a>
+            </th>
+            <td>Mounts a tag. Can only access the ROM data on the tag.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/Unmount.html">Unmount</a>
+            </th>
+            <td>Unmounts a tag.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/OpenApplicationArea.html">OpenApplicationArea</a>
+            </th>
+            <td>Enables access to the application area.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/CreateApplicationArea.html">CreateApplicationArea</a>
+            </th>
+            <td>Creates the application area on a tag. The application area must be created before using a blank tag for the first time.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/ReadApplicationArea.html">ReadApplicationArea</a>
+            </th>
+            <td>Reads the data in the application area on a tag.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/WriteApplicationArea.html">WriteApplicationArea</a>
+            </th>
+            <td>Writes data to the application area on a tag.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/Flush.html">Flush</a>
+            </th>
+            <td>Writes the data in an internal buffer to the tag. The data is not actually written to the tag until this function is called.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/Restore.html">Restore</a>
+            </th>
+            <td>Restores a corrupted tag using the backup data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/GetTagInfo.html">GetTagInfo</a>
+            </th>
+            <td>Gets tag information.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/GetNfpRegisterInfo.html">GetNfpRegisterInfo</a>
+            </th>
+            <td>Gets initial NFP tag registration info.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/GetNfpCommonInfo.html">GetNfpCommonInfo</a>
+            </th>
+            <td>Gets the data in the common region on the NFP tag.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/GetNfpRomInfo.html">GetNfpRomInfo</a>
+            </th>
+            <td>Gets the data in the ROM region on the NFP tag.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/InitializeCreateInfo.html">InitializeCreateInfo</a>
+            </th>
+            <td>Initializes creation information about the application area.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/GetNfpState.html">GetNfpState</a>
+            </th>
+            <td>Gets the state of the NFP library.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/SetActivateEvent.html">SetActivateEvent</a>
+            </th>
+            <td>Sets an event indicating that a tag was detected.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/SetDeactivateEvent.html">SetDeactivateEvent</a>
+            </th>
+            <td>Sets an event indicating that a tag was lost (deactivated).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/GetTargetConnectionStatus.html">GetTargetConnectionStatus</a>
+            </th>
+            <td>Gets the connection status for the NFC reader and writer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/GetConnectionStatus.html">GetConnectionStatus</a>
+            </th>
+            <td>Gets the connection status for the tag.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/ReplaceOtherRegionName.html">ReplaceOtherRegionName</a>
+            </th>
+            <td>Converts the amiibo nickname for display in the current region.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/InitializeParameter.html">InitializeParameter</a>
+            </th>
+            <td>Initializes the <code><a href="../../../nn/nfp/CTR/Parameter/Overview.html">Parameter</a></code> structure to default values.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/InitializeParameterForUpdate.html">InitializeParameterForUpdate</a>
+            </th>
+            <td>Initializes the <code><a href="../../../nn/nfp/CTR/Parameter/Overview.html">Parameter</a></code> structure to default values. (For updating the NFC target.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/StartAmiiboSettings.html">StartAmiiboSettings</a>
+            </th>
+            <td>Starts amiibo Settings.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/nfp/CTR/IsAmiiboSettingsAvailable.html">IsAmiiboSettingsAvailable</a>
+            </th>
+            <td>Checks whether amiibo Settings has been installed.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/02/05</dt>
+        <dd><item xmlns="">Changed the name to NFC reader/writer.</item><br />
+        </dd>
+        <dt>2014/07/28</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetSleepQueryCallback</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::SetSleepQueryCallback Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetSleepQueryCallback(
+     <a href="../../../nn/applet/CTR/AppletSleepQueryCallback.html">AppletSleepQueryCallback</a> callback,
+     <a href="../../../nn_types/uptr.html">uptr</a> arg = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>callback</th>
+          <td>Specifies the callback.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>arg</th>
+          <td>Specifies callback arguments.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the sleep query callback.</p><!-- write here --><P>When something happens to cause a transition to Sleep Mode during normal operation (such as the system being closed), the applet manager queries all applications and applets if it is okay to transition to Sleep Mode.  The system does not transition to Sleep Mode if just one application or applet sends a "reject" reply.  This equates to a cancellation of the sleep request, causing the AWAKE callback set by <tt><a href="../../../nn/applet/CTR/SetAwakeCallback.html">nn::applet::CTR::SetAwakeCallback</a></tt> to be called. </P><P>Specify <tt>nn::applet::CTR::REPLY_ACCEPT</tt> to accept the sleep request, <tt>nn::applet::CTR::REPLY_REJECT</tt> to reject it, and <tt>nn::applet::CTR::REPLY_LATER</tt> to defer it.</P><P>When deferring, handle any required processing, then call <tt><a href="../../../nn/applet/CTR/ReplySleepQuery.html">nn::applet::CTR::ReplySleepQuery</a></tt> to immediately return either <tt>nn::applet::CTR::REPLY_ACCEPT</tt> or nn::applet::CTR::REPLY_REJECT.</P><P>If no callback is set, the query is treated as if <tt>REPLY_REJECT</tt> were returned.  In real-world situations you almost always need to take into account considerations such as the saving of data and the timing of screen rendering, so it is fair to assume that a sleep request will never be immediately accepted.</P><P>If the applet itself is not active, such as when another applet or menu has control or when waiting via <tt><a href="../../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></tt>, always return <tt>nn::applet::CTR::REPLY_ACCEPT</tt> to sleep queries.  This handling method is intended to allow the active applet to determine whether to transition to sleep mode.  Of course, this method does not apply to any applications whose specifications do not allow sleep even while another applet has control.</P><P>Example:</P><PRE>
+// Sleep query callback.
+void mySleepQueryCallback(uptr arg)
+{
+  NN_UNUSED_VAR(arg);
+
+  if ( applet::IsActive() )
+  {
+    return applet::REPLY_LATER;
+  }
+  else
+  {
+    return applet::REPLY_ACCEPT;
+  }
+}
+</PRE><P>For a query callback to be called, this function must first set the callback and then the <tt><a href="../../../nn/applet/CTR/Enable.html">nn::applet::CTR::Enable</a></tt> function must be called. The callback is called regardless of whether sleep is permitted.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/12/23</dt>
+        <dd><item xmlns="">Explained that the callback is called regardless of whether sleep is permitted.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

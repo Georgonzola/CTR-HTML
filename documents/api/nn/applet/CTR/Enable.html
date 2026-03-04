@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Enable</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::Enable Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void Enable(
+     bool isSleepEnabled = true
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>isSleepEnabled</th>
+          <td>Specifies whether sleep is enabled.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enables <a href="../../../nn/applet/Overview.html">applet</a> library features.</p><P>You must always call this function. Calling this function enables the features provided by the Applet library.  The application is inactive until this function is called.</P><P>Because the sleep-related callbacks, the HOME Button callback, and POWER Button callback are enabled immediately after this function is called, applications must configure each of the callbacks as early as possible and then call this function.  However, call this function before calling the <tt>nngxInitialize</tt>, <tt>nn::snd::Initialize</tt>, or <tt>nn::dsp::Initialize</tt> functions.  (There is more information about the <tt>nngxInitialize</tt> function below.)</P><P>Specify <tt>true</tt> for the <span class="argument">isSleepEnabled</span> argument to have the function call <tt><a href="../../../nn/applet/CTR/EnableSleep.html">nn::applet::CTR::EnableSleep</a>(applet::NO_SHELL_CHECK)</tt> internally. In other words, this enables sleep notifications.  However, the <tt>applet::NO_SHELL_CHECK</tt> argument indicates that when the <tt><a href="../../../nn/applet/CTR/EnableSleep.html">nn::applet::CTR::EnableSleep</a></tt> function is called it does not check whether the system is closed.  If you want to account for the possibility that that system may already be closed by that time, call <tt><a href="../../../nn/applet/CTR/EnableSleep.html">nn::applet::CTR::EnableSleep</a>(applet::SLEEP_IF_SHELL_CLOSED)</tt> immediately after this function. </P><P>Specify <tt>false</tt> for the <span class="argument">isSleepEnabled</span> argument to disable sleep notifications.  After this, call the <tt><a href="../../../nn/applet/CTR/EnableSleep.html">nn::applet::CTR::EnableSleep</a></tt> function as appropriate. </P><P>This function calls <tt><a href="../../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></tt>.  Because you must determine whether to close the application when this function returns, call the <tt><a href="../../../nn/applet/CTR/IsExpectedToCloseApplication.html">nn::applet::CTR::IsExpectedToCloseApplication</a></tt> function after this one exits.  Call the <tt>nngxInitialize</tt> function only after this determination has finished.</P><P>Example:</P><PRE>
+  nnMain()
+  {
+      applet::SetSleepQueryCallback( mySleepQueryCallback, 0 );
+      applet::SetAwakeCallback( myAwakeCallback, 0 );
+      <FONT color="red">applet::Enable();</FONT>
+      if ( <FONT color="red">applet::IsExpectedToCloseApplication()</FONT> ) // Check for a close request.
+      {
+          _finalize_application();
+          applet::CloseApplication();
+      }
+      <FONT color="red">applet::EnableSleep( applet::SLEEP_IF_SHELL_CLOSED );</FONT>
+       ...
+</PRE><P><b>Note:</b></P><P>When applications that do not call this function are run on a debugger, the following problems occur because the applications are running outside of the CTR system.</P><UL><LI>The DevMenu runs in parallel and accepts key input, even though this is not intended.</LI><LI>After the system enters and recovers from sleep, the upper and lower screens remain black.</LI></UL><P>This second problem can be resolved by calling the <tt>nngxStartLcdDisplay</tt> function.</P><P>If an application is started from the development menu and the POWER Button is pressed after startup, execution may stop at this function. For more information, see the documentation for the development menu.</P><P>Also, execution stops on the 3DS logo screen if an application that has not called this function is started from the HOME Menu.</P><P>After this function is called, SNAKE changes to the operation mode that corresponds to the <tt>desc</tt> of the application.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/11/07</dt>
+        <dd><item xmlns="">Removed the <tt>PrepareToCloseApplication</tt> function from the sample code.</item><br />
+        </dd>
+        <dt>2014/01/31</dt>
+        <dd><item xmlns="">Added information about operation modes.</item><br />
+        </dd>
+        <dt>2011/07/26</dt>
+        <dd><item xmlns="">Added a description of what happens when an application that has not called this function is started from the HOME Menu.</item><br />
+        </dd>
+        <dt>2011/02/03</dt>
+        <dd><item xmlns="">Added that execution may stop when the POWER Button is pressed immediately after startup.</item><br />
+        </dd>
+        <dt>2011/01/24</dt>
+        <dd><item xmlns="">Added a description of the order of calling this function versus the initialization functions of other libraries.</item><br />
+        </dd>
+        <dt>2010/12/14</dt>
+        <dd><item xmlns="">Added information related to determining whether to close the application. Added information about the <tt>EnableSleep</tt> function.</item><br />
+        </dd>
+        <dt>2010/11/30</dt>
+        <dd><item xmlns="">Added an example.</item><br />
+        </dd>
+        <dt>2010/11/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

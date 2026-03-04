@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+        span.static_style
+        { 
+            font-size			: 8pt;
+            color				: white;
+            font-weight			: bold;
+            background			: #44f;
+            border-left			: solid 1px #aaf;
+            border-top			: solid 1px #aaf;
+            border-right		: solid 1px #00c;
+            border-bottom		: solid 1px #00c;
+            padding-left		: 2px;
+            padding-right		: 2px;
+        }
+
+        span.virtual_style
+        { 
+            font-size			 : 8pt;
+            color				 : white;
+            font-weight			: bold;
+            background			: #0a0;
+            border-left			: solid 1px #0f0;
+            border-top			: solid 1px #0f0;
+            border-right		: solid 1px #060;
+            border-bottom		: solid 1px #060;
+            padding-left		: 2px;
+            padding-right		: 2px; 
+        }
+
+        span.protected_style
+        { 
+            font-size			 : 8pt;
+            color				 : white;
+            font-weight			: bold;
+            background			: #444;
+            border-left			: solid 1px #ccc;
+            border-top			: solid 1px #ccc;
+            border-right		: solid 1px #222;
+            border-bottom		: solid 1px #222;
+            padding-left		: 2px;
+            padding-right		: 2px;
+        }
+        table.table, table.table td, table.table th
+        {
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        table.table
+        {
+            width: auto;
+            margin: 1em;
+            position	: static;
+            font-family	: Arial;
+        }
+
+        table.table td, table.table th
+        {
+            padding: 0.2em;
+        }
+
+        table.table td.number, table.table th.number
+        {
+            text-align: right;
+        }
+
+        table.table tbody tr th
+        {
+            text-align: left;
+            font-weight: normal;
+            width: auto;
+        }
+
+        table.table thead tr th,
+        table.table tbody tr th.category
+        {
+            padding: 0 0.2em;
+        }
+
+        table.table caption
+        {
+            font-weight: bold;
+            padding: 0.4em;
+        }
+        table.table th
+        {
+            font-weight			: bold;
+            background			: #acf;
+        }
+        --></style>
+<title>NfpUtil</title>
+</head>
+<body>
+
+<h1>NfpUtil</h1>
+
+<h2>Overview</h2>
+
+<div class="section">
+  <p>
+    NfpUtil is a tool that helps you check whether your application complies with the NFP guidelines.<br /> Prepare the NFP tags in advance, using the NoftWriter tool to write to the tags the amiibo data you plan to use in your application.
+  <p>
+</div>
+
+<h2>Procedure</h2>
+
+<div class="section">
+<h3>Access ID</h3>
+    <p>
+        This section explains how to check whether your application is using the access ID assigned by Nintendo.
+    </p>
+
+    <p>
+        Prepare an NFP tag with an application-specific region for the application you are developing, and place it on the lower screen of a New Nintendo 3DS system.<br /> If there are no problems with this NFP tag, the upper screen displays information about the tag, as shown in the figure below.
+    </p>
+
+    <p>
+        <img src="Fig/NfpUtil.png" alt="Screenshot of NfpUtil">
+    </p>
+
+    <p>
+        Confirm that the eight-digit hexadecimal value shown to the right of ACCESS ID matches the access ID issued by Nintendo.
+    </p>
+<h3>Touching a Corrupted amiibo</h3>
+    <p>
+        You can use NfpUtil to intentionally corrupt the data region of an NFP tag.
+    </p>
+
+    <p>
+        First prepare an NFP tag to use for the guideline check and place it on the lower screen of a New Nintendo 3DS system.<br /> Next use the up/down buttons on the +Control Pad to highlight <B>BreakTag</B> and then press the A button.<br /> <CODE>ResultSuccess</CODE> appears to the right of <CODE>LAST RESULT</CODE> on the upper screen if this successfully corrupts the data region of the NFP tag.
+    </p>
+
+    <p>
+If you attempt to mount this NFP tag on a system that does not have backup data for the tag, the error <CODE>ResultNeedFormat</CODE> is generated. If backup data is available on the system, the error <CODE>ResultNeedRestore</CODE> is generated.<br>Check whether the application you are developing conforms to the NFP standard as described in the 3DS Guidelines.
+    </p>
+
+<h3>amiibo Nickname</h3>
+
+    <p>
+Use NfpUtil to write an illegal nickname to an NFP tag to check whether the application follows the NFP section in the 3DS Guidelines in the way it handles nicknames that contain unsupported characters.
+    </p>
+
+    <p>
+        First prepare an NFP tag to use for the guideline check and place it on the lower screen of a New Nintendo 3DS system.<br /> If the data written to the NFP tag is corrupt, restore or format the NFP tag before proceeding.<br /> Next use the up/down buttons on the +Control Pad to highlight <B>SetNickname</B>, and then press the A button.<br /> <CODE>LAST RESULT</CODE> shows <CODE>ResultSuccess</CODE> if writing the nickname succeeds.
+    </p>
+
+    <p>
+Mount this NFP tag using the application you are developing and confirm that the application works according to the NFP section in the 3DS Guidelines.
+    </p>
+
+</div>
+
+
+<h2>Revision History</h2>
+<div class="section">
+    <dl class="history">
+        <dt>2015-05-26</dt>
+        <dd>Updated the screenshots to reflect information added to the display.<br /></dd>
+        <dt>2014-11-14</dt>
+        <dd>Initial version.<br /></dd>
+    </dl>
+</div>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

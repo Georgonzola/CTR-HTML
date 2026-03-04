@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>LightEvent</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/LightEvent/Overview.html">LightEvent</a>::LightEvent Constructor</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+explicit LightEvent(
+     bool isManualReset
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>isManualReset</th>
+          <td>Specify <code>true</code> for a manually resetting event, or <code>false</code> for an automatically resetting event.</td>
+        </tr> </table>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Constructor.</p><p>Constructor that initializes.</p><p>You do not need to call <code><a href="../../../nn/os/LightEvent/Initialize.html">Initialize</a></code> separately. For automatically resetting events, the flag is cleared if any of the threads are woken up by having its flag set. As a result, only one thread is woken up each time the flag is set, even if multiple threads are waiting.</p><p>For manually resetting events, the flag is never cleared automatically. As a result, if multiple threads are waiting, all threads are woken up each time the flag is set.</p></div>
+  </body>
+</html>

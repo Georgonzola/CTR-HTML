@@ -1,0 +1,517 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+<title>ctr_FontConverterConsole</title>
+    <style type="text/css">
+    <!--
+    body {
+    /*
+        font-size       : 10pt;
+    */
+        font-weight     : normal;
+        color           : #000000;
+        margin          : 8px;
+    }
+
+    div {
+        width           : 98%;
+        white-space     : nowrap;
+    }
+
+    div.title {
+        text-align      : left;
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        color           : #202020;
+        border-style    : double;
+        border-width    : 8px;
+        /* タイトルを囲む枠線の色を指定 */
+        border-color    : #CD202C;
+
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+
+        margin          : 4px;
+        padding         : 4px;
+    }
+    H1 {
+      font-size         : 150%;
+      font-family               : Arial;
+      border-bottom-width       : 5px;
+      border-bottom-style       : solid;
+      border-bottom-color       : #CD202C;
+      padding-bottom            : 1px;
+      margin-bottom             : 20px;
+      letter-spacing            : normal;
+      font-weight               : bold;
+    }
+
+    h2 {
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        border-style    : none none solid double;
+        border-width    : 0px 0px 2px 8px;
+        /* 見出しの線の色を指定 */
+        border-color    : #CD202C;
+
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+
+        margin-left     : 2px;
+        padding-left    : 4px;
+    }
+    CODE {
+      font-family               : "Courier New", monospace;
+      position          : normal;
+      left                      : 12px;
+      font-size         : 10pt;
+    }
+    table {
+      margin-top        : 2pt;
+      margin-bottom     : 2pt;
+      margin-left       : 0pt;
+      margin-right      : 0pt;
+      padding-left      : 0pt;
+      padding-right     : 0pt;
+      position          : relative;
+      left              : 12px;
+      font-family       : Arial;
+      font-size         : 10pt;
+      border-style      : none none none none;
+    }
+    td,th {
+      padding           : 2pt;
+      border-width      : 2pt;
+      border-style      : none none none none;
+      font-style        : normal;
+      text-align        : left;
+    }
+    td {
+      background        : #e8f4f4;
+      font-weight       : normal;
+    }
+    th {
+      background        : #c0d8d8;
+      font-weight       : bold;
+    }
+
+    p {
+        margin-left     : 4px;
+    }
+    p.code {
+      font-family               : "Courier New", monospace;
+      position          : normal;
+      left                      : 12px;
+      font-size         : 10pt;
+      background            : #e8f4f4;
+    }
+
+    -->
+    </style>
+
+  </head>
+  <body>
+<h1>ctr_FontConverterConsole</h1>
+<h2>Description</h2>
+    <p>
+The <CODE>ctr_FontConverterConsole</CODE> tool can be used to display any font installed on a PC as text on CTR.
+    </p>
+    <p>
+<CODE>ctr_FontConverterConsole</CODE> is a command line version of <CODE>ctr_FontConverter</CODE> (hereafter referred to as the &quot;GUI version&quot;). Other than differences in the interface, functionality is equivalent to the GUI version. This tool is intended for use in Makefiles and batchfiles.
+    </p>
+<h2>Font Licenses</h2>
+    <p>
+<CODE>ctr_FontConverterConsole</CODE> can convert any font installed on a PC for use on the CTR. However, a user license may be required to use such fonts in game software that will be sold. Acquire the appropriate licenses for each game application. <CODE>ctr_FontConverterConsole</CODE> and the CTR-SDK do not include font licenses of any kind.
+    </p>
+<h2>Using the Tool</h2>
+<h3>Commands</h3>
+
+    <p class="code">
+ctr_FontConverterConsole.exe -i &lt;input format&gt; &lt;input option&gt; -o &lt;output format&gt; &lt;output option&gt; [-f &lt;character filter file path&gt;]
+    </p>
+    <p>
+As shown in , <CODE>-i</CODE>, <CODE>-o</CODE>, and <CODE>-f</CODE> are used to specify input, output, and filter options, respectively.
+    </p>
+    <p>
+&lt;input option&gt; and &lt;output option&gt; change based on the specifications for &lt;input format&gt; and &lt;output format&gt;, respectively. These elements are discussed in subsequent sections.
+    </p>
+    <p>
+Enclose elements that contain spaces between words with quotation marks (&quot;). (Example &quot;parameter with spaces&quot;.) Quotation marks cannot be used inside of quotation marks.
+    </p>
+
+<h4>Input options</h4>
+    <p>
+Use the following options with &lt;input option&gt; according to the &lt;input format&gt;.
+    </p>
+
+<h5>Input: Image (-i image)</h5>
+    <p>
+      <table class="table"><tbody>
+        <tr>
+<th>Options</th><th>Omittability</th><th>Comments</th>
+        </tr>
+        <tr>
+<td><CODE>-if &lt;image file path&gt;</CODE></td><td>Impossible</td><td></td>
+        </tr>
+        <tr>
+<td><CODE>-io &lt;letter order file path&gt;</CODE></td><td>Impossible</td><td></td>
+        </tr>
+        <tr>
+<td><CODE>-ic &lt;color format&gt;</CODE></td><td>Impossible</td>
+          <td>
+Specify one of the following for &lt;color format&gt;: A4, A8, LA4, LA8, RGB565, RGB5A1, RGBA4, RGB8, or RGBA8.
+          </td>
+        </tr>
+        <tr>
+<td>-ia</td><td>Possible</td>
+          <td>
+Executes linear interpolation countermeasure processing if specified.
+          </td>
+        </tr>
+      </tbody></table>
+    </p>
+    <p>
+<B>Example:</B>
+    </p>
+    <p class="code">
+-i image -if font.bmp -io xlor/cp1252.xlor -ic LA8
+    </p>
+    <p>
+As shown above, the BMP file <CODE>font.bmp</CODE> is read as input according to the letter order file <CODE>xlor/cp1252.xlor</CODE>. The BMP color is interpreted using the LA8 format.
+    </p>
+
+<h5>Input: bcfnt (-i bcfnt)</h5>
+    <p>
+      <table class="table"><tbody>
+        <tr>
+<th>Options</th><th>Omittability</th><th>Comments</th>
+        </tr>
+        <tr>
+<td><CODE>-if &lt;font file path&gt;</CODE></td><td>Impossible</td>
+          <td>
+Specifies a <CODE>bcfnt</CODE> or <CODE>bcfna</CODE> file.
+          </td>
+        </tr>
+      </tbody></table>
+    </p>
+    <p>
+<B>Example:</B>
+    </p>
+    <p class="code">
+-i bcfnt -if font.bcfnt
+    </p>
+    <p>
+Accepts the <CODE>bcfnt</CODE> file named <CODE>font.bcfnt</CODE> as input.
+    </p>
+
+<h5>Input: Windows font (-i win)</h5>
+    <p>
+      <table class="table"><tbody>
+        <tr>
+<th>Options</th><th>Omittability</th><th>Comments</th>
+        </tr>
+        <tr>
+<td><CODE>-in &lt;font name&gt;</CODE></td><td>Impossible</td><td></td>
+        </tr>
+        <tr>
+<td><CODE>-is &lt;font size&gt;</CODE></td><td>Impossible</td>
+          <td>
+The conversion source font size in pixel units.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-isw &lt;average witdh&gt;</CODE></td><td>Possible</td>
+          <td>
+Specifies the average width in pixels. The aspect ratio can be changed by making this specification.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-ic &lt;number of gradations&gt;</CODE></td><td>Impossible</td>
+          <td>
+Specify any one of A1 through LA6 given below for &lt;number of gradations&gt;. A8 or LA8 format results when the texture format used to output the <CODE>bcfnt</CODE> is 64 levels. A4 or LA4 results in all other cases.<br/>
+            <table>
+              <tbody>
+<tr><th>Alpha</th><th>2 levels</th><th>16 levels</th><th>64 levels</th></tr>
+<tr><td>Alpha only</td><td>A1</td><td>A4</td><td>A6</td></tr>
+<tr><td>Brightness and alpha</td><td>LA1</td><td>LA4</td><td>LA6</td></tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+<td>-ia</td><td>Possible</td>
+          <td>
+Output using software anti-aliasing if specified.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-it &lt;character width&gt;</CODE></td><td>Possible</td>
+          <td>
+Specify one of the following for &lt;character width&gt;. If omitted, <CODE>char</CODE> is assumed.<br />
+            <table>
+              <tbody>
+<tr><th>Character Width</th><th>Description</th></tr>
+<tr><td><CODE>glyph</CODE></td><td>Uses the glyph width as the character width.</td></tr>
+                <tr>
+<td><CODE>keepsp</CODE></td>
+                  <td>
+The character width specified for the font is used for spaces, while the glyph width is used as the character width in all other cases.
+                  </td>
+                </tr>
+<tr><td><CODE>char</CODE></td><td>Uses the character width specified for the font.</td></tr>
+<tr><td><CODE>fixed</CODE></td><td>Uses the same width for all characters.</td></tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-iw &lt;monospace width&gt;</CODE></td><td>Possible/Impossible</td>
+          <td>
+Required when <CODE>-it</CODE> fixed is specified. Invalid in all other cases.
+          </td>
+        </tr>
+      </tbody></table>
+    </p>
+    <p>
+<B>Example:</B>
+    </p>
+    <p class="code">
+-i win -in &quot;MS Gothic&quot; -is 16 -ic A6 -it glyph
+    </p>
+    <p>
+Data is loaded using Windows MS Gothic font with a size of 16 pixels and 64 gradations alpha only (=A6). The glyph width is used for the character width.
+    </p>
+
+<h4>Output options</h4>
+    <p>
+The following options can be used with <CODE>&lt;output option&gt;</CODE>, according to the <CODE>&lt;output format&gt;</CODE>.
+    </p>
+
+<h5>Output: Image (-o image)</h5>
+    <p>
+      <table class="table"><tbody>
+        <tr>
+<th>Options</th><th>Omittability</th><th>Comments</th>
+        </tr>
+        <tr>
+<td><CODE>-of &lt;image file path&gt;</CODE></td><td>Impossible</td>
+          <td>
+Unlike the GUI version, the command line version does nothing if the image format and file extension do not match. Output is made using the specified filename.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-oo &lt;letter order file path&gt;</CODE></td><td>Impossible</td><td></td>
+        </tr>
+        <tr>
+<td><CODE>-oi &lt;image format&gt;</CODE></td><td>Possible</td>
+          <td>
+Specifies the image file format to be output. Specify one of the following for <CODE>&lt;image format&gt;</CODE>. If omitted, <CODE>ext</CODE> is assumed.
+            <table>
+              <tbody>
+<tr><th>Image format</th><th>Description</th></tr>
+<tr><td><CODE>ext</CODE></td><td>Determines the format based on the image file extension.</td></tr>
+<tr><td><CODE>bmp</CODE></td><td>Output is made in BMP format.</td></tr>
+<tr><td><CODE>tga</CODE></td><td>Output is made in TGA format.</td></tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-og</CODE></td><td>Possible</td>
+          <td>
+No grid if specified.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-ow &lt;cell width&gt;</CODE></td><td>Possible</td>
+          <td>
+The default specifies a width sufficient for output. Cannot be specified concurrently with <CODE>-or</CODE> or <CODE>-ob</CODE>.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-oh &lt;cell height&gt;</CODE></td><td>Possible</td>
+          <td>
+The default specifies a height sufficient for output. Cannot be specified concurrently with <CODE>-or</CODE> or <CODE>-ob</CODE>.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-ol &lt;cell left margin width&gt;</CODE></td><td>Possible</td>
+          <td>
+The default is 0.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-or &lt;cell right margin width&gt;</CODE></td><td>Possible</td>
+          <td>
+The default specifies the same value as <CODE>-ol</CODE>. Cannot be specified concurrently with <CODE>-ow</CODE> or <CODE>-oh</CODE>.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-ot &lt;cell top margin width&gt;</CODE></td><td>Possible</td>
+          <td>
+The default is 0.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-ob &lt;cell bottom margin width&gt;</CODE></td><td>Possible</td>
+          <td>
+If omitted, the same value as specified for <CODE>-ot</CODE> is assumed. Cannot be specified concurrently with <CODE>-ow</CODE> or <CODE>-oh</CODE>.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-ocg &lt;grid color&gt;</CODE></td><td>Possible</td>
+          <td>
+Specifies the color as a 6-digit hexadecimal. Treated as 000000 if omitted.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-ocm &lt;margin color&gt;</CODE></td><td>Possible</td>
+          <td>
+Specifies the color as a 6-digit hexadecimal. Treated as 99AA99 if omitted.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-ocw &lt;width line color&gt;</CODE></td><td>Possible</td>
+          <td>
+Specifies the color as a 6-digit hexadecimal. Treated as FF0000 if omitted.
+          </td>
+        </tr>
+        <tr>
+<td>-ocn &lt;null color&gt;</td><td>Possible</td>
+          <td>
+Specifies the color as a 6-digit hexadecimal. Treated as FF7F7F if omitted.
+          </td>
+        </tr>
+      </tbody></table>
+    </p>
+    <p>
+<B>Example:</B>
+    </p>
+    <p class="code">
+-o image -of font.bmp -oo xlor/cp1252.xlor -og -ol 1 -ot 3
+    </p>
+    <p>
+The above specifications apply a 1-pixel margin to the left and right, and a 3-pixel margin to the top and bottom of each cell according to the letter order file <CODE>xlor/cp1252.cxlor</CODE>, then outputs the image to <CODE>font.bmp</CODE> without a grid.
+    </p>
+
+<h5>Output: bcfnt (-o bcfnt)</h5>
+    <p>
+      <table class="table"><tbody>
+        <tr>
+<th>Options</th><th>Omittability</th><th>Comments</th>
+        </tr>
+        <tr>
+<td><CODE>-oe &lt;character code&gt;</CODE></td><td>Possible</td>
+          <td>
+Specify one of the following for <CODE>&lt;character code&gt;</CODE>. If omitted, unicode is assumed.<br />
+            <table>
+              <tbody>
+<tr><th>Character Codes</th><th>Description</th></tr>
+<tr><td><CODE>unicode</CODE></td><td>Specifies Unicode.</td></tr>
+<tr><td><CODE>sjis</CODE></td><td>Specifies ShiftJIS.</td></tr>
+<tr><td><CODE>cp1252</CODE></td><td>Specifies a CP1252.</td></tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-op &lt;glyph group file&gt;</CODE></td><td>Possible</td>
+          <td>
+No grouping (no compression) if omitted.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-os &lt;sheet size&gt;</CODE></td><td>Possible</td>
+          <td>
+Specifies the sheet size as a number of pixels in units of 1000's of pixels. A power of two greater than or equal to 16, and less than or equal to 1024 must be specified for <CODE>&lt;sheet size&gt;</CODE>. Sheet size is determined automatically if omitted.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-oa &lt;alternate character&gt;</CODE></td><td>Possible</td>
+          <td>
+The default is based on the input.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-oh &lt;line feed width&gt;</CODE></td><td>Possible</td>
+          <td>
+The default is based on the input.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-ol &lt;default left space&gt;</CODE></td><td>Possible</td>
+          <td>
+The default is based on the input.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-ow &lt;default glyph width&gt;</CODE></td><td>Possible</td>
+          <td>
+The default is based on the input.
+          </td>
+        </tr>
+        <tr>
+<td><CODE>-or &lt;default right space&gt;</CODE></td><td>Possible</td>
+          <td>
+The default is based on the input.
+          </td>
+        </tr>
+      </tbody></table>
+    </p>
+    <p>
+<B>Example:</B>
+    </p>
+    <p class="code">
+-o bcfnt -of font.bcfnt -os 256 -oe sjis -oa ?
+    </p>
+    <p>
+Outputs data to <CODE>font.bcfnt</CODE> using a sheet size of 256K pixels, Shift_JIS encoding and &rsquo;?&rsquo; as the alternate character.
+    </p>
+<h2>Notes</h2>
+    <p>
+In the GUI version of <CODE>ctr_FontConverter.exe</CODE>, if the OTF font is used for some entries in combo box selections, the tool will sometimes end abnormally. If necessary, take any of these steps to work around this problem. 
+    </p>
+    <ul>
+<li>Convert using the CUI version of <CODE>ctr_FontConverterConsole.exe</CODE>.</li>
+<li>Use the NW4C <CODE>font2</CODE> converter to export a bitmap image and use this as the input for the conversion process.</li>
+<li>Convert using the <CODE>font1</CODE> converter of the NW4C <CODE>oldModule</CODE> package.</li>
+    </ul>
+    <p>
+Windows fonts sometimes cannot be converted correctly if the following settings have been made.
+    </p>
+    <ul>
+<li>Vector fonts (marked with &quot;(V)&quot; in the font list) are used.</li>
+<li>A large font size is set. (The size that causes the problem can vary depending on the font.)</li>
+<li>Two levels of gradation are set for the number of gradations under Advanced Settings (applies to both the A4 and LA4 settings).</li>
+    </ul>
+<h2>Revision History</h2>
+    <dl class="history">
+      <dt>2014/10/03</dt>
+<dd>Added information about bugs to <B>Notes</B>.</dd>
+      <dt>2010/09/14</dt>
+<dd>Initial version.</dd>
+    </dl>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

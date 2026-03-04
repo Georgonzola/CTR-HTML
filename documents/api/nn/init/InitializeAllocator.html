@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>InitializeAllocator</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/init/Overview.html">init</a>::InitializeAllocator Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void InitializeAllocator(
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>The amount of memory to allocate from the heap for the allocator.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes a simple allocator.</p><p>Allocates <code><a href="../../nn/os/MemoryBlock/Overview.html">nn::os::MemoryBlock</a></code> from the heap and creates an allocator to manage that memory region. The purpose of this function is to enable you to put off the construction of an independent memory-management mechanism so that you can more quickly verify operations during the early stages of development.</p><p>When you are ready to really delve into application development, we recommend that you construct an independent memory-management mechanism rather than use this function.</p><p>By default in the SDK, <code>new</code> and <code>malloc</code> request the allocator created by this function for actual allocations of memory. As a result, the size of memory that can be allocated using <code>new</code> and <code>malloc</code> is determined by the value specified for size in this function.</p><p>Before calling this function you must call the <code><a href="../../nn/os/InitializeMemoryBlock.html">nn::os::InitializeMemoryBlock</a></code> function.</p></div>
+  </body>
+</html>

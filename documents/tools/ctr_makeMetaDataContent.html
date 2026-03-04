@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        --></style>
+    <title>ctr_makeMetaDataContent</title>
+  </head>
+  <body>
+    <h1>ctr_makeMetaDataContent</h1>
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        <CODE>ctr_makeMetaDataContent</CODE> is a tool for creating required content (metadata content) from XML data.<br/> For more information about the required metadata content, see the overview.<br/> Use CTR Master Editor version 1.8 or later to check the attributes and icons of created required content.
+      </p>
+    </div>
+    <h2>Runtime Options</h2>
+    <div class="section">
+      <p>
+        <table class="table"><tbody>
+          <tr><th>Option</th> <th>Description</th> <th>Examples:</th></tr>
+          <tr><td><CODE>-o</CODE>, <CODE>--output-file</CODE></td> <td>Specifies the name of the CFA file to create.</td> <td><CODE>--output-file metadata.cfa</CODE></td></tr>
+          <tr><td><CODE>-m</CODE>, <CODE>--metadata</CODE></td> <td>Specifies the XML file containing the metadata.</td> <td><CODE>--metadata metadata.xml</CODE></td></tr>
+          <tr><td><CODE>-d</CODE>, <CODE>--icons-dir</CODE></td> <td>Specifies the directory containing the image data.</td> <td><CODE>--icons-dir ./icons</CODE></td></tr>
+          <tr><td><CODE>-i</CODE>, <CODE>--icon</CODE></td> <td>Specifies the icon file (<b>ICN file</b>) for the data title.<br/> Note that the icons for the data title specified here are <b>different</b> from the icons used for the content.<br/> For the data title, specify icons generated using BSF files.</td> <td><CODE>--icon metadata.icn</CODE></td></tr>
+          <tr><td><CODE>-Dname=value</CODE></td> <td>Specifies options to pass directly to <CODE>ctr_makerom</CODE>. For more information about specifying options, see <I>RSF Files Used to Create Add-on Content</I> in <a href="../api/nn/ec/briefing/aboutMakingDataTitle.html">ECDK: Making Data Titles</a>.</td> <td><CODE>-DUNIQUE_ID=0xFFFFF</CODE></td></tr>
+        </tbody></table>
+      </p>
+      <p>
+<pre>
+ctr_makeMetaDataContent32.exe -o meta.cfa -m meta.xml -d ./icons -i meta.icn -DUNIQUE_ID=0xFFFFF -DDATA_TITLE_INDEX=0 -DPRODUCT_CODE=CTR-M-META-01 -DTITLE=title
+</pre>
+      </p>
+    </div>
+    <h2>Metadata XML Format</h2>
+    <div class="section">
+Metadata XML uses the following format.<br/> Also refer to the sample included in the ECDK package.
+    <h3>metaData</h3>
+    <div class="section">
+    <p>
+	Root element for metadata XML.<br/>
+   	<h4>formatVersion</h4>
+	XML format version. The current version is 0.2.
+	<pre>
+&lt;metaData formatVersion="0.2"&gt;
+.....
+&lt;/metaData&gt;</pre>
+    </p>
+    </div>
+    <h3>metaData/regions</h3>
+    <div class="section">
+    <p>
+	Specifies content attributes.<br/> It must describe the following information.<br/>
+	<h4>code</h4>The region code. See the table for available codes.<br/>
+	<h4>defaultLang</h4>The UI is in this default language if the user configures a language that is not supported in the region. See the table for the available codes.<br/>
+	<h4>language</h4>Describes the languages supported in the region. See the table for the available codes.<br/>
+	<pre>
+&lt;regions&gt;
+    &lt;region code="JPN" defaultLang="ja"&gt;
+        &lt;language&gt;ja&lt;/language&gt;
+    &lt;/region&gt;
+    &lt;region code="USA" defaultLang="en"&gt;
+        &lt;language&gt;en&lt;/language&gt;
+        &lt;language&gt;fr&lt;/language&gt;
+    &lt;/region&gt;
+&lt;/regions&gt;</pre><br/>This table lists the available region and language codes.
+        <table class="table"><tbody>
+          <tr><th>Language Code</th> <th>Language Name</th></tr>
+          <tr><td><CODE>ja</CODE></td> <td>Japanese</td></tr>
+          <tr><td><CODE>en</CODE></td> <td>English</td></tr>
+          <tr><td><CODE>fr</CODE></td> <td>French</td></tr>
+          <tr><td><CODE>de</CODE></td> <td>German</td></tr>
+          <tr><td><CODE>it</CODE></td> <td>Italian</td></tr>
+          <tr><td><CODE>es</CODE></td> <td>Spanish</td></tr>
+          <tr><td><CODE>zh</CODE></td> <td>Chinese</td></tr>
+          <tr><td><CODE>ko</CODE></td> <td>Korean</td></tr>
+          <tr><td><CODE>nl</CODE></td> <td>Dutch</td></tr>
+          <tr><td><CODE>pt</CODE></td> <td>Portuguese</td></tr>
+          <tr><td><CODE>ru</CODE></td> <td>Russian</td></tr>
+        </tbody></table>
+        <table class="table"><tbody>
+          <tr><th>Region Code</th> <th>Market</th> <th>Useable Language Codes</th></tr>
+          <tr><td><CODE>JPN</CODE></td> <td>Japanese market</td> <td><CODE>ja</CODE></td></tr>
+          <tr><td><CODE>USA</CODE></td> <td>North American market</td> <td><CODE>en</CODE>, <CODE>fr</CODE>, <CODE>es</CODE>, <CODE>pt</CODE></td></tr>
+          <tr><td><CODE>EUR</CODE></td> <td>European market</td> <td><CODE>en</CODE>, <CODE>fr</CODE>, <CODE>de</CODE>, <CODE>it</CODE>, <CODE>es</CODE>, <CODE>nl</CODE>, <CODE>pt</CODE>, <CODE>ru</CODE></td></tr>
+          <tr><td><CODE>CHN</CODE></td> <td>Chinese market</td> <td><CODE>zh</CODE></td></tr>
+          <tr><td><CODE>KOR</CODE></td> <td>Korean market</td> <td><CODE>ko</CODE></td></tr>
+          <tr><td><CODE>TWN</CODE></td> <td>Taiwan/Hong Kong market</td> <td><CODE>zh</CODE></td></tr>
+        </tbody></table>
+        <B>Note:</B> Although Chinese is separated into two language codes (Simplified Chinese and Traditional Chinese) internally, there is no problem using only &quot;zh&quot; in XML.
+    </p>
+    </div>
+    <h3>metaData/contents</h3>
+    <div class="section">
+    <p>
+	Specifies content attributes.<br/> It must describe the following information.<br/>
+	<h4>title</h4>Content title, up to 64 bytes long (including the string terminator) in UTF-8 encoding.<br/>
+	<h4>DESC</h4>Content description, up to 128 bytes long (including the string terminator) in UTF-8 encoding.<br/>
+	<h4>iconIndex</h4>Content icon index number.<br/>See below for the index number definition.<br/>
+	<h4>lang</h4>Indicates the language of the content. Specify languages as <CODE>REGIONCODE_languagecode</CODE>.<br/> For example, specify Japanese as <CODE>JPN_ja</CODE>.<br/>
+        <table class="table"><tbody>
+          <tr><th>Market</th> <th>Useable Market Language Codes</th></tr>
+          <tr><td>Japanese market</td> <td><CODE>JPN_ja</CODE></td></tr>
+          <tr><td>North American market</td> <td><CODE>USA_en</CODE>, <CODE>USA_fr</CODE>, <CODE>USA_es</CODE>, <CODE>USA_pt</CODE></td></tr>
+          <tr><td>European market</td> <td><CODE>EUR_en</CODE>, <CODE>EUR_fr</CODE>, <CODE>EUR_de</CODE>, <CODE>EUR_it</CODE>, <CODE>EUR_es</CODE>, <CODE>EUR_nl</CODE>, <CODE>EUR_pt</CODE>, <CODE>EUR_ru</CODE></td></tr>
+          <tr><td>Chinese market</td> <td><CODE>CHN_zh</CODE></td></tr>
+          <tr><td>Korean market</td> <td><CODE>KOR_ko</CODE></td></tr>
+          <tr><td>Taiwan/Hong Kong market</td> <td><CODE>TWN_zh</CODE></td></tr>
+        </tbody></table>
+	<pre>
+  &lt;contents&gt;
+    &lt;content contentIndex="1"&gt;
+      &lt;contentInfo lang="JPN_ja"&gt;
+        <CODE>&lt;title&gt;</CODE>First content item name<CODE>&lt;/title&gt;</CODE>
+        <CODE>&lt;desc&gt;</CODE>First content item description<CODE>&lt;/desc&gt;</CODE>
+        &lt;iconIndex&gt;0&lt;/iconIndex&gt;
+      &lt;/contentInfo&gt;
+    &lt;/content&gt;
+    &lt;content contentIndex="2"&gt;
+      &lt;contentInfo lang="JPN_ja"&gt;
+        <CODE>&lt;title&gt;</CODE>Second content item name<CODE>&lt;/title&gt;</CODE>
+        <CODE>&lt;desc&gt;</CODE>Second content item description<CODE>&lt;/desc&gt;</CODE>
+        &lt;iconIndex&gt;1&lt;/iconIndex&gt;
+      &lt;/contentInfo&gt;
+    &lt;/content&gt;</pre><br/>
+    </p>
+    </div>
+    <h3>metaData/icons</h3>
+    <div class="section">
+    <p>
+	Describes the image files to include in the data title.<br/> Use the <CODE>iconIndex</CODE> values to specify the content and item attributes.<br/>
+	<pre>
+  &lt;icons&gt;
+    &lt;icon iconIndex="0" fileName="icon1.ctpk"/&gt;
+    &lt;icon iconIndex="1" fileName="icon2.ctpk"/&gt;
+    &lt;icon iconIndex="2" fileName="icon3.ctpk"/&gt;
+    &lt;icon iconIndex="3" fileName="icon4.ctpk"/&gt;
+  &lt;/icons&gt;</pre><br/>
+    </p>
+    </div>
+    </div>
+    <h2>Icon File Format</h2>
+    <div class="section">
+	The following lists the icon images that can be included in metadata content.
+	<h3>Image Formats</h3>
+	- Image size: 48px high x 48px wide<br/>
+	- Image format: RGB565 (NW4C texture format with no header data.)<br/>
+	<h3>How to Create Images</h3>
+	Either use the <CODE>ctr_TexturePackager</CODE> tool, or use the plug-in included with NintendoWare.
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/06/27</dt>
+        <dd>Added a reference for more information about the options directly passed to <CODE>ctr_makerom</CODE>.<br /></dd>
+        <dt>2012/01/18</dt>
+        <dd>Added the Asian markets to the useable market and language combinations.<br /></dd>
+        <dt>2012/01/13</dt>
+        <dd>Revised a market name (North American market → American market).<br /></dd>
+        <dt>2011/12/13</dt>
+        <dd>Added a description of the combination of usable markets and languages.<br /></dd>
+        <dt>2011/09/29</dt>
+        <dd>Supported the update to version 0.2 of metadata XML format.</dd>
+        <dt>2011/09/08</dt>
+        <dd>Initial version.<br /></dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

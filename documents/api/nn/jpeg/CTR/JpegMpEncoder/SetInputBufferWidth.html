@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetInputBufferWidth</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a>::SetInputBufferWidth Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+void SetInputBufferWidth(
+     <a href="../../../../nn_types/u32.html">u32</a> width
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Specifies the width (in pixels) of the input image buffer. <br />
+ Specify <code>0</code> to give priority to the value specified in the encoding function over this value. <br />
+ Any value specified in excess of <code><a href="../../../../nn/jpeg/CTR/MAX_ENCODER_INPUT_BUFFER_WIDTH.html">MAX_ENCODER_INPUT_BUFFER_WIDTH</a></code> (65536) is ignored.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the width of the input image buffer.</p><p>Use this function when the image buffer (for example, the GPU texture buffer) has a larger image width than the image you want to encode.</p><p>If you specify the image width of the input image buffer, the encoding function processes the input buffer starting from the left and discards any area beyond the specified width. <br />
+ When creating a thumbnail to add, the scaling-down operation is likewise carried out after cropping in this way.</p><p>Call this function before calling the encoding function. The values specified by this function are cleared after the encoding function completes, regardless of whether the encoding function succeeded or failed. When encoding multiple times, you must call this function before each encoding function call. The values specified by this function are also cleared if you specify <code>0</code> for the <emphasis>width</emphasis> parameter, or if you reinitialize the encoder object using the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Initialize.html">Initialize</a></code> function.</p><p>If the image width specified by the encoding function is larger than the value specified in this function, the encoding function value takes priority.</p><p>The following limitations are placed on the width argument based on the pixel format (<code><a href="../../../../nn/jpeg/CTR/PixelFormat.html">PixelFormat</a></code>) specified by the encoding function. (Values are rounded down to the specified multiple at the time of encoding.)</p><p><itemizedlist><listitem><para>If <code><span>PIXEL_FORMAT_YUYV8</span></code> is specified, values must be a multiple of 2. </para></listitem><listitem><para>If <code><span>PIXEL_FORMAT_CTR_RGB565_BLOCK8</span></code>, <code><span>PIXEL_FORMAT_CTR_RGB8_BLOCK8</span></code>, or <code><span>PIXEL_FORMAT_CTR_RGBA8_BLOCK8</span></code> is specified, values must be a multiple of 8. </para></listitem></itemizedlist></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/22</dt>
+        <dd><item xmlns="">Added a link to PixelFormat.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

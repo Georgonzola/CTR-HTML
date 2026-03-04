@@ -1,0 +1,393 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::gr::CTR::FragmentLight</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gr/Overview.html">gr</a>::<a href="../../../../nn/gr/CTR/Overview.html">CTR</a>::FragmentLight Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class FragmentLight</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for configuring fragment lighting settings.</p><!-- write here --></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">nn::gr::CTR::FragmentLight::LutConfig</a>
+            </th>
+            <td>Class for adjusting lookup table values.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../../nn/gr/CTR/FragmentLight/Source/Overview.html">nn::gr::CTR::FragmentLight::Source</a>
+            </th>
+            <td>Class for making settings per light source.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/FragmentLight/LIGHT_SOURCE_MAX.html">LIGHT_SOURCE_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The maximum number of light sources is 8.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">globalAmbientR</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>Red component setting for global ambient. The type is <code>u8</code>. Values in the range <code>[0.f, 1.f]</code> are mapped to <code>[0, 255]</code> and then set.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">globalAmbientG</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>Green component setting for global ambient. The type is <code>u8</code>. Values in the range from <code>0.f</code> to <code>1.f</code> are mapped to the range from <code>0</code> to <code>255</code> and then set.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">globalAmbientB</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>Blue component setting for global ambient. The type is <code>u8</code>. Values in the range from <code>0.f</code> to <code>1.f</code> are mapped to the range from <code>0</code> to <code>255</code> and then set.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">source</span>
+            </th>
+            <td width="100"><a href="../../../../nn/gr/CTR/FragmentLight/Source/Overview.html">Source</a></td>
+            <td>Stores light source settings. The type is <code><a href="../../../../nn/gr/CTR/FragmentLight/Source/Overview.html">nn::gr::CTR::FragmentLight::Source</a>[]</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnable</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Enables or disables light sources. The type is <code>bool[]</code>. The upper limit value of the array is <code>LIGHT_SOURCE_MAX</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableSpot</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Sets whether spotlights are enabled. The type is <code>bool[]</code>. The upper limit value of the array is <code>LIGHT_SOURCE_MAX</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableDistAttn</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Sets whether distance attenuation is enabled. The type is <code>bool[]</code>. The upper limit value of the array is <code>LIGHT_SOURCE_MAX</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isShadowed</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Sets shadow adjustment elements. The type is <code>bool[]</code>. The upper limit value of the array is <code>LIGHT_SOURCE_MAX</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">layerConfig</span>
+            </th>
+            <td width="100"><a href="../../../../nn_gx_CTR_Pica/PicaDataFragLightEnvLayerConfig.html">PicaDataFragLightEnvLayerConfig</a></td>
+            <td>Sets the layer config. The type is <code><a href="../../../../nn_gx_CTR_Pica/PicaDataFragLightEnvLayerConfig.html">PicaDataFragLightEnvLayerConfig</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">fresnelSelector</span>
+            </th>
+            <td width="100"><a href="../../../../nn_gx_CTR_Pica/PicaDataFragLightEnvFresnel.html">PicaDataFragLightEnvFresnel</a></td>
+            <td>Sets where fresnel is applied. The type is <code><a href="../../../../nn_gx_CTR_Pica/PicaDataFragLightEnvFresnel.html">PicaDataFragLightEnvFresnel</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">shadowSelector</span>
+            </th>
+            <td width="100"><a href="../../../../nn_gx_CTR_Pica/PicaDataFragLightEnvTexture.html">PicaDataFragLightEnvTexture</a></td>
+            <td>Sets textures whose shadow adjustment element is to be sampled. The type is <code><a href="../../../../nn/gr/CTR/PicaDataFragLightTexture.html">PicaDataFragLightTexture</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">bumpMode</span>
+            </th>
+            <td width="100"><a href="../../../../nn_gx_CTR_Pica/PicaDataFragLightEnvBump.html">PicaDataFragLightEnvBump</a></td>
+            <td>Sets bump mapping. The type is <code><a href="../../../../nn_gx_CTR_Pica/PicaDataFragLightEnvBump.html">PicaDataFragLightEnvBump</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">bumpSelector</span>
+            </th>
+            <td width="100"><a href="../../../../nn_gx_CTR_Pica/PicaDataFragLightEnvTexture.html">PicaDataFragLightEnvTexture</a></td>
+            <td>Sets textures to be used as normal maps and tangent maps. The type is <code><a href="../../../../nn/gr/CTR/PicaDataFragLightTexture.html">PicaDataFragLightTexture</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableShadowPrimary</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Sets whether shadow attenuation is to be applied to the primary color. The type is <code>bool</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableShadowSecondary</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Sets whether shadow attenuation is to be applied to the secondary color. The type is <code>bool</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableShadowAlpha</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Sets whether shadow attenuation is to be applied to the alpha component. The type is <code>bool</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isInvertShadow</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Sets whether shadow attenuation is to be inverted. The type is <code>bool</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableBumpRenorm</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Sets whether the z-component of the normal map is to be regenerated. The type is <code>bool</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableClampHighLights</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Sets whether the specular color is to be clamped to 0 when L.n is less than 0. The type is <code>bool</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableLutD0</span>
+            </th>
+            <td width="100">bool</td>
+            <td>If <code>true</code>, the lookup table value or 1 is set for Distribution 0. The type is <code>bool</code>. The initial value is <code>false</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableLutD1</span>
+            </th>
+            <td width="100">bool</td>
+            <td>If <code>true</code>, the lookup table value or 1 is set for Distribution 1. The type is <code>bool</code>. The initial value is <code>false</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableLutRefl</span>
+            </th>
+            <td width="100">bool</td>
+            <td>If <code>true</code>, the lookup table value or 1 is set for Reflection. The type is <code>bool</code>. The initial value is <code>true</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">lutConfigD0</span>
+            </th>
+            <td width="100"><a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">LutConfig</a></td>
+            <td>Sets the lookup table Distribution 0. The type is <code>nn::gr:CTR::<a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">FragmentLight::LutConfig</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">lutConfigD1</span>
+            </th>
+            <td width="100"><a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">LutConfig</a></td>
+            <td>Sets the lookup table Distribution 1. The type is <code>nn::gr:CTR::<a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">FragmentLight::LutConfig</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">lutConfigSP</span>
+            </th>
+            <td width="100"><a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">LutConfig</a></td>
+            <td>Sets the lookup table Specular. The type is <code>nn::gr:CTR::<a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">FragmentLight::LutConfig</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">lutConfigFR</span>
+            </th>
+            <td width="100"><a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">LutConfig</a></td>
+            <td>Sets the lookup table <code><a href="../../../../nn/gr/CTR/FragmentLight/Overview.html">FragmentLight</a></code>. The type is <code>nn::gr:CTR::<a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">FragmentLight::LutConfig</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">lutConfigRB</span>
+            </th>
+            <td width="100"><a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">LutConfig</a></td>
+            <td>Sets the lookup table RB. The type is <code>nn::gr:CTR::<a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">FragmentLight::LutConfig</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">lutConfigRG</span>
+            </th>
+            <td width="100"><a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">LutConfig</a></td>
+            <td>Sets the lookup table RG. The type is <code>nn::gr:CTR::<a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">FragmentLight::LutConfig</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">lutConfigRR</span>
+            </th>
+            <td width="100"><a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">LutConfig</a></td>
+            <td>Sets the lookup table RR. The type is <code>nn::gr:CTR::<a href="../../../../nn/gr/CTR/FragmentLight/LutConfig/Overview.html">FragmentLight::LutConfig</a></code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/FragmentLight/FragmentLight.html">FragmentLight</a>
+            </th>
+            <td>Sets the initial value for each setting.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/FragmentLight/MakeLightSourceCommand.html">MakeLightSourceCommand</a>
+            </th>
+            <td>Generates a command for setting each light source for fragment lighting based on information already set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/FragmentLight/MakeLutConfigCommand.html">MakeLutConfigCommand</a>
+            </th>
+            <td>Generates a command for setting the fragment lighting lookup table based on information already set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/FragmentLight/MakeLightEnvCommand.html">MakeLightEnvCommand</a>
+            </th>
+            <td>Generates a command for setting the light environment for fragment lighting based on information already set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/FragmentLight/MakeAllCommand.html">MakeAllCommand</a>
+            </th>
+            <td>Generates a command for setting fragment lighting based on information already set.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/FragmentLight/MakeDisableCommand.html">MakeDisableCommand</a>
+            </th>
+            <td>Generates the minimum number of commands for disabling fragment lighting.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

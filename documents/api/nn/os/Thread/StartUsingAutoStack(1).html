@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StartUsingAutoStack</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/Thread/Overview.html">Thread</a>::StartUsingAutoStack Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+template &lt;typename T, typename U&gt;void StartUsingAutoStack(
+     void(*)(T) f,
+     U param,
+     size_t stackSize,
+     <a href="../../../nn_types/s32.html">s32</a> priority = DEFAULT_THREAD_PRIORITY,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_USE_PROCESS_VALUE
+);
+</pre>
+    </div>
+    <h2>Template Arguments</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>T</th>
+          <td>Data type of the arguments of the function to run. (This type must be one that can be copied.)</td>
+        </tr>
+        <tr>
+          <th>U</th>
+          <td>A type that can be converted to <emphasis>T</emphasis>.</td>
+        </tr> </table>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>f</th>
+          <td>Pointer to the function to begin running.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>param</th>
+          <td>Argument to pass to the function that begins execution.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>stackSize</th>
+          <td>The stack size.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>priority</th>
+          <td>Priority of the thread.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>coreNo</th>
+          <td>Preferred processor for the thread.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes and runs a thread.</p><p>Allocates a stack of the specified size using <code><a href="../../../nn/os/AutoStackManager/Overview.html">AutoStackManager</a></code>. The thread is automatically destroyed when it exits.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/09/01</dt>
+        <dd><item xmlns="">Deleted the note about specifying a preferred processor.</item><br />
+        </dd>
+        <dt>2011/06/22</dt>
+        <dd><item xmlns="">Added a note about specifying a preferred processor.</item><br />
+        </dd>
+        <dt>2010/03/28</dt>
+        <dd><item xmlns="">Clarified the restrictions on the <span class="argument">stackSize</span> argument.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

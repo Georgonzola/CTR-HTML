@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxCmdlistStorage</title>
+  </head>
+  <body>
+    <h1>nngxCmdlistStorage Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxCmdlistStorage(
+     GLsizei bufsize,
+     GLsizei requestcount
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>bufsize</th>
+          <td>Size of the 3D command buffer, in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>requestcount</th>
+          <td>Number of command requests.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Allocates a data region for the current command list.</p><P>A region is allocated for a 3D command buffer with the number of bytes specified by <span class="argument">bufsize</span>.  A region is allocated for the number of command requests specified by <span class="argument">requestcount</span>.  Each data region accumulates commands.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_8006_DMP</TH><TD>Failed to allocate a data region for the command buffer or command request.</TD></TR><TR><TH>GL_ERROR_8007_DMP</TH><TD>This function was called on a running command list.</TD></TR><TR><TH>GL_ERROR_8008_DMP</TH><TD>The <span class="argument">bufsize</span> or <span class="argument">requestcount</span> argument was set to a negative value.</TD></TR></TABLE></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Added extended error codes.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

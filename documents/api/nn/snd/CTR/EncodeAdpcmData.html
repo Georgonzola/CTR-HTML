@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>EncodeAdpcmData</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/snd/Overview.html">snd</a>::<a href="../../../nn/snd/CTR/Overview.html">CTR</a>::EncodeAdpcmData Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void EncodeAdpcmData(
+     <a href="../../../nn_types/s16.html">s16</a> * pInput,
+     <a href="../../../nn_types/u8.html">u8</a> * pOutput,
+     <a href="../../../nn_types/s32.html">s32</a> nSamples,
+     <a href="../../../nn_types/s32.html">s32</a> sampleRate,
+     <a href="../../../nn_types/s32.html">s32</a> loopStart,
+     <a href="../../../nn_types/s32.html">s32</a> loopEnd,
+     DspsndAdpcmHeader * pInfo
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pInput</th>
+          <td>Address of the input buffer.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pOutput</th>
+          <td>Address of the output buffer. Must be aligned to <code>ENCODE_OUTPUT_ALIGNMENT</code> (4 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>nSamples</th>
+          <td>Number of input samples.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>sampleRate</th>
+          <td>Sampling frequency.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>loopStart</th>
+          <td>Position of the starting sample for loop playback. (Starts from 0.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>loopEnd</th>
+          <td>Position of the ending sample for loop playback. (Starts from 0.)</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pInfo</th>
+          <td>Address of the header structure.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Encodes 16-bit PCM data into DSP-ADPCM format.</p>For information about looped playback of encoded data, see the documentation for the CTR-SDK Windows tool WaveCodecCtr.dll.</div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment.</item><br />
+        </dd>
+        <dt>2011/12/22</dt>
+        <dd><item xmlns="">Added text about looped playback.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

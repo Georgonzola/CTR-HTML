@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>abs - Absolute</title>
+  </head>
+  <body>
+    <h1>abs - Absolute</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+abs     dest, src
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Registers</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>dest</th>
+          <td>An output register or temporary register.</td>
+        </tr>
+        <tr>
+          <th>src</th>
+          <td>A temporary register or input register.</td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Stores the absolute value of <SPAN class="argument">src</SPAN> in <SPAN class="argument">dest</SPAN>.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+dest.x = abs ( src0.x )
+dest.y = abs ( src0.y )
+dest.z = abs ( src0.z )
+dest.w = abs ( src0.w )
+</pre>
+    </div>
+
+    <h2>Macro Expansion</h2>
+    <div class="section">
+<pre class="definition">
+max     dest, src, -src
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+abs     r0, r1
+abs     o0, r7.yzww
+</pre>
+    </div>
+
+    <h2>Time Table</h2>
+    <div class="section">
+      <table class="timetable">
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th>
+        </tr>
+        <tr>
+          <th><CODE>max</CODE></th>
+          <td class="read">read</td>
+          <td class="MAX">MAX</td>
+          <td class="write">write</td>
+          <td class="dummy"></td>
+        </tr>
+      </table>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>TryAcquire</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/LightSemaphore/Overview.html">LightSemaphore</a>::TryAcquire Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+bool TryAcquire();
+
+bool TryAcquire(
+     <a href="../../../nn/fnd/TimeSpan/Overview.html">fnd::TimeSpan</a> timeout
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./TryAcquire(0).html">TryAcquire (  ) </a>
+          </td>
+          <td>Tries to decrement the counter value by one.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./TryAcquire(1).html">TryAcquire ( fnd::TimeSpan ) </a>
+          </td>
+          <td>Tries to decrement the counter value by one.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of TryAcquire (  ) </h2>
+    <div class="section"><p>If the counter was already <code>0</code>, this function returns without decrementing it.</p><!-- write here --></div>
+    <h2>Description of TryAcquire ( fnd::TimeSpan ) </h2>
+    <div class="section"><p>If the counter was already <code>0</code>, this function waits for it to become <code>1</code> or greater. The maximum wait time is specified by timeout.</p><p>If the timeout elapses and the counter has not become <code>1</code> or more, this function returns without decrementing the counter.</p><!-- write here --></div>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glTexParameterf</title>
+  </head>
+  <body>
+    <h1>glTexParameterf Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glTexParameterf(
+     GLenum target,
+     GLenum pname,
+     GLfloat param
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Texture target.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>param</th>
+          <td>Value to set for the parameter.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets texture parameters as <code>GLfloat</code>-type values.</p><P>You can set <span class="argument">target</span> to the following values.<TABLE><TR><TH>GL_TEXTURE_2D</TH><TD>2D texture.</TD></TR><TR><TH>GL_TEXTURE_CUBE_MAP</TH><TD>Cube-map texture.</TD></TR></TABLE><!-- source targetにはGL_TEXTURE_2D、GL_TEXTURE_CUBE_MAPを指定します。 --></P><P>You can set <span class="argument">pname</span> to <tt>GL_TEXTURE_LOD_BIAS</tt>.  The value <tt>GL_TEXTURE_LOD_BIAS</tt> specifies the texture LOD bias.  In this case, set <span class="argument">param</span> to a value in the range from -16 to 16.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> or <span class="argument">pname</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">param</span> parameter was set to an invalid value.</TD></TR></TABLE><!-- source target、pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 paramに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

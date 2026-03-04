@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxGetProfilingResult</title>
+  </head>
+  <body>
+    <h1>nngxGetProfilingResult Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxGetProfilingResult(
+     GLenum item,
+     GLuint * result
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>item</th>
+          <td>Profile feature.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>result</th>
+          <td>Profiling result.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the profiling results.</p><p>Returns in <span class="argument">result</span> the profiling results of the profiling functionality specified by <span class="argument">item</span> . Values that can be specified in <span class="argument">item</span> and profiling results that can be obtained in <span class="argument">result</span> are shown in the following table.<TABLE><TR><th>NN_GX_PROFILING_BUSY</th><TD>Gets the profiling results stored in busy counters. Gets the busy count for each module since profiling started.  A 16-bit busy count is obtained for each module. <tt>result</tt> specifies a buffer for storing four <tt>GLuint</tt> type values.  Data is stored in the following order.<UL><LI>[31:16] of the first value: Shader processor 0.</LI><LI>[15:0] of the first value: Command buffer and vertex array load module.</LI><LI>[31:16] of the second value: Rasterization module.</LI><LI>[15:0] of the second value: Triangle setup.</LI><LI>[31:16] of the third value: Fragment lighting.</LI><LI>[15:0] of the third value: Texture unit.</LI><LI>[31:16] of the fourth value: Per fragment operation module.</LI><LI>[15:0] of the fourth value: Texture combiner.</LI></UL></TD></TR><TR><th>NN_GX_PROFILING_VERTEX_SHADER0</th><TD>Gets profiling results for Shader processor <tt>0</tt>. Use the difference between two points because this value is always being counted. <span class="argument">result</span> specifies a buffer for five <tt>GLuint</tt> type values.  Each counter is 32 bits. Data is stored in the following order.<UL><LI>The first value: Jump count in the program counter.</LI><LI>The second value: Clock count for stalls caused by command dependencies.</LI><LI>The third value: Clock count for stalls during address register update (<tt>mova</tt> command execution).</LI><LI>The fourth value: Clock count for stalls when updating the status register (<tt>cmp</tt> command execution).</LI><LI>The fifth value: Clock count for stalls caused by program pre-fetch hit errors.</LI></UL></TD></TR><TR><th>NN_GX_PROFILING_VERTEX_SHADER1</th><TD>Gets profiling results for Shader processor <tt>1</tt>. For more information, see <tt>NN_GX_PROFILING_VERTEX_SHADER0</tt>, which is similar.</TD></TR><TR><th>NN_GX_PROFILING_VERTEX_SHADER2</th><TD>Gets profiling results for Shader processor <tt>2</tt>. For more information, see <tt>NN_GX_PROFILING_VERTEX_SHADER0</tt>, which is similar.</TD></TR><TR><th>NN_GX_PROFILING_VERTEX_SHADER3</th><TD>Gets profiling results for Shader processor <tt>3</tt>. For more information, see <tt>NN_GX_PROFILING_VERTEX_SHADER0</tt>, which is similar.</TD></TR><TR><th>NN_GX_PROFILING_VERTEX_CACHE</th><TD>Gets the number of vertices input into the post-vertex cache. <span class="argument">result</span> specifies a buffer for one <tt>GLuint</tt> type value.  The obtained value is the result of the last rendering by <tt>glDrawElements</tt> (the rendering made by writing <tt>1</tt> into PICA register <tt>0x22F</tt>).  Because the clock is cleared to <tt>0</tt> first for each rendering task, profiling results can always be obtained for the most recently run rendering task.  Even if the rendering task uses the same vertex data, obtained results may vary slightly depending on conditions, such as the timing at which vertex indices were loaded and how busy the last module of the post-vertex cache is.</TD></TR><TR><th>NN_GX_PROFILING_POLYGON</th><TD>Gets the value of the counter storing the I/O polygon count. Use the difference between two points because this value is always being counted.  <span class="argument">result</span> specifies a buffer for three <tt>GLuint</tt> type values. Each counter is 32 bits. Data is stored in the following order.<UL><LI>The first value: I/O vertex count sent for triangle setup.</LI><LI>The second value: The I/O polygon count sent for triangle setup.</LI><LI>The third value: The output polygon count sent for triangle setup.</LI></UL></TD></TR><TR><th>NN_GX_PROFILING_FRAGMENT</th><TD>Gets the value of the counter storing the input fragment count. Use the difference between two points because this value is always being counted. <span class="argument">result</span> specifies a buffer for one <tt>GLuint</tt> type value.  The counter value obtained is a 32-bit value that stores the number of fragments input to the per fragment operation module.</TD></TR><TR><th>NN_GX_PROFILING_MEMORY_ACCESS</th><TD>Gets the number of times the hardware modules have accessed memory. All counter values are 32-bit values, and multiplying these values by 16 produces the actual number of bytes read and written.<UL><LI>The first value: data read on VRAM Channel A via PICA.</LI><LI>The second value: data written on VRAM Channel A via PICA.</LI><LI>The third value: data read on VRAM Channel B via PICA.</LI><LI>The fourth value: data written on VRAM Channel B via PICA.</LI><LI>The fifth value: data read from the command buffer, vertex array, and index array by the module that loads the command buffer and vertex array.</LI><LI>The sixth value: data read from texture memory by the texture unit.</LI><LI>The seventh value: data read from the depth buffer and stencil buffer by the per-fragment operation module.</LI><LI>The eighth value: data written to the depth buffer and stencil buffer by the per-fragment operation manual.</LI><LI>The ninth value: data read from the color buffer by the per fragment operation module.</LI><LI>The tenth value: data written to the color buffer by the per fragment operation module.</LI><LI>The eleventh value: data read from the display buffer by the upper screen LCD controller.</LI><LI>The twelfth value: data read from the display buffer by the lower screen LCD controller.</LI><LI>The thirteenth value: data read by the post transfer module.</LI><LI>The fourteenth value: data read by the post transfer module.</LI><LI>The fifteenth value: Data written to buffer by Channel 0 of the memory fill module.</LI><LI>The sixteenth value: Data written to buffer by Channel 1 of the memory fill module.</LI><LI>The seventeenth value: data read from VRAM by <tt>glReadPixels</tt> and similar functions.</LI><LI>The eighteenth value: data written to VRAM by DMA transfer.</LI></UL></TD></TR></TABLE><p>Each counter rolls over to zero upon overflow.  The busy counter starts counting from 0 when profiling starts. Although the vertex cache input vertex count counter counts from zero for each render, the other counters are reset to zero at hardware reset and then they count continuously.  Counters that run continuously can be used to get profiling results for the interval you want to measure by referring to the difference in values between two points in time.  The number of data items returned in <span class="argument">result</span> (in other words, the size of buffer specified for <span class="argument">result</span>) depends on <span class="argument">item</span>.  The buffer size (measured in terms of the number of <tt>GLuint</tt> type values to be stored, rather than in bytes) required for <span class="argument">result</span> is defined by a macro.  It is defined using names of the form <tt>NN_GX_PROFILING_RESULT_BUFSIZE_***</tt> for <tt>NN_GX_PROFILING_***</tt> items.  For example, if <tt>NN_GX_PROFILING_BUSY</tt> is specified in <span class="argument">item</span>, the buffer specified in <span class="argument">result</span> must be able to store the number of <tt>GLuint</tt> type values defined by <tt>NN_GX_PROFILING_RESULT_BUFSIZE_BUSY</tt>.</p><p>Do not call this function while the GPU is executing (executing a command list).  Although errors do not occur if this function is called during GPU execution, the GPU may perform illegal operations.</p><p>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_80A4_DMP</TH><TD>An illegal value was specified in <tt>item</tt>.</TD></TR></TABLE></p></p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/09/02</dt>
+        <dd><item xmlns="">Revised the description of the memory access counter.</item><br />
+        </dd>
+        <dt>2011/07/28</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

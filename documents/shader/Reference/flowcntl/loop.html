@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>loop - Start loop statement</title>
+  </head>
+  <body>
+    <h1>loop - Start loop statement</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+loop    src
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>src</th>
+          <td>
+            Integer register<br />
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        This is used together with <CODE>endloop</CODE>. It repeatedly executes the instructions between <CODE>loop</CODE> and <CODE>endloop</CODE> according to the contents of the integer register specified by <SPAN class="argument">src</SPAN>.<br /> The integer register comprises a loop count, an initial value for the loop-counter register, and an amount by which to increment the loop-counter register, stored in the count, init, and step components, respectively. (Set the integer register to the <CODE>defi</CODE> instruction or uniform. For more information, see &quot;<a href="../definition/defi.html">defi &ndash; Define integer constants</a>&quot; and &quot;<a href="../preprocess/bind_symbol.html">bind_symbol ( symbol_name , start_index [, end_index] )</a>&quot;.)<br /> The loop-counter register (aL) is initialized when the <CODE>loop</CODE> instruction is executed. When control reaches <CODE>endloop</CODE>, the loop-counter register is incremented by the increment amount and control returns to the <CODE>loop</CODE> instruction.<br /> After this process repeats one time more than the loop count in the integer register, the <CODE>loop</CODE> instruction ends and execution picks up from the next instruction after <CODE>endloop</CODE>.<br />
+      </p>
+      <p class="notice">
+        Up to four <CODE>loop</CODE> instructions can be nested.<br /> If the loop-counter register were incremented by a negative number its value could become less than 0, but in such cases it will be set to 255 due to underflow.<br /> Behavior is undefined if a floating-point constant register is offset by a value of 96 or greater.<br />
+      </p>
+      <p class="warning">
+        There must be at least one instruction between <CODE>loop</CODE> and <CODE>endloop</CODE>.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+for ( int i = 0, aL = src.init ; i < src.count+1 ; i++, aL += src.step )
+{
+    ...
+}
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+defi i0, 10, 0, 1
+
+loop i0
+    add r0, r0, c0[ aL ]    // Add the total of c0, c1, ... , c10 to r0
+endloop
+</pre>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

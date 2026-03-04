@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <title>ConvertColorLookUpTableDataFloatToNative</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/gd/CTR/ProceduralTextureStage/Overview.html">ProceduralTextureStage</a>::<a href="../../../../../nn/gd/CTR/ProceduralTextureStage/Helper/Overview.html">Helper</a>::ConvertColorLookUpTableDataFloatToNative Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../../nnResult/Overview.html">nnResult</a> ConvertColorLookUpTableDataFloatToNative(
+     <a href="../../../../../nn_types/f32.html">f32</a> ** refArray,
+     <a href="../../../../../nn_types/f32.html">f32</a> ** deltaArray,
+     <a href="../../../../../nn_types/u32.html">u32</a> lutSize,
+     <a href="../../../../../nn_types/u32.html">u32</a> * destRef,
+     <a href="../../../../../nn_types/u32.html">u32</a> * destDelta
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>refArray</th>
+          <td>Specifies the color lookup table data. Specifies an array of the four lookup tables R, G, B and A. Set each value in the range from 0.0 through 1.0.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>deltaArray</th>
+          <td>Specifies the color lookup table delta data. Specifies an array of the four lookup tables R, G, B and A. Set each value in the range from -1.0 through 1.0.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>lutSize</th>
+          <td>The table size. valueData and deltaData must have the same table size. Specify lutSize in the range from 1 through 256.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>destRef</th>
+          <td>Specifies the address where the converted data is stored. The size is that specified by lutSize.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>destDelta</th>
+          <td>Specifies the address where the converted lookup data is stored. The size is that specified by lutSize.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td>Some parameters were set to <code>NULL</code>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Converts color lookup table <code>float</code> data to fixed point format.</p><p>refArray and deltaArray are arrays of the four lookup tables R, G. B and A. Each array is the size of the lutSize amount of color component data. <code>refArray[0] = R refArray[1] = G refArray[2] = B refArray[3] = A</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

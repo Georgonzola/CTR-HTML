@@ -1,0 +1,1871 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Build System Development Guide (for High-Level DLLs)</title>
+    <style>
+        h1.left
+        {
+            color: #46f;
+            font-size: 120%;
+        }
+        ul.left, ul.left ul
+        {
+            margin: 0;
+            padding: 0;
+        }
+        ul.left
+        {
+            font-size: 0.8em;
+        }
+        ul.left li
+        {
+            margin: 0;
+            padding: 0;
+            margin-left: 1em;
+            line-height: 1.5em;
+        }
+        ul.left li a
+        {
+            margin: 0;
+            padding: 0;
+        }
+
+        H1
+        {
+            font-weight         : bold;
+            font-size           : 250%;
+            text-align          : left;
+            color               : #46f;
+            margin-bottom       : 0px;
+        }
+
+        H2
+        {
+            font-weight         : normal;
+            font-size           : 180%;
+            margin              : 24pt 0pt 6pt 0pt;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+        }
+
+        H3
+        {
+            font-weight         : bold;
+            font-size           : 120%;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+            width: 75%;
+            margin              : 18pt 0pt 6pt 30pt;
+        }
+
+        H4
+        {
+            font-weight         : bold;
+            font-size           : 100%;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H5
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H6
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        DIV.date
+        {
+            text-align          : right;
+            color               : #46f;
+            margin-bottom       : 30pt;
+            line-height         : 150%;
+        }
+
+        P
+        {
+            margin              : 6pt 0pt 6pt 30pt;
+            line-height         : 150%;
+        }
+
+        OL,UL
+        {
+            margin              : 6pt 0pt;
+            padding-left: 5em;
+        }
+        DL
+        {
+            margin              : 6pt 0pt 6pt 4em;
+        }
+        OL OL, UL UL
+        {
+            margin: 0.5em 0;
+            padding-left: 2em;
+        }
+        table ul
+        {
+          margin: 0.2em 0;
+          padding-left: 1em;
+        }
+
+        DT
+        {
+            font-family         : "Courier New", monospace;
+            margin-top : 0.3em;
+            margin-bottom : 0.3em;
+        }
+        DD
+        {
+            margin-top : 0.3em;
+            margin-bottom : 0.6em;
+        }
+
+        PRE
+        {
+            font-family         : "Courier New", monospace;
+            font-weight         : normal;
+
+            margin              : 0pt 0pt 20pt 50pt;
+            padding             : 2pt 8pt 2pt 8pt;
+            background-color    : #eee;
+
+            border-style        : solid;
+            border-width        : 1px;
+            white-space:     pre-wrap;
+        }
+        em
+        {
+            font-style: normal;
+            color: red;
+        }
+        TABLE
+        {
+            margin-left         : 40pt;
+            margin-bottom       : 20pt;
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        th
+        {
+            white-space: nowrap;
+            border-color: #aaa;
+            background-color: #ccc;
+            font-weight: normal;
+        }
+        TD
+        {
+            font-style          : normal;
+            padding             : 2pt 4pt 2pt 4pt;
+
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        div.footer
+        {
+            border-color: black;
+            padding-top: 0.5em;
+            border-top-style    : solid;
+            border-top-width    : 1px;
+            width:              100%;
+            margin-top: 2em;;
+        }
+        div.footer span
+        {
+            color               : #46f;
+            float: right;
+        }
+        table
+        {
+            border-collapse:    collapse;
+        }
+        ul
+        {
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        DL.history
+        {
+            margin: 1em;
+        }
+        DL.history DT
+        {
+            font-family         : sans-serif;
+            font-weight         : bold;
+            font-size           : 0.8em;
+            margin              : 0px;
+        }
+        DL.history DD
+        {
+            font-size           : 0.9em;
+            margin              : 0px 0px 4px 0px;
+        }
+        .info
+        {
+            color: green;
+        }
+
+    </style>
+    <script type="text/javascript">
+    //<![CDATA[
+        function DeleteRule(index)
+        {
+            var ss = document.styleSheets.item(0);
+
+            if( ss.removeRule )
+            {
+                ss.removeRule(index);
+            }
+            else
+            {
+                ss.deleteRule(index);
+            }
+        }
+        function OnClickAnchor(e, anchor)
+        {
+            window.parent.frames[1].location.hash = anchor;
+
+            if( e.preventDefault )
+            {
+                e.preventDefault();
+            }
+            else
+            {
+                e.returnValue = false;
+            }
+        }
+        function TravLeft(obj)
+        {
+            var ary = new Array();
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var a = c.childNodes.item(0);
+                        var text  = "";
+
+                        var anchor = "name-" + index;
+                        index++;
+
+                        if( a && a.tagName == "A" )
+                        {
+                            text  = a.innerHTML;
+                        }
+                        else
+                        {
+                            text  = c.innerHTML;
+                        }
+
+                        ary.push([c.tagName.substr(1,1), "<a target=\"right\" href=\"?right#" + anchor + "\" onclick=\"OnClickAnchor(event, '" + anchor + "')\">" + text + "</a>"]);
+                    }
+                    else
+                    {
+                        ary = ary.concat(TravLeft(c));
+                    }
+                }
+            }
+
+            return ary;
+        }
+        function TravRight(obj)
+        {
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var anchor = "name-" + index;
+                        index++;
+
+                        c.innerHTML = "<a name=\"" + anchor + "\">" + c.innerHTML + "</a>"
+                    }
+                    else
+                    {
+                        TravRight(c);
+                    }
+                }
+            }
+        }
+        function OnLoad_Left()
+        {
+            var test = TravLeft(document.body);
+            var test2 = "";
+            var level = 2;
+
+            test2 += "<h1 class='left'>" + document.title + "</h1>";
+            test2 += "<ul class='left'>";
+            for( var i in test )
+            {
+                while( test[i][0] > level )
+                {
+                    level++;
+                    test2 += "<ul>";
+                }
+                while( test[i][0] < level )
+                {
+                    level--;
+                    test2 += "</ul>";
+                }
+
+                test2 += "<li>" + test[i][1];
+            }
+            test2 += "</ul>";
+
+            document.body.innerHTML = test2;
+            DeleteRule(0);
+        }
+        function OnLoad_Right()
+        {
+            TravRight(document.body);
+        }
+        function OnLoad_Frame()
+        {
+            var myname = location.pathname.substr(location.pathname.lastIndexOf("/") + 1);
+
+            var f = document.createElement("frameset");
+            var l = document.createElement("frame");
+            var r = document.createElement("frame");
+
+            f.appendChild(l);
+            f.appendChild(r);
+            f.cols = "250,*";
+
+            l.src  = myname + "?left"  + location.hash;
+            r.src  = myname + "?right" + location.hash;
+            l.name = "left";
+            r.name = "right";
+
+            var h = document.documentElement;
+            var b = h.getElementsByTagName("body").item(0);
+
+            h.replaceChild(f, b);
+        }
+
+
+        if( ! window.opera )
+        {
+            var search = location.search;
+
+            if( search == "?left" )
+            {
+                window.onload = OnLoad_Left;
+            }
+            else if( search == "" )
+            {
+                window.onload = OnLoad_Frame;
+            }
+            else if( search == "?right" )
+            {
+                window.onload = OnLoad_Right;
+            }
+
+            if( search != "?right" )
+            {
+                var ss = document.styleSheets.item(0);
+
+                if( ss.addRule )
+                {
+                    ss.addRule("body", "display: none", 0);
+                }
+                else
+                {
+                    ss.insertRule("body {display: none}", 0);
+                }
+            }
+        }
+      //]]>
+    </script>
+  </head>
+  <body><br />
+    <h1>Build System Development Guide (for High-Level DLLs)</h1>
+    <div class="date">(2012/06/22)</div>
+    <h2>Introduction</h2>
+    <h3>About This Document</h3>
+    <p> This document provides the information necessary for those who are using the <CODE>.ro</CODE> format who want to create their own build system that is more advanced and surpasses the capabilities of the build system provided in the SDK.  </p>
+    <ul>
+      <li>XRL file specification </li>
+      <li>Features of the <CODE>makecro</CODE> tool<br />
+      </li>
+      <li>Detailed SDK build steps</li>
+      <li>Important issues, SDK support, strategies, and tips<br />
+      </li>
+    </ul>
+    <p> To make <CODE>.ro</CODE> easy to use, the build system provided in the SDK makes some features unavailable and also has a number of limitations. Creating your own build system allows for flexible adjustments without these limitations.<br />
+    </p>
+    <p>Unlike the <i><a href="BuildSystemDevelopmentGuideForDll.html" target="_parent">Guide to Developing a Build System (for DLLs)</a></i>, this document is not intended to create a particular build system. Rather, it presents information on the parts that you would combine to create your own build system.</p>
+    <h3>Prerequisites</h3>
+    <p> This document assumes an understanding of the build flow with CRO that is used by the build system in the SDK. Before you proceed, please review the <i><a href="DllManual.html" target="_parent">DLL Manual</a></i> and the <i><a href="BuildSystemDevelopmentGuideForDll.html" target="_parent">Build System Development Guide (for DLLs)</a></i>.</p>
+    <p> This document also assumes basic knowledge of <CODE>CTR-SDK</CODE> terms. For a glossary of basic CTR-SDK terms, see <i><a href="../Glossary/Glossary.html">CTR-SDK Glossary</a></i>. </p>
+    <p> Finally, this document assumes some degree of familiarity with ELF. The CTR-SDK does not describe ELF. For more information about ELF, see one of the commercially available books.</p>
+    <h3>Notation Used in This Document</h3>
+    <p>In this document, the names of Windows tools contained in the <CODE>tools/CommandLineTools</CODE> directory are abbreviated by omitting the leading <CODE>ctr_</CODE> and the ending file extension. For example, the abbreviation for <CODE>ctr_makerom32.exe</CODE> is <CODE>makerom</CODE>. </p>
+    <h3>Components</h3>
+    <p><a href="#h2_glossary">Terminology</a> presents descriptions of the terms used in this document.<br />
+    </p>
+    <p>The sections <a href="#h2_xrl">XRL File Specification</a>, <a href="#h2_buildstep">SDK Build Steps</a>, and <a          href="#h2_makecro">Features of the <CODE>makecro</CODE> Tool</a> all describe their topics in detail.<br />
+    </p>
+    <p>The sections <a href="#h2_make_cro">Create the CRO File</a>, <a href="#h2_task">Issues and Support</a> and <a          href="#h2_hint">Strategies and Tips</a> present descriptions of the overall build system, including important considerations for creating CRO with your own build system.</p>
+    <p><a href="#h2_make_crr">Create the CRR File</a> describes how to create the CRR file.</p>
+    <h2><a name="h2_glossary">Terminology</a><br />
+    </h2>
+    <p> This section describes the terminology used in this document. </p>
+    <p> The meanings and usage of terms used in this document may differ from their general meanings and usage, as well as their meaning in other CTR-SDK documentation. </p>
+    <dl>
+      <dt>ELF file</dt>
+      <dd>The file created as a result of compiling or linking source code by the <CODE>ARMCC</CODE> compiler and linker.</dd>
+      <dt>Executable ELF</dt>
+      <dd>An <code>ET_EXEC</code> type ELF file.</dd>
+      <dt>Relocatable ELF</dt>
+      <dd>An <code>ET_REL</code> type ELF file.</dd>
+      <dt>Shared object ELF</dt>
+      <dd>An <code>ET_DYN</code> type ELF file.</dd>
+      <dt>Object file </dt>
+      <dd>A relocatable ELF file obtained as the result of compiling the source code by the compiler.<br />
+      </dd>
+      <dt>Partial link file </dt>
+      <dd>A relocatable ELF file obtained as the result of partial linking by the linker.<br />
+      </dd>
+      <dt>Command file<br />
+      </dt>
+      <dd>A file that specifies command-line options.<br /> The ARMCC tools can read command-line options from a file, rather than from the command line. This feature is used when a number of command-line options are specified.<br />
+      </dd>
+      <dt>Steering file<br />
+      </dt>
+      <dd>A file that specifies operations on symbols with <CODE>armlink</CODE>.</dd>
+      <dt>Build system of the SDK</dt>
+      <dd>Refers to the procedure and mechanism for creating the CRO file, as explained in <i><a href="BuildSystemDevelopmentGuideForDll.html" target="_parent">Build System Development Guide (for DLLs)</a></i>.<br />
+      </dd>
+      <dt>Build steps</dt>
+      <dd>The necessary step-by-step procedure for creating the CRO file and related resources.<br />
+      </dd>
+    </dl>
+    <h2><a name="h2_xrl">XRL File Specification<br /></a></h2>
+    <p>XRL is an XML format file used by <CODE>makecro</CODE>.<br />
+    </p>
+    <h3>Role of the XRL File</h3>
+    <p>The role of the XRL file is to supplement the ELF file by storing information essential for <CODE>.ro</CODE> that is not stored in the ELF file. <CODE>.ro</CODE> requires one XRL file for each module. The XRL file contains information about the symbols exported by the module, and the symbols that are referenced. <CODE>makero</CODE> builds export and reference information based on the information in the XRL file.</p>
+    <p>The XRL file also contains information that helps automate referencing and exporting by tools. By using this information, <CODE>makecro</CODE> can realize features that are required to automate referencing and exporting. </p>
+    <h3>Information in the XRL File </h3>
+    <p>The following information is held in the XRL file.</p>
+    <ul>
+      <li>Module name.<br />
+      </li>
+      <li>List of symbols to reference.</li>
+      <li>List of symbols to export.</li>
+      <li>Export types of symbols to export.<br />
+      </li>
+      <li>Index numbers for symbols to export in <CODE>index</CODE> format.</li>
+      <li>Information for automating referencing and exporting.</li>
+      <ul>
+        <li>Flag that indicates whether the tool performs automatic filtering.</li>
+        <li>Flag that indicates whether to force the references.</li>
+        <li>Flag that indicates whether symbols are functions.</li>
+        <li>Flag that indicates whether an exported symbol is referenced.<br />
+        </li>
+      </ul>
+      <li>Cache for values that can be obtained from other XRL files.</li>
+      <ul>
+        <li>Export types of the symbols to reference.</li>
+        <li>Index numbers for the symbols to reference in <CODE>index</CODE> format.</li>
+        <li>Module name that defines the symbols to reference in <CODE>index</CODE> or <CODE>offset</CODE> format.<br />
+        </li>
+      </ul>
+      <li>Cache for values that can be obtained from ELF files.</li>
+      <ul>
+        <li>Offset information for the symbols to export.<br />
+        </li>
+      </ul>
+    </ul>
+    <h3>Elements and Structure of the XRL File</h3>
+    <p>The XRL file has a simple structure, composed of the following six elements.</p>
+    <ul>
+      <li><code>module</code></li>
+      <li><code>moduleInfo</code></li>
+      <li><code>imports</code></li>
+      <li><code>import</code></li>
+      <li><code>exports</code><br />
+      </li>
+      <li><code>export</code></li>
+    </ul>
+    <p><code>module</code> is the root element, and it contains the <code>moduleInfo</code>, <code>imports</code>, and <code>exports</code> elements.  The <code>imports</code> element contains the <code>import</code> element, and the <code>exports</code>  element contains the <code>export</code> element. This basic structure is fixed. The only differences between XRL files are the attribute values, and the content and numbers of the <code>import</code> and <code>export</code> elements.</p>
+    <pre>module<br />  ├ moduleInfo<br />  ├ imports<br />  │   └ import
+  └ exports<br />      └ import
+</pre>
+    <h4>The module Element</h4>
+    <p>The <code>module</code> element is the root element of the XRL file. As a child element, it has at most one <code>moduleInfo</code> element and one <code>imports</code> element, and any number of <code>exports</code> elements. It does not have an attribute.</p>
+    <pre>&lt;module&gt;<br />    &lt;moduleInfo/&gt;<br />    &lt;imports&gt;
+        ...
+    &lt;/imports&gt;
+    &lt;exports&gt;
+        ...
+    &lt;/exports&gt;
+&lt;/module&gt;
+</pre>
+    <h4>The moduleInfo Element</h4>
+    <p>The <code>moduleInfo</code> element stores information about the overall module. It does not have any child elements. It has the following attributes.</p>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Attribute<br />
+          </th>
+          <th>Value<br />
+          </th>
+          <th>Description<br />
+          </th>
+          <th>Omitted values<br />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th style="white-space: nowrap;">name<br />
+          </th>
+          <td style="white-space: nowrap;">Module name<br />
+          </td>
+          <td>Specifies the name of the shader symbol. <br /> If it is a static module, it must be named as &quot;<code>|static|</code>.&quot;<br />
+          </td>
+          <td style="white-space: nowrap;">(Cannot be omitted.)<br />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pre>    ...
+    &lt;moduleInfo name="SampleModule" /&gt;
+    ...
+</pre>
+    <h4>The imports Element</h4>
+    <p>The <code>imports</code> element is a collection of <code>import</code> elements. As a child element, it can hold any number of <code>import</code> elements. It does not have an attribute.</p>
+    <pre>    ...
+    &lt;imports&gt;
+        &lt;import&gt; ... &lt;/import&gt;
+        &lt;import&gt; ... &lt;/import&gt;
+        &lt;import&gt; ... &lt;/import&gt;
+    &lt;/imports&gt;
+    ...
+</pre>
+    <h4>The import Element</h4>
+    <p>The <code>import</code> element specifies a symbol for which a reference is generated. As its content, the element specifies the name of the symbol for which a reference is generated. Each <code>import</code> element specifies one symbol. Symbol names must be mangled. It has the following attributes.<br />
+    </p>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Attribute<br />
+          </th>
+          <th>Value<br />
+          </th>
+          <th>Description<br />
+          </th>
+          <th>Omitted values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><CODE>auto</CODE><br />
+          </th>
+          <td><CODE>TRUE</CODE> or <CODE>FALSE</CODE><br />
+          </td>
+          <td>Specifies whether the entry was generated automatically by the tool. <CODE>TRUE</CODE> indicates that it was generated automatically.<br />
+          </td>
+          <td><CODE>FALSE</CODE><br />
+          </td>
+        </tr>
+        <tr>
+          <th><CODE>type</CODE><br />
+          </th>
+          <td>Either <code>symbol</code>, <code>index</code>, or <code>offset</code>.<br />
+          </td>
+          <td>Specifies the reference type of the symbol to reference.<br /> <code>symbol</code>, <code>index</code>, and <code>offset</code> correspond respectively to symbol name, index, and offset.</td>
+          <td><code>symbol</code><br />
+          </td>
+        </tr>
+        <tr>
+          <th><CODE>module</CODE><br />
+          </th>
+          <td>Module name<br />
+          </td>
+          <td>Specifies the module that defines the symbol to reference. Use this attribute if the export type of the symbol to reference is either <CODE>index</CODE> or <CODE>offset</CODE>.<br />
+          </td>
+          <td>(None)<br />
+          </td>
+        </tr>
+        <tr>
+          <th><CODE>index</CODE><br />
+          </th>
+          <td>A decimal number.<br />
+          </td>
+          <td>Stores the index number of the symbol to reference. Use this attribute if the export type of the symbol to reference is <CODE>index</CODE>.<br />
+          </td>
+          <td style="white-space: nowrap;">(None)</td>
+        </tr>
+        <tr>
+          <th><CODE>force</CODE><br />
+          </th>
+          <td><CODE>TRUE</CODE> or <CODE>FALSE</CODE><br />
+          </td>
+          <td>Specifies whether to force the reference. <CODE>TRUE</CODE> indicates that the reference is forced.<br />
+          </td>
+          <td><CODE>FALSE</CODE><br />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pre>    ...
+    &lt;import auto="false" type="symbol" module="SampleModule" index="11" force="false"&gt;g_Variable&lt;/import&gt;
+    ...
+</pre>
+    <h4>The exports Element</h4>
+    <p>The <code>exports</code> element is a collection of <code>export</code> elements. It has an arbitrary number of <code>export</code> child elements. It has the following attributes.<br />
+    </p>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Attribute<br />
+          </th>
+          <th>Value<br />
+          </th>
+          <th>Description<br />
+          </th>
+          <th>Omitted values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><CODE>type</CODE><br />
+          </th>
+          <td>Either <code>symbol</code>, <code>index</code>, or <code>offset</code>.<br />
+          </td>
+          <td>Specifies the export type of the symbol to export.<br /> <code>symbol</code>, <code>index</code>, and <code>offset</code> correspond respectively to symbol name, index, and offset.<br />
+          </td>
+          <td><code>symbol</code><br />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pre>    ...
+    &lt;exports type="index"&gt;
+        &lt;export&gt; ... &lt;/export&gt;
+        &lt;export&gt; ... &lt;/export&gt;
+        &lt;export&gt; ... &lt;/export&gt;
+    &lt;/exports&gt;
+    ...
+</pre>
+    <h4>The export Element
+    </h4>
+    <p>The <code>export</code> element specifies a symbol that is exported. This element specifies a symbol name to export. Each <code>export</code> element specifies one symbol. Symbol names must be mangled. It has the following attributes.<br />
+    </p>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Attribute<br />
+          </th>
+          <th>Value<br />
+          </th>
+          <th>Description<br />
+          </th>
+          <th>Omitted values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><CODE>auto</CODE><br />
+          </th>
+          <td><CODE>TRUE</CODE> or <CODE>FALSE</CODE> </td>
+          <td>Specifies whether the entry was generated automatically by the tool. <CODE>TRUE</CODE> indicates that it was generated automatically. </td>
+          <td><CODE>FALSE</CODE><br />
+          </td>
+        </tr>
+        <tr>
+          <th><CODE>function</CODE><br />
+          </th>
+          <td><CODE>TRUE</CODE> or <CODE>FALSE</CODE><br />
+          </td>
+          <td>Specifies whether the symbol is a function. <CODE>TRUE</CODE> indicates that it is a function.<br />
+          </td>
+          <td><CODE>FALSE</CODE><br />
+          </td>
+        </tr>
+        <tr>
+          <th><CODE>reference</CODE><br />
+          </th>
+          <td><CODE>TRUE</CODE> or <CODE>FALSE</CODE><br />
+          </td>
+          <td>Indicates whether the symbol is referenced from another module. <CODE>TRUE</CODE> indicates that it is referenced.<br />
+          </td>
+          <td><CODE>TRUE</CODE><br />
+          </td>
+        </tr>
+        <tr>
+          <th><CODE>index</CODE><br />
+          </th>
+          <td>A decimal number.<br />
+          </td>
+          <td>Specifies the index to use for exporting the symbol. Use this attribute if the export type of the symbol is <CODE>index</CODE>.<br />
+          </td>
+          <td>(None)<br />
+          </td>
+        </tr>
+        <tr>
+          <th><CODE>section</CODE><br />
+          </th>
+          <td>A decimal number.<br />
+          </td>
+          <td>Specifies the number of the section where the symbol is defined. Use this attribute if the export type of the symbol is <CODE>offset</CODE>.</td>
+          <td style="white-space: nowrap;">(None)<br />
+          </td>
+        </tr>
+        <tr>
+          <th><CODE>offset</CODE><br />
+          </th>
+          <td>A hexadecimal number.<br />
+          </td>
+          <td>Specifies the offset of the symbol definition location. Use this attribute if the export type of the symbol is <CODE>offset</CODE>.<br />
+          </td>
+          <td>(None)</td>
+        </tr>
+      </tbody>
+    </table>
+    <pre>    ...
+    &lt;export auto="false" function="false" reference="true" section="1" offset="00123456"&gt;g_Variable&lt;/export&gt;
+    ...
+</pre>
+    <h2><a name="h2_buildstep">SDK Build Steps</a></h2>
+    <p> This section describes the purpose of each build step in the SDK-conforming build system that is described in the <i><a href="BuildSystemDevelopmentGuideForDll.html" target="_parent">Build System Development Guide (for DLLs)</a></i>.</p>
+    <h3>Summary<br />
+    </h3>
+    <p>The SDK build system is designed for easy use of <CODE>.ro</CODE>. To that end, it completes the following tasks.</p>
+    <ul>
+      <li>It automatically determines which symbols should be exported, and exports them.</li>
+      <li>It automatically determines which symbols should be referenced, and converts them to references.</li>
+    </ul>
+    <p> To complete these tasks, the SDK build system performs the following steps.</p>
+    <ul>
+      <li>Create a list of all symbols defined by the modules.<br />
+      </li>
+      <li>Create a list of all undefined symbols referenced by the modules.</li>
+      <li>Search out and reference the modules that have the definitions for these undefined symbols.</li>
+      <li>Export the symbols that are referenced from other modules.</li>
+    </ul>
+    <p> The general flow is as follows: </p>
+    <ol>
+      <li>Partially link module code.<br /> ↓<br />
+      </li>
+      <li>Create a list of symbols from the partial link file.<br /> ↓ </li>
+      <li>Compare references among modules, and select the references to export.<br /> ↓ </li>
+      <li>Create a command file with instructions for exporting and referencing for the linker.<br /> ↓ </li>
+      <li>Use this created command file to link.<br /> ↓ </li>
+      <li>Create the CRO file.</li>
+    </ol>
+    <p>
+    </p>
+    <h3><a name="partial_link">Partial Linking</a></h3>
+    <p> Partially link the object files that include the modules and combine them into a single ELF file that you can use in the next step to create a list of symbols. <br />
+    </p>
+    <p>The goal is to create a list with all of the symbols, but some symbols will be missing because of optimization and dead-code stripping of executable ELF files (such as those created by <a href="#link_static_module">linking static modules</a> and <a href="#link_dynamic_module">linking dynamic modules</a>) and shared object ELF files. That is why partial linking is necessary.</p>
+    <p>To shorten processing time in the next step, the SDK libraries are removed from the targets of the linking. <br />
+    </p>
+    <h3><a name="listup">Create the List of Symbols</a></h3>
+    <p>Create an XRL file from the partial link file that was created in the previous step.</p>
+    <p>Check for symbols defined in the partial link file, and for symbols with undefined references. Then create an XRL file, with the defined symbols set in <CODE>export</CODE> elements, and the undefined elements set in <CODE>import</CODE> elements.</p>
+    <p>For automatic export and referencing of symbols, list the symbols that can be provided by the modules, and all necessary symbols.<br />
+    </p>
+    <h3><a name="merge_undefined_symbol">Merge Undefined Symbols</a></h3>
+    <p>Update the XRL file of the static module so that symbols that are referenced but not defined in any module are exported in the static module.<br />
+    </p>
+    <p>Check the XRL files for all modules. If there are symbols in the <CODE>import</CODE> elements that are not in the <CODE>export</CODE> elements of any of the modules, add those symbols to the <CODE>export</CODE> element of the static module XRL file. The following symbols are targeted.</p>
+    <ol>
+      <li>CRT symbols</li>
+      <li>SDK and other library symbols<br />
+      </li>
+      <li>Truly undefined symbols, because of a mistake or other reason</li>
+    </ol>
+    <p> If the target symbols are from group 1 or 2, they can be exported in the static module, because in the later step to <a href="#make_command_file">create a command file</a> the symbols are incorporated into the static module. If the target symbols are from group 3, they generate a link error because they cannot be found among the symbols that are supposed to be exported when <a href="#link_static_module">linking the static module</a>. The generation of a link error helps to catch mistakes earlier in the process, because undefined symbols do not result in a link error when linking the dynamic module.</p>
+    <p>If CRT symbols cannot be listed when you <a href="#listup">create the list of symbols</a>, or if you do not list SDK symbols to shorten processing time, then these symbols are undefined in the XRL file even if they are referenced. As a result, when you resolve symbol references during the next step, an undefined symbol error occurs.</p>
+    <p>Assuming that CRT symbols are included in the static module, and that the undefined symbols are among the three groups mentioned previously, you can handle this error by updating the XRL file of the static module so that these symbols can be provided from the static module.</p>
+    <p>This process also collects information for recognizing the CRT symbols that should be loaded by the static module when <a href="#make_command_file">creating the command file</a>.<br />
+    </p>
+    <h3><a name="resolve_reference">Resolve Symbol References</a></h3>
+    <p>For the symbols referenced by the various modules, determine the module that defines each symbol, and register these reference sources in the XRL file. To reference a symbol you need its export type, so you should also register the export type in the XRL file.</p>
+    <p>At the same time, register the symbols that are defined by a module that are referenced by another module. Only the symbols that are registered as referenced by a module are exported. Symbols that are not referenced by any module become the targets of dead-code stripping. If the export type is <CODE>index</CODE>, assign an index number to the symbol that is referenced.<br />
+    </p>
+    <p>To <a href="#force_reference">force the references</a>, register the variable symbols that are defined in multiple modules. For variable symbols that are defined in multiple dynamic modules, delete the definitions in the <CODE>export</CODE> elements and add them to the <CODE>import</CODE> elements. In the static module, add the symbol definitions unconditionally to the <CODE>export</CODE> elements. This recommendation assumes that the static module holds the definitions for multiply defined symbols.<br />
+    </p>
+    <h3><a name="make_command_file">Create the Command File</a></h3>
+    <p>Create a command file for the linker to load the CRT symbols into the static module. </p>
+    <p>Some CRT symbols cannot be exported in the same way as other symbols. To export these symbols, you need to specify the linker option <code>--undefined_and_export</code> for each symbol that you are exporting. An <code>--undefined_and_export</code> option is generated for each symbol and exported as a command file. The phrase &quot;<I>some CRT symbols</I>&quot; is indeterminate and could change. Further, specifying the <code> --undefined_and_export</code> option for normal export symbols has no adverse effect. For these reasons, set this option for all export symbols in the static module.</p>
+    <h3><a name="make_stearing_file">Create Steering Files</a></h3>
+    <p>Create a steering file for the linker to export and reference symbols. </p>
+    <p>When symbols are exported and referenced automatically, the actual exporting and referencing occurs at link time. The steering file specifies the exporting and referencing of symbols to the linker at link time. In this step, the steering file is created for this purpose. In the steering file, <code>EXPORT</code> specifies a symbol for export, and <code>IMPORT</code> specifies a symbol for referencing.</p>
+    <p>Create the steering file based on the XRL file after <a href="#resolve_reference">resolving symbol references</a>. Specify <code>EXPORT</code> for the symbols in the <CODE>export</CODE> elements that were registered as referenced from a module, and specify <code>IMPORT</code> for the symbols in the <CODE>import</CODE> elements.<br />
+    </p>
+    <h3><a name="link_static_module">Link the Static Module</a></h3>
+    <p>Link and create the ELF file for the static module. Specify <a href="#make_command_file">the created command file</a> and <a href="#make_stearing_file">the created steering file</a>.</p>
+    <p>This step creates an ELF file that contains the appropriate definitions for CRT symbols and SDK library symbols, and the appropriate settings for symbol exporting and referencing.<br />
+    </p>
+    <p>The static module is created as an executable ELF file.<br />
+    </p>
+    <h3><a name="link_dynamic_module">Link Dynamic Modules</a></h3>
+    <p>Link and create an ELF file for the dynamic modules. Specify <a href="#make_stearing_file">the created steering file</a>.</p>
+    <p>This step creates an ELF file with the appropriate settings for symbol exporting and referencing.<br />
+    </p>
+    <p>The dynamic modules are created as a shared object ELF file.</p>
+    <h3><a name="replace_reference">Replace References</a></h3>
+    <p>Replace code in the static module so that references to unlinked symbols reference <CODE>nnroUnresolved</CODE> instead.</p>
+    <h3><a name="make_command_file2">Create Command File 2</a></h3>
+    <p>Create a command file for <code>fromelf</code> to force the reference to the static modules for variable symbols that are multiply defined.</p>
+    <p>Variables such as class member variables for the template class have a definition in every module, and they are linked so that the definition inside a module is used from inside that module. Therefore, what is essentially a single variable is defined as multiple variables, and processes do not work as expected. To avoid this problem, perform the next step to <a          href="#force_reference">force the references</a> so that every module references the definition in the static module. In this step, a command file is created for that purpose. </p>
+    <p>To force the references, specify the <code>--force_import</code> option for each symbol. A <code>--force_import</code> option is generated for every symbol marked in the <a href="#resolve_reference">Resolve Symbol References</a> step, and this is exported as a command file.<br />
+    </p>
+    <h3><a name="force_reference">Force References</a></h3>
+    <p>Update the ELF file for the static module, specifying the command file that was created in the previous step (<a href="#make_command_file2">command file 2</a>).</p>
+    <p>This step ensures that the symbols in the static module are referenced wherever multiply defined symbols are used.<br />
+    </p>
+    <h3><a name="resolved_offset">Resolve Offsets</a></h3>
+    <p>Get the offsets for exported symbols from each ELF file, and register them in the XRL file.</p>
+    <p>To reference a symbol of export type <CODE>offset</CODE>, you need the symbol offset. In this step, you request cache the offset for each symbol so that it is available as needed from other modules.</p>
+    <p>This step ensures that even if symbols of export type <CODE>offset</CODE> are referenced, you can create the CRO file without the ELF file of the referencing module.<br />
+    </p>
+    <h3><a name="make_crs">Create the CRS File</a></h3>
+    <p>Create the CRS file from the ELF file of the static module, and also create the corresponding XRL files and all other XRL files.</p>
+    <p>The XRL files that do not correspond to the static module are used to reference the offsets of the symbols that are referenced.<br />
+    </p>
+    <h3><a name="make_cro">Create the CRO File</a></h3>
+    <p>Create the CRO file from the ELF file of the dynamic modules, and also create the corresponding XRL files and all other XRL files. Create the RLT file at the same time.<br />
+    </p>
+    <p>The XRL files that do not correspond to the CRO file that is created are used to reference the offsets of the symbols that are referenced.</p>
+    <h3><a name="make_crr">Create the CRR File</a></h3>
+    <p>Create the CRR file from the RLT file. </p>
+    <h2><a name="h2_makecro">Features of the makecro Tool</a></h2>
+    <p>This section provides a detailed description of the features of the <CODE><a href="../../tools/ctr_makecro.html">makecro</a></CODE> tool.<br />
+    </p>
+    <h3>Create the CRO or CRS File</h3>
+    <p>Creates a CRO file or CRS file from the ELF files and the XRL files.</p>
+    <p>The type of the ELF file determines whether the created file is a CRO or CRS file. If it is an executable ELF file, the tool creates a CRS file. If it is a shared object ELF file, a CRO file is created.<br />
+    </p>
+    <p>The following symbols become export symbols.</p>
+    <ul>
+      <li>Symbols in the static symbol table of the ELF file that satisfy the following conditions.</li>
+      <ul>
+        <li>Not undefined.</li>
+        <li>The binding is <code>STB_GLOBAL</code> or <code>STB_WEAK</code>.<br />
+        </li>
+        <li>Visibility is <code>STV_DEFAULT</code>.<br />
+        </li>
+      </ul>
+    </ul>
+    <p>The following symbols become reference symbols.</p>
+    <ul>
+      <li>Symbols in the static symbol table of the ELF file that satisfy the following conditions.
+        <ul>
+          <li>Undefined.</li>
+          <li>Referenced from dynamic relocation tables.</li>
+        </ul>
+        An error results if the <CODE>import</CODE> element of a corresponding symbol is not in the XRL file.<br />
+      </li>
+    </ul>
+    <p>Note that the XRL file has nothing to do with whether a symbol is for export or for referencing. The XRL file is used to reference the export types of symbols and their index or offset values.<br />
+    </p>
+    <p>In the SDK build system, this feature is used for the <a href="#make_cro">Create the CRO File</a> and <a href="#make_crs">Create the CRS File</a> steps.<br />
+    </p>
+    <h3>Create the XRL File (-l)</h3>
+    <p>Creates an XRL file from the ELF files, based on the symbols that are defined and referenced in the ELF files.</p>
+    <p>The following processes are performed.</p>
+    <ol>
+      <li>Creates a list of symbols in the ELF symbol table, excluding the debugging symbols.<br />
+      </li>
+      <li>Creates a list of the symbols from the first list that are not set to <code>STB_LOCAL</code> binding and are undefined.</li>
+      <li>Creates a list of the symbols from the first list that are not set to <code>STB_LOCAL</code> binding and are not undefined.</li>
+      <li>Creates and exports the following kind of XRL file.</li>
+      <ol>
+        <li>The root contains the <code>module</code> element.</li>
+        <li>The <code>module</code> element contains one <CODE>moduleInfo</CODE> element, one <CODE>imports</CODE> element, and one <CODE>exports</CODE> element.</li>
+        <li>The <code>name</code> attribute of the <CODE>moduleInfo</CODE> element is set to the filename of the ELF file without the extension.</li>
+        <li>The <CODE>imports</CODE> element contains <CODE>import</CODE> elements that contain the names of each symbol that is listed in the second list.</li>
+        <li>For each <CODE>import</CODE> element, the <CODE>auto</CODE> attribute is set to <CODE>FALSE</CODE> if the corresponding symbol is set to <code>STV_DEFAULT</code> in the ELF symbol table. Otherwise, the <CODE>auto</CODE> attribute is set to <CODE>TRUE</CODE>.</li>
+        <li>The  <CODE>exports</CODE> element has a <CODE>type</CODE> attribute that is set based on the specification of a command line option, and it contains <CODE>export</CODE> elements that contain the names of each symbol listed in the third list.</li>
+        <li>For each <CODE>export</CODE> element, the <CODE>auto</CODE> attribute is set to <CODE>FALSE</CODE> if the corresponding symbol is set to <code>STV_PROTECTED</code> in the ELF symbol table. Otherwise, the <CODE>auto</CODE> attribute is set to <CODE>TRUE</CODE>.</li>
+        <li>Each <CODE>export</CODE> element is set to <CODE>TRUE</CODE> if its corresponding symbol is type <code>STT_FUNC</code>. Otherwise, it is set to <CODE>FALSE</CODE>.
+        </li>
+      </ol>
+    </ol>
+    <p>In the SDK build system, this feature is used for the <a href="#listup">Create the List of Symbols</a> step.<br />
+    </p>
+    <h3>Replace Unresolved Symbols (-u)</h3>
+    <p>Creates one ELF file from another ELF file, using a specified symbol address to replace parts of the code where the addresses of unresolved symbols were used.</p>
+    <p>In the SDK build system, this feature is used for the <a href="#replace_reference">Replace References</a> step.</p>
+    <h3>Merge Undefined Symbols (-c)</h3>
+    <p>Takes one XRL file that serves as the base (the <i>base XRL file</i>) and several other XRL files (the <i>reference XRL files</i>), and uses them to create an XRL file with many <CODE>export</CODE> elements added to the base.</p>
+    <p>The following processes are performed.</p>
+    <ol>
+      <li>Creates a list of the <CODE>import</CODE> elements in the reference XRL files that set their <CODE>auto</CODE> attribute to <CODE>TRUE</CODE> and do not exist with the same symbol name in the <CODE>export</CODE> elements of the specified base XRL file.</li>
+      <li>Creates and exports an XRL file that has the following kinds of additions to the base XRL file.<br />
+      </li>
+      <ol>
+        <li>Symbols from the list created in step 1 are added to the <CODE>export</CODE> elements. But the symbols are not added if they already exist as <CODE>export</CODE> elements in the base XRL file.<br />
+        </li>
+        <li><CODE>import</CODE> elements with their <CODE>auto</CODE> attribute set to <CODE>TRUE</CODE> are deleted.<br />
+        </li>
+      </ol>
+    </ol>
+    <p>In the SDK build system, this feature is used for the <a href="#merge_undefined_symbol">Merge Undefined Symbols</a> step.<br />
+    </p>
+    <h3>Resolve References (-f)</h3>
+    <p>Takes one XRL file that serves as the base (the <i>base XRL file</i>) and several other XRL files (the <i>reference XRL files</i>), and uses them to create an XRL file with updated reference information and export information.</p>
+    <p>The following processes are performed.</p>
+    <ol>
+      <li>Performs the following processes on all <CODE>export</CODE> elements that are contained in all specified XRL files.</li>
+      <ol>
+        <li>Search the specified XRL files for symbols of the same names that are contained in the <CODE>import</CODE> elements.</li>
+        <li>If no symbols are found, set the <code>reference</code> attribute of the <CODE>export</CODE> elements to <CODE>FALSE</CODE>.</li>
+      </ol>
+      <li>Performs the following processes on <CODE>exports</CODE> elements that are contained in all specified XRL files for which the <CODE>type</CODE> attribute is set to <CODE>index</CODE>.</li>
+      <ol>
+        <li>Create a list of all child <CODE>export</CODE> elements with a <code>reference</code> attribute set to <CODE>TRUE</CODE>.</li>
+        <li>Set the <CODE>index</CODE> attribute values for the <CODE>export</CODE> elements that are listed in step 1 to numeric values, starting with 0 and incrementing by one in the order that they are listed.<br />
+        </li>
+      </ol>
+      <li>Performs the following processes on all <CODE>import</CODE> elements that are contained in all specified XRL files.
+        <ol>
+          <li>Search the specified XRL files for symbols with the same names as the symbols contained in the <CODE>export</CODE> elements.</li>
+          <li>Generate an error if no symbols are found in step 1.<br />
+          </li>
+          <li>Set the <CODE>type</CODE> attribute of the original <CODE>import</CODE> element to the <CODE>type</CODE> attribute of the <CODE>exports</CODE> element that contains the <CODE>export</CODE> element found in step 1.</li>
+          <li>If the <CODE>type</CODE> attribute of the <CODE>exports</CODE> element that contains the <CODE>export</CODE> element found in step 1 is <CODE>index</CODE>, then set the <CODE>index</CODE> attribute of the original <CODE>import</CODE> element to the <CODE>index</CODE> attribute of the <CODE>export</CODE> element.</li>
+          <li>Set the value of the <CODE>module</CODE> attribute of the original <CODE>import</CODE> element to the value of the <CODE>name</CODE> attribute of the <CODE>moduleInfo</CODE> element in the XRL file that contains the <CODE>export</CODE> element found in step 1.</li>
+        </ol>
+      </li>
+      <li>Exports the XRL file that results from making these changes to the base XRL file.</li>
+    </ol>
+    <p>In the SDK build system, this feature is used for the <a href="#resolve_reference">Resolve References</a> step.<br />
+    </p>
+    <h3>Merge (-m)</h3>
+    <p>Merges the contents of two XRL files.</p>
+    <p>The merging uses the following rules.</p>
+    <ul>
+      <li>If the <CODE>name</CODE> attribute of the <code>moduleInfo</code> element is specified on the command line, use that value. If not, use the value of the XRL file that is specified first on the command line.<br />
+      </li>
+      <li>If the <CODE>-g</CODE> option is specified and the same symbol is defined in both files, perform the following steps.</li>
+      <ul>
+        <li>If the <CODE>auto</CODE> attribute of the <CODE>import</CODE> element is <CODE>TRUE</CODE> in both files, set the value for the attribute of the merged file to <CODE>TRUE</CODE>. Otherwise, set the value to <CODE>FALSE</CODE>.</li>
+        <li>If the <CODE>auto</CODE> attribute of the <CODE>export</CODE> element is <CODE>TRUE</CODE> in both files, set the value to <CODE>TRUE</CODE>. Otherwise, set the value to <CODE>FALSE</CODE>.</li>
+        <li>For all other attributes, use the value in the XRL file that is specified first on the command line.<br />
+        </li>
+      </ul>
+      <li>Generate an error if the <CODE>reference</CODE> attribute is set for the <CODE>export</CODE> element.</li>
+    </ul>
+    <p>This feature is not used in the SDK build system.<br />
+    </p>
+    <h3>Register Offsets (-p)</h3>
+    <p>Creates an XRL file with offsets provided from the ELF and XRL files.</p>
+    <p>The following processes are performed.</p>
+    <ol>
+      <li>Creates a list of <CODE>export</CODE> elements in the specified XRL files that have the <CODE>reference</CODE> attribute set to <CODE>TRUE</CODE>.</li>
+      <li>For each symbol in this list, gets the section number and the offset from the start of the section, as defined for the symbol in the ELF file.</li>
+      <li>Creates an XRL file from the specified XRL files, with the values obtained in step 2 set for the <CODE>section</CODE> and <CODE>offset</CODE> attributes of the <CODE>export</CODE> element for each symbol in the list.
+      </li>
+    </ol>
+    <p>In the SDK build system, this feature is used for the <a href="#resolved_offset">Resolve Offsets</a> step.<br />
+    </p>
+    <h3>Create the Steering File (-s)</h3>
+    <p>Creates a steering file for <CODE>armlink</CODE> from the XRL file.</p>
+    <p>Creates an <CODE>EXPORT</CODE> command for the <CODE>export</CODE> elements in the XRL file that have the <CODE>reference</CODE> attribute set to <CODE>TRUE</CODE>, and creates an <CODE>IMPORT</CODE> command for all <CODE>import</CODE> elements.<br />
+    </p>
+    <p>In the SDK build system, this feature is used for the <a href="#make_stearing_file">Create Steering File</a> step.<br />
+    </p>
+    <h3>Create a Command File to Force Export (-x)</h3>
+    <p>Creates a command file for <CODE>armlink</CODE> from the XRL file.</p>
+    <p>Creates an <CODE>--undefined_and_export</CODE> command for the <CODE>export</CODE> elements in the XRL file that have the <CODE>reference</CODE> attribute set to <CODE>TRUE</CODE>.<br />
+    </p>
+    <p>In the SDK build system, this feature is used for the <a href="#make_command_file">Create Command File</a> step.<br />
+    </p>
+    <h3>Create a Command File to Force Import (-w)</h3>
+    <p>Creates a command file for <CODE>fromelf</CODE> from the XRL file.</p>
+    <p>Creates a <CODE>--force_import</CODE> command for the <CODE>import</CODE> elements in the XRL file that have the <CODE>force</CODE> attribute set to <CODE>TRUE</CODE>.<br />
+    </p>
+    <p>In the SDK build system, this feature is used for the <a href="#make_command_file2">Create Command File 2</a> step.<br /></p>
+    <h3>Relationship Between XRL and makecro Features</h3>
+    <p>This section provides several tables of information that show how the <CODE>makecro</CODE> features use the attribute values of the elements in the XRL files, and the kinds of values that are set as a result.</p>
+    <p>In these tables, <B>Base</B> shows how the attribute values of the base XRL file are used. <B>Input</B> shows how the values of the other XRL files are used. <B>Output</B> shows how the values that are inherited from <B>Base</B> and <B>Input</B> are changed in the XRL file that is created by <CODE>makecro</CODE>. <B>Added</B> shows the values that are set for newly added elements.</p>
+    <p>A dashed line ( <B>--</B> ) in a table indicates that a value is not referenced or not changed. <B>None</B> indicates that no explicit attribute value is set for the element. <br />
+    </p>
+    <h4>import Elements<br />
+    </h4>
+    <table border="1">
+      <tbody>
+        <tr>
+          <th rowspan="1" colspan="2">Feature \ Attribute<br />
+          </th>
+          <th><CODE>auto</CODE><br />
+          </th>
+          <th><CODE>type</CODE><br />
+          </th>
+          <th><CODE>module</CODE><br />
+          </th>
+          <th><CODE>index</CODE><br />
+          </th>
+          <th><CODE>force</CODE><br />
+          </th>
+        </tr>
+        <tr>
+          <th>Create (-l)</th>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td align="center" style="background-color: #eeeeff;">If <code>STV_DEFAULT</code>, then <CODE>FALSE</CODE>.<br />
+          </td>
+          <td align="center" colspan="4" rowspan="1" style="background-color: #eeeeff;">None</td>
+        </tr>
+        <tr>
+          <th rowspan="2" colspan="1">Merge (-m)</th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeeeee;">--<br />
+          </td>
+          <td align="center" rowspan="5" colspan="1" style="background-color: #eeeeee;">--</td>
+          <td align="center" rowspan="5" colspan="1" style="background-color: #eeeeee;">--</td>
+          <td align="center" rowspan="5" colspan="1" style="background-color: #eeeeee;">--</td>
+          <td align="center" rowspan="5" colspan="1" style="background-color: #eeeeee;">--</td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td style="background-color: #eeeeff;">If the <CODE>auto</CODE> attribute values are <CODE>TRUE</CODE> for all <CODE>input</CODE> elements, then <CODE>TRUE</CODE>.</td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="4">Merge Undefined (-c)</th>
+          <th style="background-color: #ddffdd; white-space: nowrap;">Base</th>
+          <td align="center" style="background-color: #ddffdd;">Not exported if <CODE>TRUE</CODE>.<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" colspan="1" rowspan="2" style="background-color: #eeeeee;">--</td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+        </tr>
+        <tr>
+          <th style="background-color: #ddddff;">Added</th>
+          <td align="center" colspan="5" rowspan="1" style="background-color: #ddddff;">None</td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="4">Resolve References (-f)</th>
+          <th style="background-color: #ddffdd;">Base</th>
+          <td align="center" colspan="1" rowspan="3" style="background-color: #eeeeee;">--<br />
+          </td>
+          <td style="background-color: #eeeeee;" rowspan="2" colspan="1"><br />
+          </td>
+          <td style="background-color: #eeeeee;" rowspan="2" colspan="1">--</td>
+          <td align="center" style="background-color: #eeeeee;" rowspan="2"
+
+            colspan="1">--</td>
+          <td align="center" style="background-color: #eeeeee;" colspan="1"
+
+            rowspan="3">--<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeffee;">Input</th>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td align="center" style="background-color: #eeeeff;">Sets the <CODE>type</CODE> for the parent <CODE>exports</CODE> of the corresponding <CODE>export</CODE> element.<br />
+          </td>
+          <td align="center" style="background-color: #eeeeff;">Sets the <CODE>name</CODE> of <CODE>moduleInfo</CODE> for the <CODE>module</CODE> contained in the corresponding <CODE>export</CODE> element.<br />
+          </td>
+          <td style="background-color: #eeeeff;">Sets the <CODE>index</CODE> of the corresponding <CODE>export</CODE> element.<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #ddddff;">Added</th>
+          <td align="center" colspan="4" rowspan="1" style="background-color: #ddddff;">None.<br />
+          </td>
+          <td align="center" style="background-color: #ddddff;"><CODE>TRUE</CODE><br />
+          </td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="2">Offsets (-p)</th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" colspan="1" rowspan="6" style="background-color: #eeeeee;">--</td>
+          <td align="center" rowspan="5" colspan="1" style="background-color: #eeeeee;">--<br />
+          </td>
+          <td align="center" rowspan="5" colspan="1" style="background-color: #eeeeee;">--</td>
+          <td align="center" rowspan="5" colspan="1" style="background-color: #eeeeee;">--</td>
+          <td align="center" rowspan="4" colspan="1" style="background-color: #eeeeee;">--</td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+        </tr>
+        <tr>
+          <th>-s<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+        </tr>
+        <tr>
+          <th>-x<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+        </tr>
+        <tr>
+          <th>-w<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeffee;">Only for those set to <CODE>TRUE</CODE>.</td>
+        </tr>
+        <tr>
+          <th><CODE>.cro</CODE><br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeffee;">Used as the export type of the reference target.</td>
+          <td align="center" colspan="2" rowspan="1" style="background-color: #eeffee;">Used as information for the reference target.</td>
+          <td align="center" style="background-color: #eeeeee;">--</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>export Elements<br />
+    </h4>
+    <table border="1">
+      <tbody>
+        <tr>
+          <th rowspan="1" colspan="2">Feature/Attribute </th>
+          <th><CODE>auto</CODE><br />
+          </th>
+          <th><CODE>function</CODE><br />
+          </th>
+          <th><CODE>reference</CODE><br />
+          </th>
+          <th><CODE>index</CODE><br />
+          </th>
+          <th><CODE>section</CODE><br />
+          </th>
+          <th><CODE>offset</CODE><br />
+          </th>
+        </tr>
+        <tr>
+          <th>Create (-l)</th>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td align="center" style="background-color: #eeeeff;">If <code>STV_PROCETED</code>, then <CODE>FALSE</CODE>.
+          </td>
+          <td align="center" style="background-color: #eeeeff;">If <code>STT_FUNC</code>, then <CODE>TRUE</CODE>.<br />
+          </td>
+          <td align="center" colspan="4" rowspan="1" style="background-color: #eeeeff;">None</td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="2">Merge (-m)</th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeeeee;">--</td>
+          <td align="center" style="background-color: #eeeeee;" colspan="1"
+
+            rowspan="5">--<br />
+          </td>
+          <td style="background-color: #eeffee;">Error if the attribute exists.</td>
+          <td align="center" style="background-color: #eeeeee;" colspan="1"
+
+            rowspan="5">--</td>
+          <td align="center" style="background-color: #eeeeee;" colspan="1"
+
+            rowspan="5">--</td>
+          <td align="center" style="background-color: #eeeeee;" colspan="1"
+
+            rowspan="5">--</td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td style="background-color: #eeeeff;">If the <CODE>auto</CODE> attribute values are <CODE>TRUE</CODE> for all <CODE>input</CODE> elements, then <CODE>TRUE</CODE>.</td>
+          <td align="center" style="background-color: #eeeeee;" colspan="1"
+
+            rowspan="4">--</td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="4">Merge Undefined (-c)</th>
+          <th style="background-color: #ddffdd; white-space: nowrap;">Base</th>
+          <td align="center" colspan="1" rowspan="1" style="background-color: #eeeeee;">--</td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeffee;">If <CODE>FALSE</CODE>, then not a merge target.<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td align="center" style="background-color: #eeeeff;" colspan="1">If the <CODE>auto</CODE> attribute of <CODE>Base</CODE> is <CODE>FALSE</CODE>, then <CODE>FALSE</CODE>.<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #ddddff;">Added</th>
+          <td align="center" style="background-color: #ddddff;"><CODE>TRUE</CODE><br />
+          </td>
+          <td align="center" colspan="5" rowspan="1" style="background-color: #ddddff;">None</td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="4">Resolve References (-f)</th>
+          <th style="background-color: #ddffdd;">Base</th>
+          <td align="center" style="background-color: #ddffdd;" colspan="1">If <CODE>FALSE</CODE>, then the <CODE>reference</CODE> attribute is not set to <CODE>FALSE</CODE>.<br />
+          </td>
+          <td align="center" style="background-color: #ddffdd;" colspan="1">If <CODE>TRUE</CODE>, ignore multiple definitions.<br />
+          </td>
+          <td align="center" style="background-color: #eeeeee;" rowspan="2"
+
+            colspan="1">--</td>
+          <td align="center" style="background-color: #eeeeee;" rowspan="2"
+
+            colspan="1">--</td>
+          <td align="center" style="background-color: #eeeeee;" rowspan="3"
+
+            colspan="1">--<br />
+          </td>
+          <td align="center" style="background-color: #eeeeee;" colspan="1"
+
+            rowspan="3">--</td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeffee;" colspan="1">If <CODE>FALSE</CODE>, then the <CODE>reference</CODE> attribute is not set to <CODE>FALSE</CODE>.</td>
+          <td align="center" style="background-color: #eeffee;" colspan="1">If <CODE>TRUE</CODE>, ignore multiple definitions.</td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td align="center" colspan="1" rowspan="1" style="background-color: #eeeeee;">--<br />
+          </td>
+          <td align="center" style="background-color: #eeeeee;">--</td>
+          <td align="center" style="background-color: #eeeeff;"><CODE>FALSE</CODE> set for those not referenced.</td>
+          <td align="center" style="background-color: #eeeeff;">Serial number set for those referenced.</td>
+        </tr>
+        <tr>
+          <th style="background-color: #ddddff;">Added</th>
+          <td align="center" colspan="6" rowspan="1" style="background-color: #ddddff;">None</td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="2">Offsets (-p)</th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" colspan="1" rowspan="6" style="background-color: #eeeeee;">-- </td>
+          <td align="center" style="background-color: #eeeeee;" rowspan="6">--<br />
+          </td>
+          <td align="center" style="background-color: #eeffee;">Only for those set to <CODE>TRUE</CODE>.</td>
+          <td align="center" style="background-color: #eeeeee;" rowspan="5">--<br />
+          </td>
+          <td align="center" style="background-color: #eeeeee;">--<br />
+          </td>
+          <td align="center" style="background-color: #eeeeee;">--<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td align="center" style="background-color: #eeeeee;" colspan="1">--</td>
+          <td align="center" colspan="2" rowspan="1" style="background-color: #eeeeff;">Set value obtained from ELF.</td>
+        </tr>
+        <tr>
+          <th>-s<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeffee;">Only for those set to <CODE>TRUE</CODE>.</td>
+          <td align="center" style="background-color: #eeeeee;" rowspan="3"
+
+            colspan="1">--</td>
+          <td align="center" style="background-color: #eeeeee;" colspan="1"
+
+            rowspan="3">--</td>
+        </tr>
+        <tr>
+          <th>-x<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeffee;">Only for those set to <CODE>TRUE</CODE>.</td>
+        </tr>
+        <tr>
+          <th>-w<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeeeee;" rowspan="2"
+
+            colspan="1">--</td>
+        </tr>
+        <tr>
+          <th><CODE>.cro</CODE><br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" colspan="3" rowspan="1" style="background-color: #eeffee;">Used as information when exporting.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>moduleInfo Elements and exports Elements</h4>
+    <table border="1">
+      <tbody>
+        <tr>
+          <th rowspan="2" colspan="2">Feature/Attribute </th>
+          <th colspan="1" rowspan="1"><CODE>moduleInfo</CODE><br />
+          </th>
+          <th><CODE>exports</CODE><br />
+          </th>
+        </tr>
+        <tr>
+          <th>name<br />
+          </th>
+          <th><CODE>type</CODE><br />
+          </th>
+        </tr>
+        <tr>
+          <th>Create (-l)</th>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td align="center" style="background-color: #eeeeff;">Set the ELF filename.<br />
+          </td>
+          <td align="center" colspan="1" rowspan="1" style="background-color: #eeeeff;">Set the value specified by the command line.<br />
+          </td>
+        </tr>
+        <tr>
+          <th rowspan="2" colspan="1">Merge (-m)</th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeeeee;">--<br />
+          </td>
+          <td align="center" style="background-color: #eeeeee;" rowspan="5">--<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td style="background-color: #eeeeff;">Set the command line specification or the value of the first input file.</td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="4">Merge Undefined (-c)</th>
+          <th style="background-color: #ddffdd; white-space: nowrap;">Base</th>
+          <td align="center" colspan="1" rowspan="4" style="background-color: #eeeeee;">--<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeffee;">Input</th>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+        </tr>
+        <tr>
+          <th style="background-color: #ddddff;">Add<br />
+          </th>
+          <td style="background-color: #ddddff;">Set the value specified by the command line.<br />
+          </td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="4">Resolve References (-f)</th>
+          <th style="background-color: #ddffdd;">Base</th>
+          <td align="center" style="background-color: #ddffdd;" colspan="1">Use as the value for the <code>module</code> attribute of the <CODE>import</CODE> element.<br />
+          </td>
+          <td align="center" style="background-color: #ddffdd;" rowspan="1"
+
+            colspan="1">Use as the value for the <code>type</code> attribute of the <CODE>import</CODE> element. </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeffee;" colspan="1">Use as the value for the <code>module</code> attribute of the <CODE>import</CODE> element.</td>
+          <td align="center" style="background-color: #eeffee;" rowspan="1"
+
+            colspan="1">Use as the value for the <code>type</code> attribute of the <CODE>import</CODE> element. </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td align="center" style="background-color: #eeeeee;" rowspan="7"
+
+            colspan="1">--</td>
+          <td align="center" style="background-color: #eeeeee;">--<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #ddddff;">Add<br />
+          </th>
+          <td align="center" style="background-color: #ddddff;">None.<br />
+          </td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="2">Offsets (-p)</th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td rowspan="5" colspan="1" style="background-color: #eeeeee;">--<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+        </tr>
+        <tr>
+          <th>-s<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+        </tr>
+        <tr>
+          <th>-x<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+        </tr>
+        <tr>
+          <th>-w<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+        </tr>
+        <tr>
+          <th><CODE>.cro</CODE><br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" colspan="1" rowspan="1" style="background-color: #eeffee;">Use as the module name.<br />
+          </td>
+          <td align="center" colspan="1" rowspan="1" style="background-color: #eeffee;">Use as the export type.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Contents of the import elements and the export elements (symbol names)</h4>
+    <table border="1">
+      <tbody>
+        <tr>
+          <th rowspan="1" colspan="2">Feature/Element </th>
+          <th><CODE>import</CODE><br />
+          </th>
+          <th><CODE>export</CODE></th>
+        </tr>
+        <tr>
+          <th>Create (-l)</th>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td align="center" style="background-color: #eeeeff;">Export the undefined symbols of the ELF file.<br />
+          </td>
+          <td align="center" style="background-color: #eeeeff;">Export the defined symbols of the ELF file.<br />
+          </td>
+        </tr>
+        <tr>
+          <th rowspan="2" colspan="1">Merge (-m)</th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeeeee;">--</td>
+          <td align="center" rowspan="2" colspan="1" style="background-color: #eeeeee;">--</td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td style="background-color: #eeeeff;">Do not export those contained in <CODE>export</CODE>.</td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="4">Merge Undefined (-c)</th>
+          <th style="background-color: #ddffdd; white-space: nowrap;">Base</th>
+          <td align="center" colspan="1" rowspan="1" style="background-color: #eeeeee;">--<br />
+          </td>
+          <td align="center" style="background-color: #ddffdd;">Use for correspondence with <CODE>import</CODE>. </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeffee;">Use for correspondence with <CODE>export</CODE>. </td>
+          <td align="center" colspan="1" rowspan="1" style="background-color: #eeffee;">Use for correspondence with <CODE>import</CODE>.</td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td align="center" style="background-color: #eeeeee;" colspan="1"
+
+            rowspan="2">--<br />
+          </td>
+          <td align="center" style="background-color: #eeeeee;" rowspan="1"
+
+            colspan="1">--<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #ddddff;">Added</th>
+          <td align="center" colspan="1" rowspan="1" style="background-color: #ddddff;">Export undefined symbols.</td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="4">Resolve References (-f)</th>
+          <th style="background-color: #ddffdd;">Base</th>
+          <td align="center" style="background-color: #ddffdd;" colspan="1">Use for correspondence with <CODE>export</CODE>. </td>
+          <td align="center" style="background-color: #ddffdd;" colspan="1">Use for correspondence with <CODE>import</CODE>. </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeffee;" colspan="1">Use for correspondence with <CODE>export</CODE>.</td>
+          <td align="center" style="background-color: #eeffee;" colspan="1">Use for correspondence with <CODE>import</CODE>.</td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+          <td align="center" colspan="1" rowspan="1" style="background-color: #eeeeee;">--</td>
+          <td align="center" rowspan="4" colspan="1" style="background-color: #eeeeee;">--<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #ddddff;">Added</th>
+          <td rowspan="1" style="background-color: #ddddff;">Export multiply defined symbols.<br />
+          </td>
+        </tr>
+        <tr>
+          <th colspan="1" rowspan="2">Offsets (-p)</th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" rowspan="4" colspan="1" style="background-color: #eeeeee;">--<br />
+          </td>
+        </tr>
+        <tr>
+          <th style="background-color: #eeeeff;">Output</th>
+        </tr>
+        <tr>
+          <th>-s<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeffee;">Use for command.<br />
+          </td>
+        </tr>
+        <tr>
+          <th>-x<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" style="background-color: #eeffee;">Use for command.</td>
+        </tr>
+        <tr>
+          <th>-w<br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" colspan="1" rowspan="1" style="background-color: #eeffee;">Use for command.</td>
+          <td align="center" style="background-color: #eeeeee;">--<br />
+          </td>
+        </tr>
+        <tr>
+          <th><CODE>.cro</CODE><br />
+          </th>
+          <th style="background-color: #eeffee;">Input</th>
+          <td align="center" colspan="1" rowspan="1" style="background-color: #eeffee;">Use as a reference.<br />
+          </td>
+          <td align="center" style="background-color: #eeffee;">Use as the <CODE>export</CODE> element.<br />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h2><a name="h2_make_cro">Create the CRO File</a></h2>
+    <p>Before reading the procedure for creating CRO files, review the following description of the structure of CRO files.<br />
+    </p>
+    <h3>The CRO File Structure</h3>
+    <p>The CRO file contains the following information. Values obtained from the XRL files are denoted by <span class="info">[xrl]</span>. Other values are obtained from the ELF file.</p>
+    <ul>
+      <li><span class="info">[xrl]</span> Module name.</li>
+      <li>Executable code.<br />
+      </li>
+      <li>Information for the symbols to export.</li>
+      <ul>
+        <li>Name and relocation information for symbols of export type <CODE>name</CODE>.</li>
+        <li><span class="info">[xrl]</span> Relocation information for symbols of export type <CODE>index</CODE>.</li>
+      </ul>
+      <li>Information for the symbols to reference.</li>
+      <ul>
+        <li>Name for symbols of export type <CODE>name</CODE>.</li>
+        <li><span class="info">[xrl]</span> Module name and index for symbols of export type <CODE>index</CODE>.</li>
+        <li><span class="info">[xrl]</span> Module name, section number, and offset for symbols of export type <CODE>offset</CODE>.</li>
+      </ul>
+      <li>Internal relocation information.</li>
+      <li>External relocation information.</li>
+    </ul>
+    <p>In particular, note the information for the symbols to export and the information for the symbols to reference. You must consider how to configure this particular information. Normally, you do not need to worry about the executable code and the relocation information.<br /> 
+    </p>
+    <p>The CRS file structure is similar, but without the executable code or the internal relocation information.</p>
+    <p>The CRO file is created from a shared object ELF file. Typically the only export type for shared object ELF files is <CODE>name</CODE>. To make up for this limitation, you create the CRO file by getting the additional information that you need for export types <CODE>index</CODE> and <CODE>offset</CODE> from the XRL files. </p>
+    <p>From a different perspective, you can consider the CRO file as a shared object ELF file, but with some or all of the symbol export types changed to <CODE>index</CODE> and <CODE>offset</CODE>.</p>
+    <h3>Minimal Steps</h3>
+    <p>If you have the appropriate XRL files and the appropriate ELF file, you can create a CRO file by simply importing these files and performing the <a href="#make_cro">Create the CRO File</a> step. All other tasks through <a          href="#make_cro">Create the CRO File</a> in the SDK build system are performed to create the appropriate XRL files and the appropriate ELF file.</p>
+    <p>So the minimum build system performs the following steps.</p>
+    <ol>
+      <li>Use <code>NN_DLL_INPORT</code> and <code>NN_DLL_EXPORT</code> in the source code.</li>
+      <li>Create a shared object ELF file.</li>
+      <li>Create an XRL file with the symbols that are referenced listed in <CODE>import</CODE> elements.</li>
+      <li>Using the shared object ELF file and the XRL file, perform the <a href="#make_cro">Create the CRO File</a> step.</li>
+    </ol>
+    <p>or</p>
+    <ol>
+      <li>Create a steering file and an XRL file from the symbols to export and the symbols to reference.<br />
+      </li>
+      <li>Use the steering file of step 1 to create a shared object ELF file.</li>
+      <li>Using the steering file and shared object ELF file, perform the <a href="#make_cro">Create the CRO File</a> step.</li>
+    </ol>
+    <p>This procedure can probably be used without trouble for small modules, but for large and complicated projects it is not realistic. The following section describes issues that arise when you construct a build system to create a CRO file. It also describes the support options in the SDK.<br />
+    </p>
+    <h2><a name="h2_task">Issues and Support</a></h2>
+    <p>If you are going to construct your own mechanism to create the CRO file, you must consider how to handle a number of issues.<br />
+    </p>
+    <h3>Issues That Require Attention</h3>
+    <p>You must deal with the following issues.<br />
+    </p>
+    <h4>Management of Export Symbols and Reference Symbols </h4>
+    <p>You need a way to specify which symbols are for export, and which symbols are for reference. The easiest method is to use <code>NN_DLL_IMPORT</code> and <code>NN_DLL_EXPORT</code>, but these must be managed manually.<br />
+    </p>
+    <h4>Support for CRT Symbols and SDK Symbols</h4>
+    <p>You cannot use <code>NN_DLL_IMPORT</code> and <code>NN_DLL_EXPORT</code> for CRT symbols and SDK symbols. Another procedure is required. Also, the steering file is insufficient for CRT symbols.<br />
+    </p>
+    <h4>Export Types Other Than name</h4>
+    <p>To use <CODE>index</CODE> and <CODE>offset</CODE> as export types, you must specify them in the XRL file.
+    </p>
+    <h4>Support for nnroUnresolved in the Static Module</h4>
+    <p>References to unresolved symbols from dynamic modules are replaced with references to <code>nnroUnresolved</code> when the modules are loaded. However, in the <CODE>.ro</CODE> format DLL mechanism, the static module is loaded in a detached state. This process of replacing references with <code>nnroUnresolved</code> does not occur.
+    </p>
+    <h4>Support for Symbols with Multiple Definitions</h4>
+    <p>C++ allows for multiply defined symbols, and you must handle them.<br />
+    </p>
+    <h3>Support in the SDK</h3>
+    <p>The SDK build system handles these issues in the following ways.</p>
+    <h4>Management of Export Symbols and Reference Symbols </h4>
+    <p>The reference relationships of the various symbols are determined, and a steering file is created for exporting and importing the necessary symbols.</p>
+    <p>The general flow of the build system is as follows:<br />
+    </p>
+    <ol>
+      <li>Perform partial linking. (<a href="#partial_link">Partial Linking</a>)</li>
+      <li>List all defined or referenced symbols in the partially linked ELF file. (<a href="#listup">Create the List of Symbols</a>)<br />
+      </li>
+      <li>Check symbols that are referenced among modules. (<a href="#resolve_reference">Resolve Symbol References</a>)</li>
+      <li>Create a steering file to export symbols that are referenced and to import symbols that are referenced. (<a href="#make_stearing_file">Create Steering File</a>)</li>
+      <li>Apply the linker command file at link time. (<a href="#link_dynamic_module">Link Dynamic Modules</a>)<br />
+      </li>
+    </ol>
+    <h4>Support for CRT Symbols and SDK Symbols</h4>
+    <p>The SDK symbols can be supported by using the previously described method to incorporate the static libraries when partially linking. However, because there are so many SDL libraries, acting to incorporate them all slow downs the process of partial linking and all subsequent steps. Moreover, this method does not support CRT symbols.</p>
+    <p>For these reasons, a different method is employed. A process is performed to update the XRL file so that undefined symbols are set for export by the static module. This method treats undefined symbols as either SDK or CRT symbols, and presumes that the SDK libraries and CRT symbols are defined in the static module. In addition, a command line option is specified for the linker so that these symbols are actually included in the static module.  </p>
+    <p>The flow in the build system is as follows:</p>
+    <ol>
+      <li>Assume that symbols that are not defined in any module are defined by the static module. (<a href="#merge_undefined_symbol">Merge Undefined Symbols</a>)</li>
+      <li>Create a command file for the linker so that symbols that are defined in the libraries are included in the static module. (<a href="#make_command_file">Create Command File</a>)</li>
+      <li>Apply the previously mentioned linker command file at link time. (<a href="#link_static_module">Link Static Module</a>)</li>
+    </ol>
+    <h4>Export Types Other Than name</h4>
+    <p>Information about export types cannot be stored in the ELF file, so everything is done with XRL files. To use export types other than <CODE>name</CODE>, the types must be specified in the XRL file. In addition, the referencing XRL file must store the same export type and related information as the exporting side. </p>
+    <p>The flow in the build system is as follows:</p>
+    <ol>
+      <li>Specify the export type when listing symbols in the XRL file. (<a href="#listup">Create the List of Symbols</a>)</li>
+      <li>Check and retain the export types of referenced symbols and the parameters for referencing. (<a href="#replace_reference">Resolve Symbol References</a>)</li>
+      <li>Get and retain the offset values from the ELF file. (<a href="#resolved_offset">Resolve Offsets</a>)</li>
+      <li>Store the appropriate information for each export type from the information consolidated in the XRL files. (<a href="#make_crs">Create CRS File</a>, <a href="#make_cro">Create the CRO File</a>)<br />
+      </li>
+    </ol>
+    <p>The SDK build system provides only a way to batch-specify export types when creating the list of symbols. By creating the XRL files yourself, you can individually specify the export type for each symbol. </p>
+    <h4>Support for nnroUnresolved in the Static Module</h4>
+    <p>Undefined symbols might be referenced in the static module before any calls to the <CODE>.ro</CODE> library API. Handle this possibility by replacing references that are unresolved in the ELF file with references to <code>nnroUnresolved</code>. (<a href="#replace_reference">Replace References</a>)</p>
+    <h4>Support for Symbols with Multiple Definitions</h4>
+    <p>The simple way to deal with multiply defined symbols is to select one definition and use that definition for all references. However, when a symbol is defined inside a module, the <CODE>ARMCC</CODE> linker references that symbol inside that module and ignores the steering file, even if the steering file specifies the importing of references from inside that module. To handle this, the <CODE>fromelf</CODE> tool, which is included in <CODE>ARMCC</CODE>, is used to force import. </p>
+    <p>The flow in the build system is as follows:</p>
+    <ol>
+      <li>Treat multiply defined symbols as targets for forced import that are defined in the static module. (<a href="#resolve_reference">Resolve Symbol References</a>)</li>
+      <li>Create a command file for <CODE>fromelf</CODE> to force the import of force-import targets. (<a href="#make_command_file2">Create Command File 2</a>)</li>
+      <li>Force import. (<a href="#force_reference">Force References</a>)</li>
+    </ol>
+    <p>With the SDK build system, the actual definitions for multiply defined symbols are held in the static module. But the definitions can be held in another module by using the process that corresponds to <a href="#resolve_reference">Resolve Symbol References</a> to change the module that performs the <a href="#force_reference">Force References</a> step.<br />
+    </p>
+    <h3>Classification of the SDK Build Steps</h3>
+    <p>The table shows each SDK build step and its purpose.</p>
+    <table border="1">
+      <tbody>
+        <tr>
+          <th>Build Step<br />
+          </th>
+          <th>Purpose<br />
+          </th>
+        </tr>
+        <tr>
+          <td><a href="#partial_link">Partial Linking<br /></a></td>
+          <td>Management of export symbols and reference symbols.<br />
+          </td>
+        </tr>
+        <tr>
+          <td><a href="#listup">Create the List of Symbols<br /></a></td>
+          <td>Management of export symbols and reference symbols. </td>
+        </tr>
+        <tr>
+          <td><a href="#merge_undefined_symbol">Merge Undefined Symbols<br /></a></td>
+          <td>Support for CRT symbols and SDK symbols.<br />
+          </td>
+        </tr>
+        <tr>
+          <td><a href="#resolve_reference">Resolve Symbol References<br /></a></td>
+          <td>Management of export symbols and reference symbols.<br />Use of export types other than <CODE>name</CODE>.<br />Support for symbols with multiple definitions. </td>
+        </tr>
+        <tr>
+          <td><a href="#make_command_file">Create the Command File<br /></a></td>
+          <td>Support for CRT symbols and SDK symbols. </td>
+        </tr>
+        <tr>
+          <td><a style="white-space: nowrap;" href="#make_stearing_file">Create Steering Files<br /></a></td>
+          <td>Management of export symbols and reference symbols. </td>
+        </tr>
+        <tr>
+          <td><a href="#link_dynamic_module">Link ELF</a><br />
+          </td>
+          <td>(This is required.)<br />
+          </td>
+        </tr>
+        <tr>
+          <td><a href="#replace_reference">Replace References</a><br />
+          </td>
+          <td>Support for <code>nnroUnresolved</code> in the static module.<br />
+          </td>
+        </tr>
+        <tr>
+          <td><a href="#make_command_file2">Create Command File 2</a><br />
+          </td>
+          <td>Support for symbols with multiple definitions.<br />
+          </td>
+        </tr>
+        <tr>
+          <td><a href="#force_reference">Force References</a><br />
+          </td>
+          <td>Support for symbols with multiple definitions. </td>
+        </tr>
+        <tr>
+          <td><a href="#resolved_offset">Resolve Offsets</a><br />
+          </td>
+          <td>Use of export types other than <CODE>name</CODE>. </td>
+        </tr>
+        <tr>
+          <td><a href="#make_cro">Create the CRO File</a><br />
+          </td>
+          <td>(This is required.)<br />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>SDK Limitations</h3>
+    <p>The SDK build system has a number of limitations to make it simple to use. The following table lists the main limitations of the SDK build system, and the specifications that are possible with <CODE>.ro</CODE>. The specifications that are possible with <CODE>.ro</CODE> are not supported in the SDK build system, so a number of actions must be taken to use them.<br />
+    </p>
+    <table border="1">
+      <tbody>
+        <tr>
+          <th>Subject </th>
+          <th>Limitations in SDK </th>
+          <th>Possible Specifications<br />
+          </th>
+          <th>Issues that Must Be Addressed<br />
+          </th>
+        </tr>
+        <tr>
+          <td>Level at which export type is specified<br />
+          </td>
+          <td>Module level.<br />
+          </td>
+          <td>Symbol level.<br />
+          </td>
+          <td>
+            <ul>
+              <li>How to specify at the symbol level.</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1" rowspan="1">Modules that can hold CRT symbols<br />
+          </td>
+          <td colspan="1" rowspan="1">Static module.<br />
+          </td>
+          <td colspan="1" rowspan="1">Any module.<br />
+          </td>
+          <td>
+            <ul>
+              <li>Proper management of the load status of modules that reference symbols and modules that define symbols. </li>
+              <li> How to specify modules that hold definitions.</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1" rowspan="1">Build level<br />
+          </td>
+          <td colspan="1" rowspan="1">All modules at once.<br />
+          </td>
+          <td colspan="1" rowspan="1">Each module.<br />
+          </td>
+          <td>
+            <ul>
+              <li>Cannot automatically determine referencing and exporting.</li>
+              <li> Modules built later cannot use <CODE>offset</CODE> as the export type. </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1" rowspan="1">Use of the module<br />
+          </td>
+          <td colspan="1" rowspan="1">Requires an environment for builds that include the source.<br />
+          </td>
+          <td colspan="1" rowspan="1">All that is required is the header, XRL, and CRO files.<br />
+          </td>
+          <td>
+            <ul>
+              <li>Cannot automatically determine referencing and exporting.</li>
+              <li>Modules built later cannot use <CODE>offset</CODE> as the export type.  </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1" rowspan="1">Definitions for multiply defined symbols<br />
+          </td>
+          <td colspan="1" rowspan="1">Static module.<br />
+          </td>
+          <td colspan="1" rowspan="1">Any module.<br />
+          </td>
+          <td>
+            <ul>
+              <li>Proper management of the load status of modules that reference symbols and modules that define symbols. </li>
+              <li> How to specify modules that hold definitions.</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h2><a name="h2_hint">Strategies and Tips</a></h2>
+    <h3>Steps</h3>
+    <p>As mentioned in <a href="#make_cro">Create the CRO File</a>, the symbols to reference and the symbols to export in the CRO file are determined by the contents of the ELF file. Your responsibility is to consider how to create an ELF file that meets the objective.</p>
+    <p>The created ELF file is adjusted by using  <code>NN_DLL_EXPORT</code> and <code>NN_DLL_IMPORT</code>, or by using a steering file, but you must still handle special issues such as CRT symbols. You can automate part of these processes by using XRL files and <CODE>makecro</CODE>. Consider how to create the XRL files to achieve the intended results for this part. </p>
+    <p>When you create your build system, think about how you can use XRL files, the <CODE>fromelf</CODE> tool, and other methods to create an ELF file that realizes your objective.</p>
+    <p> </p>
+    <h3>Library DLL</h3>
+    <p><CODE>.ro</CODE> can also be used as a library.</p>
+    <p>As a library, .ro can perform the following tasks.</p>
+    <ul>
+      <li>Begin creation of the static module after completing creation of the dynamic modules.</li>
+      <li>Use a single dynamic module in multiple applications.</li>
+      <li>Use dynamic modules without using the dynamic module source code.</li>
+    </ul>
+    <p> </p>
+    <h4>Requirements</h4>
+    <p>To use these tasks, you must satisfy the following conditions.</p>
+    <ul>
+      <li>Symbols that are referenced from the library dynamic module (such as symbols in the static module) must be of export type <CODE>name</CODE>.<br />(This requirement is because index and offset values cannot be known ahead of time. The library dynamic modules can use export symbols of any export type.)</li>
+      <li>The library dynamic modules must manually select which symbols to export. <br />(This selection cannot be automated because the module that is referencing the symbols does not know what it is referencing.)</li>
+    </ul>
+    <p> These tasks can be performed manually, or you can create a tool for automating the tasks and create the appropriate XRL files to create the library dynamic modules.</p>
+    <h4>Flow<br />
+    </h4>
+    <p>The general process flow is as follows:</p>
+    <ol>
+      <li>Determine which symbols to export.</li>
+      <li>Perform the <a href="#listup">Create the List of Symbols</a> step.</li>
+      <li>Delete symbols which are not exported from the XRL file created in the previous step. </li>
+      <li>Perform the <a href="#make_stearing_file">Create the Steering File</a> step.</li>
+      <li>Perform the <a href="#link_dynamic_module">Link Dynamic Modules</a> step.</li>
+      <li>If necessary, perform the <a href="#resolved_offset">Resolve Offsets</a> step.<br />
+      </li>
+      <li>Perform the <a href="#make_cro">Create the CRO File</a> step.</li>
+    </ol>
+    <p>The following procedure is the general procedure for using a library dynamic module.</p>
+    <ol>
+      <li>Prepare header, XRL, CRO and RLT files for the library dynamic module.</li>
+      <li>Using the library dynamic module header, perform the <a href="#partial_link">Partial Linking</a> step on the modules that use the library dynamic module.</li>
+      <li>Perform the <a href="#listup">Create the List of Symbols</a> and <a href="#merge_undefined_symbol">Merge Undefined Symbols</a> steps on the modules that use the library dynamic module.</li>
+      <li>Perform the <a href="#resolve_reference">Resolve Symbol References</a> step on the modules that use the library dynamic module, including in that step the XRL file of the library dynamic module.<br /> However, do not resolve symbol references for the XRL file of the library dynamic module.</li>
+      <li>All subsequent steps are the same as usual.</li>
+      <li>If necessary, use the XRL file of the library dynamic module when performing the <a href="#make_cro">Create the CRO File</a> step on the modules that use the library dynamic module.</li>
+      <li>Perform the <a href="#make_crr">Create the CRR File</a> step, including the RLT file of the library dynamic module.</li>
+    </ol>
+    <h2><a name="h2_make_crr">Create the CRR File</a></h2>
+    <p>The procedure for creating the CRR file is separated from CRO and has no flexibility. The procedure is very similar to the procedure of the SDK build system.<br />
+    </p>
+    <h3>Relationship Between CRR and CRO</h3>
+    <p>The CRR file is created with the <CODE>makecrr</CODE> tool by using the RLT file, which is created at the same time as the CRO file. The CRR file is made from the RLT file that was generated when CRO was created. The CRO file cannot be loaded at execution time if the CRR file is not loaded first. </p>
+    <p>A number of RLT files can be combined to create a single CRR file. Normally, it is fine to have just one CRR file, as long as it is made from all of the combined RLT files.</p>
+    <h3>Using Multiple CRR Files</h3>
+    <p>The flexibility when creating CRR files depends on the correspondence between RLT and CRR files. As mentioned previously, it is normally fine to create just one CRR file by combining all of the RLT files.</p>
+    <p>You can also create CRR files in a one-to-one relationship with CRO files, but this is not recommended because when you have many CRR files, it affects performance when loading CRO.<br />
+    </p>
+    <p>When sending CRO and CRR files to Download Play child devices when the parent device uses a different CRO file than the child devices, you can create one CRR file for the parent and a separate CRR file for the child devices, and send only the CRR file for the children from the parent to the children. Of course, in such cases the CRR file for the child devices is already included in the child ROM-FS.</p>
+    <h2>Revision History</h2>
+    <dl class="history">
+      <dt>2012/06/22</dt>
+      <dd> Initial version. </dd>
+    </dl>
+    <div class="footer"><span>Build System Development Guide (for High-Level DLLs)</span></div>
+  <hr /><p>CTR-06-0208-011-B<br />CONFIDENTIAL</p></body>
+</HTML>

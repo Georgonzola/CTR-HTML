@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<script type="text/javascript" src="../template/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../template/js/jquery/thickbox3.js"></script>
+<script type="text/javascript" src="../template/js/jquery/swfobject.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/thickbox.css" />
+<script type="text/javascript" src="../template/js/common/manualLib.js"></script>
+<script type="text/javascript" src="../tocData.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/template.css" />
+<title>7. Appendix: Service Token V1 Sample Decoding and Decryption Program</title>
+</head>
+<body data-reassemble="autoindex=no,forceNoLabel=yes,autoindextab=fold">
+<div id="autoindex_content">
+<div class="body_content">
+<noscript>
+<div style="border: 4 double black; margin: 4px; padding: 2px; font-weight: bold; background-color: FFFFCC;">
+<p>Some features in this documentation are unavailable because JavaScript is not enabled in your browser.</p>
+<p>The table of contents is available only if JavaScript is enabled. Enable JavaScript and reload this page.</p>
+</div>
+</noscript>
+
+<!-- 7. 付録 サービストークンV1 デコードサンプルプログラム -->
+<div class="pagetitle" id="PageId_47815127">7. Appendix: Service Token V1 Sample Decoding and Decryption Program</div>
+<div class="text">
+<p>This sample program decodes and decrypts service tokens issued by an independent server.</p>
+<p class="confluence-link">This sample can also set an expiration period for a service token using the timestamp information included with the token when it is issued. This sample program treats expiration periods of more than 24 hours as invalid. You may change this specification for each title as necessary.</p>
+
+<!-- 7.1. Perl サンプル -->
+<h1 class="general" id="PageId_47815135">7.1. Perl Sample</h1>
+<div class="text">
+<p>
+<a href="../Attachments/Attach_47815135/70750734.pl" target="_blank">DecodeServiceTokenSample.pl</a>
+</p>
+<p>This is the Perl code for this sample program. This code has been confirmed to run in the following environment.</p>
+<ul>
+<li>Perl 5.10.1</li>
+<li>Perl-Crypt-CBC-2.30</li>
+<li>Perl-Crypt-OpenSSL-AES-0.02-9</li>
+<li>Perl-Digest-SHA1-2.12-2</li>
+</ul>
+<div class="code">
+<a name="AutoAnchor_47815135_code010"></a>Code 7-1. Perl Sample Code</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  <span class="c1">#!/usr/bin/perl</span>
+<span class="num">0002</span>  
+<span class="num">0003</span>  <span class="k">use</span> <span class="n">strict</span><span class="p">;</span>
+<span class="num">0004</span>  <span class="k">use</span> <span class="n">warnings</span><span class="p">;</span>
+<span class="num">0005</span>  <span class="k">use</span> <span class="n"></span><span class="nn">MIME::</span><span class="n">Base64</span><span class="p">;</span>
+<span class="num">0006</span>  <span class="k">use</span> <span class="n"></span><span class="nn">Crypt::</span><span class="n">CBC</span><span class="p">;</span>
+<span class="num">0007</span>  <span class="k">use</span> <span class="n"></span><span class="nn">Digest::</span><span class="n">SHA1</span> <span class="sx">qw(sha1_hex)</span><span class="p">;</span>
+<span class="num">0008</span>  
+<span class="num">0009</span>  <span class="k">my</span> <span class="nv">$CLIENT_SECRET</span> <span class="o">=</span> <span class="s">&quot;THIS_IS_CLIENT_SECRET_FOR_YOUR_TITLE&quot;</span><span class="p">;</span>
+<span class="num">0010</span>  
+<span class="num">0011</span>  <span class="k">my</span> <span class="nv">$cipher</span> <span class="o">=</span> <span class="n"></span><span class="nn">Crypt::</span><span class="n">CBC</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span>
+<span class="num">0012</span>      <span class="o">-</span><span class="n">key</span> <span class="o">=&gt;</span> <span class="nb">pack</span><span class="p">(</span><span class="s">&quot;H32&quot;</span><span class="p">,</span> <span class="nv">$CLIENT_SECRET</span><span class="p">),</span>
+<span class="num">0013</span>      <span class="o">-</span><span class="n">keysize</span> <span class="o">=&gt;</span> <span class="mi">16</span><span class="p">,</span>
+<span class="num">0014</span>      <span class="o">-</span><span class="n">literal_key</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+<span class="num">0015</span>      <span class="o">-</span><span class="n">cipher</span> <span class="o">=&gt;</span> <span class="s">&quot;Crypt::OpenSSL::AES&quot;</span><span class="p">,</span>
+<span class="num">0016</span>      <span class="o">-</span><span class="n">iv</span> <span class="o">=&gt;</span> <span class="nb">pack</span><span class="p">(</span><span class="s">&quot;C16&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+<span class="num">0017</span>      <span class="o">-</span><span class="n">header</span> <span class="o">=&gt;</span> <span class="s">'none'</span><span class="p">,</span>
+<span class="num">0018</span>      <span class="p">);</span>
+<span class="num">0019</span>  
+<span class="num">0020</span>  <span class="k">if</span> <span class="p">(</span><span class="nv">$#ARGV</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="num">0021</span>      <span class="k">print</span> <span class="s">&quot;perl DecodeServiceTokenSample.pl [SERVICE_TOKEN]\n&quot;</span><span class="p">;</span>
+<span class="num">0022</span>      <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="num">0023</span>  <span class="p">}</span>
+<span class="num">0024</span>  
+<span class="num">0025</span>  <span class="k">my</span> <span class="nv">$decrypted_service_token</span> <span class="o">=</span> <span class="nv">$cipher</span><span class="o">-&gt;</span><span class="n">decrypt</span><span class="p">(</span><span class="n">decode_base64</span><span class="p">(</span><span class="nv">$ARGV</span><span class="p">[</span><span class="mi">0</span><span class="p">]));</span>
+<span class="num">0026</span>  
+<span class="num">0027</span>  <span class="k">my</span> <span class="p">(</span><span class="nv">$validation_string</span><span class="p">,</span> <span class="nv">$hash_string</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="nv">$decrypted_service_token</span> <span class="o">=~</span><span class="sr"> /^(.+)\\h\\([0-9a-z]{8})$/</span><span class="p">);</span>
+<span class="num">0028</span>  <span class="k">my</span> <span class="nv">$calchash</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="n">sha1_hex</span><span class="p">(</span><span class="nv">$validation_string</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">);</span>
+<span class="num">0029</span>  <span class="k">if</span> <span class="p">(</span><span class="nv">$calchash</span> <span class="ow">ne</span> <span class="nv">$hash_string</span><span class="p">)</span> <span class="p">{</span>
+<span class="num">0030</span>      <span class="k">print</span> <span class="s">&quot;Invalid hash ${calchash} != ${hash_string}\n&quot;</span><span class="p">;</span>
+<span class="num">0031</span>      <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="num">0032</span>  <span class="p">}</span>
+<span class="num">0033</span>  
+<span class="num">0034</span>  <span class="k">my</span> <span class="nv">$platform_id</span>  <span class="o">=</span> <span class="p">(</span><span class="nv">$decrypted_service_token</span> <span class="o">=~</span><span class="sr"> /\\z\\(\d+)/</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="num">0035</span>  <span class="k">my</span> <span class="nv">$principal_id</span> <span class="o">=</span> <span class="p">(</span><span class="nv">$decrypted_service_token</span> <span class="o">=~</span><span class="sr"> /\\u\\(\d+)/</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="num">0036</span>  <span class="k">my</span> <span class="nv">$account_id</span>   <span class="o">=</span> <span class="p">(</span><span class="nv">$decrypted_service_token</span> <span class="o">=~</span><span class="sr"> /\\a\\([0-9a-zA-Z\-_\.]{6,16})/</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="num">0037</span>  <span class="k">my</span> <span class="nv">$server_env</span>   <span class="o">=</span> <span class="p">(</span><span class="nv">$decrypted_service_token</span> <span class="o">=~</span><span class="sr"> /\\s\\([A-Z]\d)/</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="num">0038</span>  <span class="k">my</span> <span class="nv">$game_version</span> <span class="o">=</span> <span class="p">(</span><span class="nv">$decrypted_service_token</span> <span class="o">=~</span><span class="sr"> /\\v\\([0-9A-F]{4})/</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="num">0039</span>  <span class="k">my</span> <span class="nv">$unique_id</span>    <span class="o">=</span> <span class="p">(</span><span class="nv">$decrypted_service_token</span> <span class="o">=~</span><span class="sr"> /\\e\\([0-9A-F]{5})/</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="num">0040</span>  <span class="k">my</span> <span class="nv">$timestamp</span>    <span class="o">=</span> <span class="p">(</span><span class="nv">$decrypted_service_token</span> <span class="o">=~</span><span class="sr"> /\\t\\(\d+)/</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="num">0041</span>  
+<span class="num">0042</span>  <span class="k">my</span> <span class="nv">$now</span> <span class="o">=</span> <span class="nb">time</span><span class="p">;</span>
+<span class="num">0043</span>  <span class="k">if</span> <span class="p">(</span><span class="nv">$now</span> <span class="o">-</span> <span class="nv">$timestamp</span> <span class="o">&gt;</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="p">{</span>
+<span class="num">0044</span>      <span class="k">print</span> <span class="s">&quot;Token expired now=${now} timestamp=${timestamp}\n&quot;</span><span class="p">;</span>
+<span class="num">0045</span>      <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="num">0046</span>  <span class="p">}</span>
+<span class="num">0047</span>  
+<span class="num">0048</span>  <span class="k">print</span> <span class="s">&quot;Platform_ID: ${platform_id}\n&quot;</span><span class="p">;</span>
+<span class="num">0049</span>  <span class="k">print</span> <span class="s">&quot;Principal_ID(PID): ${principal_id}\n&quot;</span><span class="p">;</span>
+<span class="num">0050</span>  <span class="k">print</span> <span class="s">&quot;Account_ID: ${account_id}\n&quot;</span><span class="p">;</span>
+<span class="num">0051</span>  <span class="k">print</span> <span class="s">&quot;Server_ENV: ${server_env}\n&quot;</span><span class="p">;</span>
+<span class="num">0052</span>  <span class="k">print</span> <span class="s">&quot;Game_Version: ${game_version}\n&quot;</span><span class="p">;</span>
+<span class="num">0053</span>  <span class="k">print</span> <span class="s">&quot;Unique_ID: ${unique_id}\n&quot;</span><span class="p">;</span>
+<span class="num">0054</span>  
+<span class="num">0055</span>  <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</pre>
+</div>
+</div>
+
+<!-- 7.2. Python サンプル -->
+<h1 class="general" id="PageId_47815139">7.2. Python Sample</h1>
+<div class="text">
+<p>
+<a href="../Attachments/Attach_47815139/70750736.py" target="_blank">DecodeServiceTokenSample.py</a>
+</p>
+<p>This is the Python code for this sample program. This code has been confirmed to run in the following environment.</p>
+<ul>
+<li>Python 2.6.7</li>
+<li>PyCrypto 2.0.1</li>
+</ul>
+<div class="code">
+<a name="AutoAnchor_47815139_code011"></a>Code 7-2. Python Sample Code</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  import sys
+<span class="num">0002</span>  import re
+<span class="num">0003</span>  import time
+<span class="num">0004</span>  import optparse
+<span class="num">0005</span>  import binascii
+<span class="num">0006</span>  import Crypto.Cipher.AES
+<span class="num">0007</span>  import base64
+<span class="num">0008</span>  import hashlib
+<span class="num">0009</span>  
+<span class="num">0010</span>  CLIENT_SECRET = &quot;THIS_IS_CLIENT_SECRET_FOR_YOUR_TITLE&quot;
+<span class="num">0011</span>  BLOCK_SIZE = 16
+<span class="num">0012</span>  
+<span class="num">0013</span>  def pkcs5unpad(text, blocksize):
+<span class="num">0014</span>      if text:
+<span class="num">0015</span>          padlen = ord(text[-1])
+<span class="num">0016</span>          if padlen and padlen &lt;= blocksize:
+<span class="num">0017</span>              text = text[:-padlen]
+<span class="num">0018</span>          else:
+<span class="num">0019</span>              raise Exception
+<span class="num">0020</span>      return text
+<span class="num">0021</span>  
+<span class="num">0022</span>  usage = &quot;&quot;&quot;
+<span class="num">0023</span>      DecodeServiceTokenSample.py [OPTIONS] service_token
+<span class="num">0024</span>  &quot;&quot;&quot;
+<span class="num">0025</span>  p = optparse.OptionParser(usage=usage)
+<span class="num">0026</span>  (opt, args) = p.parse_args()
+<span class="num">0027</span>  
+<span class="num">0028</span>  if len(args) != 1:
+<span class="num">0029</span>      p.print_help()
+<span class="num">0030</span>      sys.exit(1)
+<span class="num">0031</span>  
+<span class="num">0032</span>  crypt = Crypto.Cipher.AES.new(
+<span class="num">0033</span>                  binascii.unhexlify(CLIENT_SECRET),
+<span class="num">0034</span>                  Crypto.Cipher.AES.MODE_CBC,
+<span class="num">0035</span>                  binascii.unhexlify(&quot;0&quot;*2*BLOCK_SIZE)
+<span class="num">0036</span>                  )
+<span class="num">0037</span>  
+<span class="num">0038</span>  decrypted_service_token = pkcs5unpad(
+<span class="num">0039</span>                  crypt.decrypt(
+<span class="num">0040</span>                      base64.b64decode(args[0])
+<span class="num">0041</span>                      ),
+<span class="num">0042</span>                  BLOCK_SIZE
+<span class="num">0043</span>                  )
+<span class="num">0044</span>  
+<span class="num">0045</span>  r = re.compile(r'^(.+)\\h\\([0-9a-z]{8})$')
+<span class="num">0046</span>  m = r.search(decrypted_service_token)
+<span class="num">0047</span>  validation_string = m.group(1)
+<span class="num">0048</span>  hash_string = m.group(2)
+<span class="num">0049</span>  calchash = hashlib.sha1(validation_string).hexdigest()[0:8]
+<span class="num">0050</span>  if calchash != hash_string:
+<span class="num">0051</span>      print &quot;Invalid hash %s != %s&quot;%(calchash, hash_string)
+<span class="num">0052</span>      sys.exit(1)
+<span class="num">0053</span>  
+<span class="num">0054</span>  platform_id  = re.compile(r'\\z\\(\d+)').search(validation_string).group(1)
+<span class="num">0055</span>  principal_id = re.compile(r'\\u\\(\d+)').search(validation_string).group(1)
+<span class="num">0056</span>  account_id   = re.compile(r'\\a\\([0-9a-zA-Z\-_\.]{6,16})').search(validation_string).group(1)
+<span class="num">0057</span>  server_env   = re.compile(r'\\s\\([A-Z]\d)').search(validation_string).group(1)
+<span class="num">0058</span>  game_version = re.compile(r'\\v\\([0-9A-F]{4})').search(validation_string).group(1)
+<span class="num">0059</span>  unique_id    = re.compile(r'\\e\\([0-9A-F]{5})').search(validation_string).group(1)
+<span class="num">0060</span>  timestamp    = re.compile(r'\\t\\(\d+)').search(validation_string).group(1)
+<span class="num">0061</span>  
+<span class="num">0062</span>  now = int(time.time())
+<span class="num">0063</span>  if now - int(timestamp) &gt; 24 * 60 * 60:
+<span class="num">0064</span>      print &quot;Token expired now=%d timestamp=%s&quot;%(now, timestamp);
+<span class="num">0065</span>      sys.exit(1)
+<span class="num">0066</span>  
+<span class="num">0067</span>  print &quot;Platform_ID: %s&quot;%(platform_id,)
+<span class="num">0068</span>  print &quot;Principal_ID(PID): %s&quot;%(principal_id,)
+<span class="num">0069</span>  print &quot;Account_ID: %s&quot;%(account_id,)
+<span class="num">0070</span>  print &quot;Server_ENV: %s&quot;%(server_env,)
+<span class="num">0071</span>  print &quot;Game_Version: %s&quot;%(game_version,)
+<span class="num">0072</span>  print &quot;Unique_ID: %s&quot;%(unique_id,)
+<span class="num">0073</span>  
+<span class="num">0074</span>  sys.exit(0)
+</pre>
+</div>
+</div>
+
+<!-- 7.3. PHP サンプル -->
+<h1 class="general" id="PageId_71309358">7.3. PHP Sample</h1>
+<div class="text">
+<p>
+<a href="../Attachments/Attach_71309358/70750735.php" target="_blank">DecodeServiceTokenSample.php</a>
+</p>
+<p>This is the PHP code for this sample program. This code has been confirmed to run in the following environment.</p>
+<ul>
+<li>PHP 5.6.3</li>
+</ul>
+<div class="code">
+<a name="AutoAnchor_71309358_code012"></a>Code 7-3. PHP Sample Code</div>
+<div class="code_block">
+  <pre class="code"><span class="num">0001</span>  &lt;?php
+<span class="num">0002</span>  // Usage:
+<span class="num">0003</span>  //require 'DecodeServiceTokenSample.php';
+<span class="num">0004</span>  //
+<span class="num">0005</span>  //$token = DecryptServiceToken(&quot;&lt;SERVICE_TOKEN&gt;&quot;, &quot;&lt;CLIENT_SECRET&gt;&quot;);
+<span class="num">0006</span>  //$splitToken = SplitToken($token);
+<span class="num">0007</span>  //
+<span class="num">0008</span>  //----
+<span class="num">0009</span>  //DecryptServiceToken is provided in two versions. The second version is simpler and maybe faster, but require the OpenSSL library.
+<span class="num">0010</span>  //----
+<span class="num">0011</span>  //SplitToken return either an array with the different part of the service token (see at the bottom of the file) or an error code:
+<span class="num">0012</span>  //-1: The token was badly formed.
+<span class="num">0013</span>  //-2: The token hash was mismatching.
+<span class="num">0014</span>  //-3: The token had expired.
+<span class="num">0015</span>  //-- Decrypting
+<span class="num">0016</span>  function unpadPKCS7($data, $blocksize)
+<span class="num">0017</span>  {
+<span class="num">0018</span>      $last = substr($data, -1);
+<span class="num">0019</span>      return substr($data, 0, strlen($data) - ord($last));
+<span class="num">0020</span>  }
+<span class="num">0021</span>  function DecryptServiceToken($token, $clientSecret) //Use either this one or the MarkII below
+<span class="num">0022</span>  {
+<span class="num">0023</span>      $cipher = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
+<span class="num">0024</span>      if(mcrypt_generic_init($cipher, pack('H32', $clientSecret), pack('C16', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0) ) == 0 )
+<span class="num">0025</span>      {
+<span class="num">0026</span>          $data = base64_decode($token);
+<span class="num">0027</span>          //var_dump($data);
+<span class="num">0028</span>          $dataLen = strlen($data);
+<span class="num">0029</span>          $padBytes = $dataLen % (128/8);
+<span class="num">0030</span>          $data = str_pad($data, $dataLen + $padBytes, '\0');
+<span class="num">0031</span>          $decryptedToken = mdecrypt_generic($cipher, $data);
+<span class="num">0032</span>         
+<span class="num">0033</span>          mcrypt_generic_deinit($cipher);
+<span class="num">0034</span>          mcrypt_module_close($cipher);
+<span class="num">0035</span>         
+<span class="num">0036</span>          return unpadPKCS7($decryptedToken, 128/8);
+<span class="num">0037</span>      }
+<span class="num">0038</span>      return '';
+<span class="num">0039</span>  }
+<span class="num">0040</span>  function DecryptServiceToken2($token, $clientSecret)
+<span class="num">0041</span>  {
+<span class="num">0042</span>      return openssl_decrypt($token, 'aes-128-cbc', pack('H32', $clientSecret));
+<span class="num">0043</span>  }
+<span class="num">0044</span>  //-- Reading
+<span class="num">0045</span>  function GetTokenPart($decryptedToken, $id, $capture)
+<span class="num">0046</span>  {
+<span class="num">0047</span>      if(preg_match('#\\\\' . $id . '\\\\(' . $capture . ')#', $decryptedToken, $matches) == 1)
+<span class="num">0048</span>          return $matches[1];
+<span class="num">0049</span>      
+<span class="num">0050</span>      return FALSE;
+<span class="num">0051</span>  }
+<span class="num">0052</span>  function SplitToken($decryptedToken)
+<span class="num">0053</span>  {
+<span class="num">0054</span>      if(preg_match('#^(.+)\\\\h\\\\([0-9a-z]{8})$#i', $decryptedToken, $hashGroups) == 1)
+<span class="num">0055</span>      {
+<span class="num">0056</span>          $validationString = $hashGroups[1];
+<span class="num">0057</span>          $hash = $hashGroups[2];
+<span class="num">0058</span>          $calcHash = substr(sha1($validationString), 0, 8);
+<span class="num">0059</span>          
+<span class="num">0060</span>          if($calcHash == $hash)
+<span class="num">0061</span>          {
+<span class="num">0062</span>              $splitToken['platformId'] = GetTokenPart($decryptedToken, 'z', '\d+');
+<span class="num">0063</span>              $splitToken['principalId'] = GetTokenPart($decryptedToken, 'u', '\d+');
+<span class="num">0064</span>              $splitToken['accountId'] = GetTokenPart($decryptedToken, 'a', '[0-9a-zA-Z\\-\\_\\.]{6,16}');
+<span class="num">0065</span>              $splitToken['serverEnv'] = GetTokenPart($decryptedToken, 's', '[A-Za-z]\d');
+<span class="num">0066</span>              $splitToken['gameVersion'] = GetTokenPart($decryptedToken, 'v', '[0-9A-Fa-f]{4}');
+<span class="num">0067</span>              $splitToken['uniqueId'] = GetTokenPart($decryptedToken, 'e', '[0-9A-Fa-f]{5}');
+<span class="num">0068</span>              $splitToken['timestamp'] = GetTokenPart($decryptedToken, 't', '\d+');
+<span class="num">0069</span>              
+<span class="num">0070</span>              //This check that the token is not more than a day old. You may change this duration according to your application.
+<span class="num">0071</span>              if(time() - (int)$splitToken['timestamp'] &gt; 24*60*60)
+<span class="num">0072</span>              {
+<span class="num">0073</span>                  return -3;
+<span class="num">0074</span>              }
+<span class="num">0075</span>              
+<span class="num">0076</span>              return $splitToken;
+<span class="num">0077</span>          }
+<span class="num">0078</span>          
+<span class="num">0079</span>          return -1;
+<span class="num">0080</span>      }
+<span class="num">0081</span>      
+<span class="num">0082</span>      return -2;
+<span class="num">0083</span>  }
+<span class="num">0084</span>  //-- Sample
+<span class="num">0085</span>  $CLIENT_SECRET = &quot;&quot;;
+<span class="num">0086</span>  $SERVICE_TOKEN = &quot;&quot;;
+<span class="num">0087</span>  $token = DecryptServiceToken($SERVICE_TOKEN, $CLIENT_SECRET);
+<span class="num">0088</span>  $splitToken = SplitToken($token);
+<span class="num">0089</span>  if ($splitToken &gt; 0)
+<span class="num">0090</span>  {
+<span class="num">0091</span>      print &quot;Platform_ID: {$splitToken['platformId']}\n&quot;;
+<span class="num">0092</span>      print &quot;Principal_ID(PID): {$splitToken['principalId']}\n&quot;;
+<span class="num">0093</span>      print &quot;Account_ID: {$splitToken['accountId']}\n&quot;;
+<span class="num">0094</span>      print &quot;Server_ENV: {$splitToken['serverEnv']}\n&quot;;
+<span class="num">0095</span>      print &quot;Game_Version: {$splitToken['gameVersion']}\n&quot;;
+<span class="num">0096</span>      print &quot;Unique_ID: {$splitToken['uniqueId']}\n&quot;;
+<span class="num">0097</span>  }
+<span class="num">0098</span>  else
+<span class="num">0099</span>  {
+<span class="num">0100</span>      if ($splitToken == -1)
+<span class="num">0101</span>      {
+<span class="num">0102</span>          print &quot;Hash mismatch.\n&quot;;
+<span class="num">0103</span>      }
+<span class="num">0104</span>      else if ($splitToken == -2)
+<span class="num">0105</span>      {
+<span class="num">0106</span>          print &quot;Invalid format.\n&quot;;
+<span class="num">0107</span>      }
+<span class="num">0108</span>      else if ($splitToken == -3)
+<span class="num">0109</span>      {
+<span class="num">0110</span>          print &quot;Token expired.\n&quot;;
+<span class="num">0111</span>      }
+<span class="num">0112</span>  }
+<span class="num">0113</span>  ?&gt;
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

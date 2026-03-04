@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetBufferSize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dlp/Overview.html">dlp</a>::<a href="../../../../nn/dlp/CTR/Overview.html">CTR</a>::<a href="../../../../nn/dlp/CTR/Server/Overview.html">Server</a>::GetBufferSize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static size_t GetBufferSize(
+     <a href="../../../../nn_types/u8.html">u8</a> maxClientNum,
+     size_t blockBufferSize = <a href="../../../../nn/dlp/CTR/MIN_NETWORK_BLOCK_BUFFER_SIZE.html">MIN_NETWORK_BLOCK_BUFFER_SIZE</a> *2,
+     size_t blockBufferNum = <a href="../../../../nn/dlp/CTR/MIN_NETWORK_BLOCK_BUFFER_NUM.html">MIN_NETWORK_BLOCK_BUFFER_NUM</a>
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>maxClientNum</th>
+          <td>Specifies the maximum number of clients (from <code>1</code> to <code><a href="../../../../nn/dlp/CTR/MAX_CLIENT_NUM.html">MAX_CLIENT_NUM</a></code>) that can connect to the server.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>blockBufferSize</th>
+          <td>This is the size of the block buffer when data that has been read from a file is kept before sending. <br />
+ Specify a size greater than or equal to <code><a href="../../../../nn/dlp/CTR/MIN_NETWORK_BLOCK_BUFFER_SIZE.html">MIN_NETWORK_BLOCK_BUFFER_SIZE</a></code> and less than or equal to <code><a href="../../../../nn/dlp/CTR/MAX_NETWORK_BLOCK_BUFFER_SIZE.html">MAX_NETWORK_BLOCK_BUFFER_SIZE</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>blockBufferNum</th>
+          <td>Specifies the number of block buffers. <br />
+ Specify a number greater than or equal to <code><a href="../../../../nn/dlp/CTR/MIN_NETWORK_BLOCK_BUFFER_NUM.html">MIN_NETWORK_BLOCK_BUFFER_NUM</a></code> and less than or equal to <code><a href="../../../../nn/dlp/CTR/MAX_NETWORK_BLOCK_BUFFER_NUM.html">MAX_NETWORK_BLOCK_BUFFER_NUM</a></code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the buffer size. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the size of the buffer required to initialize the server.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/09/07</dt>
+        <dd><item xmlns="">Standardized notation for wireless-disabled mode.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

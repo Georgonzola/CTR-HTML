@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>ReadData</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/NsData/Overview.html">NsData</a>::ReadData Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/s32.html">s32</a> ReadData(
+     <a href="../../../nn_types/u8.html">u8</a> * pDataBuf,
+     size_t bufLen
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDataBuf</th>
+          <td>Specifies the NS data buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufLen</th>
+          <td>Specifies the NS data buffer length.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the number of bytes read. Returns <code>0</code> if it reached the end of the data.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>NN_BOSS_NSDATA_READ_ERROR_GET_HEADER</th>
+          <td>Failed to get the NS data file header (information of the length, <code><span>nn::boss::NSD_LENGTH</span></code>). For a detailed error, get <code><a href="../../../nn/boss/NsData/GetHeaderInfo.html">GetHeaderInfo</a></code>.</td>
+        </tr>
+        <tr>
+          <th>NN_BOSS_NSDATA_READ_ERROR_READ_DATA</th>
+          <td>Failed to load NS data. Perform error handling as if the NS data is corrupted (damaged, or spoofed). For more on error handling methods, see the programming manual.</td>
+        </tr>
+        <tr>
+          <th>NN_BOSS_NSDATA_READ_ERROR_IPC</th>
+          <td>Indicates that the session is not initialized. If this function is called before <code><a href="../../../nn/boss/Initialize.html">nn::boss::Initialize</a></code> is called, this <code><a href="../../../nn/Result/Overview.html">Result</a></code> is returned. Always call the <code><a href="../../../nn/boss/Initialize.html">nn::boss::Initialize</a></code> function before you use the BOSS library.</td>
+        </tr>
+        <tr>
+          <th>NN_BOSS_NSDATA_READ_ERROR_UPDATED</th>
+          <td>The target NS data version was updated since the last time data was obtained.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Reads the NSD data block.</p><p>After preparing an adequately sized buffer in advance, call this function multiple times to read an entire NS data file. <br />
+ Returns <code>0</code> upon reaching end of file, indicating that the read is finished. <br />
+ Applications only can read one NS data file at a time. Even when a large NSD is read, you are not blocked from reading other applications' NS data files, as long as the same NS data files are not being accessed. <br />
+ Note that there will be times when an error will be returned when the desired NS data cannot be found, because it has been deleted by another application, because there was insufficient memory during an NSA download, or because it was automatically deleted. <br />
+ The function <code>NN_BOSS_NSDATA_READ_ERROR_UPDATED</code> in those rare instances where the specified NS data version has been updated since the last time the data was obtained. <br />
+ In such cases, call the <code><a href="../../../nn/boss/NsData/Initialize.html">nn::boss::NsData::Initialize</a></code> function and then read the data again. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/02/26</dt>
+        <dd><item xmlns="">Added a description about handling when NS data header acquisition fails.  Added a description about the return value when NS data is corrupted.</item><br />
+        </dd>
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

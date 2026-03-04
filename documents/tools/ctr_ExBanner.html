@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ctr_make_ex_banner</title>
+<style type="text/css">
+    <!--
+    body {
+    /*
+        font-size       : 10pt;
+    */
+        font-weight     : normal;
+        color           : #000000;
+        margin          : 8px;
+    }
+
+    div {
+        width           : 98%;
+        white-space     : nowrap;
+    }
+
+    div.title {
+        text-align      : left;
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        color           : #202020;
+        border-style    : double;
+        border-width    : 8px;
+        /* タイトルを囲む枠線の色を指定 */
+        border-color    : #CD202C;
+
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+
+        margin          : 4px;
+        padding         : 4px;
+    }
+    H1 {
+      font-size                 : 150%;
+      font-family               : Arial;
+      border-bottom-width       : 5px;
+      border-bottom-style       : solid;
+      border-bottom-color       : #CD202C;
+      padding-bottom            : 1px;
+      margin-bottom             : 20px;
+      letter-spacing            : normal;
+      font-weight               : bold;
+    }
+
+    h2 {
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        border-style    : none none solid double;
+        border-width    : 0px 0px 2px 8px;
+        /* 見出しの線の色を指定 */
+        border-color    : #CD202C;
+
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+
+        margin-left     : 2px;
+        padding-left    : 4px;
+    }
+    CODE {
+      font-family       : "Courier New", monospace;
+      position          : normal;
+      left              : 12px;
+      font-size         : 10pt;
+    }
+    table {
+      margin-top        : 2pt;
+      margin-bottom     : 2pt;
+      margin-left       : 0pt;
+      margin-right      : 0pt;
+      padding-left      : 0pt;
+      padding-right     : 0pt;
+      position          : relative;
+      left              : 12px;
+      font-family       : Arial;
+      font-size         : 10pt;
+      border-style      : none none none none;
+    }
+    td,th {
+      padding           : 2pt;
+      border-width      : 2pt;
+      border-style      : none none none none;
+      font-style        : normal;
+      text-align        : left;
+    }
+    td {
+      background        : #e8f4f4;
+      font-weight       : normal;
+    }
+    th {
+      background        : #c0d8d8;
+      font-weight       : bold;
+    }
+
+    p {
+        margin-left     : 4px;
+    }
+    p.code {
+      font-family       : "Courier New", monospace;
+      position          : normal;
+      left              : 12px;
+      font-size         : 10pt;
+      background        : #e8f4f4;
+    }
+
+    -->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+<h1>ctr_make_ex_banner</h1>
+
+<h1>Contents</h1>
+<ol>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#usage">How to Use</a></li>
+<li><a href="#bsf">EBSF</a></li>
+<li><a href="#sample">Samples</a></li>
+<li><a href="#character">List of Characters Allowed in Comments</a></li>
+<li><a href="#othertool">Related Tools</a></li>
+<li><a href="#bug">Known Problems</a></li>
+<li><a href="#history">Revision History</a></li>
+</ol>
+
+
+
+<h2><a name="intro">Introduction</a></h2>
+<P>The <CODE>ctr_make_ex_banner</CODE> tool is used to create contextual banner data (<CODE>ExBanner</CODE>). You can use contextual banner data to replace the texture of the application's banner whenever you want. It generates BIN files based on the content of EBSF files.</P>
+
+
+<h2><a name="usage">How to Use</a></h2>
+<h3>What Is Required</h3>
+<p>You need the following files to create contextual banner data.</p>
+<ul>
+
+<li> An EBSF file that contains the <CODE>ExBanner</CODE> data</li>
+<li>  DMP native texture format binary or NW4C TGA file created by NW4C plug-in.
+ </li>
+</ul>
+ 
+
+<h3>Command</h3>
+
+
+<p class="code">
+% ctr_make_ex_banner32.exe EX_BANNER_SPEC_FILE [OUTPUT_DIRECTORY]
+</p>
+
+
+<p class="first_ja">You must specify the <CODE>EX_BANNER_SPEC_FILE</CODE> (an EBSF file). 
+</p>
+
+<h4 >Options</h4>
+
+<p>
+The <CODE>OUTPUT_DIRECTORY</CODE> specification is optional. To specify an output directory, either specify a relative path from the current directory or an absolute path.<br />When unspecified, the contextual banner data's binary file is output to the current directory.</p>
+
+<h2><a name="bsf">EBSF</a></h2>
+
+<p>This file defines the settings for the binary file of the contextual banner data that this tool creates.<br />It must be coded and saved in Unicode (<CODE>UTF-16LE</CODE> with BOM).<br /> Notepad in Microsoft Windows 2000, Windows XP, Windows Vista, and Windows 7 supports Unicode. <br /> Select <B>Unicode</B> from the <B>Encoding</B> drop-down list when saving the file. </p>
+
+<h3>Parameters</h3>
+
+<p>The delimiter between parameter specifications and values is a colon (<code>:</code>). If the same parameter occurs more than once, the instance written last in the file is used.</p>
+
+<h3>Format</h3>
+
+<p>Parameter specifications must come at the beginning of each line.<br />All characters after a &quot;#&quot; are treated as a comment.<br />Space and tab characters at the beginning and ending of the value are ignored. All other spaces are included in the string. If you want to include leading spaces or if you want to include quotation marks (<CODE>&quot;</CODE>), &quot;#&quot; symbols, or colons (<CODE>:</CODE>) in the string, surround the string with quotation marks (<code>&quot;&quot;</code>).
+</p>
+
+<h3>Format</h3>
+
+<p>The EBSF file format is shown below.</p>
+
+<p class="code">
+FileName: #Specifies the name of the texture to create. The file FileName.bin is created.<br />
+TexWidth: #Specifies the width of the texture.<br />
+TexHeight: #Specifies the height of the texture.<br />
+TexFormat: #Specifies the GL texture format. Use the values defined in NW4C and not numerical values.<br />
+LimitYear: #Indicates the expiration date for this contextual banner. The contextual banner becomes invalid when the expiration date has passed.<br />
+LimitMonth: #The year can be set in LimitYear, the month in LimitMonth, and the day in LimitDate.<br />
+LimitDate: #<br />
+Text: #Sets the text to display in the banner.<br />
+TextureName: #Sets the name of the texture.<br />
+TextureDataFileName: #Specifies the filename for the texture binary data.<br />
+
+</p>
+
+<p>
+Set the values using the following format.
+</p>
+
+<h3>Specifying Elements</h3>
+Elements are specified as follows.
+<p class="code">
+Key Name: Value
+</p>
+
+<h4>Notes</h4>
+<ul>
+<li>There are restrictions on the names of textures and on the characters that are usable in text. (Described later.)</li>
+</ul>
+
+The following table describes the settings for each of these items. 
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Item</th>
+<th align="center">Description</th>
+<th align="center">Comments</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td align="center"><CODE>FileName</CODE></td>
+<td align="center">
+Specifies the name of the file to generate. The following values are valid. <br /><br /> <CODE>COMMON</CODE>: # Create a contextual banner that is valid for all regions.<br /><CODE>EUR_EN</CODE>: # Create a contextual banner that is only valid for <CODE>EUR_EN</CODE>.<br /><CODE>EUR_FR</CODE>: # Create a contextual banner that is only valid for <CODE>EUR_FR</CODE>.<br /><CODE>EUR_GE</CODE>: # Create a contextual banner that is only valid for <CODE>EUR_GE</CODE>.<br /><CODE>EUR_IT</CODE>: # Create a contextual banner that is only valid for <CODE>EUR_IT</CODE>.<br /><CODE>EUR_SP</CODE>: # Create a contextual banner that is only valid for <CODE>EUR_SP</CODE>.<br /><CODE>EUR_DU</CODE>: # Create a contextual banner that is only valid for <CODE>EUR_DU</CODE>.<br /><CODE>EUR_PO</CODE>: # Create a contextual banner that is only valid for <CODE>EUR_PO</CODE>.<br /><CODE>EUR_RU</CODE>: # Create a contextual banner that is only valid for <CODE>EUR_RU</CODE>.<br /><CODE>JPN_JP</CODE>: # Create a contextual banner that is only valid for <CODE>JPN_JP</CODE>.<br /><CODE>USA_EN</CODE>: # Create a contextual banner that is only valid for <CODE>USA_EN</CODE>.<br /><CODE>USA_FR</CODE>: # Create a contextual banner that is only valid for <CODE>USA_FR</CODE>.<br /><CODE>USA_SP</CODE>: # Create a contextual banner that is only valid for <CODE>USA_SP</CODE>.<br /><CODE>USA_PO</CODE>: # Create a contextual banner that is only valid for <CODE>USA_PO</CODE>.<br /><CODE>CHN_CN:</CODE> #Create a contextual banner that is only valid for <CODE>CHN_CN</CODE>.<br /><CODE>KOR_KR:</CODE> #Create a contextual banner that is only valid for <CODE>KOR_KR</CODE>.<br /><CODE>TWN_TW:</CODE> #Create a contextual banner that is only valid for <CODE>TWN_TW</CODE>.<br /><br /> You must set one of these values.<br /> <br />
+</td>
+<td align="center"></td>
+</tr>
+
+<tr>
+<td align="center"><CODE>TexWidth</CODE></td>
+<td align="center">
+The width of the texture. Specify this element when you use the DMP native texture format (RAW data) with <CODE>TextureDataFileName</CODE>.<br />Use decimal notated numbers. You can specify values that are multiples of 2 in the range from 8 to 1024. <br />If textures are not going to be substituted, this value does not need to be set.<br />
+</td>
+<td align="center"><CODE>TextureDataFileName</CODE> ignores this setting when an NW4C TGA file is specified.</td>
+</tr>
+<tr>
+<td align="center"><CODE>TexHeight</CODE></td>
+<td align="center">
+The texture height. Specify this element when you use the DMP native texture format (RAW data) with <CODE>TextureDataFileName</CODE>.<br />Use decimal notated numbers. You can specify values that are multiples of 2 in the range from 8 to 1024. <br />If textures are not going to be substituted, this value does not need to be set.<br />
+</td>
+<td align="center"><CODE>TextureDataFileName</CODE> ignores this setting when an NW4C TGA file is specified.</td>
+</tr>
+
+<tr>
+<td align="center"><CODE>TexFormat</CODE></td>
+<td align="center">
+The texture format. Specify this element when you use the DMP native texture format (RAW data) with <CODE>TextureDataFileName</CODE>.<br />The following values can be set.<br /><br /> <CODE>RGBA8</CODE>: 4 bytes per pixel, where each of RGBA is 8 bits.<br /> <CODE>RGB8</CODE>: 3 bytes per pixel, where each of RGB is 8 bits.<br /> <CODE>RGBA5551</CODE>: 2 bytes per pixel, where each of RGB is 5 bits and A is 1 bit.<br /> <CODE>RGB565</CODE>: 2 bytes per pixel, where R, G, and B are 5, 6, and 5 bits, respectively.<br /> <CODE>RGBA4</CODE>: 2 bytes per pixel, where R, G, B, and A are 4 bits each.<br /> <CODE>LA8:</CODE> 2 bytes per pixel, where Alpha and Luminance are 8 bits each.<br /> <CODE>HILO8</CODE>: 2 bytes per pixel, where X and Y are 8 bits each.<br /> <CODE>L8</CODE>: 1 byte per pixel, where Luminance is 8 bits.<br /> <CODE>A8</CODE>: 1 byte per pixel, where Alpha is 8 bits.<br /> <CODE>LA4</CODE>: 1 byte per pixel, where Alpha and Luminance are 4 bits each.<br /> <CODE>L4</CODE>: 4 bits per pixel, where Luminance is 4 bits.<br /> <CODE>A8</CODE>: 4 bits per pixel, where Alpha is 4 bits.<br /> <CODE>ETC1</CODE>: Compressed format corresponding to 4 bits per pixel.<br /> <CODE>ETC1A4</CODE>: Compressed format corresponding to 8 bits per pixel.<br /> <br /> If nothing is specified, then RGBA8 is set by default.<br /> If textures are not going to be substituted, this value does not need to be set.<br />
+<td align="center"><CODE>TextureDataFileName</CODE> ignores this setting when an NW4C TGA file is specified.</td>
+</td>
+</tr>
+
+
+<tr>
+<td align="center"><CODE>LimitYear</CODE></td>
+<td align="center">
+The expiration of the contextual banner. Use decimal notated numbers. Specify using the western calendar.<br />
+The range of values that can be specified is from <CODE>2000</CODE> to <CODE>2099</CODE>.<br />
+If a value is not set then there will be no limit.<br />
+<B>Note:</B> <CODE>LimitYear</CODE>, <CODE>Month</CODE>, and <CODE>Date</CODE> are only valid for downloaded contextual banners.<br />
+Even if the values are configured, they are ignored for local contextual banners.<br />
+<br />
+If a value is specified for <CODE>LimitYear</CODE>, <CODE>Month</CODE>, or <CODE>Date</CODE>, an error is now generated if you do not make entries for all three items.<br />
+</td>
+<td align="center"></td>
+</tr>
+
+<tr>
+<td align="center"><CODE>LimitMonth</CODE></td>
+<td align="center">
+The expiration of the contextual banner. Use decimal notated numbers. The range of values that can be specified is from <CODE>1</CODE> to <CODE>12</CODE>.<br />If you want this to be limitless, then no setting needs to be configured.<br />
+</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><CODE>LimitDate</CODE></td>
+<td align="center">
+The expiration of the contextual banner. Use decimal notated numbers. The range of values that can be specified is from <CODE>1</CODE> to <CODE>31</CODE>.<br />However, do not use dates not on the calendar.<br />If you want this to be limitless, then no setting needs to be configured.<br />
+</td>
+<td align="center"></td>
+</tr>
+
+<tr>
+<td align="center"><CODE>Text</CODE></td>
+<td align="center">
+This text is displayed in the bottom of the upper screen when the application is selected in the HOME Menu. Specify this with 255 characters or less.<br />Text will not display if this value is not set.<br />When the length fits within the horizontal width of the screen, it is displayed as is. If the length does not fit, a scrolling display appears.
+</td>
+<td align="center"></td>
+</tr>
+
+
+<tr>
+<td align="center"><CODE>TextureName</CODE></td>
+<td align="center">
+Specifies the name of the texture.<br />Keep the name to 15 or fewer ASCII characters.<br />If textures are not going to be substituted, this value does not need to be set.<br />
+</td>
+<td align="center"></td>
+</tr>
+
+<tr>
+<td align="center"><CODE>TextureDataFileName</CODE></td>
+<td align="center">
+The texture's data file. Specify either a relative path from the current directory or an absolute path.<br />If textures are not going to be substituted, this value does not need to be set.<br />Specify a DMP native texture format binary (raw data) or an NW4C TGA file created by the NW4C plug-in (any size or format; no mipmap).</td>
+<td align="center"></td>
+</tr>
+
+
+
+</tbody>
+</table>
+</div>
+
+
+<h2><a name="sample">Samples</a></h2>
+
+<br />
+<p class="code">sample.ebsf<br /> ----------------------------------------------------<br /> FileName:COMMON<br /> Text: Sample text<br /> ----------------------------------------------------<br />
+</p>
+Creates expanded banner data in which only text can be substituted.<br /> <br /> <br /> <br />
+<p class="code">sample2.ebsf<br /> ----------------------------------------------------<br /> FileName:JPN_JP<br /> TexWidth:64<br /> TexHeight:64<br /> TexFormat:RGBA4<br /> TextureName:sampleTexture<br /> Text: Sample text<br /> TextureDataFileName: (the texture file path)<br /> ----------------------------------------------------<br />
+</p>
+The texture named <CODE>sampleTexture</CODE> is substituted by the texture in the <CODE>TextureDataFileName</CODE> path.<br />There is no limit because <CODE>LimitYear</CODE> and the other items are not specified.<br />
+
+<br /> <br /> <br />
+<p class="code">template.ebsf<br /> ----------------------------------------------------<br /> FileName:<br />TexWidth:<br />TexHeight:<br />TexFormat:<br />LimitYear:<br />LimitMonth:<br />LimitDate:<br />TextureName:<br />Text:<br />TextureDataFileName:<br /> ----------------------------------------------------<br />
+</p>
+This is the EBSF file template.<br /> <br /> <br />
+<h2><a name="character">List of Characters Usable in Comments</a></h2>
+    <p>
+The usable characters vary for different regions. <br />For more information, see <A href="AvailableCharacters.html">the lists of characters allowed in different regions.</a>
+    </p>
+<h2><a name="othertool">Related Tools</a></h2>
+    <p>
+The contextual banner creation tool is a related tool. You can use the BOSS features to change out banner textures. See <A href="ctr_makedlexbanner.html"><CODE>ctr_makedlexbanner</CODE></a> for details.
+    </p>
+    
+<h2><a name="bug">Known Problems</a></h2>
+Under certain conditions, the HOME Menu freezes when textures are switched in contextual banners (including DL contextual banners) 
+
+<h3>Details</h3>
+<p>
+When textures that are referenced from multiple materials are switched in contextual banners, an internal memory leak occurs when those banners are displayed on the HOME Menu.<br /><br /> After another application is selected on the HOME Menu and another banner is displayed, <br />the repeated operations attempting to display the banner with the texture replaced again ultimately result in the HOME Menu freezing.
+</p>
+
+<h3>Workaround</h3>
+<p>
+Do not switch textures that are referenced from multiple materials in contextual banners.
+</p>
+
+
+<h3>Verification Procedure</h3>
+<p>
+Display a contextual banner on the HOME Menu.<br />When data that would cause an error is used, an error message is displayed on the bottom portion of the upper screen.
+</p>
+
+<h2><a name="history">Revision History</a></h2>
+    <dl class="history">
+      <dt>2015/09/04</dt>
+<dd>Fixed inconsistent language.</dd>
+      <dt>2013/10/18</dt>
+<dd>When a value is specified for <CODE>LimitYear</CODE>, <CODE>Month</CODE> or <CODE>Date</CODE>, an error is now generated if you do not make entries for all three items.</dd>
+<dd></dd>
+<dd>Added that fact to the documentation.</dd>
+      <dt>2012/06/19</dt>
+<dd>Fixed a bug where the program sometimes did not work correctly when TGA files with a format other than ETC were specified in <CODE>TextureDataFileName</CODE>.</dd>
+      <dt>2012/04/17</dt>
+<dd>Removed English from the Taiwan/Hong Kong region.</dd>
+      <dt>2012/04/16</dt>
+<dd>Added Known Problems.</dd>
+      <dt>2012/02/21</dt>
+<dd>Created the <B>Related Tools</B> section. Added link to download contextual banner creation manual.</dd>
+      <dt>2012/02/15</dt>
+<dd>Fixed bug causing error when texture data file not found.</dd>
+      <dt>2011/12/02</dt>
+<dd>Added support for the Chinese, Korean, and Taiwan/Hong Kong regions.</dd>
+      <dt>2011/9/27</dt>
+<dd>Explained NW4C TGA files.</dd>
+      <dt>2011/1/19</dt>
+<dd>Explained that <CODE>LimitYear</CODE>, <CODE>Month</CODE>, and <CODE>Date</CODE> are valid only for downloadable contextual banners.</dd>
+<dd>Revised so that the output directory can be specified.</dd>
+      <dt>2011/1/17</dt>
+<dd>Revised the content of <CODE>TextureDataFileName</CODE> for settings for each item.</dd>
+      <dt>2011/1/10</dt>
+<dd>Added information on the text display bug.</dd>
+      <dt>2010/12/22</dt>
+<dd>Support for substitution of only text.</dd>
+<dd>Added sample items.</dd>
+      <dt>2010/12/2</dt>
+<dd>Fixed a bug that prevented errors from occurring when unusable text was used.</dd>
+      <dt>2010/12/1</dt>
+<dd>A single EBSF file is now required for each region.</dd>
+<dd>In conjunction with this, added a <CODE>FileName</CODE> parameter to specify which regional BIN file to create.</dd>
+<dd>Added a <CODE>FileName</CODE> parameter to specify.</dd>
+      <dt>2010/10/13</dt>
+<dd>Standardized language and region names with <CODE>makebanner</CODE>.</dd>
+      <dt>2010/10/8</dt>
+<dd>Initial version.</dd>
+    </dl>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

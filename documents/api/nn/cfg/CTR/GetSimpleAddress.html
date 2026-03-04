@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetSimpleAddress</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/cfg/Overview.html">cfg</a>::<a href="../../../nn/cfg/CTR/Overview.html">CTR</a>::GetSimpleAddress Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/cfg.h&gt;
+void GetSimpleAddress(
+     <a href="../../../nn/cfg/CTR/SimpleAddress/Overview.html">SimpleAddress</a> * pSimpleAddress
+);
+
+<a href="../../../nn/Result/Overview.html">nn::Result</a> GetSimpleAddress(
+     <a href="../../../nn/cfg/CTR/SimpleAddress/Overview.html">SimpleAddress</a> * pSimpleAddress,
+     <a href="../../../nn/cfg/CTR/SimpleAddressId/Overview.html">SimpleAddressId</a> simpleAddressId,
+     <a href="../../../nn_types/uptr.html">uptr</a> pWorkMemory,
+     <a href="../../../nn_types/u32.html">u32</a> workMemorySize
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./GetSimpleAddress(0).html">GetSimpleAddress ( SimpleAddress * ) </a>
+          </td>
+          <td>Gets the simple address information (such as the country and region name) that has been set by System Settings.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./GetSimpleAddress(1).html">GetSimpleAddress ( SimpleAddress *, SimpleAddressId, uptr, u32 ) </a>
+          </td>
+          <td>Gets the simple address information (such as the country and region name) having the specified ID.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of GetSimpleAddress ( SimpleAddress * ) </h2>
+    <div class="section"><p>The size of the <code><a href="../../../nn/cfg/CTR/SimpleAddress/Overview.html">SimpleAddress</a></code> structure is at least 4 KB. Be careful not to exhaust the stack if it is allocated on the stack. The country and region names in the simple address information are guaranteed to be NULL-terminated.</p><!-- write here --></div>
+    <h2>Description of GetSimpleAddress ( SimpleAddress *, SimpleAddressId, uptr, u32 ) </h2>
+    <div class="section"><p>To get country information rather than information for a particular region, specify zeroes for the region code part of <code><a href="../../../nn/cfg/CTR/SimpleAddressId/Overview.html">SimpleAddressId</a></code> (the lower 24 bits). <br /></p><p>Before calling this function, you must initialize the <code>FS</code> library by calling the <code><a href="../../../nn/fs/Initialize.html">nn::fs::Initialize</a></code> function. <br />
+ Do not call this function simultaneously from multiple threads. <br /></p><p>This function uses the memory buffer specified by <emphasis>pWorkMemory</emphasis> as working memory. The required memory size is specified by <code><a href="../../../nn/cfg/CTR/CFG_SIMPLE_ADDRESS_WORKMEMORY_SIZE.html">nn::cfg::CTR::CFG_SIMPLE_ADDRESS_WORKMEMORY_SIZE</a></code>. Do not write to or free the specified working memory during execution of this function. Also make sure that the application frees the specified working memory after it is finished being used. <br /></p><p>The size of the <code><a href="../../../nn/cfg/CTR/SimpleAddress/Overview.html">SimpleAddress</a></code> structure is at least 4 KB. Be careful not to exhaust the stack if it is allocated on the stack. The country and region names in the simple address information are guaranteed to be NULL-terminated. <br /></p><p>Country and region IDs may be added later. If you get detailed information about the country and region ID received from a peer, you must keep track of the cases where that ID is unknown. <br /><code><a href="../../../nn/cfg/CTR/ResultNotFound/Overview.html">ResultNotFound</a></code> is returned if you specify an unknown ID to this function. This return value must always be handled.</p><!-- write here --></div>
+  </body>
+</html>

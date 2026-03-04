@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetConnectResult</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/nfp/Overview.html">nfp</a>::<a href="../../../nn/nfp/CTR/Overview.html">CTR</a>::GetConnectResult Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> GetConnectResult(
+     <a href="../../../nn/Result/Overview.html">nn::Result</a> * pConnectResult
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pConnectResult</th>
+          <td>Gets the result when the <code>Connect</code> function finishes.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+      <br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>The process succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidOperation</th>
+          <td>The library is not in the correct state.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>Invalid argument.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Returns the result of the <code>Connect</code> function. When called on SNAKE, the function succeeds without doing anything.</p><p>Results obtained by this function are just the results of the <code>Connect</code> function called immediately prior. <code>ResultSuccess</code> is returned even if a disconnect occurs immediately after a short-term connection succeeds. <br />
+ Consequently, if the connection is lost immediately after a successful call to the <code>Connect</code> function, you might encounter a situation where this function returns <code>ResultSuccess</code> even though the application considers the call to the <code>Connect</code> function to have failed. <br />
+ In such instances, treat it as a disconnection after a successful connection. <br /><br />
+ The following results are returned to <emphasis>pConnectResult</emphasis>.</p><TABLE><THEAD><TR bgcolor="#ccccdd"><TH>Value</TH><TD>Description</TD></TR></THEAD><TR><TH>ResultSuccess</TH><TD>The connection succeeded or a disconnection occurred that was unrelated to calling the <tt>Connect</tt> function.</TD></TR><TR><TH>ResultConnectCanceled</TH><TD>The connection process was canceled or failed due to an internal error.</TD></TR><TR><TH>ResultTimeOutError</TH><TD>The connection timed out unsuccessfully.</TD></TR><TR><TH>ResultUpdateRequired</TH><TD>NFC reader/writer needs to be updated. This error can be issued by corrupting the firmware with the FangateFwUpdater tool.</TD></TR><TR><TH>ResultIrFunctionError</TH><TD>The IR module might be malfunctioning. This result can only occur on CTR. Equivalent to <tt>ir::CTR::ResultFatalError</tt>.</TD></TR><TR><TH>ResultNfcTargetError</TH><TD>NFC reader/writer might be malfunctioning. This can be forcibly issued by enabling Fangate Failure Emulation on the Config tool.</TD></TR><TR><TH>Anything else</TH><TD>An unexpected error.</TD></TR></TABLE></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/04/20</dt>
+        <dd><item xmlns="">Removed <tt>ResultInvalidOperation</tt> from the values that can be obtained.</item><br />
+        </dd>
+        <dt>2015/03/02</dt>
+        <dd><item xmlns="">Added a method to issue <tt>ResultUpdateRequired</tt>.</item><br />
+        </dd>
+        <dt>2015/02/18</dt>
+        <dd><item xmlns="">Added a method to forcibly issue <tt>ResultIrFunctionError</tt>.</item><br />
+        </dd>
+        <dt>2014/12/24</dt>
+        <dd><item xmlns="">Deleted <tt>ResultDataAccessFailed</tt> from the values that can be obtained.</item><br />
+        </dd>
+        <dt>2014/12/16</dt>
+        <dd><item xmlns="">Added a method to forcibly issue <tt>ResultNfcTargetError</tt>.</item><br />
+        </dd>
+        <dt>2014/11/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

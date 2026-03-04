@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>FindById</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a>::FindById Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+static <a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a> * FindById(
+     <a href="../../../nn_types/bit32.html">bit32</a> id
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>id</th>
+          <td>The ID to use as the thread search key.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the pointer to the <code><a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a></code> corresponding to id. If not found, returns <code>NULL</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the pointer to the <code><a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a></code> from the thread ID.</p><p>Searches among <code><a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a></code> instances that have been <code>initialized</code> but not <code>finalized</code> to find the one that matches the specified ID.</p><p>This function is implemented using <code><a href="../../../nn/os/ManagedThread/Enumerate.html">Enumerate</a></code>, so it complies with <code><a href="../../../nn/os/ManagedThread/Enumerate.html">Enumerate</a></code> in terms of thread safety and internal function blocks.</p><p>For more information, see the <code><a href="../../../nn/os/ManagedThread/Enumerate.html">Enumerate</a></code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/13</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

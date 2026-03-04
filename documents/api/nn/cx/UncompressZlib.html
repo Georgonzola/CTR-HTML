@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>UncompressZlib</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/cx/Overview.html">cx</a>::UncompressZlib Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/cx.h&gt;
+<a href="../../nn_types/s32.html">s32</a> UncompressZlib(
+     void * pDst,
+     size_t dstSize,
+     const void * pSrc,
+     size_t srcSize,
+     void * pWork
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Buffer where decompressed data is written.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstSize</th>
+          <td>Size of the buffer pointed to by <emphasis>pDst</emphasis>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pSrc</th>
+          <td>Buffer storing the compressed data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcSize</th>
+          <td>Specifies the size of the compressed data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pWork</th>
+          <td>Specifies the work buffer. It requires a region equal to <code><a href="../../nn/cx/UNCOMPRESS_ZLIB_WORK_SIZE.html">UNCOMPRESS_ZLIB_WORK_SIZE</a></code> bytes.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">When decompression succeeds, returns the data size after decompression. Returns an <code><a href="../../nn/cx/ErrorCode.html">ErrorCode</a></code> value if unsuccessful. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Decompresses <code>deflate</code> compressed data in ZLIB format.</p><p>You can decompress data compressed with the <code><a href="../../nn/cx/CompressZlib.html">CompressZlib</a></code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/05/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

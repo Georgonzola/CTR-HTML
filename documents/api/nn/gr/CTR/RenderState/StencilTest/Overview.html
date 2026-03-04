@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::gr::CTR::RenderState::StencilTest</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/gr/Overview.html">gr</a>::<a href="../../../../../nn/gr/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/gr/CTR/RenderState/Overview.html">RenderState</a>::StencilTest Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class StencilTest</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for setting the stencil test.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnable</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Enables or disables the stencil test. Always passes if disabled. The initial value is <code>false</code> (disabled).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">maskOp</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/bit8.html">bit8</a></td>
+            <td>Mask setting for the stencil buffer. The type is <code>bit8</code>. The initial value is <code>0xff</code>. Equivalent to <code>glStencilMask( mask )</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">func</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../../nn_gx_CTR_Pica/PicaDataStencilTest.html">PicaDataStencilTest</a> ></td>
+            <td>Sets the comparison function to use in the stencil test. The type is <code><a href="../../../../../nn_gx_CTR_Pica/PicaDataStencilTest.html">PicaDataStencilTest</a></code>. The initial value is <code>PICA_DATA_STENCIL_TEST_ALWAYS</code>. Corresponds to the ref argument of a call to <code>glStencilFunc(func, ref, mask)</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">ref</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Sets the reference value to use in the stencil test. The type is <code>bit32</code>. The initial value is <code>0</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">mask</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/bit32.html">bit32</a></td>
+            <td>Sets the mask value to use in the stencil test. The type is <code>bit32</code>. The initial value is <code>0xff</code>. Corresponds to the mask argument of a call to <code>glStencilFunc(func, ref, mask)</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">opFail</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../../nn_gx_CTR_Pica/PicaDataStencilOp.html">PicaDataStencilOp</a> ></td>
+            <td>Sets stencil buffer value operations to be applied when the stencil test fails. The type is <code><a href="../../../../../nn_gx_CTR_Pica/PicaDataStencilOp.html">PicaDataStencilOp</a></code>. The initial value is <code>PICA_DATA_STENCIL_OP_KEEP</code>. Corresponds to the func argument of a call to <code>glStencilFunc(func, ref, mask)</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">opZFail</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../../nn_gx_CTR_Pica/PicaDataStencilOp.html">PicaDataStencilOp</a> ></td>
+            <td>Sets stencil buffer value operations to be applied when the stencil test passes, but the depth test fails. The type is <code><a href="../../../../../nn_gx_CTR_Pica/PicaDataStencilOp.html">PicaDataStencilOp</a></code>. The initial value is <code>PICA_DATA_STENCIL_OP_KEEP</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">opZPass</span>
+            </th>
+            <td width="100"><a href="../../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../../nn_gx_CTR_Pica/PicaDataStencilOp.html">PicaDataStencilOp</a> ></td>
+            <td>Sets stencil buffer value operations to be applied when the stencil test and depth test both fail. The type is <code><a href="../../../../../nn_gx_CTR_Pica/PicaDataStencilOp.html">PicaDataStencilOp</a></code>. The initial value is <code>PICA_DATA_STENCIL_OP_KEEP</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/StencilTest/StencilTest.html">StencilTest</a>
+            </th>
+            <td>Initializes using initial values for stencil test settings.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/StencilTest/MakeCommand.html">MakeCommand</a>
+            </th>
+            <td>Generates a rendering command based on information already set.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/StencilTest/MakeDisableCommand.html">MakeDisableCommand</a>
+            </th>
+            <td>Generates commands to disable stencil tests.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

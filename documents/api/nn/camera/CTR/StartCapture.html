@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StartCapture</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::StartCapture Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void StartCapture(
+     <a href="../../../nn/camera/CTR/Port.html">Port</a> port
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>port</th>
+          <td>Specifies the port to start operating.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Starts capturing.</p><P>You can get image data beginning in the next frame after this function is called. (The next frame starts at the end of the camera V-Blank).  For this reason, data does not actually begin to be sent to the configured buffer until after the next camera V-Blank.  <b>Note:</b> The camera V-Blank differs from the LCD V-Blank.</P><P>This function starts saving image data to the buffer for the active camera. The <tt><a href="../../../nn/camera/CTR/Activate.html">nn::camera::CTR::Activate</a></tt> function must be called to start the camera module itself.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/04/09</dt>
+        <dd><item xmlns="">Added description text.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

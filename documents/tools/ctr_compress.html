@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>ctr_compress</title>
+    <style type="text/css">
+    <!--
+    body {
+    /*
+        font-size       : 10pt;
+    */
+        font-weight     : normal;
+        color           : #000000;
+        margin          : 8px;
+    }
+
+    div {
+        width           : 98%;
+        white-space     : nowrap;
+    }
+
+    div.title {
+        text-align      : left;
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        color           : #202020;
+        border-style    : double;
+        border-width    : 8px;
+        /* タイトルを囲む枠線の色を指定 */
+        border-color    : #CD202C;
+
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+
+        margin          : 4px;
+        padding         : 4px;
+    }
+    H1 {
+      font-size                 : 150%;
+      font-family               : Arial;
+      border-bottom-width       : 5px;
+      border-bottom-style       : solid;
+      border-bottom-color       : #CD202C;
+      padding-bottom            : 1px;
+      margin-bottom             : 20px;
+      letter-spacing            : normal;
+      font-weight               : bold;
+    }
+
+    h2 {
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        border-style    : none none solid double;
+        border-width    : 0px 0px 2px 8px;
+        /* 見出しの線の色を指定 */
+        border-color    : #CD202C;
+
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+
+        margin-left     : 2px;
+        padding-left    : 4px;
+    }
+    CODE {
+      font-family       : "Courier New", monospace;
+      position          : normal;
+      left              : 12px;
+      font-size         : 10pt;
+    }
+    table {
+      margin-top        : 2pt;
+      margin-bottom     : 2pt;
+      margin-left       : 0pt;
+      margin-right      : 0pt;
+      padding-left      : 0pt;
+      padding-right     : 0pt;
+      position          : relative;
+      left              : 12px;
+      font-family       : Arial;
+      font-size         : 10pt;
+      border-style      : none none none none;
+    }
+    td,th {
+      padding           : 2pt;
+      border-width      : 2pt;
+      border-style      : none none none none;
+      font-style        : normal;
+      text-align        : left;
+    }
+    td {
+      background        : #e8f4f4;
+      font-weight       : normal;
+    }
+    th {
+      background        : #c0d8d8;
+      font-weight       : bold;
+    }
+
+    p {
+        margin-left     : 4px;
+    }
+    p.code {
+      font-family       : "Courier New", monospace;
+      position          : normal;
+      left              : 12px;
+      font-size         : 10pt;
+      background        : #e8f4f4;
+    }
+
+    -->
+    </style>
+
+  </head>
+  <body>
+<h1>ctr_compress</h1>
+<h2>Description</h2>
+    <p>
+The <CODE>ctr_compress</CODE> tool creates compressed data in a format that can be handled by the <CODE>cx</CODE> library of the CTR-SDK.
+    </p>
+<h2>How to Use</h2>
+<h3>Command</h3>
+
+    <p class="code">
+% ctr_compress &lt;-d(8|16)|r|l|lex|lb|h(4|8)|lh|lrc&gt; [-s] [-&lt;t|T&gt;[width]] [-H] [-A(4|8|16|32)] [-o outputFile] &lt;inputFile&gt;
+    </p>
+    <p class="code">
+% ctr_compress &lt;-x|xlb&gt; [-o outputFile] [-s] &lt;inputFile&gt;
+    </p>
+
+    <p>
+Compresses and converts the input file that is designated by <CODE>inputFile</CODE> into a designated format. Run-length compression, LZ77 extended compression, LZ77 backward compression, Huffman compression, and difference filter conversion are all possible.
+    </p>
+    <p>
+With the <code>-s</code> option, the message indicating successful compression will not be displayed.
+    </p>
+    <p>
+With the <CODE>-H</CODE> option, the data size is also appended to the data after expansion occurs. This is because header information is added to the data and compressed.
+    </p>
+    <p>
+With the <code>-A</code> option, the end of the output file is padded with zeroes so that the file size is in alignment with the byte size of the <SPAN class="argument">n</SPAN> argument. You cannot use the <CODE>-lb</CODE> and <CODE>-x</CODE> options together.
+    </p>
+    <p>
+With the <CODE>-o</CODE> option, the filename of the output file can be designated. If nothing is designated, the output file is created with the name (<i>main portion of the input filename</i>)_(<i>compression method</i>).bin.
+    </p>
+    <p>
+With the <CODE>-t</CODE> or <CODE>-T</CODE> option, the output file can be created as a C format text file. By adding (1 | 2 | 4) to the option, you can choose between the u8, u16, and u32 types. (The default is u8.) The output is little-endian with <CODE>-t</CODE> and big-endian with <CODE>-T</CODE> when u16 or u32 has been specified.
+    </p>
+    <p>
+With the <CODE>-x</CODE> option, files that were compressed using <CODE>ctr_compress</CODE> (with the exception of LZ77 backward compression files ) can be decompressed on the PC. For files that have been compressed with LZ77 backward compression, use the <CODE>-xlb</CODE> option.
+    </p>
+    <p>
+If you omit the input filename, the data will be loaded from standard input. If you specify &quot;-&quot; for the output filename with the <CODE>-o</CODE> option, the data will be written to standard output. An example is given below.
+    </p>
+    <p class="code">
+% ctr_compress -l -o - &lt; inputFile &gt; outputFile
+    </p>
+
+<h3>Format of Options for Designating the Compression Method</h3>
+
+    <p>
+The following formats can be specified for the compression method:
+    </p>
+    <p>
+      <table class="table"><tbody>
+<tr><th>Options</th><th>Compression Method</th><th>Parameters</th></tr>
+<tr><td><code>-d</code></td><td>Difference filtering.</td><td>Specifies the bit size of the comparison unit  { 8 | 16 }</td></tr>
+<tr><td><CODE>-r</CODE></td><td>Run-length compression.</td><td>None.</td></tr>
+<tr><td>-h</td><td>Huffman compression.</td><td>Specifies the bit size to encode  { 4 | 8 }</td></tr>
+<tr><td><CODE>-lex</CODE></td><td>LZ77 extended compression</td><td>None.</td></tr>
+<tr><td><code>-l</code></td><td>LZ77 compression (for backward compatibility).</td><td>None.</td></tr>
+<tr><td>-lb</td><td>LZ77 backward compression</td><td>None.</td></tr>
+<tr><td>-lh</td><td>LZ77 + Huffman combined compression</td><td>None.</td></tr>
+<tr><td>-lrc</td><td>LZ77 + Range Coder combined compression</td><td>None.</td></tr>
+      </tbody></table>
+    </p>
+    <p>
+Although you can expect a higher compression ratio with LZ77 extended compression (<CODE>-lex</CODE>) as compared to LZ77 compression (<CODE>-l</CODE>), the <CODE>-l</CODE> option is preserved for backward compatibility. Either format can be decompressed using the same <CODE>nn:cx::UncomrpessLZ*</CODE> functions.
+    </p>
+    <p>
+Although extended LZ compression (<CODE>-lex</CODE>) may have a worst-case compression time several times greater than when using conventional LZ compression (<CODE>-l</CODE>), and although you can expect compression at more consistent speeds with the conventional version regardless of the data when compressing data at runtime, decompression speed is about the same for both methods.
+    </p>
+
+<h2>Revision History</h2>
+    <dl class="history">
+      <dt>2011/10/13</dt>
+<dd>Added a note about support for standard input and standard output. <br /></dd>
+      <dt>2011/10/03</dt>
+<dd>Added a note specific to restrictions for the <CODE>-A</CODE> option.</dd>
+      <dt>2011/06/02</dt>
+<dd>Added the <CODE>-lb</CODE> and  <CODE>-xlb</CODE> options.</dd>
+      <dt>2010/09/17</dt>
+<dd>Initial version.<br /></dd>
+    </dl>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetThumbnailSize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a>::SetThumbnailSize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+void SetThumbnailSize(
+     <a href="../../../../nn_types/u32.html">u32</a> width,
+     <a href="../../../../nn_types/u32.html">u32</a> height,
+     <a href="../../../../nn/jpeg/CTR/PixelSampling.html">PixelSampling</a> dstPixelSampling = <a href="../../../../nn/jpeg/CTR/DEFAULT_THUMBNAIL_PIXEL_SAMPLING.html">DEFAULT_THUMBNAIL_PIXEL_SAMPLING</a>
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Specifies the thumbnail width in pixels. (Up to 65535.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Specifies the thumbnail height in pixels. (Up to 65535.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstPixelSampling</th>
+          <td>Specifies the image's output format (its pixel sampling). <br />
+ The default is <code><a href="../../../../nn/jpeg/CTR/DEFAULT_THUMBNAIL_PIXEL_SAMPLING.html">DEFAULT_THUMBNAIL_PIXEL_SAMPLING</a></code> (<code><span>PIXEL_SAMPLING_YUV422</span></code>).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Specifies the thumbnail image size and output format.</p><p>If the encoding function appends a thumbnail, the default thumbnail image size in pixels is <code><a href="../../../../nn/jpeg/CTR/DEFAULT_THUMBNAIL_WIDTH.html">DEFAULT_THUMBNAIL_WIDTH</a></code> (160) wide and <code><a href="../../../../nn/jpeg/CTR/DEFAULT_THUMBNAIL_HEIGHT.html">DEFAULT_THUMBNAIL_HEIGHT</a></code> (120) high, with an aspect ratio of 4:3.</p><p>The thumbnail is generated to have the specified image size, so when the original image has an aspect ratio that is not 4:3, the thumbnail image is shrunk more on one axis than the other, leading to image distortion.</p><p>By specifying the thumbnail image size with this function, you can ensure that the original image and thumbnail image aspect ratios match or are at least close. <br />
+ If the thumbnail image size is increased too much, the image does not fit in the <code>APP1</code> segment (up to byte <code>0xFFFF</code>) and encoding fails.</p><p>The specifiable image sizes change depending on the output format (the <emphasis>dstPixelSampling</emphasis> parameter).</p><p><itemizedlist><listitem><para>If <code><span>PIXEL_SAMPLING_YUV444</span></code> is specified, the width and height of the image must both be multiples of 8. </para></listitem><listitem><para>If <code><span>PIXEL_SAMPLING_YUV420</span></code> is specified, the width and height of the image must both be multiples of 16. </para></listitem><listitem><para>If <code><span>PIXEL_SAMPLING_YUV422</span></code> is specified, the height must be a multiple of 8 and the width a multiple of 16. </para></listitem></itemizedlist></p><p>The default image output format is <code><a href="../../../../nn/jpeg/CTR/DEFAULT_THUMBNAIL_PIXEL_SAMPLING.html">DEFAULT_THUMBNAIL_PIXEL_SAMPLING</a></code> (<code><span>PIXEL_SAMPLING_YUV422</span></code>).</p><p>Call this function before calling the encoding function. The values specified by this function are cleared after the encoding function completes, regardless of whether the encoding function succeeded or failed. When encoding multiple times, you must call this function before each encoding function call. The values specified by this function are cleared if you reinitialize the encoder object using the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Initialize.html">Initialize</a></code> function.</p><p>If the combination of the <emphasis>width</emphasis>, <emphasis>height</emphasis>, and <emphasis>dstPixelSampling</emphasis> arguments is invalid, all these values are replaced with the defaults.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

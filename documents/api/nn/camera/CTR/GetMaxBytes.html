@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetMaxBytes</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::GetMaxBytes Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+size_t GetMaxBytes(
+     <a href="../../../nn_types/s16.html">s16</a> width,
+     <a href="../../../nn_types/s16.html">s16</a> height
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Specifies the horizontal width (in pixels). If trimming, specify (in pixels) the desired width of the trimmed image.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Specifies the vertical height (in pixels). If trimming, specify the desired height (in pixels) of the trimmed image.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the maximum number of bytes that can be saved in the buffer. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the maximum number of bytes that can be saved in the buffer. The buffer can save up to a maximum of 10 KB of data, but to avoid buffer errors this function instead takes 5 KB (half of that maximum value) as its standard when it returns the number of bytes. <br />
+ Execution halts within this function if the following condition is not met. <br />
+ • The amount of data per image frame (<code>width * height * 2</code>) must be a multiple of 256 bytes.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/02/02</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

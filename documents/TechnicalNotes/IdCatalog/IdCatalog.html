@@ -1,0 +1,1271 @@
+﻿<!DOCTYPE html>
+<HTML LANG="en">
+
+<HEAD>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <META http-equiv="Content-Style-Type" content="text/css">
+    <META http-equiv="X-UA-Compatible" content="IE=8" >
+
+<TITLE>ID List</TITLE>
+
+    <STYLE>
+        h1.left
+        {
+            color: #46f;
+            font-size: 120%;
+        }
+        ul.left, ul.left ul
+        {
+            margin: 0;
+            padding: 0;
+        }
+        ul.left li
+        {
+            margin: 0;
+            padding: 0;
+            margin-left: 1em;
+        }
+        H1
+        {
+            font-weight         : bold;
+            font-size           : 250%;
+            text-align          : left;
+            color               : #46f;
+            margin-bottom       : 0px;
+        }
+
+        H2
+        {
+            font-weight         : normal;
+            font-size           : 180%;
+            margin              : 24pt 0pt 6pt 0pt;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+        }
+
+        H3
+        {
+            font-weight         : bold;
+            font-size           : 120%;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+            width: 75%;
+            margin              : 18pt 0pt 6pt 30pt;
+        }
+
+        H4
+        {
+            font-weight         : bold;
+            font-size           : 100%;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H5
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H6
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        DIV.date
+        {
+            text-align          : right;
+            color               : #46f;
+            margin-bottom       : 30pt;
+            line-height         : 150%;
+        }
+
+        P
+        {
+            margin              : 0pt 0pt 12pt 30pt;
+            line-height         : 150%;
+        }
+
+        DL
+        {
+            margin              : 6pt 0pt 6pt 50pt;
+        }
+        OL, UL
+        {
+            margin              : 6pt 0pt 0 2em;
+        }
+        dd OL, dd UL
+        {
+            margin              : 6pt 0pt 0 0;
+        }
+        OL OL, UL UL
+        {
+            margin-left: 3em;
+        }
+
+        DT
+        {
+            font-family         : "Courier New", monospace;
+            margin-top : 0.3em;
+            margin-bottom : 0.3em;
+        }
+        DD
+        {
+            margin-top : 0.3em;
+            margin-bottom : 0.6em;
+        }
+
+        PRE
+        {
+            font-family         : "Courier New", monospace;
+            font-weight         : normal;
+
+            margin              : 0pt 0pt 6pt 50pt;
+            padding             : 2pt 8pt 2pt 8pt;
+            background-color    : #eee;
+
+            border-style        : solid;
+            border-width        : 1px;
+        }
+        em
+        {
+            font-style: normal;
+            color: red;
+        }
+        TABLE
+        {
+            margin-left         : 40pt;
+            margin-bottom       : 20pt;
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        TD
+        {
+            font-style          : normal;
+            padding             : 2pt 4pt 2pt 4pt;
+
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        div.footer
+        {
+            border-color: black;
+            padding-top: 0.5em;
+            border-top-style    : solid;
+            border-top-width    : 1px;
+            width:              100%;
+            margin-top: 4em;;
+        }
+        div.footer span
+        {
+            color               : #46f;
+            float: right;
+        }
+        table.diff
+        {
+            border: none;
+        }
+        table.diff td
+        {
+            border: none;
+            border-bottom: solid 1px black;
+        }
+        table.diff div.wii,table.diff div.twl,table.diff div.card,table.diff div.nand
+        {
+            padding: 0.2em 0.3em;
+        }
+        table.diff div.card
+        {
+            background-color: #A88;
+            border: solid 1px #FFF;
+            color: #FFF;
+        }
+        table.diff div.wii
+        {
+            background-color: #88A;
+            border: solid 1px #FFF;
+            color: #FFF;
+        }
+        table.diff div.twl,table.diff div.nand
+        {
+            background-color: #FFE;
+            border: solid 1px #0D9;
+            color: #0D9;
+        }
+        div.popup
+        {
+            position: absolute;
+            background-color: #FFFEF9;
+            border: solid 1px #B5B200;
+            border-style: none solid solid none;
+            font-size: 0.8em;
+            padding: 1em;
+        }
+        dd
+        {
+            margin-bottom: 1em;
+        }
+    </STYLE>
+    <SCRIPT type="text/javascript">
+    <!--
+
+        var Global = {
+            root: document.documentElement,
+            popup: null,
+            popupMap: {},
+            popupIndex: 0
+        };
+
+        if( ! Event.stopPropagation )
+        {
+            Event.prototype.stopPropagation = function()
+            {
+                this.cancelBubble = true;
+            }
+        }
+        Event.prototype.GetTarget = function()
+        {
+            if( this.target )
+            {
+                return this.target;
+            }
+            else
+            {
+                return this.srcElement;
+            }
+        }
+        if( !  Element.prototype.addEventListener )
+        {
+            Element.prototype.addEventListener = function(type, listener, useCapture)
+            {
+                var helper = function()
+                    {
+                        if( listener.handleEvent )
+                        {
+                            return listener.handleEvent.apply(listener, arguments);
+                        }
+                        else
+                        {
+                            return listener.apply(null, arguments);
+                        }
+                    };
+
+                this.attachEvent("on" + type, helper);
+            }
+        }
+
+        function CallMethod(obj, method)
+        {
+            return new function()
+            {
+                return method.apply(obj, arguments)
+            };
+        }
+        function WordPopup(x, y, word)
+        {
+            function MakeHtml(word)
+            {
+                var dd = document.getElementById("word-" + word);
+                return dd.innerHTML;
+            }
+            this.CloseChild = function()
+            {
+                if( this.child != null )
+                {
+                    this.child.Close();
+                    this.child = null;
+                }
+            }
+            this.Close = function()
+            {
+                if( this.obj != null )
+                {
+                    this.CloseChild();
+
+                    document.body.removeChild(this.obj);
+                    delete Global.popupMap[this.id];
+                    this.obj = null;
+                }
+            }
+            this.SetChild = function(child)
+            {
+                this.CloseChild();
+                this.child = child;
+            }
+            this.OnMouseOver = function(e)
+            {
+                e.stopPropagation();
+
+                var target = e.GetTarget();
+
+                if( target.nodeType == 1 )
+                {
+                    if( target.tagName == "A" )
+                    {
+                        return;
+                    }
+                }
+
+                this.CloseChild();
+            }
+            this.handleEvent = function(e)
+            {
+                if( e.type == "mouseover" )
+                {
+                    this.OnMouseOver(e);
+                }
+            }
+
+            this.child = null;
+            this.word = word;
+            this.id = Global.popupIndex++;
+
+            this.obj = document.createElement("div");
+            this.obj.className = "popup";
+            this.obj.id = "popup-" + this.id;
+            this.obj.innerHTML = MakeHtml(word);
+            this.obj.style.left = x + "px";
+            this.obj.style.top  = y + "px";
+
+            Global.popupMap[this.id] = this;
+
+            this.obj.addEventListener("mouseover", this, false);
+
+            document.body.insertBefore(this.obj, null);
+        }
+        function DeleteRule(index)
+        {
+            var ss = document.styleSheets.item(0);
+
+            if( ss.removeRule )
+            {
+                ss.removeRule(index);
+            }
+            else
+            {
+                ss.deleteRule(index);
+            }
+        }
+        function OnClickAnchor(e, anchor)
+        {
+            window.parent.frames[1].location.hash = anchor;
+
+            if( e.preventDefault )
+            {
+                e.preventDefault();
+            }
+            else
+            {
+                e.returnValue = false;
+            }
+        }
+        function trav(obj)
+        {
+            var ary = new Array();
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var a = c.childNodes.item(0);
+                        var text  = "";
+                        var anchor = "";
+
+                        if( a && a.tagName == "A" )
+                        {
+                            text  = a.innerHTML;
+                            anchor = a.name;
+                        }
+                        else
+                        {
+                            text  = c.innerHTML;
+                        }
+
+                        ary.push([c.tagName.substr(1,1), "<a target=\"right\" href=\"?right#" + anchor + "\" onclick=\"OnClickAnchor(event, '" + anchor + "')\">" + text + "</a>"]);
+                    }
+                    else
+                    {
+                        ary = ary.concat(trav(c));
+                    }
+                }
+            }
+
+            return ary;
+        }
+        function GetNextTagIndex(obj, tagName, start)
+        {
+            for( var i = start; i  < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.nodeName == tagName )
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
+        }
+        function OnOverWord(e, word)
+        {
+            e.stopPropagation();
+            var ex = e.clientX + Global.root.scrollLeft;
+            var ey = e.clientY + Global.root.scrollTop;
+            var target = e.GetTarget();
+
+            if( target.nodeType == 1 )
+            {
+                if( target.tagName == "A" )
+                {
+                    if( target.parentNode.tagName == "DIV" )
+                    {
+                        var parentId = target.parentNode.id.match(/\d+/);
+                        var parent = Global.popupMap[parentId];
+                        parent.SetChild(new WordPopup(ex, ey, word));
+                    }
+                    else
+                    {
+                        if( Global.popup != null )
+                        {
+                            if( Global.popup.word == word )
+                            {
+                                return;
+                            }
+
+                            Global.popup.Close();
+                        }
+
+                        Global.popup = new WordPopup(ex, ey, word);;
+                    }
+                }
+            }
+        }
+        function CollectWords()
+        {
+            var dls = document.getElementsByTagName("dl");
+            var words = [];
+
+            for( var i = 0; i < dls.length; ++i )
+            {
+                var dl = dls[i];
+
+                for( var j = 0; j < dl.childNodes.length; )
+                {
+                    var dti = GetNextTagIndex(dl, "DT", j);
+                    if( dti < 0 )
+                    {
+                        break;
+                    }
+
+                    var ddi = GetNextTagIndex(dl, "DD", dti);
+                    if( ddi < 0 )
+                    {
+                        break;
+                    }
+
+                    var dt = dl.childNodes.item(dti);
+                    var dd = dl.childNodes.item(ddi);
+
+                    j = ddi + 1;
+
+                    var wordName = dt.innerHTML.replace(/^\s+|\s+$/, "");
+                    if( wordName )
+                    {
+                        words.push(wordName);
+                        dt.innerHTML = "<a name=\"" + wordName + "\">" + wordName + "</a>";
+                        dd.id = "word-" + wordName;
+                    }
+                }
+            }
+
+            return words.sort(function(a, b){ return b.length - a.length; });
+        }
+        function ReplaceWords(text, words)
+        {
+            for( var k = 0; k < words.length; ++k )
+            {
+                var word = words[k];
+                text = text.replace(word, "<a href=\"#" + word + "\">" + word + "</a>");
+            }
+
+            return text;
+        }
+        function LinkWords(words)
+        {
+            var dls = document.getElementsByTagName("dl");
+
+            var reText = words.join("|");
+            var re = new RegExp(reText);
+
+            for( var i = 0; i < dls.length; ++i )
+            {
+                var dl = dls[i];
+
+                for( var j = 0; j < dl.childNodes.length; )
+                {
+                    var ddi = GetNextTagIndex(dl, "DD", j);
+                    if( ddi < 0 )
+                    {
+                        break;
+                    }
+
+                    var dd = dl.childNodes.item(ddi);
+
+                    j = ddi + 1;
+
+                    var html = dd.innerHTML;
+                    var replaced = "";
+
+                    while( html.match(re) )
+                    {
+                        var word = RegExp.lastMatch;
+                        var offset = RegExp.leftContext.length;
+                        replaced += html.substr(0, offset);
+                        replaced += "<a href=\"#" + word + "\" onmouseover=\"OnOverWord(event, '" + word + "')\">" + word + "</a>";
+                        html = html.substr(offset + word.length);
+                    }
+
+                    dd.innerHTML = replaced + html;
+                }
+            }
+        }
+        function OnLoad_Left()
+        {
+            var test = trav(document.body);
+            var test2 = "";
+            var level = 2;
+
+            test2 += "<ul class='left'>";
+            for( var i in test )
+            {
+                while( test[i][0] > level )
+                {
+                    level++;
+                    test2 += "<ul>";
+                }
+                while( test[i][0] < level )
+                {
+                    level--;
+                    test2 += "</ul>";
+                }
+
+                test2 += "<li>" + test[i][1];
+            }
+            test2 += "</ul>";
+
+            document.body.innerHTML = test2;
+            DeleteRule(0);
+        }
+        function OnLoad_Frame()
+        {
+            var myname = location.pathname.substr(location.pathname.lastIndexOf("/") + 1);
+
+            var f = document.createElement("frameset");
+            var l = document.createElement("frame");
+            var r = document.createElement("frame");
+
+            f.appendChild(l);
+            f.appendChild(r);
+            f.cols = "150,*";
+
+            l.src  = myname + "?left";
+            r.src  = myname + "?right";
+            l.name = "left";
+            r.name = "right";
+
+            var h = document.documentElement;
+            var b = h.getElementsByTagName("body").item(0);
+
+            h.replaceChild(f, b);
+        }
+        function OnLoad_Right()
+        {
+            document.body.addEventListener("mouseover", OnMouseOver, false);
+
+            var words = CollectWords();
+            LinkWords(words);
+        }
+        function OnMouseOver(e)
+        {
+            var target = e.GetTarget();
+
+            if( Global.popup != null )
+            {
+                if( target.nodeType == 1 )
+                {
+                    if( target.tagName == "A" )
+                    {
+                        return;
+                    }
+                }
+
+                Global.popup.Close();
+                Global.popup = null;
+            }
+        }
+
+
+        if( ! window.opera )
+        {
+            var search = "?right";//location.search;
+
+            if( search == "?left" )
+            {
+                window.onload = OnLoad_Left;
+            }
+            else if( search == "" )
+            {
+                window.onload = OnLoad_Frame;
+            }
+            else if( search == "?right" )
+            {
+                window.onload = OnLoad_Right;
+            }
+
+            if( search != "?right" )
+            {
+                var ss = document.styleSheets.item(0);
+
+                if( ss.addRule )
+                {
+                    ss.addRule("body", "display: none", 0);
+                }
+                else
+                {
+                    ss.insertRule("body {display: none}", 0);
+                }
+            }
+        }
+    //-->
+    </SCRIPT>
+</HEAD>
+
+<BODY>
+
+
+
+
+
+<H1>ID List</H1>
+<DIV class="date">(2011/12/12)</DIV>
+
+
+
+
+
+<H2><a name="intro">Introduction</a></H2>
+
+<H3>About This Document</H3>
+<P>
+This document presents a list with descriptions of the various identifiers used in the CTR-SDK.
+</P>
+<P>
+The meanings and usage of terms used in this document and the CTR-SDK may differ from their general meanings and usage.
+</P>
+
+<H3>Explanations of the Items in Each Description</H3>
+<P>
+The <B>Descriptions</B> section of this document provides various items of information. Below is an explanation of the meaning of each item.
+</P>
+<dl>
+<dt>Specifier
+<dd>Explains who is responsible for specifying which values are used in the application.
+
+<dt>ID Latitude
+    <dd>
+Explains to what extent the application has any latitude in using ID values. <br />If there is no latitude, then the value must be used as specified. When there are a number of IDs, then the application can select which ID to use from among multiple IDs, based on the specification you want to implement for the application.
+
+<dt>Format
+<dd>Describes which format the ID value takes.
+
+<dt>Usage
+<dd>Describes what the ID value is being used for.
+
+<dt>How to Get
+<dd>Describes how to get the ID.
+
+<dt>Normal Value
+    <dd>
+When there is some latitude in using ID values, this describes which value should be used in normal situations.
+
+<dt>Where Used
+<dd>Describes where this ID is used for application development. 
+
+<dt>Supplemental Information
+    <dd>
+Additional descriptions that do not fit into any of the above categories.
+
+</dl>
+
+
+
+
+<H2>List</H2>
+
+<h3>Business Procedure IDs</h3>
+<ul>
+<li><a href="#ProductCode">Product Code (<CODE>ProductCode</CODE>)</a>
+<li><a href="#InitialCode">Game Code (<CODE>InitialCode</CODE>)</a>
+</ul>
+
+<h3>Non-Communication IDs</h3>
+<ul>
+<li><a href="#UniqueId">Unique ID (<CODE>UniqueId</CODE>)</a>
+<li><a href="#ExtSaveDataId">Expanded save data ID (<CODE>ExtSaveDataId</CODE>)</a>
+<li><a href="#UserId">User ID (<CODE>UserId</CODE>)</a>
+<li><a href="#TransferableId">System-specific ID (<CODE>TransferableId</CODE>)</a>
+</ul>
+
+<h3>Communication IDs</h3>
+<ul>
+<li><a href="#LocalCommunicationId">Local communication ID  (<CODE>LocalCommunicationId</CODE>)</a>
+<li><a href="#CecUniqueId">StreetPass unique ID (<CODE>CecUniqueId</CODE>)</a>
+<li><a href="#CecTitleId">StreetPass ID (<CODE>CecTitleId</CODE>)</a>
+<li><a href="#IrCommunicationId">Infrared communication ID (<CODE>IrCommunicationId</CODE>) </a>
+
+<li><a href="#PrincipalId">Principal ID (<CODE>PrincipalId</CODE>)</a>
+<li><a href="#ShopAccountId">Shop Account ID (<CODE>ShopAccountId</CODE>)</a>
+<li><a href="#NintendoNetworkId">Nintendo Network ID (<CODE>NNID</CODE>)</a>
+<li><a href="#NNAPrincipalId">Network Account Principal ID (<CODE>Network_Account_PrincipalId</CODE>)</a>
+<li><a href="#Uuid">Universally Unique Identifier (<CODE>UUID</CODE>)</a>
+<li><a href="#SystemAccountUuid ">System Account UUID</a>
+
+<!-- <li><a href="#LocalFriendCode">ローカルフレンドコード (LocalFriendCode)</a> <li><a href="#FriendCode">フレンドコード (FriendCode)</a> <li><a href="#JoinGameId">合流ゲーム ID (JoinGameId)</a> -->
+</ul>
+
+
+
+
+
+<H2>Descriptions</H2>
+
+<H3><a name="ProductCode">Product Code (<CODE>ProductCode</CODE>)</a></H3>
+<dl>
+<dt>Specifier
+<dd>Nintendo.
+
+<dt>ID Latitude
+<dd>None.
+
+<dt>Format
+<dd>A string in the XXX-Y-ZZZZ format.
+
+<dt>Purpose
+<dd>Used by Nintendo for product management.
+
+<dt>How to Get
+<dd>Issued by Nintendo.
+
+<dt>Normal Value
+<dd>Use the value specified by Nintendo.
+
+<dt>Where Used
+<dd>Set in RSF.
+
+<dt><B>Comments</B>
+<dd>A value is specified for each separate application. Use each value as is. 
+
+</dl>
+
+<H3><a name="InitialCode">Game Code (<CODE>InitialCode</CODE>)</a></H3>
+<dl>
+<dt>Specifier
+<dd>Nintendo.
+
+<dt>ID Latitude
+<dd>None.
+
+<dt>Format
+<dd>String of 4 characters.
+
+<dt>Purpose
+<dd>Used by Nintendo for product management.
+
+<dt>How to Get
+<dd>Issued by Nintendo as part of the product code.
+
+<dt>Normal Value
+<dd>Use the value specified by Nintendo.
+
+<dt>Where Used
+    <dd>
+
+<dt><B>Comments</B>
+<dd>A value is specified for each separate application. Use each value as is. 
+
+</dl>
+
+<H3><a name="UniqueId">Unique ID (UniqueId)</a></H3>
+<dl>
+<dt>Specifier
+<dd>Nintendo.
+
+<dt>ID Latitude
+<dd>None.
+
+<dt>Format
+<dd>A bit array of 20 bits.
+
+<dt>Purpose
+<dd>The ID that identifies the application.
+
+<dt>How to Get
+<dd>Issued by Nintendo.
+
+<dt>Normal Value
+<dd>Use the value specified by Nintendo.
+
+<dt>Where Used
+<dd>Used in the following places.
+        <ul>
+<li>The setting in the RSF.
+<li>As the expanded save data ID.
+<li>In creation of system-specific ID.
+<li>In creation of local communication ID.
+<li>As the StreetPass unique ID.
+<li>In creation of infrared communication ID.
+        </ul>
+
+<dt><B>Comments</B>
+    <dd>
+The CTR system identifies an application by its unique ID. In addition, many other IDs including communication-related IDs are created from this unique ID.
+
+</dl>
+
+<H3><a name="ExtSaveDataId">Expanded Save Data ID (ExtSaveDataId)</a></H3>
+<dl>
+<dt>Specifier
+<dd>The application selects from the unique IDs or expanded save data numbers specified by Nintendo.
+
+<dt>ID Latitude
+<dd>Choose either the assigned unique ID or an expanded save data number.
+
+<dt>Format
+<dd>A bit array of 64 bits.
+
+<dt>Purpose
+<dd>The ID for identifying expanded save data.
+
+<dt>How to Get
+    <dd>
+Use the value of the unique ID. <br />
+ Other expanded save data numbers are issued by Nintendo.
+<dt>Normal Value
+<dd>Use the unique ID of the target application.
+
+<dt>Where Used
+<dd>Used in the following places.
+        <ul>
+<li>The setting in the RSF.
+<li><a href="../../api/nn/fs/MountExtSaveData.html">The <CODE>MountExtSaveData</CODE> function.</a>
+        </ul>
+
+<dt><B>Comments</B>
+    <dd>
+Normally, the unique ID assigned to the target application is used as is for the expanded save data ID. But if multiple applications will share the expanded save data, choose to use the unique ID of one of these applications for the expanded save data ID. <br/>In creating the expanded save data ID, you cannot base it on any arbitrary unique ID value. You must use the unique ID of one of the applications that will use the expanded save data. <br/>
+ Contact Nintendo when you want to get expanded save data anew (except for expanded save data for the local host). Examples include when you want to share expanded save data with other applications, or when you want to use multiple sources of expanded save data in one application.
+</dl>
+
+<H3><a name="UserId">User ID (UserId)</a></H3>
+<dl>
+<dt>Specifier
+<dd>System-specific.
+
+<dt>ID Latitude
+<dd>None.
+
+<dt>Format
+<dd>A bit array of 64 bits.
+
+<dt>Purpose
+<dd>Used by the ubl library to identify users.
+
+<dt>How to Get
+    <dd>
+Call the <CODE><a href="../../api/nn/ubl/GetUserId.html">GetUserId</a></CODE> function to get this value.
+
+<dt>Normal Value
+<dd>Different for each system.
+
+<dt>Where Used
+<dd>Used by the ubl library.
+
+<dt><B>Comments</B>
+<dd>When using <B>Delete All Content and Settings</B>, the values differ before and after the initialization.
+<dd>When using <B>System Transfer</B>, the same values are set on the destination system. 
+
+</dl>
+
+<H3><a name="TransferableId">System-Specific ID (TransferableId)</a></H3>
+<dl>
+<dt>Specifier
+<dd>System-specific.
+
+<dt>ID Latitude
+<dd>None.
+
+<dt>Format
+<dd>A bit array of 64 bits.
+
+<dt>Purpose
+<dd>The application has the option of using this to identify the system.
+
+<dt>How to Get
+    <dd>
+Call the <CODE><a href="../../api/nn/cfg/CTR/GetTransferableId.html">GetTransferableId</a></CODE> function using the unique ID for the argument to get this value.
+
+<dt>Normal Value
+<dd>Different for each system.
+
+<dt>Where Used
+<dd>Used optionally by the application.
+
+<dt><B>Comments</B>
+<dd>When using <B>Delete All Content and Settings</B>, the values differ before and after the initialization. When using <B>System Transfer</B>, the same values are set on the destination system.
+
+</dl>
+
+
+<H3><a name="LocalCommunicationId">Local Communication ID  (LocalCommunicationId)</a></H3>
+<dl>
+<dt>Specifier
+<dd>The application selects from the unique IDs specified by Nintendo.
+
+<dt>ID Latitude
+<dd>Can select from among assigned unique IDs.
+
+<dt>Format
+<dd>A bit array of 32 bits.
+
+<dt>Purpose
+    <dd>
+Used during UDS communication to prevent mixing of communication among different applications. <br />Communications can only take place between applications that use the same local communication ID.
+
+<dt>How to Get
+    <dd>
+Call the <CODE><a href="../../api/nn/uds/CTR/CreateLocalCommunicationId.html">CreateLocalCommunicationId</a></CODE> function using the unique ID for the argument to get this value.
+
+<dt>Normal Value
+<dd>Use the value created from the unique ID of the target application.
+
+<dt>Where Used
+<dd>The uds library API.
+
+<dt><B>Comments</B>
+    <dd>
+Normally, the local communication ID is created from the unique ID assigned to the target application. But if applications are communicating with each other, the local communication ID is created from the unique ID of one of the applications and shared by all. <br/>In creating the local communication ID, you cannot base it on any arbitrary unique ID value. You must use the unique ID of one of the applications that is participating in the communications. <br/>In UDS communications, a separate mechanism prevents communication between applications, even when the same local communication ID is being used.
+
+
+</dl>
+
+
+<H3><a name="CecUniqueId">StreetPass Unique ID (CecUniqueId)</a></H3>
+<dl>
+<dt>Specifier
+<dd>The application selects from the unique IDs specified by Nintendo.
+
+<dt>ID Latitude
+<dd>Can select from among assigned unique IDs.
+
+<dt>Format
+<dd>A bit array of 20 bits.
+
+<dt>Purpose
+    <dd>
+Used in StreetPass to identify the applications conducting StreetPass communications. <br />StreetPass communications can take place between applications that use the same StreetPass unique ID.
+
+<dt>How to Get
+    <dd>
+Use the value of the unique ID.
+
+<dt>Normal Value
+<dd>Use the unique ID of the target application.
+
+<dt>Where Used
+<dd>Used in the following places.
+        <ul>
+<li>The setting in the BSF.
+<li>In creation of StreetPass ID.
+        </ul>
+
+<dt><B>Comments</B>
+    <dd>
+Normally, the local communication ID is created from the unique ID assigned to the target application. But if applications are communicating with each other, the local communication ID is created from the unique ID of one of the applications and shared by all. <br/>In creating the local communication ID, you cannot base it on any arbitrary unique ID value. You must use the unique ID of one of the applications that is participating in the communications.
+
+</dl>
+
+<H3><a name="CecTitleId">StreetPass ID (CecTitleId)</a></H3>
+<dl>
+<dt>Specifier
+<dd>Same as for the StreetPass unique ID.
+
+<dt>ID Latitude
+<dd>Same as for the StreetPass unique ID.
+
+<dt>Format
+<dd>A bit array of 32 bits.
+
+<dt>Purpose
+    <dd>
+The format of the StreetPass unique ID as used by the cec library.
+
+<dt>How to Get
+    <dd>
+Call the <CODE><a href="../../api/nn/cec/CTR/MakeCecTitleId.html">MakeCecTitleId</a></CODE> function using the StreetPass unique ID for the argument to get this value.
+
+<dt>Normal Value
+<dd>Use the value created from the unique ID of the target application.
+
+<dt>Where Used
+<dd>Used by the cec library.
+
+<dt><B>Comments</B>
+    <dd>
+The cec library uses the StreetPass unique ID, not as is, but rather in the form of the StreetPass ID.
+
+</dl>
+
+<H3><a name="IrCommunicationId">Infrared Communication ID (IrCommunicationId) </a></H3>
+<dl>
+<dt>Specifier
+<dd>The application selects from the unique IDs specified by Nintendo.
+
+<dt>ID Latitude
+<dd>Can select from among assigned unique IDs.
+
+<dt>Format
+<dd>A bit array of 32 bits.
+
+<dt>Purpose
+    <dd>
+Used during infrared communication to prevent mixing of communication among different applications. <br />Communications can only take place between applications that use the same infrared communication ID.
+
+<dt>How to Get
+    <dd>
+Call the <CODE><a href="../../api/nn/ir/CTR/Communicator/CreateCommunicationId.html">Communicator::CreateCommunicationId</a></CODE> function using the unique ID for the argument to get this value.
+
+<dt>Normal Value
+<dd>Use the value created from the unique ID of the target application.
+
+<dt>Where Used
+<dd>Used by the <CODE>ir</CODE> library.
+
+<dt><B>Comments</B>
+    <dd>
+Normally, the infrared communication ID is created from the unique ID assigned to the target application. But if applications are communicating with each other, the infrared communication ID is created from the unique ID of one of the applications and shared by all. <br/>In creating the local communication ID, you cannot base it on any arbitrary unique ID value. You must use the unique ID of one of the applications that is participating in the communications.
+
+</dl>
+
+<H3><a name="PrincipalId">Principal ID (PrincipalId)</a></H3>
+<dl>
+<dt>Specifier
+<dd>System-specific.
+
+<dt>ID Latitude
+<dd>None.
+
+<dt>Format
+<dd>A bit array of 32 bits.
+
+<dt>Purpose
+<dd>Identifies users in Friend Presence or Internet Communication.
+
+<dt>How to Get
+<dd>Use the <CODE><a href="../../api/nn/friends/CTR/GetMyPrincipalId.html">nn::friends::CTR::GetMyPrincipalId</a></CODE> function to get this ID.
+
+<dt>Normal Value
+<dd>Different for each system.
+
+<dt>Where Used
+<dd>Used in the <CODE>friend</CODE> and <CODE>NEX</CODE> libraries.
+
+<dt><B>Comments</B>
+<dd>When using <B>Delete All Content and Settings</B>, the values differ before and after the initialization. When using <B>System Transfer</B>, the same values are set on the destination system.
+
+</dl>
+<H3><a name="ShopAccountId">Shop Account ID (ShopAccountId)</a></H3>
+<dl>
+<dt>Specifier
+<dd>System-specific.
+
+<dt>ID Latitude
+<dd>None.
+
+<dt>Format
+<dd>A bit array of 64 bits.
+
+<dt>Purpose
+<dd>Identifies users in subscription and consumable e-commerce services. 
+
+<dt>How to Get
+<dd>You can get this from the information in tickets sent from the system to independent servers.
+
+<dt>Normal Value
+<dd>Different for each system.
+
+<dt>Where Used
+<dd>Used by the ECVS library.
+
+<dt><B>Comments</B>
+<dd>The same values are set even when <B>Delete All Content and Settings</B> is used. Either use <B>Delete Account Activity</B> in Nintendo eShop or delete the account with <CODE><a href = "../../ctools/EcDevTool.html">EcDevTool</a></CODE>. The next time you connect to the shop server, the value will be different.<br /> When using <B>System Transfer</B>, the same values are set on the destination system.
+</dl>
+
+<H3><a name="NintendoNetworkId">Nintendo Network ID (NNID)</a></H3>
+<dl>
+<dt>Specifier
+<dd>User
+
+<dt>ID Latitude
+<dd>None.
+
+<dt>Format
+<dd>A string of 6 to 16 characters, including alphanumeric characters and the period (.), hyphen (-). and underscore (_).
+
+<dt>Purpose
+<dd>Used to identify users with services that through Nintendo Network account authentication.
+
+<dt>How to Get
+<dd>Use the <CODE><a href="../../api/nn/act/GetAccountId.html">nn::act::GetAccountId</a></CODE> function to get this ID. A null string is returned, however, when no Nintendo Network account is associated with the system.
+
+<dt>Normal Value
+<dd>Varies with each Nintendo Network account.
+
+<dt>Used By
+<dd>Used optionally by the application.
+
+<dt><B>Comments</B>
+<dd>Although users cannot change their Nintendo Network IDs at will, Nintendo may change IDs for operational reasons. Use the Nintendo Network account principal ID when managing users for applications or independent servers. After an account ID has been modified or deleted, the original ID can never be used again.<br /><br /> Once a Nintendo Network ID has been deleted, a different value is configured to the ID.<br /> It is possible to maintain an association with the same Nintendo Network ID even after initializing the system.<br /> When using <B>System Transfer</B>, the same values are set on the destination system. 
+</dl>
+
+<H3><a name="NNAPrincipalId">Network Account Principal ID (Network_Account_PrincipalId)</a></H3>
+<dl>
+<dt>Specifier
+<dd>Specific to a Nintendo Network account.
+
+<dt>ID Latitude
+<dd>None.
+
+<dt>Format
+<dd>A bit array of 32 bits.
+
+<dt>Purpose
+<dd>Used to identify users with services that through Nintendo Network account authentication.
+
+<dt>How to Get
+<dd>Use the <CODE><a href="../../api/nn/act/GetPrincipalId.html">nn::act::GetPrincipalId</a></CODE> function to get this ID. <CODE>NN_ACT_INVALID_PRINCIPAL_ID</CODE> is returned, however, when no Nintendo Network account is associated with the system.
+
+<dt>Normal Value
+<dd>Different for each system.
+
+<dt>Used By
+<dd>Features that rely on Nintendo Network account authentication, and the ECSV library.
+
+<dt><B>Comments</B>
+    <dd>
+Once a Nintendo Network ID has been deleted, a different value is configured to the ID.<br />When the same Nintendo Network ID is associated to the system after initializing it, the same value is configured to the principal ID.<br />When using <B>System Transfer</B>, the same values are set on the destination system. 
+</dl>
+
+<H3><a name="Uuid">Universally Unique Identifier (UUID)</a></H3>
+<dl>
+<dt>Specifier
+<dd>Indexed by the system upon generation.
+
+<dt>ID Latitude
+<dd>None.
+
+<dt>Format
+<dd>A bit array of 128 bits.
+
+<dt>Purpose
+<dd>Can be used to apply a unique identifier for data and objects generated by the application.
+
+<dt>How to Get
+<dd>The <CODE><a href="../../api/nn/act/GenerateUuid.html">nn::act::CTR::GenerateUuid</a></CODE> function can generate this ID as needed.
+
+<dt>Normal Value
+<dd>Different each time its generated.
+
+<dt>Used By
+<dd>Used optionally by the application.
+
+<dt><B>Comments</B>
+<dd>The CTR system generates UUIDs that comply with version 1 specifications based on RFC 4122. <br />
+UUIDs are handled overall as one value; do not use them as values as with node IDs or generation date and times.</dl>
+
+<H3><a name="SystemAccountUuid">System Account UUID</a></H3>
+<dl>
+<dt>Specifier
+<dd>Specific to the system account.
+
+<dt>ID Latitude
+<dd>None.
+
+<dt>Format
+<dd>A bit array of 128 bits.
+
+<dt>Purpose
+<dd>The application has the option of using this ID to identify the system account.<br />
+System accounts associated with the same Nintendo Network ID have different UUIDs.<br />
+In addition, because the ID space differs among applications, this ID cannot distinguish accounts across titles.<br />Use the Nintendo Network account principal ID to identify users across platforms and devices.
+
+<dt>How to Get
+<dd>Use the <CODE><a href="../../api/nn/act/GetUuid.html">nn::act::CTR::GetUuid</a></CODE> function to get this ID.
+
+<dt>Normal Value
+<dd>Varies with each system account.
+
+<dt>Used By
+<dd>Used optionally by the application.
+
+<dt><B>Comments</B>
+<dd>The CTR system generates and assigns a UUID for every system account generated. The UUID remains unmodified as long as the system account is not deleted.<br />System accounts are deleted and regenerated at the following times. When that happens, a new UUID is assigned.<br />
+    <ul>
+<li />The Nintendo Network ID is deleted.
+<li />Format the system.
+    </ul>
+<br />
+ During a <B>System Transfer</B>, the system account is moved to the destination system. As such, the destination system can get the same value.</dl>
+
+
+
+<!-- <H3><a name="LocalFriendCode">ローカルフレンドコード (LocalFriendCode)</a></H3> <H3><a name="FriendCode">フレンドコード (FriendCode)</a></H3> <H3><a name="JoinGameId">合流ゲーム ID (JoinGameId)</a></H3> -->
+
+
+
+
+<H2>Revision History</H2>
+<dl class="history">
+    <dt>2014/07/25</dt>
+<dd>Added the conditions under which a user ID is changed.</dd>
+    <dt>2014/07/22</dt>
+<dd>Changed the specific notation of the product code's format.</dd>
+    <dt>2014/02/07</dt>
+<dd>Added Nintendo Network IDs, network account principal IDs, UUIDs and system account UUIDs.</dd>
+    <dt>2014/01/28</dt>
+<dd>Noted what to do when you want to use expanded save data numbers that differ from the unique IDs.</dd>
+    <dt>2013/11/11</dt>
+<dd>Changed the tool name to <CODE>EcDevTool</CODE> (from <CODE>EcRightTool</CODE>) in the section about shop account IDs.<br />Deleted the description of the <CODE>GetAccountId</CODE> function because of compatibility issues.</dd>
+    <dt>2013/07/31</dt>
+<dd>Added information about the principal ID and shop account ID.<br />Added information about system-specific IDs.</dd>
+    <dt>2012/06/29</dt>
+<dd>Deleted the description of the Company Code.</dd>
+    <dt>2011/12/12</dt>
+    <dd>
+Initial version.
+    </dd>
+</dl>
+
+
+<div class="footer"><span>ID List</span></div>
+
+  <hr /><p>CTR-06-0322-011-A<br />CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glEarlyDepthFuncDMP</title>
+  </head>
+  <body>
+    <h1>glEarlyDepthFuncDMP Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glEarlyDepthFuncDMP(
+     GLenum func
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>func</th>
+          <td>Comparison function.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Specifies a comparison function to use in the early depth test.</p><P>Set <span class="argument">func</span> to one of the following values.<TABLE><TR><TH>GL_GEQUAL</TH><TD>Passes when the depth value of the fragment is greater than or equal to the depth value in the early depth buffer.</TD></TR><TR><TH>GL_GREATER</TH><TD>Passes when the depth value of the fragment is greater than the depth value in the early depth buffer.</TD></TR><TR><TH>GL_LEQUAL</TH><TD>Passes when the depth value of the fragment is equal to or less than the depth value in the early depth buffer.</TD></TR><TR><TH>GL_LESS</TH><TD>Passes when the depth value of the fragment is less than the depth value in the early depth buffer.</TD></TR></TABLE><!-- source funcにはGL_GEQUAL、GL_GREATER、GL_LEQUAL、GL_LESSが指定できます。 --></P><P>Early depth tests do not work properly unless you specify the same comparison function here as in <tt>glDepthFunc</tt>.  You must also clear the depth buffer with <tt>glClear</tt> when you use this function to change the comparison function.  You get incorrect rendering results if you re-render to a single depth buffer while changing the comparison function.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">func</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR></TABLE><!-- source funcに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

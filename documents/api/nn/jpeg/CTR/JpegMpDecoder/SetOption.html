@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetOption</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::SetOption Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+void SetOption(
+     <a href="../../../../nn_types/u32.html">u32</a> option
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>option</th>
+          <td>Specifies the options. <br />
+ Values that can be specified are the bitwise OR of <code><a href="../../../../nn/jpeg/CTR/DecoderOption.html">DecoderOption</a></code> values. <br />
+ Specify <code>JPEG_DECODER_OPTION_NONE</code> (0) to restore the default operations of the decoding function.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Specifies options for JPEG decoding.</p><p>You can change the operations of decoding functions (<code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoder.html">StartJpegDecoder</a></code></p><p>The options are enabled for two primary images when decoding with <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartMpDecoderLR.html">StartMpDecoderLR</a></code>.</p><p>Call this function before calling the decoding function. The value specified by this function is cleared after the decoding function completes, regardless of whether the decoding function succeeded or failed. When decoding multiple times, you must call this function before each decoding function call. The values specified by this function are cleared if you reinitialize the decoder object using the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Initialize.html">Initialize</a></code> function.</p><p>If this function is repeatedly called before calling a decoding function, the last specification is enabled.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added Description.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

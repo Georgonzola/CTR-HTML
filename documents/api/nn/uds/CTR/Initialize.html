@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/uds/Overview.html">uds</a>::<a href="../../../nn/uds/CTR/Overview.html">CTR</a>::Initialize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Initialize(
+     <a href="../../../nn/os/Event/Overview.html">nn::os::Event</a> * pStatusUpdateEvent,
+     void * receiveBuffer,
+     const size_t bufferSize
+);
+
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Initialize(
+     <a href="../../../nn/os/Event/Overview.html">nn::os::Event</a> * pStatusUpdateEvent,
+     void * receiveBuffer,
+     const size_t bufferSize,
+     <a href="../../../nn/cfg/CTR/UserName/Overview.html">nn::cfg::UserName</a> * pUserName
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./Initialize(0).html">Initialize ( nn::os::Event *, void *, const size_t ) </a>
+          </td>
+          <td>Initializes the UDS library. Initialization fails if any other communication features are already in use.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./Initialize(1).html">Initialize ( nn::os::Event *, void *, const size_t, nn::cfg::UserName * ) </a>
+          </td>
+          <td>Initializes the UDS library. Initialization fails if any other communication features are already in use.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of Initialize ( nn::os::Event *, void *, const size_t ) </h2>
+    <div class="section"><p>This process could block for a long time, because the UDS library retains control of the communication device until background communications are ended and <code><a href="../../../nn/uds/CTR/Finalize.html">Finalize</a></code> runs. <br />
+ Always call the <code><a href="../../../nn/uds/CTR/Finalize.html">Finalize</a></code> function to release the communication device after you are finished using the UDS library. <br /><br />
+ This function is thread-unsafe.</p><!-- write here --></div>
+    <h2>Description of Initialize ( nn::os::Event *, void *, const size_t, nn::cfg::UserName * ) </h2>
+    <div class="section"><p>This process could block for a long time, because the UDS library retains control of the communication device until background communications are ended and <code><a href="../../../nn/uds/CTR/Finalize.html">Finalize</a></code> runs. <br />
+ Always call the <code><a href="../../../nn/uds/CTR/Finalize.html">Finalize</a></code> function to release the communication device after you are finished using the UDS library. <br />
+ Handle the user name specified by <emphasis>pUserName</emphasis> according to UGC guidelines in the 3DS Guidelines. <br /><br />
+ This function is thread-unsafe.</p><!-- write here --></div>
+  </body>
+</html>

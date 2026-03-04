@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>Resources</title>
+  </head>
+  <body>
+    <h1>Resources</h1>
+    <div class="section">
+      <p>
+        The vertex shader has the following resources.<br />
+      </p>
+    </div>
+    <h2><a name="programRAM">Program RAM</a></h2>
+    <div class="section">
+      <p>
+        Program RAM is the region where the assembler instruction code is stored.<br /> It can hold 512 instructions. If 513 or more instructions are coded in the assembler file, an error will occur at assembly time or at link time.<br />
+      </p>
+    </div>
+
+    <h2><a name="register">Registers</a></h2>
+    <div class="section">
+      <p>
+        The following types of registers are used for operations and flow control.<br /> <br />
+        <table class="members">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <td>Identifier</td>
+            <td>Number of components</td>
+            <td>Number</td>
+            <td>R/W</td>
+            <td>Index</td>
+            <td>Bit width</td>
+          </tr>
+          </thead>
+          <tr>
+            <th>Input registers</th>
+            <td>v#</td>
+            <td>4</td>
+            <td>16</td>
+            <td>R</td>
+            <td>-</td>
+            <td>24</td>
+          </tr>
+          <tr>
+            <th>Temporary registers</th>
+            <td>r#</td>
+            <td>4</td>
+            <td>16</td>
+            <td>RW</td>
+            <td>-</td>
+            <td>24</td>
+          </tr>
+          <tr>
+            <th>Floating-point constant registers</th>
+            <td>c#</td>
+            <td>4</td>
+            <td>96</td>
+            <td>R</td>
+            <td>a0/aL</td>
+            <td>24</td>
+          </tr>
+          <tr>
+            <th>Address register</th>
+            <td>a0</td>
+            <td>2</td>
+            <td>1</td>
+            <td>RW</td>
+            <td>-</td>
+            <td>8</td>
+          </tr>
+          <tr>
+            <th>Boolean registers</th>
+            <td>b#</td>
+            <td>1</td>
+            <td>16 (see below)</td>
+            <td>R</td>
+            <td>-</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <th>Integer registers</th>
+            <td>i#</td>
+            <td>1</td>
+            <td>4</td>
+            <td>R</td>
+            <td>-</td>
+            <td>24</td>
+          </tr>
+          <tr>
+            <th>Loop counter register</th>
+            <td>aL</td>
+            <td>1</td>
+            <td>1</td>
+            <td>R</td>
+            <td>-</td>
+            <td>8</td>
+          </tr>
+          <tr>
+            <th>Output registers</th>
+            <td>o#</td>
+            <td>4</td>
+            <td>16</td>
+            <td>W</td>
+            <td>-</td>
+            <td>24</td>
+          </tr>
+          <tr>
+            <th>Status registers</th>
+            <td>-</td>
+            <td>1</td>
+            <td>2</td>
+            <td>RW</td>
+            <td>-</td>
+            <td>1</td>
+          </tr>
+        </table>
+      </p>
+      <p class="notice">
+        The Number 15 Boolean register (b15) is reserved for the geometry shader.<br />
+      </p>
+      <p>
+        <dl>
+            <dt><b>Identifier</b></dt>
+            <dd>Identifier when coding assembler instructions. The register number is entered for #. You can specify a value between 0 and (total number - 1).</dd>
+            <br /><br />
+            <dt><b>Name</b></dt>
+            <dd>Register name.</dd>
+            <br /><br />
+            <dt><b>Number</b></dt>
+            <dd>The number of registers.</dd>
+            <br /><br />
+            <dt><b>Number of components</b></dt>
+            <dd>The number of pieces of data in one register. If there are 4 components, then each register has the four components x, y, z and w.</dd>
+            <br /><br />
+            <dt><b>R/W</b></dt>
+            <dd>Indicates whether the register can be read from and written to. &quot;R&quot; indicates that you can only specify an input operand. &quot;W&quot; indicates that you can only specify an output operand. &quot;RW&quot; indicates that you can specify an input operand or an output operand.</dd>
+            <br /><br />
+            <dt><b>Index</b></dt>
+            <dd>You can use the contents of the registers being displayed to specify a register number.<br /> See <a href="../grammar/Overview.html#input_offset">Offsetting the Input Operand Register Index</a>.</dd>
+            <br /><br />
+            <dt><b>Bit width</b></dt>
+            <dd>The width of each register in bits.</dd>
+            <br /><br />
+        </dl>
+      </p>
+
+    <h3><a name="register_quality">The Precision of Floating-Point Registers</a></h3>
+    <div class="section">
+      <p>
+        Input registers, temporary registers, and floating-point constant registers are registers of the floating-point type. <br /> <br /> Here, floating point numbers are 24-bit values consisting of 1 sign bit, 7 exponent bits, and 16 mantissa bits.<br /> The sign part takes 0 for positive and 1 for negative.<br /> The exponent part is expressed as a base 2 value biased by 63.<br /> The mantissa (fractional) part stores [mantissa -1].<br /> <br /> The actual value is:<br /> <br /> &nbsp;&nbsp;&nbsp;&nbsp;(-1) ^ (sign) &times; 2 ^ (exponent - 63) &times; (1 + mantissa)<br /> <br />.<br /> <br /> <img src="FloatingPointRegister.png" alt="The precision of floating-point registers">
+      </p>
+    </div>
+
+    <h3><a name="reg_input">Input registers</a></h3>
+    <div class="section">
+      <p>
+        These are floating-point registers.<br /> Store vertex attribute data. (The <CODE>attribute</CODE> values used in OpenGL ES 2.0 applications.)<br />
+      </p>
+    </div>
+
+    <h3><a name="reg_temp">Temporary Registers</a></h3>
+    <div class="section">
+      <p>
+        These are floating-point registers.<br /> These are reusable registers for temporarily holding the results of calculations. The contents of the register are maintained until overwritten. <br />
+      </p>
+    </div>
+
+    <h3><a name="reg_constfloat">Floating-Point Constant Registers</a></h3>
+    <div class="section">
+      <p>
+        These are floating-point registers.<br /> They store constants used in operations. They store the <CODE>uniform</CODE> values used in OpenGL ES 2.0 applications.<br />
+      </p>
+    </div>
+
+    <h3><a name="reg_address">The Address Register</a></h3>
+    <div class="section">
+      <p>
+        The address register is for integers from -95 to 95. You can assign just the integer part of the value of a floating-point register.<br /> Behavior is undefined if you assign a value that is outside the range of [-95, 95].<br /> You can use the register value to specify a register number.<br /> See <a href="../grammar/Overview.html#input_offset">Offsetting the Input Operand Register Index</a>.<br />
+      </p>
+    </div>
+
+    <h3><a name="reg_boolean">Boolean Registers</a></h3>
+    <div class="section">
+      <p>
+        These are registers of the Boolean type. These are used for branching and jumping.<br /> They store the <CODE>uniform</CODE> values used in OpenGL ES 2.0 applications.<br /> The Number 15 Boolean register (b15) is reserved for the geometry shader.<br />
+      </p>
+    </div>
+
+    <h3><a name="reg_integer">Integer Registers</a></h3>
+    <div class="section">
+      <p>
+        These are registers of the integer type. Integer registers are used for controlling <CODE>loop</CODE> instructions.<br /> They store the number of loops, the initial value of the loop counter register and the increment value of the loop counter register. They are 24 bits wide. Bits 0-7 specify the number of loops, bits 8-15 specify the initial value of the loop counter register, and bits 16-23 specify the increment value of the loop counter register.<br /> When the process enters a <CODE>loop</CODE> instruction, the loop counter register is initialized to this register's initial value, and the assembler instructions from the <CODE>loop</CODE> instruction to the <CODE>endloop</CODE> instruction are executed repeatedly for [the number of loops specified by this register + 1]. (If the number of loops as specified by this register is 0, then the instructions are executed only once.)<br /> For each loop, the loop counter register increases by the number specified for the increment value of this register.<br /> This register stores the <CODE>uniform</CODE> values used in OpenGL ES 2.0 applications.<br />
+      </p>
+    </div>
+
+    <h3><a name="reg_loopcounter">The Loop Counter Register</a></h3>
+    <div class="section">
+      <p>
+        Stores the counter values for loop instructions. Can store values in the range of -128 to 127.<br /> As with address registers, you can specify a register number.<br /> See <a href="../grammar/Overview.html#input_offset">Offsetting the Input Operand Register Index</a>.<br />
+      </p>
+    </div>
+
+    <h3><a name="reg_output">Output Registers</a></h3>
+    <div class="section">
+      <p>
+        Outputs the data after processing by the vertex shader for later stages in the graphics pipeline.<br />
+      </p>
+    </div>
+
+    <h3><a name="reg_status">Status Registers</a></h3>
+    <div class="section">
+      <p>
+        These registers are used for conditional branching on values set by comparison instructions.<br />
+      </p>
+    </div>
+  </div>
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

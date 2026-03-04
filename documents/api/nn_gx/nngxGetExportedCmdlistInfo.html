@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxGetExportedCmdlistInfo</title>
+  </head>
+  <body>
+    <h1>nngxGetExportedCmdlistInfo Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxGetExportedCmdlistInfo(
+     GLvoid * data,
+     GLsizei * buffersize,
+     GLsizei * requestsize,
+     GLuint * bufferoffset
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>data</th>
+          <td>Pointer to the exported data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>buffersize</th>
+          <td>Size of the 3D command buffer, in bytes.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>requestsize</th>
+          <td>The number of command requests.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>bufferoffset</th>
+          <td>Offset to the region that stores the 3D command buffer in the data region, in bytes.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the information for an exported command list (binary data).</p><P>Gets the size of the 3D command buffer and the number of command requests of the exported data, and the offset (in bytes) to the address in the data at which the command buffer is stored.  Specify a pointer to data exported by <tt><a href="../nn_gx/nngxExportCmdlist.html">nngxExportCmdlist</a></tt> for <span class="argument">data</span>.  The <span class="argument">buffersize</span> parameter gets the size (in bytes) of the 3D command buffer.  The <span class="argument">requestsize</span> parameter gets the number of command requests.  The <span class="argument">bufferoffset</span> parameter gets the offset (in bytes) to the region at which the 3D command buffer is stored in the <span class="argument">data</span> parameter.</P><P>This function generates the following errors.<TABLE><TR><th>GL_ERROR_8046_DMP</th><TD>Invalid data was specified in the <span class="argument">data</span> parameter.</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxExportCmdlist.html">nngxExportCmdlist</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added the See Also section.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

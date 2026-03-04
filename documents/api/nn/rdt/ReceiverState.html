@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>ReceiverState</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/rdt/Overview.html">rdt</a>::ReceiverState Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum ReceiverState;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>RECEIVER_STATE_WAITING</th>
+          <td>Waiting for a connection request from the other party.</td>
+        </tr>
+        <tr>
+          <th>RECEIVER_STATE_OPENED</th>
+          <td>A connection with the other party has been established and the local host can receive data.</td>
+        </tr>
+        <tr>
+          <th>RECEIVER_STATE_WAITING_FINISHED</th>
+          <td>All of the data has been received from the other party. After that a data transfer complete notification comes from that party and an acknowledgement is returned. However, in this state, it is not certain whether the acknowledgement arrived.</td>
+        </tr>
+        <tr>
+          <th>RECEIVER_STATE_FINISHED</th>
+          <td>The other party is thought to have received the ACK that data transmission is complete. Call <code><a href="../../nn/rdt/Receiver/Close.html">Receiver::Close</a></code> and transition to <code><span>RECEIVER_STATE_CLOSED</span></code>.</td>
+        </tr>
+        <tr>
+          <th>RECEIVER_STATE_CLOSED</th>
+          <td>Initial state of instances.</td>
+        </tr>
+        <tr>
+          <th>RECEIVER_STATE_NOT_INITIALIZED</th>
+          <td>Indicates that a <code>receiver</code> instance has not been initialized.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enumerated type that indicates the state of a <code><a href="../../nn/rdt/Receiver/Overview.html">Receiver</a></code> instance.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>RequestDownloadAllOwnedContents</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/EcApplet/Overview.html">EcApplet</a>::RequestDownloadAllOwnedContents Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a> RequestDownloadAllOwnedContents(
+     const <a href="../../../../nn/ec/CTR/TitleInfo/Overview.html">TitleInfo</a> titleList[],
+     size_t numTitles
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>titleList[]</th>
+          <td>Array of title information items.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numTitles</th>
+          <td>Number of title information items in the array.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. For more information about handling <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> objects, see the <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> reference. The results returned by the <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code> function are shown below.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultTooManyTitles</th>
+          <td>Too many titles were specified.</td>
+        </tr>
+        <tr>
+          <th>ResultSessionInvalid</th>
+          <td>Invalid session.</td>
+        </tr>
+        <tr>
+          <th>ResultFsMediaWriteProtectedError</th>
+          <td>The SD card is write-protected.</td>
+        </tr>
+        <tr>
+          <th>ResultDataTitleInUse</th>
+          <td>One of the pieces of content of the specified title is being mounted.</td>
+        </tr>
+        <tr>
+          <th>ResultTooManyContents</th>
+          <td>Too many pieces of content were specified.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletCloseApplicationRequested</th>
+          <td>Application shutdown was requested. Close the application immediately.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletCancelled</th>
+          <td>The process was canceled by user operation.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletPowerButton</th>
+          <td>The process was canceled by the user pressing the POWER Button.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletNecessaryAttributeNotFound</th>
+          <td>Required attribute not found.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletTooManyContents</th>
+          <td>The number of content instances that can be downloaded per data title at one time has been exceeded.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletWifiOffError</th>
+          <td>Wi-Fi is off.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailedConnectError</th>
+          <td>Connection failed for another reason.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletSdBroken</th>
+          <td>The SD card is broken.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletSdEjected</th>
+          <td>The SD card was removed.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailedError</th>
+          <td>Another error occurred. (General error.)</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailed</th>
+          <td>The same general error as <code><a href="../../../../nn/ec/CTR/ResultAppletFailedError/Overview.html">ResultAppletFailedError</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletRequiresReConnect</th>
+          <td>The server connection has been ended, because there has been no user input for a long time.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> redownload all purchased content.</p><p>This function requires an Internet connection because it communicates with the Nintendo eShop server.</p><p>You cannot request redownload of content while the content of a data title is mounted. The <code><a href="../../../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a></code> class mounts metadata content. When there is a valid instance of the <code><a href="../../../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a></code> class, your re-download request generates <code><a href="../../../../nn/ec/CTR/ResultDataTitleInUse/Overview.html">ResultDataTitleInUse</a></code> and fails.</p><p>Sometimes there are requests to close the application during a call to the EC <a href="../../../../nn/applet/Overview.html">applet</a>. Close the application immediately after receiving <code><a href="../../../../nn/ec/CTR/ResultAppletCloseApplicationRequested/Overview.html">ResultAppletCloseApplicationRequested</a></code>.</p></div>
+  </body>
+</html>

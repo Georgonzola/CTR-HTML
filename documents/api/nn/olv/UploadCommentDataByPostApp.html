@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>UploadCommentDataByPostApp</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/olv/Overview.html">olv</a>::UploadCommentDataByPostApp Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/olv/Result/Overview.html">nn::olv::Result</a> UploadCommentDataByPostApp(
+     <a href="../../nn/olv/UploadedCommentData/Overview.html">nn::olv::UploadedCommentData</a> * uploadedData,
+     const <a href="../../nn/olv/UploadCommentDataByPostAppParam/Overview.html">nn::olv::UploadCommentDataByPostAppParam</a> * uploadParam
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>uploadedData</th>
+          <td>The class for storing the results of starting the posting <a href="../../nn/applet/Overview.html">applet</a> and uploading comments. <br />
+ You can specify <code>NULL</code> if not needed. <br /></td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>uploadParam</th>
+          <td>The class for storing the parameters used when starting the posting <a href="../../nn/applet/Overview.html">applet</a> and uploading comments.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation. <br />
+ For information about handling the result, see the section about Error Handling or the descriptions of the <code><a href="../../nn/olv/Result/Overview.html">nn::olv::Result</a></code> values. <br /><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultUsageError</th>
+          <td>A usage error.</td>
+        </tr>
+        <tr>
+          <th>ResultCanceled</th>
+          <td>Canceled. <br /><code><a href="../../nn/olv/ResultCanceled/Overview.html">ResultCanceled</a></code> is returned if the posting <a href="../../nn/applet/Overview.html">applet</a> is closed without the user uploading the comments.</td>
+        </tr>
+        <tr>
+          <th>ResultLibraryPermanentError</th>
+          <td>A permanent library error.</td>
+        </tr>
+        <tr>
+          <th>ResultLibraryTemporaryError</th>
+          <td>A temporary library error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Starts the posting <a href="../../nn/applet/Overview.html">applet</a> and uploads comments.</p><p>This function can only be used when a connection to the OLV library has already been made with the <code><a href="../../nn/olv/Connect.html">nn::olv::Connect()</a></code> function. <br />
+ Before calling this function you must use the <code><a href="../../nn/cfg/CTR/IsAgreedEula.html">nn::cfg::CTR::IsAgreedEula</a></code> function and confirm that the user has agreed to the EULA. <br />
+ If the EULA has not been agreed to, this function returns an error. For information about what to do when the EULA has not been agreed to, see the 3DS Guidelines. <br />
+ This function is not thread-safe. Make sure not to execute any OLV library functions or class methods on another thread while calling this function. <br /></p><p>Depending on the system mode setting, this function might not work correctly. For more information, see the documentation under CTR Tools > Configuration.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/06/09</dt>
+        <dd><item xmlns="">Noted that the application might not work correctly depending on the system mode setting.</item><br />
+        </dd>
+        <dt>2014/10/08</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

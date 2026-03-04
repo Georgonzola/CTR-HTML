@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>LoadModule</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/ro/Overview.html">ro</a>::LoadModule Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/ro/Module/Overview.html">Module</a> * LoadModule(
+     void * pRo,
+     size_t roSize,
+     void * pBuffer,
+     size_t bufferSize,
+     bool doRegister = true,
+     <a href="../../nn/ro/FixLevel.html">FixLevel</a> fixLevel = FIX_LEVEL_1,
+     const <a href="../../nn/ro/RegistrationList/Overview.html">RegistrationList</a> * pRr = NULL
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pRo</th>
+          <td>Specifies the start address of the <code>cro</code> to be loaded. <br />
+ It must be aligned on an <code>RO_ALIGNMENT_LOAD_MODULE</code> (4096)-byte boundary. The memory must be other than device memory.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>roSize</th>
+          <td>Specifies the size of the <code>cro</code> pointed to by pRo.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Specifies the start address of the memory to be used for the <code>.data/.bss</code> section. <br />
+ It must be aligned on a <code>BUFFER_ALIGNMENT</code> (8)-byte boundary.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>Specifies the size of the memory pointed to by pBuffer. <br />
+ A size greater than or equal to the value stored in <code><a href="../../nn/ro/SizeInfo/Overview.html">SizeInfo::bufferSize</a></code> by <code>GetSizeInfo</code> must be specified.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>doRegister</th>
+          <td>Specifies whether to register as an automatic link target. <br />
+ Registers as an automatic link target if <code>true</code>. Does not register as an automatic link target if <code>false</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>fixLevel</th>
+          <td>Specifies that the memory be released after loading.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pRr</th>
+          <td>Specifies the <code>crr</code> for which <code>cro</code> information specified by pRo is registered. <br />
+ Searches among registered <code>crr</code> files if <code>NULL</code> is specified.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a pointer to a module representing the loaded <code>cro</code> if the <code>cro</code> is loaded successfully. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Loads a <code>cro</code>.</p><p>Relocates <code>cro</code>, resolves references among already loaded modules registered as automatic link targets, and places them under the management of the <code><a href="../../nn/ro/Overview.html">ro</a></code> library.</p><p>If execution succeeds, the memory pointed to by pRo is placed under the management of the <code><a href="../../nn/ro/Overview.html">ro</a></code> library, after which it cannot be used for other purposes.</p><p>To remove this memory region from management by the <code><a href="../../nn/ro/Overview.html">ro</a></code> library, you must call <code><a href="../../nn/ro/Module/Unload.html">Module::Unload</a></code>.</p><p>If <code>true</code> is specified in <code>doRegister</code>, the <code>cro</code> is registered as an automatic link target. Once registered as an automatic link target, references with other modules are automatically resolved.</p><p>References for the cro can also be resolved using <code><a href="../../nn/ro/Module/Link.html">Module::Link</a></code>.</p><p>The corresponding memory after loading is successful is released from management by the <a href="../../nn/ro/Overview.html">ro</a> library if a value other than <code>FIX_LEVEL_0</code> (<code>FIX_LEVEL_NONE</code>) is specified in fixLevel. This allows the memory to be used for other purposes.</p><p>Although you usually cannot specify the memory specified for pRo as pBuffer, memory released using fixLevel can be specified for pBuffer.</p><p>Usually, you must call <code><a href="../../nn/ro/Module/DoInitialize.html">Module::DoInitialize</a></code> after loading the <code>cro</code> succeeds, but before referencing functions and symbols inside the module.</p><p>The pointer to <code><a href="../../nn/ro/Module/Overview.html">Module</a></code> returned by this function can be released using the <code><a href="../../nn/ro/Module/Unload.html">Module::Unload</a></code> function.</p><p>Returns <code>NULL</code> on failure.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment.</item><br />
+        </dd>
+        <dt>2011/07/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

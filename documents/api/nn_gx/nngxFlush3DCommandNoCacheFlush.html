@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxFlush3DCommandNoCacheFlush</title>
+  </head>
+  <body>
+    <h1>nngxFlush3DCommandNoCacheFlush Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxFlush3DCommandNoCacheFlush(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Issues a 3D run command and flushes the accumulated 3D command buffer (without flushing the CPU cache).</p><P>A command to complete the loading of 3D commands is added to the 3D command buffer of the bound command list object, and a render command request is queued to the command requests. If this function is called while commands are accumulating, all 3D commands up the split point created by this function are run.</P><P>If, after the last splitting of the 3D command buffer, there are no accumulated 3D commands, neither the command to complete the loading of 3D commands nor the render command request is added.</P><P>This function performs the same operations as the <tt><a href="../nn_gx/nngxFlush3DCommand.html">nngxFlush3DCommand</a></tt> function, except that it does not perform a CPU cache flush on the command buffer.</P><P>The 3D command buffer must have at its end a command to complete the loading of 3D commands. This command completes the loading of 3D commands even when functions that require interruption of the 3D command buffer are called, such as <tt>glCopyTexImage2D</tt> or <tt>glClear</tt>.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_80AE_DMP</TH><TD><tt>0</tt> is bound to the current command list.</TD></TR><TR><TH>GL_ERROR_80AF_DMP</TH><TD>The number of accumulated command requests has reached the maximum number of command requests.</TD></TR><TR><TH>GL_ERROR_80B0_DMP</TH><TD>The accumulated 3D command buffer exceeds its maximum size when the command to complete the loading of 3D commands is added to the buffer.</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxFlush3DCommand.html">nngxFlush3DCommand</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/12</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

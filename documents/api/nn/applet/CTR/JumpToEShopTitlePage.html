@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>JumpToEShopTitlePage</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::JumpToEShopTitlePage Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> JumpToEShopTitlePage(
+     <a href="../../../nn_types/bit32.html">bit32</a> uniqueId
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>uniqueId</th>
+          <td>The unique ID (the ID unique to each title).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns success. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Jumps to the software information page in Nintendo eShop. The titles displayed in Nintendo eShop are specified by their unique IDs. This function can only jump to the pages of titles that are publicly searchable. Publicly searchable titles are those titles that can be searched for by name and accessed on Nintendo eShop. The application ends when this function is called. If there is no information about the title on Nintendo eShop or if the value is invalid, an error displays on Nintendo eShop. You must use the <code>nn::applet::IsEShopAvailable</code> function to determine in advance whether Nintendo eShop has been installed. Always call this API after confirming that Nintendo eShop is installed. When Nintendo eShop is not present on the system, we recommend that you let the user know that a system update via the Internet is required. For example, you could display a message that says something like: "Cannot use Nintendo eShop. An Internet update of your system is needed. Proceed?" In the development environment, you can test the jump to Nintendo eShop feature by importing <code>DummyNintendoEShop</code>. For more information, see the detailed description of the <code>DummyNintendoEShop</code> tool. When using this function to make jumps, make an OMAS application for the destination title. For information about how to apply, see <emphasis>3DS Guidelines: E-Commerce</emphasis>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/06/01</dt>
+        <dd><item xmlns="">Added a note about <tt>DummyNintendoEShop</tt>.</item><br />
+        </dd>
+        <dt>2015/03/09</dt>
+        <dd><item xmlns="">Added the case when Nintendo eShop does not exist on the system.</item><br />
+        </dd>
+        <dt>2014/03/25</dt>
+        <dd><item xmlns="">Specified the jump target page as the Software Information page.</item><br /><item xmlns="">Added a description of applying in OMAS.</item><br />
+        </dd>
+        <dt>2013/12/09</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

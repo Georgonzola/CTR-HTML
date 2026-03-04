@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Read</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hio/Overview.html">hio</a>::<a href="../../../../nn/hio/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hio/CTR/SerialChannel/Overview.html">SerialChannel</a>::Read Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/hio.h&gt;
+<a href="../../../../nn_types/s32.html">s32</a> Read(
+     void * buf,
+     size_t size,
+     <a href="../../../../nn_types/bit32.html">bit32</a> attr = ATTRIBUTE_NONE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>buf</th>
+          <td>Buffer where the received data is stored.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Maximum size of the data to receive.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>attr</th>
+          <td>Reception attribute. <br />
+ If set to <code>ATTRIBUTE_NONE</code>, the function blocks until either <emphasis>size</emphasis> bytes can be received or the channel is closed. <br />
+ If set to <code>ATTRIBUTE_NO_WAIT</code>, the function returns as soon as there is no more data to receive. If <emphasis>size</emphasis> is larger than the amount of received data, the function returns without receiving data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the actual number of bytes that were received. If an error occurred, returns <code>-1</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Receives data from the host and returns the size of data received.</p><p><emphasis>size</emphasis> bytes of data are received in the buffer specified by <emphasis>buf</emphasis>. <br />
+ The <emphasis>attr</emphasis> parameter specifies what to do when the received data is fewer bytes than specified by <emphasis>size</emphasis>. <br />
+ Returns the actual number of bytes that were received.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Added a description of arguments and functionality.</item><br />
+        </dd>
+        <dt>2010/03/31</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>WaitHost</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hio/Overview.html">hio</a>::<a href="../../../../nn/hio/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hio/CTR/SerialChannel/Overview.html">SerialChannel</a>::WaitHost Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/hio.h&gt;
+<a href="../../../../nn/Result/Overview.html">Result</a> WaitHost(
+     <a href="../../../../nn_types/bit32.html">bit32</a> attr = ATTRIBUTE_NONE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>attr</th>
+          <td>Attribute during connection. <br />
+ If set to <code>ATTRIBUTE_NONE</code>, the function blocks until a connection from the host is established. <br />
+ If set to <code>ATTRIBUTE_NO_WAIT</code>, it returns the result of the operation without waiting for the connection from the host.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Waits for a connection from the host.</p><p>If the connection succeeded, it returns a <code><a href="../../../../nn/Result/Overview.html">Result</a></code> value equivalent to <code><a href="../../../../nn/hio/CTR/ResultConnected.html">ResultConnected</a></code>.</p><p>If <code><span>ATTRIBUTE_NO_WAIT</span></code> is specified but a connection has not yet been established, it returns a <code><a href="../../../../nn/Result/Overview.html">Result</a></code> value equivalent to <code><a href="../../../../nn/hio/CTR/ResultNoConnected.html">ResultNoConnected</a></code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/03/31</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

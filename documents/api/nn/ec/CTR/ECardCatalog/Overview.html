@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::ECardCatalog</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::ECardCatalog Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ECardCatalog : private nn::ec::CTR::detail::SessionHolder</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for finding items that can be redeemed using a download voucher.</p>
+    </div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardCatalog/ECardCatalog.html">ECardCatalog</a>
+            </th>
+            <td>Constructor for configuring the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object and buffer. The <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object must have been initialized by the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function. The initialized data title maintained by the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object is the one that is searched. The specified buffer is used when calling the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardCatalog/~ECardCatalog.html">~ECardCatalog</a>
+            </th>
+            <td>The destructor. After the instance is destroyed, the <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> obtained by <code><a href="../../../../nn/ec/CTR/ECardCatalog/GetECardItem.html">ECardCatalog::GetECardItem</a></code> is invalidated.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">Retrieve</a>
+            </th>
+            <td>Searches for items that can be redeemed for a download voucher.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardCatalog/GetTotalNumMatched.html">GetTotalNumMatched</a>
+            </th>
+            <td>Returns the total number of items matching a search.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardCatalog/GetNumRetrieved.html">GetNumRetrieved</a>
+            </th>
+            <td>Returns the number of items that were obtained in a single search query.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ECardCatalog/GetECardItem.html">GetECardItem</a>
+            </th>
+            <td>Gets information about items that can be redeemed using the download voucher. Gets an <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> object from the content set information retrieved by the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function. Specify a value for <emphasis>offset</emphasis> to select a specific <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> object obtained from the multiple content sets obtained from the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Retrieve.html">ECardCatalog::Retrieve</a></code> function. The <emphasis>offset</emphasis> value must be smaller than the number of content sets returned by the <code><a href="../../../../nn/ec/CTR/ECardCatalog/GetNumRetrieved.html">ECardCatalog::GetNumRetrieved</a></code> function. Operation is undefined when specifying a larger value for <emphasis>offset</emphasis>. The <code><a href="../../../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code> object is invalidated when the <code><a href="../../../../nn/ec/CTR/ECardCatalog/Overview.html">ECardCatalog</a></code> instance from which it was obtained is destroyed.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy">nn::ec::CTR::detail::SessionHolder<br />&nbsp;&nbsp;<b>nn::ec::CTR::ECardCatalog</b>
+      </p>
+    </div>
+  </body>
+</html>

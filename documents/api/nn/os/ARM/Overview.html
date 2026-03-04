@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::ARM</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::ARM Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the <a href="../../../nn/os/ARM/Overview.html">ARM</a> operating system library. <br />
+(It can also be written without the <code>ARM</code> portion.))</p><!-- write here --></div>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/os/ARM/ExceptionContext/Overview.html">nn::os::ARM::ExceptionContext</a>
+            </th>
+            <td>Structure storing the CPU context when exceptions occur.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/os/ARM/ExceptionInfo/Overview.html">nn::os::ARM::ExceptionInfo</a>
+            </th>
+            <td>Structure storing information related to exceptions that have occurred.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/os/ARM/ExceptionBuffer/Overview.html">nn::os::ARM::ExceptionBuffer</a>
+            </th>
+            <td>Structure used to represent buffers required by <code>SetUserExceptionHandler</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/os/ARM/ExceptionType.html">ExceptionType</a>
+            </th>
+            <td>Enumerated type representing exception types.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="typedef" id="typedef">
+      <h2>typedef Definitions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../../nn/os/ARM/UserExceptionHandler.html">UserExceptionHandler</a>
+            </th>
+            <td>Enumerated type representing exception handlers.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/os/ARM/HANDLER_STACK_USE_THREAD_STACK.html">HANDLER_STACK_USE_THREAD_STACK</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/uptr.html">uptr</a></td>
+            <td>Specifies that the stack of the thread in which the exception occurred be used as the exception handler stack.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="variable" id="variable">
+      <h2> Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">EXCEPTION_BUFFER_USE_HANDLER_STACK</span>
+            </th>
+            <td width="100"><a href="../../../nn/os/ARM/ExceptionBuffer/Overview.html">ExceptionBuffer</a> *const</td>
+            <td>Specifies that the exception handler stack be used as the buffer for storing exception information.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">EXCEPTION_BUFFER_USE_THREAD_STACK</span>
+            </th>
+            <td width="100"><a href="../../../nn/os/ARM/ExceptionBuffer/Overview.html">ExceptionBuffer</a> *const</td>
+            <td>Specifies that the stack for the thread in which the exception occurred be used as the buffer for storing exception information.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/ARM/SetUserExceptionHandler.html">SetUserExceptionHandler</a>
+            </th>
+            <td>Specifies the global exception handler.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/ARM/SetUserExceptionHandlerLocal.html">SetUserExceptionHandlerLocal</a>
+            </th>
+            <td>Sets the local thread exception handler. Exception handler settings exist for each thread. If an exception is thrown, an exception handler is called based on the settings for the thread in question. If an exception handler has not been set for the particular thread in question, an exception handler based on settings for the main thread is called.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

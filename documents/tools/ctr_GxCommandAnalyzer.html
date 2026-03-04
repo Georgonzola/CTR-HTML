@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>ctr_GxCommandAnalyzer</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size		: 150%;
+  font-family		: Arial;
+  border-bottom-width	: 5px;
+  border-bottom-style	: solid;
+  border-bottom-color	: #CD202C;
+  padding-bottom		: 1px;
+  margin-bottom		: 20px;
+  letter-spacing		: normal;
+  font-weight		: bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+CODE {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+}
+table {
+  margin-top        : 2pt;
+  margin-bottom     : 2pt;
+  margin-left       : 0pt;
+  margin-right      : 0pt;
+  padding-left      : 0pt;
+  padding-right     : 0pt;
+  position          : relative;
+  left              : 12px;
+  font-family       : Arial;
+  font-size         : 10pt;
+  border-style      : none none none none;
+}
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+p.code {
+  font-family		: "Courier New", monospace;
+  position		: normal;
+  left			: 12px;
+  font-size		: 10pt;
+  background            : #e8f4f4;
+}
+
+PRE
+{
+    padding             : 10px;
+
+    background          : #f0f0f0;
+    border              : 1px solid #ccc;
+}
+
+CODE
+{
+/*    padding             : 0;
+    display             : block;*/
+
+/* Sample Demos Only */
+
+    display          : block;
+
+    border           : solid gray 1px;
+    padding          : 2px;
+    background-color : #f0f0f0;
+}
+
+-->
+</style>
+</head>
+  <body>
+    <h1>ctr_GxCommandAnalyzer</h1>
+    <h2>Description</h2>
+      <p>
+The <CODE>ctr_GxCommandAnalyzer</CODE> command line tool is for parsing 3D commands output from the debugger and elsewhere, and converting them into a format that is easier to view.<br />You can also use this as a GUI tool by double-clicking to open the executable file.<br /><B>Note:</B> If you directly drag-and-drop to the binary icon, the tool operates as the command line version.
+      </p>
+
+<h2>How to Use (command line version)</h2>
+<h3>Format</h3>
+    <pre> $ ctr_GxCommandAnalyzer32.exe [options...] [CommandFile]</pre>
+    <h3>Options</h3>
+    <div class="section">
+      <p>
+        <table class="table"><tbody>
+          <tr><th>Options</th> <th>Description</th></tr>
+          <tr>
+<td><CODE>-h</CODE></td>
+<td>Displays help.</td>
+          </tr>
+          <tr>
+<td><CODE>-nd</CODE></td>
+<td>Converts a physical address to a virtual address, and halts functionality that performs additional output.</td>
+          </tr>
+          <tr>
+<td><CODE>-ni</CODE></td>
+<td>Halts functionality that outputs an overview of the registers.</td>
+          </tr>
+          <tr>
+<td><CODE>-sb</CODE></td>
+<td>Displays data that was output in burst mode in simple format.</td>
+          </tr>
+        </tbody></table>
+      </p>
+
+      <p>
+After parsing, a file is saved in the format [filename]_Analyze.txt in the location of the file that was used for input.
+      </p>
+    </div>
+
+<h2>How to Use (GUI version)</h2>
+    <p> 
+Open data from the <B>File</B> menu or drag to the List View area to parse commands.<br />
+    </p>
+    <p>
+<img alt="<CODE>banner</CODE>" src="image/gxCommandAnalyzerGui.png" style="width: 768px; height: 576px" /></p>
+    <div class="section">
+      <p>
+        <table class="table"><tbody>
+<tr><th>Number</th> <th>Description</th></tr>
+          <tr>
+             <td>1</td>
+<td>Displays the command parsing data. This data is nearly the same as the data output by the console version.<br />
+The columns have the following meanings:<br /><br />
+Far left - Indicates whether burst transfer.<br />
+Line - The order in which commands are stacked.<br />
+Reg - The register number.<br />
+Data - The data entered in this register.<br />
+BE - The byte enable.<br />
+Value - Displays the virtual address when the data is an address.<br />
+Summary - Displays a summary of that register.<br /><br /><br />
+Click the columns to sort them.<br /><br />
+Right-click a column to open a menu and choose whether to show or hide the column.<br /><br />
+Click an item to display details in the left panel.<br /><br />
+Here are the meanings of the various colors for items:<br /><br /> <br />
+Blue - Burst transfer; single register access.</br>
+Red -  Burst transfer; consecutive register access.</br>
+Gray - Dummy command (BE is 0x0).</br></br>
+Folding is the default loading mode for burst transfer.<br />
+If the &quot; + &quot; symbol displays in the far left column, you can double-click it to expand the view. <br />
+Once expanded, the &quot; - &quot; symbol displays. Double-click it to collapse the view.<br />
+The <B>View</B> menu has a feature for expanding and collapsing all.<br />
+             </td>
+          </tr>
+          <tr>
+            <td>2</td>
+<td>A summary of the selected register. This is the same as what is displayed in List View.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+<td>Simple command editing can be performed here. Data can be edited in hexadecimal, decimal, and binary.<br />Enter data and then apply the edited changes to the command by pressing the ENTER key (except when entering binary), or by clicking the <B>Update</B> button.<br />Click the <B>Default</B> button to restore the command to its original state when loaded.<br />For binary, click on each digit to swap out 0/1s. Bits shown in black have not been specified for byte enable.<br />
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+<td>The entire range of bits that can be set for this register, displayed as buttons.<br /> Place the pointer above a button to show the bits that are binary data in red (or purple if not specified by BE), and to display detailed data about that range in the lower part of the panel (explained in detail below).<br /><b> Note that if a command has been edited but the edits have not been applied (by clicking the <B>Update</B> button or otherwise), this detailed data is also not updated.</b>
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>
+Shows the corresponding OpenGL API function.<br />
+            </td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>
+Displays detailed data. The contents are nearly the same as the specification.<br />
+            </td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>
+Displays the range of data specified by <B>Range Button</B> in hexadecimal, decimal, and binary.<br />If the register takes data such as floating-point values or addresses, that value is displayed in the <B>LocalData(Converted)</B> field.<br />
+            </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>
+Use this to search for registers.<br />Enter a register number and press the ENTER key to select the relevant item in the List View.<br /> After moving the focus to List View, press F3 to search for the next item in that same register. <br /><b> You cannot use the Search Register feature with any sort order except the default (which is to sort by ascending Line). </b>
+            </td>
+          </tr>
+        </tbody></table>
+      </p>
+    </div>
+<p>Here is a description of the menu items.</p>
+    <div class="section">
+      <p>
+        <table class="table"><tbody>
+<tr><th>Category</th><th>Name</th><th>Description</th></tr>
+          <tr>
+<td>File</td>
+<td>Open</td>
+<td>Opens a file.</td>
+          </tr>
+          <tr>
+             <td></td>
+<td>Save</td>
+<td>Saves the parsing results.</td>
+          </tr>
+          <tr>
+             <td></td>
+<td>Save As Command</td>
+<td>Saves the file as command data.</td>
+          </tr>
+          <tr>
+             <td></td>
+<td>Exit</td>
+<td>Exits the program.</td>
+          </tr>
+          <tr>
+<td>View</td>
+<td>Show All</td>
+             <td>
+Displays all data that was omitted for burst access.<br />If the command data is large in size this could take some time.
+             </td>
+          </tr>
+          <tr>
+             <td></td>
+<td>Hide All</td>
+             <td>
+Omits all data written by burst access.<br />If the command data is large in size this could take some time.
+             </td>
+          </tr>
+          <tr>
+<td>Help</td>
+<td>Version</td>
+<td>Shows the version of the DMPGL specification on which the command detailed data is based.</td>
+          </tr>
+        </tbody></table>
+      </p>
+    </div>
+<h3>Notes</h3>
+If the command file is too big, it can take an extremely long time to close and open burst transfers and apply command edits.<br />The specifications for your PC also matter, but in general, we recommend keeping the size of your command files to 50 KB or less.<br />
+<h2>Command Data Format</h2>
+      <p>
+        Enter command data in the format of a 64-bit collection of commands, comprising a 32-bit header and 32 bits of data.<br /> Output command data as described below. <br /> Use the following operations if using PARTNER-CTR.<br /> <br /> 1. Select <B>Save binary [Size]</B> from the <B>File</B> menu.<br /> 2. Enter the <B>Save File Name</B>, <B>Start Address</B>, and <B>Size</B>.<br /> 3. Click <B>OK</B>.<br /> <br /> Use the following operations if you are using IS-CTR-DEBUGGER.<br /> <br /> 1. Select <B>Save</B> from the <B>File</B> menu.<br /> 2. Select the <B>BIN</B> tree in the <B>Save</B> window.<br /> 3. Change the memory space to CTR, and enter the <B>Start Address</B> and <B>Size</B>.<br /> 4. Enter the filename and click <B>OK</B>.<br /> <br /> Use the binary data output with this procedure as the input file for this tool.<br /><br /> Use the <CODE>nngxGetCmdlistParameteri</CODE> function to get the command buffer address needed when saving the binary. Get the starting address of the command buffer by specifying <CODE>NN_GX_CMDLIST_TOP_BUFADDR</CODE> as the first argument of the function.<br />Get the current address of the command buffer by specifying <CODE>NN_GX_CMDLIST_CURRENT_BUFADDR</CODE> as the argument.<br />Get the accumulated size of the command buffer by specifying <CODE>NN_GX_CMDLIST_USED_BUFSIZE</CODE> as the argument.<br /> Here is an example of pseudo-code for getting the starting address of the command buffer and the post-rendering size of the command buffer:
+        
+        <pre class="code">
+void Initialize()
+{
+    nngxInitialize(allocator, deallocator);
+
+    nngxGenCmdlists(1, &cmdList);
+    nngxBindCmdlist(cmdList);
+    nngxCmdlistStorage(0x400000, 128);
+
+    // Get starting address
+    nngxGetCmdListParameteri(NN_GX_CMDLIST_TOP_BUFADDR, &addr);
+
+    /* Initialization process */
+}
+
+void DrawFrame()
+{
+    /* Various processes */
+
+    // Rendering functions
+    Draw();
+
+    // Get size
+    nngxGetCmdListParameteri(NN_GX_CMDLIST_USED_BUFSIZE, &size);
+    
+    // When getting current address
+    //nngxGetCmdListParameteri(NN_GX_CMDLIST_CURRENT_BUFADDR, &addr);
+}
+        </pre>
+Pass the address and size obtained with this code to the parameters for <B>Save binary [Size]</B> and output to get command data in a format that can be used by this tool. <br />If you use <B>Save binary...</B> to output the command data, get the current address for the command buffer by specifying <CODE>NN_GX_CMDLIST_CURRENT_BUFADDR</CODE> for the first argument of the <CODE>nngxGetCmdListParameteri</CODE> function.
+      </p>
+<h3>Notes</h3>
+・ Note that writing to the command buffer generally takes place when render functions are executing.<br />・ If you are using a command-jump subroutine, write the jump-destination commands separately. (The parsing itself is done separately.) <br />・ If you are duplicating command lists, confirm that the buffer you want to output is storing the bound command list.<br />・If you are using burst access, write out all the necessary data. If there is not enough data, you will not be able to load it.
+<h2>Example Output</h2>
+    <pre class="code">
+0x041 : 0x0045E000 (BE: 0x7)	viewport settings (width)
+0x042 : 0x38111112 (BE: 0xF)	viewport settings (width)
+0x043 : 0x00469000 (BE: 0x7)	viewport settings (height)
+0x044 : 0x3747AE14 (BE: 0xF)	viewport settings (height)
+0x068 : 0x00000000 (BE: 0xF)	viewport settings register (x/y)
+BurstSequence	  3 times (BE: 0xF)
+	0x065 : 0x00000003				scissoring settings (false/true)
+	0x066 : 0x00000000				scissoring settings (x/y)
+	0x067 : 0x018F00EF				scissoring settings (width/height)
+0x111 : 0x00000001 (BE: 0xF)	framebuffer cache flush
+0x110 : 0x00000001 (BE: 0xF)	framebuffer cache tag clearing
+BurstSequence	  4 times (BE: 0xF)
+	0x200 : 0x0402C048 [0x14160240]	Shared base address for array of all vertices
+	0x201 :0x0000000B				Internal vertex attribute type (Attributes 0 - 7)
+	0x202 :0x00000000				Internal vertex attribute type (Attributes 8 - 11, mask, number of attributes)
+	0x203 :0x00000004 [0x00000004]	Address offset for load array 0</pre>
+
+<p>0x200 :0x0402C048 [0x14160240]	Shared base address for array of all vertices</p>
+<p>In this example, <B>0x200</B> is the register number, <B>0x0402C048</B> is the data content, <B>[0x14160240]</B> is the value of the data content converted to a virtual address, and <B>Shared base address for array of all vertices</B> is the description for that register.</p>
+
+    <h2>Location</h2>
+    <pre> $CTRSDK_ROOT/tools/ComandlineTools/ctr_GxCommandAnalyzer/ctr_GxCommandAnalyzer32.exe </pre>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/03/10</dt>
+        <dd>Added information on IS-CTR-DEBUGGER.<br />
+        </dd>
+        <dt>2011/02/13</dt>
+        <dd>Added description of the GUI version.<br />
+        </dd>
+        <dt>2011/12/29</dt>
+<dd>Added description of the command data format.<br />
+        </dd>
+        <dt>2011/12/08</dt>
+<dd>Initial version.<br />
+        </dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

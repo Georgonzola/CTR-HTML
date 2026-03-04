@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>FlushDirtyModule</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/System/Overview.html">System</a>::FlushDirtyModule Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static void FlushDirtyModule(
+     <a href="../../../../nn_types/u32.html">u32</a> flag
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>flag</th>
+          <td>Specifies the module for creating 3D commands. Each bit of the flag corresponds to a specified module. (<code><a href="../../../../nn/gd/CTR/System/Module.html">System::Module</a></code> enum table) If <code><span>System::MODULE_ALL</span></code> is specified, all reconfigured module commands are created immediately.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a redraw status module command. This flag can be specified by using OR operators on the <code><a href="../../../../nn/gd/CTR/System/Module.html">System::Module</a> enum</code> members.</p><p>Usually, when a particular parameter or state is in redraw status, the <code><a href="../../../../nn/gd/Overview.html">gd</a></code> API creates the 3D commands required when the next drawing command is executed. However, if this API function is executed, 3D commands for modules in redraw status are created immediately.</p><p>Although this function does not itself return errors, if an error occurs in the rendering process, the callback set by the <tt><a href="../../../../nn/gd/CTR/System/SetCallbackFunctionError.html">nn::gd::CTR::System::SetCallbackFunctionError</a></tt> function is called. <br /> The errors generated are as shown below.<table><tr><th>Value</th></tr><tr><td><a href="../../../../nn/gd/CTR/ResultSystemGeometryShaderIncompatibleWithImmediateDraw/Overview.html">nn::gd::CTR::ResultSystemGeometryShaderIncompatibleWithImmediateDraw</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultInvalidMemoryLayout/Overview.html">nn::gd::CTR::ResultInvalidMemoryLayout</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultDifferentRenderTargetAndDepthStencilTargetResolution/Overview.html">nn::gd::CTR::ResultDifferentRenderTargetAndDepthStencilTargetResolution</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultNoTextureBound/Overview.html">nn::gd::CTR::ResultNoTextureBound</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultNoTextureCoordinates/Overview.html">nn::gd::CTR::ResultNoTextureCoordinates</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultInvalidTextureUnitId/Overview.html">nn::gd::CTR::ResultInvalidTextureUnitId</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultInvalidTextureFormat/Overview.html">nn::gd::CTR::ResultInvalidTextureFormat</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultAlreadyReleased/Overview.html">nn::gd::CTR::ResultAlreadyReleased</a></td></tr><tr><td><a href="../../../../nn/gd/CTR/ResultNullParameter/Overview.html">nn::gd::CTR::ResultNullParameter</a></td></tr></table></p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/10/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

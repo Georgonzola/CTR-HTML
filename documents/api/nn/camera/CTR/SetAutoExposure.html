@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetAutoExposure</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::SetAutoExposure Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> SetAutoExposure(
+     <a href="../../../nn/camera/CTR/CameraSelect.html">CameraSelect</a> select,
+     bool on
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>select</th>
+          <td>Specifies which <a href="../../../nn/camera/Overview.html">camera</a> to change settings for.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>on</th>
+          <td>Specify <code>true</code> to enable this function. Specify <code>false</code> to disable this function.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultIsSleeping</th>
+          <td>This function is unusable because the system cover is closed.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>There may be something physically wrong with the <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enables or disables the auto-exposure function.</p><P>We recommend enabling this feature when starting a camera, because the exposure value is undefined immediately after a camera is started with the <tt><a href="../../../nn/camera/CTR/Activate.html">nn::camera::CTR::Activate</a></tt> function.</P><P>The default value is <tt>true</tt> for all cameras.</P><p><b>Note:</b> This function may block for an extended period if a camera is restarting.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/07/17</dt>
+        <dd><item xmlns="">Added explanation about operation during restart.</item><br />
+        </dd>
+        <dt>2010/04/14</dt>
+        <dd><item xmlns="">Added a description of the default values.</item><br />
+        </dd>
+        <dt>2010/04/09</dt>
+        <dd><item xmlns="">Added description text.</item><br />
+        </dd>
+        <dt>2010/02/02</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

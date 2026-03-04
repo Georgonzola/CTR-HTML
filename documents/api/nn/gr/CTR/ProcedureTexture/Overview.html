@@ -1,0 +1,520 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::gr::CTR::ProcedureTexture</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gr/Overview.html">gr</a>::<a href="../../../../nn/gr/CTR/Overview.html">CTR</a>::ProcedureTexture Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ProcedureTexture</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for generating procedural texture commands.</p><!-- write here --></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/ProcedureTextureColorShift.html">ProcedureTextureColorShift</a>
+            </th>
+            <td>Constants related to lookup tables for procedural textures.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ProcedureTexture/PROCTEX_LOOKUP_TABLE_ELEMENT_NUM.html">PROCTEX_LOOKUP_TABLE_ELEMENT_NUM</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The lookup table holds 128 pieces of data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ProcedureTexture/PROCTEX_COLOR_LOOKUP_TABLE_ELEMENT_NUM.html">PROCTEX_COLOR_LOOKUP_TABLE_ELEMENT_NUM</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The color lookup table holds 256 pieces of data.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ProcedureTexture/PROCTEX_LOOKUP_TABLE_OPTION_CMD_NUM.html">PROCTEX_LOOKUP_TABLE_OPTION_CMD_NUM</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The size of the commands added to send a lookup table.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ProcedureTexture/PROCTEX_LOOKUP_TABLE_CMD_NUM.html">PROCTEX_LOOKUP_TABLE_CMD_NUM</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The size of an array that holds commands used to send a lookup table.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ProcedureTexture/PROCTEX_COLOR_LOOKUP_TABLE_OPTION_CMD_NUM.html">PROCTEX_COLOR_LOOKUP_TABLE_OPTION_CMD_NUM</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The size of the commands added to send a color lookup table.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ProcedureTexture/PROCTEX_COLOR_LOOKUP_TABLE_CMD_NUM.html">PROCTEX_COLOR_LOOKUP_TABLE_CMD_NUM</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The size of an array that holds commands used to send a color lookup table.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">rgbMap</span>
+            </th>
+            <td width="100"><a href="../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexMap.html">PicaDataProcTexMap</a> ></td>
+            <td>RGB mapping function mode. The type is <code><a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexMap.html">PicaDataProcTexMap</a></code>. Equivalent to the <code>dmp_Texture[3].ptRgbMap</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">alphaMap</span>
+            </th>
+            <td width="100"><a href="../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexMap.html">PicaDataProcTexMap</a> ></td>
+            <td>Alpha mapping function mode. The type is <code><a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexMap.html">PicaDataProcTexMap</a></code>. Equivalent to the <code>dmp_Texture[3].ptAlphaMap</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">alphaSeparate</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether alpha is treated as independent in the mapping function. The type is <code>bool</code>. Equivalent to the <code>dmp_Texture[3].ptAlphaSeparate</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">clampU</span>
+            </th>
+            <td width="100"><a href="../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexClamp.html">PicaDataProcTexClamp</a> ></td>
+            <td>Clamp mode of the texture's U direction. The type is <code><a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexClamp.html">PicaDataProcTexClamp</a></code>. Equivalent to the <code>dmp_Texture[3].ptClamp</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">clampV</span>
+            </th>
+            <td width="100"><a href="../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexClamp.html">PicaDataProcTexClamp</a> ></td>
+            <td>Clamp mode of the texture's V direction. The type is <code><a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexClamp.html">PicaDataProcTexClamp</a></code>. Equivalent to the <code>dmp_Texture[3].ptClampV</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">shiftU</span>
+            </th>
+            <td width="100"><a href="../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexShift.html">PicaDataProcTexShift</a> ></td>
+            <td>Shift calculation mode of the texture's U direction. The type is <code><a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexShift.html">PicaDataProcTexShift</a></code>. Equivalent to the <code>dmp_Texture[3].ptShiftU</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">shiftV</span>
+            </th>
+            <td width="100"><a href="../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexShift.html">PicaDataProcTexShift</a> ></td>
+            <td>Shift calculation mode of the texture's V direction. The type is <code><a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexShift.html">PicaDataProcTexShift</a></code>. Equivalent to the <code>dmp_Texture[3].ptShiftV</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">minFilter</span>
+            </th>
+            <td width="100"><a href="../../../../nn/util/SizedEnum1/Overview.html">util::SizedEnum1</a>< <a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexFilter.html">PicaDataProcTexFilter</a> ></td>
+            <td>The texture's <code>MinFilter</code> setting. The type is <code><a href="../../../../nn_gx_CTR_Pica/PicaDataProcTexFilter.html">PicaDataProcTexFilter</a></code>. Equivalent to the <code>dmp_Texture[3].ptMinFilter</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">texBias</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>LOD bias of the color lookup table. The type is <code>f32</code> and the value is in the range from 0.0 to 6.0. The default value is <code>0.5f</code>. Equivalent to the <code>dmp_Texture[3].texBias</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">texOffset</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>Specifies the starting element in the partial array being used. The type is <code>u8</code> and the value is in the range from 0 to 128. The default value is <code>0</code>. Equivalent to the <code>dmp_Texture[3].ptTexOffset</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">texWidth</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>Specifies the data width of the lookup table The type is <code>u8</code> and the value is in the range from 0 to 128. The default value is <code>0</code>. Equivalent to the <code>dmp_Texture[3].ptTexWidth</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnableNoise</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Enables noise. The type is <code>bool</code>. The default value is <code>false</code>. Equivalent to the <code>dmp_Texture[3].ptNoiseEnable</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">noiseUAmplitude</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>Sets the noise amplitude in the texture's U direction. The type is <code>f32</code>. The default value is <code>0.0f</code>. Equivalent to the <code>dmp_Texture[3].ptNoiseU[2]</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">noiseVAmplitude</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>Sets the noise amplitude in the texture's V direction. The type is <code>f32</code>. The default value is <code>0.0f</code>. Equivalent to the <code>dmp_Texture[3].ptNoiseV[2]</code>uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">noiseUFrequency</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>Sets the noise frequency in the texture's U direction. The type is <code>f32</code>. The default value is <code>0.0f</code>. Equivalent to the <code>dmp_Texture[3].ptNoiseU[0]</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">noiseVFrequency</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>Sets the noise frequency in the texture's V direction. The type is <code>f32</code>. The default value is <code>0.0f</code>. Equivalent to the <code>dmp_Texture[3].ptNoiseV[0]</code>uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">noiseUPhase</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>Sets the noise phase in the texture's U direction. The type is <code>f32</code>. The default value is <code>0.0f</code>. Equivalent to the <code>dmp_Texture[3].ptNoiseU[1]</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">noiseVPhase</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>Sets the noise phase in the texture's V direction. The type is <code>f32</code>. The default value is <code>0.0f</code>. Equivalent to the <code>dmp_Texture[3].ptNoiseV[1]</code>uniform.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_NoiseLookUpTableCommand</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>Holds the continuous noise function's lookup table, converted into rendering command format. The type is <code>u32[]</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_RgbMapLookUpTableCommand</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>Holds the RGB mapping function's lookup table, converted into rendering command format. The type is <code>u32[]</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_AlphaMapLookUpTableCommand</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>Holds the alpha mapping function's lookup table, converted into rendering command format. The type is <code>u32[]</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_ColorLookUpTableCommand</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>Holds a color lookup table that has been converted into rendering command format. The type is <code>u32[]</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_ColorDiffLookUpTableCommand</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>Holds the difference values for a color lookup table, converted into rendering command format. The type is <code>u32[]</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/SetNoiseLookUpTable.html">SetNoiseLookUpTable</a>
+            </th>
+            <td>Sets the lookup table for the continuous noise function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/SetRgbMapLookUpTable.html">SetRgbMapLookUpTable</a>
+            </th>
+            <td>Sets the lookup table for the RGB mapping function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/SetAlphaMapLookUpTable.html">SetAlphaMapLookUpTable</a>
+            </th>
+            <td>Sets the lookup table for the alpha mapping function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/SetRedLookUpTable.html">SetRedLookUpTable</a>
+            </th>
+            <td>Sets the color lookup table for the red component.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/SetGreenLookUpTable.html">SetGreenLookUpTable</a>
+            </th>
+            <td>Sets the color lookup table for the green component.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/SetBlueLookUpTable.html">SetBlueLookUpTable</a>
+            </th>
+            <td>Sets the color lookup table for the blue component.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/SetAlphaLookUpTable.html">SetAlphaLookUpTable</a>
+            </th>
+            <td>Sets the color lookup table for the alpha component.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/MakeAllCommand.html">MakeAllCommand</a>
+            </th>
+            <td>Generates all commands for configuring procedural texture registers.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/MakeConfigCommand.html">MakeConfigCommand</a>
+            </th>
+            <td>Generates all commands for configuring procedural textures. (Does not generate lookup table commands.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/MakeProcedureTextureModeCommand.html">MakeProcedureTextureModeCommand</a>
+            </th>
+            <td>Generates just the commands for configuring procedural texture mode settings.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/MakeTextureCommand.html">MakeTextureCommand</a>
+            </th>
+            <td>Generates just the commands for configuring texture settings for a procedural texture.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/MakeNoiseCommand.html">MakeNoiseCommand</a>
+            </th>
+            <td>Generates just the commands for configuring procedural texture noise settings.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/MakeTableCommand.html">MakeTableCommand</a>
+            </th>
+            <td>Generates just the commands for configuring procedural texture lookup tables.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/ProcedureTexture.html">ProcedureTexture</a>
+            </th>
+            <td>Constructor of class for generating procedural texture commands.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/MakeDummyCommand.html">MakeDummyCommand</a>
+            </th>
+            <td>Generates dummy commands to register 0x80 required before updating procedural texture registers.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/SetLookUpDualTables_.html">SetLookUpDualTables_</a>
+            </th>
+            <td>Sets lookup table commands in a rendering command array.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/SetColorLookUpDualTables_.html">SetColorLookUpDualTables_</a>
+            </th>
+            <td>Sets commands for a color lookup table and difference table in a rendering command array.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/SetColorLookUpTable_.html">SetColorLookUpTable_</a>
+            </th>
+            <td>Sets color lookup table commands in a rendering command array.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/SetColorDiffLookUpTable_.html">SetColorDiffLookUpTable_</a>
+            </th>
+            <td>Sets commands for a lookup table's difference values in a rendering command array.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/GetColorDiffLookUpTable.html">GetColorDiffLookUpTable</a>
+            </th>
+            <td>Finds the difference values for a 256-element lookup table.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ProcedureTexture/GetDiffLookUpTable.html">GetDiffLookUpTable</a>
+            </th>
+            <td>Finds the difference values for a 128-element lookup table.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/25</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Read</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::<a href="../../../../nn/hid/CTR/PadReader/Overview.html">PadReader</a>::Read Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void Read(
+     <a href="../../../../nn/hid/CTR/PadStatus/Overview.html">PadStatus</a> * pBufs,
+     <a href="../../../../nn_types/s32.html">s32</a> * pReadLen,
+     <a href="../../../../nn_types/s32.html">s32</a> bufLen
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pBufs</th>
+          <td>Loads sampling data in order, starting with the most recent data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pReadLen</th>
+          <td>Number of data samples that were read.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufLen</th>
+          <td>Specifies the number of data samples to read into pBufs.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Loads sampling data from the gamepad, starting with the most recent samples. Does not load any data that has been previously loaded.</p><p>Use the <code><a href="../../../../nn/hid/CTR/PadReader/SetStickClamp.html">nn::hid::CTR::PadReader::SetStickClamp</a></code> function to set the appropriate play in the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> because there will be input even if it is not touched. <br />
+ Note that it is not possible to get the maximum distance between the input coordinates and the origin of the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>, because some rounding occurs during clamping. <br />
+ Do not use this maximum value for thresholds or the like.</p><p>The maximum number of data samples that can be loaded is the seven most recent instances (<tt>MAX_READ_NUM</tt>).</p><P>Electrical fluctuations and other factors can cause variation in the x and y coordinates input by the Circle Pad even when the pad top has not been intentionally moved.  The following table shows the amounts of change and probability of change to values when the top of the pad is presumably completely fixed in position.</P>Circle Pad<TABLE><THEAD><TR bgcolor="#ccccdd"><TH>Amount of Change</TH><TH>Probability X (%)</TH><TH>Probability Y (%)</TH></TR></THEAD><TR><TD>-3</TD><TD>0.00000585347</TD><TD>0.00000585347</TD></TR><TR><TD>-2</TD><TD>0.0001778</TD><TD>0.0001778</TD></TR><TR><TD>-1</TD><TD>0.0035411</TD><TD>0.0035411</TD></TR><TR><TD>±0</TD><TD>99.949837</TD><TD>99.949837</TD></TR><TR><TD>-1</TD><TD>0.0035411</TD><TD>0.0035411</TD></TR><TR><TD>-2</TD><TD>0.0001778</TD><TD>0.0001778</TD></TR><TR><TD>-3</TD><TD>0.00000585347</TD><TD>0.00000585347</TD></TR></TABLE><P>To calculate the probability of a change in value during a particular period of time, multiply the probability shown in this table by the number of sets of sampling data obtained in the particular time period.</P><P>When the finger is removed from the pad and the pad top sits in its central position, the value is fixed to <tt>0</tt> and does not change. This is because even with some variation in value the minimum clamping value is never exceeded.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/15</dt>
+        <dd><item xmlns="">Added a note about the probability and extent of variation in Circle Pad values.</item><br />
+        </dd>
+        <dt>2011/10/09</dt>
+        <dd><item xmlns="">Revised Japanese terminology for the Circle Pad.</item><br />
+        </dd>
+        <dt>2011/02/18</dt>
+        <dd><item xmlns="">Added information about the maximum number of data samples.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

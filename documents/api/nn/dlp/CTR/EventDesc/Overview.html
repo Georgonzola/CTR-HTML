@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::dlp::CTR::EventDesc</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dlp/Overview.html">dlp</a>::<a href="../../../../nn/dlp/CTR/Overview.html">CTR</a>::EventDesc Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct EventDesc
+{
+   nn::util::SizedEnum1< <a href="../../../../nn/dlp/CTR/EventType.html">EventType</a> > type;
+   union
+   {
+       <a href="../../../../nn/dlp/CTR/ClientDiscoveredServer/Overview.html">ClientDiscoveredServer</a> clientDiscoveredServer;
+       <a href="../../../../nn/dlp/CTR/ClientDiscoveredTitle/Overview.html">ClientDiscoveredTitle</a> clientDiscoveredTitle;
+       <a href="../../../../nn/dlp/CTR/ClientStateWaitingInvite/Overview.html">ClientStateWaitingInvite</a> clientStateWaitingInvite;
+   }
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Notification of an event occurring in DLP. The information changes depending on the <CODE>type</CODE> member.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">type</span>
+            </th>
+            <td width="100">nn::util::SizedEnum1&lt; <a href="../../../../nn/dlp/CTR/EventType.html">EventType</a> &gt;</td>
+            <td>Represents the event type being notified.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">clientDiscoveredServer</span>
+            </th>
+            <td width="100"><a href="../../../../nn/dlp/CTR/ClientDiscoveredServer/Overview.html">ClientDiscoveredServer</a></td>
+            <td>Additional information when the <CODE>type</CODE> is <CODE>EVENT_TYPE_CLIENT_DISCOVERED_SERVER</CODE>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">clientDiscoveredTitle</span>
+            </th>
+            <td width="100"><a href="../../../../nn/dlp/CTR/ClientDiscoveredTitle/Overview.html">ClientDiscoveredTitle</a></td>
+            <td>Additional information when the <CODE>type</CODE> is <CODE>EVENT_TYPE_CLIENT_DISCOVERED_TITLE</CODE>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">clientStateWaitingInvite</span>
+            </th>
+            <td width="100"><a href="../../../../nn/dlp/CTR/ClientStateWaitingInvite/Overview.html">ClientStateWaitingInvite</a></td>
+            <td>Additional information when the <CODE>type</CODE> is <CODE>EVENT_TYPE_CLIENT_STATE_WAITING_EVENT</CODE>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd>Initial version.<br />
+        </dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

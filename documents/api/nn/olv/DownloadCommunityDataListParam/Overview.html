@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::olv::DownloadCommunityDataListParam</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/olv/Overview.html">olv</a>::DownloadCommunityDataListParam Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class DownloadCommunityDataListParam</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Represents the parameters when downloading community data.</p><!-- write here --></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/olv/DownloadCommunityDataListParam/Flags.html">Flags</a>
+            </th>
+            <td>Flags that can be specified in the <code>SetFlags</code> function.<itemizedlist><listitem><para>If not using the <code><a href="../../../nn/olv/DownloadCommunityDataListParam/SetCommunityId.html">SetCommunityId</a></code> function, make sure that you specify one of the following: <code><span>FLAG_FILTER_BY_FAVORITE</span></code>, <code><span>FLAG_FILTER_BY_OFFICIAL</span></code>, or <code><span>FLAG_FILTER_BY_SELF</span></code>. <br /></para></listitem></itemizedlist></td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadCommunityDataListParam/DownloadCommunityDataListParam.html">DownloadCommunityDataListParam</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadCommunityDataListParam/Reset.html">Reset</a>
+            </th>
+            <td>Reverts parameters to their initial state.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadCommunityDataListParam/SetFlags.html">SetFlags</a>
+            </th>
+            <td>Sets flags. You must specify this option when the <code><a href="../../../nn/olv/DownloadCommunityDataListParam/SetCommunityId.html">SetCommunityId</a></code> function is not used.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadCommunityDataListParam/SetCommunityDataMaxNum.html">SetCommunityDataMaxNum</a>
+            </th>
+            <td>Sets the maximum number of communities to download. You must specify this option.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadCommunityDataListParam/SetCommunityId.html">SetCommunityId</a>
+            </th>
+            <td>Sets the community ID. Specifying this option is not required. <br />
+ If you specify a community ID, only the community with the specified ID is downloaded. <br />
+ Up to a maximum of <code>nn::olv::COMMUNITY_ID_MAX_NUM</code> community IDs can be specified.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadCommunityDataListParam/GetWorkSize.html">GetWorkSize</a>
+            </th>
+            <td>Gets the size of the working buffer used by the <code><a href="../../../nn/olv/DownloadCommunityDataList.html">nn::olv::DownloadCommunityDataList</a></code> function. Call this function after all of the various parameters have been specified, with the exception of the <code><a href="../../../nn/olv/DownloadCommunityDataListParam/SetWork.html">SetWork</a></code> function. <br />
+ This function returns fixed values.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/olv/DownloadCommunityDataListParam/SetWork.html">SetWork</a>
+            </th>
+            <td>Sets the size of the working buffer used by the <code><a href="../../../nn/olv/DownloadCommunityDataList.html">nn::olv::DownloadCommunityDataList</a></code> function. You must specify this option. <br />
+ Specify a buffer of at least the size obtained with the <code><a href="../../../nn/olv/DownloadCommunityDataListParam/GetWorkSize.html">GetWorkSize</a></code> function. <br /></td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/08</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

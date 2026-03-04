@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dlp/Overview.html">dlp</a>::<a href="../../../../nn/dlp/CTR/Overview.html">CTR</a>::<a href="../../../../nn/dlp/CTR/FakeClientWithName/Overview.html">FakeClientWithName</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">nn::Result</a> Initialize(
+     <a href="../../../../nn_types/u8.html">u8</a> scanNum,
+     nn::Handle eventHandle,
+     void * pBuffer,
+     const size_t bufferSize,
+     <a href="../../../../nn/cfg/CTR/UserName/Overview.html">nn::cfg::UserName</a> * pUserName = NULL
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>scanNum</th>
+          <td>Specifies the number of child programs that can be received by a single scan request. The maximum value is <code><a href="../../../../nn/dlp/CTR/MAX_SCAN_NUM.html">MAX_SCAN_NUM</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>eventHandle</th>
+          <td>Specifies a handle to the <code><a href="../../../../nn/os/Event/Overview.html">nn::os::Event</a></code> object waiting for a signal from Download Play. Initialize the event in the application. Use the <code><a href="../../../../nn/dlp/CTR/FakeClient/GetEventDesc.html">GetEventDesc</a></code> function to get the event information.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Pointer to the DLP working buffer. Align to a 4096-byte boundary.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>Specifies the size of the work buffer. Align to a 4096-byte boundary.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pUserName</th>
+          <td>Specifies the user name. Handle the user name according to the UGC section in the 3DS Guidelines and the information on this page. The user name set in system settings is used if <code>NULL</code> is specified here.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">The following <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values are returned as the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Indicates that initialization succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td><emphasis>pBuffer</emphasis> is either <code>NULL</code> or not aligned to 4096 bytes.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfRange</th>
+          <td>Either <emphasis>scanNum</emphasis> or <emphasis>bufferSize</emphasis> is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidHandle</th>
+          <td><emphasis>eventHandle</emphasis> is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyOccupiedWirelessDevice</th>
+          <td>The wireless device is already occupied for another purpose. Exit the other wireless process.</td>
+        </tr>
+        <tr>
+          <th>ResultWirelessOff</th>
+          <td>Communication is impossible. (The system is in Sleep Mode or wireless-disabled mode.)</td>
+        </tr>
+        <tr>
+          <th>ResultInternalError</th>
+          <td>An irrecoverable error occurred internally.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes a fake client.</p><p>This function is the same as <code>nn:dlp::<a href="../../../../nn/dlp/CTR/FakeClient/Initialize.html">FakeClient::Initialize</a></code>, with the added ability to set a user name. <br />
+ Cautions about user names are described here. <br />
+ The user name specified by <emphasis>pUserName</emphasis> (the <code>userName</code> member of <code>nn::cfg::UserName</code>) is checked to determine whether it follows UGC guidelines. If it includes profanity, set the profanity flag (the <code>isNgUserName</code> member of <code>nn:cfg::UserName</code>) to <code>true</code>. <br />
+ If the profanity flag has been set to <code>true</code>, do not "perform" modification on the profanity in the user name and pass it to this function. <br />
+ Note, however, that the user name specified with this function can be obtained as node information. When displaying the obtained user name together with other node information to a user, make sure that you follow the guidelines for the profanity flag and process appropriately. <br />
+ The reason the system needs to display user names by looking at the profanity flag is so that the functionality matches the download play of built-in system applications. You must follow these instructions.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/01/20</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

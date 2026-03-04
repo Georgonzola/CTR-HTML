@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetDateTime</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a>::SetDateTime Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+void SetDateTime(
+     const char * pBuffer
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Specify the date and time. Use a string with the format "<tt>YYYY:MM:DD HH:MM:DD</tt>" terminated with <code>0x00</code>, for a total of 20 characters. <br />
+ Specify <code>NULL</code> to clear the value.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Registers the date and time an image was taken, for embedding in the JPEG file.</p><p>This information is registered as the IFD0's <code>DateTime</code> tag and as the EXIF IFD's <code>DateTimeOriginal</code> and <code>DateTimeDigitized</code> tags. <br />
+ The default is not to register this data. In this case, the encoding function calls <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetDateTimeNow.html">GetDateTimeNow</a></code> and registers the current time. <br />
+ If option specifications are given by <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetOption.html">SetOption</a></code> and APPI is not recorded, the encode function does not call <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetDateTimeNow.html">GetDateTimeNow</a></code>.</p><p>Call this function before calling the encoding function. The values specified by this function are cleared after the encoding function completes, regardless of whether the encoding function succeeded or failed. When encoding multiple times, you must call this function before each encoding function call. The values specified by this function are also cleared if you specify <code>NULL</code> for the <emphasis>pBuffer</emphasis> argument, or if you reinitialize the encoder object using the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Initialize.html">Initialize</a></code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/22</dt>
+        <dd><item xmlns="">Added a description of SetOption.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

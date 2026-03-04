@@ -1,0 +1,698 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>Instruction Latency</title>
+  </head>
+  <body>
+    <h1><a name="top">Instruction Latency</a></h1>
+    <div class="section">
+      <p>
+        The latency associated with execution of each instruction is given below.<br /> <br />
+      </p>
+      <table>
+        <thead>
+        <tr>
+          <td>Instructions</td>
+          <td>Latency (in clock cycles)</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th><CODE>add</CODE></th>
+          <td>3</td>
+        </tr>
+        <tr>
+          <th><CODE>dp3</CODE></th>
+          <td>5</td>
+        </tr>
+        <tr>
+          <th><CODE>dp4</CODE></th>
+          <td>5</td>
+        </tr>
+        <tr>
+          <th><CODE>dph</CODE></th>
+          <td>5</td>
+        </tr>
+        <tr>
+          <th><CODE>dst</CODE></th>
+          <td>3</td>
+        </tr>
+        <tr>
+          <th><CODE>exp</CODE></th>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th><CODE>flr</CODE></th>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th><CODE>litp</CODE></th>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th><CODE>log</CODE></th>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th><CODE>mad</CODE></th>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th><CODE>max</CODE></th>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th><CODE>min</CODE></th>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th><CODE>mov</CODE></th>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th><CODE>mova</CODE></th>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th><CODE>mul</CODE></th>
+          <td>3</td>
+        </tr>
+        <tr>
+          <th><CODE>nop</CODE></th>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th><CODE>rcp</CODE></th>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th><CODE>rsq</CODE></th>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th><CODE>sge</CODE></th>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th><CODE>slt</CODE></th>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th><CODE>cmp</CODE></th>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th>Other Branch Instructions</th>
+          <td>1 &ndash; 3</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2><a name="arithmetic_cmp">Latency of Arithmetic Instructions and the cmp Instruction</a></h2>
+    <div class="section">
+      <p>
+        The clock cycles given in the table above for arithmetic instructions and the <CODE>cmp</CODE> instruction are approximate values. Actual latency depends on the instructions that come before and after each instruction. Latency can be reduced by inserting instructions unrelated to registers used in arithmetic calculations.<br /> <br /> <br /> Example where latency increases:<br />
+<pre class="definition">
+mul     r0, r1, r2
+mad     r1, r0, r4, r5
+add     r8, r9, r10
+mad     r9, r8, r10, r11
+add     r7, c1, r12
+</pre>
+        <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+            <th>11</th><th>12</th><th>13</th><th>14</th>
+          </tr>
+          <tr>
+            <th>mul</th>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>mad</th>
+            <td class="empty" colspan="1"></td>
+            <td class="stall" colspan="2">STALL</td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>add</th>
+            <td class="empty" colspan="4"></td>
+            <td class="read">read</td>
+            <td class="stall" colspan="1">STALL</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>mad</th>
+            <td class="empty" colspan="6"></td>
+            <td class="stall" colspan="2">STALL</td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>add</th>
+            <td class="empty" colspan="9"></td>
+            <td class="read">read</td>
+            <td class="stall" colspan="1">STALL</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+        <br /> <br /> Example where latency decreases:<br />
+<pre class="definition">
+mul     r0, r1, r2
+add     r8, r9, r10
+add     r7, c1, r12
+mad     r1, r0, r4, r5
+mad     r9, r8, r10, r11
+</pre>
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
+          </tr>
+          <tr>
+            <th>mul</th>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>add</th>
+            <td class="empty" colspan="1"></td>
+            <td class="read">read</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>add</th>
+            <td class="empty" colspan="2"></td>
+            <td class="read">read</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>mad</th>
+            <td class="empty" colspan="3"></td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>mad</th>
+            <td class="empty" colspan="4"></td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+        <br />
+      </p>
+    </div>
+
+    <h2><a name="branch_latency">Latency of Branch Instructions</a></h2>
+    <div class="section">
+      <p>
+        A latency of one to three clock cycles is shown for branch instructions in the above table. A branch instruction has a latency of 1 if it causes the program counter to change by +1; 2 if it causes the program counter to change by +2; and 3 if it causes the program counter to change by +3.<br /> This is because if the program changes by other than +1, the previously read instruction and the instruction scheduled to execute next are canceled and an instruction check is performed again. Note, however, that only the instruction scheduled to execute next is canceled if the program counter changes by +2. The previously read instruction will be unaffected.<br /> <br /> Example:<br />
+<pre class="definition">
+ifb     b0
+  add     r0, r1, r2
+endif
+mul     r0, r1, r2
+mul     r1, r2, r3
+</pre>
+        If b0 is true<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
+          </tr>
+          <tr>
+            <th>ifb</th>
+            <td class="flow">ifb</td>
+          </tr>
+          <tr>
+            <th>add</th>
+            <td class="empty" colspan="1"></td>
+            <td class="read">read</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>mul</th>
+            <td class="empty" colspan="2"></td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>mul</th>
+            <td class="empty" colspan="3"></td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+        <br />If b0 is false<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
+          </tr>
+          <tr>
+            <th>ifb</th>
+            <td class="flow">ifb</td>
+            <td class="stall" colspan="1">STALL</td>
+          </tr>
+          <tr>
+            <th>mul</th>
+            <td class="empty" colspan="2"></td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>mul</th>
+            <td class="empty" colspan="3"></td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+      </p>
+    </div>
+
+
+    <h2><a name="output_result">Output Order of Calculation Results</a></h2>
+    <div class="section">
+      <p>
+        The result of an instruction that executes later never affects the result of an instruction that executes first. Regardless of the duration of latency associated with instructions coming before and after, this is always guaranteed to happen without stalling because the registers used by the instruction coming first are always read before those used by an instruction that comes later.<br /> <br /> For example, if a write is made by a later instruction to a source register used by an earlier instruction, the result of the write by the later instruction will never be used as input to the earlier instruction.<br /> <br /> Example 1<br />
+<pre class="definition">
+exp     r0, r1.x
+mov     r1, c0
+</pre>
+        In the above example, the source register of the earlier instruction, which has high latency, and the destination register of the later instruction, which has low latency, are the same register. (The latency of <CODE>exp</CODE> is 4 clock cycles and that of <CODE>mov</CODE> is 2 clock cycles.)<br />When code of this type is executed, the output result of <CODE>mov</CODE> is not used as input to <CODE>exp</CODE>. (The result of <CODE>mov</CODE> therefore does not affect the calculation made by <CODE>exp</CODE>.)<br /> <br /> In addition, calculated results are guaranteed to be output in the order that instructions execute.<br /> <br /> <br />Example 2<br />
+<pre class="definition">
+exp     r0, r1.x
+mov     r0, c0
+</pre>
+        In the above example, the same register is used as a destination register of both the earlier instruction, which has high latency, and the later instruction, which has low latency. When code of this type is executed, the output of <CODE>exp</CODE>, which has high latency, is never performed after the output of <CODE>mov</CODE>.<br /> When this type of register dependency is present, operations are guaranteed without any stalling because the write operation being made by the earlier instruction will be canceled at the point the later instruction is decoded. The write operation of the earlier instruction is canceled when the registers being written to by the earlier and later instructions are found to be the same. Detection and cancellation are performed separately for each component. In other words, write operations of the earlier instruction are canceled only if both instructions are writing to the same register.<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+          </tr>
+          <tr>
+            <th>exp</th>
+            <td class="read">read</td>
+            <td class="EXP" colspan="2">EXP</td>
+            <td class="post">post</td>
+            <td class="cancel">cancel</td>
+            <td class="dummy"></td>
+          </tr>
+          <tr>
+            <th>mov</th>
+            <td class="empty" colspan="1"></td>
+            <td class="read">read</td>
+            <td class="MOV">mov</td>
+            <td class="write">write</td>
+          </tr>
+        </table>
+        <br /> <br /> Stalling will not occur when consecutively writing to the same register, as in the above example, even when the register components are the same.<br /> <br /> Example 3<br />
+<pre class="definition">
+exp     r0.x, r1.x
+mov     r0.y, c0
+</pre>
+        In the above example, r0 is written to twice in a row, but the components written to (r0.x and r0.y) are different so there is no overlap. Although the write to r0.x by <CODE>exp</CODE> is canceled, execution does not stall.<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+          </tr>
+          <tr>
+            <th>exp</th>
+            <td class="read">read</td>
+            <td class="EXP" colspan="2">EXP</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+          <tr>
+            <th>mov</th>
+            <td class="empty" colspan="1"></td>
+            <td class="read">read</td>
+            <td class="MOV">mov</td>
+            <td class="write">write</td>
+          </tr>
+        </table>
+        <br /> <br /> Example 4<br />
+<pre class="definition">
+exp     r0.xyz,  r1.x
+mov     r0.xyzw, c0
+</pre>
+        In the example above, the write to r0.xyz by <CODE>exp</CODE> is canceled. Execution does not stall.<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+          </tr>
+          <tr>
+            <th>exp</th>
+            <td class="read">read</td>
+            <td class="EXP" colspan="2">EXP</td>
+            <td class="post">post</td>
+            <td class="cancel">cancel</td>
+            <td class="dummy"></td>
+          </tr>
+          <tr>
+            <th>mov</th>
+            <td class="empty" colspan="1"></td>
+            <td class="read">read</td>
+            <td class="MOV">mov</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+        <br />
+      </p>
+    </div>
+
+    <h2><a name="output_stall">Stalling Due to Calculation Result Output Timing Conflicts</a></h2>
+    <div class="section">
+      <p>
+        If an instruction having low latency is executed after an instruction having high latency and the two instructions complete at the same time, the calculation result of the instruction that executed later will be output delayed by 1 clock cycle. More than one register cannot be written to at the same time.<br /> <br /> Example:<br />
+<pre class="definition">
+exp     r0, r1.x
+mul     r2, c3, r4
+</pre>
+        If the above code is executed, the result calculated for r0 and r2 would appear to be output at the same time, but output to r2 will actually be delayed by 1 clock cycle.<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+          </tr>
+          <tr>
+            <th>exp</th>
+            <td class="read">read</td>
+            <td class="EXP" colspan="2">EXP</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+          <tr>
+            <th>mul</th>
+            <td class="empty" colspan="1"></td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="post">post</td>
+            <td class="stall" colspan="1">STALL</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+        <br />
+      </p>
+    </div>
+
+    <h2><a name="compete_stall">Stalling Due to Arithmetic Unit Conflicts</a></h2>
+    <div class="section">
+      <p>
+        The <CODE>mad</CODE>, <CODE>dp3</CODE>, <CODE>dp4</CODE>, <CODE>dph</CODE>, and <CODE>add</CODE> instructions contend for access to the arithmetic unit.<br /> <br /> If these instructions are executed consecutively, if the time they use the arithmetic unit overlaps, latency may increase because the instructions that execute later must wait for earlier instructions to complete execution.<br /> The arithmetic unit is used for the first cycle of an <CODE>add</CODE> instruction, the second cycle of a <CODE>mad</CODE> instruction, and the second and third cycles of a <CODE>dp3</CODE>, <CODE>dp4</CODE>, or <CODE>dph</CODE> instruction.<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th>
+          </tr>
+          <tr>
+            <th>dp3</th>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="ADD">ADD</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>mad</th>
+            <td class="empty"></td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="stall" colspan="1">STALL</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>add</th>
+            <td class="empty" colspan="2"></td>
+            <td class="read">read</td>
+            <td class="stall" colspan="2">STALL</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+        <br /> <br />Note, however, that consecutive execution of the <CODE>dp3</CODE>, <CODE>dp4</CODE>, and <CODE>dph</CODE> instructions is an exception. Stalling due to arithmetic unit conflicts does not occur even when the instructions are called consecutively. Stalling does not occur due to arithmetic unit conflicts when multiple <CODE>dp3</CODE> instructions (or <CODE>dp4</CODE> or <CODE>dph</CODE> instructions) are called consecutively, or when some combination of <CODE>dp3</CODE>, <CODE>dp4</CODE>, and <CODE>dph</CODE> are called consecutively.<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th>
+          </tr>
+          <tr>
+            <th>dp3</th>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="ADD">ADD</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>dp4</th>
+            <td class="empty" colspan="1"></td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="ADD">ADD</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>dph</th>
+            <td class="empty" colspan="2"></td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="ADD">ADD</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+        <br />
+      </p>
+    </div>
+
+    <h2><a name="dependence_stall">Stalling Due to Instruction Dependencies</a></h2>
+    <div class="section">
+      <p>
+        Sometimes execution stalls due to dependency relationships among the instructions being invoked. This problem occurs when the register storing the calculation result of a given instruction is used as a source register by the instruction that immediately follows. <br /> Example:<br />
+<pre class="definition">
+add     r0, r1, r2
+mul     r4, r0, r3
+</pre>
+        If this type of code is executed, execution will stall because the result output to r0 is being used as a source register by the instruction that immediately follows.<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
+          </tr>
+          <tr>
+            <th>add</th>
+            <td class="read">read</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>mul</th>
+            <td class="empty" colspan="1"></td>
+            <td class="stall" colspan="2">STALL</td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+        <br /> Execution will stall if the registers are the same, even if the components differ.<br /> <br /> Example:<br />
+<pre class="definition">
+add     r0.x, r1,   r2
+mul     r4,   r0.y, r3
+</pre>
+        With code of this type, the result output to r0.x by the earlier instruction is not accessed by the next instruction, but execution stalls because r0 itself is being accessed (through the use of r0.y).<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
+          </tr>
+          <tr>
+            <th>add</th>
+            <td class="read">read</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>mul</th>
+            <td class="empty" colspan="1"></td>
+            <td class="stall" colspan="2">STALL</td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+        <br /> <br />If successive writes are made to the same register, the write made by the first instruction will be canceled (see <a href="#output_result">Output Order of Calculation Results</a> for details) and any subsequent instruction that tries to read the result written by the canceled instruction later may stall.<br /> <br /> Example:<br />
+<pre class="definition">
+dp4     r0.x, r1, r2
+mov     r0.x, r1
+mul     r4,   r0, r3
+</pre>
+        Here, the write by <CODE>dp4</CODE> will be canceled because <CODE>dp4</CODE> and <CODE>mov</CODE> both write to the same register and execution of <CODE>mul</CODE> will stall due to the <CODE>dp4</CODE> and <CODE>mov</CODE> instructions.<br /> Execution of <CODE>mul</CODE> stalls until execution of <CODE>dp4</CODE> completes because, as seen from <CODE>mul</CODE>, the latency of <CODE>dp4</CODE>, occurring two instructions before, is larger than that of <CODE>mov</CODE>, occurring one instruction before.<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
+          </tr>
+          <tr>
+            <th>dp4</th>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="ADD">ADD</td>
+            <td class="ADD">ADD</td>
+            <td class="post">post</td>
+            <td class="cancel">cancel</td>
+          </tr>
+          <tr>
+            <th>mov</th>
+            <td class="empty" colspan="1"></td>
+            <td class="read">read</td>
+            <td class="MOV">mov</td>
+            <td class="write">write</td>
+          </tr>
+          <tr>
+            <th>mul</th>
+            <td class="empty" colspan="2"></td>
+            <td class="stall" colspan="3">STALL</td>
+            <td class="read">read</td>
+            <td class="MUL">MUL</td>
+            <td class="post">post</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+        <br />
+      </p>
+    </div>
+
+    <h2><a name="force_stall">Unconditional Stalls</a></h2>
+    <div class="section">
+      <p>
+        Calling the <CODE>mova</CODE> instruction results in an unconditional stall of 3 clock cycles.<br /> <br /> Unlike stalls due to instruction dependencies, stalling occurs unconditionally when <CODE>mova</CODE> is called. Stalling cannot be avoided when a <CODE>mova</CODE> instruction and an instruction that reads an address register written to by that <CODE>mova</CODE> instruction occur consecutively by placing an unrelated instruction (an instruction that uses a register unrelated to either instruction) between them.<br /> <br /> Example:<br />
+<pre class="definition">
+mova    a0.x, r0
+nop
+nop
+nop
+mov     r1, c[a0.x]
+</pre>
+        Here, a <CODE>mova</CODE> instruction is followed by three consecutive <CODE>nop</CODE> instructions, in turn followed by a <CODE>mov</CODE> instruction that reads the address register that the <CODE>mova</CODE> instruction writes to. Execution stalls at the <CODE>mova</CODE> instruction whether the <CODE>nop</CODE> instructions are included or not.<br /> <br />
+        <table class="timetable">
+          <tr>
+            <th></th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          </tr>
+          <tr>
+            <th>mova</th>
+            <td class="read">read</td>
+            <td class="MOVA">mova</td>
+          </tr>
+          <tr>
+            <th>nop</th>
+            <td class="empty" colspan="1"></td>
+            <td class="stall" colspan="3">STALL</td>
+            <td class="NOP">NOP</td>
+          </tr>
+          <tr>
+            <th>nop</th>
+            <td class="empty" colspan="5"></td>
+            <td class="NOP">NOP</td>
+          </tr>
+          <tr>
+            <th>nop</th>
+            <td class="empty" colspan="6"></td>
+            <td class="NOP">NOP</td>
+          </tr>
+          <tr>
+            <th>mov</th>
+            <td class="empty" colspan="7"></td>
+            <td class="read">read</td>
+            <td class="MOV">mov</td>
+            <td class="write">write</td>
+            <td class="dummy"></td>
+          </tr>
+        </table>
+        <br />
+      </p>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

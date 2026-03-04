@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::snd::CTR::Voice</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../nn/snd/CTR/Overview.html">CTR</a>::Voice Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Voice</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A class used to control voices.</p><p>Use this function to control a valid voice object obtained with <tt><a href="../../../../nn/snd/CTR/AllocVoice.html">nn::snd::CTR::AllocVoice</a></tt>. Functionality is not guaranteed if you attempt to control any other voice object.</p><p>Because not all of the functions that control <tt>Voice</tt> objects are thread-safe, exclusive control is necessary using functions like <tt><a href="../../../../nn/os/CriticalSection/Overview.html">nn::os::CriticalSection</a></tt> when calling those functions in threads other than threads (sound threads) that are calling the <tt><a href="../../../../nn/snd/CTR/WaitForDspSync.html">nn::snd::CTR::WaitForDspSync</a></tt> and <tt><a href="../../../../nn/snd/CTR/SendParameterToDsp.html">nn::snd::CTR::SendParameterToDsp</a></tt> functions.  However, the <tt><a href="../../../../nn/snd/CTR/AllocVoice.html">nn::snd::CTR::AllocVoice</a></tt> and <tt><a href="../../../../nn/snd/CTR/FreeVoice.html">nn::snd::CTR::FreeVoice</a></tt> functions are thread-safe and can be called safely outside of sound threads.</p></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/State.html">State</a>
+            </th>
+            <td>Enumerated type that indicates the voice states.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/snd/CTR/Voice/BCWAV_ALIGNMENT.html">BCWAV_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the starting address of the BCWAV file specified in <code><a href="../../../../nn/snd/CTR/Voice/SetupBcwav.html">SetupBcwav</a></code> must be aligned to. It is defined as 32 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/snd/CTR/Voice/BCWAV_UNITSIZE.html">BCWAV_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the size of the BCWAV file specified in <code><a href="../../../../nn/snd/CTR/Voice/SetupBcwav.html">SetupBcwav</a></code> must be a multiple of. It is defined as 32 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/snd/CTR/Voice/BUFFER_ALIGNMENT.html">BUFFER_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the starting address of the buffer specified in <code><a href="../../../../nn/snd/CTR/Voice/AppendWaveBuffer.html">AppendWaveBuffer</a></code> must be aligned to. It is defined as 32 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/snd/CTR/Voice/BUFFER_UNITSIZE.html">BUFFER_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the size of the buffer specified by <code><a href="../../../../nn/snd/CTR/Voice/AppendWaveBuffer.html">AppendWaveBuffer</a></code> must be a multiple of. It is defined as 32 bytes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Buffer Operations</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/AppendWaveBuffer.html">AppendWaveBuffer</a>
+            </th>
+            <td>Appends sample data information corresponding to a voice. The starting address of the buffer to append must be aligned to <code>BUFFER_ALIGNMENT</code> (32 bytes) and be a multiple of <code>BUFFER_UNITSIZE</code> (32 bytes).</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/DeleteWaveBuffer.html">DeleteWaveBuffer</a>
+            </th>
+            <td>Deletes buffer information appended to a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/UpdateWaveBuffer.html">UpdateWaveBuffer</a>
+            </th>
+            <td>This updates buffer information appended to a voice.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Set Parameters</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetChannelCount.html">SetChannelCount</a>
+            </th>
+            <td>Sets the number of voice channels.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetSampleFormat.html">SetSampleFormat</a>
+            </th>
+            <td>Sets the format of the samples to link to a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetFrontBypassFlag.html">SetFrontBypassFlag</a>
+            </th>
+            <td>Sets whether to bypass the front channels when 3D surround sound is enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetStartFrameFadeInFlag.html">SetStartFrameFadeInFlag</a>
+            </th>
+            <td>Specifies whether to use a short fade-in starting at volume 0 when playback starts.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetSampleRate.html">SetSampleRate</a>
+            </th>
+            <td>Sets the sampling rate of a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetPitch.html">SetPitch</a>
+            </th>
+            <td>Sets the pitch of a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetAdpcmParam.html">SetAdpcmParam</a>
+            </th>
+            <td>Sets ADPCM coefficients.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetPriority.html">SetPriority</a>
+            </th>
+            <td>Sets the priority of a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetState.html">SetState</a>
+            </th>
+            <td>Sets the current state of a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetMixParam.html">SetMixParam</a>
+            </th>
+            <td>Sets the gain for each voice channel.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetVolume.html">SetVolume</a>
+            </th>
+            <td>Sets the volume of a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetInterpolationType.html">SetInterpolationType</a>
+            </th>
+            <td>Sets the interpolation method of a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetFilterType.html">SetFilterType</a>
+            </th>
+            <td>Sets the filter type.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/EnableMonoFilter.html">EnableMonoFilter</a>
+            </th>
+            <td>Enables or disables the monopole filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetMonoFilterCoefficients.html">SetMonoFilterCoefficients</a>
+            </th>
+            <td>Sets the coefficients for a monopole filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/EnableBiquadFilter.html">EnableBiquadFilter</a>
+            </th>
+            <td>Enables/disables the biquad filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetBiquadFilterCoefficients.html">SetBiquadFilterCoefficients</a>
+            </th>
+            <td>Sets the coefficients for a biquad filter.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Get Parameters</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/GetPitch.html">GetPitch</a>
+            </th>
+            <td>Gets the pitch of a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/GetPriority.html">GetPriority</a>
+            </th>
+            <td>Gets the priority of a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/GetState.html">GetState</a>
+            </th>
+            <td>Gets the state of a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/GetMixParam.html">GetMixParam</a>
+            </th>
+            <td>Gets the gain for each voice channel.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/GetVolume.html">GetVolume</a>
+            </th>
+            <td>Gets the volume of a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/GetInterpolationType.html">GetInterpolationType</a>
+            </th>
+            <td>Gets the interpolation method of a voice.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/GetFilterType.html">GetFilterType</a>
+            </th>
+            <td>Gets the usage status of a filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/GetMonoFilterCoefficients.html">GetMonoFilterCoefficients</a>
+            </th>
+            <td>Gets the coefficients for a monopole filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/GetBiquadFilterCoefficients.html">GetBiquadFilterCoefficients</a>
+            </th>
+            <td>Gets the coefficients for a biquad filter.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Getting the Playback Status</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/GetPlayPosition.html">GetPlayPosition</a>
+            </th>
+            <td>Gets the playback position within the buffer that is currently in use.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/IsPlaying.html">IsPlaying</a>
+            </th>
+            <td>Gets the playback state of a voice.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">BCWAV-related</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/snd/CTR/Voice/SetupBcwav.html">SetupBcwav</a>
+            </th>
+            <td>Parses a BCWAV file and prepares it for playback.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/06/06</dt>
+        <dd><item xmlns="">Added <a href="../../../../nn/snd/CTR/Voice/DeleteWaveBuffer.html">nn::snd::CTR::Voice::DeleteWaveBuffer</a> and <a href="../../../../nn/snd/CTR/Voice/UpdateWaveBuffer.html">nn::snd::CTR::Voice::UpdateWaveBuffer</a>.</item><br />
+        </dd>
+        <dt>2011/05/26</dt>
+        <dd><item xmlns="">Of the following functions, the versions that take a pointer as an argument were made private: <a href="../../../../nn/snd/CTR/Voice/SetMonoFilterCoefficients.html">nn::snd::CTR::Voice::SetMonoFilterCoefficients</a>, <a href="../../../../nn/snd/CTR/Voice/SetBiquadFilterCoefficients.html">nn::snd::CTR::Voice::SetBiquadFilterCoefficients</a>, <a href="../../../../nn/snd/CTR/Voice/GetMonoFilterCoefficients.html">nn::snd::CTR::Voice::GetMonoFilterCoefficients</a> and <a href="../../../../nn/snd/CTR/Voice/GetBiquadFilterCoefficients.html">nn::snd::CTR::Voice::GetBiquadFilterCoefficients</a>.</item><br />
+        </dd>
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added information related to thread safety.</item><br />
+        </dd>
+        <dt>2010/01/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

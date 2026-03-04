@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Read</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fs/Overview.html">fs</a>::<a href="../../../nn/fs/Directory/Overview.html">Directory</a>::Read Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/s32.html">s32</a> Read(
+     <a href="../../../nn/fs/DirectoryEntry/Overview.html">DirectoryEntry</a> pEntries[],
+     <a href="../../../nn_types/s32.html">s32</a> numEntries
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pEntries[]</th>
+          <td>Location to load directory entries to.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numEntries</th>
+          <td>Maximum number of directory entries to load.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the number of entries that were actually loaded. Returns <code>0</code> when it has finished scanning all the entries. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Loads the specified number of entries from a directory.</p><p>Up to numEntries entries are read from the current file position and copied to the region at the address specified by pEntries.</p><p>This function is implemented to show an error screen when errors occur internally, regardless of whether such errors are fatal.  Control does not return from the function in this case. Use <tt><a href="../../../nn/fs/Directory/TryRead.html">nn::fs::Directory::TryRead</a></tt> on everything other than ROM archives.</p><p>For more information about error handling, see <a href="../briefing/aboutErrorHandling.html#FileAndDirectory">Handling Errors During File and Directory Operations</a>.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/12/24</dt>
+        <dd><item xmlns="">Added a link to the error handling page.</item><br />
+        </dd>
+        <dt>2010/01/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

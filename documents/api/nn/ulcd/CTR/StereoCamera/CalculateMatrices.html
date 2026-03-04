@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CalculateMatrices</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ulcd/Overview.html">ulcd</a>::<a href="../../../../nn/ulcd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ulcd/CTR/StereoCamera/Overview.html">StereoCamera</a>::CalculateMatrices Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/ulcd.h&gt;
+void CalculateMatrices(
+     <a href="../../../../nn/math/Matrix44.html">nn::math::Matrix44</a> * projL,
+     <a href="../../../../nn/math/Matrix34.html">nn::math::Matrix34</a> * viewL,
+     <a href="../../../../nn/math/Matrix44.html">nn::math::Matrix44</a> * projR,
+     <a href="../../../../nn/math/Matrix34.html">nn::math::Matrix34</a> * viewR,
+     const <a href="../../../../nn_types/f32.html">f32</a> depthLevel,
+     const <a href="../../../../nn_types/f32.html">f32</a> factor,
+     const <a href="../../../../nn/math/PivotDirection.html">nn::math::PivotDirection</a> pivot = nn::math::PIVOT_UPSIDE_TO_TOP,
+     const bool update3DVolume = true
+);
+
+<a href="../../../../nn_types/f32.html">f32</a> CalculateMatrices(
+     <a href="../../../../nn/math/Matrix44.html">nn::math::Matrix44</a> * projL,
+     <a href="../../../../nn/math/Matrix34.html">nn::math::Matrix34</a> * viewL,
+     <a href="../../../../nn/math/Matrix44.html">nn::math::Matrix44</a> * projR,
+     <a href="../../../../nn/math/Matrix34.html">nn::math::Matrix34</a> * viewR,
+     const <a href="../../../../nn/math/Matrix44.html">nn::math::Matrix44</a> * projOriginal,
+     const <a href="../../../../nn/math/Matrix34.html">nn::math::Matrix34</a> * viewOriginal,
+     const <a href="../../../../nn_types/f32.html">f32</a> depthLevel,
+     const <a href="../../../../nn_types/f32.html">f32</a> factor,
+     const bool realSwitch,
+     const bool update3DVolume = true
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./CalculateMatrices(0).html">CalculateMatrices ( nn::math::Matrix44 *, nn::math::Matrix34 *, nn::math::Matrix44 *, nn::math::Matrix34 *, const f32, const f32, const nn::math::PivotDirection, const bool ) </a>
+          </td>
+          <td>Calculates the view matrices and projection matrices for the left and right cameras, using the application priority method.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./CalculateMatrices(1).html">CalculateMatrices ( nn::math::Matrix44 *, nn::math::Matrix34 *, nn::math::Matrix44 *, nn::math::Matrix34 *, const nn::math::Matrix44 *, const nn::math::Matrix34 *, const f32, const f32, const bool, const bool ) </a>
+          </td>
+          <td>Calculates the left and right matrices for stereoscopic vision based on the projection and view matrices used for normal rendering.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of CalculateMatrices ( nn::math::Matrix44 *, nn::math::Matrix34 *, nn::math::Matrix44 *, nn::math::Matrix34 *, const f32, const f32, const nn::math::PivotDirection, const bool ) </h2>
+    <div class="section"><!-- write here --><P>It performs matrix calculation based on the base camera specified by the application.  The calculations performed by this function preserve the original view angle, so use of this function is recommended if you want to preserve the effect given by cameras that you have adjusted a certain way.</P><P>Once the projection matrix has been calculated and output, the upward direction of the camera will be the direction specified for the <span class="argument">pivot</span> argument.  If <span class="argument">pivot</span> is set to <tt>nn::math::PIVOT_NONE</tt>, no rotation is applied.  If an invalid value is specified for the <span class="argument">pivot</span> argument, the function halts on an assertion.  The value <tt>nn::math::PIVOT_UPSIDE_TO_TOP</tt> is specified by default.</P><P>This function stops at an assertion if it is called before the <tt>Initialize</tt> function has been called on an instance of the <tt>StereoCamera</tt> class.</P><P><tt>update3DVolume</tt> specifies whether to get and use the 3D depth slider value when doing matrix calculations.  The default is <tt>true</tt> (which uses the value).  If <tt>false</tt> (which does not use the value) is specified, it is necessary to update the 3D depth slider explicitly.  See the description of the <tt><a href="../../../../nn/ulcd/CTR/StereoCamera/Update3DVolume.html">nn::ulcd::CTR::StereoCamera::Update3DVolume</a></tt> function. </P></div>
+    <h2>Description of CalculateMatrices ( nn::math::Matrix44 *, nn::math::Matrix34 *, nn::math::Matrix44 *, nn::math::Matrix34 *, const nn::math::Matrix44 *, const nn::math::Matrix34 *, const f32, const f32, const bool, const bool ) </h2>
+    <div class="section"><!-- write here --><P>This function has been retained to maintain compatibility with previous versions of the SDK.  For reasons described below, the function is scheduled to be deleted in a future version upgrade.</P><P>This function branches and calculates the specified projection matrix based on the specified calculation method, so it takes more processing time than the <tt>CalculateMatrices</tt> and <tt>CalculateMatricesReal</tt> functions prepared for each calculation method.</P><br /><br /><P>For the input projection matrix, use one that was created using either <tt>nn::math::MTX44Frustum</tt> or <tt>nn::math::MTX44Perspective</tt>.</P><P>Once the projection matrix has been calculated and output, it is multiplied by a rotation matrix so that the upward direction of the camera meets the long edge of the upper LCD (the side opposite the lower LCD). As a result, there is no need to prepare an input matrix that takes into account the orientation of the LCD.</P><P>The <span class="argument">realSwitch</span> argument is used to select whether to use the application priority method or the realism priority method. Specifying <tt>true</tt> chooses the latter.</P><P> The return value indicates how far the screen images are offset to the left and right by the cameras that result from this calculation. The offsets are expressed as a percentage (1.0f = 100%), where 0% indicates no offset, and 100% indicates left/right offsets as wide as the screen.  In other words, this indicates the distance that objects at infinity are offset along the screen.  For example, assume you are rendering a distant landscape as a single image, and the screen width is 400 pixels. You can make the landscape appear to be at the farthest possible depth by offsetting this image by 400 x [<i>return value</i>] pixels to the left and right.</P><P>This function stops at an assertion if it is called before the <tt>Initialize</tt> function has been called on an instance of the <tt>StereoCamera</tt> class.</P><P><tt>update3DVolume</tt> specifies whether to get and use the 3D depth slider value when doing matrix calculations.  The default is <tt>true</tt> (which uses the value).  If <tt>false</tt> (which does not use the value) is specified, it is necessary to update the 3D depth slider explicitly.  See the description of the <tt><a href="../../../../nn/ulcd/CTR/StereoCamera/Update3DVolume.html">nn::ulcd::CTR::StereoCamera::Update3DVolume</a></tt> function. </P></div>
+  </body>
+</html>

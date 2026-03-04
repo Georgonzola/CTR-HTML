@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGenTextures</title>
+  </head>
+  <body>
+    <h1>glGenTextures Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGenTextures(
+     GLsizei n,
+     GLuint * textures
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>n</th>
+          <td>Number of texture objects to generate.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>textures</th>
+          <td>Array that stores the generated texture objects.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Generates texture objects.</p><P>Set <span class="argument">n</span> the number of objects to generate.  Set <span class="argument">textures</span> to the array used to store the generated objects.</P><P>When a texture object is generated, it is not yet decided whether it will be used as a texture, as a lookup table, or as a texture state collection.  It can be used for any of these.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">n</span> argument is negative.</TD></TR><TR><th>GL_OUT_OF_MEMORY</th><TD>Failed to allocate the management region.</TD></TR></TABLE><!-- source nが負の値の場合エラーGL_INVALID_VALUEを生成します。 管理用領域の確保に失敗した場合エラーGL_OUT_OF_MEMORYを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

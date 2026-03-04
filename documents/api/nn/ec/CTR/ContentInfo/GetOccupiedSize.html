@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetOccupiedSize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/ContentInfo/Overview.html">ContentInfo</a>::GetOccupiedSize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn_types/s64.html">s64</a> GetOccupiedSize() const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the amount, in bytes, of SD card memory occupied by the content. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Returns the amount of SD card memory occupied by the content.</p><p>Deleting content frees up room on the SD card by the amount of memory returned by this function. Use the block count obtained from <code><a href="../../../../nn/ec/CTR/ContentInfo/GetNumOccupiedBlocks.html">ContentInfo::GetNumOccupiedBlocks</a></code> to show the user the amount of space occupied by the content. Avoid displaying the occupied space obtained from this function in the application.</p><p>The function returns <code>0</code> if the content has not been downloaded.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/26</dt>
+        <dd><item xmlns="">Noted that the function returns <code>0</code> if the content has not been downloaded.</item><br />
+        </dd>
+        <dt>2011/10/14</dt>
+        <dd><item xmlns="">Noted that the occupied space obtained from this function should not be displayed in the application.</item><br />
+        </dd>
+        <dt>2011/09/06</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

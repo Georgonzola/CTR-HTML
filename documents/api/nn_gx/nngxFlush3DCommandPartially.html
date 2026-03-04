@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxFlush3DCommandPartially</title>
+  </head>
+  <body>
+    <h1>nngxFlush3DCommandPartially Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxFlush3DCommandPartially(
+     GLsizei buffersize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>buffersize</th>
+          <td>Size of the command buffer to run, in bytes.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Issues a 3D run command and flushes the accumulated 3D command buffer. However, only the specified amount of 3D commands are executed.</p><P>A command to complete the loading of 3D commands is added to the 3D command buffer of the bound command list object, and a render command request is queued to the command requests.</P><P>This function is an extended version of the <tt><a href="../nn_gx/nngxFlush3DCommand.html">nngxFlush3DCommand</a></tt> function. It provides nearly the same functionality, but differs on the following points.<UL><LI>The size of the command buffer to execute is specified in the <span class="argument">buffersize</span> parameter. It is not the total size of the commands accumulated between the last command flush and this function call.</LI><LI>The cache is not flushed for commands in the 3D command buffer accumulated between the last command flush and this function call.</LI><LI>This function cannot be used on an executing command list object (it causes an error).</LI></UL></P><P>Use this function when you want the application to freely create command-buffer execution register commands (such as using the <tt>GR</tt> library), without using the <tt><a href="../nn_gx/nngxAddJumpCommand.html">nngxAddJumpCommand</a></tt> or <tt><a href="../nn_gx/nngxAddSubroutineCommand.html">nngxAddSubroutineCommand</a></tt> functions.  <FONT color="red">There is no need to use this function if you implement command-buffer jumps using the <tt>nngx</tt> API.</FONT></P><P>The standard <tt>nngxFlush3DCommand</tt> function attempts to execute the entire contents of the 3D command buffer at the time it is called.  However, if the accumulated commands include a command-buffer execution register kick command, it must kick the GPU using the buffer up to the kick command (the first one stored in the command buffer) as the size, rather than executing all accumulated commands.</P><P>If you have added a kick command using the <tt>nngxAddJumpCommand</tt> or <tt>nngxAddSubroutineCommand</tt> function, the driver adjusts the execution size to the size of the buffer up to the first kick command.  However, if you use the <tt><a href="../nn_gx/nngxAdd3DCommand.html">nngxAdd3DCommand</a></tt> function to add data provided by the application as a command, then the driver will not be able to tell whether there is a kick command among these commands.  That is why there is a need for the functionality provided by this function to specify the execution size and flush the command buffer.</P><P>Set <span class="argument">buffersize</span> to the size of the command buffer to execute in bytes. Must be a multiple of 16.</P><P>If you accumulate a kick command in the command buffer without using the <tt>nngxAddJumpCommand</tt> or <tt>nngxAddSubroutineCommand</tt> functions, for <span class="argument">buffersize</span> specify the address of the last command flush until the first kick command (inclusive).</P><H3>Usage Notes</H3><DIV class="section"><P>You must set <span class="argument">buffersize</span> correctly to the size from the address after the last command flush until the first kick command (inclusive). Setting this to an incorrect value could cause such behavior as commands executing out of their intended sequence, or 3D executions being unable to terminate correctly.</P><P>Contents in the 3D command buffer accumulated after the last command flush until this function call are not flushed from the cache.  The application is responsible for flushing the cache for the command buffer. Ensure that the application does so.  Wait until after calling this function before flushing the entire cache, because this function also generates several commands itself, including commands that raise interrupts.  (There is a restriction against calling this function on executing command lists. This is to prevent execution before a cache flush, because the cache must be flushed after calling this function.)</P><P>The <tt><a href="../nn_gx/nngxTransferRenderImage.html">nngxTransferRenderImage</a></tt>, <tt><a href="../gl/glClear.html">glClear</a></tt>, <tt><a href="../gl/glCopyTexImage2D.html">glCopyTexImage2D</a></tt> and other functions also flush the command cache.  These commands flush the cache using the same method as the <tt>nngxFlush3DCommand</tt> function.  Always use this function to flush the cache.</P><P>If you have added a kick command using the <tt><a href="../nn_gx/nngxAddSubroutineCommand.html">nngxAddSubroutineCommand</a></tt> function, then the driver will adjust the execution size to that of the buffer up to the first kick command. For this reason, there is no need for the application to specify the command execution size or to even use this function if the <tt><a href="../nn_gx/nngxAddSubroutineCommand.html">nngxAddSubroutineCommand</a></tt> function has been used. If this function is used to flush a command buffer to which a kick command has been added using the <tt><a href="../nn_gx/nngxAddSubroutineCommand.html">nngxAddSubroutineCommand</a></tt> function, the execution size specified by this function is used rather than the size calculated by the driver.</P></DIV><P>This function generates the following errors.<TABLE><TR><th>GL_ERROR_80A9_DMP</th><TD><tt>0</tt> is bound to the current command list.</TD></TR><TR><th>GL_ERROR_80AA_DMP</th><TD>The number of accumulated command requests has reached the maximum number of command requests.</TD></TR><TR><th>GL_ERROR_80AB_DMP</th><TD>The accumulated 3D command buffer exceeds its maximum size when the command to complete the loading of 3D commands is added to the buffer.</TD></TR><TR><th>GL_ERROR_80AC_DMP</th><TD><span class="argument">buffersize</span> is 0 or less, or is not a multiple of 16.</TD></TR><TR><th>GL_ERROR_80AD_DMP</th><TD>The current command list is running.</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxFlush3DCommand.html">nngxFlush3DCommand</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/12</dt>
+        <dd><item xmlns="">Added information to note about operations when using the nngxAddSubroutineCommand function.</item><br />
+        </dd>
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added See Also section.</item><br />
+        </dd>
+        <dt>2011/09/22</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetVertexAttribPointerv</title>
+  </head>
+  <body>
+    <h1>glGetVertexAttribPointerv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetVertexAttribPointerv(
+     GLuint index,
+     GLenum pname,
+     void ** pointer
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>index</th>
+          <td>Vertex attribute index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to get (<code>GL_VERTEX_ATTRIB_ARRAY_POINTER</code>).</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pointer</th>
+          <td>Pointer to an array storing the vertex attributes.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a pointer to the vertex attribute array.</p><P>You can set <span class="argument">index</span> to a value that is greater than or equal to 0 and at least one less than the value that can be obtained by <tt>glGetIntegerv</tt> with <tt>GL_MAX_VERTEX_ATTRIBS</tt> specified.</P><P>You can specify <tt>GL_VERTEX_ATTRIB_ARRAY_POINTER</tt> for <span class="argument">pname</span> to get the value specified in the <span class="argument">ptr</span> argument to the <tt>glVertexAttribPointer</tt> function.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">index</span> argument was set to an invalid value.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">pname</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source indexに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetOutputBufferWidth</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::SetOutputBufferWidth Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+void SetOutputBufferWidth(
+     <a href="../../../../nn_types/u32.html">u32</a> width
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Specifies the width (in pixels) of the output image buffer. <br />
+ Specify <code>0</code> to have the decoding function automatically set the width according to the image size. <br />
+ Any value specified in excess of <code><a href="../../../../nn/jpeg/CTR/MAX_DECODER_OUTPUT_BUFFER_WIDTH.html">MAX_DECODER_OUTPUT_BUFFER_WIDTH</a></code>(65536) is ignored.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the width of the output image buffer.</p><p>Use this function when the image buffer to which the decoded results are output (for example the GPU texture buffer) has a larger image width than the image you want to decode.</p><p>If you specify the image width of the output image buffer, the decoding function (<code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoder.html">StartJpegDecoder</a></code>, <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoderShrink.html">StartJpegDecoderShrink</a></code>, or <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartMpDecoderLR.html">StartMpDecoderLR</a></code>) outputs from the output buffer starting from the left. The whitespace portion of buffer content that is not output is not changed.</p><p>Call this function before calling the decoding function. The value specified by this function is cleared after the decoding function completes, regardless of whether the decoding function succeeded or failed. When decoding multiple times, you must call this function before each decoding function call. The value specified by this function is also cleared if you specify <code>0</code> for the width argument, or if you reinitialize the decoder object using the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Initialize.html">Initialize</a></code> function.</p><p>If the image width specified by this function is smaller than the width required to output the decoded results, the decoding function rounds up the width of the output image buffer. (Decoding fails if the results of rounding up exceed the number of bytes for the output image buffer as specified in the decoding function.)</p><p>If the pixel format specified by the decoding function (<code><a href="../../../../nn/jpeg/CTR/PixelFormat.html">PixelFormat</a></code>) is <code><span>PIXEL_FORMAT_CTR_RGB565_BLOCK8</span></code>, <code><span>PIXEL_FORMAT_CTR_RGB8_BLOCK8</span></code>, or <code><span>PIXEL_FORMAT_CTR_RGBA8_BLOCK8</span></code>, incorrect operations result if the <emphasis>width</emphasis> argument is not a multiple of 8 (or rounded down to a multiple of 8).<br /><br />
+ When the format is <code><span>PIXEL_FORMAT_YUYV8</span></code>, the <emphasis>width</emphasis> argument must be a multiple of (2 (or rounded down to the nearest multiple of 2) for correct functionality.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

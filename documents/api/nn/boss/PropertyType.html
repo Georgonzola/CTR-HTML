@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>PropertyType</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/boss/Overview.html">boss</a>::PropertyType Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum PropertyType;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>TASK_PRIORITY</th>
+          <td><code>0</code>: The task execution priority set during task registration. The data type is <code>TaskPriority</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_SCHEDULING_POLICY</th>
+          <td><code>1</code>: Scheduling policy of the task. The data type is <code>SchedulingPolicy</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_TARGET_DURATION</th>
+          <td><code>2</code>: Targeted task execution time. The data type is <code>u32</code> (seconds). (This is provided for future extensibility and cannot be used.)</td>
+        </tr>
+        <tr>
+          <th>TASK_EXEC_INTERVAL</th>
+          <td><code>3</code>: <a href="../../nn/boss/Task/Overview.html">Task</a> execution interval. The data type is <code>u32</code> (seconds).</td>
+        </tr>
+        <tr>
+          <th>TASK_EXEC_COUNT</th>
+          <td><code>4</code>: <a href="../../nn/boss/Task/Overview.html">Task</a> execution count. The data type is <code>u32</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_PERMISSION</th>
+          <td><code>5</code>: <a href="../../nn/boss/Task/Overview.html">Task</a> execution restrictions as set by Parental Controls and EULA permissions. The data type is <code>TaskPermission</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_CODE</th>
+          <td><code>6</code>: The code for a task's type. The data type is <code>Action</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_URL</th>
+          <td><code>7</code>: Target URL. The data type is <code>char[MAX_URL_LENGTH]</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_OFFSET</th>
+          <td><code>8</code>: The offset from the starting position of the data specified by the URL. The data type is <code>u32</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_FILEDESC</th>
+          <td><code>9</code>: File descriptor type. The data type is <code>FileDescriptor</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_FILEPATH</th>
+          <td><code>10</code>: The file path targeted by the task. The data type is <code>char[MAX_FILEPATH_LENGTH]</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_FILEPATH_W</th>
+          <td><code>11</code>: The file path targeted by the task. The data type is <code>wchar_t[MAX_FILEPATH_LENGTH]</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_FILE_HANDLE</th>
+          <td><code>12</code>: The file handle targeted by the task. The data type is <code>nn::Handle</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_HTTP_HEADER</th>
+          <td><code>13</code>: Structure for URL option request headers. The data type is <code>struct httpRequestHeader[MAX_HTTP_HEADER]</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_CLIENT_CERT</th>
+          <td><code>14</code>: The built-in client certificate for HTTPS communication. The data type is <code>u32[MAX_CLIENT_CERT]</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_ROOT_CA</th>
+          <td><code>15</code>: The internal root certificate for HTTPS communication. The data type is <code>u32[MAX_ROOT_CA]</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_PRIVATE_CLIENT_CERT</th>
+          <td><code>16</code>: Flag for enabling a private client certificate. The data type is <code>u8</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_PRIVATE_ROOT_CA</th>
+          <td><code>17</code>: Flag for enabling a private client certificate. The data type is <code>u8</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_AP_INFO</th>
+          <td><code>18</code>: Type for access point information for attaching AP information to an HTTP query. The data type is <code>ApInfoType</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_CLIENT_CERT_NUM</th>
+          <td><code>19</code>: Number of configured built-in client certificates. The data type is <code>u32</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_ROOT_CA_NUM</th>
+          <td><code>20</code>: The number of internal root certificates to specify. The data type is <code>u32</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_LAST_MODIFIED_TIME</th>
+          <td><code>21</code>: The "Last-Modified" date and time to set in the HTTP request header. The data type is <code>char[MAX_LASTMODIFIED_LENGTH]</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_OPTION</th>
+          <td><code>22</code>: <a href="../../nn/boss/Task/Overview.html">Task</a> execution options.</td>
+        </tr>
+        <tr>
+          <th>SIGNAL_TASK_EVENT</th>
+          <td><code>23</code>: Event for startup tasks. The data type is <code><a href="../../nn/os/Event/Overview.html">nn::os::Event</a>*</code>. (This is provided for future extensibility and cannot be used.)</td>
+        </tr>
+        <tr>
+          <th>TASK_EXEC_OPTION</th>
+          <td><code>24</code>: <a href="../../nn/boss/Task/Overview.html">Task</a> execution options. The data type is <code>ExecOption</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_STEP</th>
+          <td><code>25</code>: <a href="../../nn/boss/Task/Overview.html">Task</a> step ID number. The data type is <code>u8</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_OPTION_TARGET_STEP</th>
+          <td><code>26</code>: <a href="../../nn/boss/Task/Overview.html">Task</a> step option ID number. The data type is <code>u8</code>. (This is provided for future extensibility and cannot be used.)</td>
+        </tr>
+        <tr>
+          <th>TASK_OPTION_PARAM1</th>
+          <td><code>27</code>: Option parameter 1 for task step execution. The data type is <code>u32</code>. (This is provided for future extensibility and cannot be used.)</td>
+        </tr>
+        <tr>
+          <th>TASK_OPTION_PARAM2</th>
+          <td><code>28</code>: Option parameter 2 for task step execution. The data type is <code>u32</code>. (This is provided for future extensibility and cannot be used.)</td>
+        </tr>
+        <tr>
+          <th>TASK_STATE_CODE</th>
+          <td><code>29</code>: <a href="../../nn/boss/Task/Overview.html">Task</a> state information. The data type is <code>TaskStateCode</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_STATE_TASK</th>
+          <td><code>30</code>: Internal task state information. The data type is <code>TaskStateCode</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_STATE_RESUME</th>
+          <td><code>31</code>: Internal task state information. The data type is <code>TaskStateCode</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_RESULT_CODE</th>
+          <td><code>32</code>: <a href="../../nn/boss/Task/Overview.html">Task</a> result code. The data type is <code>TaskResultCode</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_SERVICE_STATUS</th>
+          <td><code>33</code>: Status of the service pointed to by the URL specified in the task attributes. The data type is <code>TaskServiceStatus</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_SERVICE_TERMINATED</th>
+          <td><code>34</code>: Availability flag of the service pointed to by the URL specified in the task attributes. The data type is <code>bool</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_COMM_ERROR_CODE</th>
+          <td><code>35</code>: Communications error code during task execution. The data type is <code>u32</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_CURRENT_PRIORITY</th>
+          <td><code>36</code>: Priority of the currently running task. The data type is <code>TaskPriority</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_EXECUTE_COUNT</th>
+          <td><code>37</code>: <a href="../../nn/boss/Task/Overview.html">Task</a> execution count. The data type is <code>u32</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_PENDING_TIME</th>
+          <td><code>38</code>: The time elapsed since the task was scheduled to start. The data type is <code>u32</code> (seconds).</td>
+        </tr>
+        <tr>
+          <th>TASK_REMAIN_TIME</th>
+          <td><code>39</code>: Time remaining until task execution. The data type is <code>u32</code> (seconds). (This is provided for future extensibility and cannot be used.)</td>
+        </tr>
+        <tr>
+          <th>TASK_START_TIME</th>
+          <td><code>40</code>: Scheduled task start time, based on a calendar beginning 1 January 2000. The data type is <code>s64</code> (seconds).</td>
+        </tr>
+        <tr>
+          <th>TASK_STEP_START_TIME</th>
+          <td><code>41</code>: Scheduled task start time, based on a calendar beginning 1 January 2000. The data type is <code>s64</code> (seconds). (This is provided for future extensibility and cannot be used.)</td>
+        </tr>
+        <tr>
+          <th>TASK_PROGRESS</th>
+          <td><code>42</code>: Number of bytes downloaded. The data type is <code>u32</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_DATA_SIZE</th>
+          <td><code>43</code>: Total number of bytes to download from specified URL. The data type is <code>u32</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_CURRENT_STEP</th>
+          <td><code>44</code>: Currently running task step ID. The data type is <code>u8</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_ACTIVE_RATE</th>
+          <td><code>45</code> Average active rate. The data type is <code>u16</code>. (This is provided for future extensibility and cannot be used.)</td>
+        </tr>
+        <tr>
+          <th>TASK_REQUEST_RATE</th>
+          <td><code>46</code>: Average communication request rate. The data type is <code>u16</code>. (This is provided for future extensibility and cannot be used.)</td>
+        </tr>
+        <tr>
+          <th>TASK_LAST_MODIFIED_TIME</th>
+          <td><code>47</code>: Last update time, as returned in the HTTP response header. The data type is <code>char[MAX_LASTMODIFIED_LENGTH]</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_ERROR_RESULT_CODE</th>
+          <td><code>48</code>: <a href="../../nn/boss/Task/Overview.html">Task</a> result code. The data type is <code>TaskResultCode</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_ERROR_CODE</th>
+          <td><code>49</code>: Communications error code during task execution. The data type is <code>u32</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_ERROR_MESSAGE</th>
+          <td><code>50</code>: Communications error message during task execution. The data type is <code>char[MAX_ERROR_MESSAGE]</code>.</td>
+        </tr>
+        <tr>
+          <th>TASK_APPID_LIST_SIZE</th>
+          <td><code>51</code>: Internal size for the <code>ApplicationIdList</code> class. The data type is <code>u16</code>. (Enumerator used during internal processing.)</td>
+        </tr>
+        <tr>
+          <th>TASK_APPID_LIST</th>
+          <td><code>52</code>: An internal application ID list for the <code>ApplicationIdList</code> class. The data type is <code>AppIdType[MAX_APPLICATION_ID]</code>. (Enumerator used during internal processing.)</td>
+        </tr>
+        <tr>
+          <th>TASK_TASKID_LIST_SIZE</th>
+          <td><code>53</code>: Internal size for the <code><a href="../../nn/boss/TaskIdList/Overview.html">TaskIdList</a></code> class. The data type is <code>u16</code>. (Enumerator used during internal processing.)</td>
+        </tr>
+        <tr>
+          <th>TASK_TASKID_LIST</th>
+          <td><code>54</code>: An internal task ID list for the <code><a href="../../nn/boss/TaskIdList/Overview.html">TaskIdList</a></code> class. The data type is <code>u8[MAX_TASK_ID][TASK_ID_LENGTH]</code>. (Enumerator used during internal processing.)</td>
+        </tr>
+        <tr>
+          <th>TASK_STEPID_LIST_SIZE</th>
+          <td><code>55</code>: Internal size for the <code><a href="../../nn/boss/StepIdList/Overview.html">StepIdList</a></code> class. The data type is <code>u16</code>. (Enumerator used during internal processing.)</td>
+        </tr>
+        <tr>
+          <th>TASK_STEPID_LIST</th>
+          <td><code>56</code>: An internal task step ID list for the <code><a href="../../nn/boss/StepIdList/Overview.html">StepIdList</a></code> class. The data type is <code>u8[MAX_TASK_ID]</code>. (Enumerator used during internal processing.)</td>
+        </tr>
+        <tr>
+          <th>TASK_NSDATA_LIST_SIZE</th>
+          <td><code>57</code>: Internal size for the <code><a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a></code> class. The data type is <code>u16</code>. (Enumerator used during internal processing.)</td>
+        </tr>
+        <tr>
+          <th>TASK_NSDATA_LIST</th>
+          <td><code>58</code>: An internal <code><a href="../../nn/boss/NsData/Overview.html">NsData</a></code> list for the <code><a href="../../nn/boss/NsDataIdList/Overview.html">NsDataIdList</a></code> class. The data type is <code>u32[serialSize]</code>. (Enumerator used during internal processing.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_SIGNAL_TASK_EVENT</th>
+          <td><code>59</code>: Event for startup tasks. The data type is <code><a href="../../nn/os/Event/Overview.html">nn::os::Event</a>*</code>. (This is provided for future extensibility and cannot be used.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_HTTP_HEADER_VALUE</th>
+          <td><code>60</code>: (This enumerator is used for internal processing. This enumerator cannot be used by applications.)</td>
+        </tr>
+        <tr>
+          <th>TASK_ID</th>
+          <td><code>61</code>: (This enumerator is used for internal processing. This enumerator cannot be used by applications.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_FILE_PARAM</th>
+          <td><code>62</code>: (This enumerator is used for internal processing. This enumerator cannot be used by applications.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_CFG_INFO</th>
+          <td><code>63</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. System information type used to return system configuration information in response to HTTP queries. The data type is <code>CfgInfoType</code>.</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_GAME_ID</th>
+          <td><code>64</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. ID used to identify the game server. The data type is <code>u32</code>. (Enabled only for <code>DataStore</code> upload and download tasks.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_ACCESS_KEY</th>
+          <td><code>65</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. Key used to access the game server. The data type is <code>wchar_t[MAX_ACCESS_KEY_LENGTH]</code>. (Enabled only for <code>DataStore</code> upload and download tasks.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_DOWNLOAD_NEWS_SUBJECT</th>
+          <td><code>66</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. Notification data subject title. The data type is <code>wchar_t[MAX_NEWS_SUBJECT_LENGTH</code>]. (Enabled only for <code>DataStore</code> download tasks.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_DOWNLOAD_NEWS_MESSAGE</th>
+          <td><code>67</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. Notification data body. The data type is <code>wchar_t[MAX_NEWS_MESSAGE_LENGTH</code>]. (Enabled only for <code>DataStore</code> download tasks.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_DOWNLOAD_NEWS_JUMP_PARAM</th>
+          <td><code>68</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. Notification data jump general-purpose parameters. The data type is <code>u8[MAX_NEWS_PARAM]</code>. (Enabled only for <code>DataStore</code> download tasks.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_DOWNLOAD_NEWS_MODE</th>
+          <td><code>69</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. Indicates whether notification data has been issued. The data type is <code>NewsMode</code>. (Enabled only for <code>DataStore</code> download tasks.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_DOWNLOAD_NEWS_SERIAL_ID</th>
+          <td><code>70</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. Notification data serial ID. The data type is <code>bit 32</code>. (Enabled only for <code>DataStore</code> download tasks.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_UPLOAD_PERIOD</th>
+          <td><code>71</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. The number of days until data is automatically updated. The data type is <code>u16</code>. (Enabled only for <code>DataStore</code> upload tasks.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_UPLOAD_DATA_TYPE</th>
+          <td><code>72</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. Value indicating the data type The data type is <code>u16</code>. (Enabled only for <code>DataStore</code> upload tasks.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_UPLOAD_DST_PRINCIPAL_ID_NUM</th>
+          <td><code>73</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. The number of message data sent destination settings. The data type is <code>u16</code>. (Enabled only for <code>DataStore</code> upload tasks.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_UPLOAD_DST_KIND</th>
+          <td><code>74</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. Message data send destination type. The data type is <code>DstKind</code>. (Enabled only for <code>DataStore</code> upload tasks.)</td>
+        </tr>
+        <tr>
+          <th>ACTION_DATASTORE_UPLOAD_DST_PRINCIPAL_ID</th>
+          <td><code>75</code>: A constant used to access <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> attributes. Message data send destination ID. The data type is <code>u32[MAX_DST_PRINCIPAL_ID]</code>. (Enabled only for <code>DataStore</code> upload tasks.)</td>
+        </tr>
+        <tr>
+          <th>PROPERTY_TYPE_MAX_VALUE</th>
+          <td>(Enumerator used during internal processing. This enumerator cannot be used by applications.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Constants specifying properties. (The numeric value of each enumerator is shown at the start of its description.)</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

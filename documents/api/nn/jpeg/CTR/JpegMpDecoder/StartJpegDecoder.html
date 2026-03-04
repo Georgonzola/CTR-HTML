@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>StartJpegDecoder</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::StartJpegDecoder Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+size_t StartJpegDecoder(
+     void * dst,
+     size_t dstSize,
+     const <a href="../../../../nn_types/u8.html">u8</a> * src,
+     size_t srcSize,
+     <a href="../../../../nn_types/u32.html">u32</a> maxWidth,
+     <a href="../../../../nn_types/u32.html">u32</a> maxHeight,
+     <a href="../../../../nn/jpeg/CTR/PixelFormat.html">PixelFormat</a> dstPixelFormat,
+     bool decodeThumbnail
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>dst</th>
+          <td>Specifies the buffer that stores the decoded result. <br />
+ Must be aligned to <emphasis>DST_ALIGNMENT</emphasis> (4 bytes).<br />
+ To reference the output buffer directly as a GPU texture, it must be aligned to <code>nn::gx::TEXTURE_ALIGNMENT</code> (128 bytes). This function does not check for that.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstSize</th>
+          <td>Specifies the size of dst in bytes. <br />
+ Specify the return value of <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetDstBufferSize.html">GetDstBufferSize</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>src</th>
+          <td>Specifies the JPEG data to decode.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcSize</th>
+          <td>Specifies the size of src in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxWidth</th>
+          <td>Specifies the maximum width (in pixels) of an image that can be decoded (equal to or less than 65536). <br />
+ After decoding successfully completes, use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastWidth.html">GetLastWidth</a></code> function to get the actual image width and the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferWidth.html">GetLastOutputBufferWidth</a></code> function to get the buffer width.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxHeight</th>
+          <td>Specifies the maximum height (in pixels) of an image that can be decoded (equal to or less than 65536). <br />
+ After decoding successfully completes, use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastHeight.html">GetLastHeight</a></code> function to get the actual image height and the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferHeight.html">GetLastOutputBufferHeight</a></code> function to get the buffer height.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstPixelFormat</th>
+          <td>Specifies the output pixel format.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>decodeThumbnail</th>
+          <td>Specify <code>true</code> to decode the thumbnail. <br />
+ Specify <code>false</code> to decode the primary image.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">On success, returns the size (in bytes) of the buffer storing the decoded result. <br />
+ Returns <code>0</code> on failure. <br />
+ Use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastError.html">GetLastError</a></code> function to get the reason for failure. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Runs the JPEG decoder.</p><p>Processing takes longer if the image size is not a multiple of 8 or 16 pixels. <br />
+ Depending on the pixel sampling format, images that meet certain conditions can be decoded faster.</p><p><itemizedlist></itemizedlist>
+For <code><span>PIXEL_SAMPLING_YUV444</span></code>, the width and height of the image must both be multiples of 8. <itemizedlist><listitem><para>For <code><span>PIXEL_SAMPLING_YUV420</span></code>, the width and height of the image must both be multiples of 16. </para></listitem><listitem><para>For <code><span>PIXEL_SAMPLING_YUV422</span></code>, the height must be a multiple of 8, and the width must be a multiple of 16. </para></listitem></itemizedlist>
+If <code>JPEG_DECODER_OPTION_MATCH_WIDTH_HEIGHT</code> is specified using <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/SetOption.html">SetOption</a></code>, the values of arguments maxWidth and maxHeight must match, otherwise decoding fails.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added a description of <tt>SetOption</tt>.</item><br />
+        </dd>
+        <dt>2010/04/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

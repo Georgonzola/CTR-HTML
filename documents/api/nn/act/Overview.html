@@ -1,0 +1,475 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::act</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::act Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Namespace for the account library.</p><h3>Overview</h3><p>The account library provides functionality for retrieving information recorded in the CTR account system and for authentication based on the recorded information.  The application does not need to implement any data entry for creating, editing, or authenticating accounts because these steps are handled by the system.  For an overview of the CTR account system, see the <i>CTR Account System Developer's Guide</i> included in the SDK.</p><h3>Result Handling</h3><p>The <tt>Result</tt> objects returned by functions in the <tt><a href="../../nn/act/Overview.html">nn::act</a></tt> namespace are not detected individually. Instead, they are handled using the following technique.  This example shows how to catch all errors that belong to  <tt><a href="../../nn/act/ResultAuthenticationError/Overview.html">nn::act::ResultAuthenticationError</a></tt>. <br /></p><pre>
+            if(result <= nn::act::ResultAuthenticationError())
+            {
+                // Can also catch nn::act::nn::act::ResultInvalidUniqueId.
+            }</pre><p>Use of the <tt>==</tt> and <tt>!=</tt> operators on Result objects returned by functions in the <tt><a href="../../nn/act/Overview.html">nn::act</a></tt> name space is prohibited and causes a build error.  Note that the following two samples do the same thing.<br /></p><pre>
+            if(nn::act::ResultCanceled::Includes(result))
+            {
+                ...
+            }</pre><pre>
+            if(nn::act::ResultCanceled() >= result)
+            {
+                ...
+            }</pre><p>The success and failure values returned by functions could be extended.  Use the <tt><a href="../../nn/Result/IsSuccess.html">nn::Result::IsSuccess</a></tt> and <tt><a href="../../nn/Result/IsFailure.html">nn::Result::IsFailure</a></tt> functions to determine success and failure except when handling specific results. </p><h3>Errors That Must Not Occur in Retail Products</h3><p>The following <tt>Result</tt> objects are caused by application bugs. You must fix the application so that these errors do not occur in a retail product.<ul><li><a href="../../nn/act/ResultNotInitialized/Overview.html">nn::act::ResultNotInitialized</a></li><li><a href="../../nn/act/ResultInvalidArgument/Overview.html">nn::act::ResultInvalidArgument</a></li><li><a href="../../nn/act/ResultInvalidPointer/Overview.html">nn::act::ResultInvalidPointer</a></li><li><a href="../../nn/act/ResultOutOfRange/Overview.html">nn::act::ResultOutOfRange</a></li><li><a href="../../nn/act/ResultInvalidSize/Overview.html">nn::act::ResultInvalidSize</a></li><li><a href="../../nn/act/ResultInvalidFormat/Overview.html">nn::act::ResultInvalidFormat</a></li><li><a href="../../nn/act/ResultInvalidHandle/Overview.html">nn::act::ResultInvalidHandle</a></li><li><a href="../../nn/act/ResultInvalidValue/Overview.html">nn::act::ResultInvalidValue</a></li><li><a href="../../nn/act/ResultOutOfUserHeap/Overview.html">nn::act::ResultOutOfUserHeap</a></li></ul></p><h3>Using API Functions Involving Communication</h3><p>Observe the following practices when using functions that communicate with the account server (such as<tt><a href="../../nn/act/InquireNetworkTime.html">nn::act::InquireNetworkTime</a></tt> and <tt><a href="../../nn/act/applet/AcquireIndependentServiceToken.html">nn::act::applet::AcquireIndependentServiceToken</a></tt>). </p><h4>Requesting a Network Connection</h4><p>Send a network connection request in advance using the <tt><a href="../../nn/ac/CTR/Connect.html">nn::ac::CTR::Connect</a></tt> or <tt><a href="../../nn/ac/CTR/ConnectAsync.html">nn::ac::CTR::ConnectAsync</a></tt> function in the automatic connection (AC) library and confirm the connection before calling any functions in the account library. </p><h4>Error Handling</h4><p>If a failure occurs when establishing a connection to the network, display an error message using the method for the automatic connection library. If an account library function returns an error after the network connection succeeds, use the <tt><a href="../../nn/act/GetErrorCode.html">nn::act::GetErrorCode</a></tt> function to get the error code and display it in the error viewer.  If the program encounters <a href="../../nn/act/ResultCanceled/Overview.html">nn::act::ResultCanceled</a>, which occurs when the user explicitly cancels the authentication process, terminate the application's token acquisition sequence without displaying anything in the error display applet.  If a result other than <tt><a href="../../nn/act/ResultCanceled/Overview.html">nn::act::ResultCanceled</a></tt> is returned, it does not need to be individually handled by the application, but the application can optionally be implemented to handle <tt><a href="../../nn/act/ResultApplicationUpdateRequired/Overview.html">nn::act::ResultApplicationUpdateRequired</a></tt> and proceed to a patch download confirmation sequence. </p><h4>Login Applet</h4><p>When the <tt><a href="../../nn/act/applet/AcquireIndependentServiceToken.html">nn::act::applet::AcquireIndependentServiceToken</a></tt> and <tt><a href="../../nn/act/applet/AcquireOlvServiceToken.html">nn::act::applet::AcquireOlvServiceToken</a></tt> functions are called, the system starts the login applet and delegates processes related to account authentication, such as password entry and token retrieval.  The login applet continues to run until the completion of the account authentication and token retrieval sequence. If the application needs to continue communication with the NEX server or independent server, do so in a separate thread.</p><h3>Note on Responsiveness</h3><p>If a function causes communication, it is explicitly stated in the API reference. Functions that do not explicitly state this fact do not cause any communication.  However, the API functions in the account library might call high priority functions that cause a heavy load on the system and adversely affect responsiveness, even if they do not cause any communication.  Note that calling these functions from the main loop can result in slowdown.</p><h3>Note on Synchronizing Account Information</h3><p>The Nintendo Network account registration information that can be retrieved from the account library is synchronized by the system as required.  This synchronization sometimes occurs while the application is running, but the information is not necessarily the latest.  Due to the potential for confusion if, for example, the account ID were to change during gameplay, cache the information as appropriate in the application.</p><h3>Note on Output Variable Values When Functions Fail</h3><p>The values stored in output variables are not guaranteed when a function fails.</p><h3>Note About Function Calls When the Library Is Uninitialized</h3><p>With the exception of some functions like <a href="../../nn/act/Initialize.html">nn::act::Initialize</a>, <a href="../../nn/act/Finalize.html">nn::act::Finalize</a> and <a href="../../nn/act/IsInitialized.html">nn::act::IsInitialized</a>, you must initialize the library before calling any functions.  If you call a function that requires library initialization and the library is not initialized, non-Release builds stop on an assertion.</p></div>
+    <a name="namespace" id="namespace">
+      <h2>Namespaces</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../nn/act/applet/Overview.html">nn::act::applet</a>
+            </th>
+            <td>Library namespace for using the login <a href="../../nn/act/applet/Overview.html">applet</a>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/CTR/Overview.html">nn::act::CTR</a>
+            </th>
+            <td>Library namespace for using account features. (It can also be written without the <code>CTR</code> portion.)</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="2">Result</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultNotInitialized/Overview.html">nn::act::ResultNotInitialized</a>
+            </th>
+            <td>Indicates that the library has not been initialized.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultNotConnected/Overview.html">nn::act::ResultNotConnected</a>
+            </th>
+            <td>Not connected to an access point</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultOutOfUserHeap/Overview.html">nn::act::ResultOutOfUserHeap</a>
+            </th>
+            <td>The necessary memory from the buffer specified by <code><a href="../../nn/act/Initialize.html">nn::act::Initialize</a></code> could not be allocated.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultBusy/Overview.html">nn::act::ResultBusy</a>
+            </th>
+            <td>Indicates that the library is temporarily unable to perform that operation.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultCanceled/Overview.html">nn::act::ResultCanceled</a>
+            </th>
+            <td>The process was canceled.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultNotImplemented/Overview.html">nn::act::ResultNotImplemented</a>
+            </th>
+            <td>Indicates an unimplemented feature.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultInvalidArgument/Overview.html">nn::act::ResultInvalidArgument</a>
+            </th>
+            <td>Indicates that the specified argument value is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultInvalidPointer/Overview.html">nn::act::ResultInvalidPointer</a>
+            </th>
+            <td>Indicates an invalid pointer, such as a NULL pointer.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultOutOfRange/Overview.html">nn::act::ResultOutOfRange</a>
+            </th>
+            <td>Indicates an out-of-range value.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultInvalidSize/Overview.html">nn::act::ResultInvalidSize</a>
+            </th>
+            <td>Indicates that a value is too big or too small.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultInvalidFormat/Overview.html">nn::act::ResultInvalidFormat</a>
+            </th>
+            <td>Indicates an invalid format.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultInvalidHandle/Overview.html">nn::act::ResultInvalidHandle</a>
+            </th>
+            <td>Indicates an invalid handle.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultInvalidValue/Overview.html">nn::act::ResultInvalidValue</a>
+            </th>
+            <td>Indicates an invalid value, such as a non-existent enumerator.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultInternalError/Overview.html">nn::act::ResultInternalError</a>
+            </th>
+            <td>Indicates an internal library error. There might be a bug in the library.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultAccountNotFound/Overview.html">nn::act::ResultAccountNotFound</a>
+            </th>
+            <td>Indicates that the specified account was not found.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultNotNetworkAccount/Overview.html">nn::act::ResultNotNetworkAccount</a>
+            </th>
+            <td>Indicates that the account is not a network account.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultNotLocalAccount/Overview.html">nn::act::ResultNotLocalAccount</a>
+            </th>
+            <td>Indicates that the account is not a local account.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultAuthenticationError/Overview.html">nn::act::ResultAuthenticationError</a>
+            </th>
+            <td>Indicates that an error occurred during authentication.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultInvalidUniqueId/Overview.html">nn::act::ResultInvalidUniqueId</a>
+            </th>
+            <td>Indicates that the specified unique ID is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultInvalidClientId/Overview.html">nn::act::ResultInvalidClientId</a>
+            </th>
+            <td>Indicates that the specified client ID is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultInvalidGameServerId/Overview.html">nn::act::ResultInvalidGameServerId</a>
+            </th>
+            <td>Indicates that the specified game ID is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ResultApplicationUpdateRequired/Overview.html">nn::act::ResultApplicationUpdateRequired</a>
+            </th>
+            <td>An application update is required.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../nn/act/Uuid/Overview.html">nn::act::Uuid</a>
+            </th>
+            <td>The structure that stores the UUID.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../nn/act/ServiceTokenV2/Overview.html">nn::act::ServiceTokenV2</a>
+            </th>
+            <td>Stores a version 2 service token.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="typedef" id="typedef">
+      <h2>typedef Definitions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/act/Uuid.html">Uuid</a>
+            </th>
+            <td>The structure that stores the UUID.</td>
+          </tr>
+          <tr>
+            <td width="100" />
+            <th>
+              <a href="../../nn/act/ServiceTokenV2.html">ServiceTokenV2</a>
+            </th>
+            <td>Stores a version 2 service token.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/act/BUFFER_ALIGNMENT.html">BUFFER_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../nn_types/s32.html">s32</a></td>
+            <td>The starting address of the communication buffer specified in <code><a href="../../nn/act/Initialize.html">Initialize</a></code> must be aligned to the number of bytes specified by this function. It is defined as 4096 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../nn/act/BUFFER_UNITSIZE.html">BUFFER_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The size of the communication buffer specified in <code><a href="../../nn/act/Initialize.html">Initialize</a></code> must be a multiple of the number of bytes specified by this function. It is defined as 4096 bytes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Library Initialization/Finalization</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the account library and makes the account features available for use. When using APIs that trigger communication with some servers, you must set a data buffer for communication as an argument. Because the size of the required buffer varies by API, see the reference for the API you are using, and then specify the largest size from there. When you are not using these APIs, you do not need to set anything for these arguments. For example, if you are just using the feature to get a service token, you do not need to specify a communication buffer. This function can be called multiple times even if the account library is already initialized, but the <code><a href="../../nn/act/Finalize.html">nn::act::Finalize</a></code> function must be called an equal number of times to completely finalize the account library. This function can only be specified when the communication buffer has not yet been initialized, however. If this function is called when the communication buffer is already initialized, the buffer specified in the argument is not used.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the account library. If the <code><a href="../../nn/act/Initialize.html">nn::act::Initialize</a></code> has been called multiple times, this function must be called the same number of times to completely finalize the account library. If this function is called more times than the <code><a href="../../nn/act/Initialize.html">nn::act::Initialize</a></code> function was called, <code><a href="../../nn/act/ResultNotInitialized/Overview.html">ResultNotInitialized</a></code> is returned. <br />
+ This call succeeds even if the library is not initialized. <br /></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/IsInitialized.html">IsInitialized</a>
+            </th>
+            <td>Checks whether the account library is initialized.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Getting Account Information</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/IsNetworkAccount.html">IsNetworkAccount</a>
+            </th>
+            <td>Determines whether the account is a system account.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/GetCountry.html">GetCountry</a>
+            </th>
+            <td>Gets the country setting of the system account in ISO 3166-1 alpha-2 format. Gets the country setting of the Nintendo Network account associated with the system account in ISO 3166-1 alpha-2 format. However, this function gets the value the system cached for the locale, so calling this function does not trigger communication. <br /><br />
+ Pass a pointer to a buffer at least as big as <code>NN_ACT_COUNTRY_SIZE</code> bytes to pCountry. <br /><br />
+ When it is not a network account, the function succeeds and a blank string is copied to pCountry. <br /><br />
+ If the function fails, the value set in the buffer is undefined.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/GetAccountId.html">GetAccountId</a>
+            </th>
+            <td>Gets the account ID for the system account. Gets the account ID (Nintendo Network ID) for the Nintendo Network account associated with the system account. However, this function gets the value the system cached for the locale, so calling this function does not trigger communication. <br /><br />
+ Pass a pointer in pAccountId to a buffer at least as big as <code>NN_ACT_ACCOUNT_ID_SIZE</code> bytes. <br /><br />
+ When it is not a network account, the function succeeds and a blank string is copied to pAccountId. <br /><br />
+ If the function fails, the value set in the buffer is undefined.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/IsOverAge.html">IsOverAge</a>
+            </th>
+            <td>Determines whether the system account user is at least the specified age. This function itself does not trigger any communication and can make this determination without an Internet connection by estimating the current date and time. However, you need to activate the network clock by calling a function that communicates with the account server in advance. In addition, you must reactivate the network clock every time the application runs. <br /><br />
+ Nintendo systems calculate the age of the user based on UTC+12 time, regardless of their country or region of residence. For users in Japan, age is calculated based on 9 P.M. of the day before the date of birth. <br /><br />
+ If you want to get the age of a user directly, please contact Nintendo support. Avoid identifying the ages of users through repeated calls to this function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/GetPrincipalId.html">GetPrincipalId</a>
+            </th>
+            <td>Gets the principal ID for the system account. Gets the principal ID for the Nintendo Network account associated with the system account. However, this function gets the value the system cached for the locale, so calling this function does not trigger communication. The principal ID returned by this function is different from the friend account principal ID returned by the <code><a href="../../nn/friends/CTR/GetMyPrincipalId.html">nn::friends::CTR::GetMyPrincipalId</a></code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/GetSimpleAddressId.html">GetSimpleAddressId</a>
+            </th>
+            <td>Gets the residence information for the system account. Gets the residence information for the Nintendo Network account associated with the system account. However, this function gets the value the system cached for the locale, so calling this function does not trigger communication. The values that can be obtained correspond to the <code>id</code> member in the <code><a href="../../nn/cfg/CTR/SimpleAddressId/Overview.html">nn::cfg::CTR::SimpleAddressId</a></code> structure.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/GetWiiUSimpleAddressId.html">GetWiiUSimpleAddressId</a>
+            </th>
+            <td>Gets the system account's residence information in the <code>SimpleAddressId</code> format used by the Wii U. Gets the residence information for the Nintendo Network account associated with the system account in the <code>SimpleAddressId</code> format used by the Wii U. However, this function gets the value the system cached for the locale, so calling this function does not trigger communication. <code>SimpleAddressId</code> is passed directly to the Wii U by the application for communication purposes; there is no need to use this function beyond when the Wii U needs to parse its meaning.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/GetUuid.html">GetUuid</a>
+            </th>
+            <td>Gets the UUID of the system account. The UUID for the system account is assigned when the account is created, and does not change until the system account is deleted. The ID space is separate for each title, so different titles calling this function get back different UUIDs from the same system account. Consult Nintendo support if you want to be able to identify a system account by its UUID across multiple titles. <br /><br />
+ Currently, the UUID retrieved from this function complies with the Version 1 specifications defined in RFC 4122, but the ID format could change to the extent that it does not impair the uniqueness of the ID. Be sure to handle the ID in its entirety as a single value. Do not use any individual parts of the ID as a timestamp or device identifier. <br /><br />
+ If the function fails, the value set in the buffer is undefined.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/GetTimeZoneId.html">GetTimeZoneId</a>
+            </th>
+            <td>Gets the name of the time zone set for the system account.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/GetUtcOffset.html">GetUtcOffset</a>
+            </th>
+            <td>Gets the time difference of the time zone set for the system account.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/IsNetworkTimeValidated.html">IsNetworkTimeValidated</a>
+            </th>
+            <td>Determines whether the network clock is active. Features that use the network clock such as the <code><a href="../../nn/act/IsOverAge.html">nn::act::IsOverAge</a></code> function are only available when this function returns <code>true</code>. <br /><br />
+ Always returns <code>true</code> if an API has at least once successfully communicated with the account server and the account library has not yet been finalized.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/InquireNetworkTime.html">InquireNetworkTime</a>
+            </th>
+            <td>Gets the time from the server, and activates and calibrates the network clock. Features that use the network clock, such as the <code><a href="../../nn/act/IsOverAge.html">nn::act::IsOverAge</a></code> function, are available by calling this function. <br /><br />
+ When APIs that communicate with the server, such as the <code><a href="../../nn/act/applet/AcquireIndependentServiceToken.html">nn::act::applet::AcquireIndependentServiceToken</a></code> function, have succeeded at least once in advance, there is no need to additionally call this function. <br /><br />
+ You cannot directly get the time with this function. <br />
+ This function causes communication with the server, during which time processing is blocked. <br /><br />
+ For information about using this function, see the section on how to make API functions that trigger communication in the <code><a href="../../nn/act/Overview.html">nn::act</a></code> namespace.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/Cancel.html">Cancel</a>
+            </th>
+            <td>Cancels communication tasks with the account server that are waiting for completion. Cancels all communication tasks with account servers that are waiting for completion that were registered by a process called by this function. Use in a different thread than the one from which the API function that communicates with the server was called. <br /><br />
+ The API function that canceled the task returns a <code><a href="../../nn/Result/Overview.html">Result</a></code> and error code according to the state at that point. Note that if the cancellation is not in time, success may be returned. The failure error code that results from the cancellation does not need to be displayed in the error viewer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/GetErrorCode.html">GetErrorCode</a>
+            </th>
+            <td>Gets error codes to display to the user. Pass the value acquired from this function to the error viewer to display the error. <br /><br />
+ The results from each API function are handled based on <code><a href="../../nn/Result/Overview.html">nn::Result</a></code>. Do not branch processes using the values obtained from this function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../nn/act/GenerateUuid.html">GenerateUuid</a>
+            </th>
+            <td>Generates a new UUID. If you want to assign a unique identifier to appropriately generated application data or objects, you can assign the UUID generated by this function. <br /><br />
+ The UUID that can be obtained from this function is now compliant with the version 1 specifications stipulated in RFC 4122. That said, it is still possible to make changes to the ID format within a range such that the uniqueness is not lost. Be sure to handle the ID in its entirety as a single value. Do not use any individual parts of the ID as a timestamp or device identifier. <br /><br />
+ If the function fails, the value set in the buffer is undefined.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/20</dt>
+        <dd><item xmlns="">Added that if you call a function that requires library initialization and the library is not initialized, the non-Release builds stop on an assertion.</item><br />
+        </dd>
+        <dt>2014/03/17</dt>
+        <dd><item xmlns="">Added notes about the use of the account library.</item><br />
+        </dd>
+        <dt>2013/12/10</dt>
+        <dd><item xmlns="">Added a description of handling function results.<br /> Added a description of the value stored in the output parameter when a function fails.</item><br />
+        </dd>
+        <dt>2013/08/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

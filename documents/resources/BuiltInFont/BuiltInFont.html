@@ -1,0 +1,812 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Internal Bitmap Fonts</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8" />
+<META http-equiv=Content-Style-Type content="text/css">
+<STYLE type="text/css">BODY {
+	FONT-WEIGHT: normal; MARGIN: 8px; COLOR: #000000
+}
+DIV {
+	WIDTH: 98%; WHITE-SPACE: nowrap
+}
+DIV.title {
+	BORDER-RIGHT: #CD202C 8px double; PADDING-RIGHT: 4px; BORDER-TOP: #CD202C 8px double; PADDING-LEFT: 4px; FONT-WEIGHT: bold; FONT-SIZE: 150%; PADDING-BOTTOM: 4px; MARGIN: 4px; BORDER-LEFT: #CD202C 8px double; COLOR: #202020; PADDING-TOP: 4px; BORDER-BOTTOM: #CD202C 8px double; TEXT-ALIGN: left
+}
+H1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 150%; MARGIN-BOTTOM: 20px; PADDING-BOTTOM: 1px; BORDER-BOTTOM: #CD202C 5px solid; FONT-FAMILY: Arial; LETTER-SPACING: normal
+}
+H2 {
+	BORDER-RIGHT: #CD202C 0px; BORDER-TOP: #CD202C 0px; PADDING-LEFT: 4px; FONT-WEIGHT: bold; FONT-SIZE: 150%; MARGIN-LEFT: 2px; BORDER-LEFT: #CD202C 8px double; BORDER-BOTTOM: #CD202C 2px solid
+}
+CODE {
+	FONT-SIZE: 10pt; LEFT: 12px; FONT-FAMILY: "Courier New", monospace
+}
+TABLE {
+	PADDING-RIGHT: 0pt; PADDING-LEFT: 0pt; FONT-SIZE: 10pt; LEFT: 12px; MARGIN: 2pt 0pt; BORDER-TOP-STYLE: none; FONT-FAMILY: Arial; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; POSITION: relative; BORDER-BOTTOM-STYLE: none
+}
+TD {
+	BORDER-RIGHT: 2pt; PADDING-RIGHT: 2pt; BORDER-TOP: 2pt; PADDING-LEFT: 2pt; PADDING-BOTTOM: 2pt; BORDER-LEFT: 2pt; PADDING-TOP: 2pt; BORDER-BOTTOM: 2pt; FONT-STYLE: normal; TEXT-ALIGN: left
+}
+TH {
+	BORDER-RIGHT: 2pt; PADDING-RIGHT: 2pt; BORDER-TOP: 2pt; PADDING-LEFT: 2pt; PADDING-BOTTOM: 2pt; BORDER-LEFT: 2pt; PADDING-TOP: 2pt; BORDER-BOTTOM: 2pt; FONT-STYLE: normal; TEXT-ALIGN: left
+}
+TD {
+	FONT-WEIGHT: normal; BACKGROUND: #e8f4f4
+}
+TH {
+	FONT-WEIGHT: bold; BACKGROUND: #c0d8d8
+}
+P {
+	MARGIN-LEFT: 4px
+}
+P.code {
+	FONT-SIZE: 10pt; BACKGROUND: #e8f4f4; LEFT: 12px; FONT-FAMILY: "Courier New", monospace
+}
+</STYLE>
+
+<META content="MSHTML 6.00.2900.6036" name=GENERATOR></HEAD>
+<BODY><A name=top></A>
+
+<H1>Internal Bitmap Fonts</H1>
+
+<h2>Contents</h2>
+<ul style='list-style-type: none'>
+    <li>1. <a href="#ss0100">Introduction</a></li>
+    <li>2. <a href="#ss0200">Display of Legal Rights and Modifications</a></li>
+    <li>3. <a href="#ss0300">Font Specifications</a>
+        <ul style='list-style-type: none'>
+            <li>3.1 <a href="#ss0310">Japanese, American, and European Characters</a>
+                <ul style='list-style-type: none'>
+                    <li>3.1.1 <a href="#ss0311">Supported Languages</a></li>
+                </ul>
+            </li>
+            <li>3.2 <a href="#ss0320">Simplified Chinese</a></li>
+            <li>3.3 <a href="#ss0330">Hangul</a></li>
+            <li>3.4 <a href="#ss0340">Traditional Chinese</a></li>
+        </ul>
+    </li>
+    <li>4. <a href="#ss0400">Introduction to Nintendo Extended Characters</a></li>
+        <ul style='list-style-type: none'>
+<li>4.1 <a href="#ss0410">List of Nintendo Extended Character Styles</a></li>
+<li>4.2 <a href="#ss0420">The POWER Button Extended Character</a></li>
+        </ul>
+    <li>5. <a href="#ss0500">Font Scale Settings</a>
+        <ul style='list-style-type: none'>
+            <li>5.1 <a href="#ss0510">Scale Values to Maintain Legibility</a>
+                <ul style='list-style-type: none'>
+                    <li>5.1.1 <a href="#ss0511">Display Sample</a></li>
+                </ul>
+            </li>
+            <li>5.2 <a href="#ss0520">Precautions on Using NW4C LayoutEditor</a></li>
+            <li>5.3 <a href="#ss0530">Other Precautions Related to Scaling Operations</a></li>
+        </ul>
+    </li>
+    <li>6. <a href="#ss0600">Notes</a>
+        <ul style='list-style-type: none'>
+            <li>6.1 <a href="#ss0610">Differences Between the CTR and Other Nintendo Platforms</a>
+                <ul style='list-style-type: none'>
+                    <li>6.1.1 <a href="#ss0611">Change in Character Width</a></li>
+                    <li>6.1.2 <a href="#ss0612">Problematic Characters</a></li>
+                </ul>
+            </li>
+            <li>6.2 <a href="#ss0620">Alternate Characters</a></li>
+            <li>6.3 <a href="#ss0630">Other</a></li>
+        </ul>
+    </li>
+    <li>7. <a href="#ss0700">Appended: FontConverter Settings</a></li>
+    <li>8. <a href="#ss0800">Revision History</a></li>
+</ul>
+
+
+<h2>1. <a name="ss0100">Introduction</a></h2>
+<p>
+This document describes specifications of the bitmap fonts built into CTR, font scale settings, and associated precautions. Although this information is primarily intended for the designers who create layout data, this document also includes information regarding projects that use the internal bitmap fonts. Therefore, some content is also intended for those in charge of planning and direction. See 3. <a href="#ss0300">Font Specifications</a> and 5. <a href="#ss0500">Font Scale Settings</a>.<br />
+    
+    Data that could not be included in this document is located in the accompanying package.
+    
+    The term &quot;America&quot; used in this document refers to the region covered by NOA, while &quot;Europe&quot; refers to the region covered by NOE.
+</p>
+
+<h5>Related Resources</h5>
+<p>Lists of characters included in the CTR internal bitmap fonts</p>
+<ul>
+<li><a href="CTR_builtInFont_characters-ctr_std.pdf">CTR_builtInFont_characters-ctr_std.pdf</a> (For Japanese, American, and European languages)<br />
+<li><a href="CTR_builtInFont_characters-ctr_cn.pdf">CTR_builtInFont_characters-ctr_cn.pdf</a> (For Simplified Chinese (China) <br />
+<li><a href="CTR_builtInFont_characters-ctr_kr.pdf">CTR_builtInFont_characters-ctr_kr.pdf</a> (For the Korean language)<br />
+<li><a href="CTR_builtInFont_characters-ctr_tw.pdf">CTR_builtInFont_characters-ctr_tw.pdf</a> (For Traditional Chinese (Taiwan)<br /> These documents allow you to list all of the characters included in the CTR internal bitmap fonts.
+    </li>
+</ul>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>2. <a name="ss0200">Display of Legal Rights and Modifications</a></h2>
+<ul>
+    <li>
+        Display of Legal Rights
+        <p>When a manual is intended for use with the software, a display of legal rights is not required.</p>
+    </li>
+    <li>
+        Modifications
+        <p>As a rule, modifications cannot be made.  If you need to make changes, contact Nintendo at support@noa.com.</p>
+    </li>
+</ul>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>3. <a name="ss0300">Font Specifications</a></h2>
+<p>
+    Four types of font data are included in the CTR internal bitmap fonts.  The four types are: font data for Japan, America, and Europe; Simplified Chinese; Hangul; and Traditional Chinese. Font data for Japanese, American, and European languages is displayed for systems in the Japanese, American, or European region; Simplified Chinese is used for systems in the Chinese region; Hangul is used for systems in the Korean region; and Traditional Chinese is used for systems in the Taiwanese region. <br />
+    
+    These four types of font data primarily differ in terms of the design of character shapes and the characters included. However, all types have some ASCII, alphabetic characters, and katakana characters in common.
+    
+    Specifications of font data for each region will be covered below.
+</p>
+
+<h3>3.1 <a name="ss0310">Japanese, American, and European Characters</a></h3>
+<p>
+    These are the specifications for the internal bitmap font found in the file &quot;cbf_std.bcfnt&quot; used with systems for the Japanese, American, and European regions.  cbf_std.bcfnt is located in the following directory.<br /> $CTR_SDK/resources/shareddata/data/font/std
+</p>
+<p>
+    Table 3-1 <a name="tb0301">Specifications of the CTR Internal Bitmap Font for Japanese, American, and European Languages</a>
+</p>    
+<div class="table">
+<table border="1">
+<thead>
+    <tr>
+<th>Item</th>
+<th>Specifications</th>
+<th>Comments</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+<td>Bitmap font name</td>
+<td><CODE>cbf_std.bcfnt</CODE></td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Supported system regions</td>
+    <td>
+        ・Japan<br /> ・America<br /> ・Europe<br />
+    </td>
+    <td>See Section 3.1.1, <I><a href="#ss0311">Supported Languages</a></I>, for more information about supported languages.</td>
+    </tr>
+    <tr>
+    <td>Number of characters included</td>
+    <td>7501 characters</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Example of included characters</td>
+    <td>
+        ・ASCII<br /> ・Latin alphabet<br /> ・European characters (Greek, Cyrillic, etc.)<br /> ・Symbols<br /> ・Kana characters (hiragana, katakana, half-width katakana)<br /> ・Kanji (JIS Level 1, Level 2)<br /> ・Nintendo extended characters
+    </td>
+    <td>
+        For details on included characters, see the related resource <a href="CTR_builtInFont_characters-ctr_std.pdf">CTR_builtins_characters-ctr_std.pdf</a>.<br /> <br /> Character set listing<br /> ・ASCII 95<br /> ・cp 1252<br /> ・ISO 8859-1 (Latin-1)<br /> ・cp 1253<br /> ・ISO 8859-7<br /> ・JIS standards (kana, half-width katakana, JIS Level 1 and Level 2 Kanji)<br />
+    </td>
+    </tr>
+    <tr>
+<td>Size setting for initial characters</td>
+<td>24 px</td>
+<td>It can be enlarged or reduced. For more information, see 5. <a href="#ss0500">Font Scale Settings</a>.</td>
+    </tr>
+    <tr>
+    <td>Levels</td>
+    <td>16 levels (4 bits)</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>
+        Maximum character width<br />List of corresponding characters
+    </td>
+    <td>
+100 % (24/24px)<br />・% (Unicode U+0025)<br />・Kana characters and Kanji<br />
+    </td>
+<td>This list contains characters that require the greatest display width.</td>
+    </tr>
+    <tr>
+    <td>Data size</td>
+    <td>
+        ・When compressed: 1,445,691 Byte<br /> ・When uncompressed: 3,124,592 Byte<br /> ・Render buffer size: 30,020 Byte<br />
+    </td>
+<td>The maximum amount of memory required when using this font is calculated by adding the render buffer size to the uncompressed size.</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<h4>3.1.1 <a name="ss0311">Supported Languages</a></h4>
+<p>
+    Languages for the following regions are supported.
+</p>
+<p>
+    Table 3-2 <a name="tb0302">Languages Supported by the CTR Internal Bitmap Font for Japanese, American and European Languages</a>
+</p>
+<div class="table">
+<table border="1">
+<thead>
+    <tr>
+    <th>Font names</th>
+    <th>Regions</th>
+    <th colspan=3>Language</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+    <td rowspan=3><CODE>cbf_std.bcfnt</CODE></td>
+    <td>Japan</td>
+    <td colspan=3>・Japanese</td>
+    </tr>
+    <tr>
+    <td>The Americas</td>
+    <td colspan=3>
+        ・American English<br /> ・French (Canada)<br /> ・Spanish (Latin America)<br /> ・Portuguese (Brazil)<br />
+    </td>
+    </tr>
+    <tr>
+    <td>Europe</td>
+    <td  valign="top">
+        ・British English<br /> ・French<br /> ・German<br /> ・Italian<br /> ・Dutch<br /> ・Portuguese<br /> ・Russian<br /> ・Spanish<br />
+    </td>
+    <td  valign="top">
+        ・Greek<br /> ・Swedish<br /> ・French<br /> ・Norwegian<br /> ・Danish<br /> ・Czech<br /> ・Hungarian<br /> ・Polish<br /> ・Turkish<br /> ・Irish<br />
+    </td>
+    <td  valign="top">
+        ・Icelandic<br /> ・Estonian<br /> ・Latvian<br /> ・Lithuanian<br /> ・Slovakian<br /> ・Slovenian<br /> ・Maltese<br /> ・Bulgarian<br /> ・Romanian<br />
+    </td>
+    </tr>
+</tbody>
+</table>
+</div>
+<p>
+    Figure 3-1 <a name="fg0301">Display Sample</a><br /> <img border="1" src="img/CTR-font-sample_STD.gif">
+</p>
+
+<h3>3.2 <a name="ss0320">Simplified Chinese</a></h3>
+<p>
+    This section describes the specifications of the built-in bitmap format <CODE>cbf_zh-Hans-CN.bcfnt</CODE> used by systems in the Chinese region.<br /> <CODE>cbf_zh-Hans-CN.bcfnt</CODE> is located in the following directory.<br /> $CTR_SDK/resources/shareddata/data/font/cn
+</p>
+<p>
+    Table 3-3 <a name="tb0303">Specifications of the CTR Internal Bitmap Font for Simplified Chinese</a>
+</p>    
+<div class="table">
+<table border="1">
+<thead>
+    <tr>
+<th>Item</th>
+<th>Specifications</th>
+<th>Comments</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+    <td>Bitmap font name</td>
+    <td>cbf_zh-Hans-CN.bcfnt</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Supported system regions</td>
+    <td>
+        China<br />
+    </td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Number of characters included</td>
+    <td>7977 characters</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Supported Languages</td>
+    <td>Simplified Chinese</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Example of included characters</td>
+    <td>
+        ・ASCII<br /> ・Latin alphabet<br /> ・European characters (Greek, Cyrillic, etc.)<br /> ・Symbols<br /> ・Kana characters (hiragana, katakana, half-width katakana)<br /> ・Kanji (GB 2312)<br /> ・Nintendo extended characters
+    </td>
+    <td>
+For more information about included characters, see the related resource <a href="CTR_builtInFont_characters-ctr_cn.pdf">CTR_builtInFont_characters-ctr_cn.pdf</a>.<br /><br /> Character code sets:<br /> ・ASCII 95<br /> ・cp 1252<br /> ・ISO 8859-1 (Latin-1)<br /> ・cp 1253<br /> ・ISO 8859-7<br /> ・Full Width ASCII 94<br /> ・Hirakana Katakana 169<br /> ・Hanzi Common Level 1 2500<br /> ・Hanzi Common Level 2 998<br /> ・GB 2312<br /> ・Symbols used in Japanese, American, and European fonts<br /> 
+    </td>
+    </tr>
+    <tr>
+<td>Size setting for initial characters</td>
+<td>24 px</td>
+<td>It can be enlarged or reduced. For more information, see 5. <a href="#ss0500">Font Scale Settings</a>.</td>
+    </tr>
+    <tr>
+    <td>Levels</td>
+    <td>16 levels (4 bits)</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>
+        Maximum character width<br />List of corresponding characters
+    </td>
+    <td>
+100 % (24/24px)<br />・&sect; (Unicode U+00A7)<br />・Kana characters and Kanji<br />
+    </td>
+    <td>This list contains characters that require the greatest display width.</td>
+    </tr>
+    <tr>
+    <td>Data size</td>
+    <td>
+        ・Compressed: 1,515,569 bytes<br /> ・Unpacked: 2,937,484 bytes<br /> ・Render buffer size: 880 bytes<br />
+    </td>
+<td>The maximum amount of memory required when using this font is calculated by adding the render buffer size to the uncompressed size.</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<p>
+Figure 3-2 <a name="fg0302">Display Sample</a><br /> <img border="1" src="img/CTR-font-sample_CN.gif">
+</p>
+
+<h3>3.3 <a name="ss0330">Hangul</a></h3>
+<p>
+    This section describes the specifications of the built-in bitmap font <CODE>cbf_ko-Hang-KR.bcfnt</CODE> used by systems in the Korean region.<br /> <CODE>cbf_ko-Hang-KR.bcfnt</CODE> is located in the following directory.<br /> $CTR_SDK/resources/shareddata/data/font/kr
+</p>
+<p>
+    Table 3-4 <a name="tb0304">Specifications of the CTR Internal Bitmap Font for Hangul</a>
+</p>    
+<div class="table">
+<table border="1">
+<thead>
+    <tr>
+<th>Item</th>
+<th>Specifications</th>
+<th>Comments</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+    <td>Bitmap font name</td>
+    <td>cbf_ko-Hang-KR.bcfnt</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Supported system regions</td>
+    <td>
+        Korea<br />
+    </td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Number of characters included</td>
+    <td>3795 characters</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Supported Languages</td>
+    <td>Korean</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Example of included characters</td>
+    <td>
+        ・ASCII<br /> ・Latin alphabet<br /> ・European characters (Greek, Cyrillic, etc.)<br /> ・Symbols<br /> ・Kana characters (hiragana, katakana, half-width katakana)<br /> ・Hangul (KSX1001 2350)<br /> ・Nintendo extended characters
+    </td>
+    <td>
+For more information about included characters, see the related resource <a href="CTR_builtInFont_characters-ctr_kr.pdf">CTR_builtInFont_characters-ctr_kr.pdf</a>.<br /><br /> Character code sets:<br /> ・ASCII 95<br /> ・cp 1252<br /> ・ISO 8859-1 (Latin-1)<br /> ・cp 1253<br /> ・ISO 8859-7<br /> ・Full Width ASCII 94<br /> ・Hangul Symbol 539<br /> ・Hangul Jamo Compatibility 94<br /> ・KSX1001 2350<br /> ・Additional characters used to input Korean.<br />・Symbols used in Japanese, American, and European fonts<br /> 
+    </td>
+    </tr>
+    <tr>
+<td>Size setting for initial characters</td>
+<td>24 px</td>
+<td>It can be enlarged or reduced. For more information, see 5. <a href="#ss0500">Font Scale Settings</a>.</td>
+    </tr>
+    <tr>
+    <td>Levels</td>
+    <td>16 levels (4 bits)</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>
+        Maximum character width<br />List of corresponding characters
+    </td>
+    <td>
+100 % (24/24px)<br />・&sect; (Unicode U+00A7)<br />・Kana characters and Kanji<br />
+    </td>
+    <td>This list contains characters that require the greatest display width.</td>
+    </tr>
+    <tr>
+    <td>Data size</td>
+    <td>
+        ・Compressed: 527,782 bytes<br /> ・Unpacked: 1,400,192 bytes<br /> ・Render buffer size: 420 bytes<br />
+    </td>
+<td>The maximum amount of memory required when using this font is calculated by adding the render buffer size to the uncompressed size.</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<p>
+Figure 3-3 <a name="fg0303">Display Sample</a><br /> <img border="1" src="img/CTR-font-sample_KR.gif">
+</p>
+
+<h3>3.4 <a name="ss0340">Traditional Chinese</a></h3>
+<p>
+    This section describes the specifications of the built-in bitmap font <CODE>cbf_zh-Hant-TW.bcfnt</CODE> used by systems in the Taiwan region.<br /> <CODE>cbf_zh-Hant-TW.bcfnt</CODE> is located in the following directory.<br /> $CTR_SDK/resources/shareddata/data/font/tw
+</p>
+<p>
+    Table 3-5 <a name="tb0305">Specifications of the CTR Internal Bitmap Font for Traditional Chinese</a>
+</p>    
+<div class="table">
+<table border="1">
+<thead>
+    <tr>
+<th>Item</th>
+<th>Specifications</th>
+<th>Comments</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+    <td>Bitmap font name</td>
+    <td>cbf_zh-Hant-TW.bcfnt</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Supported system regions</td>
+    <td>
+       Taiwan<br />
+    </td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Number of characters included</td>
+    <td>14338 characters</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Supported Languages</td>
+    <td>Traditional Chinese</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Example of included characters</td>
+    <td>
+        ・ASCII<br /> ・Latin alphabet<br /> ・European characters (Greek, Cyrillic, etc.)<br /> ・Symbols<br /> ・Kana characters (hiragana, katakana, half-width katakana)<br /> ・Kanji (CP 950)<br /> ・Nintendo extended characters
+    </td>
+    <td>
+For more information about included characters, see the related resource <a href="CTR_builtInFont_characters-ctr_tw.pdf">CTR_builtInFont_characters-ctr_tw.pdf</a>.<br /><br /> Character code sets:<br /> ・ASCII 95<br /> ・cp 1252<br /> ・ISO 8859-1 (Latin-1)<br /> ・cp 1253<br /> ・ISO 8859-7<br /> ・Full Width ASCII 94<br /> ・Hiragana Katakana 169<br /> ・CP 950<br />・Symbols used in Japanese, American, and European fonts<br /> 
+    </td>
+    </tr>
+    <tr>
+<td>Size setting for initial characters</td>
+<td>19 px</td>
+<td>It can be enlarged or reduced. For more information, see 5. <a href="#ss0500">Font Scale Settings</a>.</td>
+    </tr>
+    <tr>
+    <td>Levels</td>
+    <td>16 levels (4 bits)</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>
+        Maximum character width<br />List of corresponding characters
+    </td>
+    <td>
+        100 % (19/19px)<br /> ・Katakana and kanji<br />
+    </td>
+    <td>This list contains characters that require the greatest display width.</td>
+    </tr>
+    <tr>
+    <td>Data size</td>
+    <td>
+        ・Compressed: 1,829,426 bytes<br /> ・Unpacked: 3,350,100 bytes<br /> ・Render buffer size: 31,860 bytes<br />
+    </td>
+<td>The maximum amount of memory required when using this font is calculated by adding the render buffer size to the uncompressed size.</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<p>
+Figure 3-4 <a name="fg0304">Display Sample</a><br /> <img border="1" src="img/CTR-font-sample_TW.gif">
+</p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>4. <a name="ss0400">Introduction to Nintendo Extended Characters</a></h2>
+
+<h3>4.1 <a name="ss0410">List of Nintendo Extended Character Styles</a></h3>
+<p>
+    Characters specially designed by Nintendo are included in the private region of Unicode.  Characters created during the RVL development cycle and Unicode code assignments are inherited.  Blue cells (U+E000 to E006 and E01E and E057) contain extended characters that have been overwritten and replaced, while red cells (U+E070 to E07E) contain extended characters that have been newly added. 
+</p>
+<p>
+    Figure 4-1 <a name="fg0401">List of Nintendo Extended Characters</a><br /> <img src="img/nintendo_ext.gif">
+</p>
+<p>
+    Table 4-1 <a name="tb0401">Summary of  Nintendo Extended Characters</a>
+</p>
+<div class="table">
+<table border="1">
+<thead>
+    <tr>
+<th>Unicode</th>
+<th>Details</th>
+<th>Comments</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+    <td>
+        U+E000 through E006<br /> U+E077 through E07E
+    </td>
+    <td>Characters representing CTR hard keys</td>
+    <td>The shape of a hard key for NTR is displayed for the Unicode shown in the blue cells when using the system font for RVL or TWL. </td>
+    </tr>
+    <tr>
+    <td>
+        U+E007 through E03F
+    </td>
+    <td>Characters used by NTR and TWL</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>
+        U+E040 through E06F
+    </td>
+    <td>Characters used with RVL</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>
+        U+E070 through E076
+    </td>
+    <td>Characters used with CTR</td>
+    <td></td>
+    </tr>
+</tbody>
+</table>
+
+<h3>4.2 <a name="ss0420">The POWER Button Extended Character</a></h3>
+<p>
+	For the extended character that represents the POWER Button, use the U+E078 character, which has a square border.<br />The U+E078 character has the same shape as the POWER Button on the Nintendo 3DS, and the U+E040 character has the same shape as the POWER Button on the Nintendo 3DS XL.<br />However, use the U+E078 character to be consistent because it is used to indicate the POWER Button in all Nintendo 3DS system features and applications.<br />
+</p>
+
+</div>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>5. <a name="ss0500">Font Scale Settings</a></h2>
+
+<h3>5.1 <a name="ss0510">Scale Values to Maintain Legibility</a></h3>
+<p>
+    Although the default size of CTR internal bitmap fonts is 24 pixels, characters can be scaled.  We recommend that character size be selected carefully, particularly for projects being localized for the Chinese, Korean, or Taiwanese regions.  Legibility is reduced for the characters with a large number of strokes, such as kanji, in these language regions compared to characters such as hiragana, katakana, and alphabetic letters.
+
+    Scale values recommended to maintain legibility are given below. Basically, we recommend that characters fit inside the following area.
+</p>
+<p>
+    Table 5-1 <a name="tb0501">Scale Value Guidelines for Maintaining Legibility</a>
+</p>
+<div class="table">
+<table border="1">
+<thead>
+    <tr>
+<th>Guideline Item</th>
+<th>Scale value</th>
+<th>Corresponding character size</th>
+<th>Comments</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+    <td>Average values</td>
+    <td>1.0 through 0.7</td>
+    <td>For sizes 24 pixels to 16 pixels</td>
+    <td>When using characters inside this size range, you can maintain a certain degree of legibility throughout all regions.</td>
+    </tr>
+    <tr>
+    <td>Minimum value</td>
+    <td>0.52</td>
+    <td>12.48 px</td>
+    <td>This is the minimum value. However, we recommend that you use a value as close as possible to the average value range given above because many characters will be hard to discern with this value. </td>
+    </tr>
+    <tr>
+    <td>Maximum value</td>
+    <td>1.0</td>
+    <td>24 px</td>
+    <td>Some distortion occurs with values greater than or equal to 1.0.</td>
+    </tr>
+</tbody>
+</table>
+</div>
+<p>
+    <B>Note:</B> Character size values given in pixels represent the value when screen resolution is 72.
+</p>
+
+<h4>5.1.1 <a name="ss0511">Display Sample</a></h4>
+<p>
+    This is a display sample when fitting text onto a 320 x 240 screen.  The actual size differs from that shown.
+</p>
+<p>
+    Figure 5-1 <a name="fg0501">Display Sample</a><br /> 
+</p>
+<p>
+    Characters Intended for Japanese, American, and European Languages
+</p>
+<table border="0" style='background:white; bgcolor:white'>
+    <tr>
+    <td style='background:white; bgcolor:white'>Scale value: 0.52 (equivalent to 12.48 pixels).</td>
+    <td style='background:white; bgcolor:white'>Scale value: 0.70 (equivalent to 16.8 pixels).</td>
+    </tr>
+    <tr>
+    <td style='background:white; bgcolor:white'><img src="img/CTR-font-size_JP052.gif"></td>
+    <td style='background:white; bgcolor:white'><img src="img/CTR-font-size_JP07.gif"></td>
+    </tr>
+    <tr>
+    <td style='background:white; bgcolor:white'><img src="img/CTR-font-size_EN052.gif"></td>
+    <td style='background:white; bgcolor:white'><img src="img/CTR-font-size_EN07.gif"></td>
+    </tr>
+</table>
+<p>
+    Simplified Chinese
+</p>
+<table border="0" style='background:white; bgcolor:white'>
+    <tr>
+    <td style='background:white; bgcolor:white'>Scale value: 0.52 (equivalent to 12.48 pixels).</td>
+    <td style='background:white; bgcolor:white'>Scale value: 0.70 (equivalent to 16.8 pixels).</td>
+    </tr>
+    <tr>
+    <td style='background:white; bgcolor:white'><img src="img/CTR-font-size_CN052.gif"></td>
+    <td style='background:white; bgcolor:white'><img src="img/CTR-font-size_CN07.gif"></td>
+    </tr>
+</table>
+<p>
+    Hangul
+</p>
+<table border="0" style='background:white; bgcolor:white'>
+    <tr>
+    <td style='background:white; bgcolor:white'>Scale value: 0.52 (equivalent to 12.48 pixels).</td>
+    <td style='background:white; bgcolor:white'>Scale value: 0.70 (equivalent to 16.8 pixels).</td>
+    </tr>
+    <tr>
+    <td style='background:white; bgcolor:white'><img src="img/CTR-font-size_KR052.gif"></td>
+    <td style='background:white; bgcolor:white'><img src="img/CTR-font-size_KR07.gif"></td>
+    </tr>
+</table>
+<p>
+    Traditional Chinese
+</p>
+<table border="0" style='background:white; bgcolor:white'>
+    <tr>
+    <td style='background:white; bgcolor:white'>Scale value: 0.65 (equivalent to 12.48 pixels).</td>
+    <td style='background:white; bgcolor:white'>Scale value: 0.88 (equivalent to 16.8 pixels).</td>
+    </tr>
+    <tr>
+    <td style='background:white; bgcolor:white'><img src="img/CTR-font-size_TW052.gif"></td>
+    <td style='background:white; bgcolor:white'><img src="img/CTR-font-size_TW07.gif"></td>
+    </tr>
+</table>
+<p>
+    Note: Because the internal character size of Traditional Chinese differs from other system fonts, the scale value actually differs even though the actual visual size for both fonts is the same.
+</p>
+
+<h3>5.2 <a name="ss0520">Precautions on Using NW4C LayoutEditor</a></h3>
+<p>
+    When using NW4C LayoutEditor, there is more than one parameter that can be used to change the scale of the character size. However, if you are using CTR internal bitmap fonts, we recommend that you make changes using the &quot;scale&quot; parameter shown in the following figure. 
+</p>
+<p>
+    Figure 5-2 <a name="fg0502">Parameter When Changing the Character Scale Value Using NW4C LayoutEditor</a><br /> <img src="img/NW4C_layoutEditor_scale.gif">
+</p>
+<p>
+    Note: If a CTR internal bitmap font is being used with NW4C LayoutEditor, the correct font size is not reflected in &quot;Default value&quot; or &quot;Absolute value.&quot; Specifications have been implemented such that the size is actually slightly smaller than the value displayed for the absolute value.  We therefore recommend that you change the scale using the &quot;scale&quot; parameter.
+</p>
+
+<h3>5.3 <a name="ss0530">Other Precautions Related to Scaling Operations</a></h3>
+<ul>
+    <li>Even if you enlarge or reduce a font, there is no effect on the amount of memory required to render the font.</li>
+    <li>
+        Sometimes the edges may appear to be slightly cut off when characters that have been scaled are rendered on actual hardware.  No effective workaround is currently available.
+    </li>
+</ul>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>6. <a name="ss0600">Notes</a></h2>
+
+<h3>6.1 <a name="ss0610">Differences Between the CTR and Other Nintendo Platforms</a></h3>
+<p>
+    Although CTR internal bitmap fonts are created by inheriting the specifications of RVL and TWL internal bitmap fonts, modifications have been made to some characters, such as to the character shapes and character widths.
+</p>
+<h5>Major Changes</h5>
+<ul>
+    <li>Added alphabetic characters and a set of symbols for European languages.</li>
+    <li>Added extended characters for CTR to Nintendo extended characters.</li>
+    <li>Changed the character width used with Cyrillic character to be proportional width.</li>
+    <li>Changed the shape of fixed width characters only for characters that have both a fixed width and proportional width (Japanese, American, and European characters only).</li>
+    <li>Adjusted the shape and width of some characters</li>
+</ul>
+
+<h4>6.1.1 <a name="ss0611">Change in Character Width</a></h4>
+<p>
+    The most representative example of the character width changing from that used with RVL and TWL system fonts is with Cyrillic characters. Currently, Cyrillic characters are displayed in fixed width with most fonts used on PCs. CTR system fonts are designed so that Cyrillic characters are displayed using proportional widths. 
+</p>
+
+<p>
+    Figure 6-1 <a name="fg0601">Display of Cyrillic Characters</a><br /> <img border="1" src="img/font_promonoRUS.gif">
+</p>
+
+<h4>6.1.2 <a name="ss0612">Problematic Characters</a></h4>
+<p>
+    This is a list of characters where the shape has changed from that used with the internal bitmap fonts of RVL and TWL. (See <a href="#fg0602">Figure 6-2</a>).  There are also some characters that may cause problems during development due to specifications typically where there are multiple interpretations.  A list that compares these characters to RVL and TWL internal bitmap fonts is attached. (See <a href="#fg0603">Figure 6-3</a>) When you move characters back and forth between hardware systems, such and CTR and RVL, and need to check differences in character shapes between these characters and other characters, use this list as a reference for the type of shape displayed for these characters.
+</p>
+<p>
+    Figure 6-2 <a name="fg0602">List of Representative Characters Whose Shape Has Changed from that of the RVL and TWL Internal Fonts</a><br /> <img border="1" src="img/WiitoCTR_glyph.gif">
+</p>
+
+<p>
+    Figure 6-3 <a name="fg0603">Character Shape Specifications of the RVL/TWL and CTR Internal Fonts for Characters Where Character Shape Specifications May Cause Problems</a><br /> <img border="1" src="img/WiiCTRdiff_glyph.gif">
+</p>
+
+<h3>6.2 <a name="ss0620">Alternate Characters</a></h3>
+<p>
+    The term &quot;alternate character&quot; is used to refer to a character that is displayed instead of another when the character specified by the application cannot be displayed by the internal bitmap font.  The character given by U+E06B is used as the default alternate character when using CTR internal bitmap fonts. 
+</p>
+<p>
+    Figure 6-4 <a name="fg0604">Alternate Characters</a><br /> <img border="1" src="img/substitute.gif">
+</p>
+
+<h3>6.3 <a name="ss0630">Other</a></h3>
+<ul>
+    <li>
+        Mii Name Display
+        <p>
+For information about displaying Mii nicknames and creator names, see the section on creating Mii nicknames and creator names in <I>3DS Guidelines</I>.
+        </p>
+    </li>
+    <li>
+        U+00A0 NO-BREAK SPACE
+        <p>
+             Traditional Chinese is the only character set that does not include the character <CODE>U+00A0 NO-BREAK SPACE</CODE>.
+        </p>
+    </li>
+    <li>
+        U+007F DEL
+        <p>
+             Simplified Chinese is the only character set that does not include the character <CODE>U+007F DEL</CODE>.
+        </p>
+    </li>
+</ul>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>7. <a name="ss0700">Appended: FontConverter Settings</a></h2>
+<p>
+    The parameter setup screen for FontConverter when creating a CTR internal bitmap font is attached.  A CTR internal bitmap font is output according to the parameter settings for the attached image.  At this time, parameters whose values differ depending on which language the font is being created for are emphasized using a red border.  Please use this for reference when creating bitmap fonts using FontConverter.
+</p>
+<p>
+    Figure 7-1 <a name="fg0701">Creating a Bitmap Image from an Outline Font Installed on a PC</a><br /> <img src="img/fontConverter_setting01.gif">
+</p>
+<p>
+    Figure 7-2 <a name="fg0702">Creating a Bitmap Font from a Bitmap Image</a><br /> <img src="img/fontConverter_setting02.gif">
+</p>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+
+<h2>8. <a name="ss0800">Revision History</a></h2>
+    <dl>
+        <dt>2012/07/23</dt>
+<dd>Added &quot;4.2 The POWER Button Extended Character.&quot;</dd>
+        <dt>2012/02/15</dt>
+        <dd>Added links to the files with the lists of included Chinese, Korean, and Taiwanese characters to sections &quot;1. Introduction,&quot;  &quot;3.2 Simplified Chinese,&quot; &quot;3.3 Hangul,&quot; and &quot;3.4 Traditional Chinese.&quot;</dd>
+        <dd>Added a note about Simplified Chinese to 6.3.</dd>
+        <dt>2011/12/21</dt>
+        <dd>Added information to 3.2. Simplified Chinese, 3.3. Hangul, and 3.4. Traditional Chinese and a note on the Traditional Chinese font to 6.3.</dd>
+        <dt>2011/06/22</dt>
+        <dd>Initial version.</dd>
+    </dl>
+
+<div align="right"><a href="#top">Back to top</a></div>
+
+<hr /><p>CONFIDENTIAL</p></BODY></HTML>

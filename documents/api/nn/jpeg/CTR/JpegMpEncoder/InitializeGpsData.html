@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>InitializeGpsData</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a>::InitializeGpsData Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+static void InitializeGpsData(
+     <a href="../../../../nn/jpeg/CTR/GpsData/Overview.html">GpsData</a> * pGps
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pGps</th>
+          <td>Specifies the GPS IFD (the structure used for storing GPS data). <br />
+ The stored data format is easy for the library to process and is different from the binary format that results from encoding.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the structure used for registering GPS IFD data.</p><p>This section describes the procedure for storing GPS information in the image and storing it.</p><p><orderedlist><listitem><para>Have the application maintain the GPS IFD structure for storing information and initialize it with this function. </para></listitem><listitem><para>Call the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsLatitude.html">SetGpsLatitude</a></code> and <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsLongitude.html">SetGpsLongitude</a></code> functions to store GPS information in the structure. <br />
+ Depending on the function, some structure members, such as <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsSatellites.html">SetGpsSatellites</a></code>, only maintain a pointer to the data to store. In this case, you must maintain the data to store until encoding ends. </para></listitem><listitem><para>After all data has been stored in the structure, be sure to confirm the data by calling the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsData.html">SetGpsData</a></code> function. <br />
+ The encoder object only maintains a pointer to this structure. This structure must be maintained until encoding ends. </para></listitem><listitem><para>Call the encoding function and encode the image. </para></listitem><listitem><para>Whether it succeeds, after the encoding function exits, the structure and data to store can be released. <br />
+ To reuse this structure, be sure to reinitialize it with this function. </para></listitem></orderedlist></p><p>After initialization, the structure only stores the GPS tag version. (Version 2.2 is the default for this library.) <br />
+ To change the version, call the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsVersionId.html">SetGpsVersionId</a></code> function. To instruct the system not to save the version, call the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/ClearGpsVersionId.html">ClearGpsVersionId</a></code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/22</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

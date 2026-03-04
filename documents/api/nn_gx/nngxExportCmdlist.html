@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxExportCmdlist</title>
+  </head>
+  <body>
+    <h1>nngxExportCmdlist Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL GLsizei NNGX_APIENTRY nngxExportCmdlist(
+     GLuint cmdlist,
+     GLuint bufferoffset,
+     GLsizei buffersize,
+     GLuint requestid,
+     GLsizei requestsize,
+     GLsizei datasize,
+     GLvoid * data
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>cmdlist</th>
+          <td>The command list object that is saved.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferoffset</th>
+          <td>Offset from the starting address of the 3D command buffer to the address to which to start exporting the data, in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>buffersize</th>
+          <td>Size of the 3D command buffer to export, in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>requestid</th>
+          <td>ID of the command request to start the export.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>requestsize</th>
+          <td>The number of command requests to export.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>datasize</th>
+          <td>Size of the data region, in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>data</th>
+          <td>Pointer to a region that will store the exported data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Exports the specified command list to memory as binary data.</p><P><span class="argument">bufferoffset</span> specifies the offset (in bytes) from the starting address of the 3D command buffer to the first address to export.  <span class="argument">buffersize</span> specifies the number of bytes to export from the 3D command buffer.  <span class="argument">requestid</span> specifies the ID of the first command request to export.  Command request IDs start at 0 and increase sequentially in the order that commands are accumulated.  <span class="argument">requestsize</span> specifies the number of command requests to export.  To determine which values to specify for <span class="argument">bufferoffset</span>, <span class="argument">buffersize</span>, <span class="argument">requestid</span>, and <span class="argument">requestsize</span> while commands are accumulating, call the <tt><a href="../nn_gx/nngxGetCmdlistParameteri.html">nngxGetCmdlistParameteri</a></tt> function and get both the size of the accumulated 3D command buffer and the size of command requests.  For <span class="argument">pname</span>, specify <tt>NN_GX_CMDLIST_USED_BUFSIZE</tt> to get the size of the accumulated 3D command buffer. Specify <tt>NN_GX_CMDLIST_USED_REQCOUNT</tt> to get the number of accumulated command requests.</P><P><span class="argument">data</span> specifies a pointer to a region used to store the exported data.  <span class="argument">datasize</span> specifies the size (in bytes) of the <span class="argument">data</span> region.  Nothing is exported if the <span class="argument">data</span> argument is <tt>0</tt>.  The size (in bytes) of the exported data is returned.</P><P>Typically, you would call this function, specifying <tt>0</tt> for <span class="argument">data</span>, to obtain the required data size for exporting, then you would allocate a data region and call this function again. You can call <tt>nngxImportCmdlist</tt> to import and use the exported data.</P><P>You must specify a valid combination of values for the <span class="argument">bufferoffset</span>, <span class="argument">buffersize</span>, <span class="argument">requestid</span>, and <span class="argument">requestsize</span> parameters.</P><P>When exporting command requests, you must start at a 3D command buffer address within the region executed by the first render command request among the command requests to export.</P><P>This function exports a 3D command buffer without checking its content; consequently, the exported data may not function correctly and errors may not be detected.  To safely export data, we recommend that you use the save information obtained by the <tt><a href="../nn_gx/nngxStopCmdlistSave.html">nngxStopCmdlistSave</a></tt> function. Alternatively, we recommend that the pair of values you use for <span class="argument">bufferoffset</span> and <span class="argument">requestid</span>, in addition to the pair of values you use for <span class="argument">buffersize</span> and <span class="argument">requestsize</span>, were obtained at the same time during the same call to the <tt><a href="../nn_gx/nngxGetCmdlistParameteri.html">nngxGetCmdlistParameteri</a></tt> function. </P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_803B_DMP</TH><TD>Invalid value specified for <span class="argument">cmdlist</span>.</TD></TR><TR><TH>GL_ERROR_803C_DMP</TH><TD>The size of data to export is greater than <span class="argument">datasize</span>.</TD></TR><TR><TH>GL_ERROR_803D_DMP</TH><TD>The <span class="argument">bufferoffset</span>, <span class="argument">buffersize</span>, <span class="argument">requestid</span>, and <span class="argument">requestsize</span> arguments specify a region without any accumulated commands.</TD></TR><TR><TH>GL_ERROR_803E_DMP</TH><TD>The <span class="argument">bufferoffset</span> or <span class="argument">buffersize</span> argument is not 8-byte aligned.</TD></TR><TR><TH>GL_ERROR_803F_DMP</TH><TD>The command request includes a render command request that was added using <tt>nngxUseSavedCmdlist</tt> without copying the 3D command buffer.</TD></TR><TR><TH>GL_ERROR_8040_DMP</TH><TD>The <span class="argument">bufferoffset</span> or <span class="argument">buffersize</span> argument has not properly specified the 3D command buffer that is used to run an exported 3D execution command.</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxImportCmdlist.html">nngxImportCmdlist</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/02/03</dt>
+        <dd><item xmlns="">Fixed accidental omission of error code GL_ERROR_803B_DMP.</item><br />
+        </dd>
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added See Also section.</item><br />
+        </dd>
+        <dt>2010/07/07</dt>
+        <dd><item xmlns="">Deleted potentially misleading explanation.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

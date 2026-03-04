@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::OrderByAttribute</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::OrderByAttribute Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct OrderByAttribute
+{
+   char orderByType[ATTRIBUTE_ORDER_BY_TYPE_LENGTH];
+   char name[ATTRIBUTE_NAME_LENGTH];
+   char dataType[ATTRIBUTE_DATA_TYPE_LENGTH];
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The structure for specifying the sort order of item search results.</p><p>It can be used to change the sort order based on the specified attribute as a key. You can specify a user-defined attribute name and a required attribute name acquired with <code>MakeNecessary</code> as a key. Attributes must by set on the server as a <code>KEYWORD</code>-type. Specify <code>ascending</code> or <code>descending</code> as the attribute type for sorting.</p></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">orderByType</span>
+            </th>
+            <td width="100">char</td>
+            <td>Specifies the sort order using a NULL-terminated string. Specify <code>ascending</code> or <code>descending</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">name</span>
+            </th>
+            <td width="100">char</td>
+            <td>Specifies the attribute name to use as the sort order key using a NULL-terminated string.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">dataType</span>
+            </th>
+            <td width="100">char</td>
+            <td>Specifies the data type using a NULL-terminated string. Specify <code>string</code> or <code>integer</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+  </body>
+</html>

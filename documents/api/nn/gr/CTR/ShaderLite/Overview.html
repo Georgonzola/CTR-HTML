@@ -1,0 +1,647 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::gr::CTR::ShaderLite</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gr/Overview.html">gr</a>::<a href="../../../../nn/gr/CTR/Overview.html">CTR</a>::ShaderLite Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ShaderLite</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for setting the shader binary. This class can reduce memory consumption, compared to the regular <code><a href="../../../../nn/gr/CTR/Shader/Overview.html">Shader</a></code> class.</p><!-- write here --></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ShaderLite/EXE_IMAGE_MAX.html">EXE_IMAGE_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>A class constant.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ShaderLite/SWIZZLE_PATTERN_MAX.html">SWIZZLE_PATTERN_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>The maximum number of swizzle patterns.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ShaderLite/DUMMY_DATA_NUM_251.html">DUMMY_DATA_NUM_251</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>The number of dummy commands that can be set to <code>0x251</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ShaderLite/DUMMY_DATA_NUM_200.html">DUMMY_DATA_NUM_200</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>The number of dummy commands that can be set to <code>0x200</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ShaderLite/PADDING_DATA.html">PADDING_DATA</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The value used for padding for dummy commands, and so forth.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ShaderLite/OUT_ATTR_COMMAND_MAX.html">OUT_ATTR_COMMAND_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>The maximum number of output attribute commands.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/gr/CTR/ShaderLite/CONST_REG_COMMAND_MAX.html">CONST_REG_COMMAND_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The maximum number of constant register commands.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_VtxShaderIndex</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>The index of the enabled vertex shader. The type is <code>f32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_GeoShaderIndex</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>The index of the enabled geometry shader. The type is <code>f32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_CombShaderIndex</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>Index when combining an enabled vertex shader and a geometry shader. The type is <code>f32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_ExeImageInfoNum</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>The number of executable shaders in a shader binary.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_ExeImageInfo</span>
+            </th>
+            <td width="100">const <a href="../../../../nn/gr/CTR/ShaderLite/ExeImageInfo/Overview.html">ExeImageInfo</a> *</td>
+            <td>Holds a pointer to information about the executable shaders in a shader binary. The type is <code><a href="../../../../nn/gr/CTR/ShaderLite/ExeImageInfo/Overview.html">ExeImageInfo</a>[]</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_Instruction</span>
+            </th>
+            <td width="100">const <a href="../../../../nn_types/bit32.html">bit32</a> *</td>
+            <td>A pointer to the part of the shader binary with executable shader code. The type is <code>bit32*</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_InstructionCount</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The size of the executable shader code in the shader binary. The type is <code>u32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_Swizzle</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit32.html">bit32</a> *</td>
+            <td>Swizzle patterns represented in command format. The type is <code>bit32*</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_SwizzleCount</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The number of swizzle patterns. The type is <code>u32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_DrawMode</span>
+            </th>
+            <td width="100"><a href="../../../../nn_gx_CTR_Pica/PicaDataDrawMode.html">PicaDataDrawMode</a></td>
+            <td>Indicates the rendering mode. The default is <code>PICA_DATA_DRAW_TRIANGLES</code>. The type is <code><a href="../../../../nn_gx_CTR_Pica/PicaDataDrawMode.html">PicaDataDrawMode</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_VtxShaderBoolMapUniform</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit32.html">bit32</a></td>
+            <td>A vertex shader Boolean map to be set. The type is <code>bit32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_GeoShaderBoolMapUniform</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit32.html">bit32</a></td>
+            <td>A geometry shader Boolean map to be set. The type is <code>bit32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_CmdCacheOutAttrArray</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit32.html">bit32</a> *</td>
+            <td>Output attribute command cache array. The type is <code>bit32*</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_CmdCacheOutAttrNumArray</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a> *</td>
+            <td>An array of the number of commands for output attributes. The type is <code>u32*</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_CmdCacheConstArray</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/bit32.html">bit32</a> *</td>
+            <td>Command cache array for the shader's constant registers. The type is <code>bit32*</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_CmdCacheConstNumArray</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a> *</td>
+            <td>An array of the number of commands for the shader's constant registers. The type is <code>u32*</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_GeometryShaderNum</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>The number of geometry shaders. The type is <code>u32</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_ConstRgCmdOffsetArray</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a> *</td>
+            <td>Offset value cache array for generating shader constant register commands. The type is <code>u32*</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_CmdCacheOutAttrIndexArray</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a> *</td>
+            <td>Array of indices required for the output attribute command cache. The type is <code>u32*</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span> </td>
+            <th>
+              <span class="argument">m_CmdCacheOutAttrOffsetArray</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a> *</td>
+            <td>Array of offset values required for the output attribute command cache. The type is <code>u32*</code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/ShaderLite.html">ShaderLite</a>
+            </th>
+            <td>A constructor that initializes shader binary settings.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/SetupBinary.html">SetupBinary</a>
+            </th>
+            <td>Sets up information used for generating commands based on the shader binary. <bold>Note:</bold> The binary is not copied. Do not destroy the binary until the command is generated. An ASSERT results if the specified index is not a valid shader. For more information about the index to be specified, see the MAP file generated at link time by <code>ctr_VertexShaderLinker32.exe</code>. Geometry shaders can be disabled by specifying <code>-1</code> for <code>geo_shader_index</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/SetShaderIndex.html">SetShaderIndex</a>
+            </th>
+            <td>Configures the index of the used shader. You must use this function after calling the <code>SetupBinary</code> function. For more information about the index to be specified, see the MAP file generated at link time by <code>ctr_VertexShaderLinker32.exe</code>. Geometry shaders can be disabled by specifying <code>-1</code> for <code>geo_shader_index</code>. When switching between the use and non-use of geometry shaders, you must reconfigure the rendering mode with the <code>SetDrawMode</code> function before generating a command.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/SetUniformBool.html">SetUniformBool</a>
+            </th>
+            <td>Sets a boolean register value for the vertex shader.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/SetDrawMode.html">SetDrawMode</a>
+            </th>
+            <td>Sets the draw mode. The default is <code>PICA_DATA_DRAW_TRIANGLES</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeFullCommand.html">MakeFullCommand</a>
+            </th>
+            <td>Generates all commands required for switching shaders. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeShaderCommand.html">MakeShaderCommand</a>
+            </th>
+            <td>Generates the minimum commands necessary for switching the shader image within the shader binary. This function must be called after calling the <code>MakeFullCommand</code> function and sending a command. In addition, when switching the mode for using or not using the geometry shader with the <code>SetShaderIndex</code> function, the isMakePrepareCommand parameter must be set to <code>true</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeVtxBoolMapCommand.html">MakeVtxBoolMapCommand</a>
+            </th>
+            <td>Generates a command for setting a value into the vertex shader boolean register. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeGeoBoolMapCommand.html">MakeGeoBoolMapCommand</a>
+            </th>
+            <td>Generates a command for setting a value into the geometry shader boolean register. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakePrepareCommand.html">MakePrepareCommand</a>
+            </th>
+            <td>Generates a command for setting the use of a geometry shader. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function. This includes dummy commands and commands for setting enable or disable that are required to enable or disable the geometry shader.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeVtxProgramCommand.html">MakeVtxProgramCommand</a>
+            </th>
+            <td>Generates a program load command for vertex shaders. This includes the entry point address and executable code within the shader binary. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeGeoProgramCommand.html">MakeGeoProgramCommand</a>
+            </th>
+            <td>Generates a program load command for geometry shaders. This includes the entry point address and executable code within the shader binary. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeVtxSwizzleCommand.html">MakeVtxSwizzleCommand</a>
+            </th>
+            <td>Generates commands to load swizzle patterns for vertex shaders. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeGeoSwizzleCommand.html">MakeGeoSwizzleCommand</a>
+            </th>
+            <td>Generates a command for swizzle pattern loading of geometry shaders. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeVtxConstRgCommand.html">MakeVtxConstRgCommand</a>
+            </th>
+            <td>Generates a command for setting a value into the constant register for the vertex shader. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeGeoConstRgCommand.html">MakeGeoConstRgCommand</a>
+            </th>
+            <td>Generates a command for setting a value into the constant register for the geometry shader. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeOutAttrCommand.html">MakeOutAttrCommand</a>
+            </th>
+            <td>Generates a command for setting shader output attributes. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/GetRequiredBufferSize.html">GetRequiredBufferSize</a>
+            </th>
+            <td>Gets the size of the buffer required when running <code>SetupBinary</code> from the shader binary.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/SearchBindSymbol.html">SearchBindSymbol</a>
+            </th>
+            <td>Converts from symbol names to symbol information. Symbol type information and bound register numbers can be obtained by specifying the symbol name set by <code>pragma_bind_symbol</code> in the shader code as an argument. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/SearchBindSymbolNum.html">SearchBindSymbolNum</a>
+            </th>
+            <td>Finds the number of symbols of the specified type. Finds the number of symbols of the specified type among those set by <code>pragma_bind_symbol</code> in the shader code. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/GetShaderNum.html">GetShaderNum</a>
+            </th>
+            <td>Gets the number of executable shaders included in the shader binary.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/IsEnableGeoShader.html">IsEnableGeoShader</a>
+            </th>
+            <td>Gets whether geometry shaders are enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/GetVtxShaderIndex.html">GetVtxShaderIndex</a>
+            </th>
+            <td>Gets the index of the enabled vertex shader.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/GetGeoShaderIndex.html">GetGeoShaderIndex</a>
+            </th>
+            <td>Gets the index of the enabled geometry shader.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/GetVtxShaderBoolMapUniform.html">GetVtxShaderBoolMapUniform</a>
+            </th>
+            <td>Gets the boolean map set for the vertex shader.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/GetGeoShaderBoolMap.html">GetGeoShaderBoolMap</a>
+            </th>
+            <td>Gets the boolean map set for the geometry shader.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeDisableCommand.html">MakeDisableCommand</a>
+            </th>
+            <td>Generates commands to disable this feature.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/CheckVtxShaderIndex_.html">CheckVtxShaderIndex_</a>
+            </th>
+            <td>Tests the validity of the index of a vertex shader. An assert failure occurs if the specified index is not a valid shader. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/CheckGeoShaderIndex_.html">CheckGeoShaderIndex_</a>
+            </th>
+            <td>Tests the validity of the index of a geometry shader. An assert failure occurs if the specified index is not a valid shader. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/CalculateBufferSize_.html">CalculateBufferSize_</a>
+            </th>
+            <td>Calculates the required buffer size.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/AssignBuffer_.html">AssignBuffer_</a>
+            </th>
+            <td>Allocates a buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeShaderConstCommandCache_.html">MakeShaderConstCommandCache_</a>
+            </th>
+            <td>Generates the constant register command cache for the vertex and geometry shaders.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeShaderOutAttrCommandCache_.html">MakeShaderOutAttrCommandCache_</a>
+            </th>
+            <td>Generates the output attribute command cache for the vertex and geometry shaders.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeRgCmdOffsetCache_.html">MakeRgCmdOffsetCache_</a>
+            </th>
+            <td>Generates the offset value cache for getting appropriate information from the command cache array.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeConstRgCommand_.html">MakeConstRgCommand_</a>
+            </th>
+            <td>Generates a command for setting a value into the constant register.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeOutAttrCommand_.html">MakeOutAttrCommand_</a>
+            </th>
+            <td>Generates a command for setting shader output attributes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeLoadCommand_.html">MakeLoadCommand_</a>
+            </th>
+            <td>Generates commands to send a set of data to a specified register. This function does not support SEQ and BE.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeShaderModeCommand_.html">MakeShaderModeCommand_</a>
+            </th>
+            <td>Generates the commands that are required to enable or disable the geometry shader: dummy commands and enable/disable setting commands.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gr/CTR/ShaderLite/MakeDummyCommand_.html">MakeDummyCommand_</a>
+            </th>
+            <td>Generates commands to send dummy commands to a specified register.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

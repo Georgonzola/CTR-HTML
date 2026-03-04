@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxImportCmdlist</title>
+  </head>
+  <body>
+    <h1>nngxImportCmdlist Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxImportCmdlist(
+     GLuint cmdlist,
+     GLvoid * data,
+     GLsizei datasize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>cmdlist</th>
+          <td>The command list object to which to import the data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>data</th>
+          <td>Pointer to the exported data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>datasize</th>
+          <td>Size of the exported data, in bytes.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Imports an exported command list (binary data) to the specified command list.</p><P>Imports data exported by the <tt><a href="../nn_gx/nngxExportCmdlist.html">nngxExportCmdlist</a></tt> function into a command list.  Set <span class="argument">cmdlist</span> equal to the command list object to import.  Set <span class="argument">data</span> equal to a pointer to the exported data.  Set <span class="argument">datasize</span> equal to the size (in bytes) of the exported data.</P><P>You can set <span class="argument">cmdlist</span> equal to either the command list that is currently bound or to an unbound command list.  If commands have already been accumulated in <span class="argument">cmdlist</span>, the imported commands are added after the accumulated commands.</P><P>When the first command request of the data that you are importing is not a 3D execution command, bind the destination command list as the current one before calling this function and then call the <tt><a href="../nn_gx/nngxSplitDrawCmdlist.html">nngxSplitDrawCmdlist</a></tt> function to add a split command.</P><P>Calls to this function sometimes cause dummy commands to be generated for padding in the 3D command buffer of the command list you are importing data to.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_8041_DMP</TH><TD>Invalid value specified for <span class="argument">cmdlist</span>.</TD></TR><TR><TH>GL_ERROR_8042_DMP</TH><TD>Pointer to invalid data specified for <span class="argument">data</span>.</TD></TR><TR><TH>GL_ERROR_8043_DMP</TH><TD>Value specified for <span class="argument">datasize</span> does not match size of exported data.</TD></TR><TR><TH>GL_ERROR_8044_DMP</TH><TD>By adding the imported commands, you exceed the maximum size for the 3D command buffer or command requests.</TD></TR><TR><TH>GL_ERROR_8045_DMP</TH><TD>Imported the data whose first command request is not a 3D execution command when the 3D command buffer of the destination command list has not been split.</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxExportCmdlist.html">nngxExportCmdlist</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added See Also section.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

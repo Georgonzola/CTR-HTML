@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>DecryptAndVerify</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/crypto/Overview.html">crypto</a>::<a href="../../../nn/crypto/CcmDecryptor/Overview.html">CcmDecryptor</a>::DecryptAndVerify Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static bool DecryptAndVerify(
+     void * pDst,
+     size_t dstSize,
+     const void * pAdata,
+     size_t adataSize,
+     const void * pCdata,
+     size_t cdataSize,
+     const void * pIv,
+     size_t ivSize,
+     const void * pMac,
+     size_t macSize,
+     const <a href="../../../nn/crypto/BlockCipher/Overview.html">BlockCipher</a> & c
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Pointer to the buffer storing the decryption results.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstSize</th>
+          <td>Size of the buffer pointed to by pDst.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pAdata</th>
+          <td>Pointer to the buffer storing the Adata.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>adataSize</th>
+          <td>Adata size in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pCdata</th>
+          <td>Pointer to the buffer storing the Cdata.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>cdataSize</th>
+          <td>Cdata size in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pIv</th>
+          <td>Pointer to the buffer storing the IV.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>ivSize</th>
+          <td>IV size in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pMac</th>
+          <td>Pointer to the buffer storing the MAC.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>macSize</th>
+          <td>MAC size in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>c</th>
+          <td>Instance of the block cipher implementation used in decryption.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns whether MAC verification succeeded. Returns <code>TRUE</code> if MAC verification succeeded and <code>FALSE</code> otherwise. If <code>true</code>, there is likely no tampering. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Handles batch decryption and verification when in CTR mode.</p><p>When all data is loaded into memory, you can call this function to decrypt and verify all of the data at once.</p><p>For c, specify the same key used in encryption for the block cipher of the same algorithm used in encryption.</p><p>Specify a pointer to an IV object in pIv, and its size in ivSize. You must specify the same IV, adataSize, and macSize values as those used for encryption.</p><p>You must specify the same cdataSize value as the pdataSize value used for encryption.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

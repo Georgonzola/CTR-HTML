@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::erreula::CTR::Config</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/erreula/Overview.html">erreula</a>::<a href="../../../../nn/erreula/CTR/Overview.html">CTR</a>::Config Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct Config
+{
+   <a href="../../../../nn/erreula/CTR/ErrorType.html">ErrorType</a> errorType;
+   <a href="../../../../nn_types/s32.html">s32</a> errorCode;
+   <a href="../../../../nn_types/s16.html">s16</a> upperScreenFlag;
+   <a href="../../../../nn_types/u16.html">u16</a> useLanguage;
+   wchar_t errorText[ERROR_TEXT_LENGTH_MAX];
+   bool homeButton;
+   bool softwareReset;
+   bool appJump;
+   <a href="../../../../nn/erreula/CTR/ReturnCode.html">ReturnCode</a> returnCode;
+   <a href="../../../../nn_types/u16.html">u16</a> eulaVersion;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The structure that is exchanged between the application and the error EULA <a href="../../../../nn/applet/Overview.html">applet</a> that stores data.</p><p>You must always call the <code><a href="../../../../nn/erreula/CTR/InitializeConfig.html">InitializeConfig</a></code> function to initialize this structure before setting its member variables.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="4">: Enter</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">errorType</span>
+            </th>
+            <td width="100"><a href="../../../../nn/erreula/CTR/ErrorType.html">ErrorType</a></td>
+            <td>The type of <a href="../../../../nn/applet/Overview.html">applet</a> to call.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">errorCode</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/s32.html">s32</a></td>
+            <td>An error code.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">upperScreenFlag</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/s16.html">s16</a></td>
+            <td>Flag indicating the display method for the upper screen. Invalid setting. The stereoscopic view of the upper screen is inherited from application status, so this does nothing even if specified.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">useLanguage</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>The language to use (from the <code><a href="../../../../nn/erreula/CTR/UseLanguage.html">UseLanguage</a></code> enumerated type). If a language that cannot be specified in System Settings is specified here, Japanese is assumed for systems with a system market of Japan, and English is assumed for systems with a system market is the Americas or Europe.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">errorText</span>
+            </th>
+            <td width="100">wchar_t</td>
+            <td>Freely defined text string for displaying an error. Up to 1900 characters including the NULL terminator.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">homeButton</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Specifies whether the error EULA <a href="../../../../nn/applet/Overview.html">applet</a> exits when the HOME Button is pressed. The error EULA <a href="../../../../nn/applet/Overview.html">applet</a> exits if <code>true</code> is specified and the HOME Button is pressed.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">softwareReset</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Specifies whether to use software reset. The error EULA <a href="../../../../nn/applet/Overview.html">applet</a> exits if <code>true</code> is specified and the button combination for software reset is pressed.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">appJump</span>
+            </th>
+            <td width="100">bool</td>
+            <td>After the error is displayed, if <code>true</code> is set for whether to display a dialog box and prompt an application jump to System Settings, a dialog box for guiding the user to System Settings is displayed. This just displays the message. The application must perform the application jump. This function only works when the <code>ErrorType</code> is <code>ERROR_TYPE_ERROR_CODE</code> or <code>ERROR_TYPE_ERROR_CODE_LANGUAGE</code>.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Output</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">returnCode</span>
+            </th>
+            <td width="100"><a href="../../../../nn/erreula/CTR/ReturnCode.html">ReturnCode</a></td>
+            <td>Return code. Stores the return code that indicates the reason why the Error/EULA <a href="../../../../nn/applet/Overview.html">applet</a> terminated.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">eulaVersion</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u16.html">u16</a></td>
+            <td>The EULA version that the end user has agreed to.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/04</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

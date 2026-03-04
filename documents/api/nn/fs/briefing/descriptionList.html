@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+    <title>File System: List of Descriptions</title>
+</head>
+<body>
+    <h1>File System: List of Descriptions</h1>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#Summary">Overview</a></li>
+      <ul>
+        <li><a href="#Summary_DescriptionList">List of Descriptions</a></li>
+      </ul>
+      <li><a href="#History">Revision History</a></li>
+    </ul>
+
+    <a name="Summary"><h2>Overview</h2></a>
+    <div class="section">
+      Debugging can sometimes be difficult when using a non-<CODE>Try</CODE> type API function with a ROM archive. For example, if an error occurs, the display might forcibly change to an error display screen and you will not be able to see what was being displayed. This page gives useful information for dealing with this situation.<br /> <br /> The following example shows results that may be displayed on the error display screen.<br />
+<pre>
+RSL : 0xC8804464
+      Level  : -7
+      Summary: 4
+      Module : 17
+      Desc   : 100
+</pre>
+      Module=17: Indicates a file system error. <CODE>Desc</CODE>: This value is used to determine which error occurred.<br /> From the list, you can determine that the error was <CODE>nn::fs::ResultNotFound</CODE>.
+
+      <a name="Summary_DescriptionList"><h3>List of Descriptions</h3></a>
+      <div class="section">
+        File system errors are handled by taking multiple results together. (Reference: <a href="aboutErrorHandling.html#Summary_Result">Handling Results</a>)<br /> The value of <CODE>Desc</CODE> has a range of meanings even if the error is of the same type.<br /> (Additional details could change as a result of future internal SDK implementation, so those details remain private.)<br /> <br />
+        <table>
+          <thead>
+            <th>Desc</th><th>Result</th><th><B>Comments</B></th>
+          </thead>
+          <tr>
+            <th>100-179</th><td><a href="../../../nn/fs/ResultNotFound/Overview.html">ResultNotFound</a></td><td></td>
+          </tr>
+          <tr>
+            <td>(130-179)</td><td><a href="../../../nn/fs/ResultMediaNotFound/Overview.html">ResultMediaNotFound</a></td><td>Errors associated with <a href="../../../nn/fs/ResultNotFound/Overview.html">ResultNotFound</a>.</td>
+          </tr>
+          <tr>
+            <th>180-199</th><td><a href="../../../nn/fs/ResultAlreadyExists/Overview.html">ResultAlreadyExists</a></td><td></td>
+          </tr>
+          <tr>
+            <th>200-219</th><td><a href="../../../nn/fs/ResultNotEnoughSpace/Overview.html">ResultNotEnoughSpace</a></td><td></td>
+          </tr>
+          <tr>
+            <th>220-229</th><td><a href="../../../nn/fs/ResultArchiveInvalidated/Overview.html">ResultArchiveInvalidated</a></td><td></td>
+          </tr>
+          <tr>
+            <th>230-339</th><td><a href="../../../nn/fs/ResultOperationDenied/Overview.html">ResultOperationDenied</a></td><td></td>
+          </tr>
+          <tr>
+            <td>(260-279)</td><td><a href="../../../nn/fs/ResultWriteProtected/Overview.html">ResultWriteProtected</a></td><td>Errors associated with <a href="../../../nn/fs/ResultOperationDenied/Overview.html">ResultOperationDenied</a>.</td>
+          </tr>
+          <tr>
+            <td>(280-339)</td><td><a href="../../../nn/fs/ResultMediaAccessError/Overview.html">ResultMediaAccessError</a></td><td>Errors associated with <a href="../../../nn/fs/ResultOperationDenied/Overview.html">ResultOperationDenied</a>.</td>
+          </tr>
+          <tr>
+            <th>340-359</th><td><a href="../../../nn/fs/ResultNotFormatted/Overview.html">ResultNotFormatted</a></td><td></td>
+          </tr>
+          <tr>
+            <th>360-389</th><td><a href="../../../nn/fs/ResultBadFormat/Overview.html">ResultBadFormat</a></td><td></td>
+          </tr>
+          <tr>
+            <th>390-399</th><td><a href="../../../nn/fs/ResultVerificationFailed/Overview.html">ResultVerificationFailed</a></td><td></td>
+          </tr>
+          <tr>
+            <th>600-629</th><td><a href="../../../nn/fs/ResultOutOfResource/Overview.html">ResultOutOfResource</a></td><td></td>
+          </tr>
+          <tr>
+            <th>630-659</th><td><a href="../../../nn/fs/ResultAccessDenied/Overview.html">ResultAccessDenied</a></td><td></td>
+          </tr>
+          <tr>
+            <th>700-729</th><td><a href="../../../nn/fs/ResultInvalidArgument/Overview.html">ResultInvalidArgument</a></td><td></td>
+          </tr>
+          <tr>
+            <th>730-749</th><td><a href="../../../nn/fs/ResultNotInitialized/Overview.html">ResultNotInitialized</a></td><td></td>
+          </tr>
+          <tr>
+            <th>750-759</th><td><a href="../../../nn/fs/ResultAlreadyInitialized/Overview.html">ResultAlreadyInitialized</a></td><td></td>
+          </tr>
+          <tr>
+            <th>760-779</th><td><a href="../../../nn/fs/ResultUnsupportedOperation/Overview.html">ResultUnsupportedOperation</a></td><td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <a name="History"><h2>Revision History</h2></a>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/10</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

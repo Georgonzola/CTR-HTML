@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Encrypt</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/crypto/Overview.html">crypto</a>::<a href="../../../nn/crypto/CbcEncryptor/Overview.html">CbcEncryptor</a>::Encrypt Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static size_t Encrypt(
+     void * pDst,
+     size_t dstSize,
+     const void * pSrc,
+     size_t srcSize,
+     const void * pIv,
+     size_t ivSize,
+     const <a href="../../../nn/crypto/BlockCipher/Overview.html">BlockCipher</a> & c
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Pointer to the buffer storing the encryption results.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dstSize</th>
+          <td>Size of the buffer pointed to by pDst.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pSrc</th>
+          <td>Pointer to the buffer storing the plaintext.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcSize</th>
+          <td>Plaintext size in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pIv</th>
+          <td>Pointer to the buffer storing the IV.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>ivSize</th>
+          <td>IV size in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>c</th>
+          <td>Instance of the block encryption implementation used in encryption.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the number of bytes written to pDst. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Handles batch encryption when in CBC mode.</p><p>When all data is loaded into memory, you can call this function to encrypt all of the data at the same time.</p><p>For c, specify an instance of a class derived from the <code><a href="../../../nn/crypto/BlockCipher/Overview.html">BlockCipher</a></code> class that implements the block cipher used in encryption.</p><p>You must have previously used the <code><a href="../../../nn/crypto/BlockCipher/SetKey.html">BlockCipher::SetKey</a></code> function to set the key used in encryption.</p><p>The function fails and displays an error if the size of the return value is larger than the buffer size specified in dstSize.</p><p>Data is not written to the buffer beyond the size specified in dstSize. If the size of the return value is not larger than dstSize, the function indicates a successful completion and writes the size of the return value in pDst.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

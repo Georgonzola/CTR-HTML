@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetBrightnessSynchronization</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::SetBrightnessSynchronization Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> SetBrightnessSynchronization(
+     bool enable
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>enable</th>
+          <td>Specify <code>true</code> to start brightness synchronization, and <code>false</code> to end it.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultIsSleeping</th>
+          <td>This function is unusable because the system cover is closed.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>There may be something physically wrong with the <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures the start and end of brightness synchronization.</p><P>The CTR's stereo camera performs internal processing of the left and right cameras independently (such as for auto-exposure), and this can cause the image brightness to differ for some subjects.</P><P>This function synchronizes (links) the brightness of the stereo camera images by periodically writing the exposure settings of the right outer camera to the left outer camera.  When auto-exposure is enabled in particular, this function tracks changes in the exposure of the right outer camera, and changes the exposure of the left outer camera accordingly.</P><P>By default, synchronization is disabled (I.e. <span class="argument">enable</span> is set to <tt>false</tt>).</P><P>This function is only effective when the left and right outer cameras are used at the same time.  It has no effect if the left outer camera and inner camera are used in combination.</P><P>This function can be called both before and after the left and right outer cameras are activated via <tt><span>nn::camera::Activate</span></tt>.  Once synchronization has been enabled via this function, the configuration is retained even if the camera goes into standby. Synchronization will therefore continue after both cameras have been activated again.  To disable synchronization, call this function with <span class="argument">enable</span> set to <tt>false</tt>.</P><P>Internally, the configuration is written using the system's lowest-priority thread. Synchronization could therefore be delayed when the system is under heavy load.</P><P>This function fails if any of the following apply to the camera configuration.  None of the following settings are available after synchronization has been enabled by this function. Function execution will fail.<ul><li>When white balance is set to other than <tt>WHITE_BALANCE_NORMAL</tt>.</li><li>When the white balance setting is disabled.</li><li>When the photo mode is <tt>PHOTO_MODE_LANDSCAPE</tt>.</li><li>When the contrast setting is <tt>CONTRAST_PATTERN_10</tt>.</li></ul></P><p><b>Note:</b> This function may block for an extended period if a camera is restarting.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/22</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

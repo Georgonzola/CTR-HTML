@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CreateMessageBox</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cec/Overview.html">cec</a>::<a href="../../../../nn/cec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a>::CreateMessageBox Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/Result/Overview.html">nn::Result</a> CreateMessageBox(
+     const <a href="../../../../nn/cec/CTR/TitleId.html">TitleId</a> cecTitleId,
+     const <a href="../../../../nn_types/u32.html">u32</a> privateId,
+     const char * hmacKey,
+     const void * icon,
+     size_t iconSize,
+     const wchar_t * name,
+     size_t nameSize,
+     size_t inboxSizeMax = CEC_INBOX_SIZE_DEFAULT,
+     size_t outboxSizeMax = CEC_OUTBOX_SIZE_DEFAULT,
+     size_t inboxMessNumMax = CEC_INBOX_MESSNUM_DEFAULT,
+     size_t outboxMessNumMax = CEC_OUTBOX_MESSNUM_DEFAULT,
+     size_t size = CEC_MESSSIZEMAX_DEFAULT
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>cecTitleId</th>
+          <td>A 32-bit StreetPass ID. It can be generated with <code><a href="../../../../nn/cec/CTR/MakeCecTitleId.html">MakeCecTitleId</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>privateId</th>
+          <td>The key needed to open a message box. &#8594; <code><a href="../../../../nn/cec/CTR/MessageBox/OpenMessageBox.html">OpenMessageBox</a></code><br />
+ The value used must be stored by the application accessing the message box.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>hmacKey</th>
+          <td>Specifies the key needed to read a <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code>. Specifies a 32-byte value. This must be a secret key shared with the communication partner. <br />
+ This value is used to check if the transmitted data has been tampered with. Transmitted data is signed with a signature generated using this key. <br />
+ Use a value stored by the application. <br />
+ If it is a 32-byte value, you can also use characters other than (<code>0x20</code> &#8211; <code>0x7e</code>).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>icon</th>
+          <td>Specifies the icon. <br />
+ Format: RGB565 (little-endian).<br />
+ Size: 48 x 48 (4.5 KB)<br /></td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>iconSize</th>
+          <td>Specifies the size of the icon data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>name</th>
+          <td>Specifies the application name. <br />
+ Encoding UTF16-LE<br />
+ Display size: The number of characters displayable as 17 double-byte characters (without line breaks).<br />
+ Maximum buffer size: 64 x 2 bytes (including the <code>NULL</code> terminator).<br /></td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>nameSize</th>
+          <td>Specifies the size of the application name.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>inboxSizeMax</th>
+          <td>Specifies the maximum amount of data that can be saved in the inbox. The combined size of the inbox and outbox must be no more than 1 MB. The default size is 512 * 1024 bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>outboxSizeMax</th>
+          <td>Specifies the maximum amount of data that can be saved in the outbox. The combined size of the inbox and outbox must be no more than 1 MB. The default size is 512 x 1024 bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>inboxMessNumMax</th>
+          <td>Specifies the maximum number of messages that can be saved in the inbox. The default is 99, which is the maximum specifiable value.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>outboxMessNumMax</th>
+          <td>Specifies the maximum number of messages that can be saved in the outbox. The default is 99, which is the maximum specifiable value.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>This value is not used.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns an <code><a href="../../../../nn/Result/Overview.html">nn::Result</a></code> value.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultBoxAlreadyExists</th>
+          <td>Could not create the box, because the box already exists. <br />
+ If this error is returned in a <code>OpenMessageBox == nn::cec::ResultNoData()</code> state, it could be because a box was created with a different least-significant eight bits for <code>CecTitleId</code>. &#8594; <a href="../../../../nn/cec/CTR/MakeCecTitleId.html">MakeCecTitleId</a> , <a href="../../../../nn/cec/CTR/MessageBox/OpenMessageBox.html">OpenMessageBox</a></td>
+        </tr>
+        <tr>
+          <th>ResultBoxNumFull</th>
+          <td>The maximum number of boxes has been created. To create a new box, you must delete a box for another game title.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidArgument</th>
+          <td>Specifies that one or more arguments are invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidData</th>
+          <td>There is a problem with the data, icon, or name being set.</td>
+        </tr>
+        <tr>
+          <th>ResultTooLarge</th>
+          <td>There is a problem with the size of data being set.</td>
+        </tr>
+        <tr>
+          <th>ResultStateBusy</th>
+          <td>Cannot access because the daemon is busy (<code>BUSY</code> state). It may succeed if you wait some time before accessing again.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>. An inbox and outbox are created within the message box. <br />
+ Any <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code> set in the outbox is automatically sent during StreetPass communication, and any received data is stored in the inbox.</p><p><code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code> objects are created in NAND memory. Only one box may be created for each application. Only 12 boxes may be created in total. Attempting to create a new message box when 12 already exist does not create a new box. <br />
+ Immediately after creation, a box is in the "opened" state (<code><a href="../../../../nn/cec/CTR/MessageBox/OpenMessageBox.html">OpenMessageBox</a></code>). <br />
+ The <emphasis>privateId</emphasis> and <emphasis>hmacKey</emphasis> values are used to restrict access. Decide and set these values on the application side. <br />
+ The <emphasis>privateId</emphasis> value is the key needed to open a message box and is intended to be limited to one system. <br />
+ The <emphasis>hmacKey</emphasis> value is a secret key common to all instances of an application and is used to prevent data tampering and application spoofing. Set a value that cannot be guessed by analogy. These keys are stored in the message box. <br />
+ Create and set shared keys in an appropriate configuration if you need to access the same message box from multiple save-data files or applications. <br /><br />
+ You can restrict the number and size of messages placed in the INBOX and OUTBOX. If not specified, the number of messages is limited to 99 and their size is limited to 512 KB. You can get the limit on the number of messages using <code><a href="../../../../nn/cec/CTR/MessageBox/GetBoxMessageNum.html">GetBoxMessageNum</a></code> and the size limitation using <code><a href="../../../../nn/cec/CTR/MessageBox/GetBoxSize.html">GetBoxSize</a></code> (the total of message sizes given by <code><a href="../../../../nn/cec/CTR/MessageBox/GetMessageSize.html">GetMessageSize</a></code> for each message). Messages are not saved if either the number of messages or the message size exceeds the specified limit. To limit the box size in terms of number of messages, be sure to set values so that box size is not limited by message size first. <br />
+ Note that when specifying a propagation count, there must also be available space in the OUTBOX. <br /><br /><bold>Note:</bold> When this function is called, the CEC (StreetPass) daemon operating in the background stops. <br />
+ Note that background communication might be interrupted. &#8594; <code><a href="../../../../nn/cec/CTR/CecControl/StopScanning.html">CecControl::StopScanning</a></code><br /><br />
+ There are two types of StreetPass icons used on System Settings screens and other screens. <br />
+ There is a box icon and an icon for individual messages. You must specify both. <br />
+ This function sets the box icon. <br /><br />
+ Note that when there is no data in the outbox or when the send count for all messages is zero, communications with that title are not performed, even if it has an exclusive box. <br />
+ If the inbox becomes full, communication with a discovered partner is recorded as complete, but messages are not received in the application's box. After communication with a partner is recorded as complete, no communication is conducted with that partner for a set period of time.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

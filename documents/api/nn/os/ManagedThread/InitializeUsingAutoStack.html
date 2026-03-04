@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>InitializeUsingAutoStack</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a>::InitializeUsingAutoStack Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+template &lt;typename T, typename U&gt;void InitializeUsingAutoStack(
+     void(*)(T) f,
+     U param,
+     size_t stackSize,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+
+template &lt;typename T&gt;void InitializeUsingAutoStack(
+     void(*)(T *) f,
+     const T & param,
+     size_t stackSize,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+
+template &lt;typename T&gt;void InitializeUsingAutoStack(
+     void(*)(const T *) f,
+     const T & param,
+     size_t stackSize,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+
+void InitializeUsingAutoStack(
+     void(*)() f,
+     size_t stackSize,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./InitializeUsingAutoStack(0).html">InitializeUsingAutoStack ( void(*)(T), U, size_t, s32, s32 ) </a>
+          </td>
+          <td>Automatically allocates the stack and creates the thread.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./InitializeUsingAutoStack(1).html">InitializeUsingAutoStack ( void(*)(T *), const T &, size_t, s32, s32 ) </a>
+          </td>
+          <td>Automatically allocates the stack and creates the thread.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./InitializeUsingAutoStack(2).html">InitializeUsingAutoStack ( void(*)(const T *), const T &, size_t, s32, s32 ) </a>
+          </td>
+          <td>Automatically allocates the stack and creates the thread.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./InitializeUsingAutoStack(3).html">InitializeUsingAutoStack ( void(*)(), size_t, s32, s32 ) </a>
+          </td>
+          <td>Automatically allocates the stack and creates the thread.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of InitializeUsingAutoStack ( void(*)(T), U, size_t, s32, s32 ) </h2>
+    <div class="section"><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/TryInitializeUsingAutoStack(0).html">TryInitializeUsingAutoStack&#x3c;T, U&#x3e;()</a></tt> function, with the exception that there is no <tt>panic</tt> process when an error occurs inside the function.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/TryInitializeUsingAutoStack(0).html">TryInitializeUsingAutoStack&#x3c;T, U&#x3e;()</a></tt> function. </p></div>
+    <h2>Description of InitializeUsingAutoStack ( void(*)(T *), const T &, size_t, s32, s32 ) </h2>
+    <div class="section"><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/InitializeUsingAutoStack(0).html">InitializeUsingAutoStack&#x3c;T, U&#x3e;()</a></tt> function, with the exception that the data referenced by <span class="argument">param</span> is copied to the buffer passed as the stack, and the pointer to that copied region is passed as the <span class="argument">f</span> argument.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/InitializeUsingAutoStack(0).html">InitializeUsingAutoStack&#x3c;T, U&#x3e;()</a></tt> function. </p></div>
+    <h2>Description of InitializeUsingAutoStack ( void(*)(const T *), const T &, size_t, s32, s32 ) </h2>
+    <div class="section"><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/InitializeUsingAutoStack(0).html">InitializeUsingAutoStack&#x3c;T, U&#x3e;()</a></tt> function, with the exception that the data referenced by <span class="argument">param</span> is copied to the buffer passed as the stack, and the pointer to that copied region is passed as the <span class="argument">f</span> argument.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/InitializeUsingAutoStack(0).html">InitializeUsingAutoStack&#x3c;T, U&#x3e;()</a></tt> function. </p></div>
+    <h2>Description of InitializeUsingAutoStack ( void(*)(), size_t, s32, s32 ) </h2>
+    <div class="section"><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/InitializeUsingAutoStack(0).html">InitializeUsingAutoStack&#x3c;T, U&#x3e;()</a></tt> function, with the exception that a function that does not take arguments is used as the thread function.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/InitializeUsingAutoStack(0).html">InitializeUsingAutoStack&#x3c;T, U&#x3e;()</a></tt> function. </p></div>
+  </body>
+</html>

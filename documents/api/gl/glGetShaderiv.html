@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetShaderiv</title>
+  </head>
+  <body>
+    <h1>glGetShaderiv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetShaderiv(
+     GLuint shader,
+     GLenum pname,
+     GLint * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>shader</th>
+          <td>Shader object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Region that stores the retrieved parameter.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a shader object parameter.</p><P>Set <span class="argument">shader</span> to a shader object.</P><P>Set <span class="argument">pname</span> to one of the following values.<TABLE><TR><TH>GL_SHADER_TYPE</TH><TD>Gets the shader type.</TD></TR><TR><TH>GL_DELETE_STATUS</TH><TD>Gets <tt>GL_TRUE</tt> if the shader object is waiting to be deleted and <tt>GL_FALSE</tt> otherwise. A shader object that is attached to at least one program object begins "waiting to be deleted" when <tt>glDeleteShader</tt> is called to delete it.</TD></TR><TR><TH>GL_COMPILE_STATUS</TH><TD>Always gets <tt>GL_FALSE</tt>.</TD></TR><TR><TH>GL_INFO_LOG_LENGTH</TH><TD>Always gets a value of 0.</TD></TR><TR><TH>GL_SHADER_SOURCE_LENGTH</TH><TD>Always gets a value of 0.</TD></TR></TABLE><!-- source pnameにはGL_SHADER_TYPE、GL_DELETE_STATUS、GL_COMPILE_STATUS、 GL_INFO_LOG_LENGTH、GL_SHADER_SOURCE_LENGTHが指定できます。 GL_SHADER_TYPEを指定した場合、シェーダのタイプが取得されます。 GL_DELETE_STATUSを指定した場合、シェーダオブジェクトが削除待ち状態である場合GL_TRUEが取得され、それ以外の場合GL_FALSEが取得されます。 1つ以上のプログラムオブジェクトにアタッチされているシェーダオブジェクトに対し、glDeleteShaderで削除しようとした場合 削除待ち状態になります。 GL_COMPILE_STATUSは、常にGL_FALSEが取得されます。 GL_INFO_LOG_LENGTHは、常に0が取得されます。 GL_SHADER_SOURCE_LENGTHは、常に0が取得されます。 --></P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">pname</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">shader</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 shaderに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

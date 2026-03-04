@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetUniformsDMP</title>
+  </head>
+  <body>
+    <h1>glGetUniformsDMP Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetUniformsDMP(
+     GLuint program,
+     GLuint n,
+     GLint * locations,
+     GLsizei * counts,
+     GLuint * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>program</th>
+          <td>Program object that gets the uniform values.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>n</th>
+          <td>Number of uniform values to get.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>locations</th>
+          <td>Pointer to an array that stores the locations of the n uniforms.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>counts</th>
+          <td>Pointer to an array that stores the elements of n number of uniforms.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Pointer to an array of the uniform values to get.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets several uniform values at once.</p><P>Gets multiple uniform values at once for the specified program.</P><P>Set <span class="argument">program</span> to the program object for the uniform values to get.  Set <span class="argument">n</span> to the number of uniforms to get, and set <span class="argument">locations</span> to a pointer to an array holding <span class="argument">n</span> uniform locations.</P><P>Set <span class="argument">counts</span> to a pointer to an array of <span class="argument">n</span> elements holding the uniform elements.  For array-type uniforms, specify the number of array elements to get values from. For non-array uniforms, specify <tt>1</tt>.</P><P>Set <span class="argument">params</span> to a pointer to an array for getting the uniform values.  Each uniform may have a different number of data items, so the data stored at any given index in <span class="argument">params</span> might not match that for <span class="argument">locations</span> and <span class="argument">counts</span>.  The uniforms for the values to get may be mixed <tt>float</tt> and <tt>int</tt> types.  When getting <tt>float</tt> type uniforms, <tt>float</tt> type data is stored in <span class="argument">params</span> as 32-bit data.</P><P>This function performs no error checking. Functionality is undefined when any of the arguments contains an invalid value.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/04/02</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

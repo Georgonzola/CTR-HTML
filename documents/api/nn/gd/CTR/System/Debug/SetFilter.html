@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <title>SetFilter</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/gd/CTR/System/Overview.html">System</a>::<a href="../../../../../nn/gd/CTR/System/Debug/Overview.html">Debug</a>::SetFilter Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../../nnResult/Overview.html">nnResult</a> SetFilter(
+     <a href="../../../../../nn_types/u32.html">u32</a> filterFlag,
+     <a href="../../../../../nn_types/u32.html">u32</a> drawStartIndex,
+     <a href="../../../../../nn_types/s32.html">s32</a> drawCount
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>filterFlag</th>
+          <td>Specifies the status or effect to be changed.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>drawStartIndex</th>
+          <td>Specifies the number of draw executions to put on standby before enabling the effect. If <code>0</code> is specified for drawStartIndex, the effect is enabled the next time a draw is executed.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>drawCount</th>
+          <td>Specifies the number of draw executions at which to enable the effect.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets a filter capable of making several status changes upon the next draw. The filterFlag parameter can be specified by using an OR operation on the <code>System::Filter</code> enum members.</p><p>This function can be used when the compile mode is <a href="../../../../../nn/gd/CTR/System/Debug/Overview.html">Debug</a> or Development. It does nothing for Release builds. This function has been designed so that the user can test performance, the state of the visual image, and feature effects. The state and features specified by the filterFlag parameter can be switched to beginning after the drawing specified by drawStartIndex for the number of drawings specified by drawCount. The <code><a href="../../../../../nn/gd/Overview.html">gd</a></code> API automatically restores the user-defined state after the effect is no longer changed.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

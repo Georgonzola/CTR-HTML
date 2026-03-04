@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>FromBase64String</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/util/Overview.html">util</a>::<a href="../../../nn/util/Base64/Overview.html">Base64</a>::FromBase64String Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../nn/Result/Overview.html">nn::Result</a> FromBase64String(
+     const char * pSrc,
+     void * pDst,
+     size_t sizeDst,
+     size_t * pNum
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pSrc</th>
+          <td>Pointer to input data in <code>base64</code> format.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Pointer to the buffer that holds the output data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>sizeDst</th>
+          <td>Size of the buffer indicated by pDst.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pNum</th>
+          <td>Buffer for storing the number of characters actually output.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns whether the resource was successfully converted. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Converts a base 64 format into binary data.</p><p>The number of bytes written to the destination buffer is written to <span class="argument">*pNum</span>.</p><p>This function parses the entered string according to the following rules:<UL><LI>There is no limit to the number of characters in one line.</LI><LI>Spaces and linefeed characters (0x09, 0x0a, 0x0d, 0x20) are simply skipped over.</LI><LI>Data are treated as invalid if they contain characters that are not suitable for use as base-64 characters nor as space and linefeed characters.</LI><LI>The NULL character (0x00) terminates the data. However, if the padding character "=" (0x3d) appears, this is treated as the effective end of the data.</LI></UL></p><p>One of the following errors is returned when the conversion fails:<UL><LI><tt><a href="../../../nn/util/ResultInvalidPtr/Overview.html">nn::util::ResultInvalidPtr</a></tt> - The pointer given as a parameter is invalid.</LI><LI><tt><a href="../../../nn/util/ResultBadData/Overview.html">nn::util::ResultBadData</a></tt> - The format of the entered string is invalid.</LI><LI><tt><a href="../../../nn/util/ResultBufferFull/Overview.html">nn::util::ResultBufferFull</a></tt> - The output destination buffer is not large enough.</LI></UL>The conversion process proceeds until the failure occurs, and <span class="argument">*pNum</span> gets the number of bytes that were written before the failure.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/19</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

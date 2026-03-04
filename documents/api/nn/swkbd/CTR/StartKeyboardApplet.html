@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>StartKeyboardApplet</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/swkbd/Overview.html">swkbd</a>::<a href="../../../nn/swkbd/CTR/Overview.html">CTR</a>::StartKeyboardApplet Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool StartKeyboardApplet(
+     <a href="../../../nn/applet/CTR/WakeupState.html">nn::applet::AppletWakeupState</a> * pWakeupState,
+     <a href="../../../nn/swkbd/CTR/Parameter/Overview.html">Parameter</a> * pParameter,
+     void * pSharedMemoryAddr,
+     size_t sharedMemorySize,
+     const wchar_t * pInitialInputText = NULL,
+     const <a href="../../../nn/swkbd/CTR/UserWord/Overview.html">UserWord</a> * pUserWordArray = NULL,
+     const void * pInitialStatusData = NULL,
+     const void * pInitialLearningData = NULL,
+     <a href="../../../nn/swkbd/CTR/AppTextCheckCallback.html">AppTextCheckCallback</a> callback = NULL
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pWakeupState</th>
+          <td>The type of startup request. An undefined value is stored here on failure.</td>
+        </tr>
+        <tr>
+          <td>inout</td>
+          <th>pParameter</th>
+          <td><a href="../../../nn/swkbd/CTR/Parameter/Overview.html">Parameter</a> structure.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pSharedMemoryAddr</th>
+          <td>Starting address of the shared memory region. Must be aligned to <emphasis>MEMORY_ALIGNMENT</emphasis> (4096 bytes). Device memory cannot be specified.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>sharedMemorySize</th>
+          <td>The size of the shared memory region. Must be a multiple of <emphasis>MEMORY_UNITSIZE</emphasis> (4096 bytes).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pInitialInputText</th>
+          <td>The starting address of the initial input text.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pUserWordArray</th>
+          <td>The starting address of the user dictionary's registered word array.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pInitialStatusData</th>
+          <td>The starting address of the initial operating status data at startup.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pInitialLearningData</th>
+          <td>The starting address of the initial predictive text learning data at startup.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>callback</th>
+          <td>The callback for text checking by the application.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> on success. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Starts the software keyboard <a href="../../../nn/applet/Overview.html">applet</a>.</p><p>Before calling this function, allocate a shared memory region of the size returned by the <tt><a href="../../../nn/swkbd/CTR/GetSharedMemorySize.html">nn::swkbd::CTR::GetSharedMemorySize</a></tt> function. Specify that region's starting address and size for <span class="argument">pSharedMemoryAddr</span> and <span class="argument">sharedMemorySize</span>, respectively. <br /> You cannot specify device memory. <br /> If for some reason a shared memory region was allocated with a size larger than that returned by the <tt><a href="../../../nn/swkbd/CTR/GetSharedMemorySize.html">nn::swkbd::CTR::GetSharedMemorySize</a></tt> function, you must make sure that you specify the actual allocated size for <span class="argument">sharedMemorySize</span>. <br /> When the shared memory size is <tt>0</tt>, specify <code>NULL</code> for <span class="argument">pSharedMemoryAddr</span>.</p><p>For <span class="argument">pParameter</span>, specify the starting address of a parameter structure that holds the same <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure as the member variable that was specified in the argument to the <tt><a href="../../../nn/swkbd/CTR/GetSharedMemorySize.html">nn::swkbd::CTR::GetSharedMemorySize</a></tt> function.</p><p>For <span class="argument">pInitialInputText</span>, specify the starting address of a null-terminated string that you want to use as preexisting input when the software keyboard starts up. <br />If you specify a string whose length exceeds the value of the <tt>textLengthMax</tt> member variable of the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure, only <tt>textLengthMax</tt> characters from the start of the string are input. <br /> In addition, if <tt>false</tt> is specified for the <tt>lineFeed</tt> member variable of the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure, only the string up until the first newline is input when the string includes newlines. <br /> If not specifying a string, specify <code>NULL</code>.</p><p>For <span class="argument">pUserWordArray</span>, specify the starting address of the <tt><a href="../../../nn/swkbd/CTR/UserWord/Overview.html">nn::swkbd::CTR::UserWord</a></tt> structure array. The number of elements in this array is specified by the <tt>numUserWords</tt> member variable of the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure. <br /> Words are registered to the user dictionary in order from the start of the array. However, if an attempt is made to register more than <tt><a href="../../../nn/swkbd/CTR/NUM_USER_WORDS_MAX.html">nn::swkbd::CTR::NUM_USER_WORDS_MAX</a></tt> number of words for any single language, those extra words are ignored and not registered. <br /> Specify <code>NULL</code> when not using user dictionaries.</p><p>For <span class="argument">pInitialStatusData</span>, specify the starting address of the operating status data to apply to the software keyboard's operating status when it is started. <br /> If not specifying the operating status, specify <code>NULL</code>. <br /> If you specify <tt>EXT_OUTPUT_DATA_STATUS</tt> in the <tt>extOutputDataFlag</tt> member variable of the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure, you can output the operating status data when the software keyboard closes. <br /> The output operating status data can be obtained by checking the value of the <tt>statusData</tt> member variable of the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure.</p><p>For <span class="argument">pInitialLearningData</span>, specify the starting address of the predictive text learning data to apply to the software keyboard's predictive text learning status when it is started. <br /> This data includes information pertaining to the corresponding language, so the learning data is applied only when this information matches the software keyboard's dictionary language setting at startup. <br /> However, the learning status is reset if the dictionary language setting is changed by the user while the software keyboard is running. <br /> If not specifying any predictive text learning data, specify <code>NULL</code>. <br /> If you specify <tt>EXT_OUTPUT_DATA_LEARNING</tt> in the <tt>extOutputDataFlag</tt> member variable of the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure, you can output the predictive text learning data when the software keyboard closes. <br /> The output data can be obtained by checking the value of the <tt>learningData</tt> member variable of the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure.</p><p>If the <tt>TEXT_CHECK_APP</tt> flag has been set in the <tt>textCheckFlag</tt> member variable of the <tt><a href="../../../nn/swkbd/CTR/Config/Overview.html">nn::swkbd::CTR::Config</a></tt> structure, specify the text checking callback function in the <span class="argument">callback</span> parameter. <br /> In all other instances the value of this parameter is ignored.</p><p>When a library applet other than the software keyboard applet has been preloaded, you must cancel that preload before calling this function.</p><p>This function calls the <tt><a href="../../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></tt> function. <br /> Because you must determine whether to close the application when this function returns, call the <tt><a href="../../../nn/applet/CTR/IsExpectedToCloseApplication.html">nn::applet::CTR::IsExpectedToCloseApplication</a></tt> function immediately after control exits this function.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment and size.</item><br />
+        </dd>
+        <dt>2011/03/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

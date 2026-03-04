@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"[]>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+<!-- Inserted by TRADOS: --><META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+  <meta http-equiv="Content-style-type" content="css/text; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+  <script src="savedata_calc.js" type="text/javascript"></script>
+  <title>Worksheet for Calculating the Save Data File System Capacity</title>
+</head>
+<body onload="calcFsSpace(); calcFsSpaceExtMeta(); calcFsSpaceExtFile();">
+<style type="text/css"><!--
+table.calc { 
+    margin-top        : 2pt;
+    margin-bottom     : 2pt;
+    margin-left       : 0pt;
+    margin-right      : 0pt;
+    padding-left      : 0pt;
+    padding-right     : 0pt;
+    position          : relative;
+    left              : 12px;
+    font-family       : Arial;
+    font-size         : 10pt;
+    border-style      : none none none none;
+    border-color      : #ffffff;
+    background-color  : #ffffff;
+}
+th.tb {
+    border-color      : #ffffff;
+    background-color  : #c0d8d8;
+}
+td.tb {
+    border-color      : #ffffff;
+    background-color  : #e8f4f4;
+}
+td.bg {
+    border-color      : #ffffff;
+    background-color  : #ffffff;
+}
+tr.hidden {
+    display           : none;
+}
+input.hidden {
+    display           : none;
+}
+div.hidden {
+    display           : none;
+}
+
+--></style>
+
+<!-- 内容 ここから -->
+<script language="JavaScript">
+<!--
+capacityUnit = 1024 * 1024;
+type2BlockSize = 512;
+calcFsSpace();
+//-->
+</script>
+<h1>Worksheet for Calculating the Save Data File System Capacity</h1>
+<p>
+Calculates the amount of space used by save data and expanded save data.
+</p>
+
+<a name="CalcSize_SaveData"><h2>CTR Card Save Data</h2></a>
+<div class="section">
+  Calculates the amount of data that can actually be saved in save data. <br /> <br />Save data manages data in a fixed size of 512 bytes. On this worksheet, this fixed size is referred to as a block. <br /> Note that this differs from the definition of a block (128 KB) that is displayed on the CTR Menu.<br /><br /> <br />
+
+  <form name="FsSpace">
+  <table class="calc">
+    <tr>
+      <td class="bg" style="font-size: 12pt;" colspan="3">Input Parameters</td>
+    </tr>
+    <tr>
+      <td class="bg"></td>
+      <th class="tb">Type of Application</th>
+      <td class="tb">
+        <input type="radio" name="fsblocksize" value="1" onChange="calcFsSpace();" onClick="calcFsSpace();" checked="checked" />CTR card-based software (<CODE>Card1</CODE>) / SD application <!--( 512バイト/ブロック )--><br />
+        <input type="radio" name="fsblocksize" value="2" onChange="calcFsSpace();" onClick="calcFsSpace();" />CTR card application (Card2) / SD application
+      </td>
+    </tr>
+    <tr>
+      <td class="bg"></td>
+      <th class="tb">Protection Type</th>
+      <td class="tb">
+        <input type="radio" name="fstype" value="c1" onChange="calcFsSpace();" onClick="calcFsSpace();" checked="checked" />No automatic redundancy. (Any save data that is being written will be corrupted if the Game Card is removed. )<br />
+        <input type="radio" name="fstype" value="c2" onChange="calcFsSpace();" onClick="calcFsSpace();" />Automatic redundancy. (Any save data that is being written will be protected against corruption even if the Game Card is removed. )
+      </td>
+    </tr>
+    <tr>
+      <td class="bg"></td>
+      <th class="tb">Recordable Media</th>
+      <td class="tb">
+        <input type="radio" name="capacitytype" value="c1" onChange="calcFsSpace();" onClick="calcFsSpace();" checked="checked" />128KB of backup memory<br />
+        <input type="radio" name="capacitytype" value="c2" onChange="calcFsSpace();" onClick="calcFsSpace();" />512 KB of backup memory<br />
+        <input type="radio" name="capacitytype" value="c3" onChange="calcFsSpace();" onClick="calcFsSpace();" />1 to 2047 MB user-specified
+        <div style="position:relative; left:1.5em;"><input size="12" style="text-align:right;" type="text" name="capacitytypeuser" value="1" onChange="calcFsSpace();" /> MB</div>
+      </td>
+    </tr>
+    <tr>
+      <td class="bg"></td>
+      <th class="tb">Maximum Number of Directories (0-?)</th>
+      <td class="tb">
+        <input size="6" style="text-align:right;" type="text" name="CountDirectoryEntry" value="5" onChange="calcFsSpace();" /> (Total number of directories that can be created throughout the entire file system.)
+      </td>
+    </tr>
+    <tr>
+      <td class="bg"></td>
+      <th class="tb">Maximum Number of Files (1-?)</th>
+      <td class="tb">
+        <input size="6" style="text-align:right;" type="text" name="CountFileEntry" value="5" onChange="calcFsSpace();" /> (Total number of files that can be created throughout the entire file system.)
+      </td>
+    </tr>
+    <tr>
+      <td class="bg" style="background-color: white; font-size: 12pt;" colspan="3"><br />Amount of Data That Can Be Saved</td>
+    </tr>
+    <tr>
+      <td class="bg"></td>
+     <th class="tb">Save Data Block Size</th>
+      <td class="tb"><input size="10" style="text-align:right; background-color: #e0e0e0;" type="text" name="SaveDataBlockSize" readonly="readonly" /> bytes</td>
+    </tr>
+    <tr>
+      <td class="bg"></td>
+      <th class="tb">Number of Save Data Blocks</th>
+      <td class="tb"><input size="10" style="text-align:right; background-color: #e0e0e0;" type="text" name="SaveDataBlocks" readonly="readonly" /> Blocks</td>
+    </tr>
+    <tr>
+      <td class="bg"></td>
+      <th class="tb">Save Data Capacity</th>
+      <td class="tb">
+        <input size="10" style="text-align:right; background-color: #e0e0e0;" type="text" name="SaveDataCapacities" readonly="readonly" /> bytes = <input size="10" style="text-align:right; background-color: #e0e0e0;" type="text" name="SaveDataCapacitiesKilloByte" readonly="readonly" /> KB (= block size × number of blocks)
+      </td>
+    </tr>
+  </table>
+  </form>
+</div>
+
+<a name="CalcSize_ExtSaveData"><h2>Expanded Save Data</h2></a>
+<div class="section">
+  Calculates the data size space of the expanded save data. <br /> <br />Expanded save data manages data with a fixed size of 4,096 bytes. On this worksheet, this fixed size is referred to as a block. <br /> Note that this differs from the definition of a block (128 KB) that is displayed on the CTR Menu.<br /><br /> <br /> <font color="red">Calculates the number of blocks consumed in expanded save data. Depending on the SD card format, the actual memory footprint on the SD card may be greater than the values shown here. Note that <CODE>nn::fs::ResultNotEnoughSpace</CODE> may be returned even if an SD card has as much free space as the sizes shown here.</font>
+
+  <h3>Metadata</h3>
+  <div class="section">
+    Calculates the size (in number of blocks) used when expanded save data is created. <br />
+
+    <form name="FsSpaceExtEntry">
+    <table class="calc">
+      <tr>
+        <td class="bg" style="font-size: 12pt;" colspan="3">Input Parameters</td>
+      </tr>
+      <tr>
+        <td class="bg"></td>
+        <th class="tb">Icon Data Size</th>
+        <td class="tb">
+          <input size="10" style="text-align:right;" type="text" name="IconSize" value="1024" onChange="calcFsSpaceExtMeta();" /> bytes
+        </td>
+      </tr>
+      <tr>
+        <td class="bg"></td>
+        <th class="tb">Maximum Number of Directories (0-?)</th>
+        <td class="tb">
+          <input size="6" style="text-align:right;" type="text" name="CountDirectoryEntry" value="5" onChange="calcFsSpaceExtMeta();" /> (Total number of directories that can be created throughout the entire file system.)
+        </td>
+      </tr>
+      <tr>
+        <td class="bg"></td>
+        <th class="tb">Maximum Number of Files (1-?)</th>
+        <td class="tb">
+          <input size="6" style="text-align:right;" type="text" name="CountFileEntry" value="5" onChange="calcFsSpaceExtMeta();" /> (Total number of files that can be created throughout the entire file system.)
+        </td>
+      </tr>
+      <tr>
+        <td class="bg" style="background-color: white; font-size: 12pt;" colspan="3"><br />Space Used</td>
+      </tr>
+      <tr>
+        <td class="bg"></td>
+       <th class="tb">Block Size for Expanded Save Data</th>
+        <td class="tb">4,096 bytes</td>
+      </tr>
+      <tr>
+        <td class="bg"></td>
+        <th class="tb">Number of Blocks Used for Expanded Save Data</th>
+        <td class="tb">
+          <input size="10" style="text-align:right; background-color: #e0e0e0;" type="text" name="ExtSaveDataBlocks" readonly="readonly" /> Blocks
+        </td>
+      </tr>
+      <tr>
+        <td class="bg"></td>
+        <th class="tb">Memory Size Used for Expanded Save Data</th>
+        <td class="tb">
+          <input size="10" style="text-align:right; background-color: #e0e0e0;" type="text" name="ExtSaveDataCapacities" readonly="readonly" /> bytes / <input size="10" style="text-align:right; background-color: #e0e0e0;" type="text" name="ExtSaveDataCapacitiesKilloByte" readonly="readonly" /> KB
+        </td>
+      </tr>
+    </table>
+    </form>
+  </div>
+
+  <h3>File</h3>
+  <div class="section">
+    Calculates the size (in number of blocks) that can be used when a single file is created in expanded save data. The actual size may be smaller than the size (in number of blocks) shown.<br /> <br />
+
+    <form name="FsSpaceExtFile">
+    <table class="calc">
+      <tr>
+        <td class="bg" style="font-size: 12pt;" colspan="3">Input Parameters</td>
+      </tr>
+      <tr>
+        <td class="bg"></td>
+        <th class="tb">Protection Type</th>
+        <td class="tb">No automatic redundancy. (Any save data that is being written will be corrupted if the SD card is removed. )<br /></td>
+      </tr>
+      <tr>
+        <td class="bg"></td>
+        <th class="tb">Amount of Data That Can Be Saved</th>
+        <td class="tb">
+          <input size="10" style="text-align:right;" type="text" name="capacitytypeuser" value="128" onChange="calcFsSpaceExtFile();" /> KB
+        </td>
+      </tr>
+      <tr>
+        <td class="bg" style="background-color: white; font-size: 12pt;" colspan="3"><br />Space Used</td>
+      </tr>
+      <tr>
+        <td class="bg"></td>
+       <th class="tb">Block Size for Expanded Save Data</th>
+        <td class="tb">4,096 bytes</td>
+      </tr>
+      <tr>
+        <td class="bg"></td>
+        <th class="tb">Number of Blocks Used for Expanded Save Data</th>
+        <td class="tb">
+          <input size="10" style="text-align:right; background-color: #e0e0e0;" type="text" name="ExtSaveDataBlocks" readonly="readonly" /> Blocks
+        </td>
+      </tr>
+      <tr>
+        <td class="bg"></td>
+        <th class="tb">Memory Size Used for Expanded Save Data</th>
+        <td class="tb">
+          <input size="10" style="text-align:right; background-color: #e0e0e0;" type="text" name="ExtSaveDataCapacities" readonly="readonly" /> bytes / <input size="10" style="text-align:right; background-color: #e0e0e0;" type="text" name="ExtSaveDataCapacitiesKilloByte" readonly="readonly" /> KB
+        </td>
+      </tr>
+    </table>
+    </form>
+  </div>
+</div>
+
+<h2>Revision History</h2>
+<div class="section">
+  <dl class="history">
+    <dt>2011/10/12</dt>
+      <dd>Added support for <CODE>Card2</CODE> save data.</dd>
+    <dt>2011/02/09</dt>
+      <dd>Added notes about the definition of "blocks."</dd>
+    <dt>2010/12/16</dt>
+      <dd>Added worksheets for expanded save data calculations.</dd>
+    <dt>2010/12/11</dt>
+      <dd>Initial version.</dd>
+  </dl>
+</div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>
+

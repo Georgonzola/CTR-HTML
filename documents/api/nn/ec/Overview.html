@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::ec Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the E-Commerce API.</p>
+    </div>
+    <a name="namespace" id="namespace">
+      <h2>Namespaces</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../nn/ec/CTR/Overview.html">nn::ec::CTR</a>
+            </th>
+            <td>Namespace for the <a href="../../nn/ec/CTR/Overview.html">CTR</a> E-Commerce API. (It can also be written without the <code>CTR</code> portion.) The <a href="../../nn/ec/Overview.html">ec</a> library is the library for purchasing and managing add-on content and service items. The following is a rough description of the process for purchasing and downloading add-on content. 1. Call <code><a href="../../nn/ec/CTR/Initialize.html">Initialize</a></code> to initialize the library. 2. Call the <code><a href="../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function to have the EC <a href="../../nn/applet/Overview.html">applet</a> initialize a <code><a href="../../nn/ec/CTR/Session/Overview.html">Session</a></code> object and establish a session with the eShop server. 3. Use the initialized <code><a href="../../nn/ec/CTR/Session/Overview.html">Session</a></code> object to initialize the <code><a href="../../nn/ec/CTR/ContentSetCatalog/Overview.html">ContentSetCatalog</a></code> object. 4. Call the <code><a href="../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function to search for content sets, and then call the <code><a href="../../nn/ec/CTR/ContentSetCatalog/GetContentSet.html">ContentSetCatalog::GetContentSet</a></code> function to get the <code><a href="../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code>. 5. Call the <code><a href="../../nn/ec/CTR/ContentSet/GetItemId.html">ContentSet::GetItemId</a></code> function to get the <code><a href="../../nn/ec/CTR/ItemId/Overview.html">ItemId</a></code> for the content set to purchase. 6. Call the <code><a href="../../nn/ec/CTR/EcApplet/RequestPurchaseContentSet.html">EcApplet::RequestPurchaseContentSet</a></code> function to have the EC <a href="../../nn/applet/Overview.html">applet</a> purchase and download the content set. Use the <code><a href="../../nn/ec/CTR/DataTitle/Overview.html">DataTitle</a></code> or <code><a href="../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a></code> classes to manage purchased and downloaded add-on content. Use the <code><a href="../../nn/ec/CTR/Server/Overview.html">Server</a></code> class for operations such as getting the balance and server time. When handling download codes, use the <code><a href="../../nn/ec/CTR/ECardInfo/Overview.html">ECardInfo</a></code> class to get download code information; the <code><a href="../../nn/ec/CTR/ECardItem/Overview.html">ECardItem</a></code>, <code><a href="../../nn/ec/CTR/ECardCatalogFilter/Overview.html">ECardCatalogFilter</a></code>, and <code><a href="../../nn/ec/CTR/ECardCatalog/Overview.html">ECardCatalog</a></code> classes to search for redeemable items; and the <code><a href="../../nn/ec/CTR/EcApplet/RequestRedeemContentSet.html">EcApplet::RequestRedeemContentSet</a></code> function to download the content being redeemed. The EC library features assume that a writable SD card has been inserted into the <a href="../../nn/ec/CTR/Overview.html">CTR</a> system. <linebreak />
+ Before downloading or deleting add-on content, be sure that a writable SD card is inserted in the <a href="../../nn/ec/CTR/Overview.html">CTR</a> system. <linebreak />
+ Perform this check inside the application before the downloading or deleting of add-on content, or call the <code><a href="../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function and then monitor for removal of the SD card until the point of downloading or deleting. <linebreak />
+ Processing that uses the EC library halts if it detects that an SD card has been inserted or removed during such processing. For more information about how to detect SD card hot-swapping, see the API Reference Manual for the FS library. <linebreak />
+ Note that if you are only reading the add-on content you do not need to check for a writable SD card. The EC library returns all strings encoded in UTF-8, with the exception of the string set in <code><a href="../../nn/ec/CTR/ServiceDescription/Overview.html">ServiceDescription</a></code>. The string set in <code><a href="../../nn/ec/CTR/ServiceDescription/Overview.html">ServiceDescription</a></code> is encoded in UTF-16. Use the <code><a href="../../nn/enc/Overview.html">enc</a></code> library to convert between UTF-8 and UTF-16. None of the classes or functions in the <code><a href="../../nn/ec/Overview.html">ec</a></code> library are thread-safe. Do not call library functions from multiple threads at the same time. The EC <a href="../../nn/applet/Overview.html">applet</a> uses a thread with a priority of 17,22. If you have other threads running while the <a href="../../nn/applet/Overview.html">applet</a> is running, be careful about their priority settings. Another thread with a priority of 15 is created to run the <a href="../../nn/applet/Overview.html">applet</a>. The listings for the results returned by each API function are not intended to cover all of the results returned by their respective API functions. Note that results other than those listed may also be returned.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/09/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

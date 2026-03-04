@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>RequestPurchaseServiceItems</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/EcApplet/Overview.html">EcApplet</a>::RequestPurchaseServiceItems Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a> RequestPurchaseServiceItems(
+     const <a href="../../../../nn/ec/CTR/TitleInfo/Overview.html">TitleInfo</a> & title,
+     const <a href="../../../../nn/ec/CTR/ServiceItemId/Overview.html">ServiceItemId</a> items[],
+     size_t numItems
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>title</th>
+          <td>Title information for the data title you are purchasing and downloading a content set for.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>items[]</th>
+          <td>Specifies the <code><a href="../../../../nn/ec/CTR/ServiceItemId/Overview.html">ServiceItemId</a></code> array for the service items to be purchased in batch.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numItems</th>
+          <td>Number of elements in <emphasis>items</emphasis>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. For more information about handling <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> objects, see the <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> reference. The results returned by the <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code> function are shown below.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultSessionInvalid</th>
+          <td>Invalid session.</td>
+        </tr>
+        <tr>
+          <th>ResultTooManyItems</th>
+          <td>The number of specified items exceeds the maximum number.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletWrongPinCode</th>
+          <td>The entered PIN code did not match the one configured on the system.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletCloseApplicationRequested</th>
+          <td>Application shutdown was requested. Close the application immediately.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletCancelled</th>
+          <td>The process was canceled by user operation.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletPowerButton</th>
+          <td>The process was canceled by the user pressing the POWER Button.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletAlreadyPurchased</th>
+          <td>Attempted to purchase a previously purchased item.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletItemUnpurchasable</th>
+          <td>Attempted to purchase an item that is not for sale.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletItemNotFound</th>
+          <td>The specified item does not exist.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletWifiOffError</th>
+          <td>Wi-Fi is off.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailedConnectError</th>
+          <td>Connection failed for another reason.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletSdBroken</th>
+          <td>The SD card is broken.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletSdEjected</th>
+          <td>The SD card was removed.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailedError</th>
+          <td>Another error occurred. (General error.)</td>
+        </tr>
+        <tr>
+          <th>ResultAppletFailed</th>
+          <td>The same general error as <code><a href="../../../../nn/ec/CTR/ResultAppletFailedError/Overview.html">ResultAppletFailedError</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletRequiresReConnect</th>
+          <td>The server connection has been ended, because there has been no user input for a long time.</td>
+        </tr>
+        <tr>
+          <th>ResultAppletNeedsBalanceUpdate</th>
+          <td>Detected that the balance needs to be updated while displaying the <a href="../../../../nn/applet/Overview.html">applet</a>. Call <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession()</a></code> again.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> purchase multiple service items in a batch.</p><p>This function requires an Internet connection because it communicates with the Nintendo eShop server.</p><p>Get the <code><a href="../../../../nn/ec/CTR/ItemId/Overview.html">ItemId</a></code> for the <code><a href="../../../../nn/ec/CTR/ServiceItemId/Overview.html">ServiceItemId</a></code> structure passed to this function with the <code><a href="../../../../nn/ec/CTR/ServiceItem/GetItemId.html">ServiceItem::GetItemId</a></code> function or a similar one.</p><p>The <code>RIV</code> token for the <code><a href="../../../../nn/ec/CTR/ServiceItemId/Overview.html">ServiceItemId</a></code> structure passed to this function contains an item code and reference ID, and the Nintendo eShop server validates them prior to purchase.</p><p>The string set in the <code><a href="../../../../nn/ec/CTR/ServiceDescription/Overview.html">ServiceDescription</a></code> for the <code><a href="../../../../nn/ec/CTR/ServiceItemId/Overview.html">ServiceItemId</a></code> structure passed to this function appears on the purchase confirmation screen of the EC <a href="../../../../nn/applet/Overview.html">applet</a>. Specify the string you want to display.</p><p>The maximum number of service items that can be purchased in a batch is 20.</p><p>Sometimes there are requests to close the application during a call to the EC <a href="../../../../nn/applet/Overview.html">applet</a>. Close the application immediately after receiving <code><a href="../../../../nn/ec/CTR/ResultAppletCloseApplicationRequested/Overview.html">ResultAppletCloseApplicationRequested</a></code>.</p><p>This function successfully ends, and the local license information is synchronized with the Nintendo eShop server. (The synchronized information is limited to the licenses acquired by this function.)</p><p>When a <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> for which <code><a href="../../../../nn/ec/CTR/ResultError/RequiresNewSession.html">ResultError::RequiresNewSession</a></code> returns <code>true</code> is returned, if the user proceeds with the purchase after reinitializing the session, sometimes the <code><a href="../../../../nn/ec/CTR/ItemId/Overview.html">ItemId</a></code> is no longer valid and an error occurs. To avoid this error, get the content set again.</p></div>
+  </body>
+</html>

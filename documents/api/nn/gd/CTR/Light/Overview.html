@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::gd::CTR::Light</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::Light Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Light</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This class manages settings for each of eight light sources.</p><p><anchor id="classnn_1_1gd_1_1_c_t_r_1_1_lighting_stage_1LightingStage" /> Because each of the eight lights using the lighting stage can be accessed using the <code><a href="../../../../nn/gd/CTR/LightingStage/Overview.html">LightingStage::light</a></code> variable, you do not need to create a new <code><a href="../../../../nn/gd/CTR/Light/Overview.html">Light</a></code> object.</p><!-- write here --></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/SourceType.html">SourceType</a>
+            </th>
+            <td>Enumerated type for types of fragment lights.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/LightLookUpTableUploadId.html">LightLookUpTableUploadId</a>
+            </th>
+            <td>Enumerated type for fragment light lookup tables. It can be independently set for each light.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/EnableLight.html">EnableLight</a>
+            </th>
+            <td>Enables or disables each light source.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/SetColorAmbient.html">SetColorAmbient</a>
+            </th>
+            <td>Sets the ambient color of each light source. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/SetColorDiffuse.html">SetColorDiffuse</a>
+            </th>
+            <td>Sets the diffuse color of each light source. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/SetColorSpecular0.html">SetColorSpecular0</a>
+            </th>
+            <td>Sets Specular Color 0 for each light source. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/SetColorSpecular1.html">SetColorSpecular1</a>
+            </th>
+            <td>Sets Specular Color 1 for each light source. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/SetPosition.html">SetPosition</a>
+            </th>
+            <td>This is an immediate function. It sets the light position. You must use <code><a href="../../../../nn/gd/CTR/Light/SetLightType.html">SetLightType</a></code> to set the light type to <code>SOURCE_TYPE_POINT</code>. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer. )<br /><bold>Note:</bold> This function sets the same registers as the <code><a href="../../../../nn/gd/CTR/Light/SetDirection.html">Light::SetDirection</a></code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/SetDirection.html">SetDirection</a>
+            </th>
+            <td>This function is an immediate function. It sets the light direction. You must specify <code>SOURCE_TYPE_DIRECTIONAL</code> for the light type set using <code><a href="../../../../nn/gd/CTR/Light/SetLightType.html">SetLightType</a></code>. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer. )<br /><bold>Note:</bold> This function sets the same registers as the <code><a href="../../../../nn/gd/CTR/Light/SetDirection.html">Light::SetDirection</a></code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/SetSpotDirection.html">SetSpotDirection</a>
+            </th>
+            <td>Sets the spotlight light direction. You must use <code><a href="../../../../nn/gd/CTR/Light/SetLightType.html">SetLightType</a></code> to set the light type to <code>SOURCE_TYPE_POINT</code>. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/SetLightType.html">SetLightType</a>
+            </th>
+            <td>Configures the light type. (Specify <code>SOURCE_TYPE_DIRECTIONAL</code> or <code>SOURCE_TYPE_POINT</code>.) This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/SetDistanceAttenuationScaleBias.html">SetDistanceAttenuationScaleBias</a>
+            </th>
+            <td>Sets the scale and bias for input values to the distance attenuation lookup table. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/EnableTwoSideDiffuse.html">EnableTwoSideDiffuse</a>
+            </th>
+            <td>Sets whether lighting is for one face or both faces. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/EnableGeomFactor0.html">EnableGeomFactor0</a>
+            </th>
+            <td>Sets whether lights use Geometry Factor 0. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/EnableGeomFactor1.html">EnableGeomFactor1</a>
+            </th>
+            <td>Sets whether lights use Geometry Factor 1. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/EnableSpotLight.html">EnableSpotLight</a>
+            </th>
+            <td>Enables or disables spotlights. A lookup table is used if enabled. You must use <code><a href="../../../../nn/gd/CTR/Light/SetLightType.html">SetLightType</a></code> to set the light type to <code>SOURCE_TYPE_POINT</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/EnableDistanceAttenuation.html">EnableDistanceAttenuation</a>
+            </th>
+            <td>Enables or disables distance attenuation of lights. A lookup table is used if enabled.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/EnableShadowed.html">EnableShadowed</a>
+            </th>
+            <td>Sets the components for which shadow is to be adjusted.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/UploadLookUpTableFloat.html">UploadLookUpTableFloat</a>
+            </th>
+            <td>Sets the lighting lookup table. The floating point value you specify is converted into fixed point data by this function and then sent to the GPU. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Light/UploadLookUpTableNative.html">UploadLookUpTableNative</a>
+            </th>
+            <td>Sets the lighting lookup table. The data used by this function has already been converted from floating point to fixed point. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

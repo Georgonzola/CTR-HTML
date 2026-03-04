@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetClientState</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dlp/Overview.html">dlp</a>::<a href="../../../../nn/dlp/CTR/Overview.html">CTR</a>::<a href="../../../../nn/dlp/CTR/Server/Overview.html">Server</a>::GetClientState Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">nn::Result</a> GetClientState(
+     <a href="../../../../nn/dlp/CTR/ClientState.html">ClientState</a> * pClientState,
+     size_t * pTotalNum,
+     size_t * pDownloadedNum,
+     <a href="../../../../nn_types/u16.html">u16</a> nodeId
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pClientState</th>
+          <td>Returns the client's state.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pTotalNum</th>
+          <td>Returns the size (the number of packets) of the client to be downloaded. Note that zero can be returned. Keep this in mind if you plan to use this number as a divisor.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pDownloadedNum</th>
+          <td>Returns the progress (the number of packets) of the client program download.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>nodeId</th>
+          <td>Specifies the client's node ID.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">The following <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values are returned as the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>The client status was successfully obtained.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidState</th>
+          <td>The state is invalid. This function can be used after the <code><a href="../../../../nn/dlp/CTR/Server/OpenSessions.html">OpenSessions()</a></code> function has succeeded (<code>SERVER_STATE_OPENED_SESSIONS</code>) as long as the state is not <code>SERVER_STATE_ERROR</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultNoData</th>
+          <td>No client with the specified node ID is connected.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the client's state.</p>
+    </div>
+  </body>
+</html>

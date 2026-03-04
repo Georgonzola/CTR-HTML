@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetSize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fs/Overview.html">fs</a>::<a href="../../../nn/fs/FileStream/Overview.html">FileStream</a>::SetSize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+virtual void SetSize(
+     <a href="../../../nn_types/s64.html">s64</a> size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the file size.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the file size.</p><p>This function is implemented to show an error screen when errors occur internally, regardless of whether such errors are fatal.  Control does not return from the function in this case. Use <tt><a href="../../../nn/fs/FileStream/TrySetSize.html">nn::fs::FileStream::TrySetSize</a></tt> on everything other than ROM archives.</p><p>For more information about error handling, see <a href="../briefing/aboutErrorHandling.html#FileAndDirectory">Handling Errors During File and Directory Operations</a>.</p><h3><b>Note 1</b></h3><div class="section">After the size of the file has been extended, if nothing has been written to that region, in principle the process of reading that region returns <tt><a href="../../../nn/fs/ResultVerificationFailed/Overview.html">nn::fs::ResultVerificationFailed</a></tt>.</div><h3><b>Note 2</b></h3><div class="section">This function cannot be called for expanded save data. The function returns an error if called in this way. <br /> For more information about expanded save data, see <a href="../briefing/aboutArchive.html#Archives_ExtSaveDataArchive">Archives</a>.</div></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/25</dt>
+        <dd><item xmlns="">Added a note about calling for expanded save data.</item><br />
+        </dd>
+        <dt>2010/12/24</dt>
+        <dd><item xmlns="">Added a note.</item><br /><item xmlns="">Added a link to the error handling page.</item><br />
+        </dd>
+        <dt>2010/01/29</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

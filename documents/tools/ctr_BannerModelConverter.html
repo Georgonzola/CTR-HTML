@@ -1,0 +1,688 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ctr_BannerModelConverter</title>
+<style type="text/css">
+    <!--
+    body {
+    /*
+        font-size       : 10pt;
+    */
+        font-weight     : normal;
+        color           : #000000;
+        margin          : 8px;
+    }
+
+    div {
+        width           : 98%;
+        white-space     : nowrap;
+    }
+
+    div.title {
+        text-align      : left;
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        color           : #202020;
+        border-style    : double;
+        border-width    : 8px;
+        /* タイトルを囲む枠線の色を指定 */
+        border-color    : #CD202C;
+
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+
+        margin          : 4px;
+        padding         : 4px;
+    }
+    H1 {
+      font-size                 : 150%;
+      font-family               : Arial;
+      border-bottom-width       : 5px;
+      border-bottom-style       : solid;
+      border-bottom-color       : #CD202C;
+      padding-bottom            : 1px;
+      margin-bottom             : 20px;
+      letter-spacing            : normal;
+      font-weight               : bold;
+    }
+
+    h2 {
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        border-style    : none none solid double;
+        border-width    : 0px 0px 2px 8px;
+        /* 見出しの線の色を指定 */
+        border-color    : #CD202C;
+
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+
+        margin-left     : 2px;
+        padding-left    : 4px;
+    }
+    CODE {
+      font-family       : "Courier New", monospace;
+      position          : normal;
+      left              : 12px;
+      font-size         : 10pt;
+    }
+    table {
+      margin-top        : 2pt;
+      margin-bottom     : 2pt;
+      margin-left       : 0pt;
+      margin-right      : 0pt;
+      padding-left      : 0pt;
+      padding-right     : 0pt;
+      position          : relative;
+      left              : 12px;
+      font-family       : Arial;
+      font-size         : 10pt;
+      border-style      : none none none none;
+    }
+    td,th {
+      padding           : 2pt;
+      border-width      : 2pt;
+      border-style      : none none none none;
+      font-style        : normal;
+      text-align        : left;
+    }
+    td {
+      background        : #e8f4f4;
+      font-weight       : normal;
+    }
+    th {
+      background        : #c0d8d8;
+      font-weight       : bold;
+    }
+
+    p {
+        margin-left     : 4px;
+    }
+    p.code {
+      font-family       : "Courier New", monospace;
+      position          : normal;
+      left              : 12px;
+      font-size         : 10pt;
+      background        : #e8f4f4;
+    }
+
+    -->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+<h1>ctr_BannerModelConverter</h1>
+
+<h1>Table of Contents</h1>
+<ol>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#usage">How to Use</a></li>
+<li><a href="#summary">Banner Overview</a></li>
+<li><a href="#input">Input Directory Structure</a></li>
+<li><a href="#restrict">Data Restrictions</a></li>
+<li><a href="#restrict_home">Processing Limits on the HOME Menu</a></li>
+<li><a href="#bugs">Known Bugs</a></li>
+<li><a href="#history">Revision History</a></li>
+</ol>
+
+
+
+<h2><a name="intro">Introduction</a></h2>
+<P>The <CODE>ctr_BannerModelConverter</CODE> tool is used to create CBMD (CTR binary banner model) files.<br />CBMD files are created based on the specified folder structure.</P>
+<P>The resulting CBMD file can be used with the <CODE>makebanner</CODE> BSF files. </P>
+<P class="style1">Create the model data using the <CODE>NW4C_ForBanner</CODE> package.<br />It might not be possible to correctly convert data created with versions of NW4C used for application development.</P>
+
+<h2><a name="usage">How to Use</a></h2>
+<h3>What Is Required</h3>
+<p>You need the following files to create a CBMD file:</p>
+<li>Intermediate files output by NW4C CreativeStudio.</li>
+
+<h3>Commands</h3>
+
+
+<p class="code">
+% ctr_BannerModelConverter DIRECTORYNAME [Output]
+</p>
+
+<p class="first_ja">The <CODE>DIRECTORYNAME</CODE> specification is required. All other options are optional.</p>
+
+<h4 >Options</h4>
+
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Options</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><CODE>DIRECTORYNAME</CODE> </td>
+<td align="center">Specifies the input directory name. Be sure to use the specified directory structure (described later).</td>
+</tr>
+<tr>
+<td align="center"><CODE>Output</CODE></td>
+<td align="center">Specifies the file to output. If omitted, a file with the <CODE>cbmd</CODE> extension added to the originally input filename is output.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="summary">Banner Overview</a></h2>
+
+<p>A banner is model data displayed in the upper screen when an application is selected.<br />Banners are used to show a lineup of miniature target applications on the menu.</p>
+    <p>
+<img alt="banner" src="image/ctr_BannerModelConverter_00.png" style="width: 400px; height: 240px" /></p>
+
+
+<h2><a name="input">Input Directory Structure</a></h2>
+
+<p>Banner model data can be divided into one of two main categories: Model data common to all languages, and data especially intended for each separate region and language combination. <br />Make sure to use a directory structure as shown in the following example. Specify the <CODE>Banner</CODE> folder at the top in <CODE>DIRECTORYNAME</CODE> on the command line.</p>
+
+
+<p class="code">
+Banner　 ━┳━ COMMON　━┳━ COMMON.cmdl<br />
+    　　　　　　┃　　　　　　　 ┣━ COMMON.cskla<br />
+    　　　　　　┃　　　　　　　 ┣━ COMMON.cmata<br />
+    　　　　　　┃　　　　　　　 ┣━ COMMON.cenv<br />
+    　　　　　　┃　　　　　　　 ┣━ COMMON.clts<br />
+    　　　　　　┃　　　　　　　 ┗━ Textures　━┓<br />
+    　　　　　　┃　　　　　　　　 　　　　　　　　 ┣━ COMMON1.ctex<br />
+    　　　　　　┃　　　　　　　　 　　　　　　　　 ┣━ COMMON2.ctex<br />
+    　　　　　　┃　　　　　　　　 　　　　　　　　 ┣━ COMMON3.ctex<br />
+    　　　　　　┃<br />
+    　　　　　　┣━　JPN_JP　━┳━ JPN_JP.cmdl<br />
+    　　　　　　┃　　　　　　　 ┣━ JPN_JP.cskla<br />
+    　　　　　　┃　　　　　　　 ┣━ JPN_JP.cmata<br />
+    　　　　　　┃　　　　　　　 ┣━ JPN_JP.cenv<br />
+    　　　　　　┃　　　　　　　 ┣━ JPN_JP.clts<br />
+    　　　　　　┃　　　　　　　 ┗━ Textures　━┓<br />
+    　　　　　　┃　　　　　　　　 　　　　　　　　 ┣━ COMMON1.ctex(data for swapping)<br />
+    　　　　　　┃　　　　　　　　 　　　　　　　　 ┣━ …<br />
+    　　　　　　┃　　　　　　　　 　　　　　　　　 ┣━ TEX1.ctex(arbitrary name)<br />
+    　　　　　　┃　　　　　　　　 　　　　　　　　 ┣━ TEX2.ctex(arbitrary name)<br />
+    　　　　　　┃　　　　　　　　 　　　　　　　　 ┣━ TEX3.ctex(arbitrary name)<br />
+    　　　　　　┃　　　　　　　　 　　　　　　　　 ┣━ …<br />
+    　　　　　　┣━ …<br />
+    　　　　　　┣━ …</p>
+
+<p>
+・ The <CODE>COMMON</CODE> folder is a required item. The content of the other folders is arbitrary, but these folders must exist. If there is no content, you must create empty folders.<br />Be sure that the filenames inside the <CODE>COMMON</CODE> folder are of the format <CODE>COMMON.cmdl</CODE>.<br /><br />・If you place textures with names such as <CODE>COMMON1.ctex</CODE> inside the <CODE>Textures</CODE> folders for the various language-specific data, the textures with the same names stored inside <CODE>COMMON</CODE> can be swapped with the various language textures for display.<br /><br /> ・For the various other language-specific data besides texture data, use that language when naming the data (such as <CODE>JPN_JP.cmdl</CODE>).<br /> The naming can be arbitrary for textures to which data swapping does not apply.<br /> <br />・ The HOME Menu is case sensitive but Windows is not, so errors may not be detected during conversion. Be careful when naming files. <br />
+</p>
+<div class="table">
+  <table border="1">
+<thead>
+<tr>
+<th align="center">Name</th>
+<th align="center">Market</th>
+<th align="center">Language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">COMMON</td>
+<td align="center">All regions</td>
+<td align="center">All languages</td>
+</tr>
+<tr>
+<td align="center">EUR_EN </td>
+<td align="center">Europe and Australia</td>
+<td align="center">UK English </td>
+</tr>
+<tr>
+<td align="center">EUR_FR</td>
+<td align="center">Europe and Australia</td>
+<td align="center">French</td>
+</tr>
+<tr>
+<td align="center">EUR_GE</td>
+<td align="center">Europe and Australia</td>
+<td align="center">German</td>
+</tr>
+<tr>
+<td align="center">EUR_IT</td>
+<td align="center">Europe and Australia</td>
+<td align="center">Italian</td>
+</tr>
+<tr>
+<td align="center">EUR_DU</td>
+<td align="center">Europe and Australia</td>
+<td align="center">Dutch</td>
+</tr>
+<tr>
+<td align="center">EUR_PO</td>
+<td align="center">Europe and Australia</td>
+<td align="center">Portuguese</td>
+</tr>
+<tr>
+<td align="center">EUR_RU</td>
+<td align="center">Europe and Australia</td>
+<td align="center">Russian</td>
+</tr>
+<tr>
+<td align="center">EUR_SP</td>
+<td align="center">Europe and Australia</td>
+<td align="center">Spanish</td>
+</tr>
+<tr>
+<td align="center">JPN_JP </td>
+<td align="center">Japan</td>
+<td align="center">Japanese</td>
+</tr>
+<tr>
+<td align="center">USA_EN </td>
+<td align="center">The Americas</td>
+<td align="center">North American English</td>
+</tr>
+<tr>
+<td align="center">USA_FR </td>
+<td align="center">The Americas</td>
+<td align="center">French (Canada)</td>
+</tr>
+<tr>
+<td align="center">USA_SP </td>
+<td align="center">The Americas</td>
+<td align="center">Spanish (Latin America)</td>
+</tr>
+<tr>
+<td align="center">USA_PO </td>
+<td align="center">The Americas</td>
+<td align="center">Portuguese (Brazil)</td>
+</tr>
+<tr>
+<td align="center">CHN_CN </td>
+<td align="center">China</td>
+<td align="center">Simplified Chinese</td>
+</tr>
+<tr>
+<td align="center">KOR_KR </td>
+<td align="center">South Korea</td>
+<td align="center">Korean </td>
+</tr>
+<tr>
+<td align="center">TWN_TW </td>
+<td align="center">Taiwan/Hong Kong</td>
+<td align="center">Traditional Chinese</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="restrict">Data Restrictions</a></h2>
+
+<p>The following restrictions apply to banner model data.<br /><B>Note:</B> The numeric values in the following explanations are the numbers from Creative Studio.</p>
+
+<p class="style1"><B>Note:</B> These restrictions are provisional. These specifications are subject to change in the future.</p>
+
+<h3>Limitations on Data Names</h3>
+
+<p>
+For banner data (such as <CODE>.cmdl</CODE>, <CODE>.cmata</CODE>, <CODE>.cenv</CODE>), the filename (such as <CODE>COMMON</CODE>) must match the name of the data that is specified in CreativeStudio.<br />If the filename and name of the data itself are different, banners may not be displayed correctly.
+</p>
+
+<h3>Camera Restrictions</h3>
+
+<p>
+The camera is fixed. It cannot be adjusted for each individual application.<br /><B>Note:</B> Cameras placed inside banner data can only be used for projection mapping. Camera number 0 is reserved by the HOME Menu and is not available.
+</p>
+
+<div class="table">
+    <table border="1">
+        <tr style="BACKGROUND: #eee">
+            <th>
+Camera Position X, Y, Z</th>
+            <th>
+Look-at Point X, Y, Z</th>
+            <th>
+Angles of View (fovy)</th>
+            <th>
+Near/Far</th>
+            <th>
+Depth Level<span class="style2">※</span></th>
+            <th>
+Factor<span class="style2">※</span></th>
+        </tr>
+        <tr style="BACKGROUND: #fff">
+            <td>
+                0.0 / 1.0 / 44.786
+    </td>
+            <td>
+    0.0 / 1.0 / 0.0</td>
+            <td>
+                30</td>
+            <td>
+                26.5 / 1000</td>
+          <td>
+34.786<br />(<B>Note:</B> The screen level is +10 from the origin.)</td>
+            <td>
+          1.0</td>
+        </tr>
+    </table>
+ </div>
+
+<p>
+<B>Note:</B> These are the <SPAN class="argument">depthLevel</SPAN> and <SPAN class="argument">factor</SPAN> values used by the <CODE>ulcd::CalculateMatrices</CODE> function.
+
+<h3>Model Size and Rendering Range Restrictions</h3>
+<p>
+Any parts that extend past the range shown in the figure are hidden by the system.<br /><B>Note:</B> The blender's stencil test is used to apply a mask based on a hidden ellipsoid model.<br />(For this reason, stencil tests cannot be used on the model side. The setting is overwritten on the system side.)
+</p>
+    <p>
+<img alt="banner" src="image/ctr_BannerModelConverter_01.png" style="width: 400px; height: 240px" /></p>
+<div class="table">
+  <table border="1">
+    <tr style="BACKGROUND: #eee">
+<th> Mask Ellipsoid Size X, Y, Z</th>
+    </tr>
+    <tr style="BACKGROUND: #fff">
+<td> Diameter 18 / Diameter 9.5 / Diameter 18 <br /> <br /><B>Note:</B> Use the center of the ellipsoid as the origin and create the model in this range.</td>
+
+    </tr>
+  </table>
+</div>
+<h3>Restrictions on Model Y-Axis Rotation</h3>
+
+    <p>
+Models rotate once in 600 frames (10 seconds at 60 fps) at constant velocity to the left for a viewer facing the screen. - Rotation accelerates if the user blows into the microphone.</p>
+    <p>
+<B>Note:</B> Use billboard settings for nodes you do not want to be rotated.<br /><B>Note:</B> Although these nodes do not normally turn if rotated to the right at constant speed for 600f, they will rotate if the user blows into the microphone.</p>
+
+<h3>Restrictions on Intermediate Files</h3>
+
+<p>There are restrictions on data by design and to prevent skipped frames. <br />
+<p class="style1"><B>Note:</B> Data that violates these restrictions generates an error during conversion.</p>
+<B>Note:</B> Even if the data is within the restrictions, the data size must be reduced if skipped frames occur. (Described later.)
+</p>
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Extension</th>
+<th align="center">
+◎: Required<br />○: Optional<br />&times;: Not supported</th>
+<th align="center">Data restrictions on [Data common to all languages] + [Data for a single language] </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">cmdl</td><td align="center">◎</td>
+<td align="center">Number of polygons: <B>3000 or less</B><br /> Number of bones: <B>10 or less</B> (This was changed from 5 to 10.)<br /> Number of materials: <B>5 or less</B> <br /> <br /> <B>Note:</B> There are no restrictions on layer configurations.<br /><B>Note:</B> The stencil test is unavailable because it is used for masking by the ellipsoid. The settings are overwritten on the system side.</td>
+</tr>
+<tr>
+<td align="center">ctex </td>
+<td align="center">○ </td>
+<td align="center">There is no limit on the number of textures as long as the size does not exceed the limit.</td>
+</tr>
+<tr>
+<td align="center">cskla </td>
+<td align="center">○ </td>
+<td align="center">Create a looped animation of 600 frames or less.</td>
+</tr>
+<tr>
+<td align="center">cmata </td>
+<td align="center">○ </td>
+<td align="center">Create a looped animation of 600 frames or less.</td>
+</tr>
+<tr>
+<td align="center">cenv </td>
+<td align="center">◎ </td>
+<td align="center">Number of lights: <B>3 or fewer</B><br /> Number of cameras: <B>3 or fewer</B><br />Cannot use fog.<br /><B>Note:</B> Previously there was a limit of using 1 fog, but it was determined that fog was not reflected on the HOME Menu, so now an error is output. A scene environment is required for the banner model to be correctly illuminated on the HOME Menu,<br /> and at least one light needs to be linked to that scene environment. If you are using lights and cameras, add them to the <B>Light Sets</B> and <B>Cameras</B> items in the <B>Property</B> panel for the scene environment (CENV file) from the NW4C_ForBanner CreativeStudio.</td>
+</tr>
+<tr>
+<td align="center">clts </td>
+<td align="center">○ </td>
+<td align="center">Number of tables: <B>3 or fewer</B></td>
+</tr>
+<tr>
+<td align="center">cptl </td>
+<td align="center">&times;</td>
+<td align="center">Particles are not supported.</td>
+</tr>
+<tr>
+<td align="center">csdr </td>
+<td align="center">&times;</td>
+<td align="center">User shaders are not supported. (The default shader is used.)</td>
+</tr>
+<tr>
+<td align="center">clgt </td>
+<td align="center">&times;</td>
+<td align="center">Add lights under <B>Light Set</B> in the Property panel of the scene environment (CENV file).<br />Animation is not supported.</td>
+</tr>
+<tr>
+<td align="center">ccam </td>
+<td align="center">&times;</td>
+<td align="center">Add projection-mapping cameras under <B>Cameras</B> in the Property panel of the scene environment (CENV file).<br />Animation is not supported.</td>
+</tr>
+<tr>
+<td align="center">cmdla </td>
+<td align="center">&times;</td>
+<td align="center">Does not support visibility animations of models.</td>
+</tr>
+<tr>
+<td align="center">cres </td>
+<td align="center">&times;</td>
+<td align="center">Merged files are not supported to support localization needs to switch resources. </td>
+</tr>
+<tr>
+<td align="center">Other </td>
+<td align="center">&times;</td>
+<td align="center">There are no plans to support other intermediate file extensions that may be added in the future.(2010/12/09)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>Restriction on Data Size</h3>
+
+<p>The following restrictions have been placed on data size after conversion.<br /><B>Note:</B> Data that violates these restrictions generates an error during conversion.
+</p>
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Data capacity restrictions on [Data common to all languages] + [Data for a single language]</th>
+<th align="center">Data capacity restrictions on [Data common to all languages] + [All language-specific data]<br/>(Data capacity restrictions for banner files (<CODE>*.bnr</CODE>), including sound data)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><B>320 KB</B> for <B>Binary size</B><br /><br /><B>Note:</B> You can check this using <B>Save as binary</B> from the <B>File</B> menu in NW4C Creative Studio.</td>
+<td align="center"><B>1 MB</B> for <B>Size after compression</B><br /><br /><B>Note:</B> There are no absolute rules for how much the size decreases with compression, but if you meet these restrictions it is unlikely that you will violate this restriction.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2><a name="restrict_home">Processing Limits on the HOME Menu</a></h2>
+
+<h3>How to Check Processing on the HOME Menu</h3>
+
+<p>
+<br/>Pressing &quot;X+Y&quot; on the HOME Menu for developers displays debug commands.
+</p>
+
+<p>
+- Check processing in the following display state.
+</p>
+
+
+<p>
+<img alt="banner" src="image/ctr_BannerModelConverter_02.png" style="width: 448px; height: 500px" />
+</p>
+
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Number of Drawings</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">[1]</td>
+<td align="center">Turn off the wireless switch on the right side of the system.</td>
+</tr>
+<tr>
+<td align="center">[2]</td>
+<td align="center">From the top, the region name and language name, HOME Menu build timestamp, and HOME Menu version are displayed.</td>
+</tr>
+<tr>
+<td align="center">[3]</td>
+<td align="center">These processing bars are used to check processing.<br/>From the top, the maximum processing load per 1f indicator (fixed), CPU processing load indicator, and GPU processing load indicator are displayed.<br/> <B>Note:</B> The details are described later.</td>
+</tr>
+<tr>
+<td align="center">[4]</td>
+<td align="center">The lower screen displays items that can be checked in the order: &quot;Health and Safety Information,&quot; &quot;Applications to check processing,&quot; &quot;3DS Cameras,&quot; &quot;3DS Sounds.&quot; <B>Note:</B> Put the system into a state that does not display the new arrival icon.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>
+- The Processing Bars
+</p>
+
+<p>
+<img alt="banner" src="image/ctr_BannerModelConverter_03.png" style="width: 448px; height: 84px" />
+</p>
+
+<p>
+Neither the CPU nor GPU may exceed the processing limit of 80%. In addition, processing must not exceed the processing limit of 80% even by 1f for 600f while the banner is rotating.
+</p>
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Bar Colors</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><font color="#00FF00">■</font> Green</td>
+<td align="center">The processing load is in the okay zone. There is no need to reduce processing.</td>
+</tr>
+<tr>
+<td align="center"><font color="#FFFF00">■</font> Yellow</td>
+<td align="center">The bar turns yellow (caution) if the processing load goes over 75%. There is no need to reduce processing.</td>
+</tr>
+<tr>
+<td align="center"><font color="#FF0000">■</font> Red</td>
+<td align="center">The bar turns red (warning) if the processing load goes over 80%. Reduce processing.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>
+Processing bars must be kept in the states indicated as okay in the following figure.
+</p>
+
+<p>
+<img alt="banner" src="image/ctr_BannerModelConverter_04.png" style="width: 384px; height: 164px" />
+</p>
+
+<h3>How to Handle Processing Overflow</h3>
+
+<p>
+Effective measures of reducing CPU processing are:<br/>・Reducing the number of bones.<br/>・Reducing the number of vertices.
+</p>
+<p>
+Effective measures of reducing GPU processing include:<br/>・Reducing texture capacity.<br/>・Reducing the number of textures.<br/>・Applying mipmaps to textures.<br/>・Reducing the surface area to render on translucent polygons.<br/>・Setting the layer configuration to one with fewer cycles.
+</p>
+
+<h2><a name="bugs">Known Bugs</a></h2>
+
+<h3>Conversion fails when using specific versions of cygwin.</h3>
+
+When using specific versions of cygwin, <br/>the 'NintendoWare.CreativeStudio.Foundation.Xml.XmlContentIOObject`1' type initializer throws an exception.<br/>This error occurs.<br/><br/> The cause of this issue is that depending on the cygwin version used, a distinction is made between lowercase letters and uppercase letters for environment variables that are defined in a Bash shell (as in <CODE>tmp</CODE> and <CODE>TMP</CODE>, or <CODE>temp</CODE> and <CODE>TEMP</CODE>).<br/><br/> Solution: Update to the latest version of cygwin. Otherwise, enter the<br/> <br/> unset tmp<br/> unset temp<br/> <br/>commands before calling this tool, and by unsetting the environment variables <CODE>tmp</CODE> and <CODE>temp</CODE>, the error no longer occurs.<br/>
+
+
+</p>
+
+<h2><a name="history">Revision History</a></h2>
+    <dl class="history">
+      <dt>2015/09/04</dt>
+<dd>Fixed inconsistent language.</dd>
+      <dt>2015/05/07</dt>
+<dd>Added <B>Known Bugs</B> information.</dd>
+      <dt>2015/04/28</dt>
+<dd>Made CENV file a required item because light will not display correctly.</dd>
+      <dt>2014/03/20</dt>
+<dd>Updated part of the documentation's table of contents.</dd>
+      <dt>2013/10/04</dt>
+<dd>Added to the description of the restriction on the number of fogs in the CENV file.</dd>
+      <dt>2013/09/18</dt>
+<dd>Revised the restrictions on intermediate files.</dd>
+<dd><B>NOTE:</B> Changed the restriction on the number of fogs in the CENV file from 1 to 0.</dd>
+      <dt>2012/06/19</dt>
+<dd>Added &quot;Limitations on File Names&quot; to &quot;Data Restrictions.&quot;</dd>
+      <dt>2012/04/17</dt>
+<dd>Removed English from the Taiwan/Hong Kong region.</dd>
+      <dt>2011/12/02</dt>
+<dd>Added support for the Chinese, Korean, and Taiwan/Hong Kong regions.</dd>
+      <dt>2011/09/01</dt>
+<dd>Changed to output an error if no texture can be found for the specified model.</dd>
+      <dt>2011/07/29</dt>
+<dd>Added a note that camera number 0 is reserved by the HOME Menu.</dd>
+      <dt>2010/03/08</dt>
+<dd>An error is now generated during conversion when data violates the data restrictions.<br />Changed some of the values for data capacity restrictions.</dd>
+      <dt>2010/02/03</dt>
+<dd>Added that it is necessary to create model data and sound data using the <CODE>NW4C_ForBanner</CODE> package.<br /></dd>
+      <dt>2010/01/05</dt>
+<dd>Added information about handling <CODE>.cenv</CODE>, <CODE>.clgt</CODE>, and <CODE>.ccam</CODE> files within Data Restrictions.</dd>
+      <dt>2010/12/30</dt>
+<dd>Fixed a bug where the data capacity restrictions check was not occurring correctly.</dd>
+      <dt>2010/12/28</dt>
+<dd>Clarified that the supported version of NW4C is 1.2.</dd>
+      <dt>2010/12/25</dt>
+<dd>An error is now generated during conversion when data violates the restrictions on data capacity.</dd>
+      <dt>2010/12/09</dt>
+<dd>Added information on the processing limit on the HOME Menu, and how to check processing.</dd>
+<dd>Added the fact that <CODE>.cmdla</CODE> is not supported.</dd>
+      <dt>2010/12/07</dt>
+<dd>Changed the <CODE>.cskla</CODE> and <CODE>.cmata</CODE> frame restriction from a 600-frame animation to an animation of no more than 600 frames.</dd>
+      <dt>2010/11/26</dt>
+<dd>Fixed a bug where language folders that contain empty files were not properly converted.</dd>
+      <dt>2010/11/19</dt>
+<dd>Deleted sound file restrictions, and moved this section to <CODE>ctr_makebanner</CODE>.</dd>
+      <dt>2010/11/13</dt>
+<dd>Modified Restrictions on Data Size by revising the text to <B>256KB</B> for <B>Banner size</B>.</dd>
+<dd>Supplemented other Data Restrictions items.</dd>
+      <dt>2010/10/09</dt>
+<dd>Supplemented the restrictions for sound files and data capacity.</dd>
+      <dt>2010/09/28</dt>
+<dd>Initial version.</dd>
+    </dl>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

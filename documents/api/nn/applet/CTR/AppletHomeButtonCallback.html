@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>AppletHomeButtonCallback</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::AppletHomeButtonCallback Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+typedef bool(* nn::applet::CTR::AppletHomeButtonCallback)(uptr arg, bool isActive, nn::applet::CTR::HomeButtonState state);</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The type of the callback function invoked when HOME is pressed.</p><!-- write here --><P>The callback is called when a HOME Button press is detected.  <b>Note:</b> The thread that calls this callback has a stack size of roughly 4 KB. Take care to avoid overflows.</P><P>Use the <tt><a href="../../../nn/applet/CTR/SetHomeButtonCallback.html">nn::applet::CTR::SetHomeButtonCallback</a></tt> function to set the callback.</P><P>The value specified in <span class="argument">arg</span> is passed as is when setting the callback. Use as appropriate.</P><P>The <span class="argument">isActive</span> argument specifies whether the application is active. A value of <tt>true</tt> means the application is active.</P><P>The <span class="argument">state</span> argument specifies the HOME Button state. Same as the value obtained from the <tt><a href="../../../nn/applet/CTR/GetHomeButtonState.html">nn::applet::CTR::GetHomeButtonState</a></tt> function.</P><P>The return value determines whether to enable detection of HOME Button presses after this callback.  A return value of <tt>false</tt> disables HOME Button detection.  If HOME Button presses are detected after this callback, the <tt><a href="../../../nn/applet/CTR/IsExpectedToProcessHomeButton.html">nn::applet::CTR::IsExpectedToProcessHomeButton</a></tt> function returns true.  When the application is inactive, normally there is no need to detect HOME Button presses, so we recommend setting the same value as <span class="argument">isActive</span>.</P><P>Use as shown in the example below.</P><PRE>
+  Example:
+
+  bool myHomeButtonCallback( uptr arg, bool isActive, applet::HomeButtonState state )
+  {
+      NN_UNUSED_VAR(arg);
+
+      if ( isActive )
+      {
+          if ( state == applet::HOME_BUTTON_SINGLE_PRESSED )
+          {
+             NN_LOG("HOME BUTTON is clicked.\n");
+          }
+          else
+          {
+             NN_LOG("HOME BUTTON is double-clicked.\n");
+          }
+          return true;
+      }
+      else
+      {
+          return false;
+      }
+  }
+
+  nnMain()
+  {
+      applet::SetHomeButtonCallback( myHomeButtonCallback, 0 );
+         …
+  }
+</PRE><P><b>Note:</b></P><P>In CTR-SDK 4.0 and later versions, the double-click is no longer returned as a <span class="argument">state</span> parameter for the callback.  The process does not enter the portion of the sample code that displays "HOME BUTTON is double-clicked."  The definition for the double-click itself remains for purposes of compatibility, but in the future it might be deleted.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/02/01</dt>
+        <dd><item xmlns="">Noted that the double-click is no longer returned in CTR-SDK 4.0 and later versions.</item><br />
+        </dd>
+        <dt>2011/01/24</dt>
+        <dd><item xmlns="">Added description of the stack.</item><br />
+        </dd>
+        <dt>2010/12/01</dt>
+        <dd><item xmlns="">Added details.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

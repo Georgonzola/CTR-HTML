@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>ProcessPowerButton</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::ProcessPowerButton Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool ProcessPowerButton(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a value indicating whether it is necessary to wait. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Processes POWER Button transitions.</p><!-- write here --><P>This function is used to handle POWER Button transitions when this is required by the <tt><a href="../../../nn/applet/CTR/IsExpectedToProcessPowerButton.html">nn::applet::CTR::IsExpectedToProcessPowerButton</a></tt> function.</P><P>The return value indicates whether it is necessary to wait with the <tt><a href="../../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></tt> function after this function is called.  If this is <tt>true</tt>, call the function.  There is no need to call the function if the value is <tt>false</tt>, but if called, the function exits without problems. (Currently no case exists where the value could be <tt>false</tt>.)</P><P>To ensure mutual exclusion with Sleep Mode, you must call <tt><a href="../../../nn/applet/CTR/DisableSleep.html">nn::applet::CTR::DisableSleep</a>(true)</tt> before calling this function.  For strict symmetry, it would be necessary to call <tt><a href="../../../nn/applet/CTR/EnableSleep.html">nn::applet::CTR::EnableSleep</a>(true)</tt> after waiting and determining to finish waiting. However, because the finish determination is always <tt>true</tt>, it should cause no problems to omit that function call.  (Note that the above constraint is specific to the current version and may change in the future.)</P><P>You must also initialize the graphics library using the <tt>nngxInitialize</tt> function before calling this function.  Also, after the display buffer has been set and buffers have been swapped once, you must turn on the LCD screens.</P><P>If the LCD screens are not turned on, the upper and lower screens will remain black even if you return to the HOME Menu. (Background music and sound effects will play normally, and key input will be handled as usual.)  Although this function can be called even if a display buffer has not been configured, the image shown when the LCDs are turned on may be undefined.</P><P>Before calling this function, make sure that rendering has finished by calling the <tt><a href="../../../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a></tt> function. <br /> For frameworks where multiple command lists will be swapped and commands will be created in parallel with rendering, pay close attention to the timing of <tt><a href="../../../nn_gx/nngxRunCmdlist.html">nngxRunCmdlist</a></tt> function calls. <br /> The GPU may hang if rendering terminates before this function is called. <br /> If rendering has not yet completed at the time that this function is called (while a command request is processing), execution halts with an assertion (only for the Development/Debug builds).<br /></P><P>Example:</P><PRE>
+  if ( applet::IsExpectedToProcessPowerButton() )
+  {
+    applet::DisableSleep();
+
+    // Process POWER Button (transition to HOME Menu).
+    <FONT color="red">applet::ProcessPowerButton();</FONT>
+
+    // Wait.
+    applet::WaitForStarting();
+    if ( applet::IsExpectedToCloseApplication() )  // Probably true.
+    {
+       _close_application();
+    }
+
+    // Control should never reach this point, so the lines below here can be omitted.
+    applet::EnableSleep();
+  }
+</PRE><P>If <tt>HomeButtonCallback</tt> has been set by the <tt><a href="../../../nn/applet/CTR/SetHomeButtonCallback.html">nn::applet::CTR::SetHomeButtonCallback</a></tt> function, do not call this function until after the process has left the callback. (If you call the function beforehand, the process might become deadlocked.)</P><P>SNAKE runs in extension mode after this function is called. <br />The system changes to the operation mode that corresponds to the application's <tt>desc</tt> when the <tt><a href="../../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></tt> function is exited.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/01/31</dt>
+        <dd><item xmlns="">Added information about operation modes.</item><br />
+        </dd>
+        <dt>2012/02/07</dt>
+        <dd><item xmlns="">Noted that execution halts on an assertion if rendering has not yet completed at the time this function is called.</item><br />
+        </dd>
+        <dt>2012/01/16</dt>
+        <dd><item xmlns="">Added a specific example about limitations when calling this function (the need to wait for rendering to complete).</item><br />
+        </dd>
+        <dt>2011/09/08</dt>
+        <dd><item xmlns="">Added information about limitations when calling this function (the need to wait for rendering to complete).</item><br />
+        </dd>
+        <dt>2011/08/01</dt>
+        <dd><item xmlns="">Added information about limitations related to display buffer swapping and the LCD screens when calling this function.</item><br />
+        </dd>
+        <dt>2011/03/30</dt>
+        <dd><item xmlns="">Added note about the need for the <tt>nngxInitialize</tt> function.</item><br />
+        </dd>
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Added a cautionary note about setting the callback.</item><br />
+        </dd>
+        <dt>2011/01/24</dt>
+        <dd><item xmlns="">Added mention of the <tt>DisableSleep</tt> and <tt>EnableSleep</tt> functions.</item><br />
+        </dd>
+        <dt>2010/12/09</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

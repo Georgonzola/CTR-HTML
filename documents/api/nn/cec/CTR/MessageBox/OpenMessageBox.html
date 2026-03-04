@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>OpenMessageBox</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cec/Overview.html">cec</a>::<a href="../../../../nn/cec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a>::OpenMessageBox Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/Result/Overview.html">nn::Result</a> OpenMessageBox(
+     const <a href="../../../../nn/cec/CTR/TitleId.html">TitleId</a> cecTitleId,
+     const <a href="../../../../nn_types/u32.html">u32</a> privateId
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td />
+          <th>cecTitleId</th>
+          <td>
+            </td>
+        </tr>
+        <tr>
+          <td />
+          <th>privateId</th>
+          <td>
+            </td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section"> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Opens a <code><a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a></code>. You must use this function to open a box before you can access the messages within it.</p><p><bold>Note:</bold> When this function is called, the CEC (StreetPass) daemon operating in the background stops. <br />
+ Note that background communication might be interrupted. &#8594; <code><a href="../../../../nn/cec/CTR/CecControl/StopScanning.html">CecControl::StopScanning</a></code><br />
+ Call the <code><a href="../../../../nn/cec/CTR/MessageBox/CloseMessageBox.html">CloseMessageBox()</a>/tt> function when you have finished accessing the box. <br />
+ After you call this function, the CEC daemon will not start running until you call the <code>CloseMessageBox</code> function. Do not leave in an open state other than when setting a send message or getting a received message. <br />
+ With the <code>Open</code>- <a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a> Read/Write - <code>Close</code> interval as a single processing unit, exclude Sleep and the HOME Menu during this interval. <br /><br />
+ Do not adopt implementations that periodically call the <code>OpenMessageBox</code> and <code>CloseMessageBox</code> functions to check the arrival of messages in real time. Because communication stops whenever the <code>OpenMessageBox</code> function is called, send and receive processes cannot be executed in the background. Use the <code>GetCecEvent</code> and <code>GetCecInfoBuffer</code> functions to find out if there has been communication.</code></p><p><code><parameterlist kind="param"><parameteritem><parameternamelist><parametername direction="in">cecTitleId</parametername></parameternamelist><parameterdescription><para>Specifies the StreetPass ID. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername direction="in">privateId</parametername></parameternamelist><parameterdescription><para>Specify the same value that was specified when the box was created using <code><a href="../../../../nn/cec/CTR/MessageBox/CreateMessageBox.html">CreateMessageBox</a></code>. You cannot access the box if you specify any other value. </para></parameterdescription></parameteritem></parameterlist><simplesect kind="return"><para>Returns an <code><a href="../../../../nn/Result/Overview.html">nn::Result</a></code> value. </para></simplesect><parameterlist kind="retval"><parameteritem><parameternamelist><parametername><a href="../../../../nn/Result/IsSuccess.html">Result::IsSuccess</a></parametername></parameternamelist><parameterdescription><para>Indicates success. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername><a href="../../../../nn/cec/ResultNoData/Overview.html">ResultNoData</a></parametername></parameternamelist><parameterdescription><para>The box does not exist. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername><a href="../../../../nn/cec/ResultNotAuthorized/Overview.html">ResultNotAuthorized</a></parametername></parameternamelist><parameterdescription><para>Cannot access because the private IDs are different. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername><a href="../../../../nn/cec/ResultStateBusy/Overview.html">ResultStateBusy</a></parametername></parameternamelist><parameterdescription><para>Cannot access because the daemon is busy (<code>BUSY</code> state). It may succeed if you wait some time before accessing again. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername><a href="../../../../nn/cec/ResultBufferFull/Overview.html">ResultBufferFull</a></parametername></parameternamelist><parameterdescription><para>Could not allocate the memory required for the process. </para></parameterdescription></parameteritem><parameteritem><parameternamelist><parametername>Other</parametername></parameternamelist><parameterdescription><para>Indicates failure. </para></parameterdescription></parameteritem></parameterlist></code></p><!-- write here --><h3>Error Handling</h3>The following simplified C++ code provides guidelines for error handling.  <br /> This is the process flow for opening a box. If no box exists, this code sample creates one with <tt>CreateMessageBox</tt>. <pre>
+    nn::Result result = OpenMessageBox();
+    if(result.IsFailure())
+    {
+        if(result == nn::cec::ResultNoData())
+        {
+            // If no MessageBox exists.
+
+            // Prompt the user when creating a MessageBox.
+
+            // Create MessageBox.
+            result = CreateMessageBox();
+            if(result.IsFailure())
+            {
+                if(result == nn::cec::ResultBoxAlreadyExists())
+                {
+                    // If a box seems to exist, but does not open -> then a box exists where the lower 8 bits of its ID are different.
+
+                    // If the CecTitleId is specified correctly, this state will never occur. 
+                    // This state occurs when the variation value was set unintentionally in MakeCecTitleId. 
+
+                    // If you need to delete and recreate it -> DeleteMessageBox(titleId);
+
+                }
+                else if(result == nn::cec::ResultBoxNumFull())
+                {
+                    // Number of boxes has reached maximum.
+
+                    // Prompt the user to delete the box of some other application.
+                }
+                else if(result == nn::cec::ResultStateBusy())
+                {
+                    // Daemon is running.
+                    // This state usually does not occur, but it might be possible to succeed by retrying.
+                }
+                else if(result == nn::cec::ResultInvalidArgument() 
+                     || result == nn::cec::ResultTooLarge() 
+                     || result == nn::cec::ResultInvalidData() )
+                {
+                    // Mistake in an argument, box icon, or similar.
+                }
+
+                return result;  // Failure
+            }
+
+            // If CreateMessageBox succeeds, the box is opened. 
+
+        }
+        else if(result == nn::cec::ResultNotAuthorized())
+        {
+            // Private ID does not match.
+            return result;  // Failure
+
+            // If you need to delete and recreate it -> DeleteMessageBox(titleId);
+        }
+        else if(result == nn::cec::ResultStateBusy())
+        {
+            // Daemon is running.
+            // This state usually does not occur, but it might be possible to succeed by retrying.
+            return result;  // Failure
+        }
+        else
+        {
+            // Err
+            return result;  // Failure
+        }
+    }
+    return result;  // Success
+
+    </pre></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/01/19</dt>
+        <dd><item xmlns="">Added a description of error handling.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

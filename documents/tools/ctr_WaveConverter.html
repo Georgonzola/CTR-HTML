@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+<title>ctr_WaveConverter</title>
+    <style type="text/css">
+    <!--
+    body {
+    /*
+        font-size       : 10pt;
+    */
+        font-weight     : normal;
+        color           : #000000;
+        margin          : 8px;
+    }
+    
+    div {
+        width           : 98%;
+        white-space     : nowrap;
+    }
+    
+    div.title {
+        text-align      : left;
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        color           : #202020;
+        border-style    : double;
+        border-width    : 8px;
+        /* タイトルを囲む枠線の色を指定 */
+        border-color    : #CD202C;
+    
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+    
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+    
+        margin          : 4px;
+        padding         : 4px;
+    }
+    H1 {
+      font-size		: 150%;
+      font-family		: Arial;
+      border-bottom-width	: 5px;
+      border-bottom-style	: solid;
+      border-bottom-color	: #CD202C;
+      padding-bottom		: 1px;
+      margin-bottom		: 20px;
+      letter-spacing		: normal;
+      font-weight		: bold;
+    }
+    
+    h2 {
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        border-style    : none none solid double;
+        border-width    : 0px 0px 2px 8px;
+        /* 見出しの線の色を指定 */
+        border-color    : #CD202C;
+    
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+    
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+    
+        margin-left     : 2px;
+        padding-left    : 4px;
+    }
+    CODE {
+      font-family		: "Courier New", monospace;
+      position		: normal;
+      left			: 12px;
+      font-size		: 10pt;
+    }
+    table {
+      margin-top        : 2pt;
+      margin-bottom     : 2pt;
+      margin-left       : 0pt;
+      margin-right      : 0pt;
+      padding-left      : 0pt;
+      padding-right     : 0pt;
+      position          : relative;
+      left              : 12px;
+      font-family       : Arial;
+      font-size         : 10pt;
+      border-style      : none none none none;
+    }
+    td,th {
+      padding           : 2pt;
+      border-width      : 2pt;
+      border-style      : none none none none;
+      font-style        : normal;
+      text-align        : left;
+    }
+    td {
+      background        : #e8f4f4;
+      font-weight       : normal;
+    }
+    th {
+      background        : #c0d8d8;
+      font-weight       : bold;
+    }
+    
+    p {
+        margin-left     : 4px;
+    }
+    p.code {
+      font-family		: "Courier New", monospace;
+      position		: normal;
+      left			: 12px;
+      font-size		: 10pt;
+      background            : #e8f4f4;
+    }
+    
+    -->
+    </style>
+
+  </head>
+  <body>
+<h1>ctr_WaveConverter</h1>
+<h2>Description</h2>
+    <p>
+<CODE>ctr_WaveConverter</CODE> is a tool for converting general-purpose waveform file formats (WAV, AIF, AIFF) into the CTR waveform file format (BCWAV).
+    </p>
+    <p>
+With the <a href="../api/nn/snd/CTR/Bcwav/Overview.html"><CODE>nn::snd::Bcwav</CODE> class</a> API you can extract metadata or sample data from BCWAV files.
+    </p>
+<h2>Using the Tool</h2>
+<h3>Commands</h3>
+    
+    <p class="code">
+<CODE>% ctr_WaveConverter32.exe [option...] file...</CODE>
+    </p>
+    
+<p class="first_ja">You must specify <CODE>file</CODE> (the input file or files). All other options are optional.</p>
+    
+<h4>Options</h4>
+    <p>
+      <table class="table"><tbody>
+<tr><th>Options</th><th>Description</th></tr>
+<tr><td><CODE>--pcm16</CODE> </td>
+<td>Uses the 16-bit PCM encoder.</td></tr>
+<tr><td><CODE>--pcm8</CODE> </td>
+<td>Uses the 8-bit PCM encoder.</td></tr>
+<tr><td><CODE>--dspadpcm</CODE> </td>
+<td>Uses the DSP ADPCM encoder. [Default]</td></tr>
+<tr><td><CODE>--imaadpcm</CODE> </td>
+<td>Uses the IMA ADPCM encoder.</td></tr>
+<tr><td><CODE>--loopStart &lt;loopStartFrame&gt;</CODE></td>
+<td>Specifies the loop start frame. This option may be omitted.</td></tr>
+<tr><td><CODE>--loopEnd &lt;loopEndFrame or &quot;end&quot;&gt;</CODE></td>
+<td>Specifies the loop end frame. This option may be omitted.</td></tr>
+<tr><td>-o &lt;filename&gt;</td>
+<td>Specifies the output filename. This option may be omitted.</td></tr>
+<tr><td><CODE>-v, --verbose</CODE> </td>
+<td>Displays a log at runtime.</td></tr>
+<tr><td><CODE>-u, --update</CODE> </td>
+<td>Converts files only if the input files are more recent than the output files. </td></tr>
+<tr><td><CODE>-h, --help</CODE> </td>
+<td>Displays help.</td></tr>
+      </tbody></table>
+    </p>
+    <p>
+If the encoder type is not specified, the DSP ADPCM encoder is used by default.
+    </p>
+    <p>
+You can specify multiple input files. However, if you use the option to specify an output filename (<CODE>-o <I>filename</I></CODE>), the output files, having the same filename, will overwrite each other until only the file created by converting the last-specified input file remains.
+    </p>
+    <p>
+If you do not specify an output filename using the -o option, the output filename will include the encoding type before their extension.<br/>Example for PCM16: <CODE>sound.wav</CODE> → <CODE>sound.pcm16.bcwav</CODE>
+    </p>
+    <p>
+Loop frames can be specified using the <CODE>--loopStart</CODE> and <CODE>--loopEnd</CODE> options. If not specified, and loop frames are specified in the .wav/.aiff file, information in the file is used. If specified, any loop frame specifications in the .wav/.aiff file are ignored. Although loop frames are usually specified as a numeric value, a specification of the form &quot;--loopEnd end&quot; can be made when you want to use the last sample of a waveform as the loop end.
+    </p>
+    <p>
+Loop frames are counted from 0. In other words, &quot;0&quot; indicates the first sample, while &quot;100&quot; indicates the 101st sample. In addition, the sample specified as the loop end frame is not played back. (The sample immediately before the loop end frame is the last sample played.)
+    </p>
+    <p>
+For example, assume a 100-sample wave form. Specify <CODE>--loopStart 90 --loopEnd 96</CODE> to loop between frames 90 through 95 (0, 1, ... 88, 89, 90, 91, 92, 93, 94, 95, 90, 91, 92, 93, 94, 95, 90, 91, ...).
+    </p>
+    <p>
+DSP ADPCM achieves a compressed waveform size of 1/3.5 compared to 16-bit PCM.
+    </p>
+    <p>
+IMA ADPCM achieves a compressed waveform size of 1/4 compared to 16-bit PCM. However, playback features for IMA ADPCM have not been publicly disclosed in a standard application development environment.
+    </p>
+    
+<h2>Revision History</h2>
+    <dl class="history">
+      <dt>2010/09/15</dt>
+<dd>Added the --loopStart and --loopEnd  options<br />
+      </dd>
+      <dt>2010/08/30</dt>
+<dd>Changed &quot;nn::snd::Bcwav namespace&quot; to &quot;nn::snd::Bcwave class&quot;.<br />
+      </dd>
+      <dt>2010/06/23</dt>
+<dd>Initial version.<br />
+      </dd>
+    </dl>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxSplitDrawCmdlist</title>
+  </head>
+  <body>
+    <h1>nngxSplitDrawCmdlist Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxSplitDrawCmdlist(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Splits the 3D command buffer from the current command list.</p><P>By splitting the 3D command buffer, you can stop the command list and invoke an interrupt handler when execution has finished up to the split point.  If commands are run as they are accumulated, the 3D commands accumulated up to the split point set using this function are run.</P><P>This function always adds a command to complete loading 3D commands and a render command request, even if no commands have accumulated in the 3D command buffer. The <tt><a href="../nn_gx/nngxFlush3DCommand.html">nngxFlush3DCommand</a></tt> function only adds the command to complete loading 3D commands and a render command request when commands have accumulated in the 3D command buffer. We recommend that you use the <tt><a href="../nn_gx/nngxFlush3DCommand.html">nngxFlush3DCommand</a></tt> function rather than this function to avoid unintentionally adding unnecessary commands.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_ERROR_800C_DMP</TH><TD><tt>0</tt> is bound to the current command list.</TD></TR><TR><TH>GL_ERROR_800D_DMP</TH><TD>The number of accumulated command requests has reached the maximum number of command requests.</TD></TR><TR><TH>GL_ERROR_800E_DMP</TH><TD>The command buffer exceeded its capacity when a "loading completion command" for 3D commands was added to the accumulated 3D command buffer.</TD></TR></TABLE></P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxFlush3DCommand.html">nngxFlush3DCommand</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added the See Also section.</item><br />
+        </dd>
+        <dt>2010/10/07</dt>
+        <dd><item xmlns="">Added an explanation about the <tt>nngxFlush3DCommand</tt> function.</item><br />
+        </dd>
+        <dt>2010/03/12</dt>
+        <dd><item xmlns="">Added extended error codes.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

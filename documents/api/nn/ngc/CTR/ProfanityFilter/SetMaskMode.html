@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetMaskMode</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ngc/Overview.html">ngc</a>::<a href="../../../../nn/ngc/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ngc/CTR/ProfanityFilter/Overview.html">ProfanityFilter</a>::SetMaskMode Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetMaskMode(
+     bool bOverWrite
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>bOverWrite</th>
+          <td>Specify <code>true</code> (the default setting) to overwrite the entire text with asterisk symbols when profanity is discovered. Specify <code>false</code> to substitute a single asterisk symbol for any discovered profanity word.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures how to respond when text is checked and profanity is discovered.</p><p>In the default mode, the entire text is overwritten with asterisk symbols when profanity is discovered. In some cases, this can result in display of text outside of the area of the box on the screen. For example, the asterisk symbol ("*") is wider than the letter "i" when a proportional <a href="../../../../nn/font/Overview.html">font</a> is used. When overwriting the text with asterisk symbols, there is a risk that the result will extend beyond the screen.</p><p>By specifying <code>false</code> for this function, only one asterisk is displayed in substitution for a profanity word, regardless of the number of characters in the profanity word. As a result, there is no danger to the integrity of the user interface.</p><p>This setting is only enabled when text is checked using the <code><a href="../../../../nn/ngc/CTR/ProfanityFilter/MaskProfanityWordsInText.html">ProfanityFilter::MaskProfanityWordsInText</a></code> function. It has no effect on operations when words are being checked by the <code><a href="../../../../nn/ngc/CTR/ProfanityFilter/CheckProfanityWords.html">ProfanityFilter::CheckProfanityWords</a></code> function.</p><p>The specified setting is reset to the default state (<code>true</code>) when the <code><a href="../../../../nn/ngc/CTR/ProfanityFilter/Finalize.html">ProfanityFilter::Finalize</a></code> function is called.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

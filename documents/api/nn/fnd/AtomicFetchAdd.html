@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>AtomicFetchAdd</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fnd/Overview.html">fnd</a>::AtomicFetchAdd Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/fnd.h&gt;
+template &lt;typename Int&gt;Int AtomicFetchAdd(
+     volatile Int * p,
+     Int operand
+);
+</pre>
+    </div>
+    <h2>Template Arguments</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>T</th>
+          <td>The target type. <code>T</code> must be an integer (8-bit, 16-bit, 32-bit, or 64-bit). Not supported when <code>T</code> is a pointer.</td>
+        </tr> </table>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>p</th>
+          <td>Pointer to variables in memory that are subject to atomic operations.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>operand</th>
+          <td>Specifies the operand.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the value of <code>*p</code> prior to operations. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Adds the specified values atomically.</p><p>Atomically calculates <code>*p += operand</code> and returns the value of <code>*p</code> prior to the calculation.</p><p>Do not step through this function with a debugger. Doing so could result in an infinite loop within the function. If you inadvertently step into the function, get out of function by stepping back out.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/08/19</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

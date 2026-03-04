@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ro::RegionInfo</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/ro/Overview.html">ro</a>::RegionInfo Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct RegionInfo
+{
+   <a href="../../../nn_types/uptr.html">uptr</a> mapBegin;
+   size_t mapSize;
+   <a href="../../../nn_types/uptr.html">uptr</a> croBegin;
+   size_t croSize;
+   <a href="../../../nn_types/uptr.html">uptr</a> dataBssBegin;
+   size_t dataBssSize;
+   <a href="../../../nn_types/uptr.html">uptr</a> codeBegin;
+   size_t codeSize;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This structure stores information about the memory region being used by a <code>cro</code>.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">mapBegin</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/uptr.html">uptr</a></td>
+            <td>Starting address of the memory region used by a <code>cro</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">mapSize</span>
+            </th>
+            <td width="100">size_t</td>
+            <td>Size of the memory region used by a <code>cro</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">croBegin</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/uptr.html">uptr</a></td>
+            <td>Starting address of the memory region of the <code>cro</code> passed to <code>LoadModule</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">croSize</span>
+            </th>
+            <td width="100">size_t</td>
+            <td>Size of the <code>cro</code> memory region passed to <code>LoadModule</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">dataBssBegin</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/uptr.html">uptr</a></td>
+            <td>Starting address of the memory region for the <code>.data/.bss</code> section.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">dataBssSize</span>
+            </th>
+            <td width="100">size_t</td>
+            <td>Size of the memory region for the <code>.data/.bss</code> section.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">codeBegin</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/uptr.html">uptr</a></td>
+            <td>Starting address of the executable code region.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">codeSize</span>
+            </th>
+            <td width="100">size_t</td>
+            <td>Size of the executable code region.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/20</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

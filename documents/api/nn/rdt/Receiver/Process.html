@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Process</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/rdt/Overview.html">rdt</a>::<a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a>::Process Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Process(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of a series of communication operations. Specifically, this function may return the following: a value for which the <code><a href="../../../nn/Result/IsSuccess.html">nn::Result::IsSuccess()</a></code> function returns <code>true</code> or a result code returned by the UDS library, such as <code><a href="../../../nn/rdt/ResultNotInitialized/Overview.html">ResultNotInitialized</a></code> or <code><a href="../../../nn/rdt/ResultResetReceived/Overview.html">ResultResetReceived</a></code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Proceeds with communication. The actual communication occurs within this function. This function must be called at least once each game frame (less than 50 msec) until the application calls the <code><a href="../../../nn/rdt/Receiver/Finalize.html">Finalize</a></code> function. When sending and receiving real data, you can sometimes improve the transmission performance by calling this function several times in a row. One call to this function transfers only up to around 1400 bytes, but more data can be received by calling this function multiple times. For more information about specific settings, see the <code>ServerClient</code> sample demo. Do not call other member functions (such as <code><a href="../../../nn/rdt/Receiver/Receive.html">Receive</a></code>) while this function is running. This results in undefined operations. State transitions of <code><a href="../../../nn/rdt/Receiver/Overview.html">Receiver</a></code> instances are also handled within this function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

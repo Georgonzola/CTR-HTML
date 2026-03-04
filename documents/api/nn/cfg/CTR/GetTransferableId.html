@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetTransferableId</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/cfg/Overview.html">cfg</a>::<a href="../../../nn/cfg/CTR/Overview.html">CTR</a>::GetTransferableId Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/cfg.h&gt;
+<a href="../../../nn_types/bit64.html">bit64</a> GetTransferableId(
+     <a href="../../../nn_types/bit32.html">bit32</a> uniqueId
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>uniqueId</th>
+          <td>Specifies the application's unique (20-bit) ID.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a system-specific (64-bit) ID. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the system ID.</p><p>By specifying an application's unique ID, you can get a value specific to both the system <emphasis>and</emphasis> the application. <br />
+ To use the same system-specific ID with multiple applications, you must specify the same unique ID. <br /><br />
+ If <bold>Delete All Content and Settings</bold> is run, this function returns a different value after initialization. <br />
+ If <bold>System Transfer</bold> is run, this function returns the same value on the receiving system. <br />
+ However, the original system gets a different number because it is initialized after the transfer.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/11/08</dt>
+        <dd><item xmlns="">Added a description of what happens when Delete All Content and Settings and System Transfer are run.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Added a description of the unique ID given as an argument.</item><br />
+        </dd>
+        <dt>2010/10/22</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

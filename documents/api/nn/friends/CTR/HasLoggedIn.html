@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>HasLoggedIn</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::HasLoggedIn Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool HasLoggedIn();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if the local application is logged in; otherwise, returns <code>false</code>. The local host is definitely logged in if this function returns <code>true</code>, but is not necessarily offline if this function returns <code>false</code>. It may return <code>false</code> even if the system has sent a login request.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>true</th>
+          <td>The local application is logged in to the friend server.</td>
+        </tr>
+        <tr>
+          <th>false</th>
+          <td>The local application is not logged in to the friend server.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Checks the login status of the local user.</p><p>Checks if the local application is currently online after calling the <code><a href="../../../nn/friends/CTR/Login.html">nn::friends::CTR::Login</a></code> function. <br /><br />
+ This function returns its result based on the state held locally, and the local host may not actually be communicating with the server. If there is a heavy load on the system, this function might not return its response within one frame. Be careful that this does not cause a fatal problem. <br /><br />
+ Avoid implementations where this function is called in every frame, because this can place a load on the system. If you want to detect changes to the connection status, get the notifications using the <code><a href="../../../nn/friends/CTR/AttachToEventNotification.html">nn::friends::CTR::AttachToEventNotification</a></code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/09/30</dt>
+        <dd><item xmlns="">Clarified that the local host may not be communicating with the server.<br /> Clarified that the response of the function may be delayed depending on the system load.<br /> Added the advice to avoid implementations where this function is called in every frame.<br /></item><br />
+        </dd>
+        <dt>2011/03/11</dt>
+        <dd><item xmlns="">Explained that the returned login status is limited to the requests sent by the application.<br /> Added specific examples of return values.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

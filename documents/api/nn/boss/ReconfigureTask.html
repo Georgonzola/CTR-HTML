@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>ReconfigureTask</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/boss/Overview.html">boss</a>::ReconfigureTask Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">nn::Result</a> ReconfigureTask(
+     <a href="../../nn/boss/Task/Overview.html">Task</a> * pTask,
+     <a href="../../nn/boss/TaskPolicy/Overview.html">TaskPolicy</a> * pPolicy,
+     <a href="../../nn_types/u8.html">u8</a> taskStep = DEFAULT_STEP_ID
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pTask</th>
+          <td>Specifies a registered task.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pPolicy</th>
+          <td>Specifies a task policy that contains updated content.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>taskStep</th>
+          <td>Specifies a task step ID. (This parameter may be omitted if there is only one task step to be executed.)<br /><bold>Note:</bold> This parameter is not currently supported because it is used with extended features. Do not specify it.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Successfully updated.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTaskId</th>
+          <td>The <emphasis>pTask</emphasis> parameter is <code>NULL</code>. <br />
+ Alternatively, the <emphasis>pTask</emphasis> parameter is uninitialized, or the pointer of the task ID specified by <emphasis>pTask</emphasis> is <code>NULL</code> or a zero-length string.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPolicy</th>
+          <td>The <emphasis>pPolicy</emphasis> parameter is <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTaskPriority</th>
+          <td>The task execution priority specification is out of range. Confirm that it is in the range of <code><a href="../../nn/boss/TaskPriority.html">TaskPriority</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultTaskPermissionOutOfRange</th>
+          <td>The task permission condition is out of range. Confirm that it is in the range of <code><a href="../../nn/boss/TaskPermission.html">TaskPermission</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultSchedulingPolicyOutOfRange</th>
+          <td>The scheduling policy is out of range. Confirm that it is in the range of <code><a href="../../nn/boss/SchedulingPolicy.html">SchedulingPolicy</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTaskTargetDuration</th>
+          <td>The task duration is invalid. (This is for future extensibility.)</td>
+        </tr>
+        <tr>
+          <th>ResultTaskNotExist</th>
+          <td>The specified task ID was not found. Confirm whether it is registered yet.</td>
+        </tr>
+        <tr>
+          <th>ResultIpcNotSessionInitialized</th>
+          <td>Indicates that the session is not initialized. <br />
+ The function returns this <code><a href="../../nn/Result/Overview.html">Result</a></code> if it is called before <code><a href="../../nn/boss/Initialize.html">Initialize</a></code> is called. <br />
+ Always call the <code><a href="../../nn/boss/Initialize.html">Initialize</a></code> function before you use the BOSS library.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The property settings for registered tasks can be changed. The properties that can be changed are only those that can be set using <code><a href="../../nn/boss/TaskPolicy/Overview.html">nn::boss::TaskPolicy</a></code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

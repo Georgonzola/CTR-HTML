@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetHomeButtonCallback</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::SetHomeButtonCallback Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetHomeButtonCallback(
+     <a href="../../../nn/applet/CTR/AppletHomeButtonCallback.html">AppletHomeButtonCallback</a> callback,
+     <a href="../../../nn_types/uptr.html">uptr</a> arg = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>callback</th>
+          <td>Specifies the callback.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>arg</th>
+          <td>Specifies callback arguments.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the callback invoked when HOME is pressed.</p><!-- write here --><P>The callback is called when a HOME Button press is detected.</P><P>A number of applet functions will not end until the process has left the callback, so promptly end the callback to reduce the risk of deadlock.</P><PRE>
+ Example:
+
+  bool myHomeButtonCallback( uptr arg, bool isActive, applet::HomeButtonState state )
+  {
+      NN_UNUSED_VAR(arg);
+
+      if ( isActive )
+      {
+          if ( state == applet::HOME_BUTTON_SINGLE_PRESSED )
+          {
+             NN_LOG("HOME BUTTON is clicked.\n");
+          }
+          else
+          {
+             NN_LOG("HOME BUTTON is double-clicked.\n");
+          }
+          return true;
+      }
+      else
+      {
+          return false;
+      }
+  }
+
+  nnMain()
+  {
+      applet::SetHomeButtonCallback( myHomeButtonCallback, 0 );
+         …
+  }
+</PRE><P><b>Note:</b></P><P>In CTR-SDK 4.0 and later versions, the double-click is no longer returned as a <span class="argument">state</span> parameter for the callback.  The process does not enter the portion of the sample code that displays "HOME BUTTON is double-clicked."  The definition for the double-click itself remains for purposes of compatibility, but in the future it might be deleted.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/02/01</dt>
+        <dd><item xmlns="">Noted that the double-click is no longer returned in CTR-SDK 4.0 and later versions.</item><br />
+        </dd>
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Added a note about the callback.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

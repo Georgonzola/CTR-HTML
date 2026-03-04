@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>ExtractExif</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::ExtractExif Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+bool ExtractExif(
+     const <a href="../../../../nn_types/u8.html">u8</a> * src,
+     size_t srcSize,
+     bool extractThumbnail
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>src</th>
+          <td>Specifies the JPEG data to decode.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcSize</th>
+          <td>Specifies the size of src in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>extractThumbnail</th>
+          <td>Specify <code>true</code> to extract the thumbnail image size. <br />
+ Specify <code>false</code> to extract the primary image size. <br />
+ Fails if <code>true</code> is specified but no thumbnail is found.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> on success. Even if no <code>Exif</code> information exists, this function returns <code>true</code> if it is possible to obtain the image size. <br />
+ Returns <code>false</code> on failure. Use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastError.html">GetLastError</a></code> function to get the reason for failure. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Extracts <code>Exif</code> information. Because this function does not decode the image, it can get information more quickly than the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/StartJpegDecoder.html">StartJpegDecoder</a></code> function.</p><p>To actually get the information included in EXIF, call this function first, and after it has succeeded, use the following <code>GetLast</code> functions.</p><p><UL> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastDateTime.html">GetLastDateTime</a></code> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastDateTimePointer.html">GetLastDateTimePointer</a></code> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastSoftwarePointer.html">GetLastSoftwarePointer</a></code> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastSoftwareLength.html">GetLastSoftwareLength</a></code> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastUserMakerNotePointer.html">GetLastUserMakerNotePointer</a></code> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastUserMakerNoteSize.html">GetLastUserMakerNoteSize</a></code> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastTwlPhotoMakerNote.html">GetLastTwlPhotoMakerNote</a></code> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastTwlUserMakerNotePointer.html">GetLastTwlUserMakerNotePointer</a></code> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastTwlUserMakerNoteSize.html">GetLastTwlUserMakerNoteSize</a></code> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastImageUid.html">GetLastImageUid</a></code> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOrientation.html">GetLastOrientation</a></code> <LI> <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastGpsData.html">GetLastGpsData</a></code> </LI></UL></p><p>Use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastWidth.html">GetLastWidth</a></code> and <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastHeight.html">GetLastHeight</a></code> functions to get the image size of either the primary or thumbnail images.</p><p>Image decoding might fail even if this function succeeds.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

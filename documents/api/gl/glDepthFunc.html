@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glDepthFunc</title>
+  </head>
+  <body>
+    <h1>glDepthFunc Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glDepthFunc(
+     GLenum func
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>func</th>
+          <td>Comparison function.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Specifies a comparison function to use in the depth test.</p><P>You can set <span class="argument">func</span> to the following values.<TABLE><TR><TH>GL_NEVER</TH><TD>The depth test always fails.</TD></TR><TR><TH>GL_LESS</TH><TD>Passes when the depth value of the fragment is less than the depth value in the depth buffer.</TD></TR><TR><TH>GL_EQUAL</TH><TD>Passes when the depth value of the fragment is equal to the depth value in the depth buffer.</TD></TR><TR><TH>GL_LEQUAL</TH><TD>Passes when the depth value of the fragment is less than or equal to the depth value in the depth buffer.</TD></TR><TR><TH>GL_GREATER</TH><TD>Passes when the depth value of the fragment is greater than the depth value in the depth buffer.</TD></TR><TR><TH>GL_NOTEQUAL</TH><TD>Passes when the depth value of the fragment is not equal to the depth value in the depth buffer.</TD></TR><TR><TH>GL_GEQUAL</TH><TD>Passes when the depth value of the fragment is greater than or equal to the depth value in the depth buffer.</TD></TR><TR><TH>GL_ALWAYS</TH><TD>The depth test always passes.</TD></TR></TABLE><!-- source funcにはGL_NEVER、GL_LESS、GL_EQUAL、GL_LEQUAL、GL_GREATER、GL_NOTEQUAL、GL_GEQUAL、GL_ALWAYSを指定します。 --></P><!-- source funcで指定したFunctionにより、デプステストにパスする条件が決定します。 GL_NEVERを指定した場合、デプステストは常にフェイルします。 GL_LESSを指定した場合、フラグメントのデプス値がデプスバッファのデプス値より小さい場合にパスします。 GL_EQUALを指定した場合、フラグメントのデプス値がデプスバッファのデプス値と同じ場合にパスします。 GL_LEQUALを指定した場合、フラグメントのデプス値がデプスバッファのデプス値以下の場合にパスします。 GL_GREATERを指定した場合、フラグメントのデプス値がデプスバッファのデプス値より大きい場合にパスします。 GL_NOTEQUALを指定した場合、フラグメントのデプス値がデプスバッファのデプス値と異なる場合にパスします。 GL_GEQUALを指定した場合、フラグメントのデプス値がデプスバッファのデプス値以上の場合にパスします。 GL_ALWAYSを指定した場合、デプステストは常にパスします。 --><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">func</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR></TABLE><!-- source funcに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

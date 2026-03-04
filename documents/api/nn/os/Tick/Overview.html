@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::Tick</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::Tick Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/os.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Tick</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for handling ticks.</p><p>A tick represents a unit of time. In some cases, it may be described as a tick value. On <a href="../../../nn/os/CTR/Overview.html">CTR</a> and SNAKE in standard mode, one tick represents one clock cycle of the CPU. In extended mode on SNAKE, one tick represents three clock cycles of the CPU.</p><p>The conversion constructors and conversion operators let you convert from ticks to <code><a href="../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a></code> objects (which represent actual time), and vice versa. Use <code><a href="../../../nn/os/Tick/GetSystemCurrent.html">GetSystemCurrent</a></code> to get the tick value since the system was started up.</p><p>The tick value differs for each individual system and can vary widely by temperature, so the precision is somewhere around ±300 seconds per month. This value is not something that can be guaranteed in the retail product.</p><p>Time in terms of current date and time as gotten by the <code><a href="../../../nn/fnd/DateTime/GetNow.html">nn::fnd::DateTime::GetNow</a></code> function progresses at a different speed, so the two values must not be used in combination. Even though you get values in the same unit with the <code><a href="../../../nn/os/Tick/ToTimeSpan.html">nn::os::Tick::ToTimeSpan</a></code> function, you do not get the same value even when you take the measurement at the same time.</p><p>Also, in most cases, time progresses at different rates in libraries that handle time internally (for example, for streaming playback of audio and video). So, for example, if you want to synchronize the application's gameplay with the sound playback, you need to understand the specifications for the individual libraries and use the same rate of time progression for both.</p><!-- write here --></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/os/Tick/TICKS_PER_SECOND.html">TICKS_PER_SECOND</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s64.html">s64</a></td>
+            <td>This constant represents the tick value per second.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Constructor</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/Tick.html">Tick</a>
+            </th>
+            <td>Constructor that takes a tick value and initializes the object.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/os/Tick/GetSystemCurrent.html">GetSystemCurrent</a>
+            </th>
+            <td>Returns a <code><a href="../../../nn/os/Tick/Overview.html">Tick</a></code> object that has been counting since the system was started.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Conversions</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/operator s64.html">operator s64</a>
+            </th>
+            <td>Converts to a 64-bit tick value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/operator nn-3a-3afnd-3a-3aTimeSpan.html">operator nn::fnd::TimeSpan</a>
+            </th>
+            <td>Converts to a <code><a href="../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a></code> value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/ToTimeSpan.html">ToTimeSpan</a>
+            </th>
+            <td>Converts to a <code><a href="../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a></code> value.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Sums and Differences</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/operator-2d=.html">operator-=</a>
+            </th>
+            <td>Subtracts a <code><a href="../../../nn/os/Tick/Overview.html">Tick</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/operator-2d.html">operator-</a>
+            </th>
+            <td>Finds the difference of a <code><a href="../../../nn/os/Tick/Overview.html">Tick</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/operator+=.html">operator+=</a>
+            </th>
+            <td>Adds a <code><a href="../../../nn/os/Tick/Overview.html">Tick</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/operator+.html">operator+</a>
+            </th>
+            <td>Finds the sum of a <code><a href="../../../nn/os/Tick/Overview.html">Tick</a></code>.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Conversion to Second Units</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/ToNanoSeconds.html">ToNanoSeconds</a>
+            </th>
+            <td>Converts to nanoseconds.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/ToMicroSeconds.html">ToMicroSeconds</a>
+            </th>
+            <td>Converts to microseconds.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/ToMilliSeconds.html">ToMilliSeconds</a>
+            </th>
+            <td>Converts to milliseconds.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Tick/ToSeconds.html">ToSeconds</a>
+            </th>
+            <td>Converts to seconds.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/11/04</dt>
+        <dd><item xmlns="">Added a description of SNAKE extended mode. Revised some wording to fix terminology.</item><br />
+        </dd>
+        <dt>2012/05/25</dt>
+        <dd><item xmlns="">Categorized the member functions.</item><br /><item xmlns="">Added the operator-series functions.</item><br />
+        </dd>
+        <dt>2012/01/17</dt>
+        <dd><item xmlns="">Noted that mixed use with <a href="../../../nn/fnd/DateTime/GetNow.html">nn::fnd::DateTime::GetNow</a> is prohibited, and added a description of precision.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

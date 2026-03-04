@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glCopyTexSubImage2D</title>
+  </head>
+  <body>
+    <h1>glCopyTexSubImage2D Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glCopyTexSubImage2D(
+     GLenum target,
+     GLint level,
+     GLint xoffset,
+     GLint yoffset,
+     GLint x,
+     GLint y,
+     GLsizei width,
+     GLsizei height
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Texture target.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>level</th>
+          <td>Mipmap level of the data to load.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>xoffset</th>
+          <td>X-coordinate of the lower-left corner of the partial region of the texture to which to copy the data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>yoffset</th>
+          <td>Y-coordinate of the lower-left corner of the partial region of the texture to which to copy the data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>x</th>
+          <td>X-coordinate of the lower-left corner of the region of the color buffer to copy.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>y</th>
+          <td>Y-coordinate of the lower-left corner of the region of the color buffer to copy.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Width of the region to read from the color buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Height of the region to read from the color buffer.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Partially copies the contents of the current color buffer to texture data.</p><P>Use this function to copy only a portion of the image processed by the <tt>glCopyTexImage2D</tt> function. The texture image must be created using the <tt>glTexImage2D</tt> function before you can call this function.</P><P>You can set <span class="argument">target</span> to one of the following values.<TABLE><TR><TH>GL_TEXTURE_2D</TH><TD>2D texture.</TD></TR><TR><TH>GL_TEXTURE_CUBE_MAP_NEGATIVE_X</TH><TD>Face of a cube-map texture in the negative x direction.</TD></TR><TR><TH>GL_TEXTURE_CUBE_MAP_POSITIVE_X</TH><TD>Face of a cube-map texture in the positive x direction.</TD></TR><TR><TH>GL_TEXTURE_CUBE_MAP_NEGATIVE_Y</TH><TD>Face of a cube-map texture in the negative y direction.</TD></TR><TR><TH>GL_TEXTURE_CUBE_MAP_POSITIVE_Y</TH><TD>Face of a cube-map texture in the positive y direction.</TD></TR><TR><TH>GL_TEXTURE_CUBE_MAP_NEGATIVE_Z</TH><TD>Face of a cube-map texture in the negative z direction.</TD></TR><TR><TH>GL_TEXTURE_CUBE_MAP_POSITIVE_Z</TH><TD>Face of a cube-map texture in the positive z direction.</TD></TR></TABLE><!-- source targetにはGL_TEXTURE_2DまたはGL_TEXTURE_CUBE_MAP_NEGATIVE_X、GL_TEXTURE_CUBE_MAP_POSITIVE_X、 GL_TEXTURE_CUBE_MAP_NEGATIVE_Y、GL_TEXTURE_CUBE_MAP_POSITIVE_Y、GL_TEXTURE_CUBE_MAP_NEGATIVE_Z、GL_TEXTURE_CUBE_MAP_POSITIVE_Zが指定できます。 --></P><P>When you specify <tt>-2</tt> or less for the <span class="argument">level</span> argument, all textures other than for the lowest mipmap level are automatically generated. Automatic mipmap generation is only supported for some texture formats. Also, the minimum generatable texture widths and heights (LOD upper limit) are different for each texture format. The following table shows the supported values for <span class="argument">format</span> and <span class="argument">type</span> and the minimum sizes that can be generated.<TABLE><THEAD><TR><TD>format</TD><TD>type</TD><TD>Minimum automatically generatable size (in texels)</TD></TR></THEAD><TR><TD><tt>GL_RGBA</tt></TD><TD><tt>GL_UNSIGNED_SHORT_4_4_4_4</tt></TD><TD>64</TD></TR><TR><TD><tt>GL_RGBA</tt></TD><TD><tt>GL_UNSIGNED_SHORT_5_5_5_1</tt></TD><TD>64</TD></TR><TR><TD><tt>GL_RGBA</tt></TD><TD><tt>GL_UNSIGNED_BYTE</tt></TD><TD>32</TD></TR><TR><TD><tt>GL_RGB</tt></TD><TD><tt>GL_UNSIGNED_SHORT_5_6_5</tt></TD><TD>64</TD></TR><TR><TD><tt>GL_RGB</tt></TD><TD><tt>GL_UNSIGNED_BYTE</tt></TD><TD>32</TD></TR><TR><TD><tt>GL_RGBA_NATIVE_DMP</tt></TD><TD><tt>GL_UNSIGNED_SHORT_4_4_4_4</tt></TD><TD>64</TD></TR><TR><TD><tt>GL_RGBA_NATIVE_DMP</tt></TD><TD><tt>GL_UNSIGNED_SHORT_5_5_5_1</tt></TD><TD>64</TD></TR><TR><TD><tt>GL_RGBA_NATIVE_DMP</tt></TD><TD><tt>GL_UNSIGNED_BYTE</tt></TD><TD>32</TD></TR><TR><TD><tt>GL_RGB_NATIVE_DMP</tt></TD><TD><tt>GL_UNSIGNED_SHORT_5_6_5</tt></TD><TD>64</TD></TR><TR><TD><tt>GL_RGB_NATIVE_DMP</tt></TD><TD><tt>GL_UNSIGNED_BYTE</tt></TD><TD>32</TD></TR></TABLE>Specifying a value for <span class="argument">level</span> that does not conform to the minimum sizes of the generated mipmaps listed above causes a <tt>GL_INVALID_OPERATION</tt> error. When <tt>GL_GENERATE_MIPMAP</tt> is <tt>TRUE</tt>, you must specify the same value for <span class="argument">level</span> as was specified in the previous call to <tt>TexImage2D</tt> or <tt>CopyTexImage2D</tt>. Specifying a different value for <span class="argument">level</span> causes an error. When <tt>GL_GENERATE_MIPMAP</tt> is <tt>FALSE</tt>, you must specify <tt>0</tt> for <span class="argument">level</span>. Any other value causes an error.</P><P>You must set <span class="argument">xoffset</span>, <span class="argument">yoffset</span>, <span class="argument">x</span>, <span class="argument">y</span>, <span class="argument">width</span>, and <span class="argument">height</span> to multiples of 8.</P><P>You can copy the current depth buffer to a texture and use that. Call the <tt>glEnable</tt> function and specify <tt>GL_DEPTH_STENCIL_COPY_DMP</tt> to enable the depth stencil copy feature. Call the <tt>glDisable</tt> function to disable this feature. Call the <tt>glIsEnabled</tt> function and specify <tt>GL_DEPTH_STENCIL_COPY_DMP</tt> to find if the depth stencil copy feature is enabled.</P><P>The format of the target texture for copying is determined by the format of the current depth buffer. Format conversion when copying is not supported. The format of the current depth buffer corresponds to the format of the target texture for copying as follows.<TABLE><TR><TH>Depth Buffer Format</TH><TH>Depth Buffer Content</TH><TH>Corresponding Texture Format (Texture Type)</TH></TR><TR><TD><tt>GL_DEPTH24_STENCIL8_EXT</tt></TD><TD>R: 8-bit stencil value <BR />G: 24-bit depth value, bits [23:16] <BR />B: 24-bit depth value, bits [15:8] <BR />A: 24-bit depth value, bits [7:0]</TD><TD><tt>GL_RGBA</tt> (<tt>GL_UNSIGNED_BYTE</tt>), <tt>GL_RGBA_NATIVE_DMP</tt> (<tt>GL_UNSIGNED_BYTE</tt>)</TD></TR><TR><TD><tt>GL_DEPTH_COMPONENT24_OES</tt></TD><TD>R: 24-bit depth value, bits [23:16] <BR />G: 24-bit depth value, bits [15:8] <BR />B: 24-bit depth value, bits [7:0]</TD><TD><tt>GL_RGB</tt> (<tt>GL_UNSIGNED_BYTE</tt>), <tt>GL_RGB_NATIVE_DMP</tt> (<tt>GL_UNSIGNED_BYTE</tt>)</TD></TR><TR><TD><tt>GL_DEPTH_COMPONENT16</tt></TD><TD>R: 16-bit depth value, bits [15:8] <BR />G: 16-bit depth value, bits [7:0]</TD><TD><tt>GL_HILO8_DMP</tt> (<tt>GL_UNSIGNED_BYTE</tt>), <tt>GL_HILO8_NATIVE_DMP</tt> (<tt>GL_UNSIGNED_BYTE</tt>)</TD></TR></TABLE></P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_FRAMEBUFFER_OPERATION</TH><TD>A color buffer has not been configured correctly for the current framebuffer.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">xoffset</span>, <span class="argument">yoffset</span>, <span class="argument">x</span>, <span class="argument">y</span>, <span class="argument">width</span>, or <span class="argument">height</span> argument was set to an invalid value; the sum of <span class="argument">xoffset</span> and <span class="argument">width</span> exceeds the width (in pixels) of the color buffer; or the sum of <span class="argument">yoffset</span> and <span class="argument">height</span> exceeds the height (in pixels) of the color buffer.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">level</span> argument was set to an invalid value.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called on a texture object with a texture format that does not correspond to the current depth buffer format.</TD></TR></TABLE><!-- source カレントのフレームバッファにカラーバッファが正しく設定されていない場合エラーGL_INVALID_FRAMEBUFFER_OPERATIONを生成します。 xoffset、yoffset、x、y、width、heightに不正な値を指定した場合、および xoffset＋widthがカラーバッファの横幅のピクセル数を超える場合、および yoffset＋heightがカラーバッファの縦幅のピクセル数を超える場合エラーGL_INVALID_VALUEを生成します。 levelに不正な値を指定した場合エラーGL_INVALID_OPERATIONを生成します。 targetに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/18</dt>
+        <dd><item xmlns="">Explained that a texture must first be generated using the glTexImage2D function.</item><br />
+        </dd>
+        <dt>2010/09/15</dt>
+        <dd><item xmlns="">Added explanation of automatic mipmap generation to the level argument description.</item><br />
+        </dd>
+        <dt>2010/08/12</dt>
+        <dd><item xmlns="">Explained the depth stencil copy feature.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

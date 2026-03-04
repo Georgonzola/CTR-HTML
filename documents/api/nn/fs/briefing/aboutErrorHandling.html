@@ -1,0 +1,720 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+    <title>File System: Error Handling</title>
+</head>
+<body>
+    <h1>File System: Error Handling</h1>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#Summary">Overview</a></li>
+      <ul>
+        <li><a href="#Summary_Result">Result Handling</a></li>
+        <li><a href="#Summary_Error">Errors That Must Not Be Allowed to Occur in Retail Products</a></li>
+        <li><a href="#Summary_Api">Functions for File and Directory Operations</a></li>
+        <li><a href="#Summary_FatalError">Handling Fatal Errors</a></li>
+      </ul>
+      <li><a href="#Mounting">Handling Mount Errors</a></li>
+      <ul>
+        <li><a href="#Mounting_RomArchive">ROM Archives</a></li>
+        <li><a href="#Mounting_SaveDataArchive">Save Data Archives</a></li>
+        <li><a href="#Mounting_SaveDataArchive_Other">Save Data Archives (Other Programs)</a></li>
+        <li><a href="#Mounting_ExtSaveDataArchive">Expanded Save Data Archives</a></li>
+        <li><a href="#Mounting_SdmcWriteOnlyArchive">Write-Only SDMC Archives</a></li>
+        <li><a href="#Mounting_AddOnContents">Add-On Content</a></li>
+      </ul>
+      <li><a href="#FileAndDirectory">Handling Errors During File and Directory Operations</a></li>
+      <ul>
+        <li><a href="#FileAndDirectory_RomArchive">ROM Archives</a></li>
+        <li><a href="#FileAndDirectory_SaveDataArchive">Save Data Archives</a></li>
+        <li><a href="#FileAndDirectory_ExtSaveDataArchive">Expanded Save Data Archives</a></li>
+        <li><a href="#FileAndDirectory_SdmcWriteOnlyArchive">Write-Only SDMC Save Data Archives</a></li>
+        <li><a href="#FileAndDirectory_AddOnContents">Add-On Content</a></li>
+      </ul>
+      <li><a href="#History">Revision History</a></li>
+    </ul>
+
+    <a name="Summary"><h2>Overview</h2></a>
+    <div class="section">
+    <p>
+      This page describes error handling for the file system.
+    </p>
+
+    <p>
+      With file access in SD, an unspecified error can be returned at an unspecified time due to something such as an SD failure or a file being overwritten by the user.
+    </p>
+
+    <p>
+      Even in this case, if the card application references the add-on content on the SD card, the application continues to execute even if the SD card is inserted or removed. For this reason, applications that support add-on content must perform file access error handling.
+    </p>
+        
+    <p>
+      With the EC library, a corresponding error code is provided for errors that do not occur with normal usage of add-on content. For this reason, the application developer can prompt the user to deal with the problem appropriately with the EULA error display applet without dealing with independent errors.
+    </p>
+      <a name="Summary_Result"><h3>Result Handling</h3></a>
+      <div class="section">
+        FS functions return many different types of <CODE>Result</CODE> values. These values are handled by the following mechanism rather than one value at a time. The following example shows how to handle all errors belonging to the <a href="../../../nn/fs/ResultNotFound/Overview.html">ResultNotFound</a> category.<br /> <pre>
+if(result &lt;= nn::fs::ResultNotFound())
+{
+    // This can also catch nn::fs::ResultMediaNotFound.
+}
+</pre>The <CODE>Result</CODE> objects returned by <CODE>fs</CODE> functions are forbidden from using the arithmetic operators <CODE>==</CODE> or <CODE>!=</CODE>. Using these operators causes a build error. Also note that the following two examples are equivalent. <pre>
+if(nn::fs::ResultNotFound::Includes(result))
+{
+    ...
+}
+</pre> <pre>
+if(nn::fs::ResultNotFound() &gt;= result)
+{
+    ...
+}
+</pre>
+        <p><font color="red">Do not directly handle any <CODE>Result</CODE> values that are not mentioned in the API Reference Manual.</font></p>
+      </div>
+
+      <a name="Summary_Error"><h3>Errors That Must Not Be Allowed to Occur in Retail Products</h3></a>
+      <div class="section">
+        The following <CODE>Result</CODE> values indicate errors that are caused by application bugs and other such problems. You must fix your program so that these do not occur in retail products.
+        <ul>
+          <li><a href="../../../nn/fs/ResultOutOfResource/Overview.html">ResultOutOfResource</a></li>
+          <li><a href="../../../nn/fs/ResultAccessDenied/Overview.html">ResultAccessDenied</a></li>
+          <li><a href="../../../nn/fs/ResultInvalidArgument/Overview.html">ResultInvalidArgument</a></li>
+          <li><a href="../../../nn/fs/ResultNotInitialized/Overview.html">ResultNotInitialized</a></li>
+          <li><a href="../../../nn/fs/ResultAlreadyInitialized/Overview.html">ResultAlreadyInitialized</a></li>
+          <li><a href="../../../nn/fs/ResultUnsupportedOperation/Overview.html">ResultUnsupportedOperation</a></li>
+        </ul>
+        These <CODE>Result</CODE> values may be caused by user operations, or it may be impossible to get rid of them entirely during development. You must handle errors that can be caused by the user. Some functions may also specify errors that must not occur in retail products, even though the corresponding <CODE>Result</CODE> values are not among those listed above. For more information, see the documentation for each of these functions in the API Reference Manual.
+      </div>
+
+      <a name="Summary_Api"><h3>Functions for File and Directory Operations</h3></a>
+      <div class="section">
+There are two types of functions used to perform file and directory operations: <CODE>Try</CODE> functions (which have the prefix <CODE>Try</CODE> added to the function name), and non-<CODE>Try</CODE> functions (which do not contain this prefix). <CODE>Try</CODE> functions return a <CODE>Result</CODE> as the return value, unless a fatal internal error occurs. Instead of returning <CODE>Results</CODE>, non-<CODE>Try</CODE> functions are implemented to display a fatal error screen whenever an internal error returns, regardless of whether the error is fatal. Control does not return from the function in this case.<br /><br />Internal errors never occur for ROM archives because of their characteristics. For ROM archives, you can avoid implementation omissions in error handling by using the non-<CODE>Try</CODE> functions. (During development, make sure to eliminate situations in which an error could occur because of an attempt to open a nonexistent file.)<br /> <br />For archives other than ROM archives, you must always check for errors that can result from the user's operations. One typical example is removal of the Game Card by the user, which can lead to corrupted files. As a result, always use <CODE>Try</CODE> functions for error handling. Do not use non-<CODE>Try</CODE> functions because they can easily jump to fatal error screens as a result of user operations.
+      </div>
+
+      <a name="Summary_FatalError"><h3>Handling Fatal Errors</h3></a>
+      <div class="section">
+        You are allowed to use the following macro to jump to the fatal error screen when a file system API function returns an error that you believe to be fatal, or there is a system issue that your application cannot handle.<br /> <br />Note, however, that applications must handle all errors other than those given in the following examples. To prevent unnecessary transitions to the fatal error screen, do not call this macro in locations other than those given in the examples. <br />
+<pre>
+NN_ERR_THROW_FATAL_ALL(result);
+</pre>
+        For more information about this macro, see the <a href="../../../introduction/ErrorHandling.html">Error Handling</a> page.
+      </div>
+    </div>
+
+    <a name="Mounting"><h2>Handling Mount Errors</h2></a>
+    <div class="section">
+      The following simplified C++ code provides guidelines for handling mount errors.
+
+      <a name="Mounting_RomArchive"><h3>ROM Archives</h3></a>
+      <div class="section">
+<pre>
+// An error causes an internal jump to the fatal error screen.
+// The application does not need to perform error handling.
+// NOTE: When developing an application, confirm that you are passing enough working memory as an argument.
+//    Also check your Omakefile and RSF file settings to determine whether a ROMFS is created at build time.
+nn::fs::MountRom();
+</pre>
+      </div>
+
+      <a name="Mounting_SaveDataArchive"><h3>Save Data Archives</h3></a>
+      <div class="section">
+<pre>
+nn::Result result = nn::fs::MountSaveData();
+
+if(result.IsFailure())
+{
+    if(result &lt;= nn::fs::ResultNotFormatted())
+    {
+        // Formatting is required.
+        // CAUSE: Unformatted save data region.
+        // NOTE: You must always format a save data region before mounting it for the first time.
+        result = nn::fs::FormatSaveData();
+    }
+    else if(result &lt;= nn::fs::ResultBadFormat())
+    {
+        // Formatting is required.
+        // CAUSE: Invalid file format.
+        result = nn::fs::FormatSaveData();
+    }
+    else if(result &lt;= nn::fs::ResultVerificationFailed())
+    {
+        // Formatting is required.
+        // CAUSE: The save data has been corrupted or tampered with.
+        // (Supplement) This may occur regardless of whether there is a duplication.
+        result = nn::fs::FormatSaveData();
+    }
+    else if(result &lt;= nn::fs::ResultOperationDenied())
+    {
+        // As of CTR-SDK 2.1, this error is handled by the system. Treat it as an unexpected error.
+    }
+    else
+    {
+        // Unexpected error if other than the above.
+        NN_ERR_THROW_FATAL_ALL(result);
+    }
+
+    // Troubleshooting after formatting. 
+    if(result.IsFailure())
+    {
+        // Here, the act of formatting save data never fails.
+        // NOTE: When developing your application, confirm that the maxFiles and maxDirectories arguments are not too big.
+        //       Also confirm that the content of the RSF file is correct.
+        // NOTE: Do not format the region while it is mounted, or access save data from another thread during formatting.
+        NN_ERR_THROW_FATAL_ALL(result);
+    }
+    else
+    {
+        // Remount.
+        result = nn::fs::MountSaveData();
+        if(result.IsFailure())
+        {
+            // The same as when making the first call.
+            // NOTE: Do not format the region while it is mounted, or access save data from another thread during formatting.
+        }
+    }
+}
+</pre>
+      </div>
+
+      <a name="Mounting_SaveDataArchive_Other"><h3>Save Data Archives (Other Programs)</h3></a>
+      <div class="section">
+<pre>
+nn::Result result = nn::fs::MountSaveData(archiveName, uniqueId, variation);
+
+if(result.IsFailure())
+{
+    if(result &lt;= nn::fs::ResultNotFound())
+    {
+        // Stop access.
+        // Reason: Target save data was not found.
+    }
+    else if(result &lt;= nn::fs::ResultNotFormatted() || result &lt;= nn::fs::ResultBadFormat())
+    {
+        // Stop access.
+        // Reason: Target save data was not formatted correctly.
+        // Comment: To use the save data, it must be formatted by the program it belongs to.
+    }
+    else if(result &lt;= nn::fs::ResultVerificationFailed())
+    {
+        // Stop access.
+        // Reason: Target save data is corrupt.
+        // Comment: To use the save data, it must be formatted by the program it belongs to.
+    }
+    else if(result &lt;= nn::fs::ResultOperationDenied())
+    {
+        // Stop access.
+        // Reason: Cannot access the target media.
+        // Comment: This might be resolved by removing and reinserting the target media.
+    }
+    else
+    {
+        // Unexpected error if other than the above.
+        // Do not call NN_ERR_THROW_FATAL macros.
+    }
+}
+</pre>
+      </div>
+
+      <a name="Mounting_ExtSaveDataArchive"><h3>Expanded Save Data Archives</h3></a>
+      <div class="section">
+<pre>
+nn::Result result = nn::fs::MountExtSaveData();
+
+if(result.IsFailure())
+{
+    if(result &lt;= nn::fs::ResultNotFound())
+    {
+        if(result &lt;= nn::fs::ResultMediaNotFound())
+        {
+            // An SD card has not been inserted.
+            // NOTE: This error is also returned if the SD card is damaged or if some medium other than an SD card is inserted.
+            //        In such cases, an insertion event registered by RegisterSdmcInsertedEvent is signaled.
+        }
+        else
+        {
+            // The specified expanded save data does not exist and must be created.
+            // NOTE: Confirm that the ID you specified is correct when developing your application.
+            result = nn::fs::CreateExtSaveData();
+        }
+    }
+    else if(result &lt;= nn::fs::ResultNotFormatted())
+    {
+        // You must recreate the expanded save data.
+        // CAUSE: Failed to create expanded save data.
+        result = nn::fs::DeleteExtSaveData();
+        if(result.IsSuccess())
+        {
+            result = nn::fs::CreateExtSaveData();
+        }
+    }
+    else if(result &lt;= nn::fs::ResultBadFormat())
+    {
+        // You must format the SD card.
+    }
+    else if(result &lt;= nn::fs::ResultVerificationFailed())
+    {
+        // You must recreate the expanded save data.
+        // CAUSE: The save data has been corrupted or tampered with.
+        result = nn::fs::DeleteExtSaveData();
+        if(result.IsSuccess())
+        {
+            result = nn::fs::CreateExtSaveData();
+        }
+    }
+    else if(result &lt;= nn::fs::ResultOperationDenied())
+    {
+        if(result &lt;= nn::fs::ResultWriteProtected())
+        {
+            // The SD card is write-protected.
+            // NOTE: This occurs if the data recovery sequence is run during a mount operation.
+        }
+        else if(result &lt;= nn::fs::ResultMediaAccessError())
+        {
+            // This error is only returned when the cause is hardware related, such as a poor connection.
+            // In such cases, recovery may be possible by reinserting the SD card, restarting the system, or some other action.
+        }
+        else
+        {
+            // The file or directory on the SD card may be read-only.
+            // NOTE: This occurs if the data recovery sequence is run during a mount operation.
+        }
+    }
+    else
+    {
+        // Unexpected error if other than the above. Failed to recognize this expanded save data or SD card.
+        // Do not call NN_ERR_THROW_FATAL macros.
+    }
+
+    // Troubleshooting after data has been created. 
+    if(result.IsFailure())
+    {
+        if(result &lt;= nn::fs::ResultNotEnoughSpace())
+        {
+            // The SD card does not have the necessary free space.
+        }
+        else if(result &lt;= nn::fs::ResultNotFormatted())
+        {
+            // An error has occurred, interrupting the process of data creation.
+        }
+        else if(result &lt;= nn::fs::ResultOperationDenied())
+        {
+            if(result &lt;= nn::fs::ResultWriteProtected())
+            {
+                // The SD card is write-protected.
+            }
+            else if(result &lt;= nn::fs::ResultMediaAccessError())
+            {
+                // This error is only returned when the cause is hardware related, such as a poor connection.
+                //       In such cases, recovery may be possible by retrying, reinserting the Game Card, restarting the system, or some other action.
+            }
+            else
+            {
+                // The directory on the SD card may be read-only.
+                // NOTE: This occurs if the data recovery sequence is run during a mount operation.
+            }
+        }
+        else
+        {
+            // Failed to recognize this expanded save data or SD card.
+            // Handle corresponding errors here together. (Do not jump to the FATAL Error screen.)
+            // NOTE: When developing your application, confirm that valid values are passed to iconData and iconDataSize.
+        }
+    }
+    else
+    {
+        // Remount.
+        result = nn::fs::MountExtSaveData();
+        if(result.IsFailure())
+        {
+            // The same as when making the first call.
+            // (Supplement) As long as the SD card is not removed, mount operations carried out immediately after the data is created never fail.
+        }
+    }
+}
+</pre>
+      </div>
+
+      <a name="Mounting_SdmcWriteOnlyArchive"><h3>Write-Only SDMC Archives</h3></a>
+      <div class="section">
+<pre>
+nn::Result result = nn::fs::MountSdmcWriteOnly();
+
+if(result.IsFailure())
+{
+    if(result &lt;= nn::fs::ResultMediaNotFound())
+    {
+        // An SD card has not been inserted.
+        // NOTE: This error is also returned if the SD card is damaged or if some medium other than an SD card is inserted.
+        //        In such cases, an insertion event registered by RegisterSdmcInsertedEvent is signaled.
+    }
+    else if(result &lt;= nn::fs::ResultBadFormat())
+    {
+        // You must format the SD card.
+    }
+    else if(result &lt;= nn::fs::ResultOperationDenied())
+    {
+        if(result &lt;= nn::fs::ResultWriteProtected())
+        {
+            // This error is not returned when mounted. Check separately by calling the <a href="../../../nn/fs/IsSdmcWritable.html">nn::fs::IsSdmcWritable</a> function.
+        }
+        else if(result &lt;= nn::fs::ResultMediaAccessError())
+        {
+            // This error is only returned when the cause is hardware related, such as a poor connection.
+            // In such cases, recovery may be possible by reinserting the SD card, restarting the system, or some other action.
+        }
+        else
+        {
+            // Failed to recognize this SD card.
+            // Handle corresponding errors here together. (Do not jump to the FATAL Error screen.)
+        }
+    }
+    else
+    {
+        // Failed to recognize this SD card.
+        // Handle corresponding errors here together. (Do not jump to the FATAL Error screen.)
+    }
+}
+</pre>
+      </div>
+
+      <a name="Mounting_AddOnContents"><h3>Add-On Content</h3></a>
+      <div class="section">
+<pre>
+nn::ec::ResultError resultError = nn::fs::MountAddOnContent();
+
+if(resultError.IsFailure())
+{
+    if(determine whether the SD card inserted or removed)
+    {
+        // If the SD card is inserted and removed during any function call that uses add-on content, an unexpected error may be returned.
+        // Before beginning the error-determination process, determine whether the SD card was inserted and removed.
+        // If the card was inserted and removed, cancel the processing that used the add-on content.
+        // For more information about how to detect SD card insertion and removal, see the fs library reference materials.
+    }
+    else
+    {
+        // Convert to an error code, display the error in the Error/EULA display applet, and prompt the user on how to deal with the problem.
+        // Do not use NN_ERR_THROW_FATAL-series macros.
+        s32 errorCode = resultError.GetErrorCode();
+
+        // Correct the program during development so that this error does not occur.
+            
+        // If you reach this point for some other reason, return to a scene from before calling the API functions.
+        // Operation might proceed normally if the user carries out the same operations.
+
+        // The EC applet or Error/EULA applet displays any notifications to users. You do not need to do anything special at this point.
+    }
+}
+</pre>
+      </div>
+    </div>
+
+    <a name="FileAndDirectory"><h2>Handling Errors During File and Directory Operations</h2></a>
+    <div class="section">
+      The following simplified C++ code provides a guideline for handling errors during file and directory operations.<br /><br /> <br /> There are two types of functions used to perform file and directory operations: <CODE>Try</CODE> functions (which have the prefix <CODE>Try</CODE> added to the function name), and non-<CODE>Try</CODE> functions (which do not contain this prefix). For more information, see <a href="#Summary_Api">Functions for File and Directory Operations</a>.
+
+      <a name="FileAndDirectory_RomArchive"><h3>ROM Archives</h3></a>
+      <div class="section">
+<pre>
+// Because errors are handled internally by non-Try functions, you do not need to receive Result values.
+nn::fs::XXX();
+</pre>
+      </div>
+
+      <a name="FileAndDirectory_SaveDataArchive"><h3>Save Data Archives</h3></a>
+      <div class="section">
+<pre>
+// You must use Try functions with the save data archive.
+result = nn::fs::TryXXX();
+
+if(result.IsFailure())
+{
+    if(result &lt;= nn::fs::ResultNotFound())
+    {
+        // The specified path does not exist.
+        // Note: This error is returned when creating a file or directory and the archive name is wrong or a directory in the path does not exist.
+    }
+    else if(result &lt;= nn::fs::ResultAlreadyExists())
+    {
+        // The specified path already exists.
+        // NOTE: This error is not returned when files and directories are deleted.
+    }
+    else if(result &lt;= nn::fs::ResultVerificationFailed())
+    {
+        // If there is automatic redundancy, you must reformat because otherwise the save data will not be completely consistent.
+        // If there is no automatic redundancy, you must delete and re-create this file or directory.
+        // CAUSE: The save data has been corrupted or tampered with.
+        // NOTE: This state is never caused by user operations (such as removing a card or turning off the system while data is being written) when there is automatic redundancy (unless intentionally tampered with).
+        //       If there is no automatic redundancy, this error can occur even through normal user operations.
+        //       If this is not resolved, you must format the save data.
+        // NOTE: This error is returned when reading a region that has never been written to.
+        // Be careful after executing the functions nn::fs::TryCreateFile and nn::fs::FileStream::TrySetSize.
+    }
+    else if(result &lt;= nn::fs::ResultOperationDenied())
+    {
+        if(result &lt;= nn::fs::ResultMediaAccessError())
+        {
+            // As of CTR-SDK 2.1, this error is handled by the system. Treat it as an unexpected error.
+            NN_ERR_THROW_FATAL_ALL(result);
+        }
+        else
+        {
+            // Access was denied for some reason.
+            // EXAMPLE: You attempted to delete a file that was open elsewhere.
+            //           You attempted to move a file or directory so that it would span archives.
+            //           You attempted to delete the root directory.
+            // NOTE: You do not need handling for these situations if, by design, they will not occur.
+        }
+    }
+    else if(result &lt;= nn::fs::ResultNotEnoughSpace())
+    {
+        // There is no available space in the archive or on the storage media.
+        // NOTE: This error may occur when creating a file or directory, or changing the file size.
+        //       If this error occurs when you create a file, delete the file because it might be corrupted.
+        //       If this error occurs when you change the size of a file, the file may have grown to the maximum possible size.
+    }
+    else
+    {
+        // Unexpected error if other than the above.
+        NN_ERR_THROW_FATAL_ALL(result);
+    }
+}
+</pre>
+      </div>
+
+      <a name="FileAndDirectory_ExtSaveDataArchive"><h3>Expanded Save Data Archives</h3></a>
+      <div class="section">
+<pre>
+result = nn::fs::TryXXX();
+
+if(result.IsFailure())
+{
+    if(result &lt;= nn::fs::ResultNotFound())
+    {
+        if(result &lt;= nn::fs::ResultMediaNotFound())
+        {
+            // An SD card has not been inserted.
+            // NOTE: This error is also returned if the SD card is damaged or if some medium other than an SD card is inserted.
+            //        In such cases, an insertion event registered by RegisterSdmcInsertedEvent is signaled.
+        }
+        else
+        {
+            // The specified path does not exist.
+            // NOTE: If this error is returned when opening the file, it may have been deleted from the SD card using a PC or other device.
+            // NOTE: Because extended save data can be accessed from other application,
+            //        this error must be handled.
+        }
+    }
+    else if(result &lt;= nn::fs::ResultAlreadyExists())
+    {
+        // The specified path already exists.
+        // NOTE: This error is not returned when directories are deleted.
+        //       If this error is returned when creating a file, the file may have been deleted from the SD card using a PC or other device.
+        // NOTE: Because extended save data can be accessed from other application,
+        //        this error must be handled.
+    }
+    else if(result &lt;= nn::fs::ResultVerificationFailed())
+    {
+        // You must delete and recreate this file or directory.
+        // CAUSE: The expanded save data has been corrupted or tampered with.
+        // NOTE: If this is not resolved, you need to recreate the expanded save data.
+        // NOTE: This error is returned when reading a region that has never been written to.
+        // Be careful after executing the functions nn::fs::TryCreateFile and nn::fs::FileStream::TrySetSize.
+    }
+    else if(result &lt;= nn::fs::ResultArchiveInvalidated())
+    {
+        // You must remount the archive.
+        // CAUSE: The SD card was removed, making the archive invalid.
+        // NOTE: Close all open files, call the nn::fs::Unmount function, and then remount the archive.
+    }
+    else if(result &lt;= nn::fs::ResultOperationDenied())
+    {
+        if(result &lt;= nn::fs::ResultWriteProtected())
+        {
+            // The SD card is write-locked.
+            // NOTE: This error occurs when you write to an SD card. It does not occur when you simply open a file.
+        }
+        else if(result &lt;= nn::fs::ResultMediaAccessError())
+        {
+            // This error is only returned when the cause is hardware related, such as a poor connection.
+            // In such cases, recovery may be possible by reinserting the SD card, restarting the system, or some other action.
+        }
+        else
+        {
+            // Access was denied for some other reason.
+            // EXAMPLES: You attempted to write to a file that is read-only.
+            //           You attempted to delete a file that was open elsewhere.
+            //           You attempted to move a file or directory so that it would span archives.
+            //           You attempted to delete the root directory.
+            // Note: Because the content of expanded save data can be modified even by other applications (depending on operations),
+            // or a user may have spoofed data on the SD card using a PC, this error must always be handled.
+        }
+    }
+    else if(result &lt;= nn::fs::ResultNotEnoughSpace())
+    {
+        // There is no available space in the archive or on the storage media.
+        // NOTE: This error may occur when creating a file or directory, or changing the file size.
+        //       If this error occurs when you create a file, delete the file because it might be corrupted.
+        //       If this error occurs when you change the size of a file, the file may have grown to the maximum possible size.
+    }
+    else
+    {
+        // Failed to access this expanded save data or SD card.
+        // Handle corresponding errors here together. (Do not jump to the FATAL Error screen.)
+    }
+}
+</pre>
+      </div>
+
+      <a name="FileAndDirectory_SdmcWriteOnlyArchive"><h3>Write-Only SDMC Archives</h3></a>
+      <div class="section">
+<pre>
+result = nn::fs::TryXXX();
+
+if(result.IsFailure())
+{
+    if(result &lt;= nn::fs::ResultNotFound())
+    {
+        if(result &lt;= nn::fs::ResultMediaNotFound())
+        {
+            // An SD card has not been inserted.
+            // NOTE: An SD card may have been removed after the archive was mounted.
+        }
+        else
+        {
+            // The specified path does not exist.
+            // NOTE: You must handle this error, because it is possible for users to manipulate data on SD cards.
+        }
+    }
+    else if(result &lt;= nn::fs::ResultAlreadyExists())
+    {
+        // The specified path already exists.
+        // NOTE: This error is not returned when files and directories are deleted.
+        // NOTE: You must handle this error, because it is possible for users to manipulate data on SD cards.
+    }
+    else if(result &lt;= nn::fs::ResultArchiveInvalidated())
+    {
+        // You must remount the archive.
+        // CAUSE: The SD card was removed, making the archive invalid.
+        // NOTE: Close all open files, call the nn::fs::Unmount function, and then remount the archive.
+    }
+    else if(result &lt;= nn::fs::ResultOperationDenied())
+    {
+        if(result &lt;= nn::fs::ResultWriteProtected())
+        {
+            // The SD card is write-locked.
+            // NOTE: This error occurs when you write to an SD card. It does not occur when you simply open a file.
+        }
+        else if(result &lt;= nn::fs::ResultMediaAccessError())
+        {
+            // This error is only returned when the cause is hardware related, such as a poor connection.
+            // In such cases, recovery may be possible by reinserting the SD card, restarting the system, or some other action.
+        }
+        else
+        {
+            // Access was denied for some other reason.
+            // EXAMPLES: You attempted to write to a file that is read-only.
+            //           You attempted to delete a file that was open elsewhere.
+            //           You attempted to move a file or directory so that it would span archives.
+            //           You attempted to delete the root directory.
+            // NOTE: You must handle this error, because it is possible for users to manipulate data on SD cards.
+        }
+    }
+    else if(result &lt;= nn::fs::ResultNotEnoughSpace())
+    {
+        // There is no available space in the archive or on the storage media.
+        // NOTE: This error may occur when creating a file or directory, or changing the file size.
+        //       If this error occurs when you create a file, delete the file because it might be corrupted.
+        //       If this error occurs when you change the size of a file, the file may have grown to the maximum possible size.
+    }
+    else
+    {
+        // Failed to access this SD card.
+        // Handle corresponding errors here together. (Do not jump to the FATAL Error screen.)
+    }
+}
+</pre>
+      </div>
+
+      <a name="FileAndDirectory_AddOnContents"><h3>Add-On Content</h3></a>
+      <div class="section">
+<pre>
+nn::ec::ResultError resultError = nn::fs::TryXXX();
+
+if(resultError.IsFailure())
+{
+    if(determine whether the SD card inserted or removed)
+    {
+        // Process when an SD card is removed
+    }
+    else
+    {
+        // Convert to an error code, display the error in the Error/EULA applet, and prompt the user on how to deal with the problem.
+        // Do not use NN_ERR_THROW_FATAL-series macros.
+        s32 errorCode = resultError.GetErrorCode();
+        
+        // Correct the program during development so that this error does not occur.
+            
+        // If you reach this point for some other reason, return to a scene from before calling the API functions.
+        // Operation might proceed normally if the user carries out the same operations.
+        
+        // To access the add-on content again, close all opened files, call
+        // the nn::fs::Unmount function and then remount.
+    }
+}
+</pre>
+      </div>
+    </div>
+
+    <a name="History"><h2>Revision History</h2></a>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/08/08</dt>
+          <dd>Added information about error handling for add-on content.</dd>
+        <dt>2012/04/26</dt>
+          <dd>Revised the method for handling operations on files and directories for save data archives.</dd>
+        <dt>2012/02/16</dt>
+          <dd>Added the section <I>Save Data Archives (Other Programs)</I>.</dd>
+        <dt>2011/06/14</dt>
+          <dd>Added the fact that <CODE>ResultVerificationFailed</CODE> may occur when mounting duplicated save data.</dd>
+        <dt>2011/06/14</dt>
+          <dd>Added write-only SDMC archives.</dd>
+          <dd>Added a note about handling fatal errors.</dd>
+        <dt>2011/03/14</dt>
+          <dd>Removed <CODE>ResultMediaAccessError</CODE> from the results when mounting save data and when operating on files and directories.</dd>
+        <dt>2011/03/07</dt>
+          <dd>Deleted <CODE>ResultArchiveInvalidated</CODE> from the errors that can occur in functions to create or delete expanded save data.</dd>
+        <dt>2011/02/28</dt>
+          <dd>Revised error handling for mounting ROM archives in accordance with changes to the API.</dd>
+        <dt>2011/02/07</dt>
+          <dd>Changed how mounting expanded save data is handled from recreating the archive using <CODE>ResultBadFormat</CODE> to formatting the SD card.</dd>
+          <dd>Deleted <CODE>ResultBadFormat</CODE> from how manipulating expanded save data files and directories are handled.</dd>
+          <dd>Revised code so that unexpected errors now result in <CODE>NN_ERR_THROW_FATAL_ALL</CODE>.</dd>
+        <dt>2011/01/05</dt>
+          <dd>Deleted <CODE>ResultArchiveInvalidated</CODE> from the errors that can occur when mounting the expanded save data.</dd>
+          <dd>Changed the <CODE>Result</CODE> from <CODE>ResultMediaAccessError</CODE> to <CODE>ResultMediaNotFound</CODE> when a damaged SD card is inserted.</dd>
+        <dt>2010/12/14</dt>
+          <dd>Added errors that must not be allowed to occur in retail products.</dd>
+          <dd>Added <CODE>ResultNotFormatted</CODE> and <CODE>ResultArchiveInvalidated</CODE> to error handling when expanded save data is created.</dd>
+        <dt>2010/12/13</dt>
+          <dd>Split up error handling for file and directory operations by archive type.</dd>
+          <dd>Changed how <CODE>ResultOperationDenied</CODE> is handled when expanded save data is mounted.</dd>
+        <dt>2010/12/09</dt>
+          <dd>Added <I>Functions for File and Directory Operations</I>.</dd>
+        <dt>2010/12/02</dt>
+          <dd>Removed <CODE>ResultNotFound</CODE> from save data error handling.</dd>
+        <dt>2010/11/31</dt>
+          <dd>Added <CODE>ResultNotEnoughSpace</CODE> to the errors occurring during file operations.</dd>
+        <dt>2010/11/25</dt>
+          <dd>Added <CODE>ResultNotFormatted</CODE> to error handling for expanded save data.</dd>
+        <dt>2010/11/13</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

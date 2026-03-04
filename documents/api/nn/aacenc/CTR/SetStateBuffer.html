@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetStateBuffer</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/aacenc/Overview.html">aacenc</a>::<a href="../../../nn/aacenc/CTR/Overview.html">CTR</a>::SetStateBuffer Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetStateBuffer(
+     void * pBuffer
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>The buffer address to use to save state.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures a buffer for saving the internal state of the encoder when the system enters sleep mode or transitions to the HOME menu.</p><p>Call this function after calling the <code><a href="../../../nn/aacenc/CTR/Initialize.html">nn::aacenc::CTR::Initialize</a></code> function. If you do not configure a buffer using this function, the decoder's internal state is reinitialized when the system goes to sleep.</p><p>The buffer must be a <code>STATE_BUFFER_ALIGNMENT</code> (= 32)-byte aligned region in device memory that is <code>NN_AACENC_STATE_BUFFER_SIZE</code> (32,768) bytes in size.</p><p>Do not free this buffer until you explicitly set <code>NULL</code> using this function. Calling the <code><a href="../../../nn/aacenc/CTR/Finalize.html">nn::aacenc::CTR::Finalize</a></code> function automatically sets the buffer to <code>NULL</code>.</p></div>
+  </body>
+</html>

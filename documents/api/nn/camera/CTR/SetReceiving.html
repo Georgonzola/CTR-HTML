@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetReceiving</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::SetReceiving Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetReceiving(
+     <a href="../../../nn/os/Event/Overview.html">nn::os::Event</a> * pEvent,
+     void * pDst,
+     <a href="../../../nn/camera/CTR/Port.html">Port</a> port,
+     size_t imageSize,
+     <a href="../../../nn_types/s16.html">s16</a> transferUnit
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pEvent</th>
+          <td>Event to signal at the completion of a transfer.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>Specifies a buffer that transfers the image data. Must be <code>BUFFER_ALIGNMENT</code>-byte aligned (4-byte aligned). We recommend using 64 byte-alignment or greater to prevent decreases in transfer speed. The buffer must be allocated from device memory.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>port</th>
+          <td>Specifies the port that loads image data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>imageSize</th>
+          <td>Specifies the total size (frame size) to transfer. This size must be an integer multiple of <emphasis>transferUnit</emphasis>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>transferUnit</th>
+          <td>Specifies the size (width &#215; number of lines) to transfer per cycle.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures loading of image data. Only a single frame is received, so this function must be set once per <a href="../../../nn/camera/Overview.html">camera</a> frame. The system panics if <emphasis>pDst</emphasis> is set to anything other than device memory.</p><p>The image size specified in <span class="argument">imageSize</span> is twice the number of pixels in the image.  If you have specified the number of transfer lines by using the <tt><a href="../../../nn/camera/CTR/SetTransferLines.html">nn::camera::CTR::SetTransferLines</a></tt> function, set the <span class="argument">transferUnit</span> argument to <tt>image width × the number of transfer lines × 2</tt>. The doubling is because two bytes are used for each pixel.  If have you enabled trimming by using the <tt><a href="../../../nn/camera/CTR/SetTrimming.html">nn::camera::CTR::SetTrimming</a></tt> function, note that the image's pixel count and width are set to their post-trimming values.  If you have specified the number of transfer bytes by using the <tt><a href="../../../nn/camera/CTR/SetTransferBytes.html">nn::camera::CTR::SetTransferBytes</a></tt> function, use that value as the <span class="argument">transferUnit</span> argument to this function.</p><P>The output data formats are as follows.</P><P><B>YUV4:2:2 (YCbCr)</B><table><tr><td>Bits 31-24</td><td>Bits 23-16</td><td>Bits 15-8</td><td>Bits 7-0</td></tr><tr><td>V (n)</td><td>Y (n+1)</td><td>U (n)</td><td>Y (n)</td></tr></table></P><p>The <span class="argument">pEvent</span> value obtained by this function is in the signaled state when transmission is complete. The only way to clear this state is to call <tt>Finalize</tt> on <span class="argument">pEvent</span> or pass <span class="argument">pEvent</span> one more time to one of the <tt><a href="../../../nn/camera/CTR/SetReceiving.html">nn::camera::CTR::SetReceiving</a></tt> functions.</p><p>After the application approves and the camera transitions to the sleep state, non-signaled dummy events are returned to <span class="argument">pEvent</span> regardless of the load settings.</p><p>Make sure that <tt>pEvent</tt>, obtained by this function, is not finalized during capture.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/20</dt>
+        <dd><item xmlns="">Added named constants that represent limitations related to alignment.</item><br />
+        </dd>
+        <dt>2014/02/07</dt>
+        <dd><item xmlns="">Added that the buffer must be obtained from device memory.</item><br />
+        </dd>
+        <dt>2010/02/14</dt>
+        <dd><item xmlns="">Added an explanation about handling events.</item><br />
+        </dd>
+        <dt>2010/12/29</dt>
+        <dd><item xmlns="">Added an explanation about handling events.</item><br />
+        </dd>
+        <dt>2010/12/28</dt>
+        <dd><item xmlns="">Added an explanation about how transmission-complete events are handled after sleep approval.</item><br />
+        </dd>
+        <dt>2010/09/24</dt>
+        <dd><item xmlns="">Added a description about specifying the number of transfer bytes, and edited the description.</item><br />
+        </dd>
+        <dt>2010/06/17</dt>
+        <dd><item xmlns="">Explained the conditions for clearing an event's signaled state.</item><br />
+        </dd>
+        <dt>2010/02/02</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

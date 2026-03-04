@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetLastOutputBufferWidth</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::GetLastOutputBufferWidth Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+<a href="../../../../nn_types/u32.html">u32</a> GetLastOutputBufferWidth() const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">The width (in pixels) of the output image buffer. <br />
+ If the output image buffer width was specified with the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/SetOutputBufferWidth.html">SetOutputBufferWidth</a></code> function before decoding, this function returns either that specified value (rounded down to match the pixel format given by <code><a href="../../../../nn/jpeg/CTR/PixelFormat.html">PixelFormat</a></code>) or the image width (rounded up to match the pixel format), whichever is greater. <br />
+ Returns <code>0</code> on failure. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the width of the output image buffer where an image was decoded immediately previously.</p><p>If the image was not decoded immediately previously but only had its EXIF information extracted, you cannot call this function (the return value is undefined).</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added a link to PixelFormat.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

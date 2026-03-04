@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetStampData</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/olv/Overview.html">olv</a>::<a href="../../../nn/olv/UploadCommentDataByPostAppParam/Overview.html">UploadCommentDataByPostAppParam</a>::SetStampData Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetStampData(
+     const <a href="../../../nn_types/u8.html">u8</a> * stampData,
+     <a href="../../../nn_types/u32.html">u32</a> stampDataSize,
+     const <a href="../../../nn_types/u8.html">u8</a> * maskData,
+     <a href="../../../nn_types/u32.html">u32</a> maskDataSize,
+     <a href="../../../nn_types/u32.html">u32</a> index,
+     <a href="../../../nn_types/u32.html">u32</a> stampFlags = STAMP_FLAG_NONE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>stampData</th>
+          <td>The stamp image data. <br />
+ Note that only the address value is stored, so this data must remain valid until the call to the <code><a href="../../../nn/olv/UploadCommentDataByPostApp.html">nn::olv::UploadCommentDataByPostApp</a></code> function ends.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>stampDataSize</th>
+          <td>The size of the stamp image data. <br />
+ Either <code>nn::olv::STAMP_DATA_100_100_BUFF_LENGTH</code> or <code>nn::olv::STAMP_DATA_200_200_BUFF_LENGTH </code> can be specified for this value.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maskData</th>
+          <td>The stamp mask image data. <br />
+ Note that only the address value is stored, so this data must remain valid until the call to the <code><a href="../../../nn/olv/UploadCommentDataByPostApp.html">nn::olv::UploadCommentDataByPostApp</a></code> function ends.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maskDataSize</th>
+          <td>The size of the stamp mask image data. <br />
+ Either <code>nn::olv::STAMP_DATA_100_100_BUFF_LENGTH</code> or <code>nn::olv::STAMP_DATA_200_200_BUFF_LENGTH </code> can be specified for this value. <br />
+ This value must match the size of the stamp image data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>index</th>
+          <td>The index. <br />
+ Values in the range of <code>0</code> to <code>nn::olv::STAMP_DATA_MAX_NUM - 1</code> can be specified.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>stampFlags</th>
+          <td>Flags representing stamp attributes (<code>STAMP_FLAG_*</code>).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Specifies stamp image data.</p><p>Specifying this option is not required. <br />
+ Up to <code>nn::olv::STAMP_DATA_MAX_NUM</code> can be specified. <br />
+ For more information about the image format, see Stamp Image Data and Stamp Mask Image Data.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/08</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

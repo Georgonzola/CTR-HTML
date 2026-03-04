@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetUserExceptionHandler</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/ARM/Overview.html">ARM</a>::SetUserExceptionHandler Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetUserExceptionHandler(
+     <a href="../../../nn/os/ARM/UserExceptionHandler.html">UserExceptionHandler</a> pHandler,
+     <a href="../../../nn_types/uptr.html">uptr</a> stackBottom,
+     <a href="../../../nn/os/ARM/ExceptionBuffer/Overview.html">ExceptionBuffer</a> * pExceptionBuffer
+);
+
+template &lt;typename T&gt;void SetUserExceptionHandler(
+     <a href="../../../nn/os/ARM/UserExceptionHandler.html">UserExceptionHandler</a> pHandler,
+     T * pStack,
+     <a href="../../../nn/os/ARM/ExceptionBuffer/Overview.html">ExceptionBuffer</a> * pExceptionBuffer
+);
+
+void SetUserExceptionHandler(
+     <a href="../../../nn/os/ARM/UserExceptionHandler.html">UserExceptionHandler</a> pHandler,
+     <a href="../../../nn_types/uptr.html">uptr</a> stackBottom
+);
+
+template &lt;typename T&gt;void SetUserExceptionHandler(
+     <a href="../../../nn/os/ARM/UserExceptionHandler.html">UserExceptionHandler</a> pHandler,
+     T * pStack
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./SetUserExceptionHandler(0).html">SetUserExceptionHandler ( UserExceptionHandler, uptr, ExceptionBuffer * ) </a>
+          </td>
+          <td>Specifies the global exception handler.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./SetUserExceptionHandler(1).html">SetUserExceptionHandler ( UserExceptionHandler, T *, ExceptionBuffer * ) </a>
+          </td>
+          <td>Specifies the global exception handler.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./SetUserExceptionHandler(2).html">SetUserExceptionHandler ( UserExceptionHandler, uptr ) </a>
+          </td>
+          <td>Provided for compatibility with past SDKs. Calls <code><a href="../../../nn/os/ARM/SetUserExceptionHandler.html">SetUserExceptionHandler</a></code> (pHandler, stackBottom, <code><a href="../../../nn/os/ARM/Overview.html">EXCEPTION_BUFFER_USE_HANDLER_STACK</a></code>).</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./SetUserExceptionHandler(3).html">SetUserExceptionHandler ( UserExceptionHandler, T * ) </a>
+          </td>
+          <td>Provided for compatibility with past SDKs. Calls <code><a href="../../../nn/os/ARM/SetUserExceptionHandler.html">SetUserExceptionHandler</a></code> (pHandler, pStack, <code><a href="../../../nn/os/ARM/Overview.html">EXCEPTION_BUFFER_USE_HANDLER_STACK</a></code>).</td>
+        </tr> </table>
+    </div>
+    <h2>Description of SetUserExceptionHandler ( UserExceptionHandler, uptr, ExceptionBuffer * ) </h2>
+    <div class="section"><h4>Parameters</h4><p>If <tt><a href="../../../nn/os/ARM/HANDLER_STACK_USE_THREAD_STACK.html">HANDLER_STACK_USE_THREAD_STACK</a></tt> is specified for <span class="argument">stackBottom</span>, the stack for the thread in which the exception occurred is used as is as the exception handler stack.</p><p>The instances of <tt><a href="../../../nn/os/ARM/ExceptionInfo/Overview.html">ExceptionInfo</a></tt> and <tt><a href="../../../nn/os/ARM/ExceptionContext/Overview.html">ExceptionContext</a></tt>, passed to the handler given by <span class="argument">pHandler</span>, are allocated from the buffer specified by <span class="argument">pExceptionBuffer</span>.  If <tt><a href="../../../nn/os/ARM/Overview.html">EXCEPTION_BUFFER_USE_HANDLER_STACK</a></tt> is specified in <span class="argument">pExceptionBuffer</span>, they are allocated from the exception handler stack.  If <tt><a href="../../../nn/os/ARM/Overview.html">EXCEPTION_BUFFER_USE_THREAD_STACK</a></tt> is specified in <span class="argument">pExceptionBuffer</span>, they are allocated from the stack for the thread in which the exception occurred. </p><h4>Exception Handler Settings</h4><p>Exception handler settings exist for each thread. If an exception is thrown, an exception handler is called based on the settings for the thread in question.  If an exception handler has not been set for the particular thread in question, an exception handler based on settings for the main thread is called.</p><p>The global exception handler refers to the exception handler for the main thread.  This function sets the exception handler for the main thread.</p><p>When an exception handler is specified and an exception is thrown, the function specified by the <span class="argument">pHandler</span> parameter is called in the context of the thread where the exception occurred.  However, the stack gets replaced by the stack specified by <span class="argument">stackBottom</span>.</p><p>Note that special processing, such as disabling interrupts, is not used when calling the exception handler.  If the same memory is set for more than one thread as a buffer for storing the exception handler stack and exception information, and if an exception is thrown in one thread that shares this memory while the exception handler is executing for another of these threads, the exception handler stack and buffer for exception information will be destroyed.</p><h4>Exception Handler Implementation</h4><p>Exception handlers have the following restrictions.</p><ul><li>Cannot return from the exception handler.  Operations are undefined if a return is made.</li><li>Exception handlers must be compiled with ARM instructions.  You cannot use exception handlers that have THUMB instructions.  Exception handlers are allowed to call functions that have THUMB instructions.</li></ul><p>Note that the exception handler cannot be called in the debug environment.</p><h4>Thread Safety</h4><p>This function is not thread-safe at the function level.  It also requires mutual exclusion with the <tt><a href="../../../nn/os/ARM/SetUserExceptionHandlerLocal.html">SetUserExceptionHandlerLocal()</a></tt> function called in the main thread. </p></div>
+    <h2>Description of SetUserExceptionHandler ( UserExceptionHandler, T *, ExceptionBuffer * ) </h2>
+    <div class="section"><p>This function is a wrapper function for accepting the stack used by the exception handler via a stack-type member function.</p><p>For more information, see <code><a href="../../../nn/os/ARM/SetUserExceptionHandler.html">SetUserExceptionHandler(UserExceptionHandler, uptr, ExceptionBuffer*)</a></code>.</p><!-- write here --></div>
+    <h2>Description of SetUserExceptionHandler ( UserExceptionHandler, uptr ) </h2>
+    <div class="section"><p>For more information, see <code><a href="../../../nn/os/ARM/SetUserExceptionHandler.html">SetUserExceptionHandler(UserExceptionHandler, uptr, ExceptionBuffer*)</a></code>.</p><!-- write here --></div>
+    <h2>Description of SetUserExceptionHandler ( UserExceptionHandler, T * ) </h2>
+    <div class="section"><p>For more information, see <code><a href="../../../nn/os/ARM/SetUserExceptionHandler.html">SetUserExceptionHandler(UserExceptionHandler, uptr, ExceptionBuffer*)</a></code>.</p><!-- write here --></div>
+  </body>
+</html>

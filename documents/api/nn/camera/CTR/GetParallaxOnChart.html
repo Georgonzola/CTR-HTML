@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetParallaxOnChart</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::GetParallaxOnChart Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/f32.html">f32</a> GetParallaxOnChart(
+     const <a href="../../../nn/camera/CTR/StereoCameraCalibrationData/Overview.html">StereoCameraCalibrationData</a> & cal
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>cal</th>
+          <td>Specifies the calibration data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the parallax in the measurement chart for a VGA image. The return value represents the translation of the left <a href="../../../nn/camera/Overview.html">camera</a> image based on the right <a href="../../../nn/camera/Overview.html">camera</a> image. This value is measured in pixels. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Calculates the parallax in the measurement chart when the calibration data of stereo cameras is measured.</p><P>In addition to the horizontal image shift caused by errors in the left and right camera placement, the <tt>translationX</tt> member variable of the <tt><a href="../../../nn/camera/CTR/StereoCameraCalibrationData/Overview.html">nn::camera::CTR::StereoCameraCalibrationData</a></tt> structure includes the parallax caused by the separation of the left and right cameras.</P><P>By subtracting this function's return value from the <tt>translationX</tt> member variable, you get the horizontal shift in the measurement chart caused by camera placement errors.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/05/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

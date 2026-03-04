@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetVertexAttribfv</title>
+  </head>
+  <body>
+    <h1>glGetVertexAttribfv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetVertexAttribfv(
+     GLuint index,
+     GLenum pname,
+     GLfloat * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>index</th>
+          <td>Vertex attribute index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Array storing the values retrieved.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets vertex attribute parameters as <code>GLfloat</code>-type values.</p><P>You can set <span class="argument">index</span> to a value that is greater than or equal to 0 and at least one less than the value that can be obtained by <tt>glGetIntegerv</tt> with <tt>GL_MAX_VERTEX_ATTRIBS</tt> specified.</P><P>If you set <tt>pname</tt> to <tt>GL_CURRENT_VERTEX_ATTRIB</tt>, you can get the current vertex attribute values, set by <tt>glVertexAttrib</tt>, as four array elements.</P><P>You can also set <tt>pname</tt> to any setting that can be obtained by <tt>glGetVertexAttribiv</tt>, but you will get values that have all been cast to type <tt>GLfloat</tt>.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">index</span> argument was set to an invalid value.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">pname</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source indexに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

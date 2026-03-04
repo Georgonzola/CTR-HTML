@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::boss::FgOnlyTask</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::FgOnlyTask Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class FgOnlyTask : public <a href="../../../nn/boss/Task/Overview.html">nn::boss::Task</a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for representing dedicated immediate-execution tasks. Use this class to register or unregister dedicated immediate-execution tasks, to control tasks, and for other operations. Use this class for tasks that will only be run immediately by the <code><a href="../../../nn/boss/Task/StartImmediate.html">boss::Task::StartImmediate</a></code> function. <br />
+ With this class, a task only exists during its immediate execution and is not persistent. <br />
+ The <emphasis>3DS Guidelines</emphasis> restrict the number of tasks that a single application can register, but this restriction does not count dedicated immediate-execution tasks. As a result, this class allows an application to use even more tasks. <br />
+ Always use this class for dedicated immediate-execution tasks. There is no benefit to using dedicated immediate-execution tasks without this class, even when there is no need to worry about the restrictions on the number of registered tasks. <br />
+ Use this class just as you would use <code><a href="../../../nn/boss/Task/Overview.html">boss::Task</a></code>. However, you cannot use functions that give instructions to execute in the background (<code><a href="../../../nn/boss/Task/Start.html">boss::Task::Start</a></code> and <code><a href="../../../nn/boss/Task/StartBgImmediate.html">boss::Task::StartBgImmediate</a></code>). <br />
+ The task ID for dedicated immediate-execution tasks is fixed to <code>FGONLYT</code>. This task ID cannot be changed. The <code>Initialize</code> function does not need to be called to initialize an instance.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/FgOnlyTask/FgOnlyTask.html">FgOnlyTask</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/boss/FgOnlyTask/~FgOnlyTask.html">~FgOnlyTask</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/FgOnlyTask/Start.html">Start</a>
+            </th>
+            <td>Because this class is for dedicated immediate-execution tasks, do not use this function when background execution is indicated. An error results if it is called.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/FgOnlyTask/StartBgImmediate.html">StartBgImmediate</a>
+            </th>
+            <td>Because this class is for dedicated immediate-execution tasks, do not use this function when background execution is indicated. An error results if it is called.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../nn/boss/FgOnlyTask/Initialize.html">Initialize</a>
+            </th>
+            <td>This function does not need to be called for immediate-execution tasks. An error results if it is called.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/boss/Task/Overview.html">nn::boss::Task</a><br />&nbsp;&nbsp;<b>nn::boss::FgOnlyTask</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

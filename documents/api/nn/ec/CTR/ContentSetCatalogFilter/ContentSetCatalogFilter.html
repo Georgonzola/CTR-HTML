@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>ContentSetCatalogFilter</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">ContentSetCatalogFilter</a>::ContentSetCatalogFilter Constructor</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+ContentSetCatalogFilter(
+     void * pBuffer,
+     size_t bufferSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pBuffer</th>
+          <td>Pointer to the buffer to configure.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>Size of the buffer to configure.</td>
+        </tr> </table>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Constructor for configuring a buffer for the filter. The configured buffer is used when calling the <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function. You need the same number of buffers as you have configured filters. <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> returns <code><a href="../../../../nn/ec/CTR/ResultOutOfFilterMemory/Overview.html">ResultOutOfFilterMemory</a></code> if the buffer is too small for the filters that were set. Fix the problem by such means as increasing the size of the buffer or setting fewer filters. A buffer of a specific size is required, even if nothing is set for the filter.</p>
+    </div>
+  </body>
+</html>

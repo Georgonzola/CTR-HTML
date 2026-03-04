@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>ReplaceOtherRegionName</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/nfp/Overview.html">nfp</a>::<a href="../../../nn/nfp/CTR/Overview.html">CTR</a>::ReplaceOtherRegionName Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> ReplaceOtherRegionName(
+     <a href="../../../nn_types/bit16.html">bit16</a> * outName,
+     const <a href="../../../nn_types/bit16.html">bit16</a> * inputName,
+     size_t bufferSize,
+     <a href="../../../nn_types/bit8.html">bit8</a> fontRegion,
+     <a href="../../../nn_types/bit16.html">bit16</a> replacement = 0x3F00
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>outName</th>
+          <td>Specifies the place to output the converted nickname.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>inputName</th>
+          <td>Specifies the original nickname.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufferSize</th>
+          <td>Specifies the size of the <emphasis>outName</emphasis> buffer in bytes.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>fontRegion</th>
+          <td>Specifies the <code>FontRegion</code> for the amiibo.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>replacement</th>
+          <td>Specifies the replacement character. Uses the question mark (?) (<code>U+003F</code>) when omitted.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+      <br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>The event was set successfully.</td>
+        </tr>
+        <tr>
+          <th>ResultBufferIsSmall</th>
+          <td>Invalid argument. <emphasis>outName</emphasis> must have at least <code><a href="../../../nn/nfp/NICKNAME_LENGTH_MAX.html">NICKNAME_LENGTH_MAX</a></code> + 1 elements.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>An invalid pointer was specified.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidOperation</th>
+          <td>The library is not in the correct state.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Unexpected error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Converts the amiibo nickname for display in the current region.</p><p>amiibo are mobile accessories that move between systems, regardless of region and platform. Consequently, an amiibo with a nickname registered in amiibo Settings for a different region might be held to the reader.</p><p>As a result, characters for all regions might be input for amiibo nicknames. If the characters are not supported by the application, they must be displayed instead as question marks (?) or as <code>U+E06B</code> characters.</p><p>For this function, when the console's region does not match the <emphasis>fontRegion</emphasis> specified in the arguments, all non-ASCII characters included in <emphasis>inputName</emphasis> are replaced by <emphasis>replacement</emphasis>, one by one.</p><p>The same buffer can be specified for <emphasis>outName</emphasis> and <emphasis>inputName</emphasis>.</p></div>
+  </body>
+</html>

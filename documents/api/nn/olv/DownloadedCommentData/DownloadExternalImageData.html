@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>DownloadExternalImageData</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/olv/Overview.html">olv</a>::<a href="../../../nn/olv/DownloadedCommentData/Overview.html">DownloadedCommentData</a>::DownloadExternalImageData Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/olv/Result/Overview.html">nn::olv::Result</a> DownloadExternalImageData(
+     void * externalImageData,
+     <a href="../../../nn_types/u32.html">u32</a> * externalImageDataSize,
+     <a href="../../../nn_types/u32.html">u32</a> externalImageDataMaxSize
+) const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>externalImageData</th>
+          <td>The buffer that stores the attached image data.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>externalImageDataSize</th>
+          <td>The buffer that stores the size of the attached image data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>externalImageDataMaxSize</th>
+          <td>The size of the buffer that stores the attached image data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation. <br />
+ For information about handling the result, see the section on Error Handling or the descriptions for the <code><a href="../../../nn/olv/Result/Overview.html">nn::olv::Result</a></code> values. <br /><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultUsageError</th>
+          <td>A usage error.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>A fatal error.</td>
+        </tr>
+        <tr>
+          <th>ResultCanceled</th>
+          <td>Canceled.</td>
+        </tr>
+        <tr>
+          <th>ResultNetworkError</th>
+          <td>A network error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Downloads the attached image data.</p><p>This function can only be used when the return value from the <code><a href="../../../nn/olv/DownloadedCommentData/TestFlags.html">TestFlags</a></code> function is <code>true</code> when <code><span>FLAG_WITH_EXTERNAL_IMAGE_DATA</span></code> is specified. <br />
+ This function initiates Internet communication, during which time processing is blocked. <br />
+ While this function is being called, you can call the <code><a href="../../../nn/olv/Cancel.html">nn::olv::Cancel</a></code> function from another thread to cancel communication processes. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/08</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

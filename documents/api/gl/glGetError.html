@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetError</title>
+  </head>
+  <body>
+    <h1>glGetError Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL GLenum GL_APIENTRY glGetError(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Error code. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets error codes.</p><P><UL><LI>A value of <tt>GL_NO_ERROR</tt> indicates that no errors have occurred.</LI><LI>A value of <tt>GL_INVALID_ENUM</tt> indicates that an error has occurred because an invalid <tt>GLenum</tt>-type argument was specified.</LI><LI>A value of <tt>GL_INVALID_VALUE</tt> indicates that an error has occurred because an out-of-range number was specified as an argument.</LI><LI>A value of <tt>GL_INVALID_OPERATION</tt> indicates that an error has occurred because of an invalid operation.</LI><LI>A value of <tt>GL_INVALID_FRAMEBUFFER_OPERATION</tt> indicates that an error has occurred because of an attempt to render to or read from an incorrectly configured framebuffer.</LI><LI>A value of <tt>GL_OUT_OF_MEMORY</tt> indicates that an error has occurred because memory allocation failed.</LI><LI>A value of <tt>GL_ERROR_COMMANDBUFFER_FULL_DMP</tt> indicates that an error has occurred because of an overflow in the current command buffer.</LI><LI>A value of <tt>GL_ERROR_COMMANDREQUEST_FULL_DMP</tt> indicates that an error has occurred because of an overflow of command requests accumulated in the current command list.</LI></UL></P><P>After an error occurs, its number is not overwritten by any other new errors until <tt>glGetError</tt> is called.  Calling this function clears the error number.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Added information on GL_ERROR_COMMANDREQUEST_FULL_DMP.</item><br />
+        </dd>
+        <dt>2010/06/09</dt>
+        <dd><item xmlns="">Added information on GL_ERROR_COMMANDBUFFER_FULL_DMP.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

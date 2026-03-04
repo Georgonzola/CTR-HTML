@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetMpRegionsToBuildJpegData</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a>::GetMpRegionsToBuildJpegData Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+bool GetMpRegionsToBuildJpegData(
+     <a href="../../../../nn/jpeg/CTR/MpRegionsToBuildJpegData/Overview.html">MpRegionsToBuildJpegData</a> * pBuffer
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pBuffer</th>
+          <td>Buffer storing memory region information.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> on success. Returns <code>false</code> on failure. <br />
+ Could not get the reason for failure. This function does not update the value returned by <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/GetLastError.html">GetLastError</a></code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the memory region information for reconstructing the JPEG data from the encoding result of the previous call to <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderFirst.html">StartMpEncoderFirst</a></code>, <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderNext.html">StartMpEncoderNext</a></code>, or <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderLR.html">StartMpEncoderLR</a></code>.</p><p>If that processing fails, this function also fails. <br />
+ This function also fails if the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartJpegEncoder.html">StartJpegEncoder</a></code> function was called immediately previously. <br />
+ This function also fails right after encoding an image for monitor display using the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderNext.html">StartMpEncoderNext</a></code> function. <br />
+ Encoding results are needed to reconstruct the JPEG data, so do not destroy the encoded data.</p><p>Instead of JPEG-encoding the same image twice, once in MP format and once not, use this function to take the MP-encoded results and get the plain JPEG-encoded results at high speed.</p><p>Simply put, individual image data in MP format has this structure: [(JPEG header) + (APP2) + (JPEG data)], where APP2 includes the information associated with MP format. <br />
+ If the APP2 is left out, the structure is [(JPEG header) + (JPEG data)], which is identical to JPEG encoding results that are not MP format. <br />
+ This function gets pointers and byte sizes for the (JPEG header) and (JPEG data) memory regions.</p><p>If <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderLR.html">StartMpEncoderLR</a></code> was the function called immediately previously, this function can only get the memory region information for the left-eye image.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

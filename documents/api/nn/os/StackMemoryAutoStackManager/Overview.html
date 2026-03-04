@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::StackMemoryAutoStackManager</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::StackMemoryAutoStackManager Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class StackMemoryAutoStackManager : public nn::os::SimpleAutoStackManagerBase</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Implementation of <code><a href="../../../nn/os/AutoStackManager/Overview.html">AutoStackManager</a></code> using <code><a href="../../../nn/os/StackMemory/Overview.html">StackMemory</a></code>.</p><p>Memory for the stack is allocated using an instance of the specified <code><a href="../../../nn/fnd/IAllocator/Overview.html">nn::fnd::IAllocator</a></code>-derived class, and after the allocated memory region is isolated by <code><a href="../../../nn/os/StackMemory/Overview.html">StackMemory</a></code>, it is used as a stack.</p><p>When using an instance of this class with <code><a href="../../../nn/os/Thread/SetAutoStackManager.html">Thread::SetAutoStackManager()</a></code> the stack size specified by <code><a href="../../../nn/os/Thread/StartUsingAutoStack.html">Thread::StartUsingAutoStack</a></code> and <code><a href="../../../nn/os/Thread/TryStartUsingAutoStack.html">Thread::TryStartUsingAutoStack</a></code> must be a multiple of 0x1000 bytes.</p><p>The actual size that can be used for the stack is slightly smaller because stack administrative information is stored at the bottom of the stack.</p><!-- write here --></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/os/StackMemoryAutoStackManager/STACK_UNITSIZE.html">STACK_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the stack size specified by <code><a href="../../../nn/os/Thread/StartUsingAutoStack.html">Thread::StartUsingAutoStack</a></code> and <code><a href="../../../nn/os/Thread/TryStartUsingAutoStack.html">Thread::TryStartUsingAutoStack</a></code> must be a multiple of when using an instance of this class with <code><a href="../../../nn/os/Thread/SetAutoStackManager.html">Thread::SetAutoStackManager</a></code>. It is defined as 4096 bytes.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/StackMemoryAutoStackManager/StackMemoryAutoStackManager.html">StackMemoryAutoStackManager</a>
+            </th>
+            <td>Instantiates an object.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/os/StackMemoryAutoStackManager/~StackMemoryAutoStackManager.html">~StackMemoryAutoStackManager</a>
+            </th>
+            <td>Destroys the object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/StackMemoryAutoStackManager/Initialize.html">Initialize</a>
+            </th>
+            <td>Initialization.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/StackMemoryAutoStackManager/Finalize.html">Finalize</a>
+            </th>
+            <td>Releases resources.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/os/StackMemoryAutoStackManager/Construct.html">Construct</a>
+            </th>
+            <td>Implements <code><a href="../../../nn/os/AutoStackManager/Construct.html">AutoStackManager::Construct</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/os/StackMemoryAutoStackManager/Destruct.html">Destruct</a>
+            </th>
+            <td>Implements <code><a href="../../../nn/os/AutoStackManager/Destruct.html">AutoStackManager::Destruct</a></code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/os/AutoStackManager/Overview.html">nn::os::AutoStackManager</a><br />&nbsp;&nbsp;<span>nn::os::SimpleAutoStackManagerBase</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::os::StackMemoryAutoStackManager</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>BreakHandler</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/dbg/Overview.html">dbg</a>::BreakHandler Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/dbg.h&gt;
+typedef void(* nn::dbg::BreakHandler)(BreakReason reason, Result *pResult, const char *filename, int lineno, const char *fmt, std::va_list args);</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>reason</th>
+          <td>The reason the program stopped.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pResult</th>
+          <td>The associated <code><a href="../../nn/Result/Overview.html">Result</a></code> value. The value can be <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>filename</th>
+          <td>The associated filename. The value can be <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>lineno</th>
+          <td>The associated line number.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>fmt</th>
+          <td>The associated message. The value can be <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>args</th>
+          <td>The parameter that corresponds to fmt. When fmt is <code>NULL</code>, do not reference it because an undefined value is passed.</td>
+        </tr> </table>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>User handler type for when assert fails or panic occurs.</p><p>Represents the callback function that was set with <code><a href="../../nn/dbg/SetBreakHandler.html">SetBreakHandler</a></code>.</p><p>The reason parameter can always be used, but the other parameters pass appropriate values only when they can be used.</p><p>The handler is called with the thread where the assert failed or the panic occurred. Note that the handler can be called at various times from any thread.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/06/06</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

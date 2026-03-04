@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        --></style>
+<title>UdsLocalIdChecker</title>
+  </head>
+  <body>
+<h1>UdsLocalIdChecker</h1>
+<h2>Overview</h2>
+    <div class="section">
+      <p>
+UdsLocalIdChecker is a tool that searches for a UDS network with a specific local ID.<br/>It is used for verifying the local communication ID set in the <B>Local Communication</B> section of the <I>3DS Guidelines</I>.
+      </p>
+    </div>
+<h2>Screen Description</h2>
+    <div class="section">
+      <p>
+The tool searches for the UDS network having the specified unique ID and gets the network's information. The top screen displays the list of detected UDS networks, and the bottom screen displays the details of each network.<br/>When two UDS networks with the <CODE>00F01</CODE> parameter in their unique IDs are detected, the following is displayed.
+      </p>
+
+Upper screen
+<pre>
+Found 02 Network
+
+-&gt;00:LocalID:0FFF0190(UniqueID:00F01),SubID:01,Entry:01/12
+   Ch:01,Master(78:A2:A0:35:D9:31)
+  01:LocalID:0FFF0190(UniqueID:00F01),SubID:01,Entry:01/12
+   Ch:06,Master:(78:A2:A0:DD:71:AF)
+</pre>
+Lower screen
+<pre>
+UDS Local Communication ID Check Tool(Mode: ShowResult)
+Target: UniqueID=0xFFF01 (isTrial=False)
+ D-Pad:Select N/W, B: Reset UniqueID, A:Scan Again
+ 
+[Detail of Number 00]
++ID:                        (M):ID:0001,
+ -LocalID:00FFF0190             Empty
+  -UniqueID:00F01               Empty
+ -SubID:01                      Empty
+ -TemporaryID:3F7F417B          Empty
+ -BSSID:78:A2:A0:35:D0:31       Empty
++ Entry:Now:01/Max:12           Empty
++ Channel: 01                   Empty
++ Attribute:                    Empty
+  -Connection policy            Empty
+   -Client: OK                 
+   -Spectator OK
+   -isTrial:false
+
++ AppData in Beacon:200Byte
+</pre>
+    </div>
+
+<h2>How to Use</h2>
+<h2>UniqueID Configuration Mode</h2>
+    <div class="section">
+      <p class="history">
+When the tool is started, the cursor is displayed in the first digit of the unique ID in the bottom screen. Specify the network unique ID with the +Control Pad, then press the A Button to start searching.
+        <table class="table"><tbody>
+<tr><th>Button</th> <th>Operation</th></tr>
+<tr><td>←→</td><td>Move between digits in the unique ID</td></tr>
+<tr><td>↑↓</td> <td>Change individual digit values in the unique ID</td></tr>
+<tr><td>A</td> <td>Start search, or transition to search result display mode after search mode</td></tr>
+<tr><td>R</td> <td>Toggle the <CODE>isDemo</CODE> flag</td></tr>
+        </tbody></table>
+      </p>
+    </div>
+<h2>Result Display Mode</h2>
+    <div class="section">
+      <p>
+When the search ends, a list of the found UDS networks is displayed. The cursor moves to the upper screen, and you can select a network from the list using Up/Down on the +Control Pad. The information for the selected network is displayed on the lower screen.
+        <table class="table"><tbody>
+<tr><th>Button</th> <th>Operation</th></tr>
+<tr><td>↑↓</td> <td>Select network</td></tr>
+<tr><td>A</td> <td>Search again</td></tr>
+<tr><td>B</td> <td>Return to unique ID configuration mode</td></tr>
+        </tbody></table>
+      </p>
+    </div>
+<h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/2/28</dt>
+<dd>Initial version.<br /></dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

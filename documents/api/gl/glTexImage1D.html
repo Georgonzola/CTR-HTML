@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glTexImage1D</title>
+  </head>
+  <body>
+    <h1>glTexImage1D Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glTexImage1D(
+     GLenum target,
+     GLint level,
+     GLint internalformat,
+     GLsizei width,
+     GLint border,
+     GLenum format,
+     GLenum type,
+     const GLvoid * pixels
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Texture target.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>level</th>
+          <td>Mipmap level of the data to load.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>internalformat</th>
+          <td>Internal format of the lookup table (the same as format).</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Size of entries in the lookup table.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>border</th>
+          <td>Border width. (<code>0</code> is the only valid value.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>format</th>
+          <td>Format of the lookup table.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>type</th>
+          <td>The lookup table type.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pixels</th>
+          <td>Pointer to lookup table data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets lookup table data.</p><P>You can set <span class="argument">target</span> to <tt>GL_LUT_TEXTUREi_DMP</tt>. The value of <span class="argument">i</span> is greater than or equal to <tt>0</tt> and is at least one less than the value obtained from <tt>glGetIntegerv</tt> with <tt>GL_MAX_LUT_TEXTURES_DMP</tt> specified.</P><P>Specify 0 for <span class="argument">level</span>.</P><P>Set <span class="argument">internalformat</span> to <tt>GL_LUMINANCEF_DMP</tt>.</P><P>For <span class="argument">width</span>, specify the lookup table's entry size. This value must not be larger than the value that is obtained from <tt>glGetIntegerv</tt> with <tt>GL_MAX_LUT_ENTRIES_DMP</tt> specified.</P><P>You must set <span class="argument">border</span> equal to <tt>0</tt>.</P><P>Set <span class="argument">format</span> to <tt>GL_LUMINANCEF_DMP</tt>.</P><P>Set <span class="argument">type</span> to <tt>GL_FLOAT</tt>.</P><P>For <span class="argument">pixels</span>, specify a pointer to the lookup table data.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span>, <span class="argument">format</span>, <span class="argument">internalformat</span>, or <span class="argument">type</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">level</span>, <span class="argument">border</span>, or <span class="argument">width</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>0 was bound to the lookup table texture target specified by <span class="argument">target</span>.</TD></TR></TABLE><!-- source target、format、internalformat、typeに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 level、border、widthに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 targetで指定した参照テーブルのテクスチャターゲットに0がバインドされている場合エラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

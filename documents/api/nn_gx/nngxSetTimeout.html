@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxSetTimeout</title>
+  </head>
+  <body>
+    <h1>nngxSetTimeout Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxSetTimeout(
+     GLint64EXT time,
+     void(*)(void) callback
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>time</th>
+          <td>Timeout time, in ticks.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>callback</th>
+          <td>Pointer to a callback function that is called when a timeout occurs.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the specified value as the timeout for the <code>nngxWaitCmdlistDone</code> function.</p><P>Configures the <tt><a href="../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a></tt> function, which waits for the currently running command list object to complete, to time out after the specified time. Set <span class="argument">time</span> equal to the number of system ticks to wait before a timeout. Set <span class="argument">callback</span> equal to a function pointer to the callback to invoke when a timeout occurs.</P><P>After the duration specified by <span class="argument">time</span> has elapsed following a call to the <tt><a href="../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a></tt> function, the function specified by <span class="argument">callback</span> is invoked and the <tt><a href="../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a></tt> function exits regardless of whether command execution has completed. </P><P>The default value for <span class="argument">time</span> is <tt>0</tt>. Timeouts do not occur if <span class="argument">time</span> is <tt>0</tt>. The default value for <span class="argument">callback</span> is <code>NULL</code>. A callback is not invoked when a timeout occurs if <span class="argument">callback</span> is <code>NULL</code>.</P><P>This function does not generate any errors.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/02</dt>
+        <dd><item xmlns="">Revised text in line with activation of the release build.</item><br />
+        </dd>
+        <dt>2010/08/12</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::font::ArchiveFontBase</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/font/Overview.html">font</a>::ArchiveFontBase Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ArchiveFontBase : public <a href="../../../nn/font/ResFontBase/Overview.html">nn::font::ResFontBase</a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A class that handles <a href="../../../nn/font/Overview.html">font</a> resources that define groups of glyphs.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Constructors/Destructors</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ArchiveFontBase.html">ArchiveFontBase</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/~ArchiveFontBase.html">~ArchiveFontBase</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Getting Character Data</th>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/GetCharWidths.html">GetCharWidths</a>
+            </th>
+            <td>Gets character width information for the character.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/HasGlyph.html">HasGlyph</a>
+            </th>
+            <td>Determines whether glyph data exists.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/SetResourceBuffer.html">SetResourceBuffer</a>
+            </th>
+            <td>Sets a glyph index adjustment table along with pointers to an allocated buffer and the FINF block inside it.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/RemoveResourceBuffer.html">RemoveResourceBuffer</a>
+            </th>
+            <td>Resets the parameters that were set by the <code>SetResourceBuffer</code> function, and then returns a pointer to the allocated buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>  </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/AdjustIndex.html">AdjustIndex</a>
+            </th>
+            <td>Adjusts a glyph index obtained from the CMAP block by the number of sheets that have not been loaded.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/IncludeName.html">IncludeName</a>
+            </th>
+            <td>Determines whether name is included in nameList.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/IsValidResource.html">IsValidResource</a>
+            </th>
+            <td>Determines whether the specified binary data contains a compressed <a href="../../../nn/font/Overview.html">font</a> resource up to the GLGR block.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/RequestData.html">RequestData</a>
+            </th>
+            <td>Process when the input stream data is insufficient.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpDispatch.html">ConstructOpDispatch</a>
+            </th>
+            <td>Distributes process by blocks in the binary file.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpAnalyzeFileHeader.html">ConstructOpAnalyzeFileHeader</a>
+            </th>
+            <td>Processes binary file header.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpAnalyzeGLGR.html">ConstructOpAnalyzeGLGR</a>
+            </th>
+            <td>Processes the GLGR block.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpAnalyzeFINF.html">ConstructOpAnalyzeFINF</a>
+            </th>
+            <td>Process FINF block.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpAnalyzeCMAP.html">ConstructOpAnalyzeCMAP</a>
+            </th>
+            <td>Process CMAP block.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpAnalyzeCWDH.html">ConstructOpAnalyzeCWDH</a>
+            </th>
+            <td>Process CWDH block.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpAnalyzeTGLP.html">ConstructOpAnalyzeTGLP</a>
+            </th>
+            <td>Process TGLP block.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpPrepairCopySheet.html">ConstructOpPrepairCopySheet</a>
+            </th>
+            <td>Setup copy process of sheet.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpPrepairExpandSheet.html">ConstructOpPrepairExpandSheet</a>
+            </th>
+            <td>Setup sheet expansion process.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpCopy.html">ConstructOpCopy</a>
+            </th>
+            <td>Copies data from the input stream into the construction context's output buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpSkip.html">ConstructOpSkip</a>
+            </th>
+            <td>Reads and discards the input stream.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpExpand.html">ConstructOpExpand</a>
+            </th>
+            <td>Writes to a construction context's output buffer while expanding an input stream.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="protected_style" title="protected">protected</span>
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../nn/font/ArchiveFontBase/ConstructOpFatalError.html">ConstructOpFatalError</a>
+            </th>
+            <td>This function is called when processing has continued, even if a fatal error has already occurred.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/font/Font/Overview.html">nn::font::Font</a><br />&nbsp;&nbsp;<a href="../../../nn/font/ResFontBase/Overview.html">nn::font::ResFontBase</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::font::ArchiveFontBase</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>CreateInputLayout</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/VertexInputStage/Overview.html">VertexInputStage</a>::CreateInputLayout Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> CreateInputLayout(
+     <a href="../../../../nn/gd/CTR/InputElementDescription/Overview.html">InputElementDescription</a> * inputElementDescs,
+     <a href="../../../../nn_types/u32.html">u32</a> numElements,
+     <a href="../../../../nn_types/u32.html">u32</a> * strides,
+     Shader * vertexShader,
+     InputLayout ** inputLayout
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>inputElementDescs</th>
+          <td>Sets a parameter for creating an input layout.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>numElements</th>
+          <td>Specifies the number of elements in the input layout. Up to 12 elements can be specified.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>strides</th>
+          <td>Specifies an array that specifies the size of each element.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>vertexShader</th>
+          <td>Specifies a pointer to a vertex shader object.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>inputLayout</th>
+          <td>Specifies the address storing a pointer to the created input layout object.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td>NULL was specified in an argument other than numElements.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidShaderUniformName</th>
+          <td>The value of numElements is incorrect. Specify a value in the range from <code>0</code> to <code>12</code>. Or, the <code><a href="../../../../nn/gd/CTR/InputElementDescription/Overview.html">InputElementDescription</a></code> parameter or the shader input element name is incorrect.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td>Could not allocate memory.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidParameter</th>
+          <td>The parameter is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidShaderOperation</th>
+          <td>numElements is invalid. Specify a value in the range from 1 to 12.</td>
+        </tr>
+        <tr>
+          <th>ResultInputLayoutInvalidStreamSlots</th>
+          <td>Input slots must start from <code>0</code> and be consecutive.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates an input layout.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

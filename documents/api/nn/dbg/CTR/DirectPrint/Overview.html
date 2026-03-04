@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::dbg::CTR::DirectPrint</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dbg/Overview.html">dbg</a>::<a href="../../../../nn/dbg/CTR/Overview.html">CTR</a>::DirectPrint Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/dbg.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class DirectPrint</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for directly writing characters to the display buffer using the CPU.</p><p><itemizedlist><listitem><para>Character size is fixed to 6x8. <br /></para></listitem><listitem><para>Only ASCII characters can be displayed. <br /></para></listitem><listitem><para>Tabs cannot be used. <br /></para></listitem><listitem><para>You must specify the display buffer that is currently being displayed by <code><a href="../../../../nn/dbg/CTR/DirectPrint/ChangeDisplaybuffer.html">ChangeDisplaybuffer</a></code>. <br /></para></listitem><listitem><para>Because characters are written to the display buffer by using the CPU, the display buffer must be placed in the device memory. <br /></para></listitem></itemizedlist></p><!-- write here --></div>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/dbg/CTR/DirectPrint/FONT_WIDTH.html">FONT_WIDTH</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>Width of a single character.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../../nn/dbg/CTR/DirectPrint/FONT_HEIGHT.html">FONT_HEIGHT</a>
+              </span>
+            </th>
+            <td width="100">const int</td>
+            <td>Height of a single character.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Display Buffer</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/ChangeDisplaybuffer.html">ChangeDisplaybuffer</a>
+            </th>
+            <td>Specifies the display buffer to write to.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/GetDisplaybuffer.html">GetDisplaybuffer</a>
+            </th>
+            <td>Gets the display buffer that is currently set.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Operations</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/Flush.html">Flush</a>
+            </th>
+            <td>Writes the cache.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/Clear.html">Clear</a>
+            </th>
+            <td>Fills the entire region using the background color.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Output</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/Printf.html">Printf</a>
+            </th>
+            <td>Formats strings and writes them to the display buffer.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/VPrintf.html">VPrintf</a>
+            </th>
+            <td>Formats strings and writes them to the display buffer. (The variable length argument version.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/PutString.html">PutString</a>
+            </th>
+            <td>Directly outputs the specified string without formatting.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/PutChar.html">PutChar</a>
+            </th>
+            <td>Directly outputs one character of the specified characters.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Set/Get</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/SetCharColor.html">SetCharColor</a>
+            </th>
+            <td>Sets the color for characters.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/GetCharColor.html">GetCharColor</a>
+            </th>
+            <td>Gets the color for characters.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/SetBgColor.html">SetBgColor</a>
+            </th>
+            <td>Sets the background color.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/GetBgColor.html">GetBgColor</a>
+            </th>
+            <td>Gets the background color.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/GetLastCursorPos.html">GetLastCursorPos</a>
+            </th>
+            <td>Returns the coordinates of the position after the last character is rendered.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/dbg/CTR/DirectPrint/SetFillSpace.html">SetFillSpace</a>
+            </th>
+            <td>Sets whether to render the background color when drawing a blank space.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/06/22</dt>
+        <dd><item xmlns="">Added that only the device memory was supported.</item><br /><item xmlns="">Added FONT_WIDTH and FONT_HEIGHT.</item><br />
+        </dd>
+        <dt>2012/04/20</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

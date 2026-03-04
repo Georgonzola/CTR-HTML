@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetProperty</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/TaskStatus/Overview.html">TaskStatus</a>::GetProperty Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> GetProperty(
+     <a href="../../../nn/boss/PropertyType.html">PropertyType</a> type,
+     void * pValue,
+     size_t size
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>type</th>
+          <td>Specifies the <code>type</code> property identifier.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pValue</th>
+          <td>Specifies the value.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the size of the value.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates successful retrieval.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPropertyValue</th>
+          <td>The property value pointer is <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPropertyType</th>
+          <td>The property type is not supported.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a property value from the class.</p><p>It can be used for the following properties. Call this function after allocating memory for the description's data type. <br />
+ You must call the <code><a href="../../../nn/boss/Task/GetStateDetail.html">nn::boss::Task::GetStateDetail</a></code> function at the time when you want to check the status. <br />
+ Identifier: Description <br /><code>TASK_STATE_CODE</code>: <a href="../../../nn/boss/Task/Overview.html">Task</a> state information. Its data type is <code>TaskStateCode</code>. <br /><code>TASK_RESULT_CODE</code>: <a href="../../../nn/boss/Task/Overview.html">Task</a> execution result code. Its data type is <code>TaskResultCode</code>. <br /><code>TASK_SERVICE_STATUS</code>: Service availability status at the URL specified in the task attributes. Its data type is <code>TaskServiceStatus</code>. <br /><code>TASK_SERVICE_TERMINATED</code>: Service availability flag at the URL specified in the task attributes. Its data type is <code>bool</code>. <br /><code>TASK_COMM_ERROR_CODE</code>: Communications error code during task execution. The data type is <code>u32</code>. <br /><code>TASK_CURRENT_PRIORITY</code>: Current task execution priority. The data type is <code>u8</code>. <br /><code>TASK_EXECUTE_COUNT</code>: <a href="../../../nn/boss/Task/Overview.html">Task</a> execution count. The data type is <code>u32</code>. (<bold>Note:</bold> This execution count is not updated as often as the value returned by the <code><a href="../../../nn/boss/TaskPolicy/GetProperty.html">TaskPolicy::GetProperty</a></code> function in response to <code>TASK_EXEC_COUNT</code>. Use <code><a href="../../../nn/boss/TaskPolicy/GetProperty.html">TaskPolicy::GetProperty</a></code> when you want to get the most recent value. )<br /><code>TASK_PENDING_TIME</code>: Time elapsed since the scheduled task start time. The data type is <code>u32</code> (seconds). <br /><code>TASK_START_TIME</code>: <a href="../../../nn/boss/Task/Overview.html">Task</a> execution start time, using January 1, 2000 as the origin. Its data type is <code>s64</code> (seconds). <br /><code>TASK_PROGRESS</code>: Number of bytes downloaded. The data type is <code>u32</code>. <br /><code>TASK_DATA_SIZE</code>: Total number of bytes to download from the target URL. The data type is <code>u32</code>. <br /><code>TASK_CURRENT_STEP</code>: ID number of the task step currently running. The data type is <code>u8</code>. <br /><code>TASK_LAST_MODIFIED_TIME</code>: Last modified date and time, as returned in the HTTP response header. The data type is <code>char[MAX_LASTMODIFIED_LENGTH]</code>. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/09/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

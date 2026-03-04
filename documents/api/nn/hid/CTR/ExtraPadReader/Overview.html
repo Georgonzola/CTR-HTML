@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::hid::CTR::ExtraPadReader</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/hid/Overview.html">hid</a>::<a href="../../../../nn/hid/CTR/Overview.html">CTR</a>::ExtraPadReader Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ExtraPadReader</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for reading sampling data from the Nintendo 3DS Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro and the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system gamepad.</p><p>Call the <code><a href="../../../../nn/hid/CTR/ExtraPad/Initialize.html">ExtraPad::Initialize</a></code> function before using this class. The <code><a href="../../../../nn/hid/CTR/ExtraPad/StartSampling.html">ExtraPad::StartSampling</a></code> and <code><a href="../../../../nn/hid/CTR/ExtraPad/StopSampling.html">ExtraPad::StopSampling</a></code> functions control sampling for the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro. <br />
+ While sampling is in progress for the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro, both the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system's gamepad information and the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro's input information are updated at the intervals set by the <code><a href="../../../../nn/hid/CTR/ExtraPad/StartSampling.html">ExtraPad::StartSampling</a></code> function.</p><p>Note that you cannot get the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system gamepad information from the <code><a href="../../../../nn/hid/CTR/PadReader/Overview.html">PadReader</a></code> function while a connection to the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro is maintained.</p><p>When the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro is not connected, only the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system gamepad information is updated. (It is updated every 4 milliseconds, which is the gamepad sampling period.)</p><p><br /><bold>Note:</bold> Both the information obtained by sampling and the sampling period differ depending on the state of the Nintendo 3DS Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro.</p><p>For SNAKE, this class loads the sampling data from the C Stick, ZL Button, and ZR Button. <br />
+ For simplicity, the documentation for this class treats the collective set of the C Stick, ZL Button, and ZR Button as the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro. The C Stick itself is treated as the Right Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</p><!-- write here --></div>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/StickClampMode.html">StickClampMode</a>
+            </th>
+            <td>The clamp mode of the Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> and the Right Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>. It is set by the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/SetStickClampMode.html">SetStickClampMode</a></code> and <code><a href="../../../../nn/hid/CTR/ExtraPadReader/SetExtraStickClampMode.html">SetExtraStickClampMode</a></code> functions. This has the same meaning as <code><a href="../../../../nn/hid/CTR/PadReader/StickClampMode.html">PadReader::StickClampMode</a></code>. For more information, see <code><a href="../../../../nn/hid/CTR/PadReader/StickClampMode.html">PadReader::StickClampMode</a></code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Constructors/Destructors</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/ExtraPadReader.html">ExtraPadReader</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/~ExtraPadReader.html">~ExtraPadReader</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Reading Sampling Data</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/Read.html">Read</a>
+            </th>
+            <td>Reads sampling data from the Nintendo 3DS Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro and the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system gamepad in reverse chronological order.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/ReadLatest.html">ReadLatest</a>
+            </th>
+            <td>Reads the most recent sampling data from the Nintendo 3DS Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> Pro and the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system gamepad. Unlike <code><a href="../../../../nn/hid/CTR/ExtraPadReader/Read.html">Read</a></code>, this function allows you to read the same sampling data.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Clamping the CTR System Circle Pad</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/SetStickClamp.html">SetStickClamp</a>
+            </th>
+            <td>Sets the clamp values for the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/GetStickClamp.html">GetStickClamp</a>
+            </th>
+            <td>Gets the clamp values of the current clamp mode for the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/GetStickClampMode.html">GetStickClampMode</a>
+            </th>
+            <td>Gets the clamp mode of the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/SetStickClampMode.html">SetStickClampMode</a>
+            </th>
+            <td>Sets the clamp mode of the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/NormalizeStick.html">NormalizeStick</a>
+            </th>
+            <td>Normalizes and returns the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> values obtained by the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/Read.html">Read</a></code> and <code><a href="../../../../nn/hid/CTR/ExtraPadReader/ReadLatest.html">ReadLatest</a></code> functions to floating-point values between <code>-1.0</code> and <code>1.0</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/NormalizeStickWithScale.html">NormalizeStickWithScale</a>
+            </th>
+            <td>Normalizes and returns the <a href="../../../../nn/hid/CTR/Overview.html">CTR</a> system Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> values obtained by the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/Read.html">Read</a></code> and <code><a href="../../../../nn/hid/CTR/ExtraPadReader/ReadLatest.html">ReadLatest</a></code> functions to floating-point values between <code>-1.0</code> and <code>1.0</code>. Includes a sensitivity correction feature.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/SetNormalizeStickScaleSettings.html">SetNormalizeStickScaleSettings</a>
+            </th>
+            <td>Configures settings for the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/NormalizeStickWithScale.html">NormalizeStickWithScale</a></code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/GetNormalizeStickScaleSettings.html">GetNormalizeStickScaleSettings</a>
+            </th>
+            <td>Gets the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/NormalizeStickWithScale.html">NormalizeStickWithScale</a></code> function settings.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Clamping the Right Circle Pad</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/SetExtraStickClamp.html">SetExtraStickClamp</a>
+            </th>
+            <td>Sets the clamp values for the Right Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/GetExtraStickClamp.html">GetExtraStickClamp</a>
+            </th>
+            <td>Gets the clamp values of the current clamp mode for the Right Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/GetExtraStickClampMode.html">GetExtraStickClampMode</a>
+            </th>
+            <td>Gets the clamp mode for the Right Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/SetExtraStickClampMode.html">SetExtraStickClampMode</a>
+            </th>
+            <td>Sets the clamp mode for the Right Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/NormalizeExtraStick.html">NormalizeExtraStick</a>
+            </th>
+            <td>Normalizes and returns the Right Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> values obtained by the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/Read.html">Read</a></code> and <code><a href="../../../../nn/hid/CTR/ExtraPadReader/ReadLatest.html">ReadLatest</a></code> functions to floating-point values between <code>-1.0</code> and <code>1.0</code>.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/NormalizeExtraStickWithScale.html">NormalizeExtraStickWithScale</a>
+            </th>
+            <td>Normalizes and returns the Right Circle <a href="../../../../nn/hid/CTR/Pad/Overview.html">Pad</a> values obtained by the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/Read.html">Read</a></code> and <code><a href="../../../../nn/hid/CTR/ExtraPadReader/ReadLatest.html">ReadLatest</a></code> functions to floating-point values between <code>-1.0</code> and <code>1.0</code>. Includes a sensitivity correction feature.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/SetNormalizeExtraStickScaleSettings.html">SetNormalizeExtraStickScaleSettings</a>
+            </th>
+            <td>Configures settings for the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/NormalizeExtraStickWithScale.html">NormalizeExtraStickWithScale</a></code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/hid/CTR/ExtraPadReader/GetNormalizeExtraStickScaleSettings.html">GetNormalizeExtraStickScaleSettings</a>
+            </th>
+            <td>Gets the <code><a href="../../../../nn/hid/CTR/ExtraPadReader/NormalizeExtraStickWithScale.html">NormalizeExtraStickWithScale</a></code> function settings.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/20</dt>
+        <dd><item xmlns="">Added a description for when SNAKE is used.</item><br />
+        </dd>
+        <dt>2011/10/06</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

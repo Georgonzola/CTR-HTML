@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glStencilOp</title>
+  </head>
+  <body>
+    <h1>glStencilOp Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glStencilOp(
+     GLenum fail,
+     GLenum zfail,
+     GLenum zpass
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>fail</th>
+          <td>Operation to perform when the stencil test fails.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>zfail</th>
+          <td>Operation to perform when the stencil test passes but the depth test fails.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>zpass</th>
+          <td>Operation to perform when both the stencil test and depth test pass.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures operations on stencil buffer values.</p><P>When the stencil test fails, the action specified by <span class="argument">fail</span> is taken on that stencil buffer value.  When the stencil test passes and the depth test fails, the action specified by <span class="argument">zfail</span> is taken on that stencil buffer value.  When the stencil and depth tests both pass, the action specified by <span class="argument">zpass</span> is taken on that stencil buffer value.</P><P>Set <span class="argument">func</span>, <span class="argument">zfail</span>, and <span class="argument">zpass</span> using the following values.<TABLE><TR><TH>GL_KEEP</TH><TD>Keep the current stencil value.</TD></TR><TR><TH>GL_ZERO</TH><TD>Replace the stencil value with 0.</TD></TR><TR><TH>GL_REPLACE</TH><TD>Replace the stencil value with the value specified by <span class="argument">ref</span> in <tt>glStencilFunc</tt>.</TD></TR><TR><TH>GL_INCR</TH><TD>Increment the stencil value by one.</TD></TR><TR><TH>GL_DECR</TH><TD>Decrement the stencil value by one.</TD></TR><TR><TH>GL_INVERT</TH><TD>Invert the stencil value bitwise.</TD></TR><TR><TH>GL_INCR_WRAP</TH><TD>Increment the stencil value by one.</TD></TR><TR><TH>GL_DECR_WRAP</TH><TD>Decrement the stencil value by one.</TD></TR></TABLE><!-- source fail、zfail、zpassにはGL_KEEP、GL_ZERO、GL_REPLACE、GL_INCR、GL_DECR、GL_INVERT、GL_INCR_WRAP、GL_DECR_WRAPを指定します。 GL_KEEPを指定した場合、ステンシル値は現在の値を保持します。 GL_ZEROを指定した場合、ステンシル値は0で置き換えられます。 GL_REPLACEを指定した場合、ステンシル値はglStencilFuncのrefで指定した値で置き換えられます。 GL_INCRを指定した場合、ステンシル値は1加算されます。現在の値が最大値である場合、それ以上加算されません。 GL_DECRを指定した場合、ステンシル値は1減算されます。現在の値が0である場合、それ以上減算されません。 GL_INVERTを指定した場合、ステンシル値はビット反転します。 GL_INCR_WRAPを指定した場合、ステンシル値は1加算されます。現在の値が最大値である場合、0に置き換えられます。 GL_DECR_WRAPを指定した場合、ステンシル値は1減算されます。現在の値が0である場合、最大値に置き換えられます。 --></P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">fail</span>, <span class="argument">zfail</span>, or <span class="argument">zpass</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called without any command-list objects bound.</TD></TR></TABLE><!-- source fail、zfail、zpassに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 コマンドリストオブジェクトをバインドしていない状態で呼び出すとエラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

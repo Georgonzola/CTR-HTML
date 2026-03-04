@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetClippingPlane</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/RasterizerStage/Overview.html">RasterizerStage</a>::SetClippingPlane Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static void SetClippingPlane(
+     <a href="../../../../nn_types/f32.html">f32</a> param1,
+     <a href="../../../../nn_types/f32.html">f32</a> param2,
+     <a href="../../../../nn_types/f32.html">f32</a> param3,
+     <a href="../../../../nn_types/f32.html">f32</a> param4
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>param1</th>
+          <td>Specifies P1 clipping plane 1.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>param2</th>
+          <td>Specifies P2 clipping plane 2.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>param3</th>
+          <td>Specifies P3 clipping plane 3.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>param4</th>
+          <td>Specifies P4 clipping plane 4.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the clipping face planes. This function is an immediate function. (An immediate function directly generates commands and inserts them into the command buffer.)</p><p>There are four clipping plane coefficients (P1, P2, P3, P4) and the half space defined by the clipping planes must satisfy the following expression: <br />
+ P1 * x + P2 * y + P3 * z + P4 * w >= 0 <br />
+ The following format is used for the data inserted into the command buffer:<br />
+ 0x00000000 Eq1 <br />
+ 0x00000004 [Reserved] <br />
+ 0x00000008 Eq2 <br />
+ 0x0000000c Eq3 <br />
+ 0x00000010 Eq4 <br />
+ 0x00000014 [Reserved] <br /><code>Eq1</code>, <code>Eq2</code>, <code>Eq3</code>, and <code>Eq4</code> are 24-bit floating point values. They are obtained by converting P1, P2, P3, and P4.</p><p>The default value is all 0.</p></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../../nn/gd/CTR/Utils/Float32ToFloat24.html">Utils::Float32ToFloat24</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/07/13</dt>
+        <dd><item xmlns="">Added the default value.</item><br />
+        </dd>
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

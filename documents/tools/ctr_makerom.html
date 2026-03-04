@@ -1,0 +1,908 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ctr_makerom</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin          : 4px;
+    padding         : 4px;
+}
+H1 {
+  font-size     : 150%;
+  font-family       : Arial;
+  border-bottom-width   : 5px;
+  border-bottom-style   : solid;
+  border-bottom-color   : #CD202C;
+  padding-bottom        : 1px;
+  margin-bottom     : 20px;
+  letter-spacing        : normal;
+  font-weight       : bold;
+}
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color    : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color    : #ff458f;
+*/
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+CODE {
+  font-family       : "Courier New", monospace;
+  left          : 12px;
+  font-size     : 10pt;
+}
+table {
+  margin-top        : 2pt;
+  margin-bottom     : 2pt;
+  margin-left       : 0pt;
+  margin-right      : 0pt;
+        padding-left      : 0pt;
+        padding-right     : 0pt;
+        position          : relative;
+        left              : 12px;
+        font-family       : Arial;
+        font-size         : 10pt;
+        border-style      : none none none none;
+    }
+table table
+{
+  border-collapse   : collapse;
+  width             : 90%;
+}
+table table td
+{
+  border      : solid 1px black;
+}
+
+td,th {
+  padding           : 2pt;
+  border-width      : 2pt;
+  border-style      : none none none none;
+  font-style        : normal;
+  text-align        : left;
+}
+td {
+  background        : #e8f4f4;
+  font-weight       : normal;
+}
+th {
+  background        : #c0d8d8;
+  font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+p.code {
+  font-family       : "Courier New", monospace;
+  left          : 12px;
+  font-size     : 10pt;
+  background            : #e8f4f4;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+<h1>ctr_makerom</h1>
+
+<h1>Contents</h1>
+<ol>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#usage">How to Use</a></li>
+<li><a href="#rsf">RSF File</a></li>
+<li><a href="#desc">DESC File</a></li>
+<li><a href="#titleid">Game Software Prototype Code</a></li>
+<li><a href="#omake">Variables Defined in <CODE>OMakefile</CODE></a></li>
+<li><a href="#cfa">CFA Files for Specific Purposes</a></li>
+  <ol>
+<li><a href="#cfaemanual">Creating CFA Files for E-Manuals</a></li>
+<li><a href="#cfadlp">Creating CFA Files for Download Play Programs</a></li>
+<li><a href="#cfaaoc">Creating CFA Files for Add-on Content</a></li>
+  </ol>
+<li><a href="#history">Revision History</a></li>
+</ol>
+
+
+
+<h2><a name="intro">Introduction</a></h2>
+<P>The <CODE>ctr_makerom</CODE> tool is for creating CCI (CTR Card Image) files.<br/>CCI files are created based on the content in RSF files.</P>
+
+<p>
+Use the <CODE>-f</CODE> option to generate a CXI (CTR eXecutable Image) file and a CFA (CTR File Archive) file.<br/>
+</p>
+
+<h2><a name="usage">How to Use</a></h2>
+<h3>Requirements</h3>
+<p>You need the following to create a CCI file.</p>
+<ul>
+<li> AXF file (ELF format) created with ARMCC</li>
+<li> RSF file</li>
+<li> DESC file</li>
+</ul>
+
+<p>
+RSF files contain the information required to create a CCI file. They must be created individually for each application. By default, the SDK build system uses <CODE>$(CTRSDK_ROOT)/resources/specfiles/Application.rsf</CODE> (the default RSF file).<br />Be sure to always use the DESC file included in the SDK.
+</p>
+
+<h3>Commands</h3>
+
+
+<h4>Format 1</h4>
+<p class="code">
+% ctr_makerom32 ELF_FILE -rsf RSF_FILE -desc DESC_FILE [-o OUTPUT_FILE] [-Dname=value...] [-f FORMAT] [-info INFO_FILE] [-banner BANNER_FILE] [-icon ICON_FILE] [-content CONTENTS_PATH:INDEX] [-j NUM]
+</p>
+
+<p class="first_ja">Creates files in CXI, CFA, and CCI format. You must specify <CODE>ELF_FILE</CODE>, <CODE>-rsf</CODE>, and <CODE>-desc</CODE>.
+</p>
+
+
+<h4>Format 2</h4>
+<p class="code">
+% ctr_makerom32 ELF_FILE -rsf RSF_FILE -desc DESC_FILE -f le -lr LR_FILE -m 0x02000000 -o OUTPUT_FILE [-Dname=value...] [-info INFO_FILE] [-banner BANNER_FILE] [-icon ICON_FILE] [-j NUM]
+</p>
+
+<p class="first_ja">Creates files in LE format. You must specify <CODE>ELF_FILE</CODE>, <CODE>-rsf</CODE>, <CODE>-desc</CODE>, <CODE>-f</CODE>, <CODE>-lr</CODE>, <CODE>-m</CODE>, and <CODE>-o</CODE>.
+</p>
+
+<h4>Format 3</h4>
+<p class="code">
+% ctr_makerom32 -rsf RSF_FILE -desc DESC_FILE -f lr -o OUTPUT_FILE [-Dname=value...] [-info INFO_FILE] [-j NUM]
+</p>
+
+<p class="first_ja">Creates files in LR format. You must specify a value for <CODE>-rsf</CODE>, <CODE>-desc</CODE>, <CODE>-f</CODE>, and <CODE>-o</CODE>.
+</p>
+
+<h4>Format 4</h4>
+<p class="code">
+% ctr_makerom32 -f list -le LE_FILE -lr LR_FILE -o OUTPUT_FILE
+</p>
+
+<p class="first_ja">Creates files in CCL format. You must specify all options.
+</p>
+
+<h4>Options</h4>
+
+
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Options</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><CODE>-rsf</CODE></td>
+<td align="center">Specifies the RSF file.</td>
+</tr>
+<tr>
+<td align="center"><CODE>-desc</CODE></td>
+<td align="center">Specifies the DESC file.</td>
+</tr>
+<tr>
+<td align="center"><CODE>-banner</CODE></td>
+<td align="center">Specifies the banner file.</td>
+</tr>
+<tr>
+<td align="center"><CODE>-icon</CODE></td>
+<td align="center">
+Specifies the icon file.<br/>Unless you specify an icon file with this option, you cannot get the EULA version from the application.
+</td>
+</tr>
+<tr>
+<td align="center"><CODE>-content CONTENTS_PATH:INDEX</CODE></td>
+<td align="center">
+Specifies content (CFA files) included in the CCI file.<BR>Specify the content file path in <CODE>CONTENTS_PATH</CODE>.<BR><CODE>INDEX</CODE> specifies the index number that contains this content. There is a predetermined <CODE>INDEX</CODE> to specify for each type of content. Specify only <CODE>1</CODE> for a CFA file storing an e-manual. Specify <CODE>2</CODE> for a CFA file storing a download-play child program. You must not specify any other values. <BR> For more information, see the documentation for each type of content.
+
+</td>
+</tr>
+<tr>
+<td align="center"><CODE>-o</CODE></td>
+<td align="center">Specifies the output filename. If this option is omitted, the output is written to a file with a filename that consists of the input <CODE>.axf</CODE> filename with its extension replaced by <CODE>.cci</CODE>, <CODE>.cxi</CODE>, or <CODE>.cfa</CODE>. The extension is determined by the format specified in the <CODE>-f</CODE> option.</td>
+</tr>
+<tr>
+<td align="center"><CODE>-Dname=value</CODE></td>
+<td align="center">Specifies the variable name (<CODE>name</CODE>) and value (<CODE>value</CODE>) to reference in the RSF file. Locations where <CODE>$(name)</CODE> is written in the RSF file are replaced with the <CODE>value</CODE> command line argument and then evaluated.</td>
+</tr>
+<tr>
+<td align="center"><CODE>-f FORMAT</CODE></td>
+<td align="center">Specifies the format of the image to output. The following values can be specified for <CODE>FORMAT</CODE>.
+<table>
+<tr>
+<td><CODE>card</CODE></td>
+<td>Outputs in CCI format. Specify this option when creating a standard card application.</td>
+</tr>
+<tr>
+<td><CODE>exec</CODE></td>
+<td>Outputs in CXI format. Specify this option when building an import application.<br/>To create images that can be imported, you must input the generated CXI file to <CODE>ctr_makecia</CODE> and create a CIA file.</td>
+</tr>
+<tr>
+<td><CODE>data</CODE></td>
+<td>Outputs in CFA format.</td>
+</tr>
+<tr>
+<td><CODE>list</CODE></td>
+<td>Outputs in CCL format.</td>
+</tr>
+<tr>
+<td><CODE>le</CODE></td>
+<td>Outputs in LE format used for CCL.</td>
+</tr>
+<tr>
+<td><CODE>lr</CODE></td>
+<td>Outputs in LR format used for CCL.</td>
+</tr>
+
+</table>
+If nothing is specified, it is assumed that <CODE>exec</CODE> is specified.<br/>
+</td>
+</tr>
+<tr>
+<td align="center"><CODE>-info</CODE></td>
+<td align="center">Specifies the output file to which to output information about the output image. When omitted, the file is saved with the <CODE>.xml</CODE> filename extension. This file contains information about the application title and ROMFS.
+</td>
+</tr>
+<tr>
+<td align="center"><CODE>-j NUM</CODE></td>
+<td align="center">Specifies the number of makerom parallel processes. However, only some processes can be performed in parallel.<br/>When it is not specified, the CPU core count for the execution environment is acquired and used.
+</td>
+</tr>
+
+<tr>
+<td align="center"><CODE>-le LE_FILE</CODE></td>
+<td align="center">Specifies the file path for an LE-format file created in format 2.</td>
+</tr>
+<tr>
+<td align="center"><CODE>-lr LR_FILE</CODE></td>
+<td align="center">Specifies the file path for an LR-format file created in format 3.</td>
+</tr>
+<tr>
+<td align="center"><CODE>-m 0x02000000</CODE></td>
+<td align="center">Required for format 2. Always specify <CODE>0x02000000</CODE>.</td>
+</tr>
+<tr>
+<td align="center"><CODE>-nowarn WARNING_NUMBER</CODE></td>
+    <td align="center">
+Suppresses warnings. Currently, you can only specify <CODE>0</CODE> for <CODE>WARNING_NUMBER</CODE>. When you specify a value of <CODE>0</CODE>, you can suppress warnings for invalid combinations of <CODE>CardDevice</CODE> and <CODE>BackupMemoryType</CODE>.
+    </td>
+</tr>
+
+
+</tbody>
+</table>
+</div>
+
+<h2><a name="rsf">RSF File</a></h2>
+
+<p>This file contains the settings for the CCI file.</p>
+
+<h3>Format</h3>
+
+<p>The RSF file format includes the following elements.</p>
+
+<p class="code">
+BasicInfo:<br/>&nbsp;&nbsp;Title:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Application title.<br/> &nbsp;&nbsp;ProductCode:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Product code.<br/> &nbsp;&nbsp;MediaSize:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Media size.<br/> &nbsp;&nbsp;Logo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Logo data specification.<br/> &nbsp;&nbsp;BackupMemoryType:&nbsp;&nbsp;# Backup memory type.<br/>
+
+<br/> TitleInfo: <br/> &nbsp;&nbsp;Category:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Title category.<br/> &nbsp;&nbsp;UniqueId:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Unique ID for title code.<br/> &nbsp;&nbsp;ChildIndex:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Download Play child index.<br/> &nbsp;&nbsp;DemoIndex:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Downloadable application demos index.<br/> &nbsp;&nbsp;Variation:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Add-on content index.<br/> <br/> Rom:<br/>&nbsp;&nbsp;HostRoot:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# The root path of the ROM file system.<br/> &nbsp;&nbsp;Reject:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Specifies files and directories to exclude from the ROM file system.<br/> &nbsp;&nbsp;Include:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Specifies files to include in the ROM file system.<br/> &nbsp;&nbsp;SaveDataSize:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Save data size.<br/> <br/> CardInfo:<br/>&nbsp;&nbsp;CardDevice:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Set NorFlash or None.<br/> &nbsp;&nbsp;MediaType:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Set Card 1 or Card 2.<br/> <br/> AccessControlInfo:<br/>&nbsp;&nbsp;Priority:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Main thread priority.<br/> &nbsp;&nbsp;UseExtSaveData:&nbsp;&nbsp;&nbsp;&nbsp;# Whether to use expanded save data.<br/> &nbsp;&nbsp;ExtSaveDataNumber:&nbsp;# Expanded save data number.<br/> &nbsp;&nbsp;FileSystemAccess:&nbsp;&nbsp;# File system access permissions.<br/> <br/> SystemControlInfo:<br/>StackSize:&nbsp;&nbsp;&nbsp;# Stack size of the main thread.<br/> &nbsp;&nbsp;RemasterVersion:&nbsp;&nbsp;&nbsp;# The remaster version.<br/> <br/> Option:<br/>&nbsp;&nbsp;EnableCompress:&nbsp;&nbsp;# Enables or disables compression of static memory.<br/>
+
+</p>
+
+<p>
+Configure the values of the items under the seven main sections (<CODE>BasicInfo</CODE>, <CODE>TitleInfo</CODE>, <CODE>Rom</CODE>, <CODE>AccessControlInfo</CODE>, <CODE>SystemControlInfo</CODE>, and <CODE>Option</CODE>).<br/>Set the values using the following format.
+
+<h3>Specifying Single Values</h3>
+<p class="code">
+Key Name: Value
+</p>
+
+<h3><a name="sequence_element">Specifying Multiple Values</a></h3>
+<p class="code">
+Key Name:<br/>&nbsp;&nbsp;-&nbsp;Value 1<br/> &nbsp;&nbsp;-&nbsp;Value 2<br/> &nbsp;&nbsp;...<br/>
+</p>
+
+</p>
+
+<h4>Notes</h4>
+<ul>
+<li>Tabs cannot be used in place of half-width spaces.</li>
+<li>You must use at least one half-width space after the colons and hyphens that separate the key names from the values.</li>
+<li>Indentation (using half-width spaces) is required at the beginning of the line for each sub-item.</li>
+<li>Main sections must not be indented.</li>
+<li>Each sub-item within a main section must be indented by the same number of spaces.</li>
+</ul>
+
+The following table describes the settings for each of these items.
+
+<h4>BasicInfo</h4>
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Item</th>
+<th align="center">Description</th>
+<th align="center">Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><CODE>Title</CODE></td>
+<td align="center">A value used to enable developers to distinguish titles.</td>
+<td align="center">The system does not reference this information. The application's behavior is not affected if this setting is not specified, but specifying some value is a best practice. The value is output to the XML file exported by <CODE>ctr_makerom</CODE>.<br />If nine or more characters are specified, the ninth and subsequent characters are ignored.<br />When creating titles handling add-on content, this value must match between that title and the data title (add-on content).
+</td>
+</tr>
+<tr>
+<td align="center"><del><CODE>CompanyCode</CODE></del></td>
+<td align="center"><del>The company code. Company code that was assigned when the licensing agreement was signed with Nintendo. Two ASCII characters.</del></td>
+<td align="center">Starting from CTR-SDK 4.2.3, this parameter is set using <B>CTR Master Editor</B>. It cannot be set using RSF.</td>
+</tr>
+<tr>
+<td align="center"><CODE>ProductCode</CODE></td>
+<td align="center">Specifies the product code, or the add-on content code. If it is a product code, specify the product code issued by Nintendo.</td>
+<td align="center">When you are building a patch, specify <CODE>CTR-U-XXXX-00</CODE>.<br /><CODE>XXXX</CODE> specifies the initial code of the application to which to apply the patch.<br /><br /> When you are building add-on content, specify <CODE>CTR-M-XXXX-00</CODE>.<br /> For <CODE>XXXX</CODE>, specify the initial code of the application that will use the add-on content.<br /> The <CODE>00</CODE> at the end is the data title variation. If there is no special designation, specify <CODE>00</CODE>.</td>
+</tr>
+<tr>
+<td align="center"><CODE>MediaSize</CODE></td>
+<td align="center">Specifies the media size.<br/></td>
+<td align="center">If <CODE>MediaType</CODE> is Card1, specify the size as either 128 MB, 256 MB, 512 MB, 1 GB, 2 GB or 4 GB. If <CODE>MediaType</CODE> is Card2, specify the size as either 512 MB, 1 GB, or 2 GB.<br />For downloadable applications, specify the size that would be needed if it were turned into a card application.</td>
+</tr>
+<tr>
+<td align="center"><CODE>Logo</CODE></td>
+<td align="center">Specifies the logo data type.</td>
+<td align="center">Specify <CODE>Nintendo</CODE> for Nintendo titles, <CODE>Distributed</CODE> for titles for which Nintendo purchased the publishing license from the software manufacturer or titles for which Nintendo acquired the publishing license from a publisher, and <CODE>Licensed</CODE> for all other titles. For Chinese region titles, specify <CODE>iQue</CODE>.<br/>
+</td>
+</tr>
+<tr>
+<td align="center"><CODE>BackupMemoryType</CODE></td>
+<td align="center">This parameter is not used currently. It will be deleted in the future.</td>
+<td align="center">This parameter has been integrated into <a href="#savedatasize"><CODE>SaveDataSize</CODE></a>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h4>TitleInfo</h4>
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Item</th>
+<th align="center">Description</th>
+<th align="center">Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><CODE>Category</CODE></td>
+<td align="center">Specifies the application type.<br/>
+<table border="1">
+<tr>
+<td><CODE>Application</CODE></td>
+<td>Specify this item when building a typical application.</td>
+</tr>
+<tr>
+<td><CODE>DlpChild</CODE></td>
+<td>Specify this item when building a Download Play child.<br/>It must be specified along with <CODE>ChildIndex</CODE> (described later).</td>
+</tr>
+<tr>
+<td><CODE>Demo</CODE></td>
+<td>Specify this item when you create a demo as a downloadable application.</td>
+</tr>
+<tr>
+<td><CODE>AddOnContents</CODE></td>
+<td>Specify this item when you create add-on content.</td>
+</tr>
+</table>
+</td>
+<td align="center">When omitted, the tool automatically chooses a value based on the <CODE>DESC</CODE> file contents.</td>
+</tr>
+<tr>
+<td align="center"><CODE>UniqueId</CODE></td>
+<td align="center">The unique ID of the application. Specifies the ID issued by Nintendo.<br />Specifies the same ID as the parent device for Download Play child devices.</td>
+<td align="center">You can specify a value from <CODE>0x00300</CODE> through <CODE>0xf7fff</CODE>. An error occurs if you do not specify a value. In the default RSF file, the end of the <a href="#titleid">trial code</a> is used as the <CODE>UniqueId</CODE>.</td>
+</tr>
+<tr>
+<td align="center"><CODE>ChildIndex</CODE></td>
+<td align="center">Specifies the Download Play child index.</td>
+<td align="center">You can specify values from <CODE>0</CODE> through <CODE>255</CODE>.</td>
+</tr>
+<tr>
+<td align="center"><CODE>DemoIndex</CODE></td>
+<td align="center">Specifies the index for downloadable application demos.<br/>For more information, see <I>CTR Demo Creation Procedures for Downloadable Demos</I>.</td>
+<td align="center">You can specify values from <CODE>1</CODE> through <CODE>255</CODE>.</td>
+</tr>
+<tr>
+<td align="center"><CODE>Variation</CODE></td>
+<td align="center">This option specifies the index of add-on content.</td>
+<td align="center">You can specify values from <CODE>0</CODE> through <CODE>255</CODE>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+<h4>Rom</h4>
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Item</th>
+<th align="center">Description</th>
+<th align="center">Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><CODE>HostRoot</CODE></td>
+<td align="center">The root path of the ROM file system.<br/>Specify either an absolute path or a relative path from the directory that is the current directory when executing <CODE>ctr_makerom</CODE>. All files and directories under the directory specified here are stored in the ROM file system. However, any files or directories that start with a period (&quot;<CODE>.</CODE>&quot;), or that are specified under the <CODE>Reject</CODE> item, are not stored in the ROM file system.</td>
+<td align="center">Although setting this parameter has the same effect as setting <CODE>ROMFS_ROOT</CODE> in the <CODE>OMake</CODE> file (except for the following point), if both are set <CODE>HostRoot</CODE> has precedence.
+<ul><li>When <CODE>HostRoot</CODE> is specified, the dependency relationships for the files and directories under the specified directory are not set, and a rebuild is not performed even if the files under the ROM file system are updated.</li></ul>
+When you want to set the dependency relationships for files and directories under the directory specified with <CODE>HostRoot</CODE>, they must be set with the <CODE>Omake</CODE> file's<a href="#ROMFS_DEPENDENCIES"><CODE>ROMFS_DEPENDENCIES</CODE></a>. For more information, see <A href="../SDKRules/BuildRules.html#makerom">Build Rules (<CODE>ctr_makerom</CODE>)</A>.</td>
+</tr>
+
+<tr>
+<td align="center"><CODE>Reject</CODE></td>
+<td align="center">Specify the names of files and directories to exclude from the ROM file system.<br/>Any files or directories that match the specified names are not stored in the ROM file system. You can set multiple values. Specifications can use the &quot;<CODE>*</CODE>&quot; and &quot;<CODE>?</CODE>&quot; wildcards (&quot;<CODE>*</CODE>&quot; matches 0 or more characters, and &quot;<CODE>?</CODE>&quot; matches a single character) or the .NET Framework regular expressions. When specifying paths, specify absolute paths from the root directory specified by <CODE>HostRoot</CODE>.<br/>The only character that can be used as a path delimiter is the <CODE>/</CODE> character. <br/><br/> When specifying wildcards, denote paths that begin with '<CODE>/</CODE>'.<br/>
+<p class="code">
+<B>Example:</B><br/> Reject: <br/><br/>&nbsp;&nbsp;- &quot;/abc*&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Exclude files in HostRoot that start with &quot;abc.&quot;<br/> &nbsp;&nbsp;- &quot;/*def*&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Exclude files that contain the string &quot;def.&quot; <br/>
+</p>
+<br/> When specifying regular expressions, start the notation pattern with '<CODE>&gt;</CODE>'.<br/>
+<p class="code">
+<B>Example:</B><br/> Reject: <br/><br/>&nbsp;&nbsp;- &quot;&gt;^/abc.*&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Exclude files in HostRoot that start with &quot;abc.&quot;<br/> &nbsp;&nbsp;- &quot;&gt;def.*&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Exclude files that contain the string &quot;def.&quot;<br/> &nbsp;&nbsp;- &quot;&gt;^/[^/]+/.*ghi.*&quot;&nbsp;&nbsp;# Exclude files two levels below the HostRoot directory that contain the string &quot;ghi.&quot; <br/>
+</p>
+<br/> <br/> When the first character is other than '<CODE>/</CODE>' or '<CODE>&gt;</CODE>', it is treated as a wildcard specification. Although operation specifications of this type were supported up to CTR-SDK 1.0, their use is not recommended.<br/> For example, if the filename matches, it is excluded regardless of the directory it is in.<br/> <br/>
+</td>
+<td align="center">Use the syntax described in the <a href="#sequence_element">Specifying Multiple Values</a> section.</td>
+</tr>
+
+<tr>
+<td align="center"><CODE>Include</CODE></td>
+<td align="center">Specifies the names of files and directories to include in the ROM file system.<br/>An error occurs if files and directories matching the specified names do not exist in the ROM file system.<br/>You can set multiple values. The format for specifying values is the same as for <CODE>Reject</CODE>.<br/>
+</td>
+<td align="center">Use the syntax described in the <a href="#sequence_element">Specifying Multiple Values</a> section.</td>
+</tr>
+
+
+<tr>
+<a name="savedatasize"><td align="center"><CODE>SaveDataSize</CODE></td></a>
+<td align="center">Specifies the size of the save data. Specify values in the format <CODE>nKB</CODE>, <CODE>nMB</CODE>, or <CODE>nGB</CODE>. If <CODE>Card1</CODE> is specified for <B>CardInfo/MediaType</B>, a value of 0 KB, 128 KB, or 512 KB can be specified.<br/>If <CODE>Card2</CODE> is specified for <B>CardInfo/MediaType</B>, any value can be specified in 1 MB units up to a maximum of half the value specified for <B>BasicInfo/MediaSize</B>.<br/><b>Note:</b> In either case, the actual size that is used is smaller than the size specified here.<br/>For more information about the sizes that can be used, see the <a href="../api/nn/fs/briefing/savedata_calc_user.html">Save Data File System Capacity Calculation Sheet</a> page in the API Reference.
+</td>
+<td align="center">
+If the specified value differs from the size of the backup memory actually being used, the backup memory size takes precedence. (However, if you specify nothing or a size of <CODE>0</CODE>, <B>CardInfo/MediaType</B> is set to <CODE>None</CODE> by default, and you cannot use backup memory.)<br />For more information, see the API reference page for <CODE><a href="../api/nn/fs/FormatSaveData.html">nn::fs::FormatSaveData</a></CODE>.<br/><br/>If this value is not specified, it is treated as if a size of <CODE>0</CODE> has been specified.<br/>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h4>CardInfo</h4>
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Item</th>
+<th align="center">Description</th>
+<th align="center">Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><CODE>CardDevice</CODE></td>
+<td align="center">Specify <CODE>NorFlash</CODE> if <SPAN class="argument">MediaType</SPAN> is <CODE>Card1</CODE> and <SPAN class="argument">SaveDataSize</SPAN> is larger than 0.<br/>Otherwise, specify <CODE>None</CODE>. <br/>This value can be omitted because if it is unspecified, the appropriate value is determined automatically.</td>
+<td align="center">We recommend that you omit this specification because this parameter is set automatically.</td>
+</tr>
+<tr>
+<td align="center"><CODE>MediaType</CODE></td>
+<td align="center">Specifies the type of game card according to the size of save data required. Specify either <CODE>Card1</CODE> or <CODE>Card2</CODE>.</td>
+<td align="center">
+When omitted, the tool uses the value specified by <CODE>Card1</CODE>. You must explicitly specify <CODE>Card2</CODE> when managing save data of 1 MB or larger, even for download-only applications.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<h4>SystemControlInfo</h4>
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Item</th>
+<th align="center">Description</th>
+<th align="center">Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><CODE>StackSize</CODE></td>
+<td align="center">Specify the stack size of the main thread (in bytes).</td>
+<td align="center">Must be a multiple of 4096. (Default value: 256 KB)</td>
+</tr>
+<tr>
+<td align="center"><CODE>RemasterVersion</CODE></td>
+<td align="center">Specifies the remaster version. When omitted, the tool uses the default value of <CODE>0</CODE>.</td>
+<td align="center">The upper limit is 63.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h4>AccessControlInfo</h4>
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Item</th>
+<th align="center">Description</th>
+<th align="center">Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><CODE>Priority</CODE></td>
+<td align="center">Specifies the priority of the main thread.</td>
+<td align="center">You can specify values from <CODE>0</CODE> through <CODE>31</CODE> (inclusive).</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td align="center"><CODE>AccessibleSaveDataIds</CODE></td>
+<td align="center">
+Sets the accessible save data and expanded save data.<br />A maximum of six IDs specified by a 20-bit hexadecimal number (<CODE>0xXXXXX</CODE>) can be written to this item. The following become available for those IDs.
+    <ul>
+<li>Save data for titles that have the same unique ID.</li>
+<li>Expanded save data that has the same expanded save data number.</li>
+    </ul>
+Also, when this item is set, the interpretation of <CODE>UseOtherVariationSaveData</CODE> expands.
+</td>
+<td align="center">
+Use the syntax described in the <a href="#sequence_element">Specifying Multiple Values</a> section. (Maximum of 6)<br />When this item is set, the items marked with an asterisk (&quot;*&quot;) cannot be specified.
+</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td align="center"><CODE>UseExtSaveData</CODE> *</td>
+<td align="center">Specify <CODE>true</CODE> when using expanded save data.</td>
+<td align="center">
+The default is <CODE>false</CODE>.<br />Cannot be specified when <CODE>AccessibleSaveDataIds</CODE> is set.
+</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td align="center"><CODE>ExtSaveDataNumber</CODE> *</td>
+<td align="center">Specify the expanded save data number using 20 bits.</td>
+<td align="center">
+The default is the <CODE>UniqueId</CODE>.<br />Cannot be specified when <CODE>AccessibleSaveDataIds</CODE> is set.
+</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td align="center"><CODE>OtherUserSaveDataId1</CODE> *<br /><CODE>OtherUserSaveDataId2</CODE> *<br /><CODE>OtherUserSaveDataId3</CODE> *</td>
+<td align="center">
+Specify the unique IDs for the titles with the save data you want to access. Up to three IDs can be specified.<br />If the unique ID you want to specify is the same as the unique ID of the program that is made by this RSF file, you can just specify <CODE>true</CODE> for <CODE>UseOtherVariationSaveData</CODE> and not bother setting anything for <CODE>OtherUserSaveDataId</CODE>.
+</td>
+<td align="center">
+Cannot be specified when <CODE>AccessibleSaveDataIds</CODE> is set.
+</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td align="center"><CODE>UseOtherVariationSaveData</CODE></td>
+<td align="center">
+Specifies whether the save data of titles with the same unique ID as the local one can be accessed.<br />When <CODE>true</CODE> is specified, access is allowed. When <CODE>false</CODE> is specified, access is not allowed.<br /><br /> When <CODE>AccessibleSaveDataIds</CODE> is set and this item is set to <CODE>true</CODE>, expanded save data with the same expanded save data number that matches the local unique ID appears as accessible.
+</td>
+<td align="center">The default value is <CODE>false</CODE>.</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td align="center"><CODE>FileSystemAccess</CODE></td>
+<td align="center">
+Specifies the file system access permission attributes.<br />Specify from the following values:
+    <ul>
+<li><CODE>DirectSdmc</CODE>: Allows direct access to the SD card. Specify this option when using the library to directly access the SD CARD.</li>
+<li><CODE>DirectSdmcWrite</CODE>: Enables direct access to the SD card for writing only.</li>
+<li><CODE>Debug</CODE>: Enables debug features, such as direct access to SD cards. This value cannot be specified for retail versions.</li>
+    </ul>
+When <CODE>Debug</CODE> is specified, restrictions on access to the file system are eased.<br />For this reason, actions that operate with <CODE>Debug</CODE> specified may not operate correctly when <CODE>Debug</CODE> is not specified. To confirm the operations of retail products, be sure to check them with <CODE>Debug</CODE> not specified.
+</td>
+<td align="center">Use the syntax described in the <a href="#sequence_element">Specifying Multiple Values</a> section.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h4>Option</h4>
+<div class="table">
+<table border="1">
+<thead>
+<tr>
+<th align="center">Item</th>
+<th align="center">Description</th>
+<th align="center">Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><CODE>EnableCompress</CODE></td>
+<td align="center">Specify <CODE>true</CODE> to enable static memory compression or <CODE>false</CODE> to disable it. Memory is not compressed if doing so does not decrease the size. The compression rate is output to the file specified in the <SPAN class="argument">-info</SPAN> argument.</td>
+<td align="center">If this argument is not specified, the default value of <CODE>true</CODE> is used.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>Variables</h3>
+
+<p>
+Using the <CODE>-Dname=value</CODE> option allows you to pass variable names and their corresponding values to the <CODE>ctr_makerom</CODE> tool. The <CODE>ctr_makerom</CODE> tool replaces any occurrences of <CODE>$(name)</CODE> within the RSF file with the specified <CODE>value</CODE>, then evaluates the results. An example is shown below.
+</p>
+
+<p class="code">
+$ ctr_makerom32 test.axf -o test.cci -rsf test.rsf -DTITLE=Test -DROMFS_ROOT=files<br/> <br/> --- test.rsf<br/> BasicInfo:<br/>&nbsp;&nbsp;Title: $(TITLE)<br/> <br/> Rom:<br/>&nbsp;&nbsp;HostRoot: &quot;$(ROMFS_ROOT)&quot;<br/> <br/> --- Value at final evaluation.<br/> BasicInfo:<br/>&nbsp;&nbsp;Title: Test<br/> <br/> Rom:<br/>&nbsp;&nbsp;HostRoot: &quot;files&quot;<br/>
+</p>
+
+<h2><a name="desc">DESC File</a></h2>
+<p>
+DESC files are placed in the <CODE>CTR_SDK/resources/specfiles</CODE> folder. Use the appropriate DESC file depending on the type of application you are creating.<br/> <br/>
+<table border="1">
+<thead>
+<tr>
+<th align="center">Application Type</th>
+<th align="center">DESC File for Standard Applications</th>
+<th align="center">DESC File for Extended Applications</th>
+<th align="center">Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">General applications</td>
+<td align="center"><CODE>Application.desc</CODE></td>
+<td align="center"><CODE>ExtApplication.desc</CODE></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Download Play child</td>
+<td align="center"><CODE>DlpChild.desc</CODE></td>
+<td align="center">-</td>
+<td align="center">Enhanced applications are not supported.</td>
+</tr>
+<tr>
+<td align="center">Downloadable application demo</td>
+<td align="center"><CODE>DemoVersion.desc</CODE></td>
+<td align="center"><CODE>ExtDemoVersion.desc</CODE></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Patches</td>
+<td align="center"><CODE>Patch.desc</CODE></td>
+<td align="center"><CODE>ExtPatch.desc</CODE></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<br/>
+
+Edits to the DESC file are prohibited. Editing this file may prevent your application from operating properly.
+</p>
+<p>
+When you use the build system, the option <CODE>-desc CTR_SDK/resources/specfiles/Application.desc</CODE> is specified automatically when you run <CODE>ctr_makerom</CODE>.<br/>You can also specify within the <CODE>OMakefile</CODE> what DESC file to use. For more information, see <a href="../SDKRules/BuildRules.html">Build Rules</a>.
+</p>
+
+<h2><a name="titleid">Game Software Prototype Code</a></h2>
+<p>
+The following code has been assigned for software testing and prototyping purposes.<br/>Use it as an ID for internal testing. Be careful to avoid duplicate IDs within your company and development department.<br/>Note that if you use this code for prototyping it will be handled as an error by Master Editor.
+
+<p class="code">
+BasicInfo:<br/>&nbsp;&nbsp;ProductCode: &quot;CTR-*-****&quot;<br/> <br/> TitleInfo:<br/>&nbsp;&nbsp;UniqueId&nbsp;&nbsp;&nbsp;: 0xFF000 through 0xFF3FF<br/> <br/> &nbsp;* ... A-Z, 0-9<br/>
+</p>
+
+<B>Note:</B> In CTR-SDK 0.14.1 and prior versions, <CODE>ProductCode</CODE> used the following format, but this format is no longer usable in subsequent versions.<br/>The value that is used in the 0.14.1 environment is the value with the &quot;<CODE>(###)</CODE>&quot; portion removed.
+
+<p class="code">
+&nbsp;&nbsp;ProductCode: &quot;CTR-*-**** (###)&quot;<br/>
+</p>
+
+</p>
+
+<h2><a name="omake">Variables Defined in OMakefile</a></h2>
+<p>
+For more information about variables defined in <CODE>OMakefile</CODE>, see <A href="../SDKRules/BuildRules.html#makerom">Build Rules (<CODE>ctr_makerom</CODE>)</A>.
+</p>
+
+<h2><a name="cfa">CFA Files for Specific Purposes</a></h2>
+<h3><a name="cfaemanual">Creating CFA Files for E-Manuals</a></h3>
+<p>
+To add an e-manual to an application, you must use <CODE>ctr_makerom</CODE> to create a CFA file for that e-manual. If you are going to create the file using <CODE>OMakefile</CODE>, see <CODE>MANUAL_DIR</CODE> in <A href="../SDKRules/BuildRules.html#build_param">Build Variables Configurable Within <CODE>OMakefile</CODE></A>. If you are going to directly use <CODE>ctr_makerom</CODE>, see the section about creating a CFA file for an e-manual in the <a href="../TechnicalNotes/BuildSystemDevelopmentGuide/BuildSystemDevelopmentGuide.html">Guide to Developing a Build System</a>.
+</p>
+
+<h3><a name="cfadlp">Creating CFA Files for Download Play Programs</a></h3>
+<p>
+To add a download-play program to an application, you must use <CODE>ctr_makerom</CODE> to create a CFA file that stores the download-play program. If you are going to create the file using <CODE>OMakefile</CODE>, see <A href="../SDKRules/BuildRules.html#dlp_setting">Settings Required to Create Applications for Download Play</A>. If you are going to directly use <CODE>ctr_makerom</CODE>, see the section about creating a CFA file for a download play program in the <a href="../TechnicalNotes/BuildSystemDevelopmentGuide/BuildSystemDevelopmentGuide.html">Guide to Developing a Build System</a>.
+</p>
+
+<h3><a name="cfaaoc">Creating CFA Files for Add-on Content</a></h3>
+<p>
+To use add-on content in an application, you must use <CODE>ctr_makerom</CODE> to create a CFA file for that add-on content. For more information, see <a href="../api/nn/ec/briefing/aboutMakingDataTitle.html"><I>How to Create Data Titles</I> in ECommerceDevelopmentKit</a>.
+</p>
+
+<h2><a name="history">Revision History</a></h2>
+    <dl class="history">
+      <dt>2015-03-18</dt>
+<dd>Added a description of patch creation in the <CODE>ProductCode</CODE> description.</dd>
+      <dt>2015-01-23</dt>
+<dd>Revised the detailed specifications of <CODE>AccessibleSaveDataIds</CODE> and <CODE>UseOtherVariationSaveData</CODE>.</dd>
+      <dt>2015-01-22</dt>
+<dd>Revised the caution when creating add-on content for a title.</dd>
+      <dt>2014-12-04</dt>
+<dd>Clarified the detailed specifications for <CODE>UseOtherVariationSaveData</CODE>.</dd>
+      <dt>2014-10-29</dt>
+<dd>Added cautions to the Title description about creating downloadable content.</dd>
+      <dt>2014-10-23</dt>
+<dd>Documented <CODE>desc</CODE> to use Download Play child applications for enhanced applications.</dd>
+      <dt>2014-10-07</dt>
+<dd>Added an upper limit to <CODE>RemasterVersion</CODE>.</dd>
+      <dt>2014-10-01</dt>
+<dd>Deleted the text relating to <CODE>desc</CODE> used for e-commerce.</dd>
+      <dt>2014-03-27</dt>
+<dd>Added information about DESC files.</dd>
+      <dt>2013-11-06</dt>
+<dd>Added descriptions of how to create CFA files for specific purposes (e-manuals, download-play programs, and add-on content).</dd>
+      <dt>2013-06-07</dt>
+<dd>Added a description of the add-on content code.</dd>
+      <dt>2013-04-12</dt>
+<dd>Added <CODE>AccessControlInfo</CODE>/<CODE>AccessibleSaveDataIds</CODE>.</dd>
+      <dt>2013-03-26</dt>
+<dd>Added the fact that company code is specified using Master Editor.</dd>
+      <dt>2013-03-04</dt>
+<dd>Revised the description of save data for download-only applications.</dd>
+      <dt>2012-06-29</dt>
+<dd>Deleted the description of the Company Code.</dd>
+      <dt>2012-02-16</dt>
+<dd>Added a means of specifying access to the save data of another program.</dd>
+<dd>Added a caution about specifying <CODE>AccessControlInfo</CODE>/<CODE>Debug</CODE>.</dd>
+      <dt>2012-02-13</dt>
+<dd>Added a description of <CODE>Include</CODE>.</dd>
+      <dt>2012-01-20</dt>
+<dd>Noted that <CODE>BackupMemoryType</CODE> cannot be used anymore.</dd>
+<dd>Noted that the specification has been changed for <CODE>CardDevice</CODE>.</dd>
+      <dt>2012-01-11</dt>
+<dd>Added 4 GB to the media sizes.</dd>
+      <dt>2011-12-15</dt>
+<dd>Added text about add-on content codes and add-on content indices.</dd>
+<dd>Added a method for specifying logos for the Chinese region.</dd>
+      <dt>2011-12-07</dt>
+<dd>Added a reference to <I>Demo Creation Procedures for Downloadable Demos</I> to the <CODE>DemoIndex</CODE> item of the <CODE>TitleInfo</CODE> section.</dd>
+      <dt>2011-09-29</dt>
+<dd>Added information specific to <CODE>DemoIndex</CODE> and <CODE>TitleInfo</CODE>.</dd>
+      <dt>2011-09-05</dt>
+<dd>Added text about <CODE>CardDevice</CODE> download applications.</dd>
+      <dt>2011-08-03</dt>
+<dd>Added information about <CODE>-nowarn</CODE>.</dd>
+      <dt>2011-07-21</dt>
+<dd>Added what to specify in <CODE>Category</CODE> and <CODE>DESC</CODE> for a downloadable application demo.</dd>
+      <dt>2011-05-24</dt>
+<dd>Added information about what to specify in <CODE>Category</CODE> for add-on content.</dd>
+      <dt>2011-05-18</dt>
+<dd>Deleted the note that a warning is generated when code for prototyping is used.</dd>
+<dd>Added a note that Master Editor treats the code for prototyping as an error.</dd>
+      <dt>2011-04-25</dt>
+<dd>Added an explanation relating to CCL builds.</dd>
+<dd>Corrected misleading text.</dd>
+      <dt>2011-04-04</dt>
+<dd>Added information about <CODE>SaveDataSize</CODE>.</dd>
+      <dt>2011-03-25</dt>
+<dd>Added supplementary information about <CODE>BackupMemoryType</CODE>.</dd>
+      <dt>2011-03-23</dt>
+<dd>Added information about <CODE>-f exec</CODE>.</dd>
+<dd>Revised &quot;NAND app&quot; to &quot;import application.&quot;</dd>
+      <dt>2011-02-17</dt>
+<dd>Added information about specifications for <CODE>CardDevice</CODE>.</dd>
+      <dt>2011-01-26</dt>
+<dd>Complied with the changes in specification methods for <CODE>Reject</CODE>.</dd>
+      <dt>2010-12-27</dt>
+<dd>Added a method for specifying the remaster version.</dd>
+      <dt>2010-12-10</dt>
+<dd>Added remarks about <CODE>ChildIndex</CODE>.</dd>
+<dd>Added information about Download Play child devices to <CODE>UniqueId</CODE>.</dd>
+      <dt>2010-12-07</dt>
+<dd>Added a description of when no logo is specified.</dd>
+      <dt>2010-11-18</dt>
+<dd>Added a description of DESC file types.</dd>
+<dd>Added a description of the change in logo specification.</dd>
+<dd>Added a description of the <CODE>-icon</CODE> option.</dd>
+      <dt>2010-11-11</dt>
+<dd>Added a description of the file system access permission attributes.</dd>
+      <dt>2010-11-10</dt>
+<dd>Added a description of the change in the format of the product code.</dd>
+      <dt>2010-10-29</dt>
+<dd>Added a description of expanded save data and backup memory specifications.</dd>
+      <dt>2010-10-26</dt>
+<dd>Added a description of logo data.</dd>
+<dd>Changed the specifiable range for <CODE>UniqueId</CODE> to <CODE>0x300</CODE>.</dd>
+      <dt>2010-10-07</dt>
+<dd>Added the <CODE>-j</CODE> option.</dd>
+      <dt>2010-09-24</dt>
+<dd>Changed the <CODE>-cxi</CODE> option to <CODE>-content</CODE> and included a description.</dd>
+<dd>Included a description of the <CODE>-banner</CODE> and <CODE>-icon</CODE> options.</dd>
+<dd>Included a description of <CODE>Category</CODE> and <CODE>ChildIndex</CODE> specifications for <CODE>TitleInfo</CODE> and the logo specification for <CODE>BasicInfo</CODE>.</dd>
+      <dt>2010-08-17</dt>
+<dd>Added the Game Software Prototype Code section.</dd>
+      <dt>2010-08-03</dt>
+<dd>Added descriptions of the <CODE>EnableCompress</CODE> and <CODE>MediaSize</CODE> options.</dd>
+<dd>Deleted the <CODE>InitialCode</CODE> option.</dd>
+      <dt>2010-07-19</dt>
+<dd>Added a description of specifying the <CODE>-info</CODE> option, <CODE>CompanyCode</CODE>, <CODE>ProductCode</CODE>, and <CODE>UniqueId</CODE>.</dd>
+      <dt>2010-07-14</dt>
+<dd>Added a description of CXI files.</dd>
+      <dt>2009-12-22</dt>
+<dd>Initial version.</dd>
+    </dl>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

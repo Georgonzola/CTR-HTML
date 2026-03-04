@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::cx::UncompContextLRC</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/cx/Overview.html">cx</a>::UncompContextLRC Structure</h1>
+    <div class="section">
+      <b>Header File: </b>nn/cx.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct UncompContextLRC
+{
+   <a href="../../../nn_types/u8.html">u8</a> * destp;
+   <a href="../../../nn_types/s32.html">s32</a> destCount;
+   <a href="../../../nn_types/s32.html">s32</a> forceDestCount;
+   <a href="../../../nn_types/u32.html">u32</a> freq9[1<< 9];
+   <a href="../../../nn_types/u32.html">u32</a> low_cnt9[1<< 9];
+   <a href="../../../nn_types/u32.html">u32</a> freq12[1<< 12];
+   <a href="../../../nn_types/u32.html">u32</a> low_cnt12[1<< 12];
+   <a href="../../../nn_types/u32.html">u32</a> total9;
+   <a href="../../../nn_types/u32.html">u32</a> total12;
+   <a href="../../../nn_types/u32.html">u32</a> range;
+   <a href="../../../nn_types/u32.html">u32</a> code;
+   <a href="../../../nn_types/u32.html">u32</a> low;
+   <a href="../../../nn_types/u32.html">u32</a> carry_cnt;
+   <a href="../../../nn_types/u8.html">u8</a> carry;
+   <a href="../../../nn_types/u8.html">u8</a> codeLen;
+   <a href="../../../nn_types/u16.html">u16</a> length;
+   <a href="../../../nn_types/u8.html">u8</a> headerSize;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The context for decompressing LZ-Range Coder compressed data.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">destp</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u8.html">u8</a> *</td>
+            <td>Write-destination pointer.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">destCount</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Remaining write size.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">forceDestCount</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Forcibly sets the size of the decompression target.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">freq9</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Frequency table for <code>code</code> data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">low_cnt9</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td><code>low_cnt</code> table for <code>code</code> data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">freq12</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Frequency table for <code>offset</code> data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">low_cnt12</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td><code>low_cnt</code> table for <code>offset</code> data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">total9</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Total value of <code>code</code> data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">total12</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Total value of <code>offset</code> data.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">range</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Range Coder <code>range</code> state.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">code</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Range Coder <code>code</code> state.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">low</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Range Coder <code>low</code> state.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">carry_cnt</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Number of digits for the Range Coder carry.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">carry</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Range Coder carry state.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">codeLen</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Range Coder required code length.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">length</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u16.html">u16</a></td>
+            <td>LZ compression load length.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">headerSize</span>
+            </th>
+            <td width="100"><a href="../../../nn_types/u8.html">u8</a></td>
+            <td>The size of the header being read.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

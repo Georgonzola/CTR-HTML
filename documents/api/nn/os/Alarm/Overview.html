@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::os::Alarm</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::Alarm Class</h1>
+    <div class="section">
+      <b>Header File: </b>nn/os.h</div>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Alarm : <br />&nbsp;&nbsp;&nbsp;&nbsp;private nn::os::QueueableWaitTask,<br />&nbsp;&nbsp;&nbsp;&nbsp;private <a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable< Alarm ></a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for handling alarms.</p><p>Alarms use the timer functionality of the OS to call a handler after the specified time has elapsed. When the handler is called, its first argument is the argument that was used when the alarm was set, and its second argument is <code>false</code>.</p><p>(This content of this paragraph may be changed in the future.) To use this class you must first call <code><a href="../../../nn/os/InitializeAlarmSystem.html">nn::os::InitializeAlarmSystem</a></code>. <a href="../../../nn/os/Alarm/Overview.html">Alarm</a> handlers are run in certain specific threads, and in the current implementation the number of these threads is limited to two. As a result, the alarm system becomes unstable if you register many handlers that take a long time to complete (for example, those that perform thread blocking).</p><p>There are two types of alarms: one-shot alarms and periodic alarms.</p><p>One-shot alarms are set using <code><a href="../../../nn/os/Alarm/SetOneShot.html">SetOneShot</a></code> and cause a handler to be called after a fixed period of time. After calling either of these functions once, it is not possible to call <code><a href="../../../nn/os/Alarm/SetOneShot.html">SetOneShot</a></code> or <code><a href="../../../nn/os/Alarm/SetPeriodic.html">SetPeriodic</a></code> again until the handler starts. These setter functions can be called again within the handler.</p><p>Periodic alarms are set using <code><a href="../../../nn/os/Alarm/SetPeriodic.html">SetPeriodic</a></code> and cause a handler to be called periodically thereafter. It is not possible to call either <code><a href="../../../nn/os/Alarm/SetOneShot.html">SetOneShot</a></code> or <code><a href="../../../nn/os/Alarm/SetPeriodic.html">SetPeriodic</a></code> again while a periodic alarm is active.</p><p>You can cancel an alarm before the handler has run by calling <code><a href="../../../nn/os/Alarm/Cancel.html">Cancel</a></code>. If the handler has already started, the handler is not canceled even if you call <code><a href="../../../nn/os/Alarm/Cancel.html">Cancel</a></code>. If <code><a href="../../../nn/os/Alarm/Cancel.html">Cancel</a></code> is called while an alarm is set (before a periodic alarm or one-shot alarm calls the handler), the alarm handler is called with its second argument set to <code>true</code>.</p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Alarm/Alarm.html">Alarm</a>
+            </th>
+            <td>Constructor. No initialization is performed. Before using the object, you must initialize it explicitly by calling <code><a href="../../../nn/os/Alarm/Initialize.html">Initialize</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/os/Alarm/~Alarm.html">~Alarm</a>
+            </th>
+            <td>Destroys the object. Calls <code><a href="../../../nn/os/Alarm/Finalize.html">Finalize</a></code>. This function cannot be called when an alarm is currently set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Alarm/TryInitialize.html">TryInitialize</a>
+            </th>
+            <td>Tries to initialize an alarm object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Alarm/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes an alarm object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Alarm/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes an alarm. This function cannot be called when an alarm is currently set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Alarm/SetOneShot.html">SetOneShot</a>
+            </th>
+            <td>Sets a one-shot alarm. Calls the handler only once after the specified time has elapsed.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Alarm/SetPeriodic.html">SetPeriodic</a>
+            </th>
+            <td>Set a periodic alarm. Calls the handler once after the initial duration has elapsed and thereafter continues calling it at the specified interval.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Alarm/Cancel.html">Cancel</a>
+            </th>
+            <td>Cancel set alarms.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/os/Alarm/CanSet.html">CanSet</a>
+            </th>
+            <td>Determines whether the current state allows alarms to be set.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/util/NonCopyable/Overview.html">nn::util::NonCopyable</a><br />&nbsp;&nbsp;<a href="../../../nn/fnd/IntrusiveQueue/Overview.html">nn::fnd::IntrusiveQueue</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<span>nn::os::QueueableTask</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>nn::os::QueueableWaitTask</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::os::Alarm</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

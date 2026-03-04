@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::gr::CTR::RenderState::ShadowMap</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/gr/Overview.html">gr</a>::<a href="../../../../../nn/gr/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/gr/CTR/RenderState/Overview.html">RenderState</a>::ShadowMap Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ShadowMap</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for configuring shadow map settings. When shadow maps are enabled for the sharing of registers, you cannot use normal fragment operations and gas density information rendering at the same time.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isEnable</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Configures whether shadow maps are enabled or disabled. The type is <code>bool</code>. Always passes if disabled. The initial value is <code>false</code> (disabled). When shadow maps are enabled for the sharing of registers, you cannot use normal fragment operations and gas at the same time.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isPerspective</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Enables or disables perspective projection for generating texture coordinates for shadow texture lookups. The type is <code>bool</code>. The default is <code>true</code>. Corresponds to the <code>dmp_Texture[0].isPerspective</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">zBias</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>The bias value to be subtracted from the distance to the light source. The type is <code>f32</code>. Specify a value greater than <code>0.0</code>. There is no default value, but this value is initialized to <code>0.0f</code>. Corresponds to the <code>dmp_Texture[0].shadowZBias</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">zScale</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Scale for the evaluation value of the depth value derivative in the light source coordinate screen space. The <code>zScale</code> setting is disabled. It only remains for reasons of compatibility. (The type is <code>f32</code>. The default is <code>1.0.0f</code>. Corresponds to the <code>dmp_Texture[0].shadowZScale</code> uniform.&#65289;</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">penumbraScale</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Scale applied when calculating hard shadows from penumbrae. The type is <code>f32</code>. The default is <code>0.0f</code>. Corresponds to the <code>dmp_FragOperation.penumbraScale</code> uniform.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">penumbraBias</span>
+            </th>
+            <td width="100"><a href="../../../../../nn_types/f32.html">f32</a></td>
+            <td>Bias applied when calculating hard shadows from penumbrae. The type is <code>f32</code>. The default is <code>1.0.0f</code>. Corresponds to the <code>dmp_FragOperation.penumbraBias</code> uniform.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/ShadowMap/ShadowMap.html">ShadowMap</a>
+            </th>
+            <td>A constructor that sets the default value.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/ShadowMap/MakeCommand.html">MakeCommand</a>
+            </th>
+            <td>Generates a command for shadow map settings based on information already set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/ShadowMap/MakeTextureCommand.html">MakeTextureCommand</a>
+            </th>
+            <td>Generates a command for configuring the shadow map texture based on information already set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../../nn/gr/CTR/RenderState/ShadowMap/MakeAttenuationCommand.html">MakeAttenuationCommand</a>
+            </th>
+            <td>Generates a command for setting shadow attenuation based on information already set.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

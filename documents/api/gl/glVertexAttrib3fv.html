@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glVertexAttrib3fv</title>
+  </head>
+  <body>
+    <h1>glVertexAttrib3fv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glVertexAttrib3fv(
+     GLuint indx,
+     const GLfloat * values
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>indx</th>
+          <td>Vertex attribute index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>values</th>
+          <td>Array storing the vertex attribute values.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets vertex attributes as an array of <code>GLfloat</code>-type values.</p><P>You can set <span class="argument">index</span> to a value that is greater than or equal to 0 and at least one less than the value that can be obtained by <tt>glGetIntegerv</tt> with <tt>GL_MAX_VERTEX_ATTRIBS</tt> specified.  Call this function when using the same vertex attribute values for all vertices.  The values set by this function are used when a vertex attribute array has been disabled by <tt>glDisableVertexAttribArray</tt>.</P><P>The values specified by <span class="argument">values[0]</span>, <span class="argument">values[1]</span>, and <span class="argument">values[2]</span> are given as the x, y, and z components, respectively, to the vertex shader's input registers.  A value of 1 is given for w.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">index</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source indexに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

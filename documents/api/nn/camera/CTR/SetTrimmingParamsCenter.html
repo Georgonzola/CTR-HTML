@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetTrimmingParamsCenter</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::SetTrimmingParamsCenter Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void SetTrimmingParamsCenter(
+     <a href="../../../nn/camera/CTR/Port.html">Port</a> port,
+     <a href="../../../nn_types/s16.html">s16</a> trimWidth,
+     <a href="../../../nn_types/s16.html">s16</a> trimHeight,
+     <a href="../../../nn_types/s16.html">s16</a> camWidth,
+     <a href="../../../nn_types/s16.html">s16</a> camHeight
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>port</th>
+          <td>Specifies which port to change settings for.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>trimWidth</th>
+          <td>Trim width.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>trimHeight</th>
+          <td>Trim height.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>camWidth</th>
+          <td>Width (horizontal resolution) of images captured by the <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>camHeight</th>
+          <td>Height (vertical resolution) of images captured by the <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the trimming positions relative to the center of the <a href="../../../nn/camera/Overview.html">camera</a> image.</p><p>The restrictions on the values that can be set using the <code><a href="../../../nn/camera/CTR/SetTrimmingParams.html">SetTrimmingParams</a></code> function also apply to this function.</p><P>To use this function, you must first enable trimming with the <tt><a href="../../../nn/camera/CTR/SetTrimming.html">nn::camera::CTR::SetTrimming</a></tt> function.</P><P>This function does not set any value if it is called during image capture (while the <tt><a href="../../../nn/camera/CTR/IsBusy.html">nn::camera::CTR::IsBusy</a></tt> function returns <tt>true</tt>).  To change settings, first call the <tt><a href="../../../nn/camera/CTR/StopCapture.html">nn::camera::CTR::StopCapture</a></tt> function to stop capturing, then wait for the <tt><a href="../../../nn/camera/CTR/IsBusy.html">nn::camera::CTR::IsBusy</a></tt> function's return value to change to <tt>false</tt>, and finally call this function. </P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/18</dt>
+        <dd><item xmlns="">Explained that settings cannot be applied while capturing.</item><br />
+        </dd>
+        <dt>2010/04/09</dt>
+        <dd><item xmlns="">Added description text.</item><br />
+        </dd>
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

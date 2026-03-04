@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetOption</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Overview.html">JpegMpEncoder</a>::SetOption Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+void SetOption(
+     <a href="../../../../nn_types/u32.html">u32</a> option
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>option</th>
+          <td>Specifies the options <br />
+ Use a bitwise OR of <code><a href="../../../../nn/jpeg/CTR/EncoderOption.html">EncoderOption</a></code> values. <br />
+ Specify <code>JPEG_ENCODER_OPTION_NONE</code> (0) to restore the default operations of the encoding function.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Specifies JPEG encoding options.</p><p>You can change the operations of the encoding function by specifying options.</p><p>The specifications are enabled for two primary images when encoding with <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/StartMpEncoderLR.html">StartMpEncoderLR</a></code>.</p><p>Call this function before calling the encoding function. The values specified by this function are cleared after the encoding function completes, regardless of whether the encoding function succeeded or failed. When encoding multiple times, you must call this function before each encoding function call. The values specified by this function are cleared if you reinitialize the encoder object using the <code><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/Initialize.html">Initialize</a></code> function.</p><p>If this function is repeatedly read before calling the encoding function, the last specification in enabled.</p><p>The following data storing functions affect APP1 recorded data. These functions do nothing if APP1 is not recorded.</p><p><itemizedlist><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetDateTime.html">SetDateTime</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetSoftware.html">SetSoftware</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetUserMakerNote.html">SetUserMakerNote</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetImageUid.html">SetImageUid</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetOrientation.html">SetOrientation</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetGpsData.html">SetGpsData</a></para></listitem></itemizedlist></p><p>The data storing functions related to the following MP format affect APP2 recorded data. They have an effect even if APP1 is not recorded.</p><p><itemizedlist><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpTypeFlags.html">SetMpTypeFlags</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpIndividualNum.html">SetMpIndividualNum</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPanOrientation.html">SetMpPanOrientation</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPanOverlapH.html">SetMpPanOverlapH</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPanOverlapV.html">SetMpPanOverlapV</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpBaseViewpointNum.html">SetMpBaseViewpointNum</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpConvergenceAngle.html">SetMpConvergenceAngle</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpBaselineLength.html">SetMpBaselineLength</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpVerticalDivergence.html">SetMpVerticalDivergence</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpAxisDistanceX.html">SetMpAxisDistanceX</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpAxisDistanceY.html">SetMpAxisDistanceY</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpAxisDistanceZ.html">SetMpAxisDistanceZ</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpYawAngle.html">SetMpYawAngle</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpPitchAngle.html">SetMpPitchAngle</a></para></listitem><listitem><para><a href="../../../../nn/jpeg/CTR/JpegMpEncoder/SetMpRollAngle.html">SetMpRollAngle</a></para></listitem></itemizedlist></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

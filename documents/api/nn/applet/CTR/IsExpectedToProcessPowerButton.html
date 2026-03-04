@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>IsExpectedToProcessPowerButton</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::IsExpectedToProcessPowerButton Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool IsExpectedToProcessPowerButton(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">A value of true indicates that the POWER Button was clicked and a value of false indicates that it was not. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Finds the state of the POWER Button.</p><!-- write here --><P>A return value of <tt>true</tt> indicates that the POWER Button was pressed.  In this case, the application must immediately call the <tt><a href="../../../nn/applet/CTR/ProcessPowerButton.html">nn::applet::CTR::ProcessPowerButton</a></tt> function and then wait with the <tt><a href="../../../nn/applet/CTR/WaitForStarting.html">nn::applet::CTR::WaitForStarting</a></tt> function.</P><P>A value of <tt>false</tt> indicates that a POWER Button press was not detected. In this case, do nothing.</P><P>Call this function periodically (usually every frame).</P><P>Example:</P><PRE>
+  if ( <FONT color="red">applet::IsExpectedToProcessPowerButton()</FONT> )
+  {
+    applet::DisableSleep();
+
+    // Process POWER Button (transition to HOME Menu).
+    applet::ProcessPowerButton();
+
+    // Wait.
+    applet::WaitForStarting();
+    if ( applet::IsExpectedToCloseApplication() )  // Probably true.
+    {
+       _close_application();
+    }
+
+    // Control should never reach this point, so the lines below here can be omitted.
+    applet::EnableSleep();
+  }
+</PRE><BR /><P><FONT COLOR="red">Although this function was planned for removal in SDK 0.14.9, it was determined to be necessary upon further review of the shutdown sequence for the POWER Button. Though this is inconvenient, it is required to implement POWER Button handling.</FONT></P><P>We have assumed that determination functions such as this one and the function for actually making the transition will be called successively in the same thread, but it is possible depending on the implementation to call them in different threads.  However, be very careful that the determination thread does not continue executing after execution control is passed.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/11/09</dt>
+        <dd><item xmlns="">Added a note about calling the determination function and transition functions in different threads.</item><br />
+        </dd>
+        <dt>2011/02/09</dt>
+        <dd><item xmlns="">Reworked for consistent terminology.</item><br />
+        </dd>
+        <dt>2011/01/24</dt>
+        <dd><item xmlns="">Added mention of the <tt>DisableSleep</tt> and <tt>EnableSleep</tt> functions.</item><br />
+        </dd>
+        <dt>2010/12/09</dt>
+        <dd><item xmlns="">This function was deemed necessary following a review of the shutdown sequence for the POWER Button.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

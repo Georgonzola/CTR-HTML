@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../../css/manpage.css" type="text/css" />
+    <title>ConvertCompressedTextureResourceToNativeFormat</title>
+  </head>
+  <body>
+    <h1><a href="../../../../../nn/Overview.html">nn</a>::<a href="../../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../../nn/gd/CTR/Resource/Overview.html">Resource</a>::<a href="../../../../../nn/gd/CTR/Resource/Helper/Overview.html">Helper</a>::ConvertCompressedTextureResourceToNativeFormat Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../../nnResult/Overview.html">nnResult</a> ConvertCompressedTextureResourceToNativeFormat(
+     <a href="../../../../../nn/gd/CTR/Resource/CompressedFormat.html">CompressedFormat</a> format,
+     <a href="../../../../../nn_types/u32.html">u32</a> width,
+     <a href="../../../../../nn_types/u32.html">u32</a> height,
+     <a href="../../../../../nn_types/u8.html">u8</a> * dataSrc,
+     <a href="../../../../../nn_types/u8.html">u8</a> * dataDst,
+     <a href="../../../../../nn/gd/CTR/Resource/NativeFormat.html">NativeFormat</a> * pnativeFormat = NULL
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>format</th>
+          <td>Specifies the compressed pixel format of dataSrc. Only <code><span>Resource::FORMAT_ETC1_RGB8</span></code> can be specified.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>width</th>
+          <td>Specifies the data width.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>height</th>
+          <td>Specifies the data height.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dataSrc</th>
+          <td>Specifies the address of the source data for the conversion.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dataDst</th>
+          <td>Specifies the destination address for the converted data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pnativeFormat</th>
+          <td>Pointer to the address that stores the native format value received after conversion. This address is not used if <code>NULL</code> is specified.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for either dataSrc or dataDst.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureResolution</th>
+          <td>Either <code>0</code> was specified for width or height, or the size is not a multiple of 8. This result is also returned if format is invalid.</td>
+        </tr>
+        <tr>
+          <th>ResultOutOfMemory</th>
+          <td>Could not obtain memory.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormat</th>
+          <td>Invalid pixel format.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Converts compressed texture data into a compressed native format.</p><p>Enough memory must be allocated for the address area of dataSrc and dataDest. After conversion, the data layout is <code>LAYOUT_BLOCK_8</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

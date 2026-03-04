@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetUniformLocation</title>
+  </head>
+  <body>
+    <h1>glGetUniformLocation Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL int GL_APIENTRY glGetUniformLocation(
+     GLuint program,
+     const char * name
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>program</th>
+          <td>Program object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>name</th>
+          <td>Uniform name.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Uniform location. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the location of a uniform.</p><P>The location is used to get and set the uniform variable's values.  Set <span class="argument">program</span> to the program object.  Set <tt>name</tt> to the name of the uniform variable whose location is to be obtained.  If the uniform variable specified by <tt>name</tt> is found in the program, its location is returned.  If it is not found or an error occurs, a value of -1 is returned.</P><P>To specify the element to access in a uniform variable array, add an offset to the obtained location.  If you add <tt>i</tt> to the location, it is handled as the location of the (<tt>i+1</tt>)th element of the uniform variable array.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">program</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">program</span> argument is not linked correctly.</TD></TR></TABLE><!-- source programに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 programが正しくリンクされていない場合エラーGL_INVALID_OPERATIONを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

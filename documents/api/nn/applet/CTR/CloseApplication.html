@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>CloseApplication</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::CloseApplication Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> CloseApplication(
+     const <a href="../../../nn_types/u8.html">u8</a> * pParam = NULL,
+     size_t paramSize = 0,
+     Handle handle = NN_APPLET_HANDLE_NONE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pParam</th>
+          <td>Specifies the parameter buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>paramSize</th>
+          <td>Specifies the parameter buffer size.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>handle</th>
+          <td>Specifies the handle.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Exits the program.</p><!-- write here --><P>This function does not return. The function has a return value, but the process exits, so there is no way to actually return a value.</P><P>You can pass data to the next program started by specifying it in the <span class="argument">pParam</span>, <span class="argument">paramSize</span>, and <span class="argument">handle</span> arguments, but since this cannot be used by normal applications, use the default values instead. We recommend calling without any arguments.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/25</dt>
+        <dd><item xmlns="">Removed information about need to call <span>nn::applet::CTR::PrepareToCloseApplication</span>.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetEventNotification</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::GetEventNotification Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/u32.html">u32</a> GetEventNotification(
+     <a href="../../../nnfriendsEventNotification/Overview.html">EventNotification</a> * pEventNotificationList,
+     size_t size = 1,
+     bool * pHasOverflowed = NULL
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pEventNotificationList</th>
+          <td>Specifies a pointer to a buffer storing the content of the obtained notifications.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Specifies the number of elements in the buffer.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pHasOverflowed</th>
+          <td>Specifies a pointer to a buffer that stores whether there has been notification that there was an overflow without acquisition. Specify <code>NULL</code> if not needed.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the number of notifications actually obtained. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the history of notifications of changes in the online states of the local user and <a href="../../../nn/friends/Overview.html">friends</a>.</p><p>Use this function to get the content of notifications that had not yet been obtained, in order from oldest to newest. To get backlogged notifications in chronological order, call this function repeatedly until the return value is <code>0</code>. <br /><br />
+ The library can save up to 128 notifications. If 128 notifications are already saved and another is received, the oldest is discarded. The number of saved notifications might change in the future. <br />
+ The notification history accumulates from the point when the <code>nn::friends::Initialize</code> function is called. Note that notification history starts to accumulate if the system independently connects to the friend server, even if the application has not called the <code>nn::friends::Login</code> function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/07/11</dt>
+        <dd><item xmlns="">Noted information about when the notification history starts to accumulate.</item><br />
+        </dd>
+        <dt>2011/03/11</dt>
+        <dd><item xmlns="">Added specific examples of return values.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

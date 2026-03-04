@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight : bold;
+        background : #acf;
+      }
+      table.table td.index
+      {
+        background : #cde;
+      }
+
+        --></style>
+<title>SaveDataFiler </title>
+  </head>
+  <body>
+<h1>SaveDataFiler</h1>
+<h2>Contents</h2>
+    <ul>
+<li><a href="#Summary">Overview</a></li>
+      <ul>
+<li><a href="#Summary_Usage1">Usage 1: Importing Data to System NAND Memory</a></li>
+<li><a href="#Summary_Usage2">Usage 2: Start From CTR Card (or Emulation Memory)</a></li>
+      </ul>
+<li><a href="#Controller">How to Use</a></li>
+      <ul>
+<li><a href="#Controller_Export">Writing to SD cards</a></li>
+<li><a href="#Controller_DestroyFile">Destroying Files</a></li>
+      </ul>
+<li><a href="#UpperScreen">Upper Screen</a></li>
+<li><a href="#UserTab">User Tab</a></li>
+<li><a href="#ExtDataTab">ExtData Tab</a></li>
+<li><a href="#SdTab">SD Tab</a></li>
+<li><a href="#ResetSharedExtData">Initializing Shared Expanded Save Data</a></li>
+<li><a href="#History">Revision History</a></li>
+    </ul>
+
+<a name="Summary"><h2>Overview</h2></a>
+    <div class="section">
+The <CODE>SaveDataFiler</CODE> tool provides features to view, import, and export the following types of data.<br /> <br />
+      <ul>
+<li>Save data on CTR cards</li>
+<li>Save data for download applications on SD cards</li>
+<li>Expanded save data on SD cards</li>
+<li>Rollback prevention values in the system save region</li>
+       </ul>
+You can use the import and export features to save data, expanded save data, and rollback prevention values in a format that can be edited on a PC. You can also use this to rewrite save data for another CTR card, and expanded save data for an SD card used by another system.
+
+<h3><a name="Summary_Usage1">Usage 1: Importing Data to System NAND Memory</a></h3>
+      <div class="section">
+The <CODE>SaveDataFiler</CODE> binary is in the following location in the CTR-SDK.
+<pre>
+$CTRSDK_ROOT/tools/TargetTools/CTR-TS/Release/SaveDataFiler.cia
+</pre>
+Copy the above binary to an SD card, and import it from <a href="DevMenu.html">DevMenu</a> to the system's NAND memory. After that, it can be started from the HOME Menu. (It can also be started from <CODE><a href="DevMenu.html">DevMenu</a></CODE>.)<br /> <br />
+
+<h4><a name="Summary_Usage1_Warning1"><font color="red"><B>Note 1:</B> Handling Extended Save Data</font></a></h4>
+The expanded save data specifications only allow access from the system that created the data. <CODE>SaveDataFiler</CODE> is no exception; it cannot access expanded save data that was created on another system. If you want to use expanded save data on another system, you must first export it to an SD card (see <a href="#Controller_Export">Writing to SD cards</a>), and then import it once more to the system that you want to access it from. In other words, you must import the <CODE>SaveDataFiler</CODE> on both the original system, and the system you want to access the data from.
+
+<h4><a name="Summary_Usage1_Warning2"><font color="red"><B>Note 2:</B> Handling Save Data in Backup Memory</font></a></h4>
+The save-data specifications prevent access if there is badly formatted ROM data (data that is not recognized as a valid CTR application) in the ROM area of the CTR card (or emulation memory). This applies to the emulation memory immediately after the debugger is powered on, as well as to CTR cards to which a System Updater has been written.<br /><br /><br /> It also may not be possible to correctly import or export save data if the application written to the CTR card (or loaded into emulation memory) is different from the application that created the save data.<br /> In other words, the save data may not be exported correctly if the procedure below is followed. (The same applies to importing data.)<br /> <br />
+        <ol>
+<li>Create save data with application A.</li>
+<li>Write the <CODE>.cci</CODE> file for application B to the CTR card.</li>
+<li>Launch <CODE>SaveDataFiler</CODE> and export the save data.</li>
+        </ol>
+Due to the two reasons above, make sure that the CCI file of the application that created the save data is written to the CTR card (or loaded into emulation memory) when importing or exporting that save data.
+      </div>
+
+<h3><a name="Summary_Usage2">Usage 2: Start From CTR Card (or Emulation Memory)</a></h3>
+      <div class="section">
+You can also start <CODE>SaveDataFiler</CODE> from a CTR card (or emulation memory).
+<pre>
+$CTRSDK_ROOT/tools/TargetTools/CTR-TS/Release/SaveDataFiler.csu
+</pre>
+      Use the debugger to write this binary to the CTR card (or to load it into emulation memory). You can also start it from the HOME Menu or Test Menu. <br />
+
+<h4><a name="Summary_Usage2_Warning"><font color="red"><B>Note:</B> Handling Save Data in Backup Memory</font></a></h4>
+Because <CODE>SaveDataFiler</CODE> itself does not store save data, it cannot access backup devices when it is started from a CTR card (or emulation memory). An error such as the following is displayed on the screens.
+
+<p>
+&lt;Upper Screen&gt;
+<pre>
+File Type    : broken user save data
+
+Level  : -7
+Summary: 9
+Module : 17
+Desc   : 230
+</pre>
+</p>
+
+<p>
+&lt;Lower Screen&gt;
+<pre>
+<font color="red">CTR Card -- broken --</font>
+</pre>
+</p>
+Import the <CODE>SaveDataFiler</CODE> into system NAND memory, and use this information to import and export user save data to and from backup memory.      </div>
+    </div>
+
+<a name="Controller"><h2>How to Use</h2></a>
+    <div class="section">
+The method of operations is as explained below. <br /> The buttons that can be used vary by each screen. When the tool runs, use the guide displayed on the upper screen as a reference for operations.
+
+      <table class="table"><tbody>
+<tr><th>Button</th><th>Operation</th></tr>
+<tr><td class="index" colspan=2>Shared</td></tr>
+<tr><td>↑↓</td><td>Move the cursor within the list</td></tr>
+<tr><td>←→</td><td>Change tab</td></tr>
+<tr><td>A</td><td>Select / Run</td></tr>
+<tr><td>B</td><td>Cancel</td></tr>
+<tr><td>L+R+START</td><td>Initializes shared expanded save data.※(<B>Note:</B> See <a href="#ResetSharedExtData">Initializing Shared Expanded Save Data</a>)</td></tr>
+<tr><td class="index" colspan=2>List Display Mode  (<a href="#UserTab">User Tab</a>)</td></tr>
+<tr><td>X</td><td>Write selected save data back to factory defaults</td></tr>
+<tr><td>Y</td><td>Write the selected save data to the SD card (<B>Note:</B> See <a href="#Controller_Export">Writing to SD cards</a>)</td></tr>
+<tr><td>R+Y</td><td>Write the rollback prevention values for the selected save data to the SD card (<B>Note:</B> See <a href="#Controller_SecureValue">Rollback Prevention Values</a>)</td></tr>
+<tr><td>R+X</td><td>Delete the rollback prevention values for the selected save data (<B>Note:</B> See <a href="#Controller_SecureValue">Rollback Prevention Values</a>)</td></tr>
+<tr><td class="index" colspan=2>List Display Mode  (<a href="#ExtDataTab">Ext Tab</a>)</td></tr>
+<tr><td>X</td><td>Deletes save data</td></tr>
+<tr><td>Y</td><td>Write the save data to the SD card (<B>Note:</B> See <a href="#Controller_Export">Writing to SD cards</a>)</td></tr>
+<tr><td class="index" colspan=2>Filer Mode</td></tr>
+<tr><td>X</td><td>Delete the selected item</td></tr>
+<tr><td>R+Y</td><td>Thoroughly destroy the selected files (<B>Note:</B> See <a href="#Controller_DestroyFile">Destroying Files</a>)</td></tr>
+<tr><td>L+Y</td><td>Destroy only the selected files (not supported for redundant save data). (<B>Note:</B> See <a href="#Controller_DestroyFile">Destroying Files</a>.)</td></tr>
+      </tbody></table>
+
+<a name="Controller_Export"><h3>Writing to SD cards</h3></a>
+      <div class="section">
+You can use <CODE>SaveDataFiler</CODE> to write save data and expanded save data to SD cards.<br />The written data is saved to SD cards in the following location. It can then be edited from a PC or other device.
+<pre>
+sdmc:/filer/
+        +--- UserSaveData/
+        |       +--- &lt;The date and time saved&gt;/
+        |                +--- &lt;Unique ID&gt;/         ←Data is saved below here.
+        |                +--- &lt;Unique ID& gt.dat       ← File that contains format parameters.
+        +--- ExtData/
+        |       +--- &lt;The date and time saved&gt;/
+        |       +--- &lt;expanded save data number&gt;/      ←Data is saved below here.
+        |       +--- &lt;expanded save data number&gt;.dat   ←File storing format parameters.
+        +--- SecureValue/
+                +--- &lt;The date and time saved&gt;/
+                         +--- &lt;expanded save data number&gt;/      ←Data is saved below here.
+                         +--- SecureValue.dat       ←File that stores format parameters.
+
+</pre>
+Data saved in the previous locations can be restored from the <a href="#SdTab"><B>SD</B> Tab</a>. <br />
+      </div>
+
+<a name="Controller_DestroyFile"><h3>Destroying Files</h3></a>
+      <div class="section">
+The goal of destroying files is to put them in a state where the <CODE><a href="../api/nn/fs/ResultVerificationFailed/Overview.html">nn::fs::ResultVerificationFailed</a></CODE> error is returned when they are loaded using functions from the FS library. You can use this to test error processing for files that are damaged when a card is removed during a write or a when a file is illegally spoofed.<br />There are two features for destroying files:
+      <dl>
+<dt>- Thoroughly destroy the selected files (R+Y)</dt>
+<dd>Can always destroy the selected files.</dd>
+<dd>This action may destroy other files or directories as well.</dd>
+<dt>- Only destroy the selected files (L+Y)</dt>
+<dd>Not supported for redundant save data.</dd>
+<dd>This may fail to destroy the selected files.</dd>
+<dd>It will never affect other files or directories, regardless of whether the destruction succeeded.</dd>
+      </dl>
+If destruction is successful, an error appears in the file list. (See <a href="#UserTab">User Tab</a>)<br /> 
+      </div>
+
+<a name="Controller_SecureValue"><h3>Rollback Prevention Values</h3></a>
+      <div class="section">
+	You can write rollback prevention values to the SD card and delete them for debugging purposes. <br /><br /> The following three features are related to rollback prevention values.
+      <dl>
+<dt>・ Write the selected title's rollback prevention values to the SD card (R+Y)</dt>
+<dd>Writes 64-bit values within the system save region.</dd>
+<dt>・ Load the selected title's rollback prevention values from the SD card (<B>SD</B> tab)</dt>
+<dd>Overwrites 64-bit values within the system save region with content saved on SD card.</dd>
+<dt>・ Delete selected title's rollback prevention values (R+X)</dt>
+<dd>Deletes 64-bit values within the system save region.</dd>
+      </dl>
+The usage of rollback prevention values is different for each application.<br />For information on rollback prevention values, see <a href="../api/nn/fs/briefing/secureValue.html">Save Data Rollback Prevention Feature</a>.<br />
+      </div>
+
+    </div>
+
+<a name="UpperScreen"><h2>Upper Screen</h2></a>
+    <div class="section">
+This is a description of the content of the upper screen.<br />
+<pre>
+Revision     : 34302  --- (1)
+
+File Type    : file  --- (2)
+  | LimitSize | LimitDir | LimitFile | Dup |  --- (3)
+  |    ---    |       16 |        16 |  ON |
+Level  : -5
+Summary: 8
+Module : 17
+Desc   : 392  --- (4)
+
+File Size    : 1024 bytes  --- (5)
+
+X: delete this file  --- (6)
+R+Y: destroy this file
+       :
+
+</pre>
+      <table class="table"><tbody>
+<tr><th>Number</th><th>Description</th></tr>
+<tr><td>(1)</td><td>Revision number for the <CODE>SaveDataFiler</CODE>.</td></tr>
+<tr><td>(2)</td><td>Indicates the type of item selected in the lower screen.</td></tr>
+<tr><td>(3)</td><td>When the item selected on the lower screen is an archive, the format parameters of that archive are displayed.<br />Their meanings are as follows.
+                            <table class="table"><tbody>
+<tr><td>LimitSize</td><td>(not used at present)</td></tr>
+<tr><td>LimitDir</td><td>the maximum number of directories that can be created</td></tr>
+<tr><td>LimitFile</td><td>the maximum number of files that can be created</td></tr>
+<tr><td>Dup</td><td>whether there is duplication</td></tr>
+                            </tbody></table>
+This is not displayed on the SD Tab.
+        </td></tr>
+<tr><td>(4)</td><td>When an error occurs during an archive mount or during an operation on an item selected from the lower screen, its <CODE>Result</CODE> value is displayed.<br />For more information about the content of errors, see <a href="../api/nn/fs/briefing/descriptionList.html">Description List</a>.
+                            </td></tr>
+<tr><td>(5)</td><td>When the item selected in the lower screen is a file, its size is displayed. -1 is displayed if the size could not be obtained.</td></tr>
+<tr><td>(6)</td><td>The operations guide is displayed.</td></tr>
+      </tbody></table>
+    </div>
+
+<a name="UserTab"><h2>User Tab</h2></a>
+    <div class="section">
+This tab is for manipulating save data.<br />
+
+<h3>List Display Mode</h3>
+      <div class="section">
+When this tab is selected, a list showing the CTR Card and download applications appears.<br />In addition to &quot;CTR Card,&quot; this list shows the unique IDs of the download applications imported to the SD card.
+<pre>
+CTR Card
+F7FFF
+FFFFF
+   :
+</pre>
+If an archive is corrupted, the corresponding <CODE>Result</CODE> value appears on the upper screen when it is mounted.
+      </div>
+
+<h3>Filer Mode</h3>
+      <div class="section">
+When an item is selected from the list, the content of its save data is displayed on the lower screen.
+<pre>
+../
+Dir1/
+Dir2/
+File1
+<font color="red">File2 : Read Error (0-512)</font>
+File3
+  :
+</pre>
+When an error has occurred during file operations, such as a damaged file, the filename is displayed in red. To display the corresponding <CODE>Result</CODE> value on the upper screen, align the cursor with the filename. <br /><br /> In addition, the function that was called when the error occurred is displayed next to the filename.
+      <table class="table"><tbody>
+<tr><th>View</th><th>Description</th></tr>
+<tr><td>Open Error</td><td><CODE><a href="../api/nn/fs/FileStream/TryInitialize.html">nn::fs::FileStream::TryInitialize</a></CODE> returned an error. There was a failure in opening the file.</td></tr>
+<tr><td>Read Error</td><td><CODE><a href="../api/nn/fs/FileStream/TryRead.html">nn::fs::FileStream::TryRead</a></CODE> returned an error. There was a failure when reading the file.<br />At the same time, the byte at which the read error occurred in the file is also displayed. <CODE>SaveDataFiler</CODE> reads in units of 1 MB, so the actual region where the error occurs may be smaller than this. This may also appear when there is an unwritten area in the file. See the note to <a href="../api/nn/fs/ResultVerificationFailed/Overview.html"><CODE>nn::fs::ResultVerificationFailed</CODE></a> for details.
+                                   </td></tr>
+<tr><td>Size Error</td><td><CODE><a href="../api/nn/fs/FileStream/TryGetSize.html">nn::fs::FileStream::TryGetSize</a></CODE> returned an error. There was a failure in getting the file size (metadata).<br />However, if the system fails to get the metadata, it will also fail to open the file. Therefore, an <CODE>Open Error</CODE> will generally be displayed.</td></tr>
+      </tbody></table>
+
+      </div>
+    </div>
+
+<a name="ExtDataTab"><h2>Ext Tab</h2></a>
+    <div class="section">
+This tab is for manipulating the expanded save data on the SD card.<br />
+
+<h3>List Display Mode</h3>
+      <div class="section">
+When this tab is selected, the expanded save data on the SD card is displayed in a list. The displayed numbers are the expanded save data numbers.
+<pre>
+00000001
+<font color="red">00000002  -- broken --</font>
+00000003
+   :
+</pre>
+When an archive is corrupt (when the <CODE><a href="../api/nn/fs/MountExtSaveData.html">nn::fs::MountExtSaveData</a></CODE> function returns an error), the number is displayed in red. When the cursor is aligned above the filename, the <CODE>result</CODE> value is displayed in the upper screen.
+      </div>
+
+<h3>Filer Mode</h3>
+      <div class="section">
+When an archive is selected from the list, the content of the expanded save data are displayed. The displayed content is the same as for the <a href="#UserTab">User Tab</a>.
+      </div>
+    </div>
+
+<a name="SdTab"><h2>SD Tab</h2></a>
+    <div class="section">
+This tab is for manipulating the data written to SD cards. <br /><br /> The data on the SD card is displayed in a list.
+<pre>
+user  : 20110101000000 : 00000000
+user  : 20110101121530 : 000f7fff
+ext   : 20110101000000 : 00000001
+ext   : 20110102141516 : 00000002
+  :           :              :
+ (1)         (2)            (3)
+</pre>
+      <table class="table"><tbody>
+<tr><th>Number</th><th>Description</th></tr>
+<tr><td>(1)</td><td>Indicates the data type.<br />
+                            <table class="table"><tbody>
+<tr><td>User</td><td>Save Data</td></tr>
+<tr><td><CODE>ext</CODE></td><td>Expanded Save Data</td></tr>
+<tr><td>secure</td><td>Rollback prevention values</td></tr>
+                            </tbody></table>
+        </td></tr>
+<tr><td>(2)</td><td>This is the directory name (the date and time saved) on the SD card.</td></tr>
+<tr><td>(3)</td><td>The meaning of this item depends on the save data type.<br />
+                            <table class="table"><tbody>
+<tr><td>User</td><td>Displays the unique ID.<br />Displays <CODE>0</CODE> when data is exported from a card application by using a tool prior to CTR-SDK 4.2.0.</td></tr>
+<tr><td><CODE>ext</CODE></td><td>Displays the expanded save data number.</td></tr>
+<tr><td>secure</td><td>Displays the unique ID.<br />Displays <CODE>0</CODE> when data is exported from a card application by using a tool prior to CTR-SDK 4.2.0.</td></tr>
+                            </tbody></table>
+        </td></tr>
+      </tbody></table>
+
+Select from the list and press the A Button to import the data to the media from which it is later exported. Application save data, expanded save data on the SD card, and rollback prevention values in the system save region are all deleted at this time.<br /><br /><br /> For save data, you can specify the location to import to and then import the save data by pressing the L+A Buttons or the R+A Buttons.<br /><br /> If you export data from a card application by using a tool prior to CTR-SDK 4.2.0, you cannot import that data to an SD card. <br />Use a tool from CTR-SDK 4.2.1 or later, or convert the data by using <a href="../tools/ctr_FilerDataMigrator.html"><CODE>ctr_FilerDataMigrator</CODE></a>.
+    </div>
+
+<a name="ResetSharedExtData"><h2>Initializing Shared Expanded Save Data</h2></a>
+    <div class="section">
+    You can delete the shared expanded save data in system NAND memory by pressing L + R + START. (Press START while holding down the L and R Buttons.)<br /> If you return to the HOME Menu with the shared expanded save data deleted, the system will not operate correctly. After using this feature, you must restart the system. The data is reconstructed when the HOME Menu or development menu starts. (Startup takes a little longer than usual.)<br />
+    </div>
+
+<a name="History"><h2>Revision History</h2></a>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/07/15</dt>
+<dd>Added a link to information about rollback prevention values.</dd>
+        <dt>2013/03/11</dt>
+<dd>Added information about the destruction of redundant save data files.</dd>
+        <dt>2012/06/15</dt>
+<dd>Added a note about specifying the location to which to import save data.</dd>
+        <dt>2012/04/27</dt>
+<dd>Updated the description of rollback prevention value operations.</dd>
+        <dt>2011/10/20</dt>
+<dd>Added information about two features for destroying files.</dd>
+        <dt>2011/10/11</dt>
+<dd>Added conditions for displaying a read error when there is an unwritten area.</dd>
+        <dt>2011/09/30</dt>
+<dd>Updated a description of destroying user save data.</dd>
+        <dt>2011/09/29</dt>
+<dd>Revised the note about differences due to the method of starting <CODE>SaveDataFiler</CODE>.</dd>
+        <dt>2011/06/22</dt>
+<dd>Added a note about the differences due to the method of starting <CODE>SaveDataFiler</CODE>.</dd>
+        <dt>2011/06/13</dt>
+<dd>Added a description of usage.</dd>
+<dd>Changed the error message upon failure to destroy a file.</dd>
+        <dt>2011/04/21</dt>
+<dd>Added a note about file destruction.</dd>
+        <dt>2011/03/23</dt>
+<dd>Added support for save data in download applications.</dd>
+        <dt>2011/03/19</dt>
+<dd>Added a feature to initialize shared expanded save data.</dd>
+        <dt>2011/02/18</dt>
+<dd>Initial version.</dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

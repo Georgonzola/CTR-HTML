@@ -1,0 +1,1528 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="en">
+
+<HEAD>
+    <META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+    <META http-equiv="Content-Style-Type" content="text/css">
+
+    <TITLE>Guide to Developing a Build System</TITLE>
+
+    <STYLE>
+        h1.left
+        {
+            color: #46f;
+            font-size: 120%;
+        }
+        ul.left, ul.left ul
+        {
+            margin: 0;
+            padding: 0;
+        }
+        ul.left
+        {
+            font-size: 0.8em;
+        }
+        ul.left li
+        {
+            margin: 0;
+            padding: 0;
+            margin-left: 1em;
+            line-height: 1.5em;
+        }
+        ul.left li a
+        {
+            margin: 0;
+            padding: 0;
+        }
+
+        H1
+        {
+            font-weight         : bold;
+            font-size           : 250%;
+            text-align          : left;
+            color               : #46f;
+            margin-bottom       : 0px;
+        }
+
+        H2
+        {
+            font-weight         : normal;
+            font-size           : 180%;
+            margin              : 24pt 0pt 6pt 0pt;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+        }
+
+        H3
+        {
+            font-weight         : bold;
+            font-size           : 120%;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+            width: 75%;
+            margin              : 18pt 0pt 6pt 30pt;
+        }
+
+        H4
+        {
+            font-weight         : bold;
+            font-size           : 100%;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H5
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H6
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        DIV.date
+        {
+            text-align          : right;
+            color               : #46f;
+            margin-bottom       : 30pt;
+            line-height         : 150%;
+        }
+
+        P
+        {
+            margin              : 0pt 0pt 12pt 30pt;
+            line-height         : 150%;
+        }
+
+        OL,UL,DL
+        {
+            margin              : 6pt 0pt 6pt 50pt;
+        }
+        OL OL, UL UL
+        {
+            margin-left: 3em;
+        }
+
+        DT
+        {
+            font-family         : "Courier New", monospace;
+            margin-top : 0.3em;
+            margin-bottom : 0.3em;
+        }
+        DD
+        {
+            margin-top : 0.3em;
+            margin-bottom : 0.6em;
+        }
+
+        PRE
+        {
+            font-family         : "Courier New", monospace;
+            font-weight         : normal;
+
+            margin              : 0pt 0pt 20pt 50pt;
+            padding             : 2pt 8pt 2pt 8pt;
+            background-color    : #eee;
+
+            border-style        : solid;
+            border-width        : 1px;
+        }
+        em
+        {
+            font-style: normal;
+            color: red;
+        }
+        TABLE
+        {
+            margin-left         : 40pt;
+            margin-bottom       : 20pt;
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        TD
+        {
+            font-style          : normal;
+            padding             : 2pt 4pt 2pt 4pt;
+
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        div.footer
+        {
+            border-color: black;
+            padding-top: 0.5em;
+            border-top-style    : solid;
+            border-top-width    : 1px;
+            width:              100%;
+            margin-top: 4em;;
+        }
+        div.footer span
+        {
+            color               : #46f;
+            float: right;
+        }
+        table
+        {
+            border-collapse:    collapse;
+        }
+        table td
+        {
+        }
+        table th
+        {
+        }
+        ul
+        {
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        DL.history
+        {
+            margin: 1em;
+        }
+        DL.history DT
+        {
+            font-family         : sans-serif;
+            font-weight         : bold;
+            font-size           : 0.8em;
+            margin              : 0px;
+        }
+        DL.history DD
+        {
+            font-size           : 0.9em;
+            margin              : 0px 0px 4px 0px;
+        }
+    </STYLE>
+    <SCRIPT type="text/javascript">
+    <!--
+        function DeleteRule(index)
+        {
+            var ss = document.styleSheets.item(0);
+
+            if( ss.removeRule )
+            {
+                ss.removeRule(index);
+            }
+            else
+            {
+                ss.deleteRule(index);
+            }
+        }
+        function OnClickAnchor(e, anchor)
+        {
+            window.parent.frames[1].location.hash = anchor;
+
+            if( e.preventDefault )
+            {
+                e.preventDefault();
+            }
+            else
+            {
+                e.returnValue = false;
+            }
+        }
+        function TravLeft(obj)
+        {
+            var ary = new Array();
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var a = c.childNodes.item(0);
+                        var text  = "";
+
+                        var anchor = "name-" + index;
+                        index++;
+
+                        if( a && a.tagName == "A" )
+                        {
+                            text  = a.innerHTML;
+                        }
+                        else
+                        {
+                            text  = c.innerHTML;
+                        }
+
+                        ary.push([c.tagName.substr(1,1), "<a target=\"right\" href=\"?right#" + anchor + "\" onclick=\"OnClickAnchor(event, '" + anchor + "')\">" + text + "</a>"]);
+                    }
+                    else
+                    {
+                        ary = ary.concat(TravLeft(c));
+                    }
+                }
+            }
+
+            return ary;
+        }
+        function TravRight(obj)
+        {
+            var index = 0;
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var anchor = "name-" + index;
+                        index++;
+
+                        c.innerHTML = "<a name=\"" + anchor + "\">" + c.innerHTML + "</a>"
+                    }
+                    else
+                    {
+                        TravRight(c);
+                    }
+                }
+            }
+        }
+        function OnLoad_Left()
+        {
+            var test = TravLeft(document.body);
+            var test2 = "";
+            var level = 2;
+
+            test2 += "<h1 class='left'>" + document.title + "</h1>";
+            test2 += "<ul class='left'>";
+            for( var i in test )
+            {
+                while( test[i][0] > level )
+                {
+                    level++;
+                    test2 += "<ul>";
+                }
+                while( test[i][0] < level )
+                {
+                    level--;
+                    test2 += "</ul>";
+                }
+
+                test2 += "<li>" + test[i][1];
+            }
+            test2 += "</ul>";
+
+            document.body.innerHTML = test2;
+            DeleteRule(0);
+        }
+        function OnLoad_Right()
+        {
+            TravRight(document.body);
+        }
+        function OnLoad_Frame()
+        {
+            var myname = location.pathname.substr(location.pathname.lastIndexOf("/") + 1);
+
+            var f = document.createElement("frameset");
+            var l = document.createElement("frame");
+            var r = document.createElement("frame");
+
+            f.appendChild(l);
+            f.appendChild(r);
+            f.cols = "250,*";
+
+            l.src  = myname + "?left"  + location.hash;
+            r.src  = myname + "?right" + location.hash;
+            l.name = "left";
+            r.name = "right";
+
+            var h = document.documentElement;
+            var b = h.getElementsByTagName("body").item(0);
+
+            h.replaceChild(f, b);
+        }
+
+
+        if( ! window.opera )
+        {
+            var search = location.search;
+
+            if( search == "?left" )
+            {
+                window.onload = OnLoad_Left;
+            }
+            else if( search == "" )
+            {
+                window.onload = OnLoad_Frame;
+            }
+            else if( search == "?right" )
+            {
+                window.onload = OnLoad_Right;
+            }
+
+            if( search != "?right" )
+            {
+                var ss = document.styleSheets.item(0);
+
+                if( ss.addRule )
+                {
+                    ss.addRule("body", "display: none", 0);
+                }
+                else
+                {
+                    ss.insertRule("body {display: none}", 0);
+                }
+            }
+        }
+    //-->
+    </SCRIPT>
+</HEAD>
+
+<BODY>
+
+
+
+
+
+<H1>Guide to Developing a Build System</H1>
+<DIV class="date">(2015.02.23)</DIV>
+
+
+
+
+
+<H2>Introduction</H2>
+
+<H3>About This Document</H3>
+<P>
+    This document is for those who want to develop their own build systems, rather than use the one in the SDK. It provides information necessary for building CTR applications.
+</P>
+<ul>
+    <li>Application Build Sequence
+    <li>Procedures for Creating Each File
+    <li>Restrictions on Compiler and Linker Options
+    <li>Macros Required by the SDK
+    <li>Libraries Provided by the SDK
+    <li>RSF and DESC Files Provided by the SDK
+</ul>
+
+<P>
+For information about the structure and usage of the build system provided by the SDK, see <I><a href="../../SDKRules/BuildRules.html">Build System</a></I>.
+</P>
+<P>
+This document assumes basic knowledge of CTR-SDK terminology. For a glossary of basic CTR-SDK terms, see <i><a href="../Glossary/Glossary.html">CTR-SDK Terminology</a></i>.
+</P>
+
+<H3>Notation Used in This Document</H3>
+<P>
+Content in shaded boxes, as shown below, indicate a sequence to be entered on the command line.
+</P>
+<pre>
+command option1 option2
+</pre>
+
+<P>
+    Do not enter text enclosed in angle brackets (&quot;&lt;&quot; and &quot;&gt;&quot;) verbatim as part of the command syntax. Instead, substitute an appropriate entry for the placeholder description. For example, the string <code>&lt;CTRSDK_ROOT&gt;</code> indicates that you must enter the CTR-SDK installation path.
+</P>
+<P>
+Text in square brackets (&quot;[&quot; and &quot;]&quot;) is optional.
+</P>
+<pre>
+makecia -i &lt;CXI_FILE&gt; -o &lt;OUTPUT_FILE&gt; [-man &lt;E_MANUAL_CFA_FILE&gt;]
+</pre>
+<P>
+    Elements preceding ellipses (...) can be repeated any number of times.
+</P>
+<pre>
+armar --create &lt;OUTPUT_FILE&gt; &lt;INPUT_FILE&gt;...
+</pre>
+<P>
+In this document, the names of Windows tools contained in the <CODE>tools/CommandLineTools</CODE> directory are abbreviated by omitting the leading <CODE>ctr_</CODE> and the ending file extension. For example, the abbreviation for <CODE>ctr_makerom32.exe</CODE> is <CODE>makerom</CODE>.
+</P>
+
+
+<H2>Build Sequence</H2>
+
+<H3>Overall Sequence</H3>
+<p>
+    The following figure illustrates the overall build sequence, from the source files and other resources up to the creation of a ROM image (CCI and CIA files). <br /> <br /> <a href="img/flow.png"><img src="img/flow.png" width="536" height="581"></a> <br />
+</p>
+
+
+<H3>Creating Object Files</H3>
+<p>
+Use <CODE>armcc</CODE> to compile C/C++ source files. <CODE>armcc</CODE> converts source files into object files.<br> <br> <img src="img/flow_o.png"> <br> For instructions on using <CODE>armcc</CODE>, see the RVCT and RMCC documentation. For restrictions on <CODE>armcc</CODE> options used with CTR-SDK, see <a href="#rvct_options">Restrictions on Compiler and Linker Options</a> . For the macro definitions that the SDK requires, see <a href="#macro">Macros Required by SDK</a>. For more information about the options that are required to use the SDK libraries, see <a href="#sdk_lib">Libraries Provided by SDK</a>.
+</p>
+<p>
+    This section describes the basic use of <CODE>armcc</CODE> with the CTR-SDK. (Although the following command is separated into multiple lines for readability, an actual command cannot contain newline characters.)
+</p>
+
+<pre>
+armcc
+    -c
+    --apcs=/interwork
+    --cpu=MPCore
+    --fpmode=fast
+    --signed_chars
+    --cpp
+    --force_new_nothrow
+    --no_exceptions
+    --no_rtti
+    -DNN_COMPILER_OPTION_ARM
+    -DNN_COMPILER_RVCT
+    -DNN_COMPILER_RVCT_VERSION_MAJOR=4
+    -DNN_DEBUGGER_KMC_PARTNER
+    -DNN_EFFORT_FAST
+    -DNN_HARDWARE_CTR
+    -DNN_HARDWARE_CTR_TS
+    -DNN_PLATFORM_CTR
+    -DNN_PROCESSOR_ARM
+    -DNN_PROCESSOR_ARM11MPCORE
+    -DNN_PROCESSOR_ARM_V6
+    -DNN_PROCESSOR_ARM_VFP_V2
+    -DNN_SWITCH_DISABLE_ASSERT_WARNING=1
+    -DNN_SWITCH_DISABLE_ASSERT_WARNING_FOR_SDK=1
+    -DNN_SWITCH_DISABLE_DEBUG_PRINT=1
+    -DNN_SWITCH_DISABLE_DEBUG_PRINT_FOR_SDK=1
+    -DNN_SYSTEM_PROCESS
+    -I&lt;CTRSDK_ROOT&gt;/include
+    -o &lt;OUTPUT_FILE&gt;
+    &lt;SOURCE_FILE&gt;
+</pre>
+<p>
+    The command compiles <CODE>SOURCE_FILE</CODE> and outputs the results to <CODE>OUTPUT_FILE</CODE>.
+</p>
+
+
+<H3>Creating Static Libraries</H3>
+<p>
+    You can combine multiple object files and static libraries into a single static library. Use <CODE>armar</CODE> to create a static library.
+
+    <br /> <br /> <img src="img/flow_a.png"> <br /> <br />
+
+    Use <CODE>armar</CODE> as follows:
+</p>
+
+<pre>
+armar --create &lt;OUTPUT_FILE&gt; &lt;INPUT_FILE&gt;...
+</pre>
+
+<p>
+    The command combines the files specified by <CODE>INPUT_FILE</CODE> and creates <CODE>OUTPUT_FILE</CODE>.
+</p>
+
+
+<H3>Creating Banners and Icons</H3>
+<p>
+    Each application must have a banner and icon that are used on the HOME Menu. Use <a href="../../tools/ctr_makebanner.html"><CODE>makebanner</CODE></a> to create the banner and icon. <br /> <br /> <br /> <img src="img/flow_bnr.png"> <br /> <br /> Use <CODE><a href="../../tools/ctr_makebanner.html"><CODE>makebanner</CODE></a></CODE> as follows. You must specify the options in this order, because the options are parsed based on their order on the command line.
+</p>
+
+<pre>
+makebanner &lt;BSF_FILE&gt; &lt;BANNER_FILE&gt; &lt;ICON_FILE&gt;
+</pre>
+
+<p>
+    The command takes the information stored in each file and creates <CODE>BANNER_FILE</CODE> and <CODE>ICON_FILE</CODE> based on the instructions in <CODE>BSF_FILE</CODE>.
+</p>
+<p>
+The SDK includes a default banner and icon that you can use during development. The default banner and icon are as follows.
+</p>
+
+<pre>
+&lt;CTRSDK_ROOT&gt;/resources/banner/Default.bnr
+&lt;CTRSDK_ROOT&gt;/resources/banner/Default.icn
+</pre>
+
+<H3>Creating AXF Files</H3>
+<p>
+    <CODE>armlink</CODE> combines the object files generated by the compiler and the static libraries that combine them into an AXF file. <br /> <br /> <img src="img/flow_axf.png"> <br /> For instructions on using <CODE>armlink</CODE>, see the RVCT and RMCC documentation. For information about the restrictions on <CODE>armlink</CODE> options with CTR-SDK, see <a href="#rvct_options">Restrictions on Compiler and Linker Options</a>. For more information about the options that are required to use the SDK libraries, see <a href="#sdk_lib">Libraries Provided by SDK</a>.
+</p>
+<p>
+    This section describes the basic use of <CODE>armlink</CODE> with CTR-SDK. (Although the following command is separated into multiple lines for readability, an actual command cannot contain newline characters.)
+</p>
+
+<pre>
+armlink
+    --datacompressor off
+    --keep=nnMain
+    --scatter=&lt;CTRSDK_ROOT&gt;/resources/specfiles/linker/CTR.Process.MPCore.ldscript
+    -o &lt;OUTPUT_FILE&gt;
+    &lt;INPUT_FILE&gt; ...
+</pre>
+<p>
+    The command combines files specified by <CODE>INPUT_FILE</CODE> and outputs the results to <CODE>OUTPUT_FILE</CODE>.
+</p>
+
+
+
+<a name="cfa"></a>
+<H3>Creating CFA Files</H3>
+<p>
+A CFA file is an archive that converts a directory structure containing multiple files into a single file. These files are used to store download-play programs, e-manuals, and add-on content.
+</p>
+
+<p>
+    <br /> <img src="img/flow_cfa.png"> <br />
+</p>
+
+<p>
+There are two ways to create CFA files  You can use <CODE>makeciaarchive</CODE> to store download-play programs, or use <CODE>makerom</CODE> to store e-manuals and add-on content.
+</p>
+
+<a name="makeciaarchive"></a>
+<H4> Creating a CFA File Using makeciaarchive</H4>
+
+<p>
+    <CODE>makeciaarchive</CODE> is a tool for creating a CFA file from multiple CIA files. It is used to create CFA files storing download-play programs.
+
+<p>
+    Use <CODE><a href="../../tools/ctr_makeciaarchive.html">makeciaarchive</a></CODE> as follows:
+</p>
+
+<pre>
+makeciaarchive -cia &lt;INPUT_FILE&gt;...  -o &lt;OUTPUT_FILE&gt;
+</pre>
+
+<p>
+    Specify the CIA files with <CODE>INPUT_FILE</CODE>. The tool combines the CIA files and outputs them to <CODE>OUTPUT_FILE</CODE> in CFA format.
+</p>
+
+<p>
+    You can use the <code>-cia</code> option multiple times. You can create a CFA file storing multiple CIA files by specifying <CODE>INPUT_FILE</CODE> multiple times.
+</p>
+
+<H4> Creating a CFA File Using makerom</H4>
+
+<p>
+Create a CFA file using <a href="../../tools/ctr_makerom.html"><CODE>makerom</CODE></a> by specifying the <code>-data</code> option.
+</p>
+
+<p>
+Create a CFA file using <a href="../../tools/ctr_makerom.html"><CODE>makerom</CODE></a> as follows. (Although the following command is separated into multiple lines for readability, an actual command cannot contain newline characters.)
+</p>
+
+<pre>
+makerom -f data
+        -rsf &lt;RSF_FILE&gt;
+        -o &lt;OUTPUT_FILE&gt;
+</pre>
+
+<p>
+The tool creates <CODE>OUTPUT_FILE</CODE> as a CFA file that contains the content specified by <CODE>RSF_FILE</CODE>.
+</p>
+
+
+
+
+<a name="cxi"></a>
+<H3>Creating a CXI File</H3>
+<p>
+    You must create a CXI file as part of the process of creating an import application. Use <CODE>makerom</CODE> to create a CXI file. <br /> <br /> <img src="img/flow_cxi.png"> <br /> Create a CXI file using <a href="../../tools/ctr_makerom.html"><CODE>makerom</CODE></a> as follows. (Although the following command is separated into multiple lines for readability, an actual command cannot contain newline characters.)
+</p>
+
+<pre>
+makerom -f exec
+        &lt;AXF_FILE&gt;
+        -rsf &lt;RSF_FILE&gt;
+        -desc &lt;CTRSDK_ROOT&gt;/resources/specfiles/Application.desc
+        -banner &lt;BANNER_FILE&gt;
+        -icon &lt;ICON_FILE&gt;
+        -o &lt;OUTPUT_FILE&gt;
+</pre>
+
+<p>
+The tool creates <CODE>OUTPUT_FILE</CODE> as a CXI file, storing the content in <CODE>AXF_FILE</CODE>, <CODE>BANNER_FILE</CODE>, and <CODE>ICON_FILE</CODE> in accordance with the settings in <CODE>RSF_FILE</CODE>. If <code>HostRoot</code> is specified in <CODE>RSF_FILE</CODE>, the files below the directory specified as <CODE>ROM-FS</CODE> are stored in <CODE>OUTPUT_FILE</CODE>.
+</p>
+
+<a name="cci"></a>
+<H3>Creating a CCI File</H3>
+<p>
+When you create a Card application, the final step is creating a CCI file. Use <CODE>makerom</CODE> to create a CCI file.<br> <br> <img src="img/flow_cci.png"> <br> Create a CCI file using <a href="../../tools/ctr_makerom.html"><CODE>makerom</CODE></a> as follows. (Although the following command is separated into multiple lines for readability, an actual command cannot contain newline characters.)
+</p>
+
+<pre>
+makerom -f card
+        &lt;AXF_FILE&gt;
+        -rsf &lt;RSF_FILE&gt;
+        -desc &lt;CTRSDK_ROOT&gt;/resources/specfiles/Application.desc
+        -banner &lt;BANNER_FILE&gt;
+        -icon &lt;ICON_FILE&gt;
+        [-content &lt;E_MANUAL_CFA_FILE&gt;:1]
+        [-content &lt;DOWNLOAD_PLAY_CFA_FILE&gt;:2]
+        -o &lt;OUTPUT_FILE&gt;
+</pre>
+
+<p>
+This command creates <CODE>OUTPUT_FILE</CODE> as a CCI file, storing <CODE>AXF_FILE</CODE>, <CODE>BANNER_FILE</CODE>, <CODE>ICON_FILE</CODE>, <CODE>E_MANUAL_CFA_FILE</CODE> (the CFA file storing the e-manual), and <CODE>DOWNLOAD_PLAY_CFA_FILE</CODE> (the CFA file storing the download play child program) in accordance with the settings in <CODE>RSF_FILE</CODE>. If <code>HostRoot</code> is specified in <CODE>RSF_FILE</CODE>, the files below the directory specified as <CODE>ROM-FS</CODE> are stored in <CODE>OUTPUT_FILE</CODE>. <CODE>E_MANUAL_CFA_FILE</CODE> and <CODE>DOWNLOAD_PLAY_CFA_FILE</CODE> are optional; only specify them when needed. Specify <CODE>1</CODE> for the content index of a CFA file storing an e-manual. Specify <CODE>2</CODE> for the content index of a CFA file storing a download-play child program. You must not specify any other indexes.
+</p>
+
+<a name="cia"></a>
+<H3>Creating a CIA File</H3>
+<p>
+When you create an import application, the final step is creating a CIA file. Use <CODE>makecia</CODE> to create a CIA file.<br /> <br /> <img src="img/flow_cia.png"> <br /> Create a CIA file using <a href="../../tools/ctr_makecia.html"><CODE>makecia</CODE></a> as follows: (Although the following command is separated into multiple lines for readability, an actual command cannot contain newline characters.)
+</p>
+
+<pre>
+makecia -i &lt;cxi file&gt;
+        -o &lt;OUTPUT_FILE&gt;
+        [-man &lt;E_MANUAL_CFA_FILE&gt;]
+        [-i &lt;DOWNLOAD_PLAY_CHILD_CFA_FILE&gt;:2]
+</pre>
+
+<p>
+This command creates <CODE>OUTPUT_FILE</CODE> as a CIA file storing <CODE>CXI_FILE</CODE>, <CODE>E_MANUAL_CFA_FILE</CODE>, and <CODE>DOWNLOAD_PLAY_CHILD_CFA_FILE</CODE>. Only use options to specify an <CODE>E_MANUAL_CFA_FILE</CODE> and <CODE>DOWNLOAD_PLAY_CHILD_CFA_FILE</CODE> as necessary.
+</p>
+
+
+<H3>Creating CCL Files</H3>
+<p>
+    A CCL file is a modified version of the CCI format. It requires three files: the CCL file itself, and the LR file (<CODE>.r.bin</CODE>) and LE file (<CODE>.e.bin</CODE>) that it references. Create these three files using <CODE>makerom</CODE>. <br /> <br /> <img src="img/flow_ccl.png"> <br /> Create the LR file using <a href="../../tools/ctr_makerom.html"><CODE>makerom</CODE></a> as follows.
+</p>
+
+<pre>
+makerom -f lr -rsf &lt;RSF_FILE&gt; -o &lt;OUTPUT_FILE&gt;
+</pre>
+<p>
+This command creates <CODE>OUTPUT_FILE</CODE> as an LR file in accordance with the settings in <CODE>RSF_FILE</CODE>. If <code>HostRoot</code> is specified in <CODE>RSF_FILE</CODE>, the files below the directory specified as <CODE>ROM-FS</CODE> are stored in <CODE>OUTPUT_FILE</CODE>.
+</p>
+<p>
+    Create the LE file using <a href="../../tools/ctr_makerom.html"><CODE>makerom</CODE></a> as follows. (Although the following command is separated into multiple lines for readability, an actual command cannot contain newline characters.)
+</p>
+
+<pre>
+makerom -f le
+        &lt;AXF_FILE&gt;
+        -rsf &lt;RSF_FILE&gt;
+        -desc &lt;CTRSDK_ROOT&gt;/resources/specfiles/Application.desc
+        -banner &lt;BANNER_FILE&gt;
+        -icon &lt;ICON_FILE&gt;
+        -lr &lt;LR_FILE&gt;
+        -m 0x02000000
+        -o &lt;OUTPUT_FILE&gt;
+</pre>
+
+<p>
+    The tool creates <CODE>OUTPUT_FILE</CODE> as an LE file storing the content in <CODE>AXF_FILE</CODE>, <CODE>BANNER_FILE</CODE>, and <CODE>ICON_FILE</CODE> in accordance with the settings in <CODE>RSF_FILE</CODE> and <CODE>LR_FILE</CODE>.
+</p>
+<p>
+    Create the CCL file using <a href="../../tools/ctr_makerom.html"><CODE>makerom</CODE></a> as follows.
+</p>
+
+<pre>
+makerom -f list -le &lt;LE_FILE&gt; -lr &lt;LR_FILE&gt; -o &lt;OUTPUT_FILE&gt;
+</pre>
+
+<p>
+    This command creates <CODE>OUTPUT_FILE</CODE> as a CCL file, corresponding to <CODE>LE_FILE</CODE> and <CODE>LR_FILE</CODE>.
+</p>
+
+<H2> Builds for Special Uses </H2>
+
+<H3> Creating a Download Play Child Program CIA File </H3>
+
+<p>A Download Play child program is a type of imported application. For this reason, when you create a Download Play child program you create a CIA file. When creating Download Play child programs, refer to <a href="#cia">Creating a CIA File</a> and <I>Programming Manual: Application Creation Procedures</I>.</p>
+
+<p>When building, take care with unique IDs and client indexes.</p>
+
+<p>
+All stored download play child programs must have the same unique ID as the download play parent program.
+</p>
+
+<p>
+If you want to store more than one download play child program in the CIA file, you must specify them so that no child indexes overlap.
+</p>
+
+<p>
+Specify the unique ID using the <CODE>UniqueId</CODE> parameter in the RSF file. Specify the child-program index using the <CODE>ChildIndex</CODE> parameter in the RSF file. For more information about RSF files, see <a href="../../tools/ctr_makerom.html"><CODE>makerom</CODE></a>.
+
+Use the described RSF file configurations to create a CXI file for a download play child program.
+</p>
+
+<H3> Creating a CFA File That Contains a Download Play Child Program </H3>
+
+<p>
+To create an application that supports download play, you must include a CFA file containing a download play child program in your CCI file.
+</p>
+
+<p>
+For instructions on creating a CCI file with a CFA file that contains a download play child program, see <a href="#cci">Creating CCI Files</a>. 
+</p>
+
+<p>
+Use <a href="../../tools/ctr_makeciaarchive.html"><CODE>makeciaarchive</CODE></a> to create a CFA file that contains a download play child program. For instructions on creating a CFA file that contains a download play child program, see <a href="#makeciaarchive">Creating CFA Files Using <CODE>makeciaarchive</CODE></a>.
+</p>
+
+<p>
+You can specify an RSF file to <a href="../../tools/ctr_makeciaarchive.html"><CODE>makeciaarchive</CODE></a> using the <code>-rsf</code> option. If you want to create a CFA file that contains a download play child program, only specify <code>&lt;CTRSDK_ROOT&gt;/resources/specfiles/Child.rsf</code> as your RSF file. You must not use any other RSF file. In addition, do not edit the file in any way.
+</p>
+
+<H3> Creating a CFA File That Contains an E-Manual </H3>
+<p>
+A CFA file that contains an e-manual is an archive with a BCMA file created using CTR ManualTools. For information about BCMA files and how to create them, see the CTR ManualTools documentation.
+</p>
+
+<p>
+    Use <a href="../../tools/ctr_makerom.html"><CODE>makerom</CODE></a> to create a CFA file that contains an e-manual. Create a CFA file that contains an e-manual using <a href="../../tools/ctr_makerom.html"><CODE>makerom</CODE></a> as follows. (Although the following command is separated into multiple lines for readability, an actual command cannot contain newline characters.)
+</p>
+
+<pre>
+makerom -f data
+        -rsf &lt;CTRSDK_ROOT&gt;/resources/specfiles/Manual.rsf
+        -DROMFS_ROOT=&lt;MANUAL_DIRECTORY&gt;
+        -DMANUAL_DISCLOSURE=&lt;<CODE>true</CODE> if showing the e-manual with advance downloading, <CODE>false</CODE> when not showing&gt;
+        -o &lt;OUTPUT_FILE&gt;
+</pre>
+
+<p>
+    This command creates <CODE>OUTPUT_FILE</CODE> as a CFA file storing the e-manual in <CODE>MANUAL_DIRECTORY</CODE>.
+</p>
+
+<p>
+Put the BCMA file <code>Manual.bcma</code> in <CODE>MANUAL_DIRECTORY</CODE>. You must not place any other files in this directory. You also must not use a BCMA file with a different name.
+</p>
+
+
+<p>
+Specify only the RSF file in <code>&lt;CTRSDK_ROOT&gt;/resources/specfiles/Manual.rsf </code> using the <code>-rsf</code> option. You must not use any other RSF file. In addition, do not edit the file in any way.
+</p>
+
+<H3> Creating a CFA File That Contains Add-On Content </H3>
+<p>
+For more information, see <a href="../../api/nn/ec/briefing/aboutMakingDataTitle.html"><I>How to Create Data Titles</I> in ECommerceDevelopmentKit</a>.
+</p>
+
+<H3> Creating a Data Title File (CIA File) That Contains a CFA File With Add-on Content </H3>
+<p>
+For more information, see <a href="../../api/nn/ec/briefing/aboutMakingDataTitle.html"><I>How to Create Data Titles</I> in ECommerceDevelopmentKit</a>.
+</p>
+
+<a name="rvct_options"></a>
+<H2>Compiler and Linker Options</H2>
+
+<H3>RVCT and ARMCC</H3>
+<p>
+    CTR-SDK uses RVCT and ARMCC as its compiler and linker. The only difference between RVCT and ARMCC is their versions; they are from the same series of compilers and linkers. This documentation makes no distinction between RVCT and ARMCC and simply calls them <I>compiler</I> and <I>linker</I>.
+</p>
+
+<H3>Options</H3>
+<p>
+    The compiler and linker have large numbers of command-line options, and the generated code depends on the options that are specified.
+</p>
+<p>
+CTR-SDK assumes that some options are used and other options are not used, and the created program may fail to function correctly if these assumptions are not met. The compiler or linker may report an error if certain options are specified and prevent the program from being created. Even if the tools succeed in creating an AXF file, the SDK tools may subsequently report an error.
+</p>
+<p>
+    Make sure to follow the option availability below when using the compiler and linker.
+</p>
+
+
+<H3>Compiler Options</H3>
+<p>
+    The following sections list the allowed and prohibited compiler options.
+</p>
+
+<h4>Required</h4>
+<p>
+    The following options are required. These options must be specified every time you use this tool.
+</p>
+<pre>
+--apcs=/interwork
+--c99 (when compiling C source)
+--cpu=MPCore
+--fpmode=fast
+--signed_chars
+</pre>
+
+<h4>Different Specifications Prohibited</h4>
+<p>
+    You must use the defaults for the following options. Specify these options by using the default values. Do not specify any other values.
+</p>
+<pre>
+--library_interface=rvct
+--library_type=standardlib
+--littleend
+--wchar16
+--wchar
+</pre>
+
+<h4>Recommended</h4>
+<p>
+    Although these options are not mandatory, we recommend their use.
+</p>
+<pre>
+--debug
+--debug_info=line_inlining_extensions
+--no_debug_macros
+--remove_unneeded_entities
+--split_sections
+</pre>
+
+<h4>Optional</h4>
+<p>
+    The following options are optional.
+</p>
+<pre>
+--allow_null_this
+--arm
+--asm
+--asm_dir
+--autoinline
+--brief_diagnostics
+--bss_threshold
+--code_gen
+--compile_all_input
+--cpp
+--create_pch
+--data_reorder
+--debug_info
+--debug_macros
+--default_extension
+--depend
+--depend_dir
+--depend_format
+--depend_system_headers
+--depend_target
+--diag_error
+--diag_remark
+--diag_style
+--diag_suppress
+--diag_warning
+--dollar
+--dwarf2
+--dwarf3
+--emit_frame_directives
+--errors
+--exceptions
+--exceptions_unwind
+--feedback
+--force_new_nothrow
+--gnu
+--help
+--ignore_missing_headers
+--implicit_include
+--info=totals
+--inline
+--instrument_inline
+--interleave
+--intermediate_object_files
+--link_all_input
+--list
+--list_dir
+--list_macros
+--locale
+--long_long
+--loose_implicit_cast
+--md
+--message_locale
+--mm
+--multibyte_chars
+--multifile
+--output_dir
+--pch
+--pch_dir
+--pch_messages
+--pch_verbose
+--phony_targets
+--preinclude
+--preprocessed
+--reassociate_saturation
+--reduce_paths
+--restrict
+--retain
+--rtti
+--rtti_data
+--show_cmdline
+--sys_include
+--thumb
+--use_pch
+--version_number
+--vfe
+--via
+--vla
+--vsn
+--whole_program
+--wrap_diagonostics
+-A
+-C
+-E
+-I
+-L
+-M
+-O
+-Ospace
+-Otime
+-P
+-S
+-U
+-W
+-c
+-g
+-o
+</pre>
+
+<h4>Use Is Prohibited</h4>
+<p>
+The following options are prohibited. You must not use them.
+</p>
+<pre>
+--alternative_tokens
+--anachronisms
+--arm_linux
+--arm_linux_config_file
+--arm_linux_configure
+--arm_linux_paths
+--arm_only
+--bigend
+--bitband
+--c90
+--compatible
+--configure_cpp_headers
+--configure_extra_includes
+--configure_extra_libraries
+--configure_gas
+--configure_gcc
+--configure_gcc_version
+--configure_gld
+--configure_sysroot
+--default_definition_visibility
+--dep_name
+--device
+--dllexport_all
+--dllimport_runtime
+--enum_is_int
+--execstack
+--export_all_vtbl
+--export_defs_implicity
+--extended_initializers
+--forceinline
+--fp16_format
+--fpu
+--friend_injection
+--global_reg
+--gnu_defaults
+--gnu_version
+--guiding_decls
+--hide_all
+--implicit_include_searches
+--implicit_key_function
+--implicit_typename
+--import_all_vtbl
+--interface_enums_are_32_bit
+--kandr_include
+--licretry
+--lower_ropi
+--lower_rwpi
+--ltcg
+--min_array_alignment
+--multiply_latency
+--nonstd_qualifier_deduction
+--nonstd_qualifier_deduction
+--old_specializations
+--old_style_preprocessing
+--parse_templates
+--pending_instanciations
+--pointer_alignment
+--profile
+--project
+--reinitialize_workdir
+--relaxed_ref_def
+--shared
+--signed_bitfields
+--split_ldm
+--strict
+--strict_warnings
+--translate_g++
+--translate_gcc
+--translate_gld
+--trigraphs
+--type_traits_helpers
+--use_gas
+--using_std
+--vectorize
+--visibility_inlines_hidden
+--wchar32
+--workdir
+-J
+-Warmcc,[option]
+</pre>
+
+
+<H3>Linker Options</H3>
+
+<p>
+    The following sections list the allowed and prohibited linker options.
+</p>
+
+<h4>Required</h4>
+<p>
+    The following options are required. These options must be specified every time you use this tool.
+</p>
+<pre>
+--datacompressor=off
+--keep=nnMain
+--scatter=&lt;CTRSDK_ROOT&gt;/resources/specfiles/linker/CTR.Process.MPCore.ldscript
+</pre>
+
+<h4>Different Specifications Prohibited</h4>
+<p>
+    You must use the defaults for the following options. Specify these options by using the default values. Do not specify any other values.
+</p>
+<pre>
+--be8
+--cpu=MPCore
+--entry=__ctr_start
+--legacyalign
+--library_type=standardlib
+--ref_cpp_init
+--scanlib
+--startup=__ctr_start
+</pre>
+
+<h4>Recommended</h4>
+<p>
+    Although these options are not mandatory, we recommend their use.
+</p>
+<pre>
+--largeregions
+--no_eager_load_debug
+--strict
+</pre>
+
+<h4>Optional</h4>
+<p>
+    The following options are optional.
+</p>
+<pre>
+--bestdebug
+--branchnop
+--callgraph
+--callgraph_file
+--callgraph_output
+--cgfile
+--cgsymbol
+--cgundefined
+--comment_section
+--compress_debug
+--crosser_veneershare
+--diag_error
+--diag_remark
+--diag_style
+--diag_suppress
+--diag_warning
+--eager_load_debug
+--errors
+--exceptions
+--exceptions_table
+--feedback
+--feedback_image
+--feedback_type
+--filtercomment
+--help
+--info
+--info_lib_prefix
+--inline
+--inlineveneer
+--libpath
+--list
+--list_mapping_symbols
+--mangled
+--map
+--max_veneer_passes
+--merge
+--merge_partial_comdat
+--output
+--pad
+--partial
+--privacy
+--reduce_paths
+--remarks
+--remove
+--section_index_display
+--show_cmdline
+--show_full_path
+--show_parent_lib
+--show_sec_index
+--sort
+--strict
+--strict_enum_size
+--strict_wchar_sizse
+--symbols
+--symdefs
+--tailreorder
+--tiebreaker
+--userlibpath
+--veneer_inject_type
+--veneershare
+--verbose
+--version_number
+--vfemode
+--via
+--vsn
+--xref
+--xrefdbg
+--xref{from|to}
+</pre>
+
+<h4>Prohibited</h4>
+<p>
+The following options are prohibited. You must not use them.
+</p>
+<pre>
+--add_needed
+--add_shared_references
+--any_placement
+--any_sort_order
+--arm_linux
+--arm_only
+--as_needed
+--autoat
+--base_platform
+--be32
+--bpabi
+--combreloc
+--cppinit
+--device
+--dll
+--dynamic_debug
+--dynamiclinker
+--edit
+--emit_debug_overlay_relocs
+--emit_debug_overlay_section
+--emit_non_debug_relocs
+--emit_relocs
+--execstack
+--export_all
+--export_dynamic
+--fini
+--first
+--force_explicit_attr
+--force_so_throw
+--fpic
+--fpu
+--gnu_linker_defined_syms
+--implicit_branchpatch
+--import_unresolved
+--init
+--keep_protected_symbols
+--last
+--ldpartial
+--library
+--licretry
+--linker_script
+--linux_abitag
+--locals
+--ltcg
+--match
+--max_visibility
+--muldefweak
+--override_visibility
+--paged
+--pagesize
+--pivenner
+--pltgot
+--pltgot_opts
+--predefine
+--prelink_support
+--profile
+--project
+--reinitialize_workdir
+--reloc
+--ro_base
+--ropi
+--rosplit
+--runpath
+--rw_base
+--rwpi
+--search_dynamic_libraries
+--shared
+--soname
+--split
+--strict_ph
+--strict_relocations
+--symbolic
+--symver_script
+--symver_soname
+--sysv
+--undefined
+--undefined_and_export
+--unresolved
+--use_definition_visibility
+--use_sysv_default_script
+--workdir
+--zi_base
+</pre>
+
+
+<a name="macro"></a>
+<H2>Macros Required by the SDK</H2>
+
+<p>
+    CTR-SDK uses C/C++ macros to enable or disable a number of features. Accordingly, you must provide the appropriate macro definitions as compiler options.
+</p>
+
+<H3>Required Macros</H3>
+<P>
+    The following macros must always be set for CTR. You must define them for all CTR projects.
+</P>
+<pre>
+NN_COMPILER_OPTION_ARM
+NN_COMPILER_RVCT
+NN_DEBUGGER_KMC_PARTNER
+NN_HARDWARE_CTR
+NN_HARDWARE_CTR_TS
+NN_PLATFORM_CTR
+NN_PROCESSOR_ARM
+NN_PROCESSOR_ARM11MPCORE
+NN_PROCESSOR_ARM_V6
+NN_PROCESSOR_ARM_VFP_V2
+NN_SYSTEM_PROCESS
+</pre>
+
+<H3>Selection Macros</H3>
+<P>
+    You must change your macro specifications based on the following selections.
+</P>
+
+<h4>RVCT/ARMCC Version</h4>
+<pre>
+NN_COMPILER_RVCT_VERSION_MAJOR=4
+</pre>
+<P>
+    You must specify an appropriate value in accordance with your RVCT/ARMCC version. If you are using RVCT version 4.0, set <CODE>NN_COMPILER_RVCT_VERSION_MAJOR</CODE> to <CODE>4</CODE>, as shown. Even if you are using ARMCC, the name of the macro does not change.
+</P>
+
+<H4>Optimization Type</H4>
+<pre>
+NN_EFFORT_FAST
+NN_EFFORT_SMALL
+</pre>
+<P>
+Specify whether to favor speed or size when optimizing. Define <CODE>NN_EFFORT_FAST</CODE> for <CODE>-Otime</CODE> and <CODE>NN_EFFORT_SMALL</CODE> for <CODE>-Ospace</CODE>. You must define one of these options.
+</P>
+
+<H4>Library Selection</H4>
+<pre>
+NN_BUILD_VERBOSE
+NN_SWITCH_DISABLE_DEBUG_PRINT_FOR_SDK
+NN_SWITCH_DISABLE_ASSERT_WARNING_FOR_SDK
+</pre>
+<P>
+    The SDK provides a <CODE>verbose</CODE> and <CODE>release</CODE> version of the static libraries. You must change your macro definitions based on which version you use.
+</P>
+<P>
+    To use the <CODE>verbose</CODE> version, you must define <CODE>NN_BUILD_VERBOSE</CODE>. To use the <CODE>release</CODE> version, you must define <CODE>NN_SWITCH_DISABLE_DEBUG_PRINT_FOR_SDK</CODE> and <CODE>NN_SWITCH_DISABLE_ASSERT_WARNING_FOR_SDK</CODE>.
+</P>
+<P>
+    Your application may fail to link or run properly if there are inconsistencies between the macro definitions that you specify with compiler options and the static libraries you link to.
+</P>
+
+<H3>Optional Macros</H3>
+<P>
+    The following macros are not required to use the SDK. You can use them as needed for application development.
+</P>
+
+<H4>Enabling and Disabling ASSERT and WARNING</h4>
+<pre>
+NN_SWITCH_DISABLE_ASSERT_WARNING
+</pre>
+<P>
+    Defining <code>NN_SWITCH_DISABLE_ASSERT_WARNING</code> replaces <CODE>ASSERT</CODE> and <CODE>WARNING</CODE> functions with no-ops. This lets you disable <CODE>ASSERT</CODE> and <CODE>WARNING</CODE> statements without changing the source code.
+</P>
+
+<H4>Enabling and Disabling Debug Output</H4>
+<pre>
+NN_SWITCH_DISABLE_DEBUG_PRINT
+</pre>
+<P>
+    Defining <code>NN_SWITCH_DISABLE_DEBUG_PRINT</code> replaces <code>NN_LOG</code>, <code>NN_LOGV</code>, and <code>NN_PUT</code> with no-ops. This lets you disable debug output without changing the source code.
+</P>
+<P>
+    All debug output must be disabled in the final ROM image.
+</P>
+
+
+<a name="sdk_lib"></a>
+<H2>SDK Libraries</H2>
+<p>
+    The libraries provided by the SDK consist of C/C++ header files and static library files.
+</p>
+
+<a name="include"></a>
+<H3>Using Header Files</H3>
+<p>
+    The C/C++ header files are located in <code>CTR_SDK/include</code>. You must specify <code>CTR_SDK/include</code> as an include to your compiler so that you can include these header files from your application's source files.
+</p>
+<pre>
+armcc -I&lt;CTRSDK_ROOT&gt;/include ... (omitted) ...
+</pre>
+
+<H3>Static Library Types</H3>
+
+<p>
+The static libraries are in the <code>CTR_SDK/libraries/CTR-TS.Process.MPCore</code> directory. There are a total of four library types, formed by combination of two binary choices (development or release, and optimization for speed or size; 2 &times; 2 = 4).<br> The development libraries are in the <code>verbose</code> directory and the release libraries are in the <code>release</code> directory. Each of those directories contains a library optimized for speed (<code>*.fast.*</code> files) and a library optimized for size (<code>*.small.*</code> files).
+</p>
+<pre>
+verbose/*.fast.a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For development, optimized for speed.
+verbose/*.small.a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For development, optimized for size.
+release/*.fast.a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For release, optimized for speed.
+release/*.small.a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For release, optimized for size.
+</pre>
+<p>
+    When you use a library, you must choose which of the four library types to use. Although you can mix the speed and size-optimized types in a single program, you cannot mix development and release libraries in this way.
+</p>
+
+<H3>Development and Release Versions</H3>
+
+<p>
+The development libraries differ from the release libraries in the following ways to facilitate development and debugging.
+</p>
+<ul>
+    <li>Assertions and warnings in the libraries are enabled.
+    <li>Debugging code in the libraries is enabled.
+    <li>Some of the API functions produce debugging output.
+</ul>
+<p>
+Ordinarily, use the development libraries while you are developing your application. Your final ROM image must link to the release libraries.
+</p>
+
+<H3>Using Static Libraries</H3>
+
+<p>
+    To make an SDK library available to your application, you must specify the appropriate static library as one of the input files of the linker.
+</p>
+<pre>
+armlink &lt;CTRSDK_ROOT&gt;\libraries\CTR-TS.Process.MPCore\release\libnn_os.fast.a ... (omitted) ...
+</pre>
+<p>
+    The libraries have interdependencies. Providing only a portion of the static libraries as input to the linker may cause an error. Even if linking is successful, the program may fail to run correctly. You must specify all libraries to the linker, with the exception of the development-only libraries and optional libraries described in the following sections.
+</p>
+
+<H3>Development-Only Libraries</H3>
+<p>
+    Some of the libraries provided by the SDK are specialized for development. Specifically, the functions in the <code>nn::hio</code>, <code>nn::midi</code>, and <code>nn::fs::hio</code> namespaces are for development only. You must ensure that you do not use these functions in your final ROM image. The following four static libraries support these functions: <code>libnn_hio.*.a</code>, <code>libnn_midi.*.a</code>, <code>libnn_fshio.*.a</code>, and <code>libnn_dev.*.a</code>. When you create your final ROM image, you can detect the use of development-only functions as linker errors by ensuring that these static libraries are not specified as input files for the linker.
+</p>
+
+<H3>Optional Libraries</H3>
+<p>
+    Some of the libraries provided by the SDK are not essential libraries. Most of these libraries are open source, and you do not need to take steps to avoid symbol conflicts. Currently, the only static library that is optional is <code>libzlib.*.a</code>.
+</p>
+
+<h3>crt0.o</h3>
+<p>
+    The directory containing the static libraries also contains the object files <CODE>crt0.*.o</CODE>. As with other static libraries, you must specify this file as one of the linker's input files.
+</p>
+
+
+
+<a name="rsf_desc"></a>
+<H2>RSF and DESC Files</H2>
+
+<p>
+    RSF and DESC files are necessary for creating an application.
+</p>
+
+<H3>RSF Files</H3>
+<p>
+    You must create a separate RSF file for each application. However, if you create a CFA file that contains an e-manual or a download play child program, you must use the appropriate RSF file included in the SDK. For more information about writing RSF files, see <a href="../../tools/ctr_makerom.html#rsf"><CODE>makerom</CODE></a>. The following RSF files are in <code>CTR_SDK/resources/specfiles</code>:
+</p>
+<dl>
+    <dt><CODE>Application.rsf</CODE>
+    <dd>
+This RSF file contains the minimum necessary instructions to create a CTR application that is not a download-play child program. You can use this file in the initial stages of development. When developing applications, refer to this file but create a new file. This file must not be directly edited.
+
+    <dt><CODE>Child.rsf</CODE>
+    <dd>
+    Use this RSF file when you are creating a CFA file that contains a download play child program.
+    
+    You must use this RSF file if you are creating a CFA file that contains a download play child program. Do not edit the file in any way.
+
+    You cannot use it to create a download play child application.
+
+    <dt><CODE>Manual.rsf</CODE>
+    <dd>
+Use this RSF file when you are creating a CFA file that contains an e-manual. You must use this RSF file to create an e-manual. Do not edit the file in any way.
+    
+<dt><CODE>AddOnContent.rsf</CODE>
+    <dd>
+Use this RSF file when you are creating a CFA file that contains add-on content. You must use this CFA file to create add-on content. Do not edit the file in any way.
+</dl>
+
+<H3>DESC Files</H3>
+<p>
+    The DESC files are the same for all applications. You must use one of the files included in the SDK without modifications of any kind. <br /> The DESC files are located in the <code>CTR_SDK/resources/specfiles</code> directory. Use the appropriate file for your application.
+</p>
+<dl>
+    <dt><CODE>Application.desc</CODE>
+    <dd>
+    Use this DESC file when creating a CTR application that does not contain a download play child program.
+
+    <dt><CODE>DlpChild.desc</CODE>
+    <dd>
+    Use this DESC file when creating a download play child program.
+</dl>
+
+
+
+
+
+<H2>Revision History</H2>
+<dl class="history">
+
+    <dt>2015-02-23</dt>
+    <dd>
+Added an argument to specify &quot;showing/not showing the e-manual with advance downloading&quot; to Creating a CFA File That Contains an E-Manual.
+    </dd>
+
+    <dt>2013-11-06</dt>
+    <dd>
+Added a subsection about CFA files for add-on content to the <B>RSF Files</B> section. <br />
+        
+    </dd>
+
+    <dt>2013-03-20</dt>
+    <dd>
+Added an option for embedding a download play CFA file in a CIA file being created.
+    </dd>
+
+    <dt>2012-08-11</dt>
+    <dd>
+        Deleted <CODE>NN_COMPILER_RVCT_VERSION_MINOR</CODE>.<br/>
+    </dd>
+
+    <dt>2012-05-25</dt>
+    <dd>
+Added the <B>Optional Libraries</B> section. <br/> Added the <B>Revision History</B> section. <br/> 
+    </dd>
+
+    <dt>2011-12-21</dt>
+    <dd>
+Separated <B>Creating a Download Play Child Program CIA File</B> out as its own section. <br/> 
+    </dd>
+
+    <dt>2011-10-06</dt>
+    <dd>
+        Added an explanation about the <CODE>makerom</CODE> content index. <br/> 
+    </dd>
+
+    <dt>2011-08-05</dt>
+    <dd>
+Revised the link to <B>Build System</B>. <br/> 
+    </dd>
+
+    <dt>2011-07-19</dt>
+    <dd>
+        Added information about building download play child programs and e-manuals. <br/> Corrected the <CODE>--scatter</CODE> linker option, which was missing its argument.
+    </dd>
+
+    <dt>2011-05-18</dt>
+    <dd>
+        Initial version.
+    </dd>
+</dl>
+
+
+<div class="footer"><span>Guide to Developing a Build System</span></div>
+
+  <hr /><p>CTR-06-0200-011-D<br />CONFIDENTIAL</p></body>
+</HTML>

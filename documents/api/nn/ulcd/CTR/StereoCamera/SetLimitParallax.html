@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetLimitParallax</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ulcd/Overview.html">ulcd</a>::<a href="../../../../nn/ulcd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ulcd/CTR/StereoCamera/Overview.html">StereoCamera</a>::SetLimitParallax Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/ulcd.h&gt;
+void SetLimitParallax(
+     const <a href="../../../../nn_types/f32.html">f32</a> limit
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>limit</th>
+          <td>The parallax limit (in mm) to set.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets the parallax limit for objects that appear to be going into the screen (the depth direction).</p><!-- write here --><P><span class="argument">limit</span> can be set to a value between <tt>0</tt> and the maximum parallax value in the depth direction as defined under Parallax Restrictions in the 3DS Guidelines.  However, currently, if you specify a value above the maximum value, only a warning is output and the value is applied.</P><P><tt>limit</tt> is applied in the result of the <tt>CalculateMatrices</tt> function. To be specific, the parallax specified by this function is applied when calculating objects located in the far clipping plane on the LCD.</P><P>The parallax limit set by this function is valid only for objects that appear to be going into the screen using the application-priority method.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/06/22</dt>
+        <dd><item xmlns="">Added to description to match the documentation.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Added Description.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

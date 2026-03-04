@@ -1,0 +1,178 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>HOME Menu</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    margin          : 4px;
+    padding         : 4px;
+}
+
+h1 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+
+p {
+    margin-left     : 4px;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+<div class="title">
+HOME Menu
+</div>
+
+
+<h1>Overview</h1>
+<ul>
+<li>This is the HOME Menu that runs when the Nintendo 3DS starts up. Use this to start or exit applications and applets.</li>
+</ul>
+
+<h1>Description</h1>
+<ul>
+<li><font color=red>Banner models are only supported if they are output from <CODE>NW4C_ForBanner</CODE>, which is the NW4C environment for creation of banners. </font><br />Proprietarily output banner models do not appear on the Developer HOME Menu. A message to this effect will be displayed on the lower portion of the top screen.
+</li><br /><br />
+<li>The process of entering and exiting the HOME Menu and other system applets (such as the Notifications applet) sometimes gets stuck for a long time. We're not sure how to fix the bug at this time.
+</li><br /><br />
+<li>When a CTR card, DS/DSi card, or SD card is slowly inserted or quickly removed and reinserted, sometimes the application icons do not appear correctly in the HOME Menu. However, this is not a bug; it is part of the specification. 
+</li>
+</ul>
+
+<h1>How to Use the Debugging Features</h1>
+<ul>
+<li>By pressing the X and Y Buttons at the same time, you can display bars used to measure banner processing. The length of the bar at the top represents how much, at 100%, can be processed in a single frame (for comparison); the second bar from the top indicates CPU processing; and the third bar from the top indicates GPU processing. Green indicates processing of less than 75%. Yellow indicates processing between 75 and 80%. Red indicates processing greater than 80%. Modify your application's banner so that these processing bars are green or yellow. Fix your banner if the processing bars are red. (<B>Note:</B> See <CODE>$CTR_SDK\documents\tools\ctr_BannerModelConverter.html</CODE> for details)
+</li><br /><br />
+<li>By pressing the X Button and Y Button at the same time, you can display the HOME Menu's region, language, creation date/time, and revision information. <br /> This information is very helpful to Nintendo when it is provided along with any questions that you may have.
+</li><br /><br />
+<li>While the processing-load bars are displayed, press the X Button and the B Button at the same time and reinsert the game card to cycle through the regions and languages displayed for the title name (two-line and one-line display) and the banner model.<br />With this feature, you are only changing the display, and the operation remains in the original region and language.<br />You can use this feature when creating banners to check model data and title names.<br />(When you check title names, choose to display the icons lined up a single row.)
+</li><br /><br />
+<li>To delete the icon database and icon cache, start the HOME Menu while holding down the X Button and Y Button.</li><br />
+<ul>
+<li>The icon database is a NAND database on the system that stores the icons of applications that have been run. The Activity Log displays the icons stored in this database. Once an icon has been stored here, however, the database will not be updated if the application is started again with a different icon, unless the <CODE>TitleInfo</CODE> (combination of category and UniqueID) and version specified for the application by <CODE>makerom</CODE> have changed.<br />If you change the icon and want to check it, you must delete the icon database.
+</li>
+<li>The icon cache is a repository of application icon data stored on the SD card so that icons on the HOME Menu load faster. Once an icon has been stored here, however, the icon cache will not be updated if the application icon changes, unless the application's <CODE>TitleInfo</CODE> and version have changed. If you change the icon and want to check it, you must delete the icon cache.
+</li>
+</ul><br />
+<li>The China market HOME Menu (and only this one) has a feature for pausing the animation when the application starts, mainly for confirming data like ISBN numbers. <br /> If you simultaneously press the Y Button and B Button and start the application, the text &quot;<B>ISBN check mode.</B>&quot; displays in the upper-left part of the upper screen but the startup animation does not stop unless you press some other button.
+</li>
+</ul>
+
+<h1><a name="debugger">Using the Debugger</a></h1>
+It is possible to debug an application in the HOME Menu environment, but <font color=red>you must follow the steps below.</font><br /> <br />
+<ul>
+<li>If using the PARTNER-CTR Debugger:</li>
+<ol>
+<li>With the HOME Menu running, load the target application in emulation memory and reset.</li>
+<li>Run the target application from the HOME Menu.</li>
+<li>Execute the <CODE>attacha</CODE> command from the debugger software's command window.</li>
+<li>In the debugger software's command window, run <CODE>ls <I>target_application</I>.axf</CODE> to load the debug information.</li>
+</ol>
+<li>If you are using IS-SNAKE-BOX, IS-SPR-BOX, or IS-CTR-BOX:</li>
+<ol>
+<li>With the HOME Menu running, load the target application in emulation memory.</li>
+<li>Run the target application from the HOME Menu.</li>
+<li>Execute the <CODE>attacha</CODE> command from the debugger software's command window.</li>
+</ol>
+</ul>
+<br />When you resume execution of the application after this procedure, you can debug its source code as you would when running it from the development menu. <br /><br />
+
+<h1>Other</h1>
+<ul>
+<li>You can use the debugger's card emulation feature to start CCI-formatted ROM as CTR card applications from the HOME Menu, and confirm banners.
+</li><br /><br />
+<ul>
+<li>If you are using the PARTNER-CTR Debugger:</li>
+<ol>
+<li>Use the debugger's <CODE>rdc</CODE> command to load the CCI file into emulation memory<br /> <CODE>rdc ***.cci</CODE>
+</li>
+<li>Reset the debugger using the debugger's <CODE>reset</CODE> command.</li>
+</ol>
+<li>If you are using IS-SNAKE-BOX, IS-SPR-BOX, or IS-CTR-BOX:</li>
+<ol>
+<li>Use the debugger's <CODE>rdc</CODE> command to load the CCI file into emulation memory<br /> <CODE>rdc ***.cci</CODE>
+</li>
+</ol>
+<ol>
+</ul>
+</ol>
+<br />
+<li>If you do not set <CODE>BasicInfo</CODE> in the RSF file when you run <CODE>makerom</CODE>, you will be unable to start applications from the HOME Menu. For more details on these settings, see the <CODE>ctr_makerom</CODE> section in the documentation included in the CTR-SDK.
+</li><br /><br />
+<li>The system will stop and the 3DS logo screen will appear if an application is started from the HOME Menu and the <CODE>nn::applet::Enable</CODE> function has not been called. Note that the <CODE>nn::applet::Enable</CODE> function is not called in some of the sample demos.</li><br /><br />
+<li>Features that cause the application to exit, such as a jump to the System Settings, are not available when attached to the debugger. When verifying this feature, either do not attach to the debugger, or run it on development hardware.</li><br /><br />
+<li>Starting with System Updater 0.17.6, we added a feature that automatically returns you to the HOME Menu when applications or system applets end abnormally. <br /><br /><img src="img/FreezeFlow.jpg"><img src="img/FreezeFlow.jpg" alt=""> <br /><br /> Applications/applets end abnormally in situations such as when the <CODE>NN_PANIC</CODE> macro is used or when access to a NULL pointer occurs. <br /> However, if &quot;Break Stop&quot; is enabled in Config, you will not be automatically returned if the application is handling exceptions on a proprietary basis. Furthermore, the automatic return feature cannot be used in all situations.
+</li>
+</ul>
+
+<h1>Revision History</h1>
+<dl class="history">
+<dt>2014/08/07</dt>
+<dd>Added information about IS-SNAKE-BOX.</dd>
+<dt>2014/03/10</dt>
+<dd>Added information about IS-CTR-DEBUGGER.</dd>
+<dt>2012/07/13</dt>
+<dd>Removed from the description the note about the memory leak that occurs when textures that are referenced from multiple materials are switched in contextual banners.</dd>
+<dt>2012/05/23</dt>
+<dd>Added a note to <B>How to Use the Debugging Features</B> about the feature that pauses the application startup animation.</dd>
+<dt>2012/04/24</dt>
+<dd>Added a note in <B>Description</B> about a contextual banner bug.</dd>
+<dd>Added a description in <B>Other</B> about the behavior when an application/system applet ends abnormally.</dd>
+<dt>2011/11/18</dt>
+<dd>Deleted sentences from <B>Description</B> about slow application startup times and rare problems with execution halting.</dd>
+<dt>2011/10/19</dt>
+<dd>Added information specific to limitations when using the debugger.</dd>
+<dt>2011/10/07</dt>
+<dd>Added information about inserting and removing SD cards to the description.</dd>
+<dt>2011/09/02</dt>
+<dd>Added &quot;Using the Debugger.&quot;</dd>
+<dt>2011/08/26</dt>
+<dd>Initial version.</dd>
+</dl>
+
+  <hr /><p>CTR-06-0206-011-E<br />CONFIDENTIAL</p></body>
+</html>

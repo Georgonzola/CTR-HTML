@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetLastTwlUserMakerNotePointer</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::GetLastTwlUserMakerNotePointer Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+const <a href="../../../../nn_types/u8.html">u8</a> * GetLastTwlUserMakerNotePointer() const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">If successful, returns a pointer to the Maker Note. Returns <code>NULL</code> on failure. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a pointer to the Maker Note for Nintendo DSi applications of the image that was either decoded or had <code>Exif</code> information extracted immediately prior to this call.</p><p>If that processing fails, this function also fails. <br />
+ This function needs image data to get the information. Do not destroy the GPS IFD structure.</p><p>Use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastTwlUserMakerNoteSize.html">GetLastTwlUserMakerNoteSize</a></code> function to get the size of the Maker Note data in bytes. <br />
+ If the size of the data is <code>0</code> bytes, both that function and this function fail.</p><p>Success of this function does not guarantee that the image was taken with a Nintendo DSi application.</p><p>Use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastUserMakerNotePointer.html">GetLastUserMakerNotePointer</a></code> and <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastUserMakerNoteSize.html">GetLastUserMakerNoteSize</a></code> functions to get the <a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a> application Maker Note.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

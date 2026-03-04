@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>ReadMessage</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/cec/Overview.html">cec</a>::<a href="../../../../nn/cec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/cec/CTR/MessageBox/Overview.html">MessageBox</a>::ReadMessage Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/Result/Overview.html">nn::Result</a> ReadMessage(
+     <a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a> & cecMessage,
+     void * buf,
+     const size_t bufLen,
+     const <a href="../../../../nn/cec/CTR/CecBoxType.html">CecBoxType</a> boxType,
+     const <a href="../../../../nn/cec/CTR/MessageId/Overview.html">MessageId</a> & messageId
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>cecMessage</th>
+          <td>Object of the <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code> class to which data is loaded.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>buf</th>
+          <td>Buffer that stores a <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code> binary array.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>bufLen</th>
+          <td>The buffer size.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>boxType</th>
+          <td>Inbox and outbox specification.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>messageId</th>
+          <td>Specifies the <a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a> ID.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns an <code><a href="../../../../nn/Result/Overview.html">nn::Result</a></code> value.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultStateBusy</th>
+          <td>Cannot access because the daemon is busy (<code>BUSY</code> state). It may succeed if you wait some time before accessing again.</td>
+        </tr>
+        <tr>
+          <th>ResultNotAuthorized</th>
+          <td>The box has not been opened.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidArgument</th>
+          <td>Could not read, because an incorrect argument was specified.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Reads a <code><a href="../../../../nn/cec/CTR/Message/Overview.html">Message</a></code>.</p><!-- write here --><h3>Error Handling</h3>The following simplified C++ code provides guidelines for error handling. <br /><pre>
+    nn::Result result = ReadMessage();
+    if(result.IsFailure())
+    {
+        if(result == nn::cec::ResultNotAuthorized())
+        {
+            // Box is not open.
+            //  --> OpenMessageBox
+        }
+        else if(result == nn::cec::ResultStateBusy() )
+        {
+            // Daemon is BUSY. This state usually does not occur, but it might be possible to succeed by retrying.
+        }
+        else if(result == nn::cec::ResultInvalidArgument() )
+        {
+            // Invalid parameter.
+        }
+        else
+        {
+            // Reading failed.
+        }
+        return result;  // Failure
+    }
+    return result;  // Success
+
+    </pre></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/01/19</dt>
+        <dd><item xmlns="">Added a description of error handling.</item><br />
+        </dd>
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

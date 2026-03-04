@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>PreloadErrEulaApplet</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/erreula/Overview.html">erreula</a>::<a href="../../../nn/erreula/CTR/Overview.html">CTR</a>::PreloadErrEulaApplet Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+void PreloadErrEulaApplet();
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+                None.
+               </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Preloads the error EULA <a href="../../../nn/applet/Overview.html">applet</a>. If you have preloaded the <a href="../../../nn/applet/Overview.html">applet</a>, use <code><a href="../../../nn/erreula/CTR/WaitForPreloadErrEulaApplet.html">WaitForPreloadErrEulaApplet</a></code> to wait for preloading to end, and then call <code><a href="../../../nn/erreula/CTR/StartErrEulaApplet.html">StartErrEulaApplet</a></code>.</p><p>Preloading the error EULA applet allows it to be started faster. <br /> If you do so, however, you must take the following into account.</p><p>Preloading is not complete after this function returns. <br /> After you use this function to preload the applet, you must always call either the <tt><a href="../../../nn/erreula/CTR/WaitForPreloadErrEulaApplet.html">nn::erreula::CTR::WaitForPreloadErrEulaApplet</a></tt> function or the <tt><a href="../../../nn/erreula/CTR/IsRegisteredErrEulaApplet.html">nn::erreula::CTR::IsRegisteredErrEulaApplet</a></tt> function to confirm that preloading has completed before calling the <tt><a href="../../../nn/erreula/CTR/StartErrEulaApplet.html">nn::erreula::CTR::StartErrEulaApplet</a></tt> function. </p><p>In addition, when a library applet other than the error EULA applet has been preloaded, you must cancel that preload before calling this function.</p><p>Applications must not be closed while the applet is preloaded.  If an application is preloaded, you must always call the <tt><a href="../../../nn/erreula/CTR/CancelPreloadErrEulaApplet.html">nn::erreula::CTR::CancelPreloadErrEulaApplet</a></tt> function to cancel the preload before closing the application. </p><p>Preloading of an applet can be canceled by calling <tt><a href="../../../nn/applet/CTR/ProcessHomeButton.html">nn::applet::CTR::ProcessHomeButton</a></tt> to move to the HOME Menu.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/08/04</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

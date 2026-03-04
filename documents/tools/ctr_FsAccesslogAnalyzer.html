@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        --></style>
+    <title>ctr_FsAccesslogAnalyzer</title>
+  </head>
+  <body>
+<h1>ctr_FsAccesslogAnalyzer</h1>
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        ctr_FsAccesslogAnalyzer is a tool for detecting what may be inefficient file access not intended by the developer and due to CTR file system properties, and so forth.<br /> In most cases, we recommend resolving the warnings given by this tool. However, if the file access in question is intended by the developer or if there is no problem in the access speed itself, warnings given by this tool do not necessarily need to be resolved.<br />
+      </p>
+      <p>
+        Also, this tool displays the following information in addition to warnings.
+        <ul>
+          <li>File access statistics</li>
+          <li>File access log format</li>
+        </ul>
+      </p>
+    </div>
+    <h2>How to Use</h2>
+    <div class="section">
+      <p>
+        <h3>Preparing for Use</h3>
+        <p>
+          Change the program so that the file access log is displayed.<br /> Call <CODE>nn::fs::SetAnalysisLog(true)</CODE> in the fs library in the development build, and then all file access information beginning from <font color="red"><CODE>[FS_ANALYSIS]</CODE></font> will be output to the log during file access.<br /> To stop log output, call <CODE>nn::fs::SetAnalysisLog(false)</CODE>.
+        </p>
+        <h3>How to Use</h3>
+        <p>
+          By passing the obtained log output results to the tool as standard input (as follows), the analysis results will be output as standard output. (You can also pipeline output from the debugger as input to the tool.)<br />
+
+<pre>
+        ctr_FsAccesslogAnalyzer32.exe &lt; input.txt
+</pre>
+
+          Strings other than the access log's can be contained in the log passed to this tool.
+        </p>
+        <h3>Notes</h3>
+        <p>
+        This tool does not support file access logs from CTR-SDK versions prior to 4.1.
+        </p>
+      </p>
+    </div>
+    <h2>Output Format</h2>
+    <div class="section">
+      <p>
+Output is displayed in the following order: file access statistics, warnings, and then the file access log format. <br />The formats for each are as follows.
+        <h3>File Access Statistics Format</h3>
+        <p>
+          File access statistics for each archive are displayed in the following format.
+        </p>
+
+<pre>
+Statistics
+	Archive name
+		Archive access statistic 1
+		Archive access statistic 2
+		Archive access statistic 3
+	Archive name
+		Archive access statistic 1
+		Archive access statistic 2
+		Archive access statistic 3
+</pre>
+
+        <p>
+          Supported archives:
+          <ul>
+            <li>RomFs<br />Access to the ROMFS archive</li>
+            <li>SaveData<br />Access to the save data archive</li>
+            <li>ExtSaveData<br />Access to the extended save data archive</li>
+            <li>Sdmc<br />Access to the SD card archive</li>
+          </ul>
+        </p>
+
+        <p>
+          Information displayed for each archive:
+          <ul>
+            <li>TotalReadSize<br />Total size of reads from archive</li>
+            <li>TotalReadCount<br />Number of reads from archive</li>
+            <li>MinReadSize<br />Minimum size of reads from archive (specified)</li>
+            <li>MaxReadSize<br />Maximum size of reads from archive (specified)</li>
+            <li>TotalWriteSize<br />Total size of writes to archive</li>
+            <li>TotalWriteCount<br />Number of writes to archive</li>
+            <li>MinWriteSize<br />Minimum size of writes to archive (specified)</li>
+            <li>MaxWriteSize<br />Maximum size of writes to archive (specified)</li>
+          </ul>
+        </p>
+        <h3>Warnings</h3>
+        <p>
+          The type of warning and the history for the accesses that caused the warning are displayed in the following format.
+        </p>
+<pre>
+Warnings
+	Types of warnings
+		File access history 1
+		File access history 2
+		File access history 3
+		File access history 4
+	Types of warnings
+		File access history 1
+		File access history 2
+</pre>
+
+        <p>
+          Types of warnings
+          <ul>
+            <li>FrequencyFlush<br /> The same file is being written and flushed a large number of times in a short period of time.<br />We recommend disabling flushing, write to a file, and then flushing only once.<br /> Also see <a href="../api/nn/fs/briefing/betterUsage.html">Improved Use of the File System</a>.
+            </li>
+            <li>FrequencySmallWrite<br /> A large number of small writes are being performed.<br />We recommend performing a single batch write, because there is an overhead associated with each write.<br /> Also see <a href="../api/nn/fs/briefing/betterUsage.html">Improved Use of the File System</a>.
+            </li>
+            <li>FrequencyOpenClose<br/ > The same file is being opened and closed a large number of times in a short period of time.
+            </li>
+            <li>FrequencyMountUnmount<br /> The same archive is being mounted and unmounted a large number of times in a short period of time.
+            </li>
+            <li>NotAlignedSequentialRead<br /> A buffer that is not 4-byte aligned is being passed to the file system.<br /> Alternatively, an archive is being accessed with a non-4-byte file offset.<br /> When boundaries are not aligned, the alignment is adjusted internally. This tends to decrease access speed.<br /> Misalignment is prone to occur while reading audio streaming playback data, which tends to cause skipping.<br />
+            </li>
+          </ul>
+        </p>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/26</dt>
+        <dd>Initial version.<br /></dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

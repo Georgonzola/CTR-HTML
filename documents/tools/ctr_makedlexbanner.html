@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ctr_makedlexbanner32</title>
+<style type="text/css">
+    <!--
+    body {
+    /*
+        font-size       : 10pt;
+    */
+        font-weight     : normal;
+        color           : #000000;
+        margin          : 8px;
+    }
+
+    div {
+        width           : 98%;
+        white-space     : nowrap;
+    }
+
+    div.title {
+        text-align      : left;
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        color           : #202020;
+        border-style    : double;
+        border-width    : 8px;
+        /* タイトルを囲む枠線の色を指定 */
+        border-color    : #CD202C;
+
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+
+        margin          : 4px;
+        padding         : 4px;
+    }
+    H1 {
+      font-size                 : 150%;
+      font-family               : Arial;
+      border-bottom-width       : 5px;
+      border-bottom-style       : solid;
+      border-bottom-color       : #CD202C;
+      padding-bottom            : 1px;
+      margin-bottom             : 20px;
+      letter-spacing            : normal;
+      font-weight               : bold;
+    }
+
+    h2 {
+        font-weight     : bold;
+    /*
+        font-size       : 16pt;
+    */
+        font-size       : 150%;
+        border-style    : none none solid double;
+        border-width    : 0px 0px 2px 8px;
+        /* 見出しの線の色を指定 */
+        border-color    : #CD202C;
+
+        /* RVLプラットフォーム系列 */
+    /*
+        border-color    : #34beed;
+    */
+
+        /* TWLプラットフォーム系列 */
+    /*
+        border-color    : #ff458f;
+    */
+
+        margin-left     : 2px;
+        padding-left    : 4px;
+    }
+    CODE {
+      font-family       : "Courier New", monospace;
+      position          : normal;
+      left              : 12px;
+      font-size         : 10pt;
+    }
+    table {
+      margin-top        : 2pt;
+      margin-bottom     : 2pt;
+      margin-left       : 0pt;
+      margin-right      : 0pt;
+      padding-left      : 0pt;
+      padding-right     : 0pt;
+      position          : relative;
+      left              : 12px;
+      font-family       : Arial;
+      font-size         : 10pt;
+      border-style      : none none none none;
+    }
+    td,th {
+      padding           : 2pt;
+      border-width      : 2pt;
+      border-style      : none none none none;
+      font-style        : normal;
+      text-align        : left;
+    }
+    td {
+      background        : #e8f4f4;
+      font-weight       : normal;
+    }
+    th {
+      background        : #c0d8d8;
+      font-weight       : bold;
+    }
+
+    p {
+        margin-left     : 4px;
+    }
+    p.code {
+      font-family       : "Courier New", monospace;
+      position          : normal;
+      left              : 12px;
+      font-size         : 10pt;
+      background        : #e8f4f4;
+    }
+
+    -->
+</style>
+
+</head>
+<body>
+<a name="top"></a>
+
+<h1>ctr_makedlexbanner</h1>
+
+<h1>Contents</h1>
+<ol>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#usage">How to Use</a></li>
+<li><a href="#sample">Sample Execution</a></li>
+<li><a href="#bug">Known Problems</a></li>
+<li><a href="#history">Revision History</a></li>
+</ol>
+
+
+
+<h2><a name="intro">Introduction</a></h2>
+<p><CODE>ctr_makedlexbanner32.exe</CODE> is a tool for generating the binary files that distribute downloadable contextual banners.</p>
+
+<h2><a name="usage">How to Use</a></h2>
+
+
+<h3>Commands</h3>
+
+
+<p class="code">
+    % ctr_makedlexbanner32.exe EXBNR_BIN_DIRECTORY_PATH [OUTPUT_FILE_NAME]<br />
+</p>
+<p class="first_ja">
+<B>Note:</B> Will not work without <CODE>ctr_makebannerarchive.dll</CODE>.<br />
+</p>
+
+<h3>EXBNR_BIN_DIRECTORY</h3>
+<p class="first_ja">
+You must specify <CODE>EXBNR_BIN_DIRECTORY_PATH</CODE>.<br />
+
+This specifies the directory where the BIN files created by <CODE>ctr_make_ex_banner32.exe</CODE> are collected.<br />
+
+Only the following filenames are valid within <CODE>EXBNR_BIN_DIRECTORY_PATH</CODE>.</p>
+<p class="code">
+COMMON.bin<br />
+CHN_CN.bin<br />
+EUR_EN.bin<br />
+EUR_FR.bin<br />
+EUR_GE.bin<br />
+EUR_IT.bin<br />
+EUR_SP.bin<br />
+EUR_DU.bin<br />
+EUR_PO.bin<br />
+EUR_RU.bin<br />
+JPN_JP.bin<br />
+KOR_KR.bin<br />
+TWN_TW.bin<br />
+USA_EN.bin<br />
+USA_FR.bin<br />
+USA_SP.bin<br />
+USA_PO.bin<br />
+</p>
+
+<p class="first_ja">
+Any other included files are ignored.<br /><br /> Not all languages need to be included, nor does <CODE>COMMON.bin</CODE> need to be included. <br />Specify either a relative path from the current directory or an absolute path.</p>
+
+<h3>OUTPUT_FILE_NAME</h3>
+<p class="first_ja">
+Specifies the output filename. If nothing is specified, then a file named <CODE>dlexbanner.bin</CODE> is output to the current directory.
+</p>
+
+
+
+
+<h2><a name="sample">Sample Execution</a></h2>
+
+Assume a folder structure configured as shown below.<br />
+
+<p class="code">
+DLExBanner　━┳━ ctr_makedlexbanner32.exe<br />
+　　　　　　　　┃<br />
+　　　　　　　　┣━ ctr_makebannerarchive.dll<br />
+　　　　　　　　┃<br />
+　　　　　　　　┗━ binfolder　━┳━ COMMON.bin<br />
+　　　　　　　　　　　　　　　　　　┣━ JPN_JP.bin<br />
+　　　　　　　　　　　　　　　　　　┣━ EUR_DU.bin<br />
+　　　　　　　　　　　　　　　　　　┗━ EUR_EN.bin<br />
+    </p>
+
+In the <CODE>./DLExBanner</CODE> folder, if we run the command
+<p class="code">
+    % ctr_makedlexbanner32.exe binfolder dlexbnr.bin
+</p>
+<p class="first_ja">
+then the file <CODE>./DLExBanner/dlexbnr.bin</CODE> is output as the execution result.<br />
+</p>
+
+<h2><a name="bug">Known Problems</a></h2>
+Under certain conditions, the HOME Menu freezes when textures are switched in contextual banners (including DL contextual banners) 
+
+<h3>Details</h3>
+<p>
+When textures that are referenced from multiple materials are switched in contextual banners, an internal memory leak occurs when that banner is displayed on the HOME Menu. <br /><br /> After another application is selected on the HOME Menu and another banner is displayed, the repeated operations attempting to display the banner with the texture replaced again ultimately result in the HOME Menu freezing.
+</p>
+
+<h3>Workaround</h3>
+<p>
+Do not switch textures that are referenced from multiple materials in contextual banners.
+</p>
+
+
+<h3>Verification Procedure</h3>
+<p>
+Display a contextual banner on the HOME Menu.<br />When data that would cause an error is used, an error message is displayed on the bottom portion of the upper screen.
+</p>
+
+<h2><a name="history">Revision History</a></h2>
+    <dl class="history">
+      <dt>2012/04/17</dt>
+<dd>Removed English from Taiwan/Hong Kong region.</dd>
+      <dt>2012/04/16</dt>
+<dd>Added Known Problems.</dd>
+      <dt>2011/12/02</dt>
+<dd>Added support for the Chinese, Korean, and Taiwan/Hong Kong regions.</dd>
+      <dt>2011/06/01</dt>
+<dd>Revised the manual.</dd>
+      <dt>2011/01/19</dt>
+<dd>Initial version.</dd>
+    </dl>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>AddFriendWithApproach</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::AddFriendWithApproach Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> AddFriendWithApproach(
+     <a href="../../../nn/os/Event/Overview.html">os::Event</a> * pEvent,
+     const <a href="../../../nnfriendsApproachContext/Overview.html">ApproachContext</a> & approachContext
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pEvent</th>
+          <td>Specifies a pointer to <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code>, which signals that asynchronous processing is complete. Initialize this event ahead of time, using the <code><a href="../../../nn/os/Event/Initialize.html">nn::os::Event::Initialize</a></code> function.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>approachContext</th>
+          <td>Specifies the approach context of the user to register as a friend.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates success.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>An invalid pointer was passed as an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidHandle</th>
+          <td>An invalid <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> handle was passed as an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>The friend presence library is not initialized.</td>
+        </tr>
+        <tr>
+          <th>ResultFriendNumMax</th>
+          <td>The friend list is full.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPreference</th>
+          <td>Not configured in the privacy settings for the friend list first-time startup sequence.</td>
+        </tr>
+        <tr>
+          <th>ResultAddFriendProhibited</th>
+          <td>Adding a friend is prohibited by Parental Controls.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPrincipalId</th>
+          <td>Attempted to register an approach context with the same principal ID as the local host.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Other results can be returned depending on the internal state of the daemon.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Adds a user that includes an approach context to the friend list.</p><p>If this function returns successfully, asynchronous processing begins. The event <code><a href="../../../nn/os/Event/Overview.html">nn::os::Event</a></code> specified in the argument is signaled when asynchronous processing completes. Call the <code><a href="../../../nn/friends/CTR/GetLastResponseResult.html">nn::friends::CTR::GetLastResponseResult</a></code> function to get the result of the asynchronous operation. If this function fails, no asynchronous processing occurs. <br /><br />
+ When this function completes successfully, the registered user becomes a local friend. <br /><br />
+ When using this function to add a friend, implement with a sequence so that both users must agree, and then each user is registered as a friend of the other user. <br /><br />
+ Before using this function, you must first call <code><a href="../../../nn/cfg/CTR/Initialize.html">nn::cfg::CTR::Initialize</a></code> to initialize the <code>CFG</code> library. <br /><br />
+ If you stop or restart the debugger immediately after a friend has been added, you might lose the content you just added. The same goes for transitioning from the card-removal screen to the HOME Menu on systems, including test (system) units. Wait around 15 seconds after adding a friend before conducting debugger operations. You do not need to take this into consideration when powering down systems the normal way or exiting applications.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/24</dt>
+        <dd><item xmlns="">Removed ResultMiiNotExists from the Return Values and added ResultInvalidPreference.</item><br />
+        </dd>
+        <dt>2012/03/12</dt>
+        <dd><item xmlns="">Added a note about removing cards.</item><br />
+        </dd>
+        <dt>2012/02/16</dt>
+        <dd><item xmlns="">Added a note about stopping and restarting the debugger.</item><br />
+        </dd>
+        <dt>2012/01/05</dt>
+        <dd><item xmlns="">Changed the text "offline friend" to "local friend."</item><br />
+        </dd>
+        <dt>2011/12/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

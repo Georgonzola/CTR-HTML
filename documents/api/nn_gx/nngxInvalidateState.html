@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>nngxInvalidateState</title>
+  </head>
+  <body>
+    <h1>nngxInvalidateState Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+NNGX_APICALL void NNGX_APIENTRY nngxInvalidateState(
+     GLbitfield statemask
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>statemask</th>
+          <td>State flag for which to disable updates.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Disables updates of the specified <code>DMPGL</code> state.</p><P>Disables updates for DMPGL states.</P><P><span class="argument">statemask</span> specifies a bitwise OR of the state flags to disable updates.</P><P>Call this function to prevent the related commands being generated when the states indicated by the state flags specified in <span class="argument">statemask</span> are updated.</P><P>You can input the following values in <span class="argument">statemask</span>.<TABLE><TR><th>NN_GX_STATE_SHADERBINARY</th><TD>The shader binary state. Commands are generated for loading shader assembler code.  This state is updated when the program is switched by a call to <tt>glUseProgram</tt> and each of the shader objects linked to the program object at the time of the switch are the ones loaded by individual calls to <tt>glShaderBinary</tt>.</TD></TR><TR><th>NN_GX_STATE_SHADERPROGRAM</th><TD>The shader program state. Commands are generated for configuring structure of vertex attributes, among other things.  This state is updated when the program object is switched by a call to <tt>glUseProgram</tt>.  Commands are generated only for registers where settings have been changed.  When validating this state, the system compares against the settings when last validated, and generates commands only for those settings that are different.</TD></TR><TR><th>NN_GX_STATE_SHADERMODE</th><TD>The shader mode state. Commands are generated for toggling whether to use the geometry shader.  This state is updated when switching between using and not using the geometry shader by a call to <tt>glUseProgram</tt>.</TD></TR><TR><th>NN_GX_STATE_SHADERFLOAT</th><TD>The shader floating-point state. Commands are generated for setting the floating-point registers for which values are defined by <tt>def</tt> commands in the shader assembler.  This state is updated when the program object is switched to a program object for which different shader object is attached by a call to <tt>glUseProgram</tt>.</TD></TR><TR><th>NN_GX_STATE_VSUNIFORM</th><TD>The vertex shader uniform state. Commands are generated for setting the floating-point, boolean, and integer registers that are defined as uniforms in the shader assembler.  This state is updated when the program object is switched by a call to <tt>glUseProgram</tt>, or when the vertex shader uniform values are set by a call to <tt>glUniform</tt>.  The floating-point register uniform state is updated even when the setting is not changed.  The integer register uniform state is not updated unless the setting is changed.</TD></TR><TR><th>NN_GX_STATE_FSUNIFORM</th><TD>The reserved fragment shader uniform state.  Commands are generated to set the registers for the reserved fragment shader uniform.  This state is updated when the uniform's values are changed, either when a program object is switched by a call to <tt>glUseProgram</tt>, or when the uniform values are changed in the fragment shader uniform setting by a call to <tt>glUniform</tt>.</TD></TR><TR><th>NN_GX_STATE_LUT</th><TD>The lookup table state. Commands are generated to set the lookup table.  This state is updated when the contents are changed of the lookup table bound by calls to <tt>glBindTexture</tt>, <tt>glTexImage1D</tt>, or <tt>glTexSubImage1D</tt>; when the bound lookup table object is deleted by a call to <tt>glDeleteTextures</tt>; or when the lookup table objects specified by the lookup table ID setting uniforms are changed by calls to <tt>glUseProgram</tt> or <tt>glUniform</tt>.</TD></TR><TR><th>NN_GX_STATE_TEXTURE</th><TD>The texture state. Commands are generated for the texture unit.  Procedural textures are excluded.  This state is updated when <tt>glBindTexture</tt>, <tt>glTexImage2D</tt>, <tt>glCompressedTexImage2D</tt>, <tt>glCopyTexImage2D</tt>, <tt>glCopyTexSubImage2D</tt>, or <tt>glTexParameter</tt> are called; when the texture object in use is deleted by a call to <tt>glDeleteTextures</tt>; or when the reserved fragment shader uniform <tt>dmp_Texture[i].samplerType</tt> is changed by a call to <tt>glUseProgram</tt> or <tt>glUniform</tt>.</TD></TR><TR><th>NN_GX_STATE_FRAMEBUFFER</th><TD>The framebuffer buffer data state.  Commands are generated for the framebuffer format and buffer address.  This state is updated when <tt>glBindFramebuffer</tt>, <tt>glBindFramebufferRenderbuffer</tt>, <tt>glFramebufferTexture2D</tt>, <tt>glDeleteFramebuffers</tt>,  <tt>glBindRenderbuffer</tt>, <tt>glRenderbufferStorage</tt>, or <tt>glDeleteRenderbuffers</tt> are called.</TD></TR><TR><th>NN_GX_STATE_VERTEX</th><TD>The vertex attribute data state. Commands are generated for the vertex attribute data.  This state is updated when <tt>glBindBuffer</tt>, <tt>glBufferData</tt>, <tt>glBufferSubData</tt>, <tt>glEnableVertexAttribArray</tt>, <tt>glDisableVertexAttribArray</tt>, <tt>glVertexAttribPointer</tt>, <tt>glVertexAttrib</tt>, or <tt>glUseProgram</tt> are called; or when the current vertex buffer is deleted by a call to <tt>glDeleteBuffers</tt>.</TD></TR><TR><th>NN_GX_STATE_TRIOFFSET</th><TD>The polygon offset state. Commands are generated for the polygon offset.  This state is updated when the <tt>GL_POLYGON_OFFSET_FILL</tt> setting is changed by calls to <tt>glEnable</tt> or <tt>glDisable</tt>; when settings are changed by calls to <tt>glDepthRangef</tt> or <tt>glPolygonOffset</tt>; or when <tt>glUseProgram</tt> is called.</TD></TR><TR><th>NN_GX_STATE_FBACCESS</th><TD>The framebuffer access method state. Commands are generated for the framebuffer read/write and other access method.  This state is updated when the <tt>GL_COLOR_LOGIC_OP</tt>, <tt>GL_BLEND</tt>, <tt>GL_DEPTH_TEST</tt>, <tt>GL_EARLY_DEPTH_TEST_DMP</tt>, or <tt>GL_STENCIL_TEST</tt> settings are changed by calls to <tt>glEnable</tt> or <tt>glDisable</tt>; when settings are changed by calls to <tt>glDepthFunc</tt>, <tt>glEarlyDepthFuncDMP</tt>, <tt>glColorMask</tt>, <tt>glDepthMask</tt>, or <tt>glStencilMask</tt>; or when reserved fragment shader uniform <tt>dmp_FragOperation.mode</tt> is set by a call to <tt>glUniform</tt>.</TD></TR><TR><th>NN_GX_STATE_SCISSOR</th><TD>The scissoring state. Commands are generated for scissoring settings.  This state is updated when the <tt>GL_SCISSOR_TEST</tt> setting is changed by calls to <tt>glEnable</tt> or <tt>glDisable</tt>; when settings are changed by calls to <tt>glScissor</tt>; or when the framebuffer size is changed when scissoring is enabled.</TD></TR><TR><th>NN_GX_STATE_OTHERS</th><TD>This state flag concerns commands generated by functions other than <tt>glDrawElements</tt> or <tt>glDrawArrays</tt>.  See <b>DMPGL Functions that Generate Commands</b> for reference.</TD></TR><TR><th>NN_GX_STATE_ALL</th><TD>The bitwise AND of all the above <span class="argument">statemask</span> values.</TD></TR></TABLE></P><P>This function does not generate any errors.</P></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../nn_gx/nngxValidateState.html">nngxValidateState</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/04</dt>
+        <dd><item xmlns="">Added See Also section.</item><br />
+        </dd>
+        <dt>2011/08/19</dt>
+        <dd><item xmlns="">Added details about the statemask parameter.</item><br />
+        </dd>
+        <dt>2010/07/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

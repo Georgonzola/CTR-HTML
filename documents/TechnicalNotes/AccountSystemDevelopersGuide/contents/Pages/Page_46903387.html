@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<script type="text/javascript" src="../template/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../template/js/jquery/thickbox3.js"></script>
+<script type="text/javascript" src="../template/js/jquery/swfobject.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/thickbox.css" />
+<script type="text/javascript" src="../template/js/common/manualLib.js"></script>
+<script type="text/javascript" src="../tocData.js"></script>
+<link rel="stylesheet" type="text/css" href="../template/css/template.css" />
+<title>4. Using From the Application</title>
+</head>
+<body data-reassemble="autoindex=no,forceNoLabel=yes,autoindextab=fold">
+<div id="autoindex_content">
+<div class="body_content">
+<noscript>
+<div style="border: 4 double black; margin: 4px; padding: 2px; font-weight: bold; background-color: FFFFCC;">
+<p>Some features in this documentation are unavailable because JavaScript is not enabled in your browser.</p>
+<p>The table of contents is available only if JavaScript is enabled. Enable JavaScript and reload this page.</p>
+</div>
+</noscript>
+
+<!-- 4. アプリケーションからの利用 -->
+<div class="pagetitle" id="PageId_46903387">4. Using From the Application</div>
+<div class="text">
+
+<!-- 4.1. 開発環境　 -->
+<h1 class="general" id="PageId_46903390">4.1. Development Environment</h1>
+<div class="text">
+
+<!-- 4.1.1. ライブラリ -->
+<h2 class="general" id="PageId_46903425">4.1.1. Library</h2>
+<div class="text">
+<!--Remove-->
+<div class="platform_CTR">
+  <p>
+    <a name="Anchor_46903425_CTR_Only"></a>
+  </p>
+<p>The account library bundled with the CTR-SDK provides the following primitive features.</p>
+</div>
+<ul>
+<li>Get IDs for identifying accounts.</li>
+<li>Get basic information registered in a Nintendo Network account.</li>
+<li>Authenticate users based on information registered in Nintendo Network accounts.</li>
+</ul>
+<p>Other account-related features are provided by separate libraries and independent applications.</p>
+<!--Remove-->
+<div class="platform_CTR">
+  <p>
+    <a name="Anchor_46903425_CTR_Only"></a>
+  </p>
+  <ul>
+<li>E-Commerce: Nintendo eShop (Application)</li>
+<li>Miiverse Features: OLV Library</li>
+  </ul>
+</div>
+<p>For more information, see the documentation for each feature or the library reference.</p>
+</div>
+
+<!-- 4.1.2. サーバー環境 -->
+<h2 class="general" id="PageId_46903406">4.1.2. Server Environments</h2>
+<div class="text">
+<p>The following account server environments are available.</p>
+<ul>
+<li>Development environment</li>
+<li>Production environment</li>
+<li>Lotcheck environment</li>
+</ul>
+<p>Normally, the CTR connects to a development environment account server for development hardware and to a production environment account server for retail hardware. A Lotcheck environment is used for testing by Nintendo during Lotcheck and at other times.</p>
+<p>Each environment is independent of the others. For instance, you cannot use a Nintendo network account created in the production environment on retail hardware from development hardware that connects to the development environment.</p>
+<!--Remove-->
+<p>
+  <a name="Anchor_46903406_CTR_Only"></a>
+</p>
+<div class="platform_CTR">
+<p>In addition, there is a chance that principal IDs and account IDs may be duplicated across environments because the ID space differs for each environment. However, Nintendo designed the software to prevent interactions between duplicate IDs. Servers that provide Nintendo services such as management at the account level have been split into separate account server environments. Applications do not need to keep track of the environment they connect to as long as you use a server provided by Nintendo.</p>
+</div>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>There are currently no naming conventions for account IDs in the development environment. If a generated ID conflicts with other developers, get and use a different account IDt.</p>
+  </div>
+</div>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>To prevent leaks of development information, email messages are only sent from the account server to email addresses registered on that server in the production environment. Note that when you register an account, a message saying that a confirmation email has been sent is displayed on the screen. If the email address verification process is not completed, a message prompting the user to confirm the email address may be displayed when the corresponding account is used to get a service token. To get rid of this message, log in to your account on the Account Developer Portal and edit the account settings such that the email address verification process is treated as complete.</p>
+  </div>
+</div>
+<div class="notice">
+<div class="notice_left"><B>Note:</B></div>
+  <div class="notice_right">
+<p>Nintendo may delete accounts generated in the development environment that have not been used for one year or more. Please make a note of this.</p>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- 4.2. ユーザー情報の取得と利用 -->
+<h1 class="general" id="PageId_47814656">4.2. Getting and Using User Information</h1>
+<div class="text">
+<p>Applications can use the account library to obtain a subset of the user information registered in system accounts and Nintendo Network accounts.</p>
+<p>A subset of the user information in a Nintendo Network account is cached on the CTR system. You can get this information without connecting to the Nintendo Network account server each time. You can also get information for other accounts in the same system. The system updates the cache automatically.</p>
+<p>You can get some information directly from the account server, even if it is not cached on the CTR system. However, you must connect to the network and authenticate before getting user information from the account server.</p>
+<p>
+  <a name="Anchor_47814656_WiiU"></a>
+</p>
+<!--Remove-->
+<p>
+  <a name="Anchor_47814656_CTR"></a>
+</p>
+<div class="platform_CTR">
+<p>Although the application cannot update user information, users can update a subset of their information by such means as using the Nintendo Network ID Settings application in System Settings. Some of the information registered on the Nintendo Network may also be changed for operational reasons, even if the user cannot change it. If your application uses user information, you must keep track of each of these factors that could change the information. However, it is not always necessary to make strictly sure that you are using the latest user information.</p>
+</div>
+<p>
+  <a name="Anchor_47814656_WiiU"></a>
+</p>
+<!--Remove-->
+<p>
+  <a name="Anchor_47814656_CTR"></a>
+</p>
+<div class="platform_CTR">
+  <div class="table">
+<a name="AutoAnchor_47814656_table002"></a>Table 4-1. Getting User Information</div>
+  <table class="table">
+    <tbody>
+      <tr>
+<th>Item</th>
+<th>Get From Local System</th>
+<th>Get From Server</th>
+<th colspan="1">Update</th>
+      </tr>
+      <tr>
+<td colspan="1">Account ID</td>
+<td colspan="1">Possible</td>
+<td colspan="1">Impossible</td>
+<td colspan="1">Yes</td>
+      </tr>
+      <tr>
+<td>Principal ID</td>
+<td>Possible</td>
+<td>Impossible</td>
+<td colspan="1">None</td>
+      </tr>
+      <tr>
+<td>Password</td>
+<td>Impossible</td>
+<td>Impossible</td>
+<td colspan="1">Yes</td>
+      </tr>
+      <tr>
+<td colspan="1">Email Address</td>
+<td colspan="1">Impossible</td>
+        <td colspan="1">※1</td>
+<td colspan="1">Yes</td>
+      </tr>
+      <tr>
+<td colspan="1">Date of Birth</td>
+        <td colspan="1">※1</td>
+<td colspan="1">Impossible</td>
+<td colspan="1">Yes</td>
+      </tr>
+      <tr>
+<td colspan="1">Age</td>
+        <td colspan="1">※2</td>
+<td colspan="1">Impossible</td>
+<td colspan="1">Yes</td>
+      </tr>
+      <tr>
+<td colspan="1">Country of Residence</td>
+<td colspan="1">Possible</td>
+<td colspan="1">Impossible</td>
+<td colspan="1">None</td>
+      </tr>
+      <tr>
+<td colspan="1">Region of Residence</td>
+<td colspan="1">Possible</td>
+<td colspan="1">Impossible</td>
+<td colspan="1">Yes</td>
+      </tr>
+      <tr>
+<td colspan="1">Time Zone</td>
+<td colspan="1">Possible</td>
+<td colspan="1">Impossible</td>
+<td colspan="1">Yes</td>
+      </tr>
+      <tr>
+<td colspan="1">Time Offset</td>
+<td colspan="1">Possible</td>
+<td colspan="1">Impossible</td>
+<td colspan="1">Yes</td>
+      </tr>
+      <tr>
+<td>Gender</td>
+        <td>※1</td>
+<td>Impossible</td>
+        <td>
+<p>Yes</p>
+        </td>
+      </tr>
+      <tr>
+<td>Mii Characters</td>
+        <td>※3</td>
+<td>Impossible</td>
+<td>Yes</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+<li>※1: Contact Nintendo support if you want access to this information.</li>
+<li>※2: It can only be used to determine whether the user is at least as old as the specified age.</li>
+<li>※3: Cannot get from the account library. The account's Mii and the Personal Mii are synced. Get the Personal Mii from the friend library or the face library instead.</li>
+  </ul>
+</div>
+
+<!-- 4.2.1. アカウントの識別 -->
+<h2 class="general" id="PageId_47814663">4.2.1. Identifying Accounts</h2>
+<div class="text">
+<p>You can identify accounts on the CTR system by their Mii characters and several different ID values.</p>
+
+<!-- 4.2.1.1. アカウントの ID -->
+<h3 class="general" id="PageId_47814670">4.2.1.1. Account IDs</h3>
+<div class="text">
+<p>When a system account is created, the following IDs are assigned to it.</p>
+<ul>
+  <li>
+<strong>UUID</strong>: A 128-bit ID that conforms to the version 1 Universally Unique Identifier (UUID) specification, and is likely to be globally unique.</li>
+</ul>
+<p>If you associate an account with a Nintendo Network account, the following additional IDs become available.</p>
+<ul>
+  <li>
+<B>Principal ID</B>A 32-bit globally unique ID assigned when the Nintendo Network account was created. It cannot be changed.</li>
+  <li>
+<B>Account ID</B>A string between 6 and 16 characters in length that a user enters and registers when creating a Nintendo Network account. The string can consist of uppercase and lowercase letters; numbers; and hyphens (&quot;-&quot;), periods (&quot;.&quot;), and underscores (&quot;_&quot;). These IDs are globally unique, and users cannot change them at will. However, they may be changed for operational reasons. Use the principal ID if you want to permanently refer to a single user.</li>
+</ul>
+<p>For more information about Nintendo Network account IDs, see the separate specifications (mentioned previously).</p>
+<div class="warning">
+<div class="warning_left"><B>Note:</B></div>
+  <div class="warning_right">
+<span>This principal ID <B>is different</B> from the principal ID managed by the Friend Presence library.</span>
+  </div>
+</div>
+<div class="warning">
+<div class="warning_left"><B>Note:</B></div>
+  <div class="warning_right">
+    <p>
+<span>Displaying a UUID or principal ID directly in an application is prohibited. To distinguish users, display Mii faces and names, and account IDs.</span>
+    </p>
+  </div>
+</div>
+<div class="warning">
+<div class="warning_left"><B>Note:</B></div>
+  <div class="warning_right">
+    <p>
+<span>The Nintendo Network system does not distinguish between uppercase and lowercase characters when comparing account IDs. Even inside your applications, ignore uppercase and lowercase differences when comparing account IDs.</span>
+    </p>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 4.3. ニンテンドーネットワークアカウントによる認証 -->
+<h1 class="general" id="PageId_47814678">4.3. Authenticating Using Nintendo Network Accounts</h1>
+<div class="text">
+<p>To use the network features provided by an application, a user must first authenticate with the Nintendo Network account server.</p>
+
+<!-- 4.3.1. 認証による保証 -->
+<h2 class="general" id="PageId_47814681">4.3.1. Guarantees of Authentication</h2>
+<div class="text">
+<p>Going through the authentication process on the account server guarantees the following.</p>
+
+<!-- 4.3.1.1. COPPA への対応　 -->
+<h3 class="general" id="PageId_47814687">4.3.1.1. COPPA Compliance</h3>
+<div class="text">
+<p>In the United States and Canada, a parental-consent procedure is required before children under 13 can create a Nintendo Network account. The account is not issued until the parental consent has been confirmed. If the user is using a Nintendo Network account, Nintendo guarantees that the user is 13 or older or is under 13 and has obtained parental consent.</p>
+<div class="warning">
+<div class="warning_left"><B>Note:</B></div>
+  <div class="warning_right">
+<p>The only way for a user to accept a EULA or to obtain parental consent on the CTR system is by exchanging information with a Nintendo server. If your application uses an independent server, you must implement your own EULA and COPPA support separately. For more information, see the guidelines for independent servers.</p>
+  </div>
+</div>
+</div>
+
+<!-- 4.3.1.2. サービス終了への対応 -->
+<h3 class="general" id="PageId_47814691">4.3.1.2. Support for Discontinued Services</h3>
+<div class="text">
+<div class="wiki-content">
+<p>If a user attempts to authenticate with a network service that has been discontinued, the server returns a response stating that the service was discontinued during the authentication phase. You can specify separately for each network service whether it is discontinued.</p>
+<p>Nintendo performs the setting that configures a service as discontinued. Contact Nintendo support if you want to discontinue a network service.</p>
+</div>
+</div>
+
+<!-- 4.3.1.3. システムおよびアプリケーションバージョン -->
+<h3 class="general" id="PageId_47814694">4.3.1.3. System and Application Versions</h3>
+<div class="text">
+<p>Authentication also fails if the version of the CTR system or currently running application is not the minimum required version.</p>
+<p>Nintendo manages and updates the required version for the system.</p>
+<p>Contact Nintendo if you want to specify a required version for your application. Nintendo does not automatically increment the required version for each release of an application patch.</p>
+</div>
+
+<!-- 4.3.1.4. パスワードによる本人確認 -->
+<h3 class="general" id="PageId_47814699">4.3.1.4. Password-Based Identification</h3>
+<div class="text">
+<p>The system validates the password entered by the user.</p>
+<p>A password used for authentication is requested when the application accepts a Nintendo Network account service (which would primarily be the getting of a service token) and the validation period for the Nintendo Network account maintained within the CTR has expired (or when no authentication has yet occurred since the system was started). If you set the CTR to remember the password in the Nintendo Network ID Settings application or the Login Applet, authentication occurs with the remembered password.</p>
+</div>
+
+<!-- 4.3.1.5. 居住国設定の一致 -->
+<h3 class="general" id="PageId_47814702">4.3.1.5. Matching the Country of Residence</h3>
+<div class="text">
+<p>The handling of EULA acceptance and COPPA support is based on the country of residence setting in the Nintendo Network account. Authentication fails if the country of residence setting on the CTR system does not match that of the Nintendo Network account.</p>
+<p>It is not possible to change the country of residence of the Nintendo Network account. To pass authentication, the country of residence setting on the CTR system must be configured to be the same as the Nintendo Network account.</p>
+</div>
+
+<!-- 4.3.1.6. 最新の EULA への同意 -->
+<h3 class="general" id="PageId_47814705">4.3.1.6. Accepting the Latest EULA</h3>
+<div class="text">
+<p>The system verifies whether the user has accepted the latest Nintendo End-User License Agreement (EULA). If the EULA has been updated, authentication does not succeed until the user accepts the latest version.</p>
+</div>
+
+<!-- 4.3.1.7. 利用停止措置への対応 -->
+<h3 class="general" id="PageId_47814707">4.3.1.7. Support for Banning</h3>
+<div class="text">
+<p>A user's access to network services may be blocked if the user repeatedly engages in illicit actions or offensive speech. (This is referred to as <I>banning</I>.) A user cannot authenticate a Nintendo Network account while this block is in effect.</p>
+<p>Bans can be set by scope or period of access.</p>
+<ul>
+<li>Scope (service)<ul><li>All Nintendo Network services</li><li>Individual service only</li></ul></li>
+<li>Scope (user)<ul><li>Account level</li><li>Console level</li></ul></li>
+<li>Period<ul><li>Unlimited</li><li>Specified period</li></ul></li>
+</ul>
+<p>Only Nintendo can ban a user from all Nintendo Network services, but licensees can ban users from specific services by using the Ban Management System (BMAS).</p>
+<p>An operator can lift a ban from a user even if the ban period has not yet expired.</p>
+<p></p>
+</div>
+</div>
+
+<!-- 4.3.2. アプリケーションで必要な対応 -->
+<h2 class="general" id="PageId_47814713">4.3.2. Support Required of the Application</h2>
+<div class="text">
+
+<!-- 4.3.2.1. サービストークンの取得 -->
+<h3 class="general" id="PageId_48706870">4.3.2.1 Getting a Service Token</h3>
+<div class="text">
+<p>The application must get service tokens to use the OLV library and to communicate with independent servers. The Login Applet is used to get service tokens. The Login Applet takes care of processes needed for account authentication like password entry and token acquisition, so there is no need for the application to handle password entry and management on its side.</p>
+<p>For more information about token acquisition with the OLV and NEX libraries, see the manuals for those libraries.</p>
+</div>
+
+<!-- 4.3.2.2. ニンテンドーネットワークIDが必須となるアプリケーションの対応 -->
+<h3 class="general" id="PageId_48706891">4.3.2.2. Supporting Applications That Require the Nintendo Network ID</h3>
+<div class="text">
+<p>For applications that provide features that can only be used when a Nintendo Network ID is registered, display the following messages so that the user knows how to use the relevant features.</p>
+<p style="margin-left: 54.0px;">You have yet to register a Nintendo Network ID to this Nintendo 3DS.</p>
+<p style="margin-left: 54.0px;">To do so, use the Nintendo Network ID Settings application in the System Settings.</p>
+<p>These messages will be added as error messages. For consistency's sake, we recommend that you display these messages.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

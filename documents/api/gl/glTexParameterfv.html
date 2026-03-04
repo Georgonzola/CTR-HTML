@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glTexParameterfv</title>
+  </head>
+  <body>
+    <h1>glTexParameterfv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glTexParameterfv(
+     GLenum target,
+     GLenum pname,
+     const GLfloat * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>target</th>
+          <td>Texture target.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>params</th>
+          <td>Array that stores the values to set for the parameters.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets an array of texture parameter values as <code>GLfloat</code>-type values.</p><P>You can set <span class="argument">target</span> to the following values.<TABLE><TR><TH>GL_TEXTURE_2D</TH><TD>2D texture.</TD></TR><TR><TH>GL_TEXTURE_CUBE_MAP</TH><TD>Cube-map texture.</TD></TR></TABLE><!-- source targetにはGL_TEXTURE_2D、GL_TEXTURE_CUBE_MAPを指定します。 --></P><P>Set <span class="argument">pname</span> to one of the following values.<TABLE><TR><TH>GL_TEXTURE_BORDER_COLOR</TH><TD>Specifies the texture border color using 4 elements. </TD></TR><TR><TH>GL_TEXTURE_LOD_BIAS</TH><TD>Specifies the texture LOD bias. Set <span class="argument">params[0]</span> to a value in the range <tt>from -16 to 16</tt>.</TD></TR></TABLE><!-- source pnameにはGL_TEXTURE_BORDER_COLOR、GL_TEXTURE_LOD_BIASが指定できます。 GL_TEXTURE_BORDER_COLORはテクスチャボーダーカラーを4要素で指定します。 GL_TEXTURE_LOD_BIASはテクスチャLODバイアスを指定します。このときparams[0]は[-16,16]の範囲内の値を指定します。 --> You can also specify parameters that can be specified with <tt>glTexParameteriv</tt>.</P><P>This function generates the following errors.<TABLE><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">target</span> or <span class="argument">pname</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">param</span> parameter was set to an invalid value.</TD></TR></TABLE><!-- source target、pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 paramに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

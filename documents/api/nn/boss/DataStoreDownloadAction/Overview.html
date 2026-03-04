@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::boss::DataStoreDownloadAction</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::DataStoreDownloadAction Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class DataStoreDownloadAction : public <a href="../../../nn/boss/TaskAction/Overview.html">nn::boss::TaskAction</a></pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for representing DataStore download tasks. Use this class to do such things as register DataStore download tasks. <emphasis>DataStore</emphasis> is one of the NEX library data storage features. It can upload data to and download data from storage, and it also allows users to exchange data. <br />
+ (For more information, see the documentation in the NEX library.) ) <br />
+ BOSS DataStore tasks are provided for by using these DataStore features via BOSS (SpotPass). <br />
+ You can use BOSS DataStore tasks for DataStore uploads and downloads even when your application is not running (when the system is in Sleep Mode, for example). <br />
+ A DataStore download task records information for the data it has downloaded so that the next time it is run, it will only download updated data (data that has not been downloaded before). <br />
+ The downloaded data is saved in BOSS storage in the NSD format. <br />
+ As a result, to read data use functions (such as <code><a href="../../../nn/boss/NsData/Overview.html">nn::boss::NsData</a></code>) that are similar to the (NSD) data downloaded by the NADL task. Just as for data downloaded by an NADL task, old data (with earlier serial IDs) is deleted automatically when BOSS storage is full. <br />
+ After being configured by the <code><a href="../../../nn/boss/DataStoreDownloadAction/SetNewsPublication.html">SetNewsPublication</a></code> function, a notification is issued when updated data is downloaded. <br /></p><!-- write here --></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreDownloadAction/DataStoreDownloadAction.html">DataStoreDownloadAction</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreDownloadAction/~DataStoreDownloadAction.html">~DataStoreDownloadAction</a>
+            </th>
+            <td>Destructor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreDownloadAction/Initialize.html">Initialize</a>
+            </th>
+            <td>Configures DataStore download tasks. Even if the <code><a href="../../../nn/boss/DataStoreDownloadAction/Initialize.html">DataStoreDownloadAction::Initialize</a></code> function has already been run on an object, this function can be run again to allow the object to be reused.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreDownloadAction/SetNewsPublication.html">SetNewsPublication</a>
+            </th>
+            <td>Configures how a notification is issued. <br /><br />
+ The notification to be issued must have a subject and text that comply with the <emphasis>3DS Guidelines</emphasis>. <br />
+ Use the serial IDs issued by Nintendo for these types of notifications when you specify values for this function's <emphasis>serialId</emphasis> parameter. <br />
+ Apply for DataStore notifications on OMAS. <br /><br />
+ The <emphasis>jumpParam</emphasis> parameter can be used starting at SDK 4.1.0 or later. If the value will be used in the destination application, put it in an 8-byte array. <br />
+ The specified value can be obtained with <code><a href="../../../nn/news/CTR/user/IsFromNewsList.html">nn::news::CTR::user::IsFromNewsList</a></code> in the destination application. <br />
+ If the value will not be used in the destination application, the specified value is meaningless and can be set to any number (for example, an 8-byte array filled with 0s). <br /></td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreDownloadAction/ClearNewsPublication.html">ClearNewsPublication</a>
+            </th>
+            <td>Clears all settings used when issuing notification data.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/boss/DataStoreDownloadAction/GetProperty.html">GetProperty</a>
+            </th>
+            <td>Gets a property value from the class. It can be used for the following properties. Call this function after allocating memory for the description's data type. <br />
+ [Identifier: Description]<br /><code>ACTION_CODE</code>: Code for the task type. The data type is <code>Action</code>. <br /><code>ACTION_FILEDESC</code>: File descriptor type. The data type is <code>FileDescriptor</code>. <br /><code>ACTION_DATASTORE_GAME_ID</code>: ID used to identify the game server. The data type is <code>u32</code>. <br /><code>ACTION_DATASTORE_ACCESS_KEY</code>: Key used to access the game server. The data type is <code>wchar_t[MAX_ACCESS_KEY_LENGTH]</code>. <br /><code>ACTION_DATASTORE_DOWNLOAD_NEWS_SUBJECT</code>: Notification data subject title. The data type is <code>wchar_t[MAX_NEWS_SUBJECT_LENGTH</code>]. <br /><code>ACTION_DATASTORE_DOWNLOAD_NEWS_MESSAGE</code>: Notification data body. The data type is <code>wchar_t[MAX_NEWS_MESSAGE_LENGTH</code>]. <br /><code>ACTION_DATASTORE_DOWNLOAD_NEWS_JUMP_PARAM</code>: Notification data jump general-purpose parameters. The data type is <code>u8[MAX_NEWS_PARAM]</code>. <br /><code>ACTION_DATASTORE_DOWNLOAD_NEWS_MODE</code>: Indicates whether notification data has been issued. The data type is <code>NewsMode</code>. <br /><code>ACTION_DATASTORE_DOWNLOAD_NEWS_SERIAL_ID</code>: Notification data serial ID. The data type is <code>bit 32</code>. <br /></td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy"><a href="../../../nn/boss/TaskActionBase/Overview.html">nn::boss::TaskActionBase</a><br />&nbsp;&nbsp;<a href="../../../nn/boss/TaskAction/Overview.html">nn::boss::TaskAction</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<b>nn::boss::DataStoreDownloadAction</b>
+      </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

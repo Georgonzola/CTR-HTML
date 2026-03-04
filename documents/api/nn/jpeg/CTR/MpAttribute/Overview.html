@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::jpeg::CTR::MpAttribute</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::MpAttribute Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct MpAttribute
+{
+   bool isMpfVersionValid;
+   bool isMpIndividualNumValid;
+   bool isPanOrientationValid;
+   bool isPanOverlapHValid;
+   bool isPanOverlapVValid;
+   bool isBaseViewpointNumValid;
+   bool isConvergenceAngleValid;
+   bool isBaselineLengthValid;
+   bool isVerticalDivergenceValid;
+   bool isAxisDistanceXValid;
+   bool isAxisDistanceYValid;
+   bool isAxisDistanceZValid;
+   bool isYawAngleValid;
+   bool isPitchAngleValid;
+   bool isRollAngleValid;
+   <a href="../../../../nn_types/u8.html">u8</a> reserved[1];
+   <a href="../../../../nn_types/u8.html">u8</a> mpfVersion[MPF_VERSION_SIZE];
+   <a href="../../../../nn_types/u32.html">u32</a> mpIndividualNum;
+   <a href="../../../../nn_types/u32.html">u32</a> panOrientation;
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> panOverlapH;
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> panOverlapV;
+   <a href="../../../../nn_types/u32.html">u32</a> baseViewpointNum;
+   <a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a> convergenceAngle;
+   <a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a> baselineLength;
+   <a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a> verticalDivergence;
+   <a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a> axisDistanceX;
+   <a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a> axisDistanceY;
+   <a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a> axisDistanceZ;
+   <a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a> yawAngle;
+   <a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a> pitchAngle;
+   <a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a> rollAngle;
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Structure holding the MP Attribute IFD in a format easily processed by the library. The MP Attribute IFD is included in the data stored in MP format.</p><p>Initialize this (get its information) using the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpAttribute.html">JpegMpDecoder::GetMpAttribute</a></code> function.</p><!-- write here --></div>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isMpfVersionValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the MP format version is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isMpIndividualNumValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the individual image number is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isPanOrientationValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the panorama image placement is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isPanOverlapHValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the horizontal overlap is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isPanOverlapVValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the vertical overlap is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isBaseViewpointNumValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the base viewpoint number is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isConvergenceAngleValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the convergence angle is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isBaselineLengthValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the baseline length is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isVerticalDivergenceValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the vertical divergence is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isAxisDistanceXValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the horizontal (x-axis) distance is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isAxisDistanceYValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the vertical (y-axis) distance is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isAxisDistanceZValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the line-of-sight (z-axis) distance is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isYawAngleValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the yaw angle is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isPitchAngleValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the pitch angle is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">isRollAngleValid</span>
+            </th>
+            <td width="100">bool</td>
+            <td>Whether the roll angle is valid.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">reserved</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>Reserved (ignored).</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">mpfVersion</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>MP format version.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">mpIndividualNum</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>Individual image number.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">panOrientation</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>Panorama image placement.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">panOverlapH</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Horizontal overlap.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">panOverlapV</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Vertical overlap.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">baseViewpointNum</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u32.html">u32</a></td>
+            <td>Base viewpoint number.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">convergenceAngle</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a></td>
+            <td>Convergence angle.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">baselineLength</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Rational/Overview.html">Rational</a></td>
+            <td>Baseline length.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">verticalDivergence</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a></td>
+            <td>Vertical divergence.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">axisDistanceX</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a></td>
+            <td>Horizontal (x-axis) distance.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">axisDistanceY</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a></td>
+            <td>Vertical (y-axis) distance.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">axisDistanceZ</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a></td>
+            <td>Line-of-sight (z-axis) distance.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">yawAngle</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a></td>
+            <td>Yaw angle.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">pitchAngle</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a></td>
+            <td>Pitch angle.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">rollAngle</span>
+            </th>
+            <td width="100"><a href="../../../../nn/jpeg/CTR/Srational/Overview.html">Srational</a></td>
+            <td>Roll angle.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>WaitForRegister</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::WaitForRegister Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool WaitForRegister(
+     <a href="../../../nn/applet/CTR/AppletId.html">AppletId</a> appletId,
+     <a href="../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> span = NN_APPLET_WAIT_INFINITE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>appletId</th>
+          <td>The <a href="../../../nn/applet/Overview.html">applet</a> ID.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>span</th>
+          <td>Maximum wait time.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if the <a href="../../../nn/applet/Overview.html">applet</a> with the specified ID is registered; otherwise returns <code>false</code>. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Waits for the <a href="../../../nn/applet/Overview.html">applet</a> with the specified ID to be registered.</p><P>The amount of time to wait can be specified using the argument <span class="argument">span</span>.</P><P>If you specify a time, the function returns <tt>true</tt> if the Applet is already registered or if it is registered within that specified time; otherwise, it returns <tt>false</tt>.</P><P>If <tt>NN_APPLET_WAIT_INFINITE</tt> is specified in <span class="argument">span</span>, the function waits until the Applet is registered. The return value in this case is always <tt>true</tt>.</P><P>In <tt>NN_APPLET_NO_WAIT</tt> is specified in <span class="argument">span</span>, a check is made only once whether the Applet is registered and results are returned immediately.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/08/02</dt>
+        <dd><item xmlns="">Corrected a typo in the Revision History.</item><br />
+        </dd>
+        <dt>2011/06/14</dt>
+        <dd><item xmlns="">Added information about values taken by the span argument.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Activate</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::Activate Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> Activate(
+     <a href="../../../nn/camera/CTR/CameraSelect.html">CameraSelect</a> select
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>select</th>
+          <td>Specifies the <a href="../../../nn/camera/Overview.html">camera</a> to activate.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultIsSleeping</th>
+          <td>This function is unusable because the system cover is closed.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>There may be something physically wrong with the <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Activates a <a href="../../../nn/camera/Overview.html">camera</a>. (<bold>Note:</bold>)<br />
+ For the first four frames after the cameras are activated, the images may be extremely dark. Including these four frames, automatic exposure takes approximately 14 frames indoors and 30 frames outdoors to stabilize after the <a href="../../../nn/camera/Overview.html">camera</a> is started.</p><P>This function starts the camera module itself. The <tt><a href="../../../nn/camera/CTR/StartCapture.html">nn::camera::CTR::StartCapture</a></tt> function must be called to start capturing.</P><P>The system has three built-in cameras: an inner camera (<tt>SELECT_IN1</tt>) and two outer cameras (<tt>SELECT_OUT1/OUT2</tt>). This function specifies which camera is started.  <tt>SELECT_IN1</tt> and <tt>SELECT_OUT1</tt> cannot be started simultaneously.</P><P>While either <tt>SELECT_IN1</tt> or <tt>SELECT_OUT1</tt> alone is active, it will not enter standby mode if you specify <tt>SELECT_OUT2</tt> with this function.  Likewise, while <tt>SELECT_OUT2</tt> is active, it will not enter standby mode if you specify <tt>SELECT_IN1</tt> or <tt>SELECT_OUT1</tt> with this function.  You must specify <tt>SELECT_NONE</tt> with this function to put the active cameras into standby mode.</P><P>Specify <tt>SELECT_NONE</tt> to place the inner camera and both outer cameras into standby mode.  To conserve power, we recommend specifying <tt>SELECT_NONE</tt> to place all cameras into standby mode when they are not in use.</P><P>The camera LED illuminates when this function has activated either of the outer cameras.  The camera LED turns off when <tt>SELECT_NONE</tt> is specified to this function and the active cameras are transitioned into standby mode, or when <tt>SELECT_IN1</tt> is specified and only the inner camera is active.  The illuminated camera LED is turned off momentarily when the <tt><a href="../../../nn/camera/CTR/PlayShutterSound.html">nn::camera::CTR::PlayShutterSound</a></tt> function plays the shutter sound. </P><p><b>Note:</b> This function may block for an extended period if a camera is restarting.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/07/17</dt>
+        <dd><item xmlns="">Added explanation about operation during restart.</item><br />
+        </dd>
+        <dt>2010/06/25</dt>
+        <dd><item xmlns="">Revised conditions for the camera LED turning on and off.</item><br />
+        </dd>
+        <dt>2010/06/24</dt>
+        <dd><item xmlns="">Added information about how the camera LED turns on and turns off.</item><br />
+        </dd>
+        <dt>2010/06/18</dt>
+        <dd><item xmlns="">Described operations when a camera is started while another is still active.</item><br />
+        </dd>
+        <dt>2010/04/09</dt>
+        <dd><item xmlns="">Added Note.</item><br />
+        </dd>
+        <dt>2010/02/02</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

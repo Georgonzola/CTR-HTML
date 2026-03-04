@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/page.css" type="text/css" />
+    <title>File System: Archives</title>
+</head>
+<body>
+    <h1>File System: Archives</h1>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#Summary">Overview</a></li>
+      <ul>
+        <li><a href="#Summary_Usage">Using Archives</a></li>
+        <li><a href="#Summary_Application">Program Archive Configuration</a></li>
+        <li><a href="#Summary_Targets">Purpose</a></li>
+      </ul>
+      <li><a href="#Archives">Detailed Information on Archives</a></li>
+      <ul>
+        <li><a href="#Archives_RomArchive">ROM Archives</a></li>
+        <li><a href="#Archives_SaveDataArchive">Save Data Archives</a></li>
+        <li><a href="#Archives_SaveDataArchive_Other">Save Data Archives (Other Programs)</a></li>
+        <li><a href="#Archives_ExtSaveDataArchive">Expanded Save Data Archives</a></li>
+        <li><a href="#Archives_SdmcArchive">SDMC Archives</a></li>
+        <li><a href="#Archives_SdmcWriteOnlyArchive">Write-Only SDMC Archives</a></li>
+        <li><a href="#Archives_HioArchive">HIO Archives</a></li>
+      </ul>
+      <li><a href="#Restrictions">Archive Limitations</a></li>
+      <ul>
+        <li><a href="#Restrictions_OperatingFile">File Operations</a></li>
+        <li><a href="#Restrictions_Charactors">Character Restrictions</a></li>
+        <li><a href="#Restrictions_InvalidCharactors">Unusable Characters in File and Directory Names</a></li>
+        <li><a href="#Restrictions_InvalidName">Unusable File and Directory Names</a></li>
+        <li><a href="#Restrictions_InvalidArchiveName">Characters Prohibited for Use in Archive Names</a></li>
+        <li><a href="#Restrictions_HalfSizeSpace">Single-Byte Spaces in File and Directory Names</a></li>
+      </ul>
+      <li><a href="#History">Revision History</a></li>
+    </ul>
+
+    <a name="Summary"><h2>Overview</h2></a>
+    <div class="section">
+      <p>
+        The CTR file system is a group of archives. Archives contain files and directories and provide a means of accessing those files and directories.
+      </p>
+      
+      <a name="Summary_Usage"><h3>Accessing Files</h3></a>
+      <div class="section">
+        <p>
+          The following main steps are for accessing files or directories using an archive.
+        </p>
+        <p>
+          <ol>
+            <li>Creating and formatting the archive (if necessary)</li>
+            <li>Mounting the archive</li>
+            <li>
+              Accessing files and directories (any number of times)
+              <ol>
+                <li>Creating files and directories (if necessary)</li>
+                <li>Opening files and directories</li>
+                <li>Manipulating file and directories</li>
+                <li>Closing files and directories</li>
+              </ol>
+            </li>
+            <li>Unmounting the archive</li>
+          </ol>
+        </p>
+        <p>
+           
+        </p>
+        <p>
+          To access a file or directory, you must first mount an archive that has been created and formatted. <dfn>Mounting</dfn> refers to the act of checking the status of the archive specified by the user, securing required resources such as memory, preparing resources for use, and applying an archive name to the archive. You must call a function specific to each type of archive to mount a particular archive. These functions have different arguments depending on the archive type, but share a common argument that represents the archive name. The <dfn>archive name</dfn> is used to specify a mounted archive by a name given to that archive. A string comprises 1 to 7 ASCII characters, excluding the colon (":"). Also, a dollar sign ("$") may not be used to start an archive name.
+        </p>
+        <p>
+          To open a file or directory, use an access class such as <a href="../../../nn/fs/FileStream/Overview.html">FileStream</a>. Note that a path name must be specified in the initial argument to such classes. A <dfn>path name</dfn> is a string of the form "<var>&lt;archive_name&gt;</var>:<var>&lt;archive_path&gt;</var>." The file position inside the archive specified by <I>archive_name</I> is determined based on <I>archive_path</I>. Many archives support a hierarchical directory structure, where directories are delimited by slashes ('<CODE>/</CODE>').
+        </p>
+        <p>
+          Archives must be unmounted when you finish using them. <dfn>Unmount</dfn> enables you to free system resources that are being used to maintain the mounted status of an archive. To unmount an archive, first close all files and directories in the particular archive, and then call the <a href="../../../nn/fs/Unmount.html">nn::fs::Unmount</a> function, passing the archive name as an argument. From that point, the archive cannot be accessed even if an attempt is made to access it by archive name.
+        </p>
+        <p>
+          Mounted status is disabled for archives located on removable media such as an SD card when the media is removed. A <a href="../../../nn/fs/ResultArchiveInvalidated/Overview.html">ResultArchiveInvalidated</a> type result is returned in response to attempts to access a disabled archive or a file that is open within it. To access the archive again, you must first unmount the disabled archive and then call a function for mounting it again.
+        </p>
+      </div>
+      
+      <a name="Summary_Application"><h3>Program Archive Configuration</h3></a>
+      <div class="section">
+        <p>
+          CTR programs typically use the following archives (all optional), regardless of the application type (card-based software application or SD card application).
+        </p>
+        <p>
+          <ul>
+            <li>ROM Archives</li>
+            <li>Save Data Archives</li>
+          </ul>
+        </p>
+        <p>
+            The configuration and size of these archives is determined at build time based on content written in the RSF file. They are ready for use at the time of program execution. (However, save data archives must be formatted before they can be used.) Because these archives are specific to the program, they exist together with the program as a set. Mounting is always enabled and cannot be disabled.
+        </p>
+        <p>
+          In addition,
+        </p>
+        <p>
+          <ul>
+            <li>Expanded Save Data Archives</li>
+          </ul>
+        </p>
+        <p>
+          can be used. Because expanded save data archives exist independently from programs, they are specified using a unique ID called an <I>expanded save data ID</I>. Any expanded save data ID used by a program must be explicitly listed in the RSF file. Also, more than one program can share the same expanded save data. Because expanded save data archives are located on an SD card, they can be disabled even while mounted if the SD card is removed.
+        </p>
+        <p>
+          Programs can use several other types of archives.
+        </p>
+      </div>
+      
+      <a name="Summary_Targets"><h3>Purpose</h3></a>
+      <div class="section">
+        <p>
+          The archive concept is used for the following purposes.
+        </p>
+        <h4>File or Directory Specification Source</h4>
+        <div class="section">
+          <p>
+            Because files and directories belong to an archive, they must first be mounted by applying an archive name to the archive, and then opened by specifying that archive name and a path name inside the archive. Archives must be closed (unmounted) when you are finished with them, but all open files and directories inside the archive must be closed first.
+          </p>
+        </div>
+        <h4>Contents of Files and Directories</h4>
+        <div class="section">
+          <p>
+            To use an expanded save data archive, for example, you must create an expanded save data archive first before mounting by calling a special function for creating such archives. You can then create files and directories inside the archive and read and write data.
+          </p>
+          <p>
+            When using a save data archive, the archive region itself must exist at time of program execution, but must be formatted by calling a special function for formatting such archives if the archive region is not formatted.
+          </p>
+          <p>
+            ROM archives do not need to be created before mounting because they always exist at the time of program execution.
+          </p>
+        </div>
+        <h4>Abstraction of the Interface</h4>
+        <div class="section">
+          <p>
+            Regardless of the archive type, a standardized interface is used to access files and directories after an archive is mounted. This interface enables capabilities such as debugging using a different archive, while keeping changes to a minimum.
+          </p>
+        </div>
+        <h4>Clarification of Archive Properties</h4>
+        <div class="section">
+          <p>
+            Archives come in several types. Access characteristics and allowable operations differ for each type. The differences are made clear by the fact that each type of archive is mounted using a special function for mounting that type. You can rely on sharing code by using the same mounting function for archives that can be used in the same way regardless of the application type (CARD application or SD application).
+          </p>
+        </div>
+        <h4>System Resource Usage</h4>
+        <div class="section">
+          <p>
+            The CTR file system uses large amounts of resources, including memory, compared to a simple file system to achieve sufficient security and robustness. The system load is lessened by freeing as many unnecessary resources as possible at this time. The unit of resource allocation here is at the archive level. Conversely, if you need to access multiple files in an archive consecutively, leaving the archive open during this time can improve performance because the amount of access to metadata is decreased.
+          </p>
+        </div>
+        <h4>Disabling When Removing Media</h4>
+        <div class="section">
+          <p>
+            When it comes to data such as expanded save data on a removable media such as an SD card, if the user removes the media, the data actually accessed may become data on different media entirely, even if mounted using the same parameters and same function for mounting. The file system disables the archive when the media containing the archive is removed. It can then no longer be accessed as is even if the media is reinserted. You must first unmount the original archive and then mount it again if you want to re-enable access. Disabling of access because of media removal is performed at the archive level.
+          </p>
+        </div>
+        <h4>Commit Unit</h4>
+        <div class="section">
+          <p>
+            For duplicated save data archives, you can commit data by calling a special function for committing data. Conversely, if an archive is unmounted by calling the commit function, data is not committed and the status of data when the archive was mounted is restored. Data is either committed or rolled back at the archive level.
+          </p>
+        </div>
+      </div>
+      
+    </div>
+
+    <a name="Archives"><h2>Detailed Information About Archives</h2></a>
+    <div class="section">
+      <a name="Archives_RomArchive"><h3>ROM Archives</h3></a>
+      <div class="section">
+        <p>
+          <CODE>ROM</CODE> archives are read-only archives for referencing a program-specific <CODE>ROMFS</CODE> created at build time. Because ROM archives are guaranteed to already exist when the program starts, they can be used merely by mounting them, without having to create the archive inside the program.
+        </p>
+        <p>
+          To create a ROM archive at build time, specify <CODE>Rom/HostRoot</CODE> and <CODE>Rom/Reject</CODE> (option) in the RSF file. For more information, see the <CODE><a href="../../../../tools/ctr_makerom.html#rsf">ctr_makerom</a></CODE> reference.
+        </p>
+        <p>
+          To mount a ROM archive, call the <a href="../../../nn/fs/MountRom.html">nn::fs::MountRom</a> function. You must specify a working memory region when calling this function because a certain amount of memory is required to work with the ROM archive. You can get the required size of this working memory by using the <a href="../../../nn/fs/GetRomRequiredMemorySize.html">nn::fs::GetRomRequiredMemorySize</a> function.
+        </p>
+        <p>
+          The number of files and directories that can be opened inside the ROM archive can be specified by argument during mounting. As long as the size returned by the <a href="../../../nn/fs/GetRomRequiredMemorySize.html">nn::fs::GetRomRequiredMemorySize</a> function is acceptable to the program developer, there is no limit on the number of files and directories in a ROM archive that can be opened. Be sure to specify the required number.
+        </p>
+        <p>
+          You can also select whether to cache file management information for the ROM archive in memory. The value returned by the <a href="../../../nn/fs/GetRomRequiredMemorySize.html">nn::fs::GetRomRequiredMemorySize</a> function varies depending on this specification. The greater the number of files and directories inside the archive, the larger the size returned. The time required to open files and directories can be reduced by using caching. Caching is recommended when you may be frequently opening a large number of detailed files. Conversely, there is no advantage to caching when only a few files are being handled and open files remain open for a long period of time. The only advantage to caching is when opening files or directories for access using file management information. After a file is open, there is no difference in performance in reading the data after that point.
+        </p>
+      </div>
+      <a name="Archives_SaveDataArchive"><h3>Save Data Archives</h3></a>
+      <div class="section">
+        <p>
+          A save data archive is used to access a program-specific save data region that can be read and written. The physical location of this type of archive differs depending on the program type. It is represented by a file on the CARD for CARD applications and on the SD card for SD applications. However, developers do not need to be concerned about this difference because it is handled by the system. The save data region is guaranteed to be placed in the correct position by the system at the time a program starts. This type of archive is not created during program execution. The content of save data is protected by the system. The data is guaranteed to not be illegally tampered with if it can be accessed without an error.
+        </p>
+        <p>
+          The size of the save data region is determined by information given in the RSF file specified at build time. For more information, see the <CODE><a href="../../../../tools/ctr_makerom.html#rsf">ctr_makerom</a></CODE> reference.
+        </p>
+        <p>
+          To mount a save data archive, call the <a href="../../../nn/fs/MountSaveData.html">nn::fs::MountSaveData</a> function with only the argument for the archive name. Calls to this function fail if save data has not been formatted, such as when using the save data for the first time. The save data region must be formatted using the <a href="../../../nn/fs/FormatSaveData.html">nn::fs::FormatSaveData</a> function. For more information about how to handle errors, see <a href="./aboutErrorHandling.html#Mounting_SaveDataArchive">Error Handling</a>.
+        </p>
+        <p>
+          You can specify the number of files and directories that can be created inside a save data archive at the time of formatting. Be sure to specify a large enough number because you cannot create more files or directories than are specified here.
+        </p>
+        <p>
+          You can also select whether to duplicate save data at time of formatting. The amount of data that can actually be used is about half for duplicated save data compared to unduplicated data. However, the data is guaranteed to not be corrupted as long as it has not been intentionally altered (such as by directly editing data on the SD card using a PC). Conversely, data may be corrupted for unduplicated data, if the power fails or media is removed while writing data. We recommend that you use duplicated save data as long as there is no problem with save data capacity.
+        </p>
+        <p>
+          Use the <a href="savedata_calc_user.html#CalcSize_SaveData">Save Data File System Capacity Calculation Sheet</a> to calculate the data size that can be used for save data. Note, however, that save data files are handled in units of 512 bytes each. Note that even if the actual file size is only 1 byte, the capacity required to maintain it is 512 bytes.
+        </p>
+        <p>
+          Operations performed on a duplicated save data archive (creating and deleting files, writing data to files, and so on) are not enabled on actual storage until the <a href="../../../nn/fs/CommitSaveData.html">nn::fs::CommitSaveData</a> function is called on the archive name. If an archive is unmounted without calling the <a href="../../../nn/fs/CommitSaveData.html">nn::fs::CommitSaveData</a> function and then the save data archive is mounted again, status is rolled back to the same file and directory structure that was in place the last time the archive was mounted and file contents are identical to what they were previously. In general, be sure to call the <a href="../../../nn/fs/CommitSaveData.html">nn::fs::CommitSaveData</a> function before showing the user a message such as "Save complete." To intentionally roll back the status of an archive, unmount the archive without calling the <a href="../../../nn/fs/CommitSaveData.html">nn::fs::CommitSaveData</a> function.
+        </p>
+        <p>
+          The first 512 bytes of a save data archive file that is newly created using <a href="../../../nn/fs/TryCreateFile.html">nn::fs::TryCreateFile</a> are guaranteed to be padded with zeroes. If a subsequent attempt is made to read an area of this file to which data has not yet been written, either a <a href="../../../nn/fs/ResultVerificationFailed/Overview.html">ResultVerificationFailed</a>-type error is returned or an undefined value is read.
+        </p>
+      </div>
+      
+      <a name="Archives_SaveDataArchive_Other"><h3>Save Data Archives (Other Programs)</h3></a>
+      <div class="section">
+        <p>
+          Every program maintains a save data region, and although there are restrictions, it is possible for a particular program to access the save data in the possession of other programs. Those other programs are recognized by their unique ID and variation.
+        </p>
+        <p>
+          To mount the save data that is in the possession of another program, call the <a href="../../../nn/fs/MountSaveData.html">nn::fs::MountSaveData</a> function to get that unique ID and variation. The only unique IDs that you can specify at this time are the unique IDs specified in the RSF files of the programs that call this function call. For more information, see <CODE>AccessControlInfo/OtherUserSaveDataIdN</CODE> and <CODE>AccessControlInfo/UseOtherVariationSaveData</CODE> in the <CODE><a href="../../../../tools/ctr_makerom.html#rsf">ctr_makerom</a></CODE> reference.
+        </p>
+        <p>
+          When a program acts to access the save data of another program, there is no ironclad guarantee that the save data actually exists. There may also be times when the media containing the target save data gets removed while the save data is being accessed. Note the need for error handling for other errors than those that can occur when a program accesses its own save data. For more information about how to handle errors, see <a href="./aboutErrorHandling.html#Mounting_SaveDataArchive_Other">Error Handling</a>.
+        </p>
+        <p>
+          Other specifications are the same as for a program's own save data archives. For duplicated save data, you must call the <a href="../../../nn/fs/CommitSaveData.html">nn::fs::CommitSaveData</a> function when writing it.
+        </p>
+      </div>
+      
+      <a name="Archives_ExtSaveDataArchive"><h3>Expanded Save Data Archives</h3></a>
+      <div class="section">
+        <p>
+          An expanded save data archive is a readable, writable archive created on an SD card. To use an extended save data archive, the program must explicitly create one. The content of expanded save data is protected by the system. The data is guaranteed to not be illegally tampered with if it can be accessed without an error.
+        </p>
+        <p>
+          Expanded save data is identified by an expanded save data ID. Expanded save data that can be manipulated by the application is limited to the data specified using <CODE>AccessControlInfo/ExtSaveDataNumber</CODE> in the RSF file specified at build time. Other expanded save data cannot be altered. For more information, see the <CODE><a href="../../../../tools/ctr_makerom.html#rsf">ctr_makerom</a></CODE> reference.
+        </p>
+        <p>
+          To mount an extended save data archive, call the <a href="../../../nn/fs/MountExtSaveData.html">nn::fs::MountExtSaveData</a> function. Mounting fails if the archive does not exist. In this case, an archive must be created using the <span>nn::fs::CreateExtSavedData</span> function. For more information about how to handle errors, see <a href="./aboutErrorHandling.html#Mounting_ExtSaveDataArchive">Error Handling</a>.
+        </p>
+        <p>
+          As a limitation on the operations that can be performed on files in an expanded save data archive, the size of a file cannot be changed. You cannot use functions like the <a href="../../../nn/fs/FileStream/TrySetSize.html">nn::fs::FileStream::TrySetSize</a> function to modify the size or the <a href="../../../nn/fs/FileStream/TryWrite.html">nn::fs::FileStream::TryWrite</a> function to automatically lengthen an archive. In addition, you cannot use functions like <a href="../../../nn/fs/FileStream/TryInitialize.html">nn::fs::FileStream::TryInitialize</a> to create files as they do not allow you to specify a file size. You must always create files ahead of time with a size specification using the <a href="../../../nn/fs/TryCreateFile.html">nn::fs::TryCreateFile</a> function.
+        </p>
+        <p>
+          Because metadata or other data may be added to an expanded save data archive file, SD card memory is used when the amount of data exceeds the actual usable size. Use the <a href="savedata_calc_user.html#CalcSize_ExtSaveData">Save Data File System Capacity Calculation Sheet</a> to determine how much space to actually procure when creating a file.
+        </p>
+        <p>
+          The first 512 bytes of an expanded save data archive file that is newly created using <a href="../../../nn/fs/TryCreateFile.html">nn::fs::TryCreateFile</a> are guaranteed to be padded with zeroes. If a subsequent attempt is made to read an area of this file to which data has not yet been written, either a <a href="../../../nn/fs/ResultVerificationFailed/Overview.html">ResultVerificationFailed</a>-type error is returned or an undefined value is read.
+        </p>
+        <p>
+          An expanded save data archive may be disabled if the SD card is unintentionally removed, because it is located on an SD card, which represents removable media. Data may be corrupted at this time. The possibility of unwanted operations by another program increases because the same expanded save data can be shared by more than one program. <strong>Make sure to perform careful error handling when dealing with expanded save data.</strong>
+        </p>
+        <p>
+          It takes a bit longer to perform a particular operation on an expanded save data archive because of the need to handle a large amount of metadata. Write times may be particularly excessive depending on the SD card type. <strong>Make sure that you perform a thorough performance check during development.</strong>
+        </p>
+      </div>
+
+      <a name="Archives_SdmcArchive"><h3>SDMC Archives</h3></a>
+      <div class="section">
+        <p>
+          <CODE>SDMC</CODE> archives are used to directly reference the FAT file system on SD cards during debugging.
+        </p>
+        <p>
+          <CODE>SDMC</CODE> archives cannot be accessed by production versions of software because they are intended for debugging purposes only. You must list <var>Debug</var> under <CODE>AccessControlInfo/FileSystemAccess</CODE> in the RSF file even to use such an archive during debugging. For more information, see the <CODE><a href="../../../../tools/ctr_makerom.html#rsf">ctr_makerom</a></CODE> reference.
+        </p>
+        <p>
+          To mount an <CODE>SDMC</CODE> archive, call the <a href="../../../nn/fs/MountSdmc.html">nn::fs::MountSdmc</a> function while the SD card is inserted. Archives are disabled if the SD card is removed. Remounting then becomes necessary.
+        </p>
+      </div>
+
+      <a name="Archives_SdmcWriteOnlyArchive"><h3>Write-Only SDMC Archives</h3></a>
+      <div class="section">
+        <p>
+          A write-only <CODE>SDMC</CODE> archive accesses the FAT file system on an SD card in write-only mode. This type of archive is essentially used in the same manner as an <CODE>SDMC</CODE> archive.
+        </p>
+        <p>
+          You must list <var>DirectSdmcWrite</var> under <CODE>AccessControlInfo/FileSystemAccess</CODE> in the RSF file to use a write-only <CODE>SDMC</CODE> archive. For more information, see the <CODE><a href="../../../../tools/ctr_makerom.html#rsf">ctr_makerom</a></CODE> reference.
+        </p>
+      </div>
+
+      <a name="Archives_HioArchive"><h3>HIO Archives</h3></a>
+      <div class="section">
+        <p>
+          An <CODE>HIO</CODE> archive views the directory specified on the host PC and everything in it as a single archive. Features of the HIO library can be used to work with these archives using the common interface of the <CODE>FS</CODE> library. Because that library is used to implement HIO archives, they are subject to the limitations of the library.
+        </p>
+        <p>
+          To mount an <CODE>HIO</CODE> archive, call the <a href="../../../nn/fs/hio/MountHioArchive.html">nn::fs::hio::MountHioArchive</a> function, passing the directory path name on the host PC as a parameter, after the HIO library has been initialized using the <a href="../../../nn/hio/CTR/Initialize.html">nn::hio::CTR::Initialize</a> function.
+        </p>
+        <p>
+          <CODE>HIO</CODE> archives cannot be accessed by production versions of software because they are intended for development and debugging purposes only. Also note that the <CODE>Result</CODE> values and other values returned at access time are not the same as for other archives. Finally, functionality may change as the SDK and debugger software change. Only use this type of archive to supplement development and debugging.
+        </p>
+      </div>
+    </div>
+
+    <a name="Restrictions"><h2>Archive Limitations</h2></a>
+    <div class="section">
+      All archive types include the following limitations.
+
+      <a name="Restrictions_OperatingFile"><h3>File Operations</h3></a>
+      <div class="section">
+        <table>
+          <thead>
+            <th></th><th>Read (R) Write (W)</th><th>Changing Sizes</th><th>Creating Files</th><th>Opening Multiple Files Simultaneously</th>
+          </thead>
+          <tr>
+            <th>ROM Archives</th><td>R</td><td>Impossible</td><td>Impossible</td><td>Only when all read-only</td>
+          </tr>
+          <tr>
+            <th>Save Data Archives</th><td>R/W</td><td>Possible</td><td><a href="../../../nn/fs/FileStream/Overview.html">FileStream</a><br /><a href="../../../nn/fs/FileOutputStream/Overview.html">FileOutputStream</a><br /><a href="../../../nn/fs/TryCreateFile.html">nn::fs::TryCreateFile</a></td><td>Only when all read-only</td>
+          </tr>
+          <tr>
+            <th>Expanded Save Data Archives</th><td>R/W</td><td>Impossible</td><td><a href="../../../nn/fs/TryCreateFile.html">nn::fs::TryCreateFile</a> only</td><td>Only when all read-only</td>
+          </tr>
+          <tr>
+            <th>SDMC Archives</th><td>R/W</td><td>Possible</td><td><a href="../../../nn/fs/FileStream/Overview.html">FileStream</a><br /><a href="../../../nn/fs/FileOutputStream/Overview.html">FileOutputStream</a><br /><a href="../../../nn/fs/TryCreateFile.html">nn::fs::TryCreateFile</a></td><td>Possible</td>
+          </tr>
+          <tr>
+            <th>Write-Only SDMC Archives</th><td>W</td><td>Possible</td><td><a href="../../../nn/fs/FileStream/Overview.html">FileStream</a><br /><a href="../../../nn/fs/FileOutputStream/Overview.html">FileOutputStream</a><br /><a href="../../../nn/fs/TryCreateFile.html">nn::fs::TryCreateFile</a></td><td>Impossible</td>
+          </tr>
+          <tr>
+            <th>HIO Archives</th><td>R/W</td><td>Possible</td><td><a href="../../../nn/fs/FileStream/Overview.html">FileStream</a><br /><a href="../../../nn/fs/FileOutputStream/Overview.html">FileOutputStream</a><br /><a href="../../../nn/fs/TryCreateFile.html">nn::fs::TryCreateFile</a></td><td>(Operation is not guaranteed.)</td>
+          </tr>
+        </table>
+      </div>
+
+      <a name="Restrictions_Charactors"><h3>Character Restrictions</h3></a>
+      <div class="section">
+        <table>
+          <thead>
+            <th></th><th>Filename Length</th><th>Path Length (See <B>Note 1</B>)</th><th>Case-Sensitive</th><th>Forbidden Characters</th>
+          </thead>
+          <tr>
+            <th>ROM Archives</th><td>-</td><td>253 characters</td><td>Yes</td><td> (※3) </td>
+          </tr>
+          <tr>
+            <th>Save Data Archives</th><td>16 characters</td><td>253 characters</td><td>Yes</td><td> (※2) (※3)</td>
+          </tr>
+          <tr>
+            <th>Expanded Save Data Archives</th><td>16 characters</td><td>248 characters</td><td>Yes</td><td>( ※2) (※3)</td>
+          </tr>
+          <tr>
+            <th>SDMC Archives</th><td>253 characters (See <B>Note 4</B>.)</td><td>253 characters (See <B>Note 4</B>.)</td><td>No</td><td> (※3)</td>
+          </tr>
+          <tr>
+            <th>Write-Only SDMC Archives</th><td>253 characters (See <B>Note 4</B>.)</td><td>253 characters (See <B>Note 4</B>.)</td><td>No</td><td> (※3)</td>
+          </tr>
+          <tr>
+            <th>HIO Archives</th><td colspan="4">Comply with host PC restrictions.</td>
+          </tr>
+        </table>
+
+      <B>Note 1:</B> Not including archive names.<br /> (※2) <font color="red"><B>Note 2:</B> Although using a symbol other than "<CODE>/</CODE>" in a path name does not result in an error, operations are not guaranteed when a path name includes any of the unusable characters or names listed in the next section.</font><br /> (※3) <B>Note 3:</B> Although the API Reference Manual for CTR-SDK 0.14 and earlier had a section called Usable Characters for VFAT, actual specifications are as described in Note 2.<br /> <B>Note 4:</B> Restricted to 251 characters only when a directory is opened.<br />
+      </div>
+
+      <a name="Restrictions_InvalidCharactors"><h3>Unusable Characters in File and Directory Names</h3></a>
+      <div class="section">
+<pre>
+\ / : * ? " &lt; &gt; |
+</pre>
+      </div>
+
+      <a name="Restrictions_InvalidName"><h3>Unusable File and Directory Names</h3></a>
+      <div class="section">
+<pre>
+CON, PRN, NUL, AUX, LPT1, LPT2, LPT3, LPT4, COM1, COM2, COM3, COM4
+con, prn, nul, aux, lpt1, lpt2, lpt3, lpt4, com1, com2, com3, com4
+</pre>
+      </div>
+
+      <a name="Restrictions_InvalidArchiveName"><h3>Characters Prohibited for Use in Archive Names</h3></a>
+      <div class="section">
+      In addition to the characters and names that cannot be used for files and directories, "<CODE>$</CODE>" cannot be used at the start of an archive name. The reason is that it is used when a CTR-SDK internal library is mounting an archive internally. We recommend not using it to prevent overlapping archive names.
+      </div>
+
+      <a name="Restrictions_HalfSizeSpace"><h3>Single-Byte Spaces in File and Directory Names</h3></a>
+      <div class="section">
+      In <CODE>SDMC</CODE> archives, any single-byte spaces specified at the start or end of entry names (filenames and directory names) are deleted.<br /> To simplify debugging and to avoid unnecessary bugs, we recommend that you refrain from using single-byte spaces at the beginning and end of entry names in other archives. <br />
+      <table>
+        <thead>
+          <th>Specified Entry Name</th><th>Actual Entry Name on Which Operations Are Performed (Only for SDMC Archives)</th>
+        </thead>
+        <tr>
+          <td><tt>EntryName</tt></td><td><tt>EntryName</tt></td>
+        </tr>
+        <tr>
+          <td><tt>_EntryName</tt></td><td><tt>EntryName</tt></td>
+        </tr>
+        <tr>
+          <td><tt>__EntryName</tt></td><td><tt>EntryName</tt></td>
+        </tr>
+        <tr>
+          <td><tt>Entry_Name</tt></td><td><tt>Entry_Name</tt></td>
+        </tr>
+        <tr>
+          <td><tt>EntryName_</tt></td><td><tt>EntryName</tt></td>
+        </tr>
+        <tr>
+          <td><tt>_Entry_Name_</tt></td><td><tt>Entry_Name</tt></td>
+        </tr>
+      </table>
+      <B>Note:</B> <tt>"_"</tt> indicates a single-byte space.
+      </div>
+    </div>
+
+    <a name="History"><h2>Revision History</h2></a>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/01/20</dt>
+          <dd>Made an overall review of information.</dd>
+        <dt>2011/06/09</dt>
+          <dd>Added information about characters prohibited for use in archive names.</dd>
+        <dt>2011/04/19</dt>
+          <dd>Added text about the handling of single-byte spaces in entry names.</dd>
+        <dt>2011/01/07</dt>
+          <dd>Added notes about error handling in the Expanded Save Data section.</dd>
+        <dt>2010/12/11</dt>
+          <dd>Added a link to the worksheet for calculating the save data capacity.</dd>
+        <dt>2010/12/02</dt>
+          <dd>Removed <CODE>, ; = + [ ]</CODE> and single-byte space from the list of unusable characters.</dd>
+        <dt>2010/11/18</dt>
+          <dd>Added single-byte space to the list of unusable characters.</dd>
+        <dt>2010/11/13</dt>
+          <dd>Initial version.</dd>
+      </dl>
+    </div>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

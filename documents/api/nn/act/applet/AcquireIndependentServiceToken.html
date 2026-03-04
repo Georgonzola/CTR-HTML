@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>AcquireIndependentServiceToken</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/act/Overview.html">act</a>::<a href="../../../nn/act/applet/Overview.html">applet</a>::AcquireIndependentServiceToken Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> AcquireIndependentServiceToken(
+     char * pServiceToken,
+     const char * pClientId,
+     <a href="../../../nn_types/u32.html">u32</a> reusableRangeInSeconds = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pServiceToken</th>
+          <td>Specifies an out pointer to the buffer that stores the service token.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pClientId</th>
+          <td>Specifies a pointer to the buffer that stores the client ID for the independent service.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>reusableRangeInSeconds</th>
+          <td>Specifies the amount of seconds in the past a cache can have been obtained for a service token and still be valid.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation. <br /><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotNetworkAccount</th>
+          <td>Indicates that the account is not a network account.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>Indicates that an invalid pointer (such as a <code>NULL</code> pointer) was passed as an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidClientId</th>
+          <td>Indicates that the client ID is not registered on the server.</td>
+        </tr>
+        <tr>
+          <th>ResultNotConnected</th>
+          <td>Not connected to an access point.</td>
+        </tr>
+        <tr>
+          <th>ResultAuthenticationError</th>
+          <td>Indicates that authentication failed.</td>
+        </tr>
+        <tr>
+          <th>ResultApplicationUpdateRequired</th>
+          <td>An application update is required.</td>
+        </tr>
+        <tr>
+          <th>ResultCanceled</th>
+          <td>Canceled.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets a service token for an independent service.</p><p>To get a service token with this function, you must have registered your service title information on OMAS in advance to receive a client ID, and then set a unique ID in your application's RSF file, as indicated in the OMAS application. <br /><br />
+ Unless there are compatibility issues for past titles, we recommend using the <code><a href="../../../nn/act/applet/AcquireIndependentServiceTokenV2.html">nn::act::applet::AcquireIndependentServiceTokenV2</a></code> function. <br />
+ No parental control checks are performed by this function. Configure the application as needed to implement functionality corresponding to Parental Controls settings. <br /><br />
+ For <emphasis>pServiceToken</emphasis>, pass a pointer to a buffer at least as big as <code>NN_ACT_INDEPENDENT_SERVICE_TOKEN_SIZE</code> bytes. <br /><br />
+ Note that the lifetime specified by <emphasis>reusableRangeInSeconds</emphasis> does not define the cache expiration period for the service token obtained with this function. Instead, it specifies how long a previously retrieved cache is to remain valid. Service tokens obtained from the account server must be stored in a cache within the system. If the cache includes a service token that was obtained within <emphasis>reusableRangeInSeconds</emphasis> seconds, the function returns that service token and does not communicate with the account server. To get a service token again because it has expired or was rejected by the independent server for another reason, specify <code>0</code> for <emphasis>reusableRangeInSeconds</emphasis> to make sure that you get a new token from the server. <br /><br />
+ This function starts the <a href="../../../nn/act/applet/Overview.html">applet</a>, and blocks for the duration. <br /><br />
+ If the function fails, the value set in the buffer is undefined. <br /><br />
+ For information about using this function, see the section about making API functions that trigger communication in the <code><a href="../../../nn/act/Overview.html">nn::act</a></code> namespace.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/03/16</dt>
+        <dd><item xmlns="">Recommended use of the <tt>nn::act::applet::AcquireIndependentServiceTokenV2</tt> function.</item><br />
+        </dd>
+        <dt>2013/11/06</dt>
+        <dd><item xmlns="">Added <tt>nn::act::ResultApplicationUpdateRequired</tt> to the return values.</item><br />
+        </dd>
+        <dt>2013/08/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

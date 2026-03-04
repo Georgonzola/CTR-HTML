@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::ContentSetCatalogFilter</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::ContentSetCatalogFilter Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class ContentSetCatalogFilter : public nn::ec::CTR::detail::CatalogFilterImpl&lt;ContentSetCatalogFilter&gt;</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Filter for using <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Overview.html">ContentSetCatalog</a></code> to search for <code><a href="../../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code> objects. Search by passing this class to the <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function to filter the <code><a href="../../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code> search results.</p>
+    </div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/ContentSetCatalogFilter.html">ContentSetCatalogFilter</a>
+            </th>
+            <td>Constructor for configuring a buffer for the filter. The configured buffer is used when calling the <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function. You need the same number of buffers as you have configured filters. <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> returns <code><a href="../../../../nn/ec/CTR/ResultOutOfFilterMemory/Overview.html">ResultOutOfFilterMemory</a></code> if the buffer is too small for the filters that were set. Fix the problem by such means as increasing the size of the buffer or setting fewer filters. A buffer of a specific size is required, even if nothing is set for the filter.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/SetReturnAttributes.html">SetReturnAttributes</a>
+            </th>
+            <td>Configures the attribute name for the attribute value to get. Call the <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function using the filter set for the attribute name to get the attribute values corresponding to the relevant attribute names for each <code><a href="../../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code> object. Use the <code><a href="../../../../nn/ec/CTR/ContentSet/GetAttributeByName.html">ContentSet::GetAttributeByName</a></code> function to reference the attribute value to get. You can specify multiple attribute names in an array. <code><a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">ContentSetCatalogFilter</a></code> only maintains references to the configured attribute name array and does not copy it, so be sure not to destroy the attribute name array until you are done using the configured filters.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/SetAttributeFilters.html">SetAttributeFilters</a>
+            </th>
+            <td>Configures the attribute filter. Call the <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function using the filter set for the attribute filter to get just the <code><a href="../../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code> that matches the attribute filter. For more information about the attribute filter format, see <code><a href="../../../../nn/ec/CTR/AttributeFilter/Overview.html">AttributeFilter</a></code>. You can specify multiple attribute filters in an array. <code><a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">ContentSetCatalogFilter</a></code> only maintains a reference to the configured attribute filter array and does not copy it, so be sure not to destroy the attribute filter array until you are done using the configured filters.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/SetTitleFilters.html">SetTitleFilters</a>
+            </th>
+            <td>Configures the title filter. Call the <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function using the filter set for the title filter to get just the <code><a href="../../../../nn/ec/CTR/ContentSet/Overview.html">ContentSet</a></code> included in the configured data title. If the title filter is not configured, all of the data titles initialized by the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object configured by <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Overview.html">ContentSetCatalog</a></code> are used as title filters. There is usually no need to configure a title filter. Specifying a data title not initialized in the <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object as a title filter causes the <code><a href="../../../../nn/ec/CTR/ContentSetCatalog/Retrieve.html">ContentSetCatalog::Retrieve</a></code> function to return <code><a href="../../../../nn/ec/CTR/ResultSessionPreparedTitleNotFound/Overview.html">ResultSessionPreparedTitleNotFound</a></code> and fail. You can specify multiple title filters in an array. <code><a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/Overview.html">ContentSetCatalogFilter</a></code> only reads the configured title filter array and does not copy it. Be sure not to destroy the title filter array until you finish using the configured filters.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/SetOrderByAttribute.html">SetOrderByAttribute</a>
+            </th>
+            <td>Configures the sort order for search results.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/ContentSetCatalogFilter/SetSelectionFilter.html">SetSelectionFilter</a>
+            </th>
+            <td>Sets the search range.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy">nn::ec::CTR::detail::CatalogFilterImpl<br />&nbsp;&nbsp;<b>nn::ec::CTR::ContentSetCatalogFilter</b>
+      </p>
+    </div>
+  </body>
+</html>

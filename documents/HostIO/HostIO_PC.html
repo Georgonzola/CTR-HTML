@@ -1,0 +1,220 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>PC-Side HostIO Library</title>
+<style type="text/css">
+<!--
+body {
+/*
+    font-size       : 10pt;
+*/
+    font-weight     : normal;
+    color           : #000000;
+    margin          : 8px;
+}
+
+div {
+    width           : 98%;
+    white-space     : nowrap;
+}
+
+div.title {
+    text-align      : left;
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    color           : #202020;
+    border-style    : double;
+    border-width    : 8px;
+    /* タイトルを囲む枠線の色を指定 */
+    border-color    : #CD202C;
+
+    margin          : 4px;
+    padding         : 4px;
+}
+
+h1 {
+    font-size		: 150%;
+    font-family		: Arial;
+    border-bottom-width	: 5px;
+    border-bottom-style	: solid;
+    border-bottom-color	: #CD202C;
+    padding-bottom	: 1px;
+    margin-bottom	: 20px;
+    letter-spacing	: normal;
+    font-weight		: bold;
+}
+
+
+h2 {
+    font-weight     : bold;
+/*
+    font-size       : 16pt;
+*/
+    font-size       : 150%;
+    border-style    : none none solid double;
+    border-width    : 0px 0px 2px 8px;
+    /* 見出しの線の色を指定 */
+    border-color    : #CD202C;
+
+    margin-left     : 2px;
+    padding-left    : 4px;
+}
+table {
+    margin-top        : 2pt;
+    margin-bottom     : 2pt;
+    margin-left       : 0pt;
+    margin-right      : 0pt;
+    padding-left      : 0pt;
+    padding-right     : 0pt;
+    position          : relative;
+    left              : 12px;
+    font-family       : Arial;
+    font-size         : 10pt;
+    border-style      : none none none none;
+}
+td,th {
+    padding           : 2pt;
+    border-width      : 2pt;
+    border-style      : none none none none;
+    font-style        : normal;
+}
+td {
+    background        : #e8f4f4;
+    font-weight       : normal;
+}
+th {
+    background        : #c0d8d8;
+    font-weight       : bold;
+}
+
+p {
+    margin-left     : 4px;
+}
+.enable   { background :#ffcccc; text-align : center }
+.disable  { text-align : center }
+.exsample { 
+    border-style       : none none none none;
+    background         : #e8f4f4;
+}
+
+-->
+</style>
+
+</head>
+<body>
+<h1>PC-Side HostIO Library</h1>
+This document describes the PC interface to the HostIO library. For more information about the library interface, see the SDK documentation for the PARTNER-CTR HIO-Daemon. The library is completely compatible with IS-CTR HIO Manager as well, so see the documentation listed above.
+
+<h2>File Overview</h2>
+<table border="1">
+  <tbody>
+    <tr>
+      <th align="center"><strong>File</strong></th>
+      <th align="center"><strong>Description</strong></th>
+      <th align="center"><strong>Path</strong></th>
+    </tr>
+    <tr>
+      <td align="left"><CODE>devhio.dll</CODE></td>
+      <td align="left">HostIO library. Place this file in the same directory as the sample application.</td>
+      <td align="left"><CODE>$KMC_CTRHOSTIO/SDK</CODE></td>
+    </tr>
+    <tr>
+      <td align="left"><CODE>devhio.lib</CODE></td>
+      <td align="left">
+        C library file.
+      </td>
+      <td><CODE>$KMC_CTRHOSTIO/SDK</CODE></td>
+    </tr>
+    <tr>
+      <td align="left"><CODE>devhio_host.h</CODE><br/><CODE>devhio_sio.h</CODE><br/><CODE>devhio_smem.h</CODE></td>
+      <td align="left">
+        C header files.
+      </td>
+      <td><CODE>$KMC_CTRHOSTIO/SDK</CODE></td>
+    </tr>
+    <tr>
+      <td align="left"><CODE>CDEVHIO.h</CODE></td>
+      <td align="left">
+        Wrapper class for C++. This makes it simple to load and perform other operations on <CODE>devhio.dll</CODE>.
+      </td>
+      <td><CODE>$KMC_CTRHOSTIO/SDK</CODE></td>
+    </tr>
+  </tbody>
+</table>
+
+    <h2>How to Use the HostIO Host-Side Interface</h2>
+      Assume that Visual Studio will be used.
+      <h3>Changing Project Settings</h3>
+      <ul>
+      <li>Add &quot;<CODE>$(KMC_CTRHOSTIO)/SDK</CODE>&quot; to &quot;Additional Include Directories&quot;</li>
+      <li>Add &quot;<CODE>$(KMC_CTRHOSTIO)/SDK</CODE>&quot; to &quot;Additional Library Directories&quot;</li>
+      <li>Add <CODE>devhio.lib</CODE> to &quot;Additional Dependent Files&quot;</li>
+      </ul>
+      <h3>Adding Include Files to Source Files</h3>
+      Add the following.
+      <ul>
+        <li><CODE>#include &lt;devhio_host.h&gt;</CODE></li>
+        <li><CODE>#include &lt;devhio_sio.h&gt;</CODE></li>
+        <li><CODE>#include &lt;devhio_smem.h&gt;</CODE></li>
+      </ul>
+      For C++, also add the following.
+      <ul>
+        <li><CODE>#include &lt;CDevHIO.h&gt;</CODE></li>
+      </ul>
+      <h3>Calling the HostIO API in Source Files (C++)</h3>
+      First, initialize HostIO.
+      <ul>
+        <li><CODE>CDEVHIO::CDEVHIO()</CODE></li>
+      </ul>
+      Next, be sure to call the following functions, in order, to connect.
+      <ul>
+        <li><CODE>CDEVHIO::Find()</CODE></li>
+        <li><CODE>CDEVHIO::Connect()</CODE></li>
+      </ul>
+      Next, call the appropriate serial communication functions, if performing serial communications.
+      <ul>
+        <li>Functions with a format such as <CODE>CDEVHIO::xxxSio()</CODE> <br /> (See the SDK documentation for the PARTNER-CTR HIO-Daemon for details)</li>
+      </ul>
+      Call the appropriate shared memory functions if you are using shared memory.
+      <ul>
+        <li>Functions with a format such as <CODE>CDEVHIO::xxxSmem()</CODE> <br /> (See the SDK documentation for the PARTNER-CTR HIO-Daemon for details)</li>
+      </ul>
+      When finished, call the disconnection and termination functions.
+      <ul>
+        <li><CODE>CDEVHIO::Disconnect()</CODE></li>
+        <li><CODE>CDEVHIO::~CDEVHIO()</CODE></li>
+      </ul>
+      For the corresponding functions when using C, see the SDK documentation for the PARTNER-CTR HIO-Daemon.
+
+    <h2>Comments</h2>
+      <h3>How do I connect the debugger to multiple systems?</h3>
+      If you specify 0 for the <CODE>size</CODE> argument and call the <CODE>CDEVHIO::Find</CODE> function, a user interface for selecting the debugger will be displayed when the <CODE>Find</CODE> function is called.
+
+<h2>Notes</h2>
+<p>File I/O operates in such a way that a thread is created in the library when a file is opened. Waiting for commands from the target is handled automatically.<br/> As a result, if a breakpoint is applied while debugging a HOSTIO application, the waiting thread might stop on code in the driver, which would make it impossible to perform any PARTNER-CTR or IS-CTR-DEBUGGER operations.</p>
+<p>If input does not return from the <CODE>DEVHIO_cio_gets</CODE> function, file I/O on other channels will also be locked. (Serial/shared memory will work.)</p>
+<p>This library must be used with the 2010/04/16 build or later builds of PARTNER-CTR/S 5.61. IS-CTR-DEBUGGER 2.20 2014/02/18 or later must be used for development on SNAKE.</p>
+
+    <h2>Revision History</h2>
+
+    <div class="section">
+      <dl class="history">
+        <dt>2014/03/10</dt>
+        <dd>Added information about IS-CTR.
+        </dd>
+        <dt>2012/03/29</dt>
+        <dd>Added a description about how to use.<br />
+        </dd>
+        <dt>2010/02/04</dt>
+        <dd>Initial version.<br />
+        </dd>
+      </dl>
+    </div>
+
+  <hr /><p>CTR-06-0204-011-A<br />CONFIDENTIAL</p></body>
+</html>

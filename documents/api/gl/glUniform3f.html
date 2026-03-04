@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glUniform3f</title>
+  </head>
+  <body>
+    <h1>glUniform3f Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glUniform3f(
+     GLint location,
+     GLfloat x,
+     GLfloat y,
+     GLfloat z
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>location</th>
+          <td>Uniform location.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>x</th>
+          <td>The value to set for the first component.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>y</th>
+          <td>The value to set for the second component.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>z</th>
+          <td>The value to set for the third component.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets a single <code>GL_FLOAT_VEC3</code>-type uniform value or a single element of an array type of <code>GL_FLOAT_VEC3</code> uniform values for a vertex shader, geometry shader, or reserved fragment shader.</p><P>Set <span class="argument">location</span> to the uniform variable's location.  Use <span class="argument">x</span>, <span class="argument">y</span>, and <span class="argument">z</span> to specify the values to set.</P><P>Calls to this function are ignored when <span class="argument">location</span> is -1.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">location</span> argument is not a location in the current program.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>There is no current program object.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>This function was called on a location with a different data type or component count.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The number of uniform arrays is less than the offset that was added to the location value obtained from <tt>glGetUniformLocation</tt>.</TD></TR></TABLE><!-- source locationがカレントのプログラムのロケーションではない場合エラーGL_INVALID_OPERATIONを生成します。 カレントにプログラムがない場合エラーGL_INVALID_OPERATIONを生成します。 データのコンポーネント数、およびTypeの異なるロケーションに対して呼び出した場合エラーGL_INVALID_OPERATIONを生成します。 glGetUniformLocationで取得されるロケーションの値に加算したオフセットが ユニフォームの配列数を超える場合エラーGL_INVALID_OPERATIONを生成します。 予約フラグメントシェーダのユニフォームに設定範囲が決められている場合、 x、y、zに設定範囲外の値を指定するとエラーGL_INVALID_VALUE、またはGL_INVALID_ENUMのいずれかを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

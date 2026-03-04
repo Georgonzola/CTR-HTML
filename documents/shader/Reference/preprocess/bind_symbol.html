@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>#pragma bind_symbol ( symbol_name , start_index [, end_index] )</title>
+  </head>
+  <body>
+    <h1>#pragma bind_symbol ( symbol_name , start_index [, end_index] )</h1>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Binds symbol names to registers.<br /> <br /> For <SPAN class="argument">symbol_name</SPAN>, specify any symbol name. For <SPAN class="argument">start_index</SPAN> and <SPAN class="argument">end_index</SPAN>, specify the starting position and ending position of the register being bound.<br /> For the register being bound, you can specify an input register, a floating-point constant register, an integer register, or a Boolean register.<br /> If you do not specify a value for <SPAN class="argument">end_index</SPAN> and define this as <CODE>#pragma bind_symbol(symbol_name, start_index)</CODE>, the starting position and ending position of the register being bound will take the values of the register specified by <SPAN class="argument">start_index</SPAN>.<br /> <br />When the application loads the executable file of a shader assembler in which <CODE>bind_symbol</CODE> is defined, the input register can be set by using defined symbol names for arguments of functions such as <CODE>glGetAttribLocation</CODE> and <CODE>glBindAttribLocation</CODE>. In the same way, floating-point constant registers, integer registers, and Boolean registers can be set by using defined symbol names for the arguments of functions such as <CODE>glGetUniformLocation</CODE>.<br /> <br /> When configuring the settings of a floating-point constant register you can specify the components.<br /> Specify the components as follows: <CODE>[symbol_name].[one or more components]</CODE>. <br />Specify consecutive components in the order of xyzw. (Consecutive components, such as <CODE>xy</CODE>, <CODE>yzw</CODE> and <CODE>zw</CODE> are allowed, but not <CODE>xz</CODE>, <CODE>yw</CODE>, or <CODE>xyw</CODE>.)<br /> <br />In the settings for input registers, you cannot set multiple symbol names for the same input register. In addition, <SPAN class="argument">start_index</SPAN> and <SPAN class="argument">end_index</SPAN> must not be the same value.<br /> The settings configured for an input register determine which vertex attributes will be input to the graphics pipeline.<br /> In other words, an input register that has not been bound to a symbol by these settings will not be recognized as a vertex attribute for input, and as a result some indefinite value will be stored.<br /> If components have been specified for an input register, the number of components specified will affect the <CODE>type</CODE> obtained by the <CODE>glGetActiveAttrib</CODE> function but otherwise will have no effect. If the value specified for <SPAN class="argument">size</SPAN> in the <CODE>glVertexAttribPointer</CODE> function is 1, 2, or 3, the corresponding input register will load the vertex attribute data to <CODE>x</CODE>, <CODE>xy</CODE>, or <CODE>xyz</CODE>, respectively. The default value will be loaded to any component to which vertex attribute data has not been loaded. The default values for <CODE>y</CODE>, <CODE>z</CODE>, and <CODE></CODE>w are respectively 0, 0, and 1.<br />
+      </p>
+      <p class="notice">
+        The register specified by <CODE>bind_symbol</CODE> cannot define a constant with the <CODE>def</CODE>, <CODE>defb</CODE> or <CODE>defi</CODE> instruction inside the same shader assembler or inside any object that is referenced at link time. You can use up to 16 input registers. However, when rendering using the vertex buffer, you cannot load vertex attribute data into more than 12 input registers. Do not use the vertex buffer if your shader assembler has <SPAN class="argument">bind_symbol</SPAN> defined for 13 or more input registers.<br />
+      </p>
+      <p class="warning">
+        The hardware will not operate correctly if the vertex shader cannot read input registers at all. As long as at least one component of some input register can be read in each vertex process, you will not violate this restriction. To meet this restriction, the contents of this input register can be indeterminate, but they must be read. <br />
+      </p>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+// Assembler source code
+#pragma bind_symbol ( ModelViewMatrix , c0 , c3 )
+#pragma bind_symbol ( Position , v0 )
+#pragma bind_symbol ( LoopCounter0 , i1 , i1 )
+#pragma bind_symbol ( bFirst , b2 , b2 )
+#pragma bind_symbol ( Scalar.x , c4, c4 ) // The Scalar symbol is assigned to c4.x
+
+
+
+// Application source code
+glBindAttribLocation ( program , 0 , "Position" );
+glEnableVertexAttribArray ( 0 );
+
+uniform_location = glGetUniformLocation ( program , "ModelViewMatrix" );
+GLfloat matrix[4][4];
+glUniform4fv ( uniform_location , 4 , matrix );
+
+GLfloat scalar_value;
+uniform_location = glGetUniformLocation ( program , "Scalar" );
+glUniform1f ( uniform_location , scalar_value );
+
+uniform_location = glGetUniformLocation ( program , "bFirst" );
+glUniform1i ( uniform_location , GL_TRUE );
+
+GLint loop_setting[3] = { 4 , 0 , 1 } ; // loop_count–1 , init , step
+uniform_location = glGetUniformLocation ( program , "LoopCounter0" );
+glUniform3iv ( uniform_location , loop_setting );
+</pre>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

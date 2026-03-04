@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Adjust</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fnd/Overview.html">fnd</a>::<a href="../../../nn/fnd/ExpHeapTemplate/Overview.html">ExpHeapTemplate</a>::Adjust Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn_types/u32.html">u32</a> Adjust();
+
+<a href="../../../nn/fnd/MemoryRange/Overview.html">MemoryRange</a> Adjust(
+     <a href="../../../nn/fnd/HeapAdjustMode.html">HeapAdjustMode</a> mode
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./Adjust(0).html">Adjust (  ) </a>
+          </td>
+          <td>Use of this function is NOT recommended. This function frees unused areas at the tail of the extended heap to reduce the amount of memory the extended heap uses.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./Adjust(1).html">Adjust ( HeapAdjustMode ) </a>
+          </td>
+          <td>Reduces the memory used by the extended heap by freeing the available memory in it.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of Adjust (  ) </h2>
+    <div class="section"><p>This function's return value cannot be used to determine the result of the operation. A value of zero can indicate two different situations: (1) that adjustment failed, or (2) that adjustment reduced the heap size to zero because no part of the heap was allocated.</p>This function is retained for compatibility.  Use the <tt><a href="../../../nn/fnd/ExpHeapTemplate/Adjust(1).html">Adjust(mode)</a></tt> function instead. That version of the function allows you to specify the direction of adjustment, and returns the range of memory that was freed up as an <tt><a href="../../../nn/fnd/MemoryRange/Overview.html">nn::fnd::MemoryRange</a></tt> object.</div>
+    <h2>Description of Adjust ( HeapAdjustMode ) </h2>
+    <div class="section">This function has different return values than the version of the <tt><a href="../../../nn/fnd/ExpHeapTemplate/Adjust(0).html">Adjust</a></tt> function that takes no arguments.  This function returns an <tt><a href="../../../nn/fnd/MemoryRange/Overview.html">nn::fnd::MemoryRange</a></tt> object as its return value.  This <tt><a href="../../../nn/fnd/MemoryRange/Overview.html">nn::fnd::MemoryRange</a></tt> object can be used to create a new heap in the freed memory region.  We do not recommend using the version of the <tt><a href="../../../nn/fnd/ExpHeapTemplate/Adjust(0).html">Adjust</a></tt> function that takes no arguments. When using the <tt>Adjust</tt> function, use the version documented on this page.</div>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>TryWrite</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fs/Overview.html">fs</a>::<a href="../../../nn/fs/FileStream/Overview.html">FileStream</a>::TryWrite Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+virtual <a href="../../../nn/Result/Overview.html">Result</a> TryWrite(
+     <a href="../../../nn_types/s32.html">s32</a> * pOut,
+     const void * buffer,
+     size_t size,
+     bool flush
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pOut</th>
+          <td>Stores the actual number of bytes that were written.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>buffer</th>
+          <td>Pointer to the buffer that contains the data to write.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>size</th>
+          <td>Maximum number of bytes to write to the file.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>flush</th>
+          <td>Specifies whether to flush data.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Writes the specified amount of data from a buffer to a file.</p><p>Up to size bytes of data are written to the file from the region at the address specified by buffer.</p><p>Data is not flushed if <code>false</code> is specified for <code>flush</code>. If you are making multiple consecutive write operations to the same file, call the <code><a href="../../../nn/fs/FileStream/TryFlush.html">TryFlush</a></code> function after all operations are complete with <code>flush = false</code>. Then create a buffer to be managed by the system in low-level storage.</p><p>Do not write-access the memory of the specified buffer region during this function call (for example, from another thread). File write operations may be incorrect and the program could stop working in a future version of the SDK.</p><p>Error handling differs, depending on the archive. For more information, see <a href="../briefing/aboutErrorHandling.html#FileAndDirectory">Handling Errors During File and Directory Operations</a>.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/18</dt>
+        <dd><item xmlns="">Explained the limitations on buffer access while calling this function.</item><br />
+        </dd>
+        <dt>2010/12/22</dt>
+        <dd><item xmlns="">Added a link to the error handling page.</item><br />
+        </dd>
+        <dt>2010/10/05</dt>
+        <dd><item xmlns="">Corrected the text.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

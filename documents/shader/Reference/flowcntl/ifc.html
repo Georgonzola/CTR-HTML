@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <link rel="stylesheet" href="../css/timetable.css" type="text/css" />
+    <title>ifc - Start if block by condition</title>
+  </head>
+  <body>
+    <h1>ifc - Start if block by condition</h1>
+
+    <h2>Calling Format</h2>
+    <div class="section">
+      <pre class="definition">
+ifc     status0, status1, mode
+</pre>
+    </div>
+
+    <h2>Operands</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>status0</th>
+          <td>
+            Value of status register 0 (the value is either 0 or 1).<br />
+          </td>
+        </tr>
+        <tr>
+          <th>status1</th>
+          <td>
+            Value of status register 1 (the value is either 0 or 1).<br />
+          </td>
+        </tr>
+        <tr>
+          <th>mode</th>
+          <td>
+            Conditional mode (0: OR, 1: AND, 2: Only status register 0, 3: Only status register 1)<br />
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Overview</h2>
+    <div class="section">
+      <p>
+        Runs conditional processing based on the status register values.<br /> The value specified by <SPAN class="argument">status0</SPAN> (or <SPAN class="argument">status1</SPAN>) is tested for equality against the value of status register 0 (or 1). When <SPAN class="argument">mode</SPAN> is 0, the result is true when either status register 0 or status register 1 matches its respective operand.<br /> When <SPAN class="argument">mode</SPAN> is 1, both status registers must match their respective operands.<br /> When <SPAN class="argument">mode</SPAN> is 2, status register 0 must match <SPAN class="argument">status0</SPAN>.<br /> When <SPAN class="argument">mode</SPAN> is 3, status register 1 must match <SPAN class="argument">status1</SPAN>.<br /> When the condition is <CODE>true</CODE>, the instructions between <CODE>ifc</CODE> and <CODE>endif</CODE> are executed. If there is an <CODE>else</CODE> instruction between <CODE>ifc</CODE> and <CODE>endif</CODE>, the instructions between <CODE>ifc</CODE> and <CODE>else</CODE> are executed.<br /> When the condition is <CODE>false</CODE>, the instructions between <CODE>ifc</CODE> and <CODE>endif</CODE> are skipped and control moves to the instruction immediately after <CODE>endif</CODE>. If there is an <CODE>else</CODE> instruction between <CODE>ifc</CODE> and <CODE>endif</CODE>, the instructions between <CODE>else</CODE> and <CODE>endif</CODE> are executed.<br /> This instruction must be followed by an <CODE>endif</CODE> instruction.<br />
+      </p>
+      <p class="notice">
+        You can nest a combined total of up to eight <CODE>ifb</CODE> and <CODE>ifc</CODE> instructions.<br />
+      </p>
+      <p class="warning">
+        At least one instruction must be inserted between <CODE>ifc</CODE> and <CODE>endif</CODE> as well as between <CODE>ifc</CODE> and <CODE>else</CODE>.<br />
+      </p>
+    </div>
+
+    <h2>Operation</h2>
+    <div class="section">
+<pre class="definition">
+switch ( mode )
+{
+    case 0 :
+        if ( status0 == Status_register0 || status1 == Status_register1 )
+            condition = true
+        break;
+    case 1 :
+        if ( status0 == Status_register0 && status1 == Status_register1 )
+            condition = true
+        break;
+    case 2 :
+        if ( status0 == Status_register0 )
+            condition = true
+        break;
+    case 3 :
+        if ( status1 == Status_register1 )
+            condition = true
+        break;
+}
+if ( condition == true )
+{
+    ...
+}
+</pre>
+    </div>
+
+    <h2>Code Example</h2>
+    <div class="section">
+<pre class="definition">
+ifc     1, 1, 0    // Executes the instructions between ifc and else when status register 0 or status register 1 is equal to 1
+    ...
+else
+    ...
+endif
+..
+</pre>
+    </div>
+
+
+  <h2>Revision History</h2>
+  <div class="section">
+    <dl class="history">
+      <dt>2011/12/20</dt>
+      <dd>Initial version.<br />
+      </dd>
+    </dl>
+  </div>
+
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

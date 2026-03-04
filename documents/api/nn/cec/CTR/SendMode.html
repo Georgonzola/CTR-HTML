@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SendMode</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/cec/Overview.html">cec</a>::<a href="../../../nn/cec/CTR/Overview.html">CTR</a>::SendMode Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+typedef <a href="../../../nn_types/u8.html">u8</a> nn::cec::CTR::SendMode;</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The sending mode for messages. This value is specified in the message. (Such as <code><a href="../../../nn/cec/CTR/Message/NewMessage.html">Message::NewMessage</a></code>.)</p><p><code>SENDMODE_RECV</code>: Receive only.<br /><code>SENDMODE_SEND</code>: Send only.<br /><code>SENDMODE_SENDRECV</code>: Send and receive.<br /><code>SENDMODE_EXCHANGE</code>: Exchange.<br /><br />
+ Communication is not performed if the send mode of the message the peer is attempting to send does not match this mode. <br />
+ The combinations are as follows. <br />
+ Receive only: Can communicate when the peer is set to "send only" or "send and receive."<br />
+ Send only: Can communicate when the peer is set to "receive only" or "send and receive."<br />
+ Send and receive: Can communicate when the peer is set to "receive only," "send only," or "send and receive."<br />
+ Exchange: Can communicate when the peer is set to "exchange."<br /><br />
+ If the system is set to "receive only," it does not send messages, and instead only waits for messages sent from peers. <br />
+ If set to "send only," the system does not receive messages even if the peer is set to "send and receive." <br />
+ For messages that are set to "exchange," if the message is not sent successfully (see note), the received message is not saved. <br />
+ Also, the <code>MessageID</code> of the message that was sent with the exchange is recorded in the received message, and you can track which message it was exchanged with. This <code>MessageID</code> can be acquired with <code><a href="../../../nn/cec/CTR/Message/GetMessageId_Pair.html">Message::GetMessageId_Pair</a></code>. <br /><br /><bold>Note:</bold> When the send operation completes, it is judged to have succeeded. There is no check to see whether the partner has fully saved the data. When received data is interrupted mid-save (such as with <code><a href="../../../nn/cec/CTR/CecControl/StopScanning.html">CecControl::StopScanning</a></code>) or is duplicated in the peer's inbox, the send operation is judged to have succeeded, even though there has been no determination of the peer's receipt.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

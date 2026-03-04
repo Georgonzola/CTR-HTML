@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::boss::NsaList</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::NsaList Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class NsaList</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A class that handles all processing related to NSA lists. By specifying a file path for the NSA list, you can do things like download the NSA list to that path or parse the NSA list given by that path.</p><p>An NSA list is a collection of data (NSA items) that can be obtained by an NADL task. <br />
+ By getting this list, an application can allow users to choose which data to download. <br />
+ (For example, consider an NADL task that downloads items. If it gets an NSA list in advance, it can then tell the user which items are available for download and only download the ones that the user wants. ) <br /></p><p>NSA lists have the following basic workflow. <br />
+ 1. Download an NSA list (<code><a href="../../../nn/boss/NsaList/Download.html">NsaList::Download</a></code>).<br />
+ 2. Verify the NSA list (<code><a href="../../../nn/boss/NsaList/CheckValidity.html">NsaList::CheckValidity</a></code>).<br />
+ 3. Parse the NSA list (<code><a href="../../../nn/boss/NsaList/Parse.html">NsaList::Parse</a></code>).<br /></p><p>After parsing a list, you can get a variety of NSA information with the <code><a href="../../../nn/boss/NsaList/NsaInformation/Overview.html">NsaInformation</a></code> type. <br />
+ Using the <code><a href="../../../nn/boss/NsaList/NsaInformation/Overview.html">NsaInformation</a></code> element's <emphasis>fileName</emphasis> value, you can construct a URL for an NADL task to download. <br />
+ (A download URL for an NADL task has the following composition. The value of <emphasis>fileName</emphasis> corresponds to <emphasis>Filename</emphasis> below. <emphasis>BOSS Code</emphasis> is a random string assigned to your application when you apply to use NADL tasks. <emphasis><a href="../../../nn/boss/Task/Overview.html">Task</a> ID</emphasis> is the relevant task ID. In other words, an application can establish a URL after <emphasis>Filename</emphasis> has been determined. <br /><ulink url="https://npdl.cdn.nintendowifi.net/p01/nsa/">https://npdl.cdn.nintendowifi.net/p01/nsa/</ulink><emphasis>BOSS Code</emphasis>/<emphasis><a href="../../../nn/boss/Task/Overview.html">Task</a> ID</emphasis>/<emphasis>Filename</emphasis><br />
+ )</p><!-- write here --></div>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/boss/NsaList/NsaInformation/Overview.html">nn::boss::NsaList::NsaInformation</a>
+            </th>
+            <td>A structure that stores all the NSA data in a parsed NSA list.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/boss/NsaList/SearchAttributes/Overview.html">nn::boss::NsaList::SearchAttributes</a>
+            </th>
+            <td>Search elements used to specify which NSA to include in an NSA list when you download it (when you call the <code><a href="../../../nn/boss/NsaList/Download.html">NsaList::Download</a></code> function).</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/boss/NsaList/ParseResult.html">ParseResult</a>
+            </th>
+            <td>Definitions of <code><a href="../../../nn/boss/NsaList/Parse.html">NsaList::Parse</a></code> results.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2>Member Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/boss/NsaList/NN_BOSS_NSALIST_WAIT_FINISH_TIMEOUT_DEFAULT_SEC.html">NN_BOSS_NSALIST_WAIT_FINISH_TIMEOUT_DEFAULT_SEC</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u32.html">u32</a></td>
+            <td>Default value definition for the timeout (in seconds) used by <code><a href="../../../nn/boss/NsaList/Download.html">Download()</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/boss/NsaList/NN_BOSS_NSALIST_MAX_SIZE.html">NN_BOSS_NSALIST_MAX_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s64.html">s64</a></td>
+            <td>A definition of the maximum file size for the NSA list downloaded by the <code>Download</code> function.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/NsaList/NsaList.html">NsaList</a>
+            </th>
+            <td>Constructor.</td>
+          </tr>
+          <tr>
+            <td width="100"> <span class="virtual_style" title="virtual">V</span>
+            </td>
+            <th>
+              <a href="../../../nn/boss/NsaList/~NsaList.html">~NsaList</a>
+            </th>
+            <td>Destroys the object.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/NsaList/Download.html">Download</a>
+            </th>
+            <td>Downloads the NSA list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/NsaList/Cancel.html">Cancel</a>
+            </th>
+            <td>Cancels download of the NSA list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/NsaList/GetHttpStatusCode.html">GetHttpStatusCode</a>
+            </th>
+            <td>Gets the HTTP status code received when an NSA list is downloaded.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/NsaList/GetResult.html">GetResult</a>
+            </th>
+            <td>Gets the result code for an NSA list download.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/NsaList/Parse.html">Parse</a>
+            </th>
+            <td>Parses the NSA list and stores each NSA information found in an array.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/NsaList/GetDigest.html">GetDigest</a>
+            </th>
+            <td>Gets the digest value included in an NSA list.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/boss/NsaList/CheckValidity.html">CheckValidity</a>
+            </th>
+            <td>Checks the validity of an NSA list. (This confirms that the digest value included in the list matches the digest value calculated from the data in the list.))</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

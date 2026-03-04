@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>ResumeScheduler</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/ndm/Overview.html">ndm</a>::ResumeScheduler Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> ResumeScheduler(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a value that indicates whether the function succeeded.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultNotSuspended</th>
+          <td>No suspend instructions have been issued by the calling process.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Resumes daemon scheduling. If <code><a href="../../nn/ndm/SuspendScheduler.html">SuspendScheduler</a></code> has been called multiple times by this process, the suspension of operations is not lifted unless <code><a href="../../nn/ndm/ResumeScheduler.html">ResumeScheduler</a></code> is called that same number of times. <br />
+ If you are conducting communication in the foreground using an Internet connection and plan to finalize communication using a function like <code>nn::ac::Close</code> or <code>nn::friends::Logout</code>, call the <code>ResumeScheduler</code> function before the finalization process starts.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

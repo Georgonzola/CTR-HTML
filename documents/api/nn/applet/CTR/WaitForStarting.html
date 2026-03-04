@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>WaitForStarting</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::WaitForStarting Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/applet/CTR/WakeupState.html">AppletWakeupState</a> WaitForStarting(
+     <a href="../../../nn/applet/CTR/AppletId.html">AppletId</a> * pSenderId = NULL,
+     <a href="../../../nn_types/u8.html">u8</a> * pParam = NULL,
+     size_t paramSize = 0,
+     <a href="../../../nn_types/s32.html">s32</a> * pReadLen = NULL,
+     nn::Handle * pHandle = NULL,
+     <a href="../../../nn/fnd/TimeSpan/Overview.html">nn::fnd::TimeSpan</a> timeout = NN_APPLET_WAIT_INFINITE
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pSenderId</th>
+          <td>ID of the <a href="../../../nn/applet/Overview.html">applet</a> that sent the event.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pParam</th>
+          <td>Specifies the parameter buffer.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>paramSize</th>
+          <td>Specifies the parameter buffer size.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pReadLen</th>
+          <td>Specifies the amount of data to read.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pHandle</th>
+          <td>Specifies the handler.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>timeout</th>
+          <td>Specifies the timeout.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the reason that processing was resumed. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Waits for the start event of this object.</p><!-- write here --><P>This function does not return until the start event is received.</P><P>This function returns a value from the <tt>AppletWakeupState</tt> enumerated type. You must use this value to determine what to do next (for example, whether to resume an application normally or close it).</P><P>However, because the <tt><a href="../../../nn/applet/CTR/IsExpectedToCloseApplication.html">nn::applet::CTR::IsExpectedToCloseApplication</a></tt> function returns a value of <tt>true</tt> when the application must be closed, <FONT color="red">always use <tt><a href="../../../nn/applet/CTR/IsExpectedToCloseApplication.html">nn::applet::CTR::IsExpectedToCloseApplication</a></tt></FONT> to make a decision immediately after this function returns instead of simply checking this function's return value directly.</P><P>If the application is preparing to close based on the results of this check, ignore the return value and obtained parameters from this function.</P><TABLE><THEAD><TR bgcolor="#ccccdd"><TH>Return Values</TH><TH>State</TH><TH>Expected Behavior</TH></TR></THEAD><TR><TD><tt>applet::WAKEUP_SKIP</tt></TD><TD>Skipped <tt>WaitForStarting</tt>.</TD><TD>Continues operating.</TD></TR><TR><TD><tt>applet::WAKEUP_TO_START</tt></TD><TD>Woken up by a normal request.</TD><TD>Continues operating.</TD></TR><TR><TD><tt>applet::WAKEUP_BY_EXIT</tt></TD><TD>Woken up by another applet closing.</TD><TD>Continues operating.</TD></TR><TR><TD><tt>applet::WAKEUP_BY_PAUSE</tt></TD><TD>Woken up by another applet pausing.</TD><TD>Continues operating.</TD></TR><TR><TD><tt>applet::WAKEUP_BY_CANCEL</tt></TD><TD>Woken up by a cancel notification.</TD><TD>Closes.</TD></TR><TR><TD><tt>applet::WAKEUP_BY_POWER_BUTTON_CLICK</tt></TD><TD>Woken up by a POWER Button press.</TD><TD>Closes.</TD></TR><TR><TD><tt>applet::WAKEUP_BY_TIMEOUT</tt></TD><TD>Woken up by timeout.</TD><TD>Context-dependent.</TD></TR></TABLE><P>The return values obtainable by the application are those listed above.</P><P>Example:</P><PRE>
+  applet::WaitForStarting();
+  if ( applet::IsExpectedToCloseApplication() )
+  {
+     _application_finalize(); // Finalizing to release application resources.
+     applet::CloseApplication();
+     // Execution does not reach this point.
+  }
+</PRE></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/11/07</dt>
+        <dd><item xmlns="">Removed the <tt>PrepareToCloseApplication</tt> function from the sample code.</item><br />
+        </dd>
+        <dt>2010/12/10</dt>
+        <dd><item xmlns="">Recommended the use of the <tt>IsExpectedToCloseApplication</tt> function, rather than the return value, to make a decision.</item><br />
+        </dd>
+        <dt>2010/11/30</dt>
+        <dd><item xmlns="">Added a description of checking via <tt>IsExpectedToCloseApplication</tt>.</item><br />
+        </dd>
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

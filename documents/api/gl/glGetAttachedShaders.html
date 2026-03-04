@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetAttachedShaders</title>
+  </head>
+  <body>
+    <h1>glGetAttachedShaders Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetAttachedShaders(
+     GLuint program,
+     GLsizei maxcount,
+     GLsizei * count,
+     GLuint * shaders
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>program</th>
+          <td>Program object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxcount</th>
+          <td>The maximum number of shader object names to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>count</th>
+          <td>Region that stores the number of shader objects for which the name was retrieved by the shaders array.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>shaders</th>
+          <td>Array that stores the names of shader objects.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the names of the shader objects attached to a program object.</p><P>Set <span class="argument">program</span> to the program object.</P><P>Use <span class="argument">maxcount</span> to specify the size of the array set in <span class="argument">shaders</span>.</P><P>The <span class="argument">count</span> argument stores the number of shader objects obtained in <span class="argument">shaders</span>.</P><P>The <span class="argument">shaders</span> argument stores the shader objects attached to <span class="argument">program</span>.</P><P>It is all right to set <span class="argument">count</span> to <code>NULL</code>, because you can get the same value (that would otherwise be set in <span class="argument">count</span>) by specifying <tt>GL_ATTACHED_SHADERS</tt> to <tt>glGetProgramiv</tt>.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">program</span> argument was set to an invalid value, or <span class="argument">maxcount</span> is negative.</TD></TR></TABLE><!-- source programに不正な値を指定した場合、およびmaxcountが負の値の場合エラーGL_INVALID_VALUEを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

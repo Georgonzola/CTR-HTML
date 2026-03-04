@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+template &lt;typename T, typename U, typename Stack&gt;void Initialize(
+     void(*)(T) f,
+     U param,
+     Stack & stack,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+
+template &lt;typename T, typename Stack&gt;void Initialize(
+     void(*)(T *) f,
+     const T & param,
+     Stack & stack,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+
+template &lt;typename T, typename Stack&gt;void Initialize(
+     void(*)(const T *) f,
+     const T & param,
+     Stack & stack,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+
+template &lt;typename Stack&gt;void Initialize(
+     void(*)() f,
+     Stack & stack,
+     <a href="../../../nn_types/s32.html">s32</a> priority = PRIORITY_DEFAULT,
+     <a href="../../../nn_types/s32.html">s32</a> coreNo = CORE_NO_DEFAULT
+);
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./Initialize(0).html">Initialize ( void(*)(T), U, Stack &, s32, s32 ) </a>
+          </td>
+          <td>Specifies a buffer for the stack and creates a thread.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./Initialize(1).html">Initialize ( void(*)(T *), const T &, Stack &, s32, s32 ) </a>
+          </td>
+          <td>Specifies a buffer for the stack and creates a thread.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./Initialize(2).html">Initialize ( void(*)(const T *), const T &, Stack &, s32, s32 ) </a>
+          </td>
+          <td>Specifies a buffer for the stack and creates a thread.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./Initialize(3).html">Initialize ( void(*)(), Stack &, s32, s32 ) </a>
+          </td>
+          <td>Specifies a buffer for the stack and creates a thread.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of Initialize ( void(*)(T), U, Stack &, s32, s32 ) </h2>
+    <div class="section"><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/TryInitialize(0).html">TryInitialize&#x3c;T, U, Stack&#x3e;()</a></tt> function, with the exception that there is no <tt>panic</tt> process when an error occurs inside the function.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/TryInitialize(0).html">TryInitialize&#x3c;T, U, Stack&#x3e;()</a></tt> function. </p></div>
+    <h2>Description of Initialize ( void(*)(T *), const T &, Stack &, s32, s32 ) </h2>
+    <div class="section"><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/Initialize(0).html">Initialize&#x3c;T, U, Stack&#x3e;()</a></tt> function, with the exception that the data referenced by <span class="argument">param</span> is copied to the buffer passed as the stack, and the pointer to that copied region is passed as the <span class="argument">f</span> argument.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/Initialize(0).html">Initialize&#x3c;T, U, Stack&#x3e;()</a></tt> function. </p></div>
+    <h2>Description of Initialize ( void(*)(const T *), const T &, Stack &, s32, s32 ) </h2>
+    <div class="section"><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/Initialize(0).html">Initialize&#x3c;T, U, Stack&#x3e;()</a></tt> function, with the exception that the data referenced by <span class="argument">param</span> is copied to the buffer passed as the stack, and the pointer to that copied region is passed as the <span class="argument">f</span> argument.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/Initialize(0).html">Initialize&#x3c;T, U, Stack&#x3e;()</a></tt> function. </p></div>
+    <h2>Description of Initialize ( void(*)(), Stack &, s32, s32 ) </h2>
+    <div class="section"><p>Performs the same processing as the <tt><a href="../../../nn/os/ManagedThread/Initialize(0).html">Initialize&#x3c;T, U, Stack&#x3e;()</a></tt> function, with the exception that a function that does not take arguments is used as the thread function.  For more information, see the <tt><a href="../../../nn/os/ManagedThread/Initialize(0).html">Initialize&#x3c;T, U, Stack&#x3e;()</a></tt> function. </p></div>
+  </body>
+</html>

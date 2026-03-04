@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetConnectingApType</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/ac/Overview.html">ac</a>::<a href="../../../nn/ac/CTR/Overview.html">CTR</a>::GetConnectingApType Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> GetConnectingApType(
+     <a href="../../../nn/ac/CTR/ApType.html">ApType</a> * apType
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>apType</th>
+          <td>Variable for writing the access point type.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the call completed successfully.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidData</th>
+          <td><code>NULL</code> was specified as an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultNotConnecting</th>
+          <td>Not connected to a network.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure for other reasons.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the type of the currently connected access point.</p><p>This function is normally used to get a reference value. Because the number of types given by <emphasis>ApType</emphasis> may change when the firmware is updated, make sure that you implement an <code>else</code> statement in conditional expressions that are based on this value. This function's return value is expected to be used to get the location for the current Internet connection. Call <code><a href="../../../nn/ac/CTR/GetConnectingNintendoZoneBeaconSubset.html">GetConnectingNintendoZoneBeaconSubset</a></code> when the return value is <code>AP_TYPE_NINTENDO_ZONE</code>, and <code><a href="../../../nn/ac/CTR/GetConnectingHotspotSubset.html">GetConnectingHotspotSubset</a></code> when it is <code>AP_TYPE_HOTSPOT</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

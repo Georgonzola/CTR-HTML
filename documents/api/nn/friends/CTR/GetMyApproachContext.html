@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetMyApproachContext</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::GetMyApproachContext Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> GetMyApproachContext(
+     <a href="../../../nnfriendsApproachContext/Overview.html">ApproachContext</a> * pApproachContext
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pApproachContext</th>
+          <td>Specifies a pointer to a buffer storing obtained approach context.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>An invalid pointer was passed as an argument.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>The friend presence library is not initialized.</td>
+        </tr>
+        <tr>
+          <th>ResultFriendNumMax</th>
+          <td>The friend list is full.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPreference</th>
+          <td>Not configured in the privacy settings for the friend list first-time startup sequence.</td>
+        </tr>
+        <tr>
+          <th>ResultAddFriendProhibited</th>
+          <td>Adding a friend is prohibited by Parental Controls.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Other results can be returned depending on the internal state of the daemon.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the local account information as a pack, required to be registered as the friend of another user.</p><p>To be registered as a friend of a communication partner, send the <code><a href="../../../nn/friends/CTR/ApproachContext.html">ApproachContext</a></code> structure obtained from this function to the partner, and have the partner pass that structure as an argument to <code><a href="../../../nn/friends/CTR/AddFriendWithApproach.html">AddFriendWithApproach</a></code>. <br /><br />
+ Before using this function, you must first call <code><a href="../../../nn/cfg/CTR/Initialize.html">nn::cfg::CTR::Initialize</a></code> to initialize the <code>CFG</code> library.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/24</dt>
+        <dd><item xmlns="">Removed ResultMiiNotExists from the Return Values and added ResultInvalidPreference.</item><br />
+        </dd>
+        <dt>2011/12/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

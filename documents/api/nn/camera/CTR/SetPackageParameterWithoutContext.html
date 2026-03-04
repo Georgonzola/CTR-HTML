@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetPackageParameterWithoutContext</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/camera/Overview.html">camera</a>::<a href="../../../nn/camera/CTR/Overview.html">CTR</a>::SetPackageParameterWithoutContext Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> SetPackageParameterWithoutContext(
+     const <a href="../../../nn/camera/CTR/PackageParameterCameraSelect/Overview.html">PackageParameterCameraSelect</a> & param
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>param</th>
+          <td>Parameter value to set.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultIsSleeping</th>
+          <td>This function is unusable because the system cover is closed.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>There may be something physically wrong with the <a href="../../../nn/camera/Overview.html">camera</a>.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Batch-configures settings for a <a href="../../../nn/camera/Overview.html">camera</a> with no context specified.</p><p>Some members of the <span class="argument">param</span> argument are listed below. As explained in the PhotoMode reference, the settings that correspond to these members are usually configured by <tt>photoMode</tt>, but you can use this function to configure individual settings for these members that take priority over settings made by <tt>photoMode</tt>.<ul><li><span>nn::camera::CTR::exposure</span></li><li><span>nn::camera::CTR::whiteBalance</span></li><li><span>nn::camera::CTR::sharpness</span></li><li><span>nn::camera::CTR::contrast</span></li><li><span>nn::camera::CTR::autoExposureWindowStartX</span></li><li><span>nn::camera::CTR::autoExposureWindowStartY</span></li><li><span>nn::camera::CTR::autoExposureWindowWidth</span></li><li><span>nn::camera::CTR::autoExposureWindowHeight</span></li></ul>For example, the white balance setting for <tt>PHOTO_MODE_LANDSCAPE</tt> is <tt>WHITE_BALANCE_DAYLIGHT</tt>, but if <tt>photoMode</tt> is <tt>PHOTO_MODE_LANDSCAPE</tt> and you use this function to specify <tt>WHITE_BALANCE_NORMAL</tt> for <tt>whiteBalance</tt>, the white balance is set to <tt>WHITE_BALANCE_NORMAL</tt>. <BR /> An argument for setting the gain exists for <tt>photoMode</tt>. This is something other functions cannot configure.</p><p>The <span class="argument">param</span> argument member <tt>autoWhiteBalanceOn</tt> only has effect when <tt>whiteBalance</tt> is <tt>WHITE_BALANCE_NORMAL</tt>.  It is ignored when <tt>whiteBalance</tt> is anything other than <tt>WHITE_BALANCE_NORMAL</tt>.</p><p>The following member variables of the <span class="argument">param</span> argument can be set even when auto-exposure is disabled (when <tt>autoExposureOn</tt> is <tt>false</tt>): <tt>autoExposureWindowStartX</tt>, <tt>autoExposureWindowStartY</tt>, <tt>autoExposureWindowWidth</tt>, and <tt>autoExposureWindowHeight</tt>.  You must set these arguments to appropriate values regardless of whether auto-exposure is enabled or disabled.</p><p>In the same way, you must set the following to appropriate values regardless of whether auto white balance is enabled or disabled: <tt>autoWhiteBalanceWindowStartX</tt>, <tt>autoWhiteBalanceWindowStartY</tt>, <tt>autoWhiteBalanceWindowWidth</tt>, and <tt>autoWhiteBalanceWindowHeight</tt>.</p><P>If synchronization with the stereo camera's brightness was enabled via the <tt><a href="../../../nn/camera/CTR/SetBrightnessSynchronization.html">nn::camera::CTR::SetBrightnessSynchronization</a></tt> function, it is not possible to specify any of the following. Function execution will fail.<ul><li>Specification of other than <tt>WHITE_BALANCE_NORMAL</tt> for <tt>whiteBalance</tt>.</li><li>Setting  <tt>autoWhiteBalanceOn</tt> to <tt>false</tt> when <tt>whiteBalance</tt> is <tt>WHITE_BALANCE_NORMAL</tt>.</li><li>Specification of <tt>PHOTO_MODE_LANDSCAP</tt> in <tt>photoMode</tt>.</li><li>Specification of <tt>CONTRAST_PATTERN_10</tt> in <tt>contrast</tt>.</li></ul></P><p><b>Note:</b> This function may block for an extended period if a camera is restarting.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/03/22</dt>
+        <dd><item xmlns="">Added information about failure conditions when brightness synchronization is enabled.</item><br />
+        </dd>
+        <dt>2010/12/13</dt>
+        <dd><item xmlns="">Noted that the response frame must be set regardless of whether auto-exposure and auto white balance are enabled or disabled.</item><br />
+        </dd>
+        <dt>2010/11/23</dt>
+        <dd><item xmlns="">Explained the conflict with the PhotoMode settings.</item><br />
+        </dd>
+        <dt>2010/07/17</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

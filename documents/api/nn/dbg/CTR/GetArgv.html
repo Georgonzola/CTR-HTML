@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetArgv</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/dbg/Overview.html">dbg</a>::<a href="../../../nn/dbg/CTR/Overview.html">CTR</a>::GetArgv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/dbg.h&gt;
+const char * GetArgv(
+     int n
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>n</th>
+          <td>Specifies the index.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Argument string stored in the specified startup argument buffer. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the arguments from the argument buffer, stored as a string.</p><P>Returns NULL if there is no startup argument buffer.</P><P>Pass a number to get the value for the argument at that index number. For example, pass 0 to get the application's name string.  (This value is defined as <tt>ARG_ARGV0_STRING</tt>.)</P><PRE>
+  Example:
+
+  // Number of arguments.
+  int argc = <font color="red">nn::dbg::CTR::GetArgc()</font>;
+
+  // Display each argument.
+  for( int n=0; n<argc; n++ )
+  {
+      NN_LOG( "argv[%d] = [%s]\n", n, <font color="red">nn::dbg::CTR::GetArgv(n)</font> );
+  }
+  }
+</PRE><P>This always returns <code>NULL</code> in release builds, regardless of the index number passed.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/12/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

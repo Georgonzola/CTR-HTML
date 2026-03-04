@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>ClearTexture2DResource</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gd/CTR/Memory/Overview.html">Memory</a>::ClearTexture2DResource Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nnResult/Overview.html">nnResult</a> ClearTexture2DResource(
+     const Texture2DResource * tex2DResource,
+     <a href="../../../../nn_types/s32.html">s32</a> mipLevelIndexStart,
+     <a href="../../../../nn_types/s32.html">s32</a> mipLevelIndexEnd,
+     const <a href="../../../../nn_types/u8.html">u8</a> Components[4]
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>tex2DResource</th>
+          <td>Specifies a pointer to the <code>Texture2DResource</code> resource to be cleared. Only a <code>VRAM</code> resource can be specified.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>mipLevelIndexStart</th>
+          <td>Specifies the index of the first mipmap level to be cleared. (If <code>-1</code> is specified, the last mipmap level index is used.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>mipLevelIndexEnd</th>
+          <td>Specifies the index of the last mipmap level to be cleared. (If <code>-1</code> is specified, the last mipmap level index is used.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>Components[4]</th>
+          <td>Specifies the component whose resource is to be cleared.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNullParameter</th>
+          <td><code>NULL</code> was specified for the resource.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureFormat</th>
+          <td>A format other than ETC and depth formats included in <code><a href="../../../../nn/gd/CTR/Resource/NativeFormat.html">Resource::NativeFormat</a></code> has been specified for the format of the resource.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTextureMipLevelIndex</th>
+          <td>A value larger than mipLevelIndexEnd has been specified for mipLevelIndexStart. Alternatively, a value larger than the mipmap level of the specified <code>tex2DResource</code> was specified for mipLevelIndexEnd.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidMemoryRegion</th>
+          <td>The resource memory type is invalid. The specified resource is in FCRAM region memory.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Clears <code>Texture2DResource</code> resources using the color specified in the Components parameter.</p><p><code>Component[0]</code> is the red, luminance, or HI component. <code>Component[1]</code> is the green or LO component. <code>Component[2]</code> is the blue component. <code>Component[3]</code> is the alpha color. <br />
+ This function adds commands to the command list. For more information, see the Programming Manual.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

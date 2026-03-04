@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetApplicationDataToBeacon</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/uds/Overview.html">uds</a>::<a href="../../../nn/uds/CTR/Overview.html">CTR</a>::SetApplicationDataToBeacon Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> SetApplicationDataToBeacon(
+     const void * pData,
+     size_t dataSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pData</th>
+          <td>Pointer to the data being set.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>dataSize</th>
+          <td>Size of the data to set. Specify a value no greater than <code><a href="../../../nn/uds/CTR/NET_DESC_APPDATA_SIZE_MAX.html">NET_DESC_APPDATA_SIZE_MAX</a></code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the function. Returns one of the following <code><a href="../../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultNotInitialized</th>
+          <td>Indicates that the library is not initialized. Call the <code><a href="../../../nn/uds/CTR/Initialize.html">Initialize</a></code> function.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidState</th>
+          <td>Indicates that the function cannot be executed in this state. Returned when executed in a state other than the host.</td>
+        </tr>
+        <tr>
+          <th>ResultTooLarge</th>
+          <td>Indicates that <emphasis>dataSize</emphasis> is greater than <code><a href="../../../nn/uds/CTR/NET_DESC_APPDATA_SIZE_MAX.html">NET_DESC_APPDATA_SIZE_MAX</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultWirelessOff</th>
+          <td>Indicates that the device entered wireless off mode. Reinitialization is required.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Indicates failure for other reasons.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets application data in the beacon.</p><p>Specifies up to <code><a href="../../../nn/uds/CTR/NET_DESC_APPDATA_SIZE_MAX.html">NET_DESC_APPDATA_SIZE_MAX</a></code> bytes of application data. The data is not encrypted. It can be collected by any general-purpose computing device, such as a desktop computer. Other devices can get this data by calling <code><a href="../../../nn/uds/CTR/Scan.html">Scan</a></code> while they are connected as a <code>Client</code> or <code>Spectator</code>. Only the host can run this function. <br /><br />
+ This function is thread-safe.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/09/07</dt>
+        <dd><item xmlns="">Standardized notation for wireless-disabled mode.</item><br />
+        </dd>
+        <dt>2011/03/08</dt>
+        <dd><item xmlns="">Added a link to <tt>Initialize</tt> in Return Values.  Added a link to <tt>NET_DESC_APPDATA_SIZE_MAX</tt> in Return Values.</item><br />
+        </dd>
+        <dt>2010/10/15</dt>
+        <dd><item xmlns="">Expanded the information about the return values.  Revised the description to make it easier to understand.  Indicated that the data is not encrypted wirelessly.</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

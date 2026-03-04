@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>GetRequiredMemorySize</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/socket/Overview.html">socket</a>::GetRequiredMemorySize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+size_t GetRequiredMemorySize(
+     size_t bufferSizeForSockets,
+     <a href="../../nn_types/s32.html">s32</a> maxSessions
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>bufferSizeForSockets</th>
+          <td>Number specified to the <code><a href="../../nn/socket/Initialize.html">Initialize</a></code> argument of the same name.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxSessions</th>
+          <td>The number specified to the <code><a href="../../nn/socket/Initialize.html">Initialize</a></code> argument of the same name.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">The required work region size. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the minimum amount of working memory required to initialize the <a href="../../nn/socket/Overview.html">socket</a> library.</p><p>The working region is used to allocate the <code><a href="../../nn/socket/AddrInfo/Overview.html">AddrInfo</a></code> values returned by the <code>GetAddrInfo</code> function, but it is also used temporarily during function calls. <br />
+ Because this size value is calculated with some extra space reserved, you do not usually need to be concerned about what points in time the working region is being used. <br />
+ However, the required memory size does sometimes exceed the value returned by this function. This can happen, for example, if you get an <code><a href="../../nn/socket/AddrInfo/Overview.html">AddrInfo</a></code> value with the <code>GetAddrInfo</code> function, and then call <code>GetAddrInfo</code> again without using the <code>FreeAddrInfo</code> function to free the <code><a href="../../nn/socket/AddrInfo/Overview.html">AddrInfo</a></code> value first.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/08/16</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

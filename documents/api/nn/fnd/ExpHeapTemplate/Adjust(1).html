@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Adjust</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/fnd/Overview.html">fnd</a>::<a href="../../../nn/fnd/ExpHeapTemplate/Overview.html">ExpHeapTemplate</a>::Adjust Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/fnd/MemoryRange/Overview.html">MemoryRange</a> Adjust(
+     <a href="../../../nn/fnd/HeapAdjustMode.html">HeapAdjustMode</a> mode
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>mode</th>
+          <td>Specifies whether to reduce the heap starting from the tail (<code>HEAP_ADJUST_TAIL</code>) or the head (<code>HEAP_ADJUST_HEAD</code>) of the heap.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns a range of empty memory blocks resulting from adjusting the heap. If the heap cannot be reduced, the size of the <code><a href="../../../nn/fnd/MemoryRange/Overview.html">MemoryRange</a></code> object returns zero. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Reduces the memory used by the extended heap by freeing the available memory in it.</p>This function has different return values than the version of the <tt><a href="../../../nn/fnd/ExpHeapTemplate/Adjust(0).html">Adjust</a></tt> function that takes no arguments.  This function returns an <tt><a href="../../../nn/fnd/MemoryRange/Overview.html">nn::fnd::MemoryRange</a></tt> object as its return value.  This <tt><a href="../../../nn/fnd/MemoryRange/Overview.html">nn::fnd::MemoryRange</a></tt> object can be used to create a new heap in the freed memory region.  We do not recommend using the version of the <tt><a href="../../../nn/fnd/ExpHeapTemplate/Adjust(0).html">Adjust</a></tt> function that takes no arguments. When using the <tt>Adjust</tt> function, use the version documented on this page.</div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/14</dt>
+        <dd><item xmlns="">Added this as an overloaded function with an argument that allows the direction of reduction to be specified.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

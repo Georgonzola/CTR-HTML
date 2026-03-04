@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>CreateApplicationArea</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/nfp/Overview.html">nfp</a>::<a href="../../../nn/nfp/CTR/Overview.html">CTR</a>::CreateApplicationArea Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">nn::Result</a> CreateApplicationArea(
+     const <a href="../../../nn/nfp/ApplicationAreaCreateInfo/Overview.html">ApplicationAreaCreateInfo</a> & createInfo
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>createInfo</th>
+          <td>Initialization information.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">
+      <br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Creation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidArgument</th>
+          <td>Invalid argument.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidPointer</th>
+          <td>An invalid pointer to the parameter was specified.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidOperation</th>
+          <td>The library is not in the correct state.</td>
+        </tr>
+        <tr>
+          <th>ResultSleep</th>
+          <td>The system is in a sleep state.</td>
+        </tr>
+        <tr>
+          <th>ResultWifiOff</th>
+          <td>The Wi-Fi switch is set to off.</td>
+        </tr>
+        <tr>
+          <th>ResultNotSupported</th>
+          <td>Non-NFP tag, or invalid tag format. Check the tag being used.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyCreated</th>
+          <td>The application area has already been created.</td>
+        </tr>
+        <tr>
+          <th>ResultTagNotFound</th>
+          <td>Target tag not found. The tag may have been replaced with another tag during the write process.</td>
+        </tr>
+        <tr>
+          <th>ResultNeedRetry</th>
+          <td>The writing process failed. Retrying may succeed.</td>
+        </tr>
+        <tr>
+          <th>ResultOperationFailed</th>
+          <td>An error occurred while writing to the tag. The tag data may have been corrupted.</td>
+        </tr>
+        <tr>
+          <th>ResultConnectCanceled</th>
+          <td>Lost the connection with the NFC reader and writer due to an internal error.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>Unexpected error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Creates the application area on a tag. The application area must be created before using a blank tag for the first time.</p><p>Before calling this function, the tag must be mounted using <code><a href="../../../nn/nfp/CTR/Mount.html">Mount()</a></code>. Also, the structure specified for the <emphasis>createInfo</emphasis> parameter must be initialized with the <code><a href="../../../nn/nfp/CTR/InitializeCreateInfo.html">InitializeCreateInfo</a></code> function. The <code><a href="../../../nn/nfp/CTR/Flush.html">Flush</a></code> function is also executed when the application area is created. As a result, calling this function might block for roughly one to two seconds.</p><p>Make sure that you check the <emphasis>characterID</emphasis> of <code>CommonInfo()</code>, available with the <code><a href="../../../nn/nfp/CTR/GetNfpCommonInfo.html">GetNfpCommonInfo()</a></code> function, to ensure that the amiibo can be used by that application.</p><p>When planning to use NFP tags across multiple platforms, note that the byte order differs by platform.</p><p>As an example, the 3DS is little-endian, whereas the Wii U is big-endian.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/08/25</dt>
+        <dd><item xmlns="">Added descriptions of the requirement to mount the tag in advance and of API blocking.</item><br />
+        </dd>
+        <dt>2014/07/28</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>IsExpectedToCloseApplication</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/applet/Overview.html">applet</a>::<a href="../../../nn/applet/CTR/Overview.html">CTR</a>::IsExpectedToCloseApplication Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool IsExpectedToCloseApplication(
+     void
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <p>None.</p>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">true indicates that the application should be closed and false indicates that the application does not need to be closed. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Determines whether to close an application.</p><!-- write here --><P>A return value of <tt>true</tt> indicates that the shutdown process has started because there was a close request or for another reason. In this case, close the application immediately.</P><P>A return value of <tt>false</tt> indicates that the application does not need to be closed. In this case, do nothing.<P />Call this function periodically (usually every frame).  <FONT color="red">You must also check immediately after returning from a function that is waiting on the <tt>WaitForStarting</tt> function.</FONT> Again, also check after execution of the <tt><a href="../../../nn/applet/CTR/Enable.html">nn::applet::CTR::Enable</a></tt> function.</P><P>Do this before calling any of the other check functions in the APPLET library (<tt><a href="../../../nn/applet/CTR/IsExpectedToProcessHomeButton.html">nn::applet::CTR::IsExpectedToProcessHomeButton</a></tt>, <tt><a href="../../../nn/applet/CTR/IsExpectedToProcessPowerButton.html">nn::applet::CTR::IsExpectedToProcessPowerButton</a></tt>, and <tt><a href="../../../nn/applet/CTR/IsExpectedToReplySleepQuery.html">nn::applet::CTR::IsExpectedToReplySleepQuery</a></tt>) after control has returned from the waiting state.</P><P>Example:</P><PRE>
+nnMain()
+{
+     ...
+   while(1)
+   {
+     _exec();
+     _draw();
+
+     // Check for close after each frame.
+     if ( <FONT color="red">applet::IsExpectedToCloseApplication()</FONT> )
+     {
+        _application_finalize();
+        applet::CloseApplication();
+        // Execution does not reach this point.
+     }
+
+     // Start the library applet after the A Button is pressed.
+     if ( _pushed_A_button() )
+     {
+        _start_library_applet();
+
+        // Wait for the return from the library applet.
+        applet::WaitForStarting();
+
+        // Check for close after control returns.
+        if ( <FONT color="red">applet::IsExpectedToCloseApplication()</FONT> )
+        {
+          _application_finalize();
+          applet::CloseApplication();
+          // Execution does not reach this point.
+        }
+     }
+     ...
+</PRE><P>If the card is removed, the system displays that fact on the screen, but the application still has not terminated at this point. <BR /> If the HOME Button is pressed on the screen indicating card removal detected, control returns to the application and an exit notification is sent to the application.  The exit notification is handled by this function in the usual manner.</P><P>However, because there may be times at which this function cannot be called because of the application status when the card was removed, the system is designed to close the application forcibly after a set period of time even if the application does not exit on its own.</P><P>In addition, when control returns to the application from the card removal screen, both the upper and lower screens go black (LCD off status). This results in a state where rendering by the GPU is impossible and execution is blocked if the <tt>nngxWaitCmdlistDone</tt> function is blocked. <BR /> In other words, depending on the exact timing the card was removed and how the application is implemented, execution may be blocked by the <tt>nngxWaitCmdlistDone</tt> function before exit notification arrives, and control may never reach termination by this function.</P><P>We have assumed that determination functions such as this one and the function for actually making the transition will be called successively in the same thread, but it is possible depending on the implementation to call them in different threads.  However, be very careful that the determination thread does not continue executing after execution control is passed.</P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/11/07</dt>
+        <dd><item xmlns="">Removed the <tt>PrepareToCloseApplication</tt> function from the sample code.</item><br />
+        </dd>
+        <dt>2012/11/09</dt>
+        <dd><item xmlns="">Added a note about calling the determination function and transition functions in different threads.</item><br />
+        </dd>
+        <dt>2011/07/06</dt>
+        <dd><item xmlns="">Added information about functionality when a card is removed.</item><br />
+        </dd>
+        <dt>2010/12/31</dt>
+        <dd><item xmlns="">Noted that this must also be called after the <tt>Enable</tt> function.</item><br />
+        </dd>
+        <dt>2010/12/10</dt>
+        <dd><item xmlns="">Removed a clause about closing an application because the POWER Button was used.</item><br />
+        </dd>
+        <dt>2010/11/30</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

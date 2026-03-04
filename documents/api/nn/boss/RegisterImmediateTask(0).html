@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>RegisterImmediateTask</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/boss/Overview.html">boss</a>::RegisterImmediateTask Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">nn::Result</a> RegisterImmediateTask(
+     <a href="../../nn/boss/Task/Overview.html">Task</a> * pTask,
+     <a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a> * pAction,
+     <a href="../../nn/boss/TaskPolicy/Overview.html">TaskPolicy</a> * pPolicy = NULL,
+     <a href="../../nn/boss/TaskOption/Overview.html">TaskOption</a> * pOption = NULL,
+     <a href="../../nn_types/u8.html">u8</a> taskStep = DEFAULT_STEP_ID
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>pTask</th>
+          <td>Specify <code><a href="../../nn/boss/FgOnlyTask/Overview.html">FgOnlyTask</a></code>. <br />
+ If any value other than <code><a href="../../nn/boss/FgOnlyTask/Overview.html">FgOnlyTask</a></code> is specified, the function returns <code><a href="../../nn/boss/ResultInvalidTaskId/Overview.html">ResultInvalidTaskId</a></code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pAction</th>
+          <td>Specifies a task action.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pPolicy</th>
+          <td>Specifies a task policy. (Optional.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pOption</th>
+          <td>Specifies task options. (Optional.)<br /><bold>Note:</bold> This parameter is not currently supported because it is used with extended features. Do not specify it.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>taskStep</th>
+          <td>Specifies a task step ID. (This parameter may be omitted if there is only one task step to be executed.)<br /><bold>Note:</bold> This parameter is not currently supported because it is used with extended features. Do not specify it.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. Returns one of the following <code><a href="../../nn/Result/Overview.html">Result</a></code> values.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that registration succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidTaskId</th>
+          <td>This <code><a href="../../nn/Result/Overview.html">Result</a></code> object is returned if the <emphasis>pTask</emphasis> parameter is set to <code>NULL</code> or any value other than <code><a href="../../nn/boss/FgOnlyTask/Overview.html">FgOnlyTask</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidAction</th>
+          <td>The <emphasis>pAction</emphasis> parameter is <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultActionCodeOutOfRange</th>
+          <td>The task action code is invalid. Confirm that it is in the range of <code><a href="../../nn/boss/Action.html">Action</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidUrl</th>
+          <td>The URL string pointer is <code>NULL</code> or a zero-length string.</td>
+        </tr>
+        <tr>
+          <th>ResultApInfoTypeOutOfRange</th>
+          <td>The AP information type is invalid. Confirm that it is in the range of <code><a href="../../nn/boss/ApInfoType.html">ApInfoType</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultCfgInfoTypeOutOfRange</th>
+          <td>The <code>Cfg</code> information type is out of range. Confirm that it is in the range of <code><a href="../../nn/boss/ApInfoType.html">ApInfoType</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidFilePath</th>
+          <td>The file path string pointer is <code>NULL</code> or a zero-length string.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidOption</th>
+          <td>The <emphasis>pOption</emphasis> parameter is uninitialized or the option code is out of range. Confirm that it is in the range of <code><a href="../../nn/boss/ExecOption.html">ExecOption</a></code>.</td>
+        </tr>
+        <tr>
+          <th>ResultStorageNotFound</th>
+          <td>The BOSS storage corresponding to the application is not registered. Determine whether the BOSS storage is registered.</td>
+        </tr>
+        <tr>
+          <th>ResultDatabaseFull</th>
+          <td>BOSS storage and tasks cannot be registered because the maximum number of registered application IDs and tasks has been reached.</td>
+        </tr>
+        <tr>
+          <th>ResultFileAccess</th>
+          <td>Failed to access a file. <br />
+ This <code><a href="../../nn/Result/Overview.html">Result</a></code> is returned when the SD card is removed or data is corrupted.</td>
+        </tr>
+        <tr>
+          <th>ResultIpcNotSessionInitialized</th>
+          <td>Indicates that the session is not initialized. <br />
+ The function returns this <code><a href="../../nn/Result/Overview.html">Result</a></code> if it is called before <code><a href="../../nn/boss/Initialize.html">Initialize</a></code> is called. <br />
+ Always call the <code><a href="../../nn/boss/Initialize.html">Initialize</a></code> function before you use the BOSS library.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>than those noted above An unexpected error. (For information about handling this error, see the Programming Manual.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Registers an immediate-execution task to BOSS (to the save region on the game device). To register a dedicated immediate-execution task, you must first prepare an instance of a subclass of the <code><a href="../../nn/boss/TaskAction/Overview.html">TaskAction</a></code> class. <br />
+ For information about which attributes must be set, see the API Reference topic for each class. <br />
+ When you have finished registering a task, you can reuse each of these instances as necessary by calling the <code><a href="../../nn/boss/Initialize.html">Initialize()</a></code> function. <br />
+ You can issue a task execution instruction by calling the <code><a href="../../nn/boss/Task/StartImmediate.html">nn::boss::FgOnlyTask::StartImmediate()</a></code> function for a registered task. &#12288; Common <a href="../../nn/boss/Task/Overview.html">Task</a> Registration Errors 1. BOSS storage has not been registered when registering an NADL task (<code><a href="../../nn/boss/ResultStorageNotFound/Overview.html">ResultStorageNotFound</a></code>). Use <code><a href="../../nn/boss/RegisterStorage.html">RegisterStorage</a></code> to register BOSS storage for the NADL task.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2015/04/06</dt>
+        <dd><item xmlns="">Added a note that <tt>FgOnlyTask</tt> must be specified in the <span class="argument">pTask</span> parameter.</item><br />
+        </dd>
+        <dt>2015/02/25</dt>
+        <dd><item xmlns="">Added to the description of immediate-execution tasks.</item><br />
+        </dd>
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

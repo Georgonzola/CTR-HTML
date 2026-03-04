@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SearchBindSymbol</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gr/Overview.html">gr</a>::<a href="../../../../nn/gr/CTR/Overview.html">CTR</a>::<a href="../../../../nn/gr/CTR/Shader/Overview.html">Shader</a>::SearchBindSymbol Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool SearchBindSymbol(
+     <a href="../../../../nn/gr/CTR/BindSymbol/Overview.html">BindSymbol</a> * symbol,
+     const char * name
+) const;
+
+bool SearchBindSymbol(
+     <a href="../../../../nn/gr/CTR/BindSymbol/Overview.html">BindSymbol</a> * symbol,
+     const <a href="../../../../nn_types/u8.html">u8</a> symbol_index
+) const;
+</pre>
+    </div>
+    <h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./SearchBindSymbol(0).html">SearchBindSymbol ( BindSymbol *, const char * ) </a>
+          </td>
+          <td>Converts from symbol names to symbol information. Symbol type information and bound register numbers can be obtained by specifying the symbol name set by <code>pragma_bind_symbol</code> in the shader code as an argument. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./SearchBindSymbol(1).html">SearchBindSymbol ( BindSymbol *, const u8 ) </a>
+          </td>
+          <td>Converts from an index (ranging from 0 to one less than the number of symbols) to symbol information for the symbol of the specified type. Indices of the type 0, 1, ... [number of symbols -1] are assigned in the order set by the <code>pragma bind_symbol</code> function in shader code. You can search for the specified index and get the symbol information that was found. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of SearchBindSymbol ( BindSymbol *, const char * ) </h2>
+    <div class="section">
+      <p>Converts from symbol names to symbol information. Symbol type information and bound register numbers can be obtained by specifying the symbol name set by <code>pragma_bind_symbol</code> in the shader code as an argument. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</p>
+    </div>
+    <h2>Description of SearchBindSymbol ( BindSymbol *, const u8 ) </h2>
+    <div class="section">
+      <p>Converts from an index (ranging from 0 to one less than the number of symbols) to symbol information for the symbol of the specified type. Indices of the type 0, 1, ... [number of symbols -1] are assigned in the order set by the <code>pragma bind_symbol</code> function in shader code. You can search for the specified index and get the symbol information that was found. Call this function after you have configured the shader binary with the <code>SetupBinary</code> function.</p>
+    </div>
+  </body>
+</html>

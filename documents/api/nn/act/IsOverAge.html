@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>IsOverAge</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/act/Overview.html">act</a>::IsOverAge Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool IsOverAge(
+     <a href="../../nn_types/u8.html">u8</a> age
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>age</th>
+          <td>Specifies the age to compare.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if the account is the specified age or older, and returns <code>false</code> if it is younger. It returns <code>false</code> if used on a local account. It returns <code>false</code> when the network clock is not activated. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Determines whether the system account user is at least the specified age. This function itself does not trigger any communication and can make this determination without an Internet connection by estimating the current date and time. However, you need to activate the network clock by calling a function that communicates with the account server in advance. In addition, you must reactivate the network clock every time the application runs. <br /><br />
+ Nintendo systems calculate the age of the user based on UTC+12 time, regardless of their country or region of residence. For users in Japan, age is calculated based on 9 P.M. of the day before the date of birth. <br /><br />
+ If you want to get the age of a user directly, please contact Nintendo support. Avoid identifying the ages of users through repeated calls to this function.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/08/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

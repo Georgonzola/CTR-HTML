@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"[]>
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <style type="text/css">
+      <!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+      table.table, table.table td, table.table th
+      {
+        border-collapse: collapse;
+        background-color: white;
+      }
+
+      table.table
+      {
+        width: auto;
+        margin: 1em;
+        position	: static;
+        font-family	: Arial;
+      }
+
+      table.table td, table.table th
+      {
+        padding: 0.2em;
+      }
+
+      table.table td.number, table.table th.number
+      {
+        text-align: right;
+      }
+
+      table.table tbody tr th
+      {
+        text-align: left;
+        font-weight: normal;
+        width: auto;
+      }
+
+      table.table thead tr th,
+      table.table tbody tr th.category
+      {
+        padding: 0 0.2em;
+      }
+
+      table.table caption
+      {
+        font-weight: bold;
+        padding: 0.4em;
+      }
+      table.table th
+      {
+        font-weight			: bold;
+        background			: #acf;
+      }
+        -->
+    </style>
+    <title>Command-Buffer Jumps</title>
+  </head>
+  <body>
+    <h1>Command-Buffer Jumps</h1>
+
+    <div class="section">
+      <p>
+        <ul>
+          <li><a href="#about">Overview</a></li>
+          <li><a href="#feature">Features of Command-Buffer Jumps</a></li>
+            <ul>
+              <li><a href="#feature_merit">Benefits</a></li>
+              <li><a href="#feature_notice">Drawbacks</a></li>
+            </ul>
+          <li><a href="#api">Functions That Support Command-Buffer Jumps</a></li>
+            <ul>
+              <li><a href="#api_nngx">Only the <CODE>nngx</CODE> API</a></li>
+              <li><a href="#api_gr">GR Library and <CODE>nngx</CODE> API</a></li>
+              <li><a href="#api_gd">GD Library</a></li>
+              <li><a href="#api_direct">Directly Generating 3D Commands</a></li>
+            </ul>
+<li><a href="#complement"><B>Comments</B></a></li>
+            <ul>
+<li><a href="#comp_buflocation">Placement of Command Buffers</a></li>
+<li><a href="#comp_cpucacheop">CPU Cache Operations When Inserting Split Commands (When Using <CODE>nngx</CODE> Functions)</a></li>
+<li><a href="#comp_cmdlist">Execution Status of the Command List</a></li>
+            </ul>
+          <li><a href="#log">Revision History</a></li>
+        </ul>
+      </p>
+    </div>
+
+    <h2><a name="about">Overview</a></h2>
+    <div class="section">
+      <p>
+          You can use command buffer addresses and sizes and kick commands to make execution jump to command buffers at different addresses.
+      </p>
+      <p>
+          The libraries provided by the SDK have API functions not only for normal, unidirectional command-buffer jumps, but also for jumping to command buffers in different locations in the form of subroutines that execute and then jump back to resume execution of subsequent commands in the original command buffer.
+      </p>
+    </div>
+    <!-- 概要 -->
+
+    <h2><a name="feature">Features of Command-Buffer Jumps</a></h2>
+    <div class="section">
+      <p>
+There are both benefits and drawbacks to using command-buffer jumps, and both are considered below.
+      </p>
+      <h3><a name="feature_merit">Benefits</a></h3>
+      <div class="section">
+        <p>
+          <ul>
+            <li>Enables the reuse of command buffers without adding and duplicating command requests, thereby reducing the load on the CPU.</li>
+            <li>Destination commands can be referenced directly from the GPU without copying to the current command buffer, so you can optimize the size of buffer assigned to the command list.</li>
+          </ul>
+        </p>
+      </div>
+      <h3><a name="feature_notice">Drawbacks</a></h3>
+      <div class="section">
+        <p>
+          <ul>
+            <li>The application must not only create the destination command buffers but also place them and perform all other related tasks.</li>
+            <li>When you execute a lot of jumping it becomes difficult to track the causes of rendering-related bugs.</li>
+            <li>The jumping process itself places a higher load on the GPU, so heavy use of command-buffer jumps can have an overall negative effect.</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+    <!-- コマンドバッファジャンプの特徴 -->
+
+    <h2><a name="api">Functions That Support Command-Buffer Jumps</a></h2>
+    <div class="section">
+      <h3><a name="api_nngx">Only the nngx API</a></h3>
+      <div class="section">
+      <p>
+The <CODE><a href="../nn_gx/nngxAddJumpCommand.html">nngxAddJumpCommand</a></CODE> function is for unidirectional jumps, and the <CODE><a href="../nn_gx/nngxAddSubroutineCommand.html">nngxAddSubroutineCommand</a></CODE> function is for performing command-buffer jumps as subroutines.
+      </p>
+      <p>
+          The <CODE>nngx</CODE> API functions operate internally and automatically to adjust the byte alignment and size.<br /> The subroutine made for the command-buffer jump must add a Channel 1 kick command to the end of the command buffer. (For this, you can use the <CODE>nn::gr::MakeChannelKickCommand</CODE> function, which is described later.)
+      </p>
+      <p>
+If you are going to add 3D rendering command requests (to add split commands) including a jump, use the following functions.
+          <ul>
+            <li><CODE><a href="../nn_gx/nngxFlush3DCommand.html">nngxFlush3DCommand</a></CODE> function.  (The <CODE><a href="../nn_gx/nngxSplitDrawCmdlist.html">nngxSplitDrawCmdlist</a> </CODE> function is also fine, but not recommended.)</li>
+            <li><CODE><a href="../nn_gx/nngxFlush3DCommandNoCacheFlush.html">nngxFlush3DCommandNoCacheFlush</a></CODE> function.</li>
+          </ul>
+If using this later function, you must explicitly flush the CPU cache for the command buffer.<br /><font color="red">The <a href="../nn_gx/nngxFlush3DCommandPartially.html">nngxFlush3DCommandPartially</a> function does not perform this flush internally.</font>
+      </p>
+      </div>
+
+      <h3><a name="api_gr">GR Library and nngx API</a></h3>
+      <div class="section">
+      <p>
+Unidirectional jumps use the <CODE><a href="../nn/gr/CTR/MakeChannel0JumpCommand.html">nn::gr::MakeChannel0JumpCommand</a></CODE> function and the <CODE> <a href="../nn/gr/CTR/MakeChannel1JumpCommand.html">nn::gr::MakeChannel1JumpCommand</a></CODE> function. Subroutines use the <CODE><a href="../nn/gr/CTR/MakeChannel0SubroutineCommand.html">nn::gr::MakeChannel0SubroutineCommand</a></CODE> function and the <CODE><a href="../nn/gr/CTR/MakeChannel1SubroutineCommand.html">nn::gr::MakeChannel1SubroutineCommand</a></CODE> function.<br />In addition, the <CODE><a href="../nn/gr/CTR/MakeChannelKickCommand.html">nn::gr::MakeChannelKickCommand</a></CODE> function is supported for adding the kick command itself.
+      </p>
+      <p>
+The GR library does not take the command buffer size and byte alignment into consideration when adding jump-related commands.<br />You must make adjustments based on the size of commands added by the API functions.<br />Alternatively, you can select the channels to use and the commands to add. Also, the <a href="../nn/gr/CTR/CommandBufferJumpHelper/Overview.html"><CODE>nn::gr::CommandBufferJumpHelper</CODE></a> class helps you to adjust command sizes and create kick commands, but does not allow you to select channels.
+      </p>
+      <p>
+          <table>
+            <tr>
+<th>Function</th>
+<th>Size (in Bytes) of the Added Command</th>
+            </tr>
+            <tr>
+<td><a href="../nn/gr/CTR/MakeChannelKickCommand.html">MakeChannelKickCommand</a></td>
+              <td>8</td>
+            </tr>
+            <tr>
+<td><a href="../nn/gr/CTR/MakeChannel0SubroutineCommand.html">MakeChannel0SubroutineCommand</a></td>
+              <td>24</td>
+            </tr>
+            <tr>
+<td><a href="../nn/gr/CTR/MakeChannel1SubroutineCommand.html">MakeChannel1SubroutineCommand</a></td>
+              <td>32</td>
+            </tr>
+            <tr>
+<td><a href="../nn/gr/CTR/MakeChannel0JumpCommand.html">MakeChannel0JumpCommand</a></td>
+              <td>24</td>
+            </tr>
+            <tr>
+<td><a href="../nn/gr/CTR/MakeChannel1JumpCommand.html">MakeChannel1JumpCommand</a></td>
+              <td>24</td>
+            </tr>
+          </table>
+      </p>
+      <p>
+To add a split command you must use the <CODE><a href="../nn_gx/nngxFlush3DCommandPartially.html">nngxFlush3DCommandPartially</a></CODE> function.<br />For the argument, specify the size from the start of the command buffer to the (first) kick command.<br />If you are using the GR library, you must explicitly flush the CPU cache for the command buffer.<br /> <font color="red">The <CODE><a href="../nn_gx/nngxFlush3DCommandPartially.html">nngxFlush3DCommandPartially</a></CODE> function does not perform this flush internally.</font>
+      </p>
+      </div>
+
+      <h3><a name="api_gd">GD Library</a></h3>
+      <div class="section">
+      <p>
+         If you use the GD library, you do not need to make direct calls to the <CODE>nngx</CODE> functions for command-buffer jumping. The library acts internally to call the necessary functions.
+      </p>
+      <p>
+          Specify <CODE>RECORD_3D_COMMAND_BUFFER_FOR_JUMP</CODE> for the <SPAN class="argument">usage</SPAN> parameter of the <CODE><a href="../nn/gd/CTR/System/StartRecordingPackets.html">nn::gd::System::StartRecordingPackets</a></CODE> function and create the 3D command buffer you want as a subroutine. After the necessary commands are created, call the <CODE><a href="../nn/gd/CTR/System/StopRecordingPackets.html">nn::gd::System::StopRecordingPackets</a></CODE> function. The jump command is added internally when you specify the saved <CODE>RecordedPacketId</CODE> to the <CODE><a href="../nn/gd/CTR/System/ReplayPackets.html">nn::gd::System::ReplayPackets</a></CODE> function.
+      </p>
+      </div>
+
+      <h3><a name="api_direct">Directly Generating 3D Commands</a></h3>
+      <div class="section">
+      <p>
+          You can also jump by directly creating commands to send to the GPU. Use registers 0x238 to 0x23d. For more information, see the documentation.
+      </p>
+      <p>
+          However, there is really no benefit to creating your own commands, so we recommend normally using one of the other methods.
+      </p>
+      </div>
+    </div>
+    <!-- コマンドバッファジャンプをサポートする API -->
+
+    <h2><a name="complement">Comments</a></h2>
+    <div class="section">
+      <p>
+        The following supplemental information describes cautions to take when implementing command-buffer jumps, and ways to boost efficiency.
+      </p>
+
+      <h3><a name="comp_buflocation">Placement of Command Buffers</a></h3>
+      <div class="section">
+      <p>
+        Access to command buffers from the GPU is faster when the subroutines of commands are stored in VRAM rather than in main memory. If access to command buffers in main memory becomes a bottleneck, you can expect an overall boost in processing speed by saving to VRAM.
+      </p>
+      <p>
+        To place commands in VRAM, use the <CODE><a href="../nn_gx/nngxAddVramDmaCommand.html">nngxAddVramDmaCommand</a></CODE> function or the <CODE><a href="../nn_gx/nngxAddVramDmaCommandNoCacheFlush.html">nngxAddVramDmaCommandNoCacheFlush</a></CODE> function.
+      </p>
+      </div>
+
+<h3><a name="comp_cpucacheop">CPU Cache Operations When Inserting Split Commands (When Using nngx API Functions)</a></h3>
+      <div class="section">
+      <p>
+        If you implement a subroutine using the <CODE>nngx</CODE> API functions, calling the <CODE>nngxFlush3DCommand</CODE> function when adding a split command increases the load on the CPU because the CPU cache is flushed each time it is called.
+      </p>
+      <p>
+For this reason, it is more efficient to keep the 3D rendering command requests together without splitting if they include a subroutine call.<br />If you need to have 3D rendering command requests containing multiple subroutines, you can use the <CODE>nngxFlush3DCommandNoCacheFlush</CODE> function when adding the split command and then later call the <CODE><a href="../nn/gx/CTR/UpdateBuffer.html">nn::gx::CTR::UpdateBufferLight</a></CODE> function for the entire required region so that all flush operations occur together.
+      </p>
+      </div>
+
+      <h3><a name="comp_cmdlist">Execution Status of the Command List</a></h3>
+      <div class="section">
+      <p>
+        If there are no unexecuted command requests in the command list called by the <CODE><a href="../nn_gx/nngxRunCmdlist.html">nngxRunCmdlist</a></CODE> function, that command list enters the "waiting to run" state.<br /> In this state, if a new command request is added to the list, that request begins to run. During command request processing, the command list is in the "running" state.
+      </p>
+      <p>
+When the command list is in the running state, some <CODE>nngx</CODE> API functions generate an error and interrupt the processing.<br />You must be particularly careful with the previously mentioned <CODE><a href="../nn_gx/nngxFlush3DCommandPartially.html">nngxFlush3DCommandPartially</a></CODE> function.
+      </p>
+      <p>
+        For implementations similar to the following example, depending on the timing, the intended commands may not be generated and the GPU may hang.
+      </p>
+
+<h4>Example of a Bad Implementation (Using One Command List)</h4>
+        <div class="section">
+        <p>
+<pre>
+// Bad implementation.
+// One command list is used while it remains in the "waiting to run" state.
+
+Draw()
+{
+    // Add a command request to clear the render buffer. ... (A)
+    nngxAddMemoryFillCommand(...);
+
+    // Create a rendering command. (Assume that the GR library is internally applying the jump.)
+    DrawObjects();
+    // Add a split command. (Add a 3D rendering command request.)... (B)
+    nngxFlush3DCommandPartially(buffersize);
+    // Flush the CPU cache for the command buffer.
+    nngxUpdateBufferLight(...);
+
+    // Add a command request to transfer data to the display buffer. ... (C)
+    nngxTransferRenderImage(...);
+
+    // Wait for execution to complete.
+    nngxWaitCmdlistDone();
+    // Swap buffers.
+    Swap();
+    // Clear the command list.
+    nngxClearCmdlist();
+}
+</pre>
+        If the command list is in the "waiting to run" state, it transitions to the "running" state when the command list is added (A). <br /> If (B) takes place before command request (A) completes, the <CODE><a href="../nn_gx/nngxFlush3DCommandPartially.html">nngxFlush3DCommandPartially</a></CODE> function generates the error GL_ERROR_80AD_DMP.<br /> The split command is not generated when the error occurs in (B), but when the <CODE><a href="../nn_gx/nngxTransferRenderImage.html">nngxTransferRenderImage</a></CODE> function is called in (C), a split command is added if there is any unprocessed command buffer, and a 3D rendering command request created.<br /> Because the execution size is not the size that was intended from the settings (the size from the start to the first kick command), the correct render result is not obtained and, in some cases, the GPU may hang.
+        </p>
+        <p>
+        There are several possible workarounds.
+        <ul>
+          <li>Duplicate the command list.</li>
+          <li>Immediately before step (B), add the <CODE><a href="../nn_gx/nngxWaitCmdlistDone.html">nngxWaitCmdlistDone</a></CODE> function to wait for the command list to finish running.</li>
+        </ul>
+        </p>
+        </div>
+      </div>
+    </div>
+    <!-- 補足 -->
+
+    <h2><a name="log">Revision History</a></h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/05/23</dt>
+<dd>Changed the cache control function from <CODE>nngxUpdateBuffer</CODE> to <CODE>nngxUpdateBufferLight</CODE>.</dd>
+        <dt>2012/06/26</dt>
+        <dd>Added a note about the <CODE>nn::gr::CommandBufferJumpHelper</CODE> class.<br /></dd>
+        <dt>2012/02/17</dt>
+        <dd>Added a table of contents and information about the GD library.<br /></dd>
+        <dt>2012/02/08</dt>
+        <dd>Initial version.<br /></dd>
+      </dl>
+    </div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

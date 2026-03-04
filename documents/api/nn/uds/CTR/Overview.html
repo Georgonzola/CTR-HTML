@@ -1,0 +1,733 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::uds::CTR</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/uds/Overview.html">uds</a>::CTR Namespace</h1>
+    <h2>Description</h2>
+    <div class="section">
+      <p>The namespace of the <a href="../../../nn/uds/CTR/Overview.html">CTR</a> library for performing local communication. (It can also be written without the <code>CTR</code> portion.)</p><p>This library is used to run UDS communication, Nintendo's unique local wireless communication.  For more information about UDS communication, see the programming manuals.</p><h2> Notes </h2><h3> Function Blocking </h3><p>With the exception of the <tt>GetLinkLevel</tt> function, all of the UDS library functions can be blocked by several milliseconds, depending on the situation. (As stated in the API Reference, if the block time is greater than 100 ms it is the reference value.)</p><p>Note that this can cause problems such as unstable frame rates when these functions are called within the main thread.</p><h3> Sleep Mode During UDS Communication </h3><h4> Sleep Mode Is Prohibited During <tt>Initialize</tt></h4><p>Do not enter Sleep Mode while the <tt>Initialize</tt> function is running.  The process of transitioning the communication system to UDS mode may conflict with background communication processing when the system enters Sleep Mode, resulting in incorrect operations.</p><h4> Sleep Mode Transitions During Communication </h4><p>Because the system cannot maintain UDS communication during Sleep Mode, applications must shut down the UDS library before allowing the system to enter Sleep Mode.</p><p>If the system enters Sleep Mode without shutting down the UDS library, the UDS library forces all communication in progress to end immediately before the entire system enters Sleep Mode, resulting in an internal state of <tt>STATE_ERROR</tt>.  Once the library has fallen into this state, all functions except for a few (such as <tt>Finalize</tt> and <tt>GetConnectionStatus</tt>) return an error.</p><h3> Guaranteeing Packet Arrival </h3><p>The UDS library itself does not guarantee that packets have actually been sent to the destination. A packet loss of approximately 1-2% is normal and in some cases may be 10%.  Do not use code that assumes the packets you send will always reach the destination.</p><h3> Packet Order </h3><p>As long as packets are sent to the same node with the same options specified, they are guaranteed to be sent in the same order.  When the packets are addressed to <tt>BROADCAST_NODE_ID</tt> or certain nodes, the order in which they are sent and received may be swapped.  Similarly, the order in which they are sent and received may also be swapped when you switch between using the <tt>FORCE_DIRECT_BC</tt> and <tt>FORCE_UNICAST</tt> options.</p><h3> Specification for <tt>TemporaryID</tt> With UDS Communication </h3><p>When a device builds a network and operates as the master, usually a random number is generated and used as the <tt>TemporaryID</tt> for that network so that the network can be distinguished from a network built by the same device and on which local communications have taken place, but on which communications have been broken and resumed. <br /><br /> However, if a <tt>TemporaryID</tt> is generated every single time a network is built, consider what happens when you implement an algorithm like the following one to build networks without the end user keeping track of whether they are the host or the client. <br /><br /> 1:  Become a host (build a network). <br /> 2:  If you cannot perform client connection after a specified period of time, destroy the network. <br /> 3:  Search for nearby networks. If a network for the same application exists, connect to that network as a client. <br /> If you cannot find a peer to connect with, repeat these steps.  <br /><br /> With this kind of algorithm, devices try to connect based on their search results, <br />but because a <tt>TemporaryID</tt> is generated every single time a network is built, <br /> peers frequently cannot connect because the host has rebuilt its network. <br /><br />The upshot is that the developer's implementation cannot achieve the expected operations.   <br /><br /> UDS communication provides for the following exception.<br /><br /> Do not update the <tt>TemporaryID</tt> when rebuilding the network if no clients are connected and communication between devices has not been established.<br />(However, if it has been a long time since the network was rebuilt, assume that the network being built has no relation to the previous network and go ahead and update the <tt>TemporaryID</tt>.)<br /><br /><br /><br /> Contact Nintendo if there is a problem implementing this specification in your application.<br /></p><h3> Communication Between CTR and SNAKE Systems </h3><p>The SNAKE and CTR processors run at different speeds, and this can lead to communication problems. <br /> Do not implement communication process that greatly depend on processing speed. <br /> For example, use a timer to introduce an appropriate delay after sending a packet to avoid excessive sending of packets. <br /> Alternatively, implement a process whereby the sender checks on the receiving status of the receiver as needed.  <br /> When testing operations, use the CTR and SNAKE systems in numerous combinations to confirm that no problems will arise.<br /></p></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="2">Handling</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/NetworkDescription/Overview.html">nn::uds::CTR::NetworkDescription</a>
+            </th>
+            <td>Class indicating network information that can be obtained using <code><a href="../../../nn/uds/CTR/NetworkDescriptionReader/Overview.html">nn::uds::CTR::NetworkDescriptionReader</a></code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/NetworkDescriptionReader/Overview.html">nn::uds::CTR::NetworkDescriptionReader</a>
+            </th>
+            <td>Class for parsing all types of network information that can be obtained using <code><a href="../../../nn/uds/CTR/ScanResultReader/Overview.html">nn::uds::CTR::ScanResultReader</a></code>.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ScanResultReader/Overview.html">nn::uds::CTR::ScanResultReader</a>
+            </th>
+            <td>Class for parsing the scan results obtained by <code><a href="../../../nn/uds/CTR/Scan.html">nn::uds::CTR::Scan</a></code>.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="2">Result</th>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultNotFoundNetwork/Overview.html">nn::uds::CTR::ResultNotFoundNetwork</a>
+            </th>
+            <td>Indicates that the network to which a connection was attempted using <code>ConnectNetwork</code> was not found.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultAlreadyNetworkIsFull/Overview.html">nn::uds::CTR::ResultAlreadyNetworkIsFull</a>
+            </th>
+            <td>Indicates that the network to which a connection was attempted using <code>ConnectNetwork</code> is full. (The number of devices connected to that network has already reached the maximum.)</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultDeniedFromMaster/Overview.html">nn::uds::CTR::ResultDeniedFromMaster</a>
+            </th>
+            <td>Indicates that the attempt to connect to the network using <code><a href="../../../nn/uds/CTR/ConnectNetwork.html">ConnectNetwork</a></code> was denied by the host. If the host application is not intentionally prohibiting connection, this error may also occur when the connection cannot be made because of poor signal quality.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultConnectionTimeout/Overview.html">nn::uds::CTR::ResultConnectionTimeout</a>
+            </th>
+            <td>The connection to the network using the <code><a href="../../../nn/uds/CTR/ConnectNetwork.html">ConnectNetwork</a></code> function timed out.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultInvalidState/Overview.html">nn::uds::CTR::ResultInvalidState</a>
+            </th>
+            <td>Indicates that the function cannot run in the current library state. This result can also occur if the connection is lost during communication.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultInvalidNode/Overview.html">nn::uds::CTR::ResultInvalidNode</a>
+            </th>
+            <td>Indicates that the node with the specified node ID does not exist on the network. This result can also occur when the node attempts to send a packet to itself, or when the connection target disconnects from the network.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultOutOfResource/Overview.html">nn::uds::CTR::ResultOutOfResource</a>
+            </th>
+            <td>Indicates that the library is out of resources. This result can occur if the total size of the receive buffer specified by the <code><a href="../../../nn/uds/CTR/Attach.html">Attach</a></code> function exceeds that of the buffer specified when the <code><a href="../../../nn/uds/CTR/Initialize.html">Initialize</a></code> function was called.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultBufferIsFull/Overview.html">nn::uds::CTR::ResultBufferIsFull</a>
+            </th>
+            <td>This mostly occurs if <code><a href="../../../nn/uds/CTR/SendTo.html">SendTo</a></code> is called with high frequency, and send operations get backed up. The data being sent is lost if an error occurs.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultWirelessOff/Overview.html">nn::uds::CTR::ResultWirelessOff</a>
+            </th>
+            <td>Indicates that the system entered wireless-disabled mode after the UDS library was initialized.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultNotInitialized/Overview.html">nn::uds::CTR::ResultNotInitialized</a>
+            </th>
+            <td>Indicates that the library has not been initialized. This error can be resolved by calling the <code><a href="../../../nn/uds/CTR/Initialize.html">Initialize</a></code> function.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultAlreadyOccupiedWirelessDevice/Overview.html">nn::uds::CTR::ResultAlreadyOccupiedWirelessDevice</a>
+            </th>
+            <td>UDS communication cannot be used at the moment because other communication is already in progress.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultOutOfRange/Overview.html">nn::uds::CTR::ResultOutOfRange</a>
+            </th>
+            <td>Indicates that one or more of the arguments were set to values outside their valid ranges.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultMisalignedAddress/Overview.html">nn::uds::CTR::ResultMisalignedAddress</a>
+            </th>
+            <td>Indicates that the address alignment is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultMisalignedSize/Overview.html">nn::uds::CTR::ResultMisalignedSize</a>
+            </th>
+            <td>Indicates that the size alignment is invalid.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultTooLarge/Overview.html">nn::uds::CTR::ResultTooLarge</a>
+            </th>
+            <td>Indicates that one or more of the arguments had data that exceeded the maximum size. This error occurs for functions that send data.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultNotAuthorized/Overview.html">nn::uds::CTR::ResultNotAuthorized</a>
+            </th>
+            <td>Indicates that one or more of the arguments contain a value that is permitted only in special cases.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultMiscellaneousSystemError/Overview.html">nn::uds::CTR::ResultMiscellaneousSystemError</a>
+            </th>
+            <td>A temporary failure resulting from something on the system side. Normally, if you retry with the same arguments, the function succeeds.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultNotImplemented/Overview.html">nn::uds::CTR::ResultNotImplemented</a>
+            </th>
+            <td>The function is defined but not implemented.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultMalformedData/Overview.html">nn::uds::CTR::ResultMalformedData</a>
+            </th>
+            <td>Indicates that the data is not correct, and that the received data may have been tampered with.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ResultInvalidData/Overview.html">nn::uds::CTR::ResultInvalidData</a>
+            </th>
+            <td>Indicates that the received data is invalid.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ConnectionStatus/Overview.html">nn::uds::CTR::ConnectionStatus</a>
+            </th>
+            <td>Stores the UDS connection status.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/ScrambledLocalFriendCode/Overview.html">nn::uds::CTR::ScrambledLocalFriendCode</a>
+            </th>
+            <td>Stores information that can be converted to a local friend code using the <code><a href="../../../nn/friends/Overview.html">friends</a></code> library. To simplify the use of friend features in local communications and at the same time protect user privacy and prevent individual tracking, you can query the <code><a href="../../../nn/friends/Overview.html">friends</a></code> library and get the local friend code as represented by a data array of <code>nn::uds::CTR::SCRAMBLED_LOCAL_FRINED_CODE_SIZE</code> bytes. This way you do not use the local friend code from the UDS library.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/NodeInformation/Overview.html">nn::uds::CTR::NodeInformation</a>
+            </th>
+            <td>Stores user information about nodes connected to the network.</td>
+          </tr>
+          <tr>
+            <th>
+              <a href="../../../nn/uds/CTR/EndpointDescriptor/Overview.html">nn::uds::CTR::EndpointDescriptor</a>
+            </th>
+            <td>This is an <code>endpoint</code> descriptor. Corresponds to a <a href="../../../nn/socket/Overview.html">socket</a> descriptor.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/uds/CTR/State.html">State</a>
+            </th>
+            <td>Enumerates UDS states.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/uds/CTR/DisconnectReason.html">DisconnectReason</a>
+            </th>
+            <td>Enumerates the reasons for disconnection.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/uds/CTR/ConnectType.html">ConnectType</a>
+            </th>
+            <td>Enumerated type that represents modes used during connection to the network.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/uds/CTR/PowerSaveMode.html">PowerSaveMode</a>
+            </th>
+            <td>Enumerates the network's power-saving modes.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../nn/uds/CTR/LinkLevel.html">LinkLevel</a>
+            </th>
+            <td>Enumerated type indicating the communication quality (link level).</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="constant" id="constant">
+      <h2> Constants</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="4">Alignment</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/BUFFER_ALIGNMENT.html">BUFFER_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the address of the received buffer specified in <code><a href="../../../nn/uds/CTR/Initialize.html">Initialize</a></code> must be aligned to. It is defined as 4096 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/BUFFER_UNITSIZE.html">BUFFER_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the size of the receive buffer specified in <code><a href="../../../nn/uds/CTR/Initialize.html">Initialize</a></code> must be a multiple of. It is defined as 4096 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/SEND_DATA_ALIGNMENT.html">SEND_DATA_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the starting address for where to store outgoing data specified in <code><a href="../../../nn/uds/CTR/SendTo.html">SendTo</a></code> must be aligned to. It is defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/SEND_DATA_UNITSIZE.html">SEND_DATA_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the size of the region for where to store outgoing data specified in <code><a href="../../../nn/uds/CTR/SendTo.html">SendTo</a></code> must be a multiple of. It is defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/RECEIVE_DATA_ALIGNMENT.html">RECEIVE_DATA_ALIGNMENT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/s32.html">s32</a></td>
+            <td>Specifies the number of bytes that the starting address for storing incoming data specified in <code><a href="../../../nn/uds/CTR/Receive.html">Receive</a></code> must be aligned to. It is defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/RECEIVE_DATA_UNITSIZE.html">RECEIVE_DATA_UNITSIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Specifies the number of bytes that the size of the region for where to store incoming data specified in <code><a href="../../../nn/uds/CTR/Receive.html">Receive</a></code> must be a multiple of. It is defined as 4 bytes.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Transmission Data Sizes</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/NET_DESC_APPDATA_SIZE_MAX.html">NET_DESC_APPDATA_SIZE_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Maximum size of the application data that can be set for the beacon.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/UDS_PACKET_PAYLOAD_MAX_SIZE.html">UDS_PACKET_PAYLOAD_MAX_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>Maximum size of the data that can be sent in a single call to <code><a href="../../../nn/uds/CTR/SendTo.html">nn::uds::CTR::SendTo</a></code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/ATTACH_BUFFER_SIZE_MIN.html">ATTACH_BUFFER_SIZE_MIN</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Minimum size of the receive buffer specified in a call to the <code><a href="../../../nn/uds/CTR/Attach.html">Attach</a></code> function. This value is the sum of the <code>UDS_PACKET_PAYLOAD_MAX_SIZE</code> and the system management region.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/ATTACH_BUFFER_SIZE_DEFAULT.html">ATTACH_BUFFER_SIZE_DEFAULT</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Default size of the receive buffer specified in a call to the <code><a href="../../../nn/uds/CTR/Attach.html">Attach</a></code> function.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">String Length of the Passphrase</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/UDS_PASSPHRASE_LENGTH_MIN.html">UDS_PASSPHRASE_LENGTH_MIN</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Minimum size of the passphrase for generating the encrypted key used in communication.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/UDS_PASSPHRASE_LENGTH_MAX.html">UDS_PASSPHRASE_LENGTH_MAX</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>Maximum size of the passphrase for generating the encryption key used in communication.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Send/Receive Options</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/NO_WAIT.html">NO_WAIT</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/bit8.html">bit8</a></td>
+            <td>If this constant is specified as an argument to the <code><a href="../../../nn/uds/CTR/SendTo.html">SendTo</a></code> function, wireless transmission occurs immediately without buffering within the UDS library. If this constant is specified as an argument to either the <code><a href="../../../nn/uds/CTR/Receive.html">Receive</a></code> or <code><a href="../../../nn/uds/CTR/ReceiveFrom.html">ReceiveFrom</a></code> functions, the wireless transmission ends immediately, even if no data has been received.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/FORCE_DIRECT_BC.html">FORCE_DIRECT_BC</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/bit8.html">bit8</a></td>
+            <td>When <code><a href="../../../nn/uds/CTR/SendTo.html">SendTo</a></code> has been specified, sends using direct broadcast without asking for a recipient. Unicast communication among clients takes place without the use of a host. As a result, you can have low latency communication, but packets may not arrive.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Other</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/BROADCAST_NODE_ID.html">BROADCAST_NODE_ID</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u16.html">u16</a></td>
+            <td>Node ID representing all node addresses of the network. Data sent to <code>BROADCAST_NODE_ID</code> can be retrieved by <code>Spectator</code>s.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/NODE_MAX.html">NODE_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u8.html">u8</a></td>
+            <td>Maximum value for the maximum number of network connections. In the future, we plan to support communication for 16 devices, but as of CTR-SDK 0.14 we cannot confirm sufficient operations with that many devices, so communications with 13 or more devices exceeds the guaranteed range of operations.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/ENDPOINT_MAX.html">ENDPOINT_MAX</a>
+              </span>
+            </th>
+            <td width="100">const <a href="../../../nn_types/u8.html">u8</a></td>
+            <td>The maximum number of endpoints that can be created. This value is subject to change in the future.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span>
+            </td>
+            <th>
+              <span class="argument">
+                <a href="../../../nn/uds/CTR/SCRAMBLED_LOCAL_FRINED_CODE_SIZE.html">SCRAMBLED_LOCAL_FRINED_CODE_SIZE</a>
+              </span>
+            </th>
+            <td width="100">const size_t</td>
+            <td>The byte length of <code><a href="../../../nn/uds/CTR/ScrambledLocalFriendCode/Overview.html">ScrambledLocalFriendCode</a></code>.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2> Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Initialization and Shutdown</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/Initialize.html">Initialize</a>
+            </th>
+            <td>Initializes the UDS library. Initialization fails if any other communication features are already in use.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/Finalize.html">Finalize</a>
+            </th>
+            <td>Finalizes the UDS library. After executing, other communication features become usable.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Networks (Creating, Destroying, Connecting, and Disconnecting)</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/CreateLocalCommunicationId.html">CreateLocalCommunicationId</a>
+            </th>
+            <td>Creates a local communication ID from a unique ID. This function uses a 20-bit unique ID assigned by Nintendo to generate a 32-bit value (a <emphasis>local communication ID</emphasis>) to use for UDS communication. <br />
+ If Nintendo has not assigned a unique ID to you, use one of the unique IDs for game prototypes (in the range from <code>0xFF000</code> through <code>0xFF3FF</code>). <br />
+ However, you must get a unique ID from Nintendo for your retail product. <br /><br />
+ This function is thread-safe.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/CreateNetwork.html">CreateNetwork</a>
+            </th>
+            <td>Creates a new network.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/Scan.html">Scan</a>
+            </th>
+            <td>Scans for nearby networks.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/ConnectNetwork.html">ConnectNetwork</a>
+            </th>
+            <td>Connects to an existing network.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/EjectClient.html">EjectClient</a>
+            </th>
+            <td>Kicks the specified node off the network. Only the host can call this function. <br /><br />
+ This function is thread-safe.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/DisallowToConnect.html">DisallowToConnect</a>
+            </th>
+            <td>Prevents client nodes from connecting to the network. This function does not affect clients that are currently connected.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/AllowToConnect.html">AllowToConnect</a>
+            </th>
+            <td>Allows the client to connect to the network.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/EjectSpectator.html">EjectSpectator</a>
+            </th>
+            <td>Kicks all connected spectators off the network.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/AllowToSpectate.html">AllowToSpectate</a>
+            </th>
+            <td>Allows the spectator to connect to the network.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/DestroyNetwork.html">DestroyNetwork</a>
+            </th>
+            <td>Destroys the network.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/DisconnectNetwork.html">DisconnectNetwork</a>
+            </th>
+            <td>Disconnects the local node from the network.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Functions for Sending and Receiving Data</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/CreateEndpoint.html">CreateEndpoint</a>
+            </th>
+            <td>Creates a network endpoint and returns the corresponding descriptor.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/SetMaxSendDelay.html">SetMaxSendDelay</a>
+            </th>
+            <td>Specifies the maximum send delay time.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/SendTo.html">SendTo</a>
+            </th>
+            <td>Sends data to the specified port on the specified partner's system.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/Attach.html">Attach</a>
+            </th>
+            <td>Enables the local device to receive packets from the endpoint. Assigns the specified port and node ID to the endpoint. The system creates a receive buffer and prepares to receive packets at the port specified below. <br /><br />
+ This function is thread-safe.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/Receive.html">Receive</a>
+            </th>
+            <td>‏Receives data. (No functionality is provided for getting the address of the sender.)</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/ReceiveFrom.html">ReceiveFrom</a>
+            </th>
+            <td>‏Receives data.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/DestroyEndpoint.html">DestroyEndpoint</a>
+            </th>
+            <td>Destroys an endpoint.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Other</th>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/GetConnectionStatus.html">GetConnectionStatus</a>
+            </th>
+            <td>Gets the current connection status.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/GetLinkLevel.html">GetLinkLevel</a>
+            </th>
+            <td>Gets the current link level.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/GetChannel.html">GetChannel</a>
+            </th>
+            <td>Gets the current channel. <br /><br />
+ This function is thread-safe.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/GetNodeInformation.html">GetNodeInformation</a>
+            </th>
+            <td>Gets information about the specified node. <br /><br />
+ This function is thread-safe.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/SetApplicationDataToBeacon.html">SetApplicationDataToBeacon</a>
+            </th>
+            <td>Sets application data in the beacon.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../nn/uds/CTR/GetApplicationDataFromBeacon.html">GetApplicationDataFromBeacon</a>
+            </th>
+            <td>Gets the data set in the beacon.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/02</dt>
+        <dd><item xmlns="">Added ResultInvalidData to the Result.</item><br />
+        </dd>
+        <dt>2012/03/13</dt>
+        <dd><item xmlns="">Added description of time before re-issuing ID to the specification for the TemporaryId.</item><br />
+        </dd>
+        <dt>2012/02/13</dt>
+        <dd><item xmlns="">Added a specification for <tt>TemporaryId</tt>.</item><br />
+        </dd>
+        <dt>2012/01/20</dt>
+        <dd><item xmlns="">Added thread-safe and unsafe information for each function.</item><br />
+        </dd>
+        <dt>2011/01/25</dt>
+        <dd><item xmlns="">Added a description that almost all library functions can block.</item><br />
+        </dd>
+        <dt>2010/12/15</dt>
+        <dd><item xmlns="">Added information to Description and Notes.</item><br />
+        </dd>
+        <dt>2010/10/22</dt>
+        <dd><item xmlns="">Updated the members of the nn::uds::NodeInformation structure.</item><br />
+        </dd>
+        <dt>2010/10/15</dt>
+        <dd><item xmlns="">Added information to the references for the functions that return <tt>nn::Result</tt>, describing what values those functions return.  Deleted the not-yet-implemented function, <tt>SetNetworkAttribute</tt>.  Added a new function, <tt>SetMaxSendDelay</tt>, which configures the maximum time to delay the sending of data.  Added a new error, <tt>ResultMalformedData</tt>.  Added a new error, <tt>ResultMiscellaneousSystemError</tt>.  Added a function to stop connections to a network (<tt>DisallowToConnect</tt>) and a function to re-allow connections (<tt>AllowToConnect</tt>).</item><br />
+        </dd>
+        <dt>2010/06/14</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

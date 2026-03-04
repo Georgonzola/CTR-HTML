@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetTitleInfo</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/dlp/Overview.html">dlp</a>::<a href="../../../../nn/dlp/CTR/Overview.html">CTR</a>::<a href="../../../../nn/dlp/CTR/FakeClient/Overview.html">FakeClient</a>::GetTitleInfo Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+static <a href="../../../../nn/Result/Overview.html">nn::Result</a> GetTitleInfo(
+     <a href="../../../../nn/dlp/CTR/TitleInfo/Overview.html">TitleInfo</a> * pTitleInfo,
+     bool isReset = false
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pTitleInfo</th>
+          <td>Returns information about a child program.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>isReset</th>
+          <td>Pass <code>true</code> when getting the start of the list.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">The following <code><a href="../../../../nn/Result/Overview.html">Result</a></code> values are returned as the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Child program information was obtained successfully.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidState</th>
+          <td>The state is invalid. Do not use with <code>CLIENT_STATE_INVALID</code> or <code>CLIENT_STATE_ERROR</code>.</td>
+        </tr>
+        <tr>
+          <th>ResultNoData</th>
+          <td>Either the scan result list is empty or the end of the list has been reached.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets child program information from the results of a scan. Information is obtained for child programs in order from the start of the list. This function returns <code><a href="../../../../nn/dlp/CTR/ResultNoData/Overview.html">ResultNoData</a></code> without blocking if it has already reached the end of the list or if there is no child program information. <br />
+ (If a new child program is discovered during a scan, that child program's information is appended to the end of the list. )<br />
+ Pass <code>true</code> for the <emphasis>isReset</emphasis> argument when getting the start of the list.</p>
+    </div>
+  </body>
+</html>

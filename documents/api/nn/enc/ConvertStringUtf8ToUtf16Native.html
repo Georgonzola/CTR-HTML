@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>ConvertStringUtf8ToUtf16Native</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/enc/Overview.html">enc</a>::ConvertStringUtf8ToUtf16Native Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> ConvertStringUtf8ToUtf16Native(
+     <a href="../../nn_types/u16.html">u16</a> * pDst,
+     <a href="../../nn_types/s32.html">s32</a> * pDstSize,
+     const <a href="../../nn_types/u8.html">u8</a> * pSrc,
+     <a href="../../nn_types/s32.html">s32</a> * pSrcSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pDst</th>
+          <td>The buffer into which the converted string is written. No terminating character is added. A string is not written when pDst is <code>NULL</code>.</td>
+        </tr>
+        <tr>
+          <td />
+          <th>pDstSize</th>
+          <td>The size of the buffer into which the converted string is written. This size is the size of the converted string in <code>*</code>pDst (the size of the buffer divided by the size of the type). After data is converted, this stores a value that indicates how much was written to the buffer. When pDst is <code>NULL</code>, the size of the output buffer is ignored and this parameter instead stores the buffer size necessary for writing the converted string.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pSrc</th>
+          <td>The source string buffer.</td>
+        </tr>
+        <tr>
+          <td />
+          <th>pSrcSize</th>
+          <td>The size of the source string buffer. This size is the size of the string to convert in <code>*</code>pSrc (the size of the buffer divided by the size of the type). Data is not read beyond the size specified by pSrcSize. If pSrcSize is <code>NULL</code> or negative, data is read from pSrc until a terminating character is found. If pSrcSize is not <code>NULL</code>, this parameter stores the size of the string buffer that is read.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultNoBufferLeft</th>
+          <td>Insufficient buffer size.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidParameter</th>
+          <td>An invalid argument was passed.</td>
+        </tr>
+        <tr>
+          <th>ResultInvalidFormat</th>
+          <td>An unconvertible character was detected.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Converts the character code of the string provided from <code>UTF-8</code> to <code>UTF-16LE</code> for little-endian environments or from <code>UTF-8</code> to <code>UTF-16BE</code> for big-endian environments, and then gets the buffer size required to write the string after conversion. A termination character is not attached. If a destination buffer is not specified, the buffer size necessary for the write operation is obtained.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

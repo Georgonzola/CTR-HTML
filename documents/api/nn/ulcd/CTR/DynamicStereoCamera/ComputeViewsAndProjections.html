@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>ComputeViewsAndProjections</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ulcd/Overview.html">ulcd</a>::<a href="../../../../nn/ulcd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/Overview.html">DynamicStereoCamera</a>::ComputeViewsAndProjections Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/ulcd.h&gt;
+<a href="../../../../nn_types/f32.html">f32</a> ComputeViewsAndProjections(
+     <a href="../../../../nn/math/Matrix44.html">nn::math::Matrix44</a> * projL,
+     <a href="../../../../nn/math/Matrix34.html">nn::math::Matrix34</a> * viewL,
+     <a href="../../../../nn/math/Matrix44.html">nn::math::Matrix44</a> * projR,
+     <a href="../../../../nn/math/Matrix34.html">nn::math::Matrix34</a> * viewR,
+     const <a href="../../../../nn/math/VEC2/Overview.html">nn::math::VEC2</a> * leftEyeTangent,
+     const <a href="../../../../nn/math/VEC2/Overview.html">nn::math::VEC2</a> * rightEyeTangent,
+     const <a href="../../../../nn/ulcd/CTR/DynamicStereoCamera/Setting/Overview.html">Setting</a> & setting,
+     const <a href="../../../../nn/math/PivotDirection.html">nn::math::PivotDirection</a> pivot = nn::math::PIVOT_UPSIDE_TO_TOP
+) const;
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>projL</th>
+          <td>Specifies the location where the calculated results for the left projection matrix are stored.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>viewL</th>
+          <td>Specifies the location where the calculated results for the left view matrix are stored.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>projR</th>
+          <td>Specifies the location where the calculated results for the right projection matrix are stored.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>viewR</th>
+          <td>Specifies the location where the calculated results for the right view matrix are stored.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>leftEyeTangent</th>
+          <td>Tangent value of the left eye position. Uses the value retrieved by the QTM library. This class works the same as the original <code><a href="../../../../nn/ulcd/CTR/StereoCamera/Overview.html">StereoCamera</a></code> class if <code>null</code> is specified.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>rightEyeTangent</th>
+          <td>Tangent value of the right eye position. Uses the value retrieved by the QTM library. This class works the same as the original <code><a href="../../../../nn/ulcd/CTR/StereoCamera/Overview.html">StereoCamera</a></code> class if <code>null</code> is specified.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>setting</th>
+          <td>Custom <a href="../../../../nn/camera/Overview.html">camera</a> settings.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pivot</th>
+          <td>Upward direction of the <a href="../../../../nn/camera/Overview.html">camera</a> within the frame of the upper screen (used for rotation).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the final calculated stereo factor. A value of less than 1.0, represents a reduction to the parallax limit, stereo factor, or the distance between the left and right cameras by the 3D depth slider. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Calculates the view matrices and projection matrices for the left and right cameras, based on the settings. This function estimates the optimal distance between the LCD screen and the user to provide a realistic stereoscopic effect, or an artistic effect that deviates from reality by using <code>RealisticFovFactor</code>. It is also possible to provide a motion parallax effect by controlling the <a href="../../../../nn/camera/Overview.html">camera</a> based on the position of the user's eyes. If the left and right eye positions are set to <code>null</code>, this function works the same as the original functions such as <code><a href="../../../../nn/ulcd/CTR/StereoCamera/CalculateMatrices.html">nn::ulcd::CTR::StereoCamera::CalculateMatrices</a></code>. When developing on <a href="../../../../nn/ulcd/CTR/Overview.html">CTR</a>, these parameters must be set to <code>null</code>. After the projection matrix is calculated, the <a href="../../../../nn/camera/Overview.html">camera</a> rotation is calculated based on the pivot parameter. No rotation takes place if <code><span>nn::math::PIVOT_NONE</span></code> is specified. The process stops if an invalid value is entered. The default argument of <code><span>nn::math::PIVOT_UPSIDE_TO_TOP</span></code> is used if no argument is specified.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,509 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css">
+<script type="text/javascript" src="../javascript/jquery/jquery.js"></script>
+<title>CTR-SDK</title>
+
+<style type="text/css">
+<!--
+body {
+/*
+    font-size           : 10pt;
+*/
+    font-weight         : normal;
+    color               : #000000;
+    margin-left         : 0px;
+}
+
+div {
+    width               : 98%;
+    white-space         : nowrap;
+}
+
+div.folderBtn {
+}
+
+span.expandBtn {
+    text-align          : left;
+    position            : absolute;
+    top                 : 50%;
+    left                : 2px;
+}
+
+div.title {
+    text-align          : left;
+    font-weight         : bold;
+/*
+    font-size           : 12pt;
+*/
+    font-size           : 120%;
+    color               : #202020;
+
+    margin              : 4px;
+}
+
+div.openitem {
+    text-align          : left;
+    font-weight         : normal;
+    color               : #000000;
+    position            : relative;
+    left                : 0px;
+    display             : block;
+    margin              : 0px;
+}
+div.closeitem {
+    text-align          : left;
+    font-weight         : normal;
+    color               : #000000;
+    position            : relative;
+    left                : 0px;
+    /* JavaScriptがOFFにされている環境でも表示されるように考慮 */
+    display             : block;
+    margin              : 0px;
+}
+
+ul {
+    margin-top          : 2px;
+    margin-bottom       : 0px;
+}
+
+li {
+    margin-bottom       : 2px;
+    font-weight         : normal;
+    padding-left        : 4px;
+    list-style-image    : none;
+    list-style-position : outside;
+}
+
+li.file {
+    list-style-image    : url(img/icon_file_ctr.png);
+}
+
+li.closefolder {
+    font-weight         : bold;
+    /* JavaScriptがOFFにされている環境でも表示されるように考慮 */
+    list-style-image    : url(img/icon_folder_open_ctr.png);
+    cursor              : pointer;
+}
+
+li.openfolder {
+    font-weight         : bold;
+    list-style-image    : url(img/icon_folder_open_ctr.png);
+}
+
+div.header {
+/*
+    font-size           : 10pt;
+*/
+    font-weight         : bold;
+    border-style        : none none solid double;
+    border-width        : 0px 0px 2px 8px;
+    /* フォルダを開いたときに表示される区切り線の色はここで指定します */
+    border-color        : #CD202C;
+
+    /* RVLプラットフォーム系列 */
+/*
+    border-color        : #34beed;
+*/
+
+    /* TWLプラットフォーム系列 */
+/*
+    border-color        : #ff458f;
+*/
+
+    position            : relative;
+    left                : 28px;
+    margin              : 0px;
+    padding             : 2px 2px 2px 4px;
+}
+
+-->
+</style>
+
+<!-- JavaScriptの部分は書き換えないでください -->
+<script language="JavaScript">
+<!--
+function init() {
+    if (!document.getElementsByTagName) { return; }
+    var objs = document.getElementsByTagName("div");
+    for (i = 0; i < objs.length; i++) {
+        if (objs[i].className == "openitem") {
+            objs[i].style.display = "block";
+        } else
+        if (objs[i].className == "closeitem") {
+            objs[i].style.display = "none";
+        }
+    }
+    objs = document.getElementsByTagName("li");
+    for (i = 0; i < objs.length; i++) {
+        if (objs[i].className == "openfolder") {
+            objs[i].style.listStyleImage = "url(img/icon_folder_open_ctr.png)";
+        } else
+        if (objs[i].className == "closefolder") {
+            objs[i].style.listStyleImage = "url(img/icon_folder_close_ctr.png)";
+        }
+    }
+    var cnts = parent.document.getElementsByName("FPT_frame");
+    if (cnts == null) {
+        document.getElementById("expandBtn").style.display = "none";
+    }
+    if ((navigator.appName == "Netscape") && (navigator.appVersion.indexOf("5.0") != -1))
+    {
+        document.getElementById("expandBtn").style.position = "fixed";
+    }
+
+}
+
+function expand(id, objCaller) {
+    if (!document.getElementsByTagName) { return false; }
+    var obj = document.getElementById(id);
+    if (obj.style.display == "block") {
+        obj.style.display = "none";
+        objCaller.className = "closefolder";
+        objCaller.style.listStyleImage = "url(img/icon_folder_close_ctr.png)";
+        return false;
+    } else {
+        obj.style.display = "block";
+        objCaller.className = "openfolder";
+        objCaller.style.listStyleImage = "url(img/icon_folder_open_ctr.png)";
+        return true;
+    }
+}
+
+var visibleLR = true;
+var cntWidth = "300,*";
+
+function clickBtnLR() {
+    var cnts = parent.document.getElementsByName("FPT_frame");
+    if (cnts == null) return;
+    if (visibleLR) {
+        cntWidth = cnts[0].cols;
+        cnts[0].cols = "40,*";
+        document.getElementById("btn_lr").src = "img/icon_open_gray.png";
+        visibleLR = false;
+    } else {
+        cnts[0].cols = cntWidth;
+        document.getElementById("btn_lr").src = "img/icon_close_gray.png";
+        visibleLR = true;
+    }
+}
+
+function openAll() {
+    if (!document.getElementsByTagName) { return; }
+    var objs = document.getElementsByTagName("div");
+    for (i = 0; i < objs.length; i++) {
+        if (objs[i].className == "closeitem") {
+            objs[i].style.display = "block";
+        }
+    }
+    objs = document.getElementsByTagName("li");
+    for (i = 0; i < objs.length; i++) {
+        if (objs[i].className == "closefolder") {
+            objs[i].className = "openfolder";
+            objs[i].style.listStyleImage = "url(img/icon_folder_open_ctr.png)";
+        }
+    }
+}
+
+function closeAll() {
+    if (!document.getElementsByTagName) { return; }
+    var objs = document.getElementsByTagName("div");
+    for (i = 0; i < objs.length; i++) {
+        if (objs[i].className == "closeitem") {
+            objs[i].style.display = "none";
+        }
+    }
+    objs = document.getElementsByTagName("li");
+    for (i = 0; i < objs.length; i++) {
+        if (objs[i].className == "openfolder") {
+            objs[i].className = "closefolder";
+            objs[i].style.listStyleImage = "url(img/icon_folder_close_ctr.png)";
+        }
+    }
+}
+
+function reposition() {
+    if (navigator.appName == "Microsoft Internet Explorer")
+    {
+        var halfH = (document.body.clientHeight + document.body.clientHeight % 2) / 2;
+        var offset = document.body.scrollTop + halfH;
+        document.getElementById("expandBtn").style.top = offset + "px";
+    }
+}
+
+-->
+</script> 
+
+<base target="FPT_main" />
+</head>
+<body onLoad="init();" onScroll="reposition();" onResize="reposition();">
+
+<div class="title">CTR-SDK</div>
+<hr/>
+<div class="fulltextSearch">
+<form id="fulltextSearchForm" action="../search.html" target="FPT_main" method="GET" style="margin-bottom:0">
+Search Full Text:
+<input type="text" name="q" />
+<input type="submit" value="Search" /><br />
+<input type="checkbox" name="api" value="0">Do not include API reference pages in search results.
+</form>
+</div>
+<hr/>
+
+<form name="contents" method="POST" action="#" target="_self">
+<script language="JavaScript">
+<!--
+document.write('<div class="folderBtn">');
+document.write('&nbsp;Entire TOC:');
+document.write('<input type="button" value=" Open " onClick="openAll();" <//> &nbsp;');
+document.write('<input type="button" value="Close" onClick="closeAll();" <//>');
+document.write('</div>');
+document.write('<hr />');
+-->
+</script> 
+
+<div class="openitem">
+
+
+    <ul>
+<li class="file"><a href="../../Readme-CTR_SDK-11_4_0-en.html">Readme</a></li>
+    </ul>
+
+
+
+    <ul>
+        <li class="closefolder" onClick="expand('ReleaseNotes',this);">Release Notes</li>
+    </ul>
+    <div class="closeitem" id="ReleaseNotes">
+        <div class="header">
+            <ul>
+                <li class="file"><a href="../ReleaseNotes/changelog.html">Revision History</a></li>
+                <li class="file"><a href="../ReleaseNotes/knownIssues.html">Symptoms Due to Design Limitations of Specifications</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <ul>
+        <li class="file"><a href="../TechnicalNotes/Glossary/Glossary.html">CTR-SDK Glossary</a></li>
+    </ul>
+
+
+    <ul>
+        <li class="file"><a href="../api/index.html">API Reference</a></li>
+    </ul>
+
+
+    <ul>
+        <li class="file"><a href="../SNAKE/index.html">SNAKE</a></li>
+    </ul>
+
+
+    
+    <ul>
+        <li class="closefolder" onClick="expand('Build',this);">Building</li>
+    </ul>
+    <div class="closeitem" id="Build">
+        <div class="header">
+            <ul>
+                <li class="file"><a href="../SDKRules/BuildRules.html">Build System</a></li>
+                <li class="file"><a href="../TechnicalNotes/BuildSystemDevelopmentGuide/BuildSystemDevelopmentGuide.html">Guide to Developing a Build System</a></li>
+                <li class="file"><a href="../TechnicalNotes/Dll/BuildSystemManualForDll.html">Build System Manual (for DLLs)</a></li>
+                <li class="file"><a href="../TechnicalNotes/Dll/BuildSystemDevelopmentGuideForDll.html">Guide to Developing a Build System (for DLLs)</a></li>
+                <li class="file"><a href="../TechnicalNotes/Dll/BuildSystemDevelopmentGuideForDllAdvanced.html">Guide to Developing a Build System (for High-Level DLLs)</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <ul>
+        <li class="closefolder" onClick="expand('Debugger',this);">Debugger</li>
+    </ul>
+    <div class="closeitem" id="Debugger">
+        <div class="header">
+            <ul>
+                <li class="file"><a href="../Debugger/UsingDebugger.html">Using the Debugger</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <ul>
+        <li class="closefolder" onClick="expand('DevHomeMenu',this);">System Menu</li>
+    </ul>
+    <div class="closeitem" id="DevHomeMenu">
+        <div class="header">
+            <ul>
+                <li class="file"><a href="../DevHomeMenu/AboutTestMenu.html">Development Menu</a></li>
+                <li class="file"><a href="../DevHomeMenu/HomeMenu.html">HOME Menu</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <ul>
+        <li class="closefolder" onClick="expand('Shader',this);">Vertex Shader Manual</li>
+    </ul>
+    <div class="closeitem" id="Shader">
+        <div class="header">
+            <ul>
+                <li class="file"><a href="../shader/FileFormat/ObjectFileFormat.html">Intermediate Object File Format</a></li>
+                <li class="file"><a href="../shader/FileFormat/BinaryFileFormat.html">Executable Binary File Format</a></li>
+                <li class="file"><a href="../shader/Reference/index.html">Assembler Reference</a></li>
+                <li class="file"><a href="../shader/Tools/ctr_VertexCacheSimulator.html">ctr_VertexCacheSimulator</a></li>
+                <li class="file"><a href="../shader/Tools/ctr_VertexShaderAssembler.html">ctr_VertexShaderAssembler</a></li>
+                <li class="file"><a href="../shader/Tools/ctr_VertexShaderLinker.html">ctr_VertexShaderLinker</a></li>
+                <li class="file"><a href="../DMPGL20/VertexShaderReferenceManual.pdf">Vertex Shader Reference Manual</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <ul>
+        <li class="closefolder"><a href="DMPGLDocuments.html">DMPGL Documentation</a> (Delete)</li>
+    </ul>
+
+
+    <ul>
+        <li class="closefolder" onClick="return expand('TechnicalNotes',this);"><a href="TechnicalNotes.html">Miscellaneous Documents</a></li>
+    </ul>
+    <div class="closeitem" id="TechnicalNotes">
+        <div class="header">
+            <ul>
+                <li class="file"><a href="../TechnicalNotes/IdCatalog/IdCatalog.html">ID List</a></li>
+                <li class="file"><a href="../TechnicalNotes/AppletGuide/Applet_Specification.pdf">System Application and Applet Specifications</a></li>
+                <li class="file"><a href="../TechnicalNotes/SystemProgrammingGuide/SystemProgrammingGuide.pdf">System Programming Guide</a></li>
+                <li class="file"><a href="../TechnicalNotes/IconBannerManual/IconBannerManual.pdf">CTR Icon and Banner Authoring Manual</a></li>
+                <li class="file"><a href="../TechnicalNotes/AboutHardwareDifference/AboutHardwareDifference.xlsx">Differences Between Test Units and Retail Units</a></li>
+                <li class="file"><a href="../TechnicalNotes/Dll/DllManual.html">DLL Manual</a></li>
+                <li class="file"><a href="../TechnicalNotes/TexturePackagerLibrary/TPLTexturePackageTool.pdf">Texture Packager Tool External Specifications</a></li>
+                <li class="file"><a href="../TechnicalNotes/TexturePackagerLibrary/TPLRuntime.pdf">Texture Packager Library Runtime Specifications</a></li>
+                <li class="file"><a href="../TechnicalNotes/AboutULCDLibrary/AboutULCDLibrary.pdf">Description of the ULCD Library</a></li>
+                <li class="file"><a href="../TechnicalNotes/Patch/PatchManual.html">Patch Manual</a></li>
+                <li class="file"><a href="../TechnicalNotes/AccountSystemDevelopersGuide/index.html">Account System: Developers' Guide</a></li>
+                <li class="file"><a href="../TechnicalNotes/EShopRestApiManual/documents/index.html">eShop REST API Operating Manual</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <ul>
+        <li class="closefolder" onClick="return expand('wtools',this);"><a href="wtools.html">Windows Tools</a></li>
+    </ul>
+    <div class="closeitem" id="wtools">
+        <div class="header">
+            <ul>
+                <li class="file"><a href="../tools/ctr_compress.html">ctr_compress</a></li>
+                <li class="file"><a href="../tools/ctr_loadrun.html">ctr_loadrun</a></li>
+                <li class="file"><a href="../tools/ctr_ExBanner.html">ctr_make_ex_banner</a></li>
+                <li class="file"><a href="../tools/ctr_makebanner.html">ctr_makebanner</a></li>
+                <li class="file"><a href="../tools/ctr_makecia.html">ctr_makecia</a></li>
+                <li class="file"><a href="../tools/ctr_makeciaarchive.html">ctr_makeciaarchive</a></li>
+                <li class="file"><a href="../tools/ctr_makecro.html">ctr_makecro</a></li>
+                <li class="file"><a href="../tools/ctr_makecrr.html">ctr_makecrr</a></li>
+                <li class="file"><a href="../tools/ctr_makedlexbanner.html">ctr_makedlexbanner</a></li>
+                <li class="file"><a href="../tools/ctr_makeMetaDataContent.html">ctr_makeMetaDataContent</a></li>
+                <li class="file"><a href="../tools/ctr_makerom.html">ctr_makerom</a></li>
+                <li class="file"><a href="../tools/ctr_BannerModelConverter.html">ctr_BannerModelConverter</a></li>
+                <li class="file"><a href="../tools/ctr_FilerDataMigrator.html">ctr_FilerDataMigrator</a></li>
+                <li class="file"><a href="../tools/ctr_FontConverterConsole.html">ctr_FontConverterConsole</a></li>
+                <li class="file"><a href="../tools/ctr_FsAccesslogAnalyzer.html">ctr_FsAccesslogAnalyzer</a></li>
+                <li class="file"><a href="../tools/ctr_GxCommandAnalyzer.html">ctr_GxCommandAnalyzer</a></li>
+                <li class="file"><a href="../TechnicalNotes/TexturePackagerLibrary/TPLTexturePackageTool.pdf">ctr_TexturePackager</a></li>
+                <li class="file"><a href="../shader/Tools/ctr_VertexCacheSimulator.html">ctr_VertexCacheSimulator</a></li>
+                <li class="file"><a href="../shader/Tools/ctr_VertexShaderAssembler.html">ctr_VertexShaderAssembler</a></li>
+                <li class="file"><a href="../shader/Tools/ctr_VertexShaderLinker.html">ctr_VertexShaderLinker</a></li>
+                <li class="file"><a href="../tools/ctr_WaveConverter.html">ctr_WaveConverter</a></li>
+                <li class="file"><a href="../tools/WaveCodecCtr.html">WaveCodecCtr.dll</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <ul>
+        <li class="closefolder" onClick="return expand('ctools',this);"><a href="ctools.html">CTR Tools</a></li>
+    </ul>
+    <div class="closeitem" id="ctools">
+        <div class="header">
+            <ul>
+                <li class="file"><a href="../ctools/BossLotcheckTool.html">BossLotcheckTool</a></li>
+                <li class="file"><a href="../ctools/CecBoxTool.html">CecBoxTool</a></li>
+                <li class="file"><a href="../ctools/CecLotcheckTool.html">CecLotcheckTool</a></li>
+                <li class="file"><a href="../ctools/Config.html">Config</a></li>
+                <li class="file"><a href="../ctools/DevMenu.html">DevMenu</a></li>
+                <li class="file"><a href="../ctools/DlpClient.html">DlpClient</a></li>
+                <li class="file"><a href="../ctools/DummyNintendoEShop.html">DummyNintendoEShop</a></li>
+                <li class="file"><a href="../ctools/EcDevTool.html">EcDevTool</a></li>
+                <li class="file"><a href="../ctools/FangateFwUpdater.html">FangateFwUpdater</a></li>
+                <li class="file"><a href="../ctools/FragDisk.html">FragDisk</a></li>
+                <li class="file"><a href="../ctools/FriendAddTool.html">FriendAddTool</a></li>
+                <li class="file"><a href="../ctools/FriendTestingPartner.html">FriendTestingPartner</a></li>
+                <li class="file"><a href="../ctools/IrCommunicatorChecker.html">IrCommunicatorChecker</a></li>
+                <li class="file"><a href="../ctools/NetworkSetting.html">NetworkSetting</a></li>
+                <li class="file"><a href="../ctools/NfpManager.html">NfpManager</a></li>
+                <li class="file"><a href="../ctools/NfpSdmcTool.html">NfpSdmcTool</a></li>
+                <li class="file"><a href="../ctools/NfpUtil.html">NfpUtil</a></li>
+                <li class="file"><a href="../ctools/NoftWriter.html">NoftWriter</a></li>
+                <li class="file"><a href="../ctools/PedometerChanger.html">PedometerChanger</a></li>
+                <li class="file"><a href="../ctools/PlayCoinSetter.html">PlayCoinSetter</a></li>
+                <li class="file"><a href="../ctools/SaveDataFiler.html">SaveDataFiler</a></li>
+                <li class="file"><a href="../ctools/StereoCameraCalibrator.html">StereoCameraCalibrator</a></li>
+                <li class="file"><a href="../ctools/TwlNandFiler.html">TwlNandFiler</a></li>
+                <li class="file"><a href="../ctools/UdsLocalIdChecker.html">UdsLocalIdChecker</a></li>
+                <li class="file"><a href="../ctools/WMTestTool.html">WMTestTool</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <ul>
+        <li class="closefolder" onClick="expand('HostIO',this);">HostIO</li>
+    </ul>
+    <div class="closeitem" id="HostIO">
+        <div class="header">
+            <ul>
+                <li class="file"><a href="../HostIO/HostIO_PC.html">HostIO on the PC</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <ul>
+        <li class="closefolder" onClick="return expand('Resources',this);"><a href="resources.html">Resources</a></li>
+    </ul>
+    <div class="closeitem" id="Resources">
+        <div class="header">
+            <ul>
+                <li class="file"><a href="../resources/HomeNixSign.html">HOME Menu Disabled Icon</a></li>
+                <li class="file"><a href="../resources/BuiltInFont/BuiltInFont.html">Internal Bitmap Fonts</a></li>
+                <li class="file"><a href="../resources/BatteryLevelIcon/BatteryLevelIcon.html">Battery Status Icon</a></li>
+                <li class="file"><a href="../resources/ConnectionIcon/ConnectionIcon.html">Communication Icon</a></li>
+                <li class="file"><a href="../resources/PlayCoinIcon/PlayCoinIcon.html">Play Coin Icon</a></li>
+                <li class="file"><a href="../resources/FriendIcon/FriendIcon.html">Friend Icon / Friend Registration Icon</a></li>
+                <li class="file"><a href="../resources/DlplayIcon/DlplayIcon.html">Download Play Icon</a></li>
+                <li class="file"><a href="../resources/BrowserIcon/BrowserIcon.html">Internet Browser Icon</a></li>
+                <li class="file"><a href="../resources/UpdateIndicator/UpdateIndicator.html">Update Indicator</a></li>
+                <li class="file"><a href="../resources/BannerSampleModel/BannerSampleModel.html">Banner Sample Model</a></li>
+                <li class="file"><a href="../resources/Xllt/Xllt.html">Text Filter Files (XLLT Files)</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+</div>
+<script language="JavaScript">
+<!--
+document.write('<span class="expandBtn" id="expandBtn">');
+document.write('    <img class="expandBtn" id="btn_lr" src="img/icon_close_gray.png" width="16px" height="16px" onClick="clickBtnLR();">');
+document.write('</span>');
+-->
+</script> 
+
+<br />
+
+</form>
+
+<hr /><p>CONFIDENTIAL</p></body>
+</html>

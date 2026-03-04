@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::ec::CTR::EcApplet</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::EcApplet Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class EcApplet : private nn::ec::CTR::detail::SessionHolder</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Class for making requests of the EC <a href="../../../../nn/applet/Overview.html">applet</a>.</p><p>Applications that call the member functions in the EC <a href="../../../../nn/applet/Overview.html">applet</a> class must call the <code><a href="../../../../nn/applet/CTR/Enable.html">nn::applet::CTR::Enable</a></code> function to enable the applet's features.</p><p>Also, graphics command requests must be stopped before making requests to the EC <a href="../../../../nn/applet/Overview.html">applet</a>. Call the <code>nngxWaitCmdlistDone</code> function to end any rendering or drawing processes currently running.</p><p>To make requests to the EC <a href="../../../../nn/applet/Overview.html">applet</a> for various types of processing, call the <code><a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">EcApplet::RequestInitializeSession</a></code> function to initialize a session. (The EC <a href="../../../../nn/applet/Overview.html">applet</a> also handles the process of initializing the session.)</p><p>An initialized session is necessary for the initialization of each class the EC library uses in communicating with the Nintendo eShop server.</p><p>When a request is made to the EC <a href="../../../../nn/applet/Overview.html">applet</a>, it checks to see whether the system firmware is up to date. If it is not up to date, the <a href="../../../../nn/applet/Overview.html">applet</a> generates <code><a href="../../../../nn/ec/CTR/ResultAppletNeedsSystemUpdate/Overview.html">ResultAppletNeedsSystemUpdate</a></code> and a message appears prompting a system update. If a <code><a href="../../../../nn/ec/CTR/Session/Overview.html">Session</a></code> object has been successfully initialized in the system, the firmware is guaranteed to be the latest version.</p><p>Even if purchasing content or services from Nintendo eShop has been restricted by Parental Controls, the EC <a href="../../../../nn/applet/Overview.html">applet</a> handles it by a method such as displaying the PIN code input screen. Applications do not need to keep track of Parental Controls.</p><p>When a purchase request is made to the EC <a href="../../../../nn/applet/Overview.html">applet</a>, the user can add funds if the current funds in the user's account are insufficient. In the development environment, an error may occur if you add amounts less than 1000.</p><p>The EC <a href="../../../../nn/applet/Overview.html">applet</a> may disconnect from or reconnect to the access point automatically while running. Note that the operations of the application may change depending on the AP connection status. Some actions are required by the application, such as checking the access point connection status again after a function sending a request to the EC <a href="../../../../nn/applet/Overview.html">applet</a> returns. Unexpected operations may result if changes are made to the automatic connection status while the EC <a href="../../../../nn/applet/Overview.html">applet</a> is running (for example, by the application calling the AC library API).</p><p>The operations when the POWER Button or HOME Button is pressed, or when the system is reset or transitioned into Sleep Mode while the EC <a href="../../../../nn/applet/Overview.html">applet</a> is operating are as follows.</p><p><bold>Pressing the POWER Button</bold><br />
+ The <a href="../../../../nn/applet/Overview.html">applet</a> immediately notifies the application that the button was pressed, and performs a shutdown, except in the following circumstances. <br /><itemizedlist><listitem><para>During startup. </para></listitem><listitem><para>During communication. </para></listitem><listitem><para>While processing save data. </para></listitem><listitem><para>During screen transition.</para></listitem></itemizedlist><bold>Pressing the HOME Button</bold><br />
+ Blocks completely while the EC <a href="../../../../nn/applet/Overview.html">applet</a> is running.</p><p><bold>Sleep Mode</bold><br />
+ The system goes to sleep immediately in other than the following scenarios. <br /><itemizedlist><listitem><para>During startup. </para></listitem><listitem><para>During communication. </para></listitem><listitem><para>While processing save data. </para></listitem><listitem><para>During screen transition.</para></listitem></itemizedlist><bold>Software Reset</bold><br />
+ Blocks completely while the EC <a href="../../../../nn/applet/Overview.html">applet</a> is running.</p><p>The operations in each of the blocked scenarios are as follows. <br /><itemizedlist><listitem><para>When the POWER Button is blocked, short presses of the POWER Button are ignored. Nothing is displayed. </para></listitem><listitem><para>When the HOME Button is blocked, a message appears stating that transition to the HOME Menu is blocked. <br /></para></listitem><listitem><para>When Sleep Mode is blocked, the system does not transition to Sleep Mode even if it is closed. Although the system continues to operate, the screen display and sound shut off. The system enters Sleep Mode after the blocked scenario ends.</para></listitem></itemizedlist></p></div>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/Preload.html">Preload</a>
+            </th>
+            <td>Preloads the EC <a href="../../../../nn/applet/Overview.html">applet</a>. Preloads the EC <a href="../../../../nn/applet/Overview.html">applet</a> to make it start faster. However, the following cautions are needed. Preloading will not be finished even when returning from this function. Consequently, you must either call the <code><a href="../../../../nn/ec/CTR/EcApplet/WaitForPreload.html">EcApplet::WaitForPreload</a></code> function when calling this function to preload, or use the <code><a href="../../../../nn/ec/CTR/EcApplet/IsRegistered.html">EcApplet::IsRegistered</a></code> function to confirm that preloading is complete before calling any request function. When a library <a href="../../../../nn/applet/Overview.html">applet</a> other than the EC <a href="../../../../nn/applet/Overview.html">applet</a> is preloading, you must cancel that preload before calling this function. You must not terminate the application while an <a href="../../../../nn/applet/Overview.html">applet</a> is in a preloaded state. Call <code><a href="../../../../nn/ec/CTR/EcApplet/CancelPreload.html">EcApplet::CancelPreload</a></code> to cancel the preload before closing the application. After calling the <code>Preload</code> function, the application must not process the HOME Button until the <code>IsRegistered</code> function returns <code>true</code>. Specifically, if the <code>IsExpectedToProcessHomeButton()</code> function returns <code>true</code>, you must call the <code>ClearHomeButtonState()</code> function instead of the <code>ProcessHomeButton()</code> function.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/CancelPreload.html">CancelPreload</a>
+            </th>
+            <td>Cancels the preloading of the EC <a href="../../../../nn/applet/Overview.html">applet</a>. When preloading has not completed, this function does nothing. Consequently, you must either call the <code><a href="../../../../nn/ec/CTR/EcApplet/WaitForPreload.html">EcApplet::WaitForPreload</a></code> function before calling this function, or use the <code><a href="../../../../nn/ec/CTR/EcApplet/IsRegistered.html">EcApplet::IsRegistered</a></code> function to confirm that all preloading is complete. This function cancels preloading for all library applets. Note that calling this function cancels preloading for any other library applets in addition to EC applets.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/WaitForPreload.html">WaitForPreload</a>
+            </th>
+            <td>Waits for the EC <a href="../../../../nn/applet/Overview.html">applet</a> to be preloaded. The function does not return if it is called when it is not preloading. After calling the <code><a href="../../../../nn/ec/CTR/EcApplet/Preload.html">EcApplet::Preload</a></code> function, you can only call this function once in the interval before the request functions or the <code><a href="../../../../nn/ec/CTR/EcApplet/CancelPreload.html">EcApplet::CancelPreload</a></code> function are called.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/IsRegistered.html">IsRegistered</a>
+            </th>
+            <td>Checks whether preloading of the EC <a href="../../../../nn/applet/Overview.html">applet</a> is complete.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestInitializeSession.html">RequestInitializeSession</a>
+            </th>
+            <td>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> initialize a session.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestPurchaseContentSet.html">RequestPurchaseContentSet</a>
+            </th>
+            <td>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> purchase and download a content set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestPurchaseContentSets.html">RequestPurchaseContentSets</a>
+            </th>
+            <td>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> purchase and download multiple content sets in a batch.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestDownloadContents.html">RequestDownloadContents</a>
+            </th>
+            <td>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> redownload content.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestDownloadAllOwnedContents.html">RequestDownloadAllOwnedContents</a>
+            </th>
+            <td>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> redownload all purchased content.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestRedeemContentSet.html">RequestRedeemContentSet</a>
+            </th>
+            <td>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> redeem a download voucher for a content set.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestRedeemUniqueContentSetAuto.html">RequestRedeemUniqueContentSetAuto</a>
+            </th>
+            <td>Calls the EC <a href="../../../../nn/applet/Overview.html">applet</a> and displays the screen for entering a download code for an item. Once the download code has been entered, this function gets and redeems the content set (item) associated with the type of download code used and begins downloading it.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestPurchaseServiceItem.html">RequestPurchaseServiceItem</a>
+            </th>
+            <td>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> purchase a service item.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestPurchaseServiceItems.html">RequestPurchaseServiceItems</a>
+            </th>
+            <td>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> purchase multiple service items in a batch.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestRedeemServiceItem.html">RequestRedeemServiceItem</a>
+            </th>
+            <td>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> redeem a download voucher for a service item.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestManageBalance.html">RequestManageBalance</a>
+            </th>
+            <td>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> manage an account balance.</td>
+          </tr>
+          <tr>
+            <td width="100">  </td>
+            <th>
+              <a href="../../../../nn/ec/CTR/EcApplet/RequestAddBalance.html">RequestAddBalance</a>
+            </th>
+            <td>Requests that the EC <a href="../../../../nn/applet/Overview.html">applet</a> add the shortfall to the balance.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Class Hierarchy</h2>
+    <div class="section">
+      <p class="hierarchy">nn::ec::CTR::detail::SessionHolder<br />&nbsp;&nbsp;<b>nn::ec::CTR::EcApplet</b>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::gd::CTR::Resource</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/gd/Overview.html">gd</a>::<a href="../../../../nn/gd/CTR/Overview.html">CTR</a>::Resource Class</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">class Resource</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>A resource function.</p><p><anchor id="classnn_1_1gd_1_1_c_t_r_1_1_resource_1Resource" /></p><p>The term <emphasis>resource</emphasis> refers to two-dimensional regions like pixels (<code>Texture2DResource</code>), in addition to regions like vertex buffers and index buffers (<code>VertexBufferResource</code>. When a resource is created, memory is allocated to the resource. You create resources using the <code><a href="../../../../nn/gd/CTR/Resource/CreateTexture2DResource.html">Resource::CreateTexture2DResource</a></code> function or the <code><a href="../../../../nn/gd/CTR/Resource/CreateVertexBufferResource.html">Resource::CreateVertexBufferResource</a></code> function. When a resource is released, the allocated memory is also released. <br /><br /><br /><bold>Note: Interaction with the <code>nngx</code> command list</bold><br /><br />
+ You must be careful when releasing the initialData passed as an argument to <code><a href="../../../../nn/gd/CTR/Resource/CreateTexture2DResource.html">Resource::CreateTexture2DResource</a></code> or <code><a href="../../../../nn/gd/CTR/Resource/CreateVertexBufferResource.html">Resource::CreateVertexBufferResource</a></code>. If <code><a href="../../../../nn/gd/CTR/Texture2DResourceDescription/Overview.html">Texture2DResourceDescription.m_MemLocation</a></code> is set to <code><span>Memory::VRAMA</span></code> or <code><span>Memory::VRAMB</span></code>, you must be careful when releasing initialData. (You cannot release it immediately after the creation of the resource.) If <code><a href="../../../../nn/gd/CTR/Texture2DResourceDescription/Overview.html">Texture2DResourceDescription.m_MemLocation</a></code> is set to a VRAM location, DMA transfer requests for the <code>initialData</code> data accumulate in the command buffer. A copy of the actual data is used when commands execute. For this reason, the user application must retain initialData until the commands have finished executing. <br /><bold>Note:</bold> If initialData is created in <code><span>Memory::FCRAM</span></code>, data is transferred using the <code>memcpy</code> function, so it is okay to release initialData immediately after creating the resource. <br /><br /><br /><bold>The <code>Texture2DResource</code> case</bold><br /><br />
+ You cannot directly bind a <code>Texture2DResource</code> to the pipeline stages. To use a <code>Texture2DResource</code> on one of the pipeline stage, you must create one of the following objects from it.</p><p><itemizedlist><listitem><para>a <code>Texture2D</code> using <code><a href="../../../../nn/gd/CTR/TextureStage/CreateTexture2D.html">TextureStage::CreateTexture2D</a></code><br /></para></listitem><listitem><para>a <code>TextureCube</code> using <code><a href="../../../../nn/gd/CTR/TextureStage/CreateTextureCube.html">TextureStage::CreateTextureCube</a></code><br /></para></listitem><listitem><para>a <code>RenderTarget</code> using <code><a href="../../../../nn/gd/CTR/OutputStage/CreateRenderTarget.html">OutputStage::CreateRenderTarget</a></code><br /></para></listitem><listitem><para>a <code>DepthStencilTarget</code> using <code><a href="../../../../nn/gd/CTR/OutputStage/CreateDepthStencilTarget.html">OutputStage::CreateDepthStencilTarget</a></code><br />
+This mechanism allows the user to have different ways of using the same resource. For example, after you have bound a <code>Texture2DResource</code> resource to a <code>RenderTarget</code> and completed the render task, you could use the result as a 2D texture. <br />
+ You can use the following functions to bind a <code>Texture2DResource</code> to the pipeline stages.</para></listitem></itemizedlist></p><p><itemizedlist><listitem><para><a href="../../../../nn/gd/CTR/TextureStage/SetTexture.html">TextureStage::SetTexture(TextureUnitId, Texture2D &texture2D)</a><br /></para></listitem><listitem><para><a href="../../../../nn/gd/CTR/TextureStage/SetTextureUnit0.html">TextureStage::SetTextureUnit0(TextureCube &textureCube)</a><br /></para></listitem><listitem><para><a href="../../../../nn/gd/CTR/OutputStage/SetRenderTarget.html">OutputStage::SetRenderTarget(const RenderTarget *renderTarget)</a><br /></para></listitem><listitem><para><a href="../../../../nn/gd/CTR/OutputStage/SetDepthStencilTarget.html">OutputStage::SetDepthStencilTarget(const DepthStencilTarget *depthStencil)</a><br /><br /><br /><bold>The <code>VertexBufferResource</code> case</bold><br /><br />
+ As for the <code>VertexBufferResource</code>, because there is only one way of using each type of vertex buffer, you can directly bind it to the <code><a href="../../../../nn/gd/CTR/VertexInputStage/Overview.html">VertexInputStage</a></code>. <br />
+ The following functions can bind a <code>VertexBufferResource</code> to the pipeline stages.</para></listitem></itemizedlist></p><p><itemizedlist><listitem><para><a href="../../../../nn/gd/CTR/VertexInputStage/SetIndexBuffer.html">VertexInputStage::SetIndexBuffer(VertexBufferResource *indexBuffer, IndexFormat format, u32 offset)</a><br /></para></listitem><listitem><para><a href="../../../../nn/gd/CTR/VertexInputStage/SetVertexBuffers.html">VertexInputStage::SetVertexBuffers(u32 startSlot, u32 numBuffers, VertexBufferResource **vertexBuffers, u32 *offsets)</a></para></listitem></itemizedlist></p><!-- write here --></div>
+    <a name="class" id="class">
+      <h2>Classes</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/Helper/Overview.html">nn::gd::CTR::Resource::Helper</a>
+            </th>
+            <td>Utility function for converting the format of texture resources.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="enum" id="enum">
+      <h2>Enumerated Types</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/NativeFormat.html">NativeFormat</a>
+            </th>
+            <td>The enum values for native format texture resources.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/Format.html">Format</a>
+            </th>
+            <td>The enum values for texture resource formats.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/CompressedFormat.html">CompressedFormat</a>
+            </th>
+            <td>The enum values for compressed texture resource formats.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/MapUsage.html">MapUsage</a>
+            </th>
+            <td>The method for mapping the resource.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="function" id="function">
+      <h2>Member Functions</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="3">Texture Resources</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/CreateTexture2DResource.html">CreateTexture2DResource</a>
+            </th>
+            <td>Creates a 2D texture resource.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/CreateTexture2DResourceCastFrom.html">CreateTexture2DResourceCastFrom</a>
+            </th>
+            <td>Casts an existing <code>Texture2DResource</code> resource in a different format.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/GetTexture2DResourceProperties.html">GetTexture2DResourceProperties</a>
+            </th>
+            <td>Gets detailed information about a 2D texture resource.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/ReleaseTexture2DResource.html">ReleaseTexture2DResource</a>
+            </th>
+            <td>Releases a 2D texture resource.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/MapTexture2DResource.html">MapTexture2DResource</a>
+            </th>
+            <td>Gets a data pointer to the specified resource.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/UnmapTexture2DResource.html">UnmapTexture2DResource</a>
+            </th>
+            <td>Releases the data pointer to a resource.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="3">Vertex Buffer Resources</th>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/CreateVertexBufferResource.html">CreateVertexBufferResource</a>
+            </th>
+            <td>Creates a vertex buffer resource.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/GetVertexBufferResourceProperties.html">GetVertexBufferResourceProperties</a>
+            </th>
+            <td>Gets detailed information for a vertex buffer resource.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/MapVertexBufferResource.html">MapVertexBufferResource</a>
+            </th>
+            <td>Gets a data pointer to the specified resource.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/UnmapVertexBufferResource.html">UnmapVertexBufferResource</a>
+            </th>
+            <td>Releases the data pointer to a resource.</td>
+          </tr>
+          <tr>
+            <td width="100">
+              <span class="static_style" title="static">S</span> </td>
+            <th>
+              <a href="../../../../nn/gd/CTR/Resource/ReleaseVertexBufferResource.html">ReleaseVertexBufferResource</a>
+            </th>
+            <td>Releases a vertex buffer resource.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/02/15</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

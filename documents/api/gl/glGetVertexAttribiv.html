@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetVertexAttribiv</title>
+  </head>
+  <body>
+    <h1>glGetVertexAttribiv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetVertexAttribiv(
+     GLuint index,
+     GLenum pname,
+     GLint * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>index</th>
+          <td>Vertex attribute index.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pname</th>
+          <td>The name of the parameter to get.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Array storing the values retrieved.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets vertex attribute parameters as <code>GLint</code>-type values.</p><P>You can set <span class="argument">index</span> to a value that is greater than or equal to 0 and at least one less than the value that can be obtained by <tt>glGetIntegerv</tt> with <tt>GL_MAX_VERTEX_ATTRIBS</tt> specified.</P><P>Set <span class="argument">pname</span> to one of the following values.<TABLE><TR><TH>GL_VERTEX_ATTRIB_ARRAY_ENABLED</TH><TD>Get <tt>GL_TRUE</tt> when the vertex attribute array is enabled and <tt>GL_FALSE</tt> otherwise.</TD></TR><TR><TH>GL_VERTEX_ATTRIB_ARRAY_SIZE</TH><TD>Get the number of vertex attribute components (the size).</TD></TR><TR><TH>GL_VERTEX_ATTRIB_ARRAY_STRIDE</TH><TD>Get the number of bytes in the vertex attribute stride.</TD></TR><TR><TH>GL_VERTEX_ATTRIB_ARRAY_TYPE</TH><TD>Get the vertex attributes' data type.</TD></TR><TR><TH>GL_VERTEX_ATTRIB_ARRAY_NORMALIZED</TH><TD>Get <tt>GL_TRUE</tt> when normalization is enabled and <tt>GL_FALSE</tt> otherwise.</TD></TR><TR><TH>GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING</TH><TD>Get the name of the vertex buffer object bound to the vertex attributes.</TD></TR></TABLE><!-- source pnameにはGL_VERTEX_ATTRIB_ARRAY_ENABLED、GL_VERTEX_ATTRIB_ARRAY_SIZE、GL_VERTEX_ATTRIB_ARRAY_STRIDE、 GL_VERTEX_ATTRIB_ARRAY_TYPE、GL_VERTEX_ATTRIB_ARRAY_NORMALIZED、GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDINGが指定できます。 GL_VERTEX_ATTRIB_ARRAY_ENABLEDは、頂点属性アレイが有効である場合GL_TRUEが取得され、無効である場合GL_FALSEが取得されます。 GL_VERTEX_ATTRIB_ARRAY_SIZEは、頂点属性のサイズ（コンポーネント数）が取得されます。 GL_VERTEX_ATTRIB_ARRAY_STRIDEは、頂点属性のストライドのバイト数が取得されます。 GL_VERTEX_ATTRIB_ARRAY_TYPEは、頂点属性のデータTypeが取得されます。 GL_VERTEX_ATTRIB_ARRAY_NORMALIZEDは、正規化が有効になっている場合GL_TRUEが取得され、無効になっている場合GL_FALSEが取得されます。 GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDINGは、頂点属性がバインドされている頂点バッファオブジェクトの名前が取得されます。 --></P><P>In addition to those above, you can also specify any setting that can be obtained by <tt>glGetVertexAttribfv</tt>, but you will get values that have all been cast to type <tt>GLint</tt>.</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">index</span> argument was set to an invalid value.</TD></TR><TR><th>GL_INVALID_ENUM</th><TD>The <span class="argument">pname</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source indexに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 pnameに不正な値を指定した場合エラーGL_INVALID_ENUMを生成します。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

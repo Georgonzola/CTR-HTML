@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <style type="text/css"><!--
+      span.static_style
+      { 
+        font-size			: 8pt;
+        color				: white;
+        font-weight			: bold;
+        background			: #44f;
+        border-left			: solid 1px #aaf;
+        border-top			: solid 1px #aaf;
+        border-right		: solid 1px #00c;
+        border-bottom		: solid 1px #00c;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+
+      span.virtual_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #0a0;
+        border-left			: solid 1px #0f0;
+        border-top			: solid 1px #0f0;
+        border-right		: solid 1px #060;
+        border-bottom		: solid 1px #060;
+        padding-left		: 2px;
+        padding-right		: 2px; 
+      }
+
+      span.protected_style
+      { 
+        font-size			 : 8pt;
+        color				 : white;
+        font-weight			: bold;
+        background			: #444;
+        border-left			: solid 1px #ccc;
+        border-top			: solid 1px #ccc;
+        border-right		: solid 1px #222;
+        border-bottom		: solid 1px #222;
+        padding-left		: 2px;
+        padding-right		: 2px;
+      }
+        --></style>
+    <title>nn::camera::CTR::StereoCameraCalibrationData</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/camera/Overview.html">camera</a>::<a href="../../../../nn/camera/CTR/Overview.html">CTR</a>::StereoCameraCalibrationData Structure</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">struct StereoCameraCalibrationData
+{
+   struct <a href="../../../../nn/camera/CTR/StereoCameraCalibrationData/Flags/Overview.html">nn::camera::CTR::StereoCameraCalibrationData::Flags</a> flags;
+   <a href="../../../../nn_types/f32.html">f32</a> scale;
+   <a href="../../../../nn_types/f32.html">f32</a> rotationZ;
+   <a href="../../../../nn_types/f32.html">f32</a> translationX;
+   <a href="../../../../nn_types/f32.html">f32</a> translationY;
+   <a href="../../../../nn_types/f32.html">f32</a> rotationX;
+   <a href="../../../../nn_types/f32.html">f32</a> rotationY;
+   <a href="../../../../nn_types/f32.html">f32</a> angleOfViewRight;
+   <a href="../../../../nn_types/f32.html">f32</a> angleOfViewLeft;
+   <a href="../../../../nn_types/f32.html">f32</a> distanceToChart;
+   <a href="../../../../nn_types/f32.html">f32</a> distanceCameras;
+   <a href="../../../../nn_types/s16.html">s16</a> imageWidth;
+   <a href="../../../../nn_types/s16.html">s16</a> imageHeight;
+   <a href="../../../../nn_types/u8.html">u8</a> reserved[16];
+};
+</pre>
+    </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Structure that gives calibration information for the stereo cameras.</p><P>The left and right cameras are designed to be placed horizontally on the CTR system, 35 mm apart, but small errors in the precision of the camera placement occur during manufacturing.  These placement errors cause the left and right camera images to be shifted relative to each other.  This structure gives information used to correct discrepancies between the left and right images.</P><P>The correction values <span class="argument">scale</span>, <span class="argument">rotationZ</span>, <span class="argument">translationX</span>, and <span class="argument">translationY</span> give the scale, optical axis rotation, and translation, respectively, to make the left camera image match the right camera image.  You could also say that this is the amount by which the right image has been shifted from the left image.</P><P>Given that the cameras are only separated from the measurement chart by <span class="argument">distanceToChart</span> and the image size is <span class="argument">imageWidth</span> by <span class="argument">imageHeight</span>, the horizontal and vertical translations of the left and right images on the measurement chart are indicated by <span class="argument">translationX</span> and <span class="argument">translationY</span>, respectively.  The values of <span class="argument">translationX</span> and <span class="argument">translationY</span> include shifts in the images caused when the optical axis is tilted horizontally and vertically.  In addition to the horizontal image shift caused by errors in the left and right camera placement, <span class="argument">translationX</span> includes the parallax caused by the separation of the left and right cameras.</P><P>The <span class="argument">rotationX</span> and <span class="argument">rotationY</span> regions are reserved for storing the rotations about the horizontal and vertical axes necessary to make the left camera image match the right camera image.  In the future, <span class="argument">flags</span>.<span class="argument">isValidRotationXY</span> will be <tt>true</tt> when the measured values are stored in <span class="argument">rotationX</span> and <span class="argument">rotationY</span>.  When <span class="argument">flags</span>.<span class="argument">isValidRotationXY</span> is <tt>false</tt>, <span class="argument">rotationX</span> and <span class="argument">rotationY</span> are set to default data instead of the measured values.</P></div>
+    <a name="struct" id="struct">
+      <h2>Structures</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th>
+              <a href="../../../../nn/camera/CTR/StereoCameraCalibrationData/Flags/Overview.html">nn::camera::CTR::StereoCameraCalibrationData::Flags</a>
+            </th>
+            <td>A flag used to distinguish between the current format and new formats when they are extended in the future.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <a name="variable" id="variable">
+      <h2>Member Variables</h2>
+      <div class="section">
+        <table class="members">
+          <tr>
+            <th class="category" colspan="4">Extended Information</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">flags</span>
+            </th>
+            <td width="100">struct <a href="../../../../nn/camera/CTR/StereoCameraCalibrationData/Flags/Overview.html">nn::camera::CTR::StereoCameraCalibrationData::Flags</a></td>
+            <td>A flag used to distinguish between the current format and new formats when they are extended in the future.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Correction Values</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">scale</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>The scale value required to make the left <a href="../../../../nn/camera/Overview.html">camera</a> image match the right <a href="../../../../nn/camera/Overview.html">camera</a> image. This value is greater than 0.0 and less than or equal to 1.0.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">rotationZ</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>The rotation about the optical axis required to make the left <a href="../../../../nn/camera/Overview.html">camera</a> image match the right <a href="../../../../nn/camera/Overview.html">camera</a> image. This value is measured in degrees.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">translationX</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>The horizontal translation required to make the left <a href="../../../../nn/camera/Overview.html">camera</a> image line up with the right <a href="../../../../nn/camera/Overview.html">camera</a> image on the measurement chart. This value is measured in pixels.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">translationY</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>The vertical translation required to make the left <a href="../../../../nn/camera/Overview.html">camera</a> image line up with the right <a href="../../../../nn/camera/Overview.html">camera</a> image on the measurement chart. This value is measured in pixels.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">rotationX</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>A reserved region for future extensions.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">rotationY</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>A reserved region for future extensions.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">angleOfViewRight</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>The diagonal angle of view for the right <a href="../../../../nn/camera/Overview.html">camera</a>. This value is measured in degrees.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">angleOfViewLeft</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>The diagonal angle of view for the left <a href="../../../../nn/camera/Overview.html">camera</a>. This value is measured in degrees.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Measurement Conditions for Correction Values</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">distanceToChart</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>The distance between the cameras and the measurement chart. This value is measured in millimeters. It has a fixed value of <code>250.0f</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">distanceCameras</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/f32.html">f32</a></td>
+            <td>The planned distance between the left and right cameras. This value is measured in millimeters. It has a fixed value of <code>35.0f</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">imageWidth</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/s16.html">s16</a></td>
+            <td>The width of the image captured when taking a measurement. This value is measured in pixels. It has a fixed value of <code>640</code>.</td>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">imageHeight</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/s16.html">s16</a></td>
+            <td>The height of the image captured when taking a measurement. This value is measured in pixels. It has a fixed value of <code>640</code>.</td>
+          </tr>
+          <tr>
+            <th class="category" colspan="4">Others</th>
+          </tr>
+          <tr>
+            <td width="100"> </td>
+            <th>
+              <span class="argument">reserved</span>
+            </th>
+            <td width="100"><a href="../../../../nn_types/u8.html">u8</a></td>
+            <td>A reserved region for future extensions.</td>
+          </tr> </table>
+      </div>
+    </a>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/05/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

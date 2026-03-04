@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>GetMpRegionsToBuildJpegData</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/jpeg/Overview.html">jpeg</a>::<a href="../../../../nn/jpeg/CTR/Overview.html">CTR</a>::<a href="../../../../nn/jpeg/CTR/JpegMpDecoder/Overview.html">JpegMpDecoder</a>::GetMpRegionsToBuildJpegData Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/jpeg.h&gt;
+bool GetMpRegionsToBuildJpegData(
+     <a href="../../../../nn/jpeg/CTR/MpRegionsToBuildJpegData/Overview.html">MpRegionsToBuildJpegData</a> * pBuffer,
+     const <a href="../../../../nn_types/u8.html">u8</a> * src,
+     size_t srcSize
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pBuffer</th>
+          <td>Specifies the buffer that stores the region information.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>src</th>
+          <td>Specifies the start of the individual image data.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>srcSize</th>
+          <td>Specifies the size of src in bytes.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> on success. Returns <code>false</code> on failure. <br />
+ Use the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastError.html">GetLastError</a></code> function to get the reason for failure. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>This function gets region information required to rebuild JPEG data from the individual image data stored in MP format.</p><p>Simply put, individual image data in MP format has this structure: [(JPEG header) + (APP2) + (JPEG data)], where APP2 includes the information associated with MP format. <br />
+ Leave out APP2 and you get [(JPEG header) + (JPEG data)], which is JPEG data not in the MP format. <br />
+ This function gets pointers and byte sizes for the (JPEG header) and (JPEG data) memory regions.</p><p>Normally, the src argument contains a pointer to the position of the starting image plus the return value of <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpImageOffset.html">GetMpImageOffset</a></code>. srcSize contains the return value of <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetMpImageSize.html">GetMpImageSize</a></code>. <br />
+ Confirm beforehand that the region specified by src and srcSize is a valid region.</p><p>This function fails if the MP type (<code><a href="../../../../nn/jpeg/CTR/MpTypeCode.html">MpTypeCode</a></code>) of the individual image is <code><span>MP_TYPE_CODE_LARGE_THUMBNAIL_IMAGE_CLASS_1</span></code> or <code><span>MP_TYPE_CODE_LARGE_THUMBNAIL_IMAGE_CLASS_2</span></code>, because these types of images are for display on monitors and do not include the information associated with MP format. <code>Exif</code> information might be omitted from images for display on monitors, so it is not suitable for use in rebuilding the JPEG data.</p><p>This function only partially performs decoding and shared processing. Consequently, you cannot call some functions immediately after calling this function: the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastWidth.html">GetLastWidth</a></code>, <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastHeight.html">GetLastHeight</a></code>, <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferWidth.html">GetLastOutputBufferWidth</a></code>, and <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastOutputBufferHeight.html">GetLastOutputBufferHeight</a></code> functions, and all functions that get EXIF information, such as the <code><a href="../../../../nn/jpeg/CTR/JpegMpDecoder/GetLastDateTime.html">GetLastDateTime</a></code> function. Calls to these functions have undefined return values.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/10/21</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

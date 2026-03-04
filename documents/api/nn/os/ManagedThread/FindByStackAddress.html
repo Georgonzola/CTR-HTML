@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>FindByStackAddress</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/os/Overview.html">os</a>::<a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a>::FindByStackAddress Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">#include &lt;nn/os.h&gt;
+static <a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a> * FindByStackAddress(
+     <a href="../../../nn_types/uptr.html">uptr</a> address
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>address</th>
+          <td>The address to use as the thread search key.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the pointer to the <code><a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a></code> corresponding to the thread that is using address as the stack. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the pointer to the <code><a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a></code> from the stack address.</p><p>Searches among <code><a href="../../../nn/os/ManagedThread/Overview.html">ManagedThread</a></code> instances that have been initialized but not finalized to find the one for which address is being used as the stack.</p><p>It is determined that address is being used for the stack if address is in the range of <code><a href="../../../nn/os/ManagedThread/GetStackBufferBegin.html">GetStackBufferBegin</a></code> to <code><a href="../../../nn/os/ManagedThread/GetStackBufferEnd.html">GetStackBufferEnd</a></code>.</p><p>Both ends are inclusive in the range. <bold>Note:</bold> If two thread stacks are using contiguous buffers, the <code><a href="../../../nn/os/ManagedThread/GetStackBufferBegin.html">GetStackBufferBegin</a></code> value of one thread is the same as the <code><a href="../../../nn/os/ManagedThread/GetStackBufferEnd.html">GetStackBufferEnd</a></code> value of the other thread. If you specify the same address for address, the function returns the pointer corresponding to either of the threads.</p><p>This function is implemented using <code><a href="../../../nn/os/ManagedThread/Enumerate.html">Enumerate</a></code>, so it complies with <code><a href="../../../nn/os/ManagedThread/Enumerate.html">Enumerate</a></code> in terms of thread safety and internal function blocks.</p><p>For more information, see the <code><a href="../../../nn/os/ManagedThread/Enumerate.html">Enumerate</a></code> function.</p><p>If not found, returns <code>NULL</code>.</p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2012/04/13</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

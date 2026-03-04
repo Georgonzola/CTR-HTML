@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-US" lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>GetFriendScreenName</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/friends/Overview.html">friends</a>::<a href="../../../nn/friends/CTR/Overview.html">CTR</a>::GetFriendScreenName Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> GetFriendScreenName(
+     char16 (*pScreenNameList)[SCREEN_NAME_SIZE],
+     const <a href="../../../nnfriendsFriendKey/Overview.html">FriendKey</a> * pFriendKeyList,
+     size_t size = 1,
+     bool replaceForeignCharacters = true,
+     <a href="../../../nn_types/u8.html">u8</a> * pFontRegionList = NULL
+);
+
+<a href="../../../nn/Result/Overview.html">Result</a> GetFriendScreenName(
+     char16 (*pScreenNameList)[SCREEN_NAME_SIZE],
+     const <a href="../../../nn/friends/CTR/PrincipalId.html">PrincipalId</a> * pPrincipalIdList,
+     size_t size = 1,
+     bool replaceForeignCharacters = true,
+     <a href="../../../nn_types/u8.html">u8</a> * pFontRegionList = NULL
+);
+</pre>
+    </div>
+<h2>Overloaded Member Functions</h2>
+    <div class="section">
+      <table class="members">
+        <tr>
+          <td>
+            <a href="./GetFriendScreenName(0).html">GetFriendScreenName ( char16(*)[SCREEN_NAME_SIZE], const FriendKey *, size_t, bool, u8 * ) </a>
+          </td>
+          <td>Gets a list of friend screen names.</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="./GetFriendScreenName(1).html">GetFriendScreenName ( char16(*)[SCREEN_NAME_SIZE], const PrincipalId *, size_t, bool, u8 * ) </a>
+          </td>
+          <td>Gets a list of friend screen names.</td>
+        </tr> </table>
+    </div>
+    <h2>Description of GetFriendScreenName ( char16(*)[SCREEN_NAME_SIZE], const FriendKey *, size_t, bool, u8 * )</h2>
+<div class="section"><p>By calling this function, you can get the name of a friend's Mii directly without using the Mii library. Even if you have not yet established a friend relationship with this person and cannot get his or her Mii, the display name that you have tentatively registered is obtained.<br /><br />The actual name of a friend's Mii is obtained even when it is in the list of blocked users, but the obtained name is replaced with &quot;???&quot; if it contains profanity.<br /><br />Returns an empty display name in this buffer if there is no friend corresponding to the key passed in the arguments. In this case the function still returns success.<br /><br />Some Mii nicknames might contain characters that are not supported by the application. Make sure that the presence of these unsupported characters does not corrupt the screen or impede progress in the application. For workarounds, see the section about creating Mii nicknames and creator names in <I>3DS Guidelines</I>.</p><!-- write here --></div>
+    <h2>GetFriendScreenName ( char16(*)[SCREEN_NAME_SIZE], const FriendKey *, size_t, bool, u8 * )</h2>
+<div class="section"><p>By calling this function, you can get the name of a friend's Mii directly without using the Mii library. Even if you have not yet established a friend relationship with this person and cannot get his or her Mii, the display name that you have tentatively registered is obtained.<br /><br />The actual name of a friend's Mii is obtained even when it is in the list of blocked users, but the obtained name is replaced with &quot;???&quot; if it contains profanity.<br /><br /> Returns an empty display name in this buffer if there is no friend corresponding to the key passed in the arguments. In this case the function still returns success.<br /><br /> Some Mii nicknames might contain characters that are not supported by the application. Make sure that the presence of these unsupported characters does not corrupt the screen or impede progress in the application. For workarounds, see the section about creating Mii nicknames and creator names in <I>3DS Guidelines</I>.</p><!-- write here --></div>
+  <hr /><p>CONFIDENTIAL</p></body>
+</html>

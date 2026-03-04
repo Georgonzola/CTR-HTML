@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>SetParam</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/snd/Overview.html">snd</a>::<a href="../../../../nn/snd/CTR/Overview.html">CTR</a>::<a href="../../../../nn/snd/CTR/FxReverb/Overview.html">FxReverb</a>::SetParam Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+bool SetParam(
+     const <a href="../../../../nn/snd/CTR/FxReverb/Param/Overview.html">Param</a> & param
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>param</th>
+          <td>The reverb parameter.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns <code>true</code> if settings are successful. Returns <code>false</code> if settings fail (such as a value is out of bounds). </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Configures the reverb parameters.</p><p>The <code><a href="../../../../nn/snd/CTR/FxReverb/GetRequiredMemSize.html">GetRequiredMemSize</a></code> function calculates the required memory sized based on the reverb parameters configured here.</p><p>The <code><a href="../../../../nn/snd/CTR/FxReverb/Param/Overview.html">Param</a></code> structure that has been set is copied internally.</p><p>The functionality differs when calling <code><a href="../../../../nn/snd/CTR/SetEffect.html">SetEffect</a></code> before and after passing the <code><a href="../../../../nn/snd/CTR/FxReverb/Overview.html">FxReverb</a></code> instance.</p><p>Before calling the <code><a href="../../../../nn/snd/CTR/SetEffect.html">SetEffect</a></code> function, range checks are performed on <code>m_Coloration</code>, <code>m_Damping</code>, <code>m_EarlyGain</code>, and <code>m_FusedGain</code> within the <code><a href="../../../../nn/snd/CTR/FxReverb/Param/Overview.html">Param</a></code> structure.</p><p>When out of range, Debug and Development versions halt on an assert, while <code>false</code> is returned in the Release version.</p><p>After calling the <code><ulink url="../../../nn/snd/CTR/SetEffect.html">SetEffect</ulink>,</code> function, a check is performed to determine whether additional memory is needed, in addition to the range check performed before calling.</p><p>In other words, if a larger value is configured for <code>m_EarlyReflection</code> than was configured when the <code><a href="../../../../nn/snd/CTR/SetEffect.html">SetEffect</a></code> function was called, or if a larger value is configured for <code>m_PreDelay</code> than was configured when the <code><a href="../../../../nn/snd/CTR/SetEffect.html">SetEffect</a></code> function was called, or if larger values are configured for the members of <code>m_pFilterSize</code> than were configured when the <code><a href="../../../../nn/snd/CTR/SetEffect.html">SetEffect</a></code> function was called, this function fails and returns <code>false</code>.</p><p>If these conditions are not met, subsequent parameter changes can be made with the <code><a href="../../../../nn/snd/CTR/SetEffect.html">SetEffect</a></code> function.</p><!-- write here --></div>
+    <h2>See Also</h2>
+    <div class="section">
+      <p class="reference"><a href="../../../../nn/snd/CTR/FxReverb/GetRequiredMemSize.html">GetRequiredMemSize</a><br /><a href="../../../../nn/snd/CTR/FxReverb/GetParam.html">GetParam</a><br /> </p>
+    </div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/11/10</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>KeyboardType</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/swkbd/Overview.html">swkbd</a>::<a href="../../../nn/swkbd/CTR/Overview.html">CTR</a>::KeyboardType Enumerated Type</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+enum KeyboardType;
+</pre>
+    </div>
+    <h2>Value</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>KEYBOARD_TYPE_FULL</th>
+          <td>Full keyboard.</td>
+        </tr>
+        <tr>
+          <th>KEYBOARD_TYPE_QWERTY</th>
+          <td>QWERTY keyboard.</td>
+        </tr>
+        <tr>
+          <th>KEYBOARD_TYPE_TENKEY</th>
+          <td>Numeric keypad.</td>
+        </tr>
+        <tr>
+          <th>KEYBOARD_TYPE_NO_JAPANESE</th>
+          <td>Keyboard without Japanese.</td>
+        </tr>
+        <tr>
+          <th>KEYBOARD_TYPE_NNID</th>
+          <td>(This enumerator is for built-in applications. It cannot be used from general applications.)</td>
+        </tr>
+        <tr>
+          <th>KEYBOARD_TYPE_ACCOUNT_PASSWORD</th>
+          <td>(This enumerator is for built-in applications. It cannot be used from general applications.)</td>
+        </tr>
+        <tr>
+          <th>KEYBOARD_TYPE_MAX</th>
+          <td>Total number of enumerators.</td>
+        </tr>
+        <tr>
+          <th>KEYBOARD_TYPE_MAX_BIT</th>
+          <td>(An enumerator used for internal processing. Cannot be used by the application.)</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Enumerated type indicating the type of keyboard.</p><p>In the <tt>KEYBOARD_TYPE_FULL</tt> type, all the key layout types are available including the QWERTY layout, the symbol layout, and the cell phone layout.</p><p>In the <tt><tt><tt>KEYBOARD_TYPE_QWERTY</tt></tt></tt> type, only the QWERTY layout is available. <br /> Systems designed for the Japan region do not allow romaji-based kana input. <br /> The characters that can be input vary depending on the region and language settings of the system.</p><p>In the <tt>KEYBOARD_TYPE_TENKEY</tt> type, only the numeric keypad is available.</p><p>If the system region is Japan, the <tt>KEYBOARD_TYPE_NO_JAPANESE</tt> type gives access to the QWERTY and symbol layouts only. No Japanese input is possible from this keyboard, because it does not allow romaji-based kana input. <br /> In other regions, this is the same as <tt>KEYBOARD_TYPE_FULL</tt> except that predictive text input is not available.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/04/12</dt>
+        <dd><item xmlns="">Added descriptions to values that had no descriptions.</item><br />
+        </dd>
+        <dt>2011/03/18</dt>
+        <dd><item xmlns="">Added <tt>KEYBOARD_TYPE_NO_JAPANESE</tt>.</item><br /><item xmlns="">Added a note about the available characters to the description of <tt>KEYBOARD_TYPE_QWERTY</tt>.</item><br />
+        </dd>
+        <dt>2011/03/01</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

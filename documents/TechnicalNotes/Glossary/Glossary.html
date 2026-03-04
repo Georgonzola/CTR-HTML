@@ -1,0 +1,965 @@
+﻿<!DOCTYPE html>
+<HTML>
+
+<HEAD>
+    <META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8" />
+    <META http-equiv="Content-Style-Type" content="text/css">
+    <META http-equiv="X-UA-Compatible" content="IE=8" >
+
+    <TITLE>CTR-SDK Glossary</TITLE>
+
+    <STYLE>
+        h1.left
+        {
+            color: #46f;
+            font-size: 120%;
+        }
+        ul.left, ul.left ul
+        {
+            margin: 0;
+            padding: 0;
+        }
+        ul.left li
+        {
+            margin: 0;
+            padding: 0;
+            margin-left: 1em;
+        }
+        H1
+        {
+            font-weight         : bold;
+            font-size           : 250%;
+            text-align          : left;
+            color               : #46f;
+            margin-bottom       : 0px;
+        }
+
+        H2
+        {
+            font-weight         : normal;
+            font-size           : 180%;
+            margin              : 24pt 0pt 6pt 0pt;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+        }
+
+        H3
+        {
+            font-weight         : bold;
+            font-size           : 120%;
+            border-bottom-style : solid;
+            border-bottom-width : 1px;
+            width: 75%;
+            margin              : 18pt 0pt 6pt 30pt;
+        }
+
+        H4
+        {
+            font-weight         : bold;
+            font-size           : 100%;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H5
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        H6
+        {
+            font-weight         : bold;
+            margin              : 12pt 0pt 6pt 30pt;
+        }
+
+        DIV.date
+        {
+            text-align          : right;
+            color               : #46f;
+            margin-bottom       : 30pt;
+            line-height         : 150%;
+        }
+
+        P
+        {
+            margin              : 0pt 0pt 12pt 30pt;
+            line-height         : 150%;
+        }
+
+        OL,UL,DL
+        {
+            margin              : 6pt 0pt 6pt 50pt;
+        }
+        OL OL, UL UL
+        {
+            margin-left: 3em;
+        }
+
+        DT
+        {
+            font-family         : "Courier New", monospace;
+            margin-top : 0.3em;
+            margin-bottom : 0.3em;
+        }
+        DD
+        {
+            margin-top : 0.3em;
+            margin-bottom : 0.6em;
+        }
+
+        PRE
+        {
+            font-family         : "Courier New", monospace;
+            font-weight         : normal;
+
+            margin              : 0pt 0pt 6pt 50pt;
+            padding             : 2pt 8pt 2pt 8pt;
+            background-color    : #eee;
+
+            border-style        : solid;
+            border-width        : 1px;
+        }
+        em
+        {
+            font-style: normal;
+            color: red;
+        }
+        TABLE
+        {
+            margin-left         : 40pt;
+            margin-bottom       : 20pt;
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        TD
+        {
+            font-style          : normal;
+            padding             : 2pt 4pt 2pt 4pt;
+
+            border-color        : #aaa;
+            border-width        : 1pt;
+            border-style        : solid;
+        }
+        div.footer
+        {
+            border-color: black;
+            padding-top: 0.5em;
+            border-top-style    : solid;
+            border-top-width    : 1px;
+            width:              100%;
+            margin-top: 4em;;
+        }
+        div.footer span
+        {
+            color               : #46f;
+            float: right;
+        }
+        table.diff
+        {
+            border: none;
+        }
+        table.diff td
+        {
+            border: none;
+            border-bottom: solid 1px black;
+        }
+        table.diff div.wii,table.diff div.twl,table.diff div.card,table.diff div.nand
+        {
+            padding: 0.2em 0.3em;
+        }
+        table.diff div.card
+        {
+            background-color: #A88;
+            border: solid 1px #FFF;
+            color: #FFF;
+        }
+        table.diff div.wii
+        {
+            background-color: #88A;
+            border: solid 1px #FFF;
+            color: #FFF;
+        }
+        table.diff div.twl,table.diff div.nand
+        {
+            background-color: #FFE;
+            border: solid 1px #0D9;
+            color: #0D9;
+        }
+        div.popup
+        {
+            position: absolute;
+            background-color: #FFFEF9;
+            border: solid 1px #B5B200;
+            border-style: none solid solid none;
+            font-size: 0.8em;
+            padding: 1em;
+        }
+        dd
+        {
+            margin-bottom: 1em;
+        }
+    </STYLE>
+    <SCRIPT type="text/javascript">
+    <!--
+
+        var Global = {
+            root: document.documentElement,
+            popup: null,
+            popupMap: {},
+            popupIndex: 0
+        };
+
+        if( ! Event.stopPropagation )
+        {
+            Event.prototype.stopPropagation = function()
+            {
+                this.cancelBubble = true;
+            }
+        }
+        Event.prototype.GetTarget = function()
+        {
+            if( this.target )
+            {
+                return this.target;
+            }
+            else
+            {
+                return this.srcElement;
+            }
+        }
+        if( !  Element.prototype.addEventListener )
+        {
+            Element.prototype.addEventListener = function(type, listener, useCapture)
+            {
+                var helper = function()
+                    {
+                        if( listener.handleEvent )
+                        {
+                            return listener.handleEvent.apply(listener, arguments);
+                        }
+                        else
+                        {
+                            return listener.apply(null, arguments);
+                        }
+                    };
+
+                this.attachEvent("on" + type, helper);
+            }
+        }
+
+        function CallMethod(obj, method)
+        {
+            return new function()
+            {
+                return method.apply(obj, arguments)
+            };
+        }
+        function WordPopup(x, y, word)
+        {
+            function MakeHtml(word)
+            {
+                var dd = document.getElementById("word-" + word);
+                return dd.innerHTML;
+            }
+            this.CloseChild = function()
+            {
+                if( this.child != null )
+                {
+                    this.child.Close();
+                    this.child = null;
+                }
+            }
+            this.Close = function()
+            {
+                if( this.obj != null )
+                {
+                    this.CloseChild();
+
+                    document.body.removeChild(this.obj);
+                    delete Global.popupMap[this.id];
+                    this.obj = null;
+                }
+            }
+            this.SetChild = function(child)
+            {
+                this.CloseChild();
+                this.child = child;
+            }
+            this.OnMouseOver = function(e)
+            {
+                e.stopPropagation();
+
+                var target = e.GetTarget();
+
+                if( target.nodeType == 1 )
+                {
+                    if( target.tagName == "A" )
+                    {
+                        return;
+                    }
+                }
+
+                this.CloseChild();
+            }
+            this.handleEvent = function(e)
+            {
+                if( e.type == "mouseover" )
+                {
+                    this.OnMouseOver(e);
+                }
+            }
+
+            this.child = null;
+            this.word = word;
+            this.id = Global.popupIndex++;
+
+            this.obj = document.createElement("div");
+            this.obj.className = "popup";
+            this.obj.id = "popup-" + this.id;
+            this.obj.innerHTML = MakeHtml(word);
+            this.obj.style.left = x + "px";
+            this.obj.style.top  = y + "px";
+
+            Global.popupMap[this.id] = this;
+
+            this.obj.addEventListener("mouseover", this, false);
+
+            document.body.insertBefore(this.obj, null);
+        }
+        function DeleteRule(index)
+        {
+            var ss = document.styleSheets.item(0);
+
+            if( ss.removeRule )
+            {
+                ss.removeRule(index);
+            }
+            else
+            {
+                ss.deleteRule(index);
+            }
+        }
+        function OnClickAnchor(e, anchor)
+        {
+            window.parent.frames[1].location.hash = anchor;
+
+            if( e.preventDefault )
+            {
+                e.preventDefault();
+            }
+            else
+            {
+                e.returnValue = false;
+            }
+        }
+        function trav(obj)
+        {
+            var ary = new Array();
+
+            for( var i = 0; i < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.tagName == "H2" || c.tagName == "H3" )
+                    {
+                        var a = c.childNodes.item(0);
+                        var text  = "";
+                        var anchor = "";
+
+                        if( a && a.tagName == "A" )
+                        {
+                            text  = a.innerHTML;
+                            anchor = a.name;
+                        }
+                        else
+                        {
+                            text  = c.innerHTML;
+                        }
+
+                        ary.push([c.tagName.substr(1,1), "<a target=\"right\" href=\"?right#" + anchor + "\" onclick=\"OnClickAnchor(event, '" + anchor + "')\">" + text + "</a>"]);
+                    }
+                    else
+                    {
+                        ary = ary.concat(trav(c));
+                    }
+                }
+            }
+
+            return ary;
+        }
+        function GetNextTagIndex(obj, tagName, start)
+        {
+            for( var i = start; i  < obj.childNodes.length; ++i )
+            {
+                var c = obj.childNodes.item(i);
+
+                if( c.nodeType == 1 )
+                {
+                    if( c.nodeName == tagName )
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
+        }
+        function OnOverWord(e, word)
+        {
+            e.stopPropagation();
+            var ex = e.clientX + Global.root.scrollLeft;
+            var ey = e.clientY + Global.root.scrollTop;
+            var target = e.GetTarget();
+
+            if( target.nodeType == 1 )
+            {
+                if( target.tagName == "A" )
+                {
+                    if( target.parentNode.tagName == "DIV" )
+                    {
+                        var parentId = target.parentNode.id.match(/\d+/);
+                        var parent = Global.popupMap[parentId];
+                        parent.SetChild(new WordPopup(ex, ey, word));
+                    }
+                    else
+                    {
+                        if( Global.popup != null )
+                        {
+                            if( Global.popup.word == word )
+                            {
+                                return;
+                            }
+
+                            Global.popup.Close();
+                        }
+
+                        Global.popup = new WordPopup(ex, ey, word);;
+                    }
+                }
+            }
+        }
+        function CollectWords()
+        {
+            var dls = document.getElementsByTagName("dl");
+            var words = [];
+
+            for( var i = 0; i < dls.length; ++i )
+            {
+                var dl = dls[i];
+
+                for( var j = 0; j < dl.childNodes.length; )
+                {
+                    var dti = GetNextTagIndex(dl, "DT", j);
+                    if( dti < 0 )
+                    {
+                        break;
+                    }
+
+                    var ddi = GetNextTagIndex(dl, "DD", dti);
+                    if( ddi < 0 )
+                    {
+                        break;
+                    }
+
+                    var dt = dl.childNodes.item(dti);
+                    var dd = dl.childNodes.item(ddi);
+
+                    j = ddi + 1;
+
+                    var wordName = dt.innerHTML.replace(/^\s+|\s+$/, "");
+                    if( wordName )
+                    {
+                        words.push(wordName);
+                        dt.innerHTML = "<a name=\"" + wordName + "\">" + wordName + "</a>";
+                        dd.id = "word-" + wordName;
+                    }
+                }
+            }
+
+            return words.sort(function(a, b){ return b.length - a.length; });
+        }
+        function ReplaceWords(text, words)
+        {
+            for( var k = 0; k < words.length; ++k )
+            {
+                var word = words[k];
+                text = text.replace(word, "<a href=\"#" + word + "\">" + word + "</a>");
+            }
+
+            return text;
+        }
+        function LinkWords(words)
+        {
+            var dls = document.getElementsByTagName("dl");
+
+            var reText = words.join("|");
+            var re = new RegExp(reText);
+
+            for( var i = 0; i < dls.length; ++i )
+            {
+                var dl = dls[i];
+
+                for( var j = 0; j < dl.childNodes.length; )
+                {
+                    var ddi = GetNextTagIndex(dl, "DD", j);
+                    if( ddi < 0 )
+                    {
+                        break;
+                    }
+
+                    var dd = dl.childNodes.item(ddi);
+
+                    j = ddi + 1;
+
+                    var html = dd.innerHTML;
+                    var replaced = "";
+
+                    while( html.match(re) )
+                    {
+                        var word = RegExp.lastMatch;
+                        var offset = RegExp.leftContext.length;
+                        replaced += html.substr(0, offset);
+                        replaced += "<a href=\"#" + word + "\" onmouseover=\"OnOverWord(event, '" + word + "')\">" + word + "</a>";
+                        html = html.substr(offset + word.length);
+                    }
+
+                    dd.innerHTML = replaced + html;
+                }
+            }
+        }
+        function OnLoad_Left()
+        {
+            var test = trav(document.body);
+            var test2 = "";
+            var level = 2;
+
+            test2 += "<ul class='left'>";
+            for( var i in test )
+            {
+                while( test[i][0] > level )
+                {
+                    level++;
+                    test2 += "<ul>";
+                }
+                while( test[i][0] < level )
+                {
+                    level--;
+                    test2 += "</ul>";
+                }
+
+                test2 += "<li>" + test[i][1];
+            }
+            test2 += "</ul>";
+
+            document.body.innerHTML = test2;
+            DeleteRule(0);
+        }
+        function OnLoad_Frame()
+        {
+            var myname = location.pathname.substr(location.pathname.lastIndexOf("/") + 1);
+
+            var f = document.createElement("frameset");
+            var l = document.createElement("frame");
+            var r = document.createElement("frame");
+
+            f.appendChild(l);
+            f.appendChild(r);
+            f.cols = "150,*";
+
+            l.src  = myname + "?left";
+            r.src  = myname + "?right";
+            l.name = "left";
+            r.name = "right";
+
+            var h = document.documentElement;
+            var b = h.getElementsByTagName("body").item(0);
+
+            h.replaceChild(f, b);
+        }
+        function OnLoad_Right()
+        {
+            document.body.addEventListener("mouseover", OnMouseOver, false);
+
+            var words = CollectWords();
+            LinkWords(words);
+        }
+        function OnMouseOver(e)
+        {
+            var target = e.GetTarget();
+
+            if( Global.popup != null )
+            {
+                if( target.nodeType == 1 )
+                {
+                    if( target.tagName == "A" )
+                    {
+                        return;
+                    }
+                }
+
+                Global.popup.Close();
+                Global.popup = null;
+            }
+        }
+
+
+        if( ! window.opera )
+        {
+            var search = "?right";//location.search;
+
+            if( search == "?left" )
+            {
+                window.onload = OnLoad_Left;
+            }
+            else if( search == "" )
+            {
+                window.onload = OnLoad_Frame;
+            }
+            else if( search == "?right" )
+            {
+                window.onload = OnLoad_Right;
+            }
+
+            if( search != "?right" )
+            {
+                var ss = document.styleSheets.item(0);
+
+                if( ss.addRule )
+                {
+                    ss.addRule("body", "display: none", 0);
+                }
+                else
+                {
+                    ss.insertRule("body {display: none}", 0);
+                }
+            }
+        }
+    //-->
+    </SCRIPT>
+</HEAD>
+
+<BODY>
+
+
+
+
+
+<H1>CTR-SDK Glossary</H1>
+<DIV class="date">(2015-02-23)</DIV>
+
+
+
+
+
+<H2><a name="intro">Introduction</a></H2>
+<P>
+This document explains the special terminology used by the CTR-SDK.
+</P>
+<P>
+The meanings and usage of terms in this document and the CTR-SDK may differ from their general meanings and usage.
+</P>
+
+
+<H2><a name="body">Terminology</a></H2>
+
+
+
+
+
+<H3><a name="basic">Basics</a></H3>
+
+<dl>
+    <dt>CTR
+    <dd>
+    The development code name for the Nintendo 3DS. This is the primary abbreviation used through the CTR-SDK for the Nintendo 3DS.
+
+
+    <dt>SNAKE
+    <dd>
+    TBD
+
+
+<dt>Card
+    <dd>
+    Media used to distribute applications for the Nintendo 3DS.
+
+
+    <dt>3D depth slider
+    <dd>
+    An input interface used to adjust the stereoscopic display on the upper screen to suit individual preference.
+
+
+</dl>
+
+
+
+<H3><a name="program">Programs</a></H3>
+
+<dl>
+    <dt>Programs
+    <dd>
+    Software that can be run on a CTR system.
+
+
+    <dt>Application
+    <dd>
+    Of a set of programs, this is the main one that is executed.
+
+
+    <dt>Card-based applications
+    <dd>Applications that are intended to be distributed on cards.
+
+
+    <dt>Downloadable applications
+    <dd>
+    Applications that are intended to be distributed from Nintendo eShop over the Internet.
+
+
+    <dt>Imported applications
+    <dd>
+    Applications that are intended to be imported to SD cards, System Memory, or other locations before they are run.
+
+
+    <dt>SD applications
+    <dd>
+    Applications that are intended to be imported onto SD cards. These represent one type of imported application.
+
+
+    <dt>Applets
+    <dd>
+    Programs that can be run without closing the application.
+
+
+    <dt>Library Applets
+    <dd>
+    Applets that are started from other programs and are handled as a part of said programs.
+
+
+    <dt>System Settings
+    <dd>
+    The application that handles the various CTR settings.
+
+
+    <dt>HOME Menu
+    <dd>
+    A launcher program that starts applications and is displayed immediately after a CTR system is turned on.
+
+
+    <dt>Download Play child
+    <dd>
+    An application that is distributed from a parent application and run on another CTR system during Download Play.
+
+
+    <dt>Nintendo eShop
+    <dd>
+The application from which the user purchases licenses for downloadable applications and downloads such applications over the Internet.
+
+
+<dt>Development Menu
+    <dd>
+    A simple launcher used in place of the HOME Menu for application debugging.
+
+
+</dl>
+
+
+
+<H3><a name="format">File Format</a></H3>
+
+<dl>
+    <dt>CCI
+    <dd>
+    The format of the final ROM image for CTR card-based software. This is also the file extension for this format. <br/>This file format includes a CXI file and a CFA file.
+
+
+    <dt>CCL
+    <dd>
+    A file including information used to load the elements of a ROM image for CTR card-based software in a debugger. This can only be used for debugging in a debugger. This format is intended to speed up load times by only reading the updated parts of an image after it has been loaded once.
+
+
+    <dt>CIA
+    <dd>
+    The format of the final ROM image for CTR import applications. This is also the file extension for this format. <br/>This file format includes a CXI file and a CFA file.
+
+
+    <dt>CFA
+    <dd>
+    A binary format handled as a data container on CTR systems. This is also the file extension for this format.
+
+
+    <dt>CXI
+    <dd>
+    An executable image format for CTR systems. This is also the file extension for this format.
+
+
+    <dt>ROM Image
+    <dd>
+    A single unit of software components to be distributed.
+
+
+    <dt>RSF
+    <dd>
+    A text file describing parameters used to create a CXI file. This is also the file extension for this format. One of these must be created per each program.
+
+
+    <dt>desc
+    <dd>
+    A file describing parameters used to create a CXI file. This is also the file extension for this format. You must use the files provided with the SDK.
+
+
+    <dt>BSF
+    <dd>
+    A text file describing parameters used to create a banner. This is also the file extension for this format.
+
+
+    <dt>AXF
+    <dd>
+    The executable code for an ELF program generated by a linker. This is also the file extension for this format.
+
+
+    <dt>LR file
+    <dd>
+    A ROM image file that mainly consists of the ROM-FS portion. This file is accessed by CCL files. It does not need to be updated or reloaded when only the AXF file changes.
+
+
+    <dt>LE file
+    <dd>
+    A ROM image file that mainly consists of data other than the ROM-FS portion. This file is accessed by CCL files. When only the AXF file changes, only this file needs updating.
+
+
+    <dt>ELF
+    <dd>
+    A general file format for storing debugging information and executable code generated by a compiler.
+
+
+    <dt>Static library
+    <dd>
+    A single file that combines multiple object files. It is linked with object files to create the final AXF file.
+
+
+    <dt>Object file
+    <dd>
+A file generated when source code is compiled. It uses the ELF format and contains executable code and debugging information. <br>
+
+
+</dl>
+
+
+
+<H3><a name="feature">Features</a></H3>
+
+<dl>
+    <dt>UDS Communication
+    <dd>
+    A wireless communication protocol between CTR systems. It corresponds to MP communication in the TWL-SDK.
+
+
+    <dt>BOSS
+    <dd>
+    SpotPass. This is also the name of the SpotPass API.
+
+
+    <dt>CEC
+    <dd>
+    StreetPass. This is also the name of the StreetPass API.
+
+
+    <dt>HostIO
+    <dd>
+    A feature for communication between a CTR system and a connected Windows PC.
+
+
+    <dt>ULCD
+    <dd>
+    The name used for a group of functions that apply input from the 3D depth slider to the stereoscopic display.
+
+
+    <dt>Download Play
+    <dd>
+    A feature for distributing an application's Download Play child to other CTR systems wirelessly and then executing it. This can also refer to client applications that are distributed in this manner.
+
+
+    <dt>SpotPass
+    <dd>
+    A feature for receiving data that is automatically or explicitly communicated via an access point connected to the Internet.
+
+
+    <dt>StreetPass
+    <dd>
+    A feature for automatically exchanging data with other nearby CTR systems.
+
+
+</dl>
+
+
+
+<H3><a name="misc">Other</a></H3>
+
+<dl>
+    <dt>Banners
+    <dd>
+    The 3D model that is displayed on the upper screen and the sound that is played back when an application's icon is selected on the HOME Menu.
+
+
+    <dt>Icons
+    <dd>
+    Images that are displayed on the lower screen at the HOME Menu and in other locations to identify applications.
+
+
+    <dt>Import
+    <dd>
+    The act of placing a program on an SD card, in System Memory, or elsewhere.
+
+
+    <dt>Title code
+    <dd>
+    A 32-bit number used to identify a program. It includes a 20-bit unique ID. Each program must use a unique title code.
+
+
+    <dt>Unique ID
+    <dd>
+    A 20-bit number issued for each title. Programs belonging to the same title must use the same unique ID.
+
+
+    <dt>Title
+    <dd>
+    A single product. Alternately, the programs that comprise or are related to that product. If an application provides Download Play, the combination of the application itself plus its Download Play child represent a single complete title.
+
+
+<dt>Remaster version
+    <dd>
+    A numerical value for identifying the version of the program.  This value is set in the RSF file.
+
+
+    <dt>E-manual
+    <dd>
+A manual that can be accessed from a CTR system's screens. Alternately, the data contained therein. It can be included in CCI or CIA files. When you select a title with an e-manual on the HOME Menu, the <B>Manual</B> button is displayed.
+
+
+    <dt>Executable code
+    <dd>
+    Both the machine language generated by a compiler and the data that it directly accesses.
+
+
+    <dt>Heap
+    <dd>
+    One kind of memory region allocated to an application. Data accessed by system processes can be placed in this region.
+
+
+<dt>Device memory
+    <dd>
+    One kind of memory region allocated to an application. Data accessed by the graphics processor, DSP, and other non-CPU devices is placed in this region.
+
+
+</dl>
+
+
+
+
+<div class="footer"><span>CTR-SDK Glossary</span></div>
+
+  <hr /><p>CTR-06-0199-011-C<br />CONFIDENTIAL</p></body>
+</HTML>

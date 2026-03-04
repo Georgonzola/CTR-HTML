@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/olv/Overview.html">olv</a>::Initialize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/olv/Result/Overview.html">nn::olv::Result</a> Initialize(
+     <a href="../../nn/olv/InitializedData/Overview.html">nn::olv::InitializedData</a> * initializedData,
+     const <a href="../../nn/olv/InitializeParam/Overview.html">nn::olv::InitializeParam</a> * initializeParam
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>initializedData</th>
+          <td>The class that stores the initialization results.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>initializeParam</th>
+          <td>The class that stores the parameters used for initialization.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation. <br />
+ For information about handling the result, see the section about Error Handling or the descriptions of the <code><a href="../../nn/olv/Result/Overview.html">nn::olv::Result</a></code> values. <br /><br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultSuccess</th>
+          <td>Succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultUsageError</th>
+          <td>A usage error.</td>
+        </tr>
+        <tr>
+          <th>ResultFatalError</th>
+          <td>A fatal error.</td>
+        </tr>
+        <tr>
+          <th>ResultLibraryPermanentError</th>
+          <td>A permanent library error.</td>
+        </tr>
+        <tr>
+          <th>ResultLibraryTemporaryError</th>
+          <td>A temporary library error.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes the OLV library.</p><p>You must call this function before calling any of the functions in the <code><a href="../../nn/olv/Overview.html">nn::olv</a></code> namespace. <br />
+ Before calling this function, you must call the <code><a href="../../nn/fs/Initialize.html">nn::fs::Initialize</a></code>, <code><a href="../../nn/cfg/CTR/Initialize.html">nn::cfg::CTR::Initialize</a></code>, and <code><a href="../../nn/act/Initialize.html">nn::act::Initialize</a></code> functions to initialize those libraries. <br />
+ Note that the working buffer specified for the <emphasis>initializeParam</emphasis> argument with the <code><a href="../../nn/olv/InitializeParam/SetWork.html">nn::olv::InitializeParam::SetWork()</a></code> function must not be cleared until the <code><a href="../../nn/olv/Finalize.html">nn::olv::Finalize()</a></code> function is called. <br />
+ This function is not thread-safe. Make sure not to execute any OLV library functions or class methods on another thread while calling this function. <br /></p><p><itemizedlist><listitem><para>OLV Access Key Settings<br />
+ To use the OLV library at the development stage, configure and build the application with the unique ID issued by Nintendo, and then set the OLV access key issued by Nintendo using the CTR Config tool before starting the application. This prevents people who are not involved in application development from posting to the viewable communities.</para></listitem></itemizedlist></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/10/08</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

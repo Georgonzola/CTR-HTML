@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../css/manpage.css" type="text/css" />
+    <title>GetAddOnContentRequiredMemorySize</title>
+  </head>
+  <body>
+    <h1><a href="../../nn/Overview.html">nn</a>::<a href="../../nn/fs/Overview.html">fs</a>::GetAddOnContentRequiredMemorySize Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../nn/Result/Overview.html">Result</a> GetAddOnContentRequiredMemorySize(
+     <a href="../../nn_types/s32.html">s32</a> * pOut,
+     <a href="../../nn_types/bit32.html">bit32</a> uniqueId,
+     <a href="../../nn_types/u32.html">u32</a> contentIndex,
+     size_t maxFile,
+     size_t maxDirectory,
+     bool useCache
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pOut</th>
+          <td>Returns the calculated memory size.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>uniqueId</th>
+          <td>Specifies the <code>UniqueId</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>contentIndex</th>
+          <td>Specifies the <code>ContentIndex</code>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxFile</th>
+          <td>The maximum number of files that can be opened simultaneously.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>maxDirectory</th>
+          <td>The maximum number of directories that can be opened simultaneously.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>useCache</th>
+          <td>Set to <code>true</code> to enable caching of metadata to memory, or <code>false</code> to disable metadata caching.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>ResultNotFound</th>
+          <td>The specified add-on content was not found. <br />
+ You must not allow this error to occur in retail products.</td>
+        </tr>
+        <tr>
+          <th>ResultMediaNotFound</th>
+          <td>An SD card could not be found or recognized.</td>
+        </tr>
+        <tr>
+          <th>ResultAlreadyExists</th>
+          <td>The specified archive name is already mounted. <br />
+ You must not allow this error to occur in retail products.</td>
+        </tr>
+        <tr>
+          <th>ResultWriteProtected</th>
+          <td>The SD card is write-protected.</td>
+        </tr>
+        <tr>
+          <th>ResultMediaAccessError</th>
+          <td>An error occurred while accessing the SD card because of some cause such as a loose connection.</td>
+        </tr>
+        <tr>
+          <th>ResultBadFormat</th>
+          <td>The SD card has an invalid format. The SD card must be formatted.</td>
+        </tr>
+        <tr>
+          <th>ResultVerificationFailed</th>
+          <td>Either verification failed or some form of tampering was detected. You must re-download add-on content.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>An unexpected or fatal error occurred.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets the size of memory needed to mount an add-on content archive.</p><p>Returns the size of memory needed to mount an add-on content archive. <br />
+ Implicitly uses <code>0</code> as the Variation value for the add-on data. <br />
+ The returned memory size allows only the number of files specified by maxFile and the number of directories specified by maxDirectory to be opened simultaneously. <br />
+ By setting the useCache argument equal to <code>true</code>, this size includes the amount of memory required to cache the metadata of the archive in memory.</p><p>If you call this function in a state where you do not have rights to the target content index (that is, the <code><a href="../../nn/ec/CTR/ContentInfo/IsOwned.html">nn::ec::ContentInfo::IsOwned</a></code> function returns <code>false</code>), it returns a <code><a href="../../nn/fs/ResultAccessDenied/Overview.html">nn::fs::ResultAccessDenied</a></code>-type error.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2014/07/16</dt>
+        <dd><item xmlns="">Added that sometimes a <code><a href="../../nn/fs/ResultAccessDenied/Overview.html">nn::fs::ResultAccessDenied</a></code>-type error is returned.</item><br />
+        </dd>
+        <dt>2011/10/11</dt>
+        <dd><item xmlns="">Added a note about the expected <code><a href="../../nn/Result/Overview.html">Result</a></code> return values.</item><br />
+        </dd>
+        <dt>2011/09/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

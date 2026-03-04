@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../../css/manpage.css" type="text/css" />
+    <title>Initialize</title>
+  </head>
+  <body>
+    <h1><a href="../../../../nn/Overview.html">nn</a>::<a href="../../../../nn/ec/Overview.html">ec</a>::<a href="../../../../nn/ec/CTR/Overview.html">CTR</a>::<a href="../../../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a>::Initialize Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a> Initialize(
+     const <a href="../../../../nn/ec/CTR/TitleInfo/Overview.html">TitleInfo</a> & titleInfo
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>titleInfo</th>
+          <td>Title information for which to get metadata.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the execution result of the function. For more information about how to handle <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> objects, see the <code><a href="../../../../nn/ec/CTR/ResultError/Overview.html">ResultError</a></code> reference. The results returned by the <code><a href="../../../../nn/ec/CTR/ResultError/GetResult.html">ResultError::GetResult</a></code> function are shown below.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation succeeded.</td>
+        </tr>
+        <tr>
+          <th>ResultTitleInvalid</th>
+          <td>Invalid title information was specified.</td>
+        </tr>
+        <tr>
+          <th>ResultMetaDataTitleNotFound</th>
+          <td>The specified title was not found.</td>
+        </tr>
+        <tr>
+          <th>ResultMetaDataInvalidFormat</th>
+          <td>Invalid format.</td>
+        </tr>
+        <tr>
+          <th>ResultFsMediaAccessFailedError</th>
+          <td>An error occurred while accessing the SD card.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Initializes an instance of the <code><a href="../../../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a></code> class.</p><p>Initializes the data title for which to get metadata. The function returns <code><a href="../../../../nn/ec/CTR/ResultMetaDataTitleNotFound/Overview.html">ResultMetaDataTitleNotFound</a></code> if the data title has not been downloaded.</p><p>This function must be called before you use other member functions of the <code><a href="../../../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a></code> class.</p><p>The title information specified by titleInfo must be a data title. Calling this function to initialize an instance of <code><a href="../../../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a></code> that consumes a resource that is shared by the system as a whole. You must not have more than one valid instance of <code><a href="../../../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a></code> at any one time. Swapping the SD card after this function succeeds and before calling other member functions can cause the other member functions to return unexpected errors. If you detect that the SD card has been removed, destroy the initialized object instance and initialize a new instance.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/11/21</dt>
+        <dd><item xmlns="">Noted that there must not be more than one instance of <code><a href="../../../../nn/ec/CTR/MetaDataReader/Overview.html">MetaDataReader</a></code> at one time.</item><br />
+        </dd>
+        <dt>2011/09/06</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

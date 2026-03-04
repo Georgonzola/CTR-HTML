@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../css/manpage.css" type="text/css" />
+    <title>glGetUniformfv</title>
+  </head>
+  <body>
+    <h1>glGetUniformfv Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+GL_APICALL void GL_APIENTRY glGetUniformfv(
+     GLuint program,
+     GLint location,
+     GLfloat * params
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>program</th>
+          <td>Program object.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>location</th>
+          <td>Uniform location.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>params</th>
+          <td>Array storing the values retrieved.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">No values are returned. </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Gets uniform values as floating-point numbers.</p><P>Set <span class="argument">program</span> to the program object.  Set <span class="argument">location</span> to the uniform variable's location.  Data is obtained in the array specified by <span class="argument">params</span>.</P><P>The number of elements obtained in <span class="argument">params</span> varies with the uniform type.  There is one element for <tt>GL_FLOAT</tt>, two elements for <tt>GL_FLOAT_VEC2</tt>, three elements for <tt>GL_FLOAT_VEC3</tt>, and four elements for <tt>GL_FLOAT_VEC4</tt>.  The matrix types <tt>GL_FLOAT_MAT2</tt>, <tt>GL_FLOAT_MAT3</tt>, and <tt>GL_FLOAT_MAT4</tt> are treated as arrays with two <tt>GL_FLOAT_VEC2</tt> values, three <tt>GL_FLOAT_VEC3</tt> values, and four <tt>GL_FLOAT_VEC4</tt> values, respectively.  This function can only get a single array element from uniform variable arrays.  To specify the element to get, add its offset in the array to <span class="argument">location</span>.  The <span class="argument">location</span> obtained by <tt>glGetUniformLocation</tt> specifies the first element in the array.  Add <tt>i</tt> to <span class="argument">location</span> to specify the (<tt>i+1</tt>) element.  (A "uniform variable array" is a uniform variable that <tt>pragma bind_symbol</tt> has bound to multiple registers in a vertex shader.  An array does not refer to a uniform that has been bound to multiple components of a single register.)</P><P>This function generates the following errors.<TABLE><TR><TH>GL_INVALID_VALUE</TH><TD>The <span class="argument">program</span> argument was set to an invalid value.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>Either <span class="argument">program</span> is not the current program or it has not been linked properly.</TD></TR><TR><TH>GL_INVALID_OPERATION</TH><TD>The <span class="argument">location</span> argument was set to an invalid value.</TD></TR></TABLE><!-- source programに不正な値を指定した場合エラーGL_INVALID_VALUEを生成します。 programがカレントのプログラムではない場合、または正しくリンクされていない場合エラーGL_INVALID_OPERATIONを生成します。 locationに不正な値を指定した場合エラーGL_INVALID_OPERATIONを生成します。 locationが-1の場合、本APIの呼び出しは無視されます。 --></P></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2010/01/07</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

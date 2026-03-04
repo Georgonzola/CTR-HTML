@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>Parse</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/boss/Overview.html">boss</a>::<a href="../../../nn/boss/NsaList/Overview.html">NsaList</a>::Parse Member Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/boss/NsaList/ParseResult.html">ParseResult</a> Parse(
+     <a href="../../../nn_types/u32.html">u32</a> * pOutParseCount,
+     <a href="../../../nn/boss/NsaList/NsaInformation/Overview.html">NsaInformation</a> pNsaInformationArray[],
+     <a href="../../../nn_types/u32.html">u32</a> nsaInformationArraySize,
+     void * pWorkBuf,
+     size_t workBufSize,
+     <a href="../../../nn_types/u32.html">u32</a> nsaFirstPos = 0
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>out</td>
+          <th>pOutParseCount</th>
+          <td>Stores the number of instances of NSA information parsed.</td>
+        </tr>
+        <tr>
+          <td>out</td>
+          <th>pNsaInformationArray[]</th>
+          <td>An array that stores NSA information.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>nsaInformationArraySize</th>
+          <td>The number of elements in <emphasis>pNsaInformationArray</emphasis>.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>pWorkBuf</th>
+          <td>The work buffer used when loading a file to parse.</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>workBufSize</th>
+          <td>The size of <emphasis>pWorkBuf</emphasis>. (An error results if a value smaller than <code>256</code> is set. The larger the size of the file in question, the more the parsing speed depends on the size of the work buffer.)</td>
+        </tr>
+        <tr>
+          <td>in</td>
+          <th>nsaFirstPos</th>
+          <td>The first position in the list for getting NSA information. (This parameter does not need to be specified when retrieving all elements from the start. Use this parameter when you want to gather NSA information by executing this API multiple times using <emphasis>pNsaInformationArray</emphasis> arrays containing only a few elements. ).</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the position of the next NSA information in the list for NSA information that could be retrieved (that is, the start position of NSA information that could not be retrieved). Returns <code>0</code> if all information could be retrieved up to the end. Returns a negative value if retrieval failed.&#65289; </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Parses the NSA list and stores each NSA information found in an array.</p><p>This function parses the NSA list that is downloaded after the <code><a href="../../../nn/boss/NsaList/Download.html">NsaList::Download</a></code> function is run. <br />
+ It can also parse a remaining NSA list that was downloaded earlier. <br /></p><!-- write here --></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2011/10/27</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>

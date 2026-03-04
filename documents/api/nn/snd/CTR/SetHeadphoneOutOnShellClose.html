@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="../../../css/manpage.css" type="text/css" />
+    <title>SetHeadphoneOutOnShellClose</title>
+  </head>
+  <body>
+    <h1><a href="../../../nn/Overview.html">nn</a>::<a href="../../../nn/snd/Overview.html">snd</a>::<a href="../../../nn/snd/CTR/Overview.html">CTR</a>::SetHeadphoneOutOnShellClose Function</h1>
+    <h2>Syntax</h2>
+    <div class="section">
+      <pre class="definition">
+<a href="../../../nn/Result/Overview.html">Result</a> SetHeadphoneOutOnShellClose(
+     bool forceout
+);
+</pre>
+    </div>
+    <h2>Parameters</h2>
+    <div class="section">
+      <table class="arguments">
+        <thead>
+          <tr>
+            <td width="15" />
+            <th>Name</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <td>in</td>
+          <th>forceout</th>
+          <td>Forces headphone output if <code>true</code>.</td>
+        </tr> </table>
+    </div>
+    <h2>Return Values</h2>
+    <div class="section">Returns the result of the operation.<br />
+      <br />
+      <table class="arguments">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>Result::IsSuccess</th>
+          <td>Indicates that the operation completed normally.</td>
+        </tr>
+        <tr>
+          <th>ResultComponentNotLoaded</th>
+          <td>The <code><a href="../../../nn/dsp/Overview.html">dsp</a></code> component has not been loaded.</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>An unexpected error occurred.</td>
+        </tr>
+      </table> </div>
+    <h2>Description</h2>
+    <div class="section">
+      <p>Sets whether to force headphone output when the cover is closed.</p><p>When the cover is closed and sleep is denied, sound output defaults to headphone output regardless of whether headphones are inserted. This function can change that functionality.</p><p>When the <tt>flag</tt> argument is set to <tt>false</tt>, even if sleep is denied, sound is output from the speakers unless headphones are inserted. If this argument is set to <tt>true</tt>, sound is always output from the headphones.</p><p>This function must be called with the <span class="argument">dsp</span> component loaded (after the <tt><a href="../../../nn/dsp/CTR/LoadDefaultComponent.html">nn::dsp::CTR::LoadDefaultComponent</a></tt> and <tt><a href="../../../nn/dsp/CTR/LoadComponent.html">nn::dsp::CTR::LoadComponent</a></tt> functions are called).  After this function is called, the settings are maintained until the <tt><a href="../../../nn/dsp/CTR/UnloadComponent.html">nn::dsp::CTR::UnloadComponent</a></tt> function is called. (It is not necessary to keep track of things like HOME Menu transitions.)  However, when this function is called from callback functions set by the <tt><a href="../../../nn/applet/CTR/SetSleepQueryCallback.html">nn::applet::CTR::SetSleepQueryCallback</a></tt> function (which are called when the cover is closed), the settings are <b>applied from the next time the cover is closed</b> and need to be set earlier. </p><p>These settings are only enabled when the application that called the function and the library applet that application called are active.</p><p>If this function is called with the argument set to <tt>false</tt> and sleep is not denied, sound is output from the speakers for the interval between when the cover is closed and when the system actually transitions into the sleep state. (The duration of this interval depends on the load on the system.)  When calling this function with the argument set to <tt>false</tt>, always deny sleep.</p></div>
+    <h2>Revision History</h2>
+    <div class="section">
+      <dl class="history">
+        <dt>2013/04/22</dt>
+        <dd><item xmlns="">Initial version.</item><br />
+        </dd>
+      </dl>
+    </div>
+  </body>
+</html>
